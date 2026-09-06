@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>UPComedyHub | Desi Comedy & Entertainment</title>
-  <meta name="description" content="UPComedyHub - Desi comedy, funny videos, Shorts and entertainment.">
-  <meta name="theme-color" content="#ffffff">
+  <title>UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥</title>
+
+  <meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 
   <style>
     * {
@@ -22,36 +22,20 @@
     body {
       font-family: Arial, sans-serif;
       background: #ffffff;
-      color: #171717;
+      color: #111111;
       line-height: 1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: auto;
-    }
-
-    /* Header */
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
       border-bottom: 1px solid #eeeeee;
-    }
-
-    .nav {
-      min-height: 70px;
+      padding: 15px 6%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      align-items: center;
     }
 
     .logo {
@@ -59,229 +43,124 @@
       font-weight: 800;
     }
 
-    .logo span {
-      color: #e53935;
-    }
-
-    nav {
-      display: flex;
-      gap: 24px;
+    nav a {
+      text-decoration: none;
+      color: #111111;
+      margin-left: 20px;
       font-weight: 600;
     }
 
     nav a:hover {
-      color: #e53935;
+      color: #e63946;
     }
 
-    /* Hero */
     .hero {
-      min-height: 620px;
+      min-height: 75vh;
       display: flex;
+      justify-content: center;
       align-items: center;
       text-align: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 15% 20%, #fff0f0 0, transparent 25%),
-        radial-gradient(circle at 85% 80%, #f1f5ff 0, transparent 25%),
-        #ffffff;
-    }
-
-    .hero-content {
-      width: 100%;
-    }
-
-    .badge {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 30px;
-      background: #fff1f1;
-      color: #d62828;
-      font-weight: 700;
-      margin-bottom: 20px;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #ffffff, #fff5f5);
     }
 
     .hero h1 {
-      font-size: clamp(42px, 8vw, 78px);
-      line-height: 1.05;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 span {
-      color: #e53935;
+      font-size: clamp(40px, 8vw, 80px);
+      font-weight: 900;
+      margin-bottom: 15px;
     }
 
     .hero p {
-      max-width: 650px;
+      font-size: 20px;
+      max-width: 700px;
       margin: auto;
-      color: #666666;
-      font-size: 19px;
+      color: #555555;
     }
 
     .buttons {
       margin-top: 30px;
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
     }
 
     .btn {
+      display: inline-block;
       padding: 13px 22px;
-      border-radius: 12px;
+      margin: 6px;
+      border-radius: 30px;
+      text-decoration: none;
       font-weight: 700;
-      border: 1px solid #dddddd;
-      transition: 0.2s;
-    }
-
-    .btn-primary {
-      background: #e53935;
+      background: #111111;
       color: white;
-      border-color: #e53935;
     }
 
     .btn:hover {
       transform: translateY(-2px);
     }
 
-    /* Sections */
     section {
-      padding: 80px 0;
+      padding: 70px 6%;
+      max-width: 1200px;
+      margin: auto;
     }
 
     .section-title {
       text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .section-title h2 {
       font-size: 38px;
-      margin-bottom: 8px;
+      margin-bottom: 35px;
     }
 
-    .section-title p {
-      color: #777777;
-    }
-
-    /* Cards */
-    .grid {
+    .cards {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
     }
 
     .card {
+      padding: 25px;
       border: 1px solid #eeeeee;
       border-radius: 18px;
-      overflow: hidden;
       background: white;
-      transition: 0.25s;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
     }
 
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.10);
+    .card h3 {
+      margin-bottom: 10px;
     }
 
-    .thumbnail {
-      aspect-ratio: 16 / 9;
-      background: linear-gradient(135deg, #222222, #555555);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 42px;
-    }
-
-    .card-content {
-      padding: 18px;
-    }
-
-    .card-content h3 {
-      margin-bottom: 8px;
-    }
-
-    .card-content p {
-      color: #777777;
-      font-size: 14px;
-    }
-
-    /* About */
     .about {
       background: #fafafa;
+      max-width: none;
     }
 
-    .about-box {
-      max-width: 800px;
+    .about-inner {
+      max-width: 1000px;
       margin: auto;
-      text-align: center;
     }
 
-    .about-box p {
-      color: #666666;
-      font-size: 18px;
-    }
-
-    /* Blog */
-    .blog-card {
-      padding: 24px;
-    }
-
-    .blog-card small {
-      color: #e53935;
-      font-weight: 700;
-    }
-
-    /* CTA */
     .cta {
-      background: #171717;
-      color: white;
       text-align: center;
-      border-radius: 24px;
-      padding: 60px 25px;
-    }
-
-    .cta p {
-      color: #cccccc;
-      margin: 12px auto 25px;
-      max-width: 600px;
-    }
-
-    /* Footer */
-    footer {
       background: #111111;
-      color: #bbbbbb;
-      padding: 40px 0;
-      text-align: center;
+      color: white;
+      max-width: none;
     }
 
-    footer strong {
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #111111;
       color: white;
     }
 
-    .disclaimer {
-      margin-top: 15px;
-      font-size: 12px;
-      color: #888888;
-    }
-
-    /* Mobile */
-    @media (max-width: 800px) {
+    @media (max-width: 700px) {
       nav {
         display: none;
       }
 
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 60px 0;
-      }
-
       .hero {
-        min-height: 560px;
+        min-height: 65vh;
+      }
+
+      .section-title {
+        font-size: 30px;
       }
     }
   </style>
@@ -289,235 +168,140 @@
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="container nav">
-      <a href="#" class="logo">UP<span>ComedyHub</span></a>
+<header>
+  <div class="logo">😂 UPComedyHub</div>
 
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#shorts">Shorts</a>
-        <a href="#videos">Videos</a>
-        <a href="#blog">Blog</a>
-        <a href="#about">About</a>
-      </nav>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#shorts">Shorts</a>
+    <a href="#videos">Videos</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <div>
+    <h1>UPComedyHub 🔥</h1>
+
+    <p>
+      Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥
+    </p>
+
+    <p>
+      Desi comedy, funny Shorts aur entertainment ka ek hi adda.
+    </p>
+
+    <div class="buttons">
+      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
+        ▶ Watch Shorts
+      </a>
+
+      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
+        🔔 Subscribe
+      </a>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- HERO -->
-  <main id="home">
-    <section class="hero">
-      <div class="container hero-content">
+<section id="shorts">
+  <h2 class="section-title">🔥 Latest Shorts</h2>
 
-        <div class="badge">😂 Desi Comedy & Entertainment</div>
-
-        <h1>
-          Welcome to<br>
-          <span>UPComedyHub</span>
-        </h1>
-
-        <p>
-          Desi comedy, funny Shorts aur entertainment ka ek hi adda.
-          Hansi ka dose roz milta rahega!
-        </p>
-
-        <div class="buttons">
-          <a class="btn btn-primary" href="#shorts">
-            Watch Shorts ▶
-          </a>
-
-          <a class="btn" href="#videos">
-            Explore Videos
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SHORTS -->
-    <section id="shorts">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>🔥 Latest Shorts</h2>
-          <p>Quick comedy. Big laughs.</p>
-        </div>
-
-        <div class="grid">
-
-          <article class="card">
-            <div class="thumbnail">▶️</div>
-            <div class="card-content">
-              <h3>Funny Desi Comedy #1</h3>
-              <p>Watch our latest comedy Short.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="thumbnail">▶️</div>
-            <div class="card-content">
-              <h3>Desi Comedy Moment</h3>
-              <p>A funny moment you don't want to miss.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="thumbnail">▶️</div>
-            <div class="card-content">
-              <h3>Comedy Dhamaka</h3>
-              <p>More laughs from UPComedyHub.</p>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- VIDEOS -->
-    <section id="videos" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>🎬 Featured Videos</h2>
-          <p>Long-form entertainment from UPComedyHub.</p>
-        </div>
-
-        <div class="grid">
-
-          <article class="card">
-            <div class="thumbnail">🎬</div>
-            <div class="card-content">
-              <h3>Comedy Video</h3>
-              <p>Our featured entertainment video.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="thumbnail">🎬</div>
-            <div class="card-content">
-              <h3>Desi Fun</h3>
-              <p>More desi comedy coming soon.</p>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="thumbnail">🎬</div>
-            <div class="card-content">
-              <h3>Best Moments</h3>
-              <p>Some of our funniest moments.</p>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- BLOG -->
-    <section id="blog">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>📰 Latest From The Blog</h2>
-          <p>News, updates and stories.</p>
-        </div>
-
-        <div class="grid">
-
-          <article class="card blog-card">
-            <small>UPComedyHub</small>
-            <h3>Welcome to our official website</h3>
-            <p>
-              UPComedyHub ka official online home.
-              Yahan comedy aur entertainment ka full dose milega.
-            </p>
-          </article>
-
-          <article class="card blog-card">
-            <small>Behind The Scenes</small>
-            <h3>Comedy ke peeche ki kahani</h3>
-            <p>
-              Future mein yahan behind-the-scenes stories aur updates
-              publish kiye jayenge.
-            </p>
-          </article>
-
-          <article class="card blog-card">
-            <small>Updates</small>
-            <h3>New videos coming soon</h3>
-            <p>
-              Latest videos aur Shorts ke updates yahan milenge.
-            </p>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>❤️ About UPComedyHub</h2>
-        </div>
-
-        <div class="about-box">
-          <p>
-            UPComedyHub ek desi comedy aur entertainment platform hai,
-            jiska goal simple hai — logon ke chehre par smile lana.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section>
-      <div class="container">
-
-        <div class="cta">
-          <h2>😂 Hansi ka dose chahiye?</h2>
-
-          <p>
-            UPComedyHub ko follow karo aur naye comedy videos aur Shorts
-            miss mat karo.
-          </p>
-
-          <a
-            class="btn btn-primary"
-            href="https://www.youtube.com/"
-            target="_blank"
-            rel="noopener"
-          >
-            Visit YouTube ▶
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-
-      <strong>UPComedyHub</strong>
-
-      <p>Desi Comedy & Entertainment</p>
-
-      <p class="disclaimer">
-        Disclaimer: This website and its content are intended for
-        entertainment purposes only. All scenes and characters are
-        fictional and created for fun.
-      </p>
-
-      <p class="disclaimer">
-        © 2026 UPComedyHub. All rights reserved.
-      </p>
-
+  <div class="cards">
+    <div class="card">
+      <h3>Funny Desi Comedy 😂</h3>
+      <p>Latest comedy Shorts yahan automatically show honge.</p>
     </div>
-  </footer>
+
+    <div class="card">
+      <h3>Desi Comedy 🤣</h3>
+      <p>Entertainment aur funny moments ka daily dose.</p>
+    </div>
+
+    <div class="card">
+      <h3>Comedy Dhamaka 🔥</h3>
+      <p>UPComedyHub ke funny videos ka collection.</p>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <h2 class="section-title">🎬 Videos</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Long Videos</h3>
+      <p>Hamare upcoming aur popular long videos.</p>
+    </div>
+
+    <div class="card">
+      <h3>Popular Videos</h3>
+      <p>Audience ke favourite comedy videos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+
+    <h2 class="section-title">❤️ About UPComedyHub</h2>
+
+    <p>
+      UPComedyHub ek desi comedy aur entertainment platform hai,
+      jahan hum funny Shorts, comedy videos aur entertaining content
+      lekar aate hain.
+    </p>
+
+    <br>
+
+    <p>
+      Hamara goal simple hai — aapke face par smile lana.
+      Aapki help ke liye hum hamesha dil se taiyar hain ❤️
+    </p>
+
+    <br>
+
+    <h3>🎯 Our Mission</h3>
+
+    <p>
+      Desi style comedy ke through positive entertainment create karna
+      aur audience ke saath ek strong community banana.
+    </p>
+
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="section-title">📩 Contact Us</h2>
+
+  <div class="card">
+    <p><strong>Email:</strong> upcomedyhub@gmail.com</p>
+    <p><strong>Location:</strong> Uttar Pradesh, India</p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>😂 Hansi Ka Dose Ready Hai!</h2>
+
+  <p>
+    UPComedyHub ko YouTube par Subscribe karo ❤️
+  </p>
+
+  <div class="buttons">
+    <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
+      🔔 Subscribe on YouTube
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>© 2026 UPComedyHub. All Rights Reserved.</p>
+  <p>Made with ❤️ for Desi Comedy</p>
+</footer>
 
 </body>
   </html>

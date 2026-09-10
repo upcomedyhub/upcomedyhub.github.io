@@ -260,12 +260,23 @@ nav a {
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    const button = document.getElementById("themeToggle");
+
+    /* 🌙 Saved Theme */
+    const themeButton = document.getElementById("themeToggle");
 
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark-mode");
-      button.textContent = "☀️";
+      themeButton.textContent = "☀️";
     }
+
+    /* ☰ Mobile Menu */
+    const menuButton = document.getElementById("menuToggle");
+    const nav = document.querySelector("nav");
+
+    menuButton.addEventListener("click", function () {
+      nav.classList.toggle("show-menu");
+    });
+
   });
 </script>
 <body>

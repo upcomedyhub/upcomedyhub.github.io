@@ -251,10 +251,14 @@
     }
   }
 
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    document.getElementById("themeToggle").textContent = "☀️";
-  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("themeToggle");
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode");
+      button.textContent = "☀️";
+    }
+  });
 </script>
 <body>
 <header>

@@ -244,9 +244,16 @@
 
     if (document.body.classList.contains("dark-mode")) {
       button.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
     } else {
       button.textContent = "🌙";
+      localStorage.setItem("theme", "light");
     }
+  }
+
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    document.getElementById("themeToggle").textContent = "☀️";
   }
 </script>
 <body>

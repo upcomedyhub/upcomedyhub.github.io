@@ -6,9 +6,17 @@
 
   <title>UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥</title>
 
-  <meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
+  <meta
+    name="description"
+    content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda."
+  >
 
   <style>
+
+    /* =========================
+       RESET
+    ========================= */
+
     * {
       margin: 0;
       padding: 0;
@@ -24,18 +32,29 @@
       background: #ffffff;
       color: #111111;
       line-height: 1.6;
+      transition: background 0.3s ease, color 0.3s ease;
     }
+
+
+    /* =========================
+       HEADER
+    ========================= */
 
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
+
       background: #ffffff;
       border-bottom: 1px solid #eeeeee;
-      padding: 15px 6%;
+
+      padding: 12px 6%;
+
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      transition: 0.3s ease;
     }
 
     .logo {
@@ -43,25 +62,104 @@
       font-weight: 800;
     }
 
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
     nav a {
       text-decoration: none;
       color: #111111;
       margin-left: 20px;
       font-weight: 600;
+      transition: 0.2s ease;
     }
 
     nav a:hover {
       color: #e63946;
     }
 
+
+    /* =========================
+       THEME BUTTON
+    ========================= */
+
+    #themeToggle {
+      border: none;
+      background: #f1f1f1;
+
+      font-size: 22px;
+
+      width: 46px;
+      height: 46px;
+
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      margin-left: auto;
+      margin-right: 10px;
+
+      transition: 0.3s ease;
+    }
+
+    #themeToggle:hover {
+      transform: rotate(15deg) scale(1.05);
+    }
+
+
+    /* =========================
+       HAMBURGER BUTTON
+    ========================= */
+
+    #menuToggle {
+      display: none;
+
+      border: none;
+      background: #f1f1f1;
+
+      font-size: 24px;
+
+      width: 46px;
+      height: 46px;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      transition: 0.3s ease;
+    }
+
+    #menuToggle:hover {
+      transform: scale(1.05);
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
     .hero {
       min-height: 75vh;
+
       display: flex;
       justify-content: center;
       align-items: center;
+
       text-align: center;
+
       padding: 60px 20px;
-      background: linear-gradient(135deg, #ffffff, #fff5f5);
+
+      background: linear-gradient(
+        135deg,
+        #ffffff,
+        #fff5f5
+      );
     }
 
     .hero h1 {
@@ -73,9 +171,14 @@
     .hero p {
       font-size: 20px;
       max-width: 700px;
-      margin: auto;
+      margin: 8px auto;
       color: #555555;
     }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
 
     .buttons {
       margin-top: 30px;
@@ -83,18 +186,30 @@
 
     .btn {
       display: inline-block;
+
       padding: 13px 22px;
       margin: 6px;
+
       border-radius: 30px;
+
       text-decoration: none;
+
       font-weight: 700;
+
       background: #111111;
       color: white;
+
+      transition: 0.2s ease;
     }
 
     .btn:hover {
       transform: translateY(-2px);
     }
+
+
+    /* =========================
+       SECTIONS
+    ========================= */
 
     section {
       padding: 70px 6%;
@@ -108,23 +223,100 @@
       margin-bottom: 35px;
     }
 
+
+    /* =========================
+       CARDS
+    ========================= */
+
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+
       gap: 20px;
     }
 
     .card {
       padding: 25px;
+
       border: 1px solid #eeeeee;
+
       border-radius: 18px;
+
       background: white;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,0.06);
+
+      transition:
+        transform 0.2s ease,
+        background 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
     }
 
     .card h3 {
       margin-bottom: 10px;
     }
+
+
+    /* =========================
+       SHORTS VIDEO
+    ========================= */
+
+    .short-video {
+      margin-top: 15px;
+    }
+
+    .short-video iframe {
+      width: 100%;
+      height: 420px;
+
+      border: none;
+
+      border-radius: 15px;
+    }
+
+
+    /* =========================
+       TEAM
+    ========================= */
+
+    .team-group {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+      gap: 20px;
+
+      margin-bottom: 35px;
+    }
+
+    .team-group img {
+      width: 100%;
+
+      border-radius: 18px;
+
+      box-shadow:
+        0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .team-card img {
+      width: 100%;
+
+      border-radius: 15px;
+
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================= */
 
     .about {
       background: #fafafa;
@@ -136,509 +328,906 @@
       margin: auto;
     }
 
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    #contact {
+      max-width: 1200px;
+    }
+
+    .contact-card {
+      text-align: center;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
     .cta {
       text-align: center;
+
       background: #111111;
+
       color: white;
+
       max-width: none;
     }
 
+
+    /* =========================
+       FOOTER
+    ========================= */
+
     footer {
       text-align: center;
+
       padding: 30px;
+
+      background: #111111;
+
+      color: white;
+    }
+
+
+    /* =========================
+       DARK MODE
+    ========================= */
+
+    .dark-mode {
       background: #111111;
       color: white;
     }
 
-    @media (max-width: 700px) {
-      nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 10px;
-}
+    .dark-mode header {
+      background: #111111;
+      border-bottom-color: #333333;
+    }
 
-nav a {
-  margin-left: 5px;
-  font-size: 14px;
-}
+    .dark-mode nav a {
+      color: white;
+    }
+
+    .dark-mode .hero {
+      background:
+        linear-gradient(
+          135deg,
+          #111111,
+          #1a1010
+        );
+    }
+
+    .dark-mode .hero p {
+      color: #dddddd;
+    }
+
+    .dark-mode .card {
+      background: #1b1b1b;
+      color: white;
+      border-color: #333333;
+    }
+
+    .dark-mode .about {
+      background: #161616;
+    }
+
+    .dark-mode .section-title {
+      color: white;
+    }
+
+    .dark-mode .btn {
+      background: white;
+      color: #111111;
+    }
+
+    .dark-mode #themeToggle {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    .dark-mode #menuToggle {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    .dark-mode .cta,
+    .dark-mode footer {
+      background: #000000;
+      color: white;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 10px 15px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      #themeToggle {
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+        margin-right: 8px;
+      }
+
+      #menuToggle {
+        display: block;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 22px;
+      }
+
+      nav {
+        display: none;
+
+        position: absolute;
+
+        top: 100%;
+        right: 15px;
+
+        width: 180px;
+
+        background: white;
+
+        padding: 12px;
+
+        border-radius: 15px;
+
+        box-shadow:
+          0 8px 25px rgba(0,0,0,0.15);
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 5px;
+      }
+
+      nav.show-menu {
+        display: flex;
+      }
+
+      nav a {
+        margin: 0;
+
+        padding: 10px 12px;
+
+        border-radius: 10px;
+      }
+
+      nav a:hover {
+        background: #f1f1f1;
+      }
+
+      .dark-mode nav {
+        background: #1b1b1b;
+      }
+
+      .dark-mode nav a:hover {
+        background: #2a2a2a;
+      }
+
       .hero {
         min-height: 65vh;
+        padding: 50px 20px;
+      }
+
+      .hero h1 {
+        font-size: 45px;
+      }
+
+      .hero p {
+        font-size: 17px;
       }
 
       .section-title {
         font-size: 30px;
       }
+
+      .short-video iframe {
+        height: 400px;
+      }
+
     }
-    /* 🌙 DARK MODE */
-.dark-mode {
-  background: #111111;
-  color: white;
-}
 
-.dark-mode .card {
-  background: #1b1b1b;
-  color: white;
-  border-color: #333333;
-}
-
-.dark-mode .about {
-  background: #161616;
-}
-
-.dark-mode .btn {
-  background: white;
-  color: #111111;
-}
-
-.dark-mode .cta,
-.dark-mode footer {
-  background: #000000;
-  color: white;
-      }
-  /* 🌙 DARK MODE FIX */
-.dark-mode header {
-  background: #111111;
-  border-bottom-color: #333333;
-}
-
-.dark-mode .hero {
-  background: linear-gradient(135deg, #111111, #1a1010);
-}
-
-.dark-mode nav a {
-  color: white;
-}
-
-.dark-mode .hero p {
-  color: #dddddd;
-}
-
-.dark-mode .section-title {
-  color: white;
-}
-
-.dark-mode section {
-  color: white;
-      }
- /* 🌙 THEME TOGGLE BUTTON */
-#themeToggle {
-  border: none;
-  background: #f1f1f1;
-  font-size: 22px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-#themeToggle:hover {
-  transform: rotate(15deg) scale(1.05);
-}
-
-.dark-mode #themeToggle {
-  background: #2a2a2a;
-  color: white;
-        }
   </style>
 </head>
-<script>
-  function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
 
-    const button = document.getElementById("themeToggle");
 
-    if (document.body.classList.contains("dark-mode")) {
-      button.textContent = "☀️";
-      localStorage.setItem("theme", "dark");
-    } else {
-      button.textContent = "🌙";
-      localStorage.setItem("theme", "light");
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-    /* 🌙 Saved Theme */
-    const themeButton = document.getElementById("themeToggle");
-
-    if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.add("dark-mode");
-      themeButton.textContent = "☀️";
-    }
-
-    /* ☰ Mobile Menu */
-    const menuButton = document.getElementById("menuToggle");
-    const nav = document.querySelector("nav");
-
-    menuButton.addEventListener("click", function () {
-      nav.classList.toggle("show-menu");
-    });
-
-   });
-  /* 📱 MOBILE HAMBURGER MENU */
-#menuToggle {
-  display: none;
-  border: none;
-  background: #f1f1f1;
-  font-size: 24px;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-@media (max-width: 700px) {
-
-  header {
-    position: sticky;
-    top: 0;
-    position: relative;
-  }
-
-  #menuToggle {
-    display: block;
-  }
-
-  nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 15px;
-    background: white;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-<script>
-  function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-
-    const themeButton = document.getElementById("themeToggle");
-
-    if (document.body.classList.contains("dark-mode")) {
-      themeButton.textContent = "☀️";
-      localStorage.setItem("theme", "dark");
-    } else {
-      themeButton.textContent = "🌙";
-      localStorage.setItem("theme", "light");
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-
-    // 🌙 Saved Theme
-    const themeButton = document.getElementById("themeToggle");
-
-    if (localStorage.getItem("theme") === "dark") {
-      document.body.classList.add("dark-mode");
-      themeButton.textContent = "☀️";
-    }
-
-    // ☰ Mobile Menu
-    const menuButton = document.getElementById("menuToggle");
-    const nav = document.querySelector("nav");
-
-    if (menuButton && nav) {
-      menuButton.addEventListener("click", function () {
-        nav.classList.toggle("show-menu");
-      });
-    }
-
-  });
-</script>
 <body>
-<header>
-  <div class="logo">😂 UPComedyHub</div>
 
-  <button id="themeToggle" onclick="toggleTheme()">🌙</button>
-<button id="menuToggle">☰</button>
-  <nav>
+  <!-- =========================
+       HEADER
+  ========================= -->
 
-    <a href="#home">Home</a>
-    <a href="#shorts">Shorts</a>
-    <a href="#videos">Videos</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <header>
 
-<main>
-
-<section class="hero" id="home">
-  <div>
-    <h1>UPComedyHub 🔥</h1>
-
-    <p>
-      Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥
-    </p>
-
-    <p>
-      Desi comedy, funny Shorts aur entertainment ka ek hi adda.
-    </p>
-
-    <div class="buttons">
-      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
-        ▶ Watch Shorts
-      </a>
-
-      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
-        🔔 Subscribe
-      </a>
-    </div>
-  </div>
-</section>
-
-<section id="shorts">
-  <h2 class="section-title">🔥 Latest Shorts</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Funny Desi Comedy 😂</h3>
-<div style="margin-top:15px;">
-  <iframe
-    width="100%"
-    height="420"
-    src="https://www.youtube.com/embed/BM9td5ALOkw"
-    title="UPComedyHub Short"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-  </iframe>
-</div>
-    <div class="card">
-      <h3>Desi Comedy 🤣</h3>
-      <p>Entertainment aur funny moments ka daily dose.</p>
+    <div class="logo">
+      😂 UPComedyHub
     </div>
 
-    <div class="card">
-      <h3>Comedy Dhamaka 🔥</h3>
-      <p>UPComedyHub ke funny videos ka collection.</p>
-    </div>
-  </div>
-</section>
+    <button
+      id="themeToggle"
+      onclick="toggleTheme()"
+      aria-label="Toggle dark mode">
+      🌙
+    </button>
 
-<section id="videos">
-  <h2 class="section-title">🎬 Videos</h2>
+    <button
+      id="menuToggle"
+      aria-label="Open menu">
+      ☰
+    </button>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Long Videos</h3>
-      <p>Hamare upcoming aur popular long videos.</p>
-    </div>
+    <nav>
 
-    <div class="card">
-      <h3>Popular Videos</h3>
-      <p>Audience ke favourite comedy videos.</p>
-    </div>
-  </div>
-</section>
-<section id="team">
-  <h2 class="section-title">👥 Our Team</h2>
-<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin-bottom:30px;">
-<img src="IMG_20260804_133118670_HDR_AE.jpg"
-     alt="UPComedyHub Team Group Photo"
-     style="width:100%; border-radius:18px; box-shadow:0 8px 25px rgba(0,0,0,0.08);">
+      <a href="#home">Home</a>
 
-<img src="IMG_20260804_133210534_HDR_AE.jpg"
-     alt="UPComedyHub Team Group Photo"
-     style="width:100%; border-radius:18px; box-shadow:0 8px 25px rgba(0,0,0,0.08);">
+      <a href="#shorts">Shorts</a>
 
-<img src="IMG_20260515_142405545_HDR_PORTRAIT.jpg"
-     alt="UPComedyHub Team Group Photo"
-     style="width:100%; border-radius:18px; box-shadow:0 8px 25px rgba(0,0,0,0.08);">
+      <a href="#videos">Videos</a>
 
-<div class="cards">
-<div class="card">
-  <img src="IMG-20251109-WA0006.jpg"
-       alt="Mayank - Director & Editor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
+      <a href="#team">Team</a>
 
-  <img src="IMG-20251109-WA0010.jpg"
-       alt="Mayank - Director & Editor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
+      <a href="#about">About</a>
 
-  <img src="1785903295002.jpg"
-       alt="Mayank - Director & Editor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
+      <a href="#contact">Contact</a>
 
-  <h3>Mayank</h3>
-  <p>🎬 Director & Editor</p>
-</div>
-    <div class="card">
-    <img src="IMG_20260804_133431976_HDR_PORTRAIT.jpg"
-     alt="Vansh - Actor"
-     style="width:100%; border-radius:15px; margin-bottom:15px;">
-     <h3>Vansh</h3>
-      <p>🎭 Actor</p>
-    </div>
-      <div class="card">
-  <img src="IMG_20260804_133005614_HDR_AE.jpg"
-       alt="Shiva - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Shiva</h3>
-  <p>🎭 Actor</p>
+    </nav>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero" id="home">
+
+      <div>
+
+        <h1>
+          UPComedyHub 🔥
+        </h1>
+
+        <p>
+          Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥
+        </p>
+
+        <p>
+          Desi comedy, funny Shorts aur entertainment ka ek hi adda.
+        </p>
+
+        <div class="buttons">
+
+          <a
+            class="btn"
+            href="https://youtube.com/@up_comedyhub"
+            target="_blank">
+            ▶ Watch Shorts
+          </a>
+
+          <a
+            class="btn"
+            href="https://youtube.com/@up_comedyhub"
+            target="_blank">
+            🔔 Subscribe
+          </a>
+
+        </div>
+
       </div>
-    <div class="card">
-  <img src="IMG_20260818_143929710_HDR_PORTRAIT.jpg"
-       alt="Indrajeet - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Indrajeet</h3>
-  <p>🎭 Actor</p>
+
+    </section>
+
+
+    <!-- =========================
+         SHORTS
+    ========================= -->
+
+    <section id="shorts">
+
+      <h2 class="section-title">
+        🔥 Latest Shorts
+      </h2>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <h3>
+            Funny Desi Comedy 😂
+          </h3>
+
+          <div class="short-video">
+
+            <iframe
+              src="https://www.youtube.com/embed/BM9td5ALOkw"
+              title="UPComedyHub Short"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            Desi Comedy 🤣
+          </h3>
+
+          <p>
+            Entertainment aur funny moments ka daily dose.
+          </p>
+
+        </div>
+
+
+        <div class="card">
+
+          <h3>
+            Comedy Dhamaka 🔥
+          </h3>
+
+          <p>
+            UPComedyHub ke funny videos ka collection.
+          </p>
+
+        </div>
+
       </div>
-<div class="card">
-  <img src="pixelup_1785903654176.jpg"
-       alt="Shani - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Shani</h3>
-  <p>🎭 Actor</p>
-</div>
-    
-<div class="card">
-  <img src="IMG_20260908_162543187_HDR_PORTRAIT.jpg"
-       alt="Jeetu - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Jeetu</h3>
-  <p>🎭 Actor</p>
-</div>
-   <div class="card">
-  <img src="Screenshot_2026-09-10-12-18-37-30_92460851df6f172a4592fca41cc2d2e6.jpg"
-       alt="Ansh - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Ansh</h3>
-  <p>🎭 Actor</p>
-   </div> 
-<div class="card">
-  <img src="shubham_singh_gtm_20_20260910_114512740.jpg"
-       alt="Shubham - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Shubham</h3>
-  <p>🎭 Actor</p>
-</div>
-    
-</div>
-    <div class="card">
-  <img src="Screenshot_2026-09-10-12-27-56-19_92460851df6f172a4592fca41cc2d2e6.jpg"
-       alt="Sahil - Actor"
-       style="width:100%; border-radius:15px; margin-bottom:15px;">
-  <h3>Sahil</h3>
-  <p>🎭 Actor</p>
-    </div>
-  </div>
-</section>
-<section class="about" id="about">
-<div class="about-inner">
 
-  <h2 class="section-title">❤️ About UPComedyHub</h2>
+    </section>
 
-  <p>
-    <strong>UPComedyHub</strong> ek desi comedy aur entertainment platform hai,
-    jahan milta hai funny Shorts, comedy videos, desi characters aur
-    full-on entertainment. 😂🔥
-  </p>
 
-  <br>
+    <!-- =========================
+         VIDEOS
+    ========================= -->
 
-  <h3>📖 Our Story</h3>
-  <p>
-    UPComedyHub ka safar simple si soch se shuru hua —
-    <strong>logon ke face par smile lana.</strong>
-    Doston ke saath milkar comedy videos banana aur desi style
-    entertainment ko audience tak pahunchana hi hamari journey hai.
-  </p>
+    <section id="videos">
 
-  <br>
+      <h2 class="section-title">
+        🎬 Videos
+      </h2>
 
-  <h3>⭐ Why UPComedyHub?</h3>
-  <p>
-    Yahan comedy simple, desi aur relatable hai.
-    Hamara focus hai aisa entertainment banana jise dekhkar
-    aap enjoy karein, smile karein aur apne friends ke saath share karein. ❤️
-  </p>
+      <div class="cards">
 
-  <br>
+        <div class="card">
 
-  <h3>🎯 Our Mission</h3>
-  <p>
-    Desi style comedy ke through positive entertainment create karna
-    aur ek strong, friendly audience community banana.
-  </p>
+          <h3>
+            Long Videos
+          </h3>
 
-  <br>
+          <p>
+            Hamare upcoming aur popular long videos.
+          </p>
 
-  <p>
-    <strong>Aapki hansi, hamari pehchaan. 🔥</strong><br>
-    Aapki help ke liye hum hamesha dil se taiyar hain ❤️
-  </p>
+        </div>
 
-</div>
 
-<section id="contact">
-  <h2 class="section-title">📩 Contact Us</h2>
+        <div class="card">
 
-  <div class="card">
-    <h3>🤝 Let's Connect!</h3>
+          <h3>
+            Popular Videos
+          </h3>
+
+          <p>
+            Audience ke favourite comedy videos.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TEAM
+    ========================= -->
+
+    <section id="team">
+
+      <h2 class="section-title">
+        👥 Our Team
+      </h2>
+
+
+      <!-- GROUP PHOTOS -->
+
+      <div class="team-group">
+
+        <img
+          src="IMG_20260804_133118670_HDR_AE.jpg"
+          alt="UPComedyHub Team Group Photo">
+
+        <img
+          src="IMG_20260804_133210534_HDR_AE.jpg"
+          alt="UPComedyHub Team Group Photo">
+
+        <img
+          src="IMG_20260515_142405545_HDR_PORTRAIT.jpg"
+          alt="UPComedyHub Team Group Photo">
+
+      </div>
+
+
+      <!-- TEAM MEMBERS -->
+
+      <div class="cards">
+
+
+        <!-- MAYANK -->
+
+        <div class="card team-card">
+
+          <img
+            src="IMG-20251109-WA0006.jpg"
+            alt="Mayank - Director and Editor">
+
+          <img
+            src="IMG-20251109-WA0010.jpg"
+            alt="Mayank - Director and Editor">
+
+          <img
+            src="1785903295002.jpg"
+            alt="Mayank - Director and Editor">
+
+          <h3>
+            Mayank
+          </h3>
+
+          <p>
+            🎬 Director & Editor
+          </p>
+
+        </div>
+
+
+        <!-- VANSH -->
+
+        <div class="card team-card">
+
+          <img
+            src="IMG_20260804_133431976_HDR_PORTRAIT.jpg"
+            alt="Vansh - Actor">
+
+          <h3>
+            Vansh
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- SHIVA -->
+
+        <div class="card team-card">
+
+          <img
+            src="IMG_20260804_133005614_HDR_AE.jpg"
+            alt="Shiva - Actor">
+
+          <h3>
+            Shiva
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- INDRAJEET -->
+
+        <div class="card team-card">
+
+          <img
+            src="IMG_20260818_143929710_HDR_PORTRAIT.jpg"
+            alt="Indrajeet - Actor">
+
+          <h3>
+            Indrajeet
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- SHANI -->
+
+        <div class="card team-card">
+
+          <img
+            src="pixelup_1785903654176.jpg"
+            alt="Shani - Actor">
+
+          <h3>
+            Shani
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- JEETU -->
+
+        <div class="card team-card">
+
+          <img
+            src="IMG_20260908_162543187_HDR_PORTRAIT.jpg"
+            alt="Jeetu - Actor">
+
+          <h3>
+            Jeetu
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- ANSH -->
+
+        <div class="card team-card">
+
+          <img
+            src="Screenshot_2026-09-10-12-18-37-30_92460851df6f172a4592fca41cc2d2e6.jpg"
+            alt="Ansh - Actor">
+
+          <h3>
+            Ansh
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- SHUBHAM -->
+
+        <div class="card team-card">
+
+          <img
+            src="shubham_singh_gtm_20_20260910_114512740.jpg"
+            alt="Shubham - Actor">
+
+          <h3>
+            Shubham
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+
+        <!-- SAHIL -->
+
+        <div class="card team-card">
+
+          <img
+            src="Screenshot_2026-09-10-12-27-56-19_92460851df6f172a4592fca41cc2d2e6.jpg"
+            alt="Sahil - Actor">
+
+          <h3>
+            Sahil
+          </h3>
+
+          <p>
+            🎭 Actor
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ABOUT
+    ========================= -->
+
+    <section class="about" id="about">
+
+      <div class="about-inner">
+
+        <h2 class="section-title">
+          ❤️ About UPComedyHub
+        </h2>
+
+        <p>
+          <strong>UPComedyHub</strong> ek desi comedy aur entertainment
+          platform hai, jahan milta hai funny Shorts, comedy videos,
+          desi characters aur full-on entertainment. 😂🔥
+        </p>
+
+        <br>
+
+        <h3>
+          📖 Our Story
+        </h3>
+
+        <p>
+          UPComedyHub ka safar simple si soch se shuru hua —
+          <strong>logon ke face par smile lana.</strong>
+          Doston ke saath milkar comedy videos banana aur desi style
+          entertainment ko audience tak pahunchana hi hamari journey hai.
+        </p>
+
+        <br>
+
+        <h3>
+          ⭐ Why UPComedyHub?
+        </h3>
+
+        <p>
+          Yahan comedy simple, desi aur relatable hai.
+          Hamara focus hai aisa entertainment banana jise dekhkar
+          aap enjoy karein, smile karein aur apne friends ke saath
+          share karein. ❤️
+        </p>
+
+        <br>
+
+        <h3>
+          🎯 Our Mission
+        </h3>
+
+        <p>
+          Desi style comedy ke through positive entertainment create
+          karna aur ek strong, friendly audience community banana.
+        </p>
+
+        <br>
+
+        <p>
+          <strong>
+            Aapki hansi, hamari pehchaan. 🔥
+          </strong>
+
+          <br>
+
+          Aapki help ke liye hum hamesha dil se taiyar hain ❤️
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
+    <section id="contact">
+
+      <h2 class="section-title">
+        📩 Contact Us
+      </h2>
+
+      <div class="card contact-card">
+
+        <h3>
+          🤝 Let's Connect!
+        </h3>
+
+        <p>
+          Comedy, collaboration ya kisi bhi query ke liye
+          humse contact kar sakte hain. ❤️
+        </p>
+
+        <br>
+
+        <p>
+          📧 <strong>Email:</strong>
+          <a href="mailto:upcomedyhub@gmail.com">
+            upcomedyhub@gmail.com
+          </a>
+        </p>
+
+        <p>
+          📍 <strong>Location:</strong>
+          Uttar Pradesh, India
+        </p>
+
+        <div class="buttons">
+
+          <a
+            class="btn"
+            href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20contact%20karna%20hai."
+            target="_blank">
+            💬 Contact on WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SOCIAL
+    ========================= -->
+
+    <section id="social">
+
+      <h2 class="section-title">
+        🌐 Follow UPComedyHub
+      </h2>
+
+      <div class="buttons">
+
+        <a
+          class="btn"
+          href="https://youtube.com/@up_comedyhub"
+          target="_blank">
+          ▶️ YouTube
+        </a>
+
+        <a
+          class="btn"
+          href="https://www.instagram.com/up_comedyhub"
+          target="_blank">
+          📸 Instagram
+        </a>
+
+        <a
+          class="btn"
+          href="https://www.facebook.com/share/1CiwRbmKbq/"
+          target="_blank">
+          📘 Facebook
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CTA
+    ========================= -->
+
+    <section class="cta">
+
+      <h2>
+        😂 Hansi Ka Dose Ready Hai!
+      </h2>
+
+      <p>
+        UPComedyHub ko YouTube par Subscribe karo ❤️
+      </p>
+
+      <div class="buttons">
+
+        <a
+          class="btn"
+          href="https://youtube.com/@up_comedyhub"
+          target="_blank">
+          🔔 Subscribe on YouTube
+        </a>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
 
     <p>
-      Comedy, collaboration ya kisi bhi query ke liye
-      humse contact kar sakte hain. ❤️
+      © 2026 UPComedyHub. All Rights Reserved.
     </p>
 
     <p>
-      📧 <strong>Email:</strong>
-      <a href="mailto:upcomedyhub@gmail.com">
-        upcomedyhub@gmail.com
-      </a>
+      Made with ❤️ for Desi Comedy
     </p>
 
-    <p>
-      📍 <strong>Location:</strong> Uttar Pradesh, India
-    </p>
-  </div>
-</section>
-  <a class="btn"
-   href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20contact%20karna%20hai."
-   target="_blank">
-  💬 Contact on WhatsApp
-  </a>
-  <section id="social">
-  <h2 class="section-title">🌐 Follow UPComedyHub</h2>
+  </footer>
 
-  <div class="buttons">
-    <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
-      ▶️ YouTube
-    </a>
 
-    <a class="btn" href="https://www.instagram.com/up_comedyhub" target="_blank">
-      📸 Instagram
-    </a>
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
 
-    <a class="btn" href="https://www.facebook.com/share/1CiwRbmKbq/" target="_blank">
-      📘 Facebook
-    </a>
-  </div>
-</section>
-<section class="cta">
-  <h2>😂 Hansi Ka Dose Ready Hai!</h2>
+  <script>
 
-  <p>
-    UPComedyHub ko YouTube par Subscribe karo ❤️
-  </p>
+    /* 🌙 THEME */
 
-  <div class="buttons">
-    <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank">
-      🔔 Subscribe on YouTube
-    </a>
-  </div>
-</section>
+    function toggleTheme() {
 
-</main>
+      const body = document.body;
 
-<footer>
-  <p>© 2026 UPComedyHub. All Rights Reserved.</p>
-  <p>Made with ❤️ for Desi Comedy</p>
-</footer>
+      const themeButton =
+        document.getElementById("themeToggle");
 
-</body>
-  </html>
+      body.classList.toggle("dark-mode");
+
+      if (body.classList.contains("dark-mode")) {
+
+        themeButton.textContent = "☀️";
+
+        localStorage.setItem(
+          "theme",
+          "dark"
+        );
+
+      } else {
+
+        themeButton.textContent = "🌙";
+
+        localStorage.setItem(
+          "theme",
+          "light"
+        );
+
+      }
+
+    }
+
+
+    /* LOAD SAVED SETTINGS */
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        const themeButton =
+          document.getElementById("themeToggle");
+
+        const menuButton =
+          document.getElementById("menuToggle");
+
+        const nav =
+          document.querySelector("nav");
+
+
+        /* SAVED THEME */
+
+        if (
+          localStorage.getItem("theme")
+          === "dark"
+        ) {
+
+          docu

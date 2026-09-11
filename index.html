@@ -751,6 +751,57 @@
   }
 
 }
+    /* 📤 FLOATING SHARE BUTTON */
+
+.share-float {
+  position: fixed;
+  left: 20px;
+  bottom: 80px;
+
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background: #111111;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+  text-decoration: none;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+
+  z-index: 9994;
+
+  transition: 0.3s ease;
+}
+
+.share-float:hover {
+  transform: scale(1.08);
+}
+
+.dark-mode .share-float {
+  background: white;
+  color: #111111;
+}
+
+@media (max-width: 700px) {
+
+  .share-float {
+    left: 15px;
+    bottom: 75px;
+
+    width: 48px;
+    height: 48px;
+
+    font-size: 22px;
+  }
+
+  }
   </style>
 </head>
 
@@ -1403,6 +1454,13 @@
   target="_blank"
   aria-label="Subscribe to UPComedyHub on YouTube">
   🔔 Subscribe
+  </a>
+  <a
+  class="share-float"
+  href="#"
+  onclick="shareWebsite(); return false;"
+  aria-label="Share UPComedyHub">
+  📤
   </a>
   <script>
 

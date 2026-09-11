@@ -1611,7 +1611,37 @@ backToTop.addEventListener("click", function () {
     behavior: "smooth"
   });
 
-});
+});/* 📤 SHARE WEBSITE */
+
+function shareWebsite() {
+
+  const shareData = {
+    title: "UPComedyHub",
+    text: "😂 UPComedyHub par Desi Comedy aur Entertainment dekho! 🔥",
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+
+    navigator.share(shareData)
+      .catch(function () {
+        // User ne share cancel kiya
+      });
+
+  } else {
+
+    navigator.clipboard.writeText(window.location.href)
+      .then(function () {
+        alert("🔗 Website link copy ho gaya!");
+      })
+      .catch(function () {
+        alert("🔗 Ye website link share karein: " + window.location.href);
+      });
+
+  }
+
+}
+    
 </script>
 
 </body>

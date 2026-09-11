@@ -1292,7 +1292,23 @@ nav.querySelectorAll("a").forEach(
 }
 
 );
+/* 📊 SCROLL PROGRESS */
 
+window.addEventListener("scroll", function () {
+
+  const scrollTop = window.scrollY;
+
+  const documentHeight =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const scrollPercent =
+    (scrollTop / documentHeight) * 100;
+
+  document.getElementById("scrollProgress").style.width =
+    scrollPercent + "%";
+
+});
 </script>
 
 </body>

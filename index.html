@@ -709,6 +709,48 @@
   }
 
 }
+    /* 🔔 FLOATING SUBSCRIBE BUTTON */
+
+.subscribe-float {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+
+  padding: 12px 18px;
+
+  border-radius: 30px;
+
+  background: #e63946;
+  color: white;
+
+  text-decoration: none;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+
+  z-index: 9995;
+
+  transition: 0.3s ease;
+}
+
+.subscribe-float:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+@media (max-width: 700px) {
+
+  .subscribe-float {
+    left: 15px;
+    bottom: 15px;
+
+    padding: 10px 14px;
+
+    font-size: 13px;
+  }
+
+}
   </style>
 </head>
 

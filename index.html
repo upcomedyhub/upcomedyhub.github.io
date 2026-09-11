@@ -311,33 +311,42 @@ nav a {
     padding: 15px;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    flex-direction: column;
-    gap: 12px;
-    min-width: 160px;
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+
+    const themeButton = document.getElementById("themeToggle");
+
+    if (document.body.classList.contains("dark-mode")) {
+      themeButton.textContent = "☀️";
+      localStorage.setItem("theme", "dark");
+    } else {
+      themeButton.textContent = "🌙";
+      localStorage.setItem("theme", "light");
+    }
   }
 
-  nav.show-menu {
-    display: flex;
-  }
+  document.addEventListener("DOMContentLoaded", function () {
 
-  nav a {
-    margin: 0;
-    padding: 8px 12px;
-  }
+    // 🌙 Saved Theme
+    const themeButton = document.getElementById("themeToggle");
 
-  .dark-mode nav {
-    background: #1b1b1b;
-  }
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-mode");
+      themeButton.textContent = "☀️";
+    }
 
-  .dark-mode nav a {
-    color: white;
-  }
+    // ☰ Mobile Menu
+    const menuButton = document.getElementById("menuToggle");
+    const nav = document.querySelector("nav");
 
-  .dark-mode #menuToggle {
-    background: #2a2a2a;
-    color: white;
-  }
-}
+    if (menuButton && nav) {
+      menuButton.addEventListener("click", function () {
+        nav.classList.toggle("show-menu");
+      });
+    }
+
+  });
 </script>
 <body>
 <header>

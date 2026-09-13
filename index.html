@@ -1671,6 +1671,22 @@ function revealOnScroll() {
 
 window.addEventListener("scroll", revealOnScroll);
 revealOnScroll();  
+    const siteSearch = document.getElementById("siteSearch");
+
+siteSearch.addEventListener("input", function () {
+  const searchText = this.value.toLowerCase().trim();
+  const cards = document.querySelectorAll(".card");
+
+  cards.forEach(function (card) {
+    const text = card.textContent.toLowerCase();
+
+    if (text.includes(searchText)) {
+      card.style.display = "";
+    } else {
+      card.style.display = "none";
+    }
+  });
+});
 </script>
 
 </body>

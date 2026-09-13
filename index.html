@@ -813,6 +813,39 @@
   opacity: 1;
   transform: translateY(0);
 }
+    .site-search {
+  max-width: 600px;
+  margin: 25px auto;
+  padding: 0 20px;
+}
+
+.site-search input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  background: #ffffff;
+  color: #111111;
+  box-sizing: border-box;
+  transition: 0.3s ease;
+}
+
+.site-search input:focus {
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+}
+
+.dark-mode .site-search input {
+  background: #1f1f1f;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+.dark-mode .site-search input::placeholder {
+  color: #aaaaaa;
+}
   </style>
 </head>
 

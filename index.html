@@ -1692,36 +1692,30 @@ function shareWebsite() {
   }
 
 }
-  const revealElements = document.querySelectorAll(".reveal");
-
-function revealOnScroll() {
-  revealElements.forEach(function (element) {
-    const windowHeight = window.innerHeight;
-    const elementTop = element.getBoundingClientRect().top;
-
-    if (elementTop < windowHeight - 100) {
-      element.classList.add("active");
-    }
-  });
-}
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();  
-    const siteSearch = document.getElementById("siteSearch");
+  const siteSearch = document.getElementById("siteSearch");
+const noResults = document.getElementById("noResults");
 
 siteSearch.addEventListener("input", function () {
   const searchText = this.value.toLowerCase().trim();
   const cards = document.querySelectorAll(".card");
+  let visibleCards = 0;
 
   cards.forEach(function (card) {
     const text = card.textContent.toLowerCase();
 
     if (text.includes(searchText)) {
       card.style.display = "";
+      visibleCards++;
     } else {
       card.style.display = "none";
     }
   });
+
+  if (searchText !== "" && visibleCards === 0) {
+    noResults.style.display = "block";
+  } else {
+    noResults.style.display = "none";
+  }
 });
 </script>
 

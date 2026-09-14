@@ -1755,68 +1755,60 @@ window.addEventListener("DOMContentLoaded", function () {
        SEARCH
     ========================= */
 
-    const siteSearch =
-      document.getElementById("siteSearch");
+    const siteSearch = document.getElementById("siteSearch");
+const noResults = document.getElementById("noResults");
 
-    const noResults =
-      document.getElementById("noResults");
+siteSearch.addEventListener("input", function () {
+  const searchText = this.value.toLowerCase().trim();
 
-    siteSearch.addEventListener(
-      "input",
-      function () {
+  if (searchText === "") {
+    noResults.style.display = "none";
 
-        const searchText =
-          this.value
-            .toLowerCase()
-            .trim();
+    document.querySelectorAll(".card").forEach(function (card) {
+      card.style.display = "";
+    });
 
-        const cards =
-          document.querySelectorAll(".card");
+    return;
+  }
 
-        let visibleCards = 0;
+  let found = false;
 
-        cards.forEach(
-          function (card) {
+  // Search cards
+  document.querySelectorAll(".card").forEach(function (card) {
+    const text = card.textContent.toLowerCase();
 
-            const text =
-              card.textContent.toLowerCase();
+    if (text.includes(searchText)) {
+      card.style.display = "";
+      found = true;
+    } else {
+      card.style.display = "none";
+    }
+  });
 
-            if (
-              text.includes(searchText)
-            ) {
+  // Search website sections
+  document.querySelectorAll("section").forEach(function (section) {
+    const text = section.textContent.toLowerCase();
 
-              card.style.display = "";
+    if (text.includes(searchText)) {
+      found = true;
+    }
+  });
 
-              visibleCards++;
+  // Search navigation links
+  document.querySelectorAll("nav a").forEach(function (link) {
+    const text = link.textContent.toLowerCase();
 
-            } else {
+    if (text.includes(searchText)) {
+      found = true;
+    }
+  });
 
-              card.style.display = "none";
-
-            }
-
-          }
-        );
-
-
-        if (
-          searchText !== "" &&
-          visibleCards === 0
-        ) {
-
-          noResults.style.display =
-            "block";
-
-        } else {
-
-          noResults.style.display =
-            "none";
-
-        }
-
-      }
-    );
-
+  if (found) {
+    noResults.style.display = "none";
+  } else {
+    noResults.style.display = "block";
+  }
+});
 
     /* =========================
        SCROLL PROGRESS

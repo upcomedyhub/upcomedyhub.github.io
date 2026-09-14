@@ -1917,6 +1917,16 @@ siteSearch.addEventListener("keydown", function (event) {
   }
 
 });
+    const clearSearch = document.getElementById("clearSearch");
+
+clearSearch.addEventListener("click", function () {
+  siteSearch.value = "";
+  noResults.style.display = "none";
+
+  document.querySelectorAll(".card").forEach(function (card) {
+    card.style.display = "";
+  });
+});
     /* =========================
    SEARCH BOX + CLEAR BUTTON
 ========================= */

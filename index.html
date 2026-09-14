@@ -1757,30 +1757,28 @@ window.addEventListener("DOMContentLoaded", function () {
 const siteSearch = document.getElementById("siteSearch");
 const noResults = document.getElementById("noResults");
 
-siteSearch.addEventListener("input", function () {
-  const searchText = this.value.toLowerCase().trim();
+function performSearch() {
+  const searchText = siteSearch.value.toLowerCase().trim();
 
-  // Search empty hai → website normal
   if (searchText === "") {
     noResults.style.display = "none";
-
-    document.querySelectorAll(".card").forEach(function (card) {
-      card.style.display = "";
-    });
-
     return;
   }
 
-  let found = false;
+  if (searchText.length < 2) {
+    noResults.style.display = "none";
+    return;
+  }
+
   let target = null;
 
-  // 1. Navigation links check karo
+  // Pehle navigation ke exact naam check karo
   document.querySelectorAll("nav a").forEach(function (link) {
-    const text = link.textContent.toLowerCase();
+    if (target) return;
 
-    if (!found && text.includes(searchText)) {
-      found = true;
+    const text = link.textContent.toLowerCase().trim();
 
+    if (text === searchText) {
       const href = link.getAttribute("href");
 
       if (href && href.startsWith("#")) {
@@ -1789,42 +1787,48 @@ siteSearch.addEventListener("input", function () {
     }
   });
 
-  // 2. Sections check karo
-  if (!found) {
+  // Phir sections ke andar search karo
+  if (!target) {
     document.querySelectorAll("section").forEach(function (section) {
+      if (target) return;
+
       const text = section.textContent.toLowerCase();
 
-      if (!found && text.includes(searchText)) {
-        found = true;
+      if (text.includes(searchText)) {
         target = section;
       }
     });
   }
 
-  // 3. Cards check karo
-  if (!found) {
+  // Phir cards mein search karo
+  if (!target) {
     document.querySelectorAll(".card").forEach(function (card) {
+      if (target) return;
+
       const text = card.textContent.toLowerCase();
 
       if (text.includes(searchText)) {
-        found = true;
         target = card;
       }
     });
   }
 
-  // Result mila
-  if (found && target) {
+  if (target) {
     noResults.style.display = "none";
 
-    setTimeout(function () {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }, 100);
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   } else {
     noResults.style.display = "block";
+  }
+}
+
+// Enter dabane par search
+siteSearch.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    performSearch();
   }
 });
     

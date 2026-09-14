@@ -1754,13 +1754,13 @@ window.addEventListener("DOMContentLoaded", function () {
     /* =========================
        SEARCH
     ========================= */
-
-    const siteSearch = document.getElementById("siteSearch");
+const siteSearch = document.getElementById("siteSearch");
 const noResults = document.getElementById("noResults");
 
 siteSearch.addEventListener("input", function () {
   const searchText = this.value.toLowerCase().trim();
 
+  // Search empty hai → website normal
   if (searchText === "") {
     noResults.style.display = "none";
 
@@ -1772,44 +1772,62 @@ siteSearch.addEventListener("input", function () {
   }
 
   let found = false;
+  let target = null;
 
-  // Search cards
-  document.querySelectorAll(".card").forEach(function (card) {
-    const text = card.textContent.toLowerCase();
-
-    if (text.includes(searchText)) {
-      card.style.display = "";
-      found = true;
-    } else {
-      card.style.display = "none";
-    }
-  });
-
-  // Search website sections
-  document.querySelectorAll("section").forEach(function (section) {
-    const text = section.textContent.toLowerCase();
-
-    if (text.includes(searchText)) {
-      found = true;
-    }
-  });
-
-  // Search navigation links
+  // 1. Navigation links check karo
   document.querySelectorAll("nav a").forEach(function (link) {
     const text = link.textContent.toLowerCase();
 
-    if (text.includes(searchText)) {
+    if (!found && text.includes(searchText)) {
       found = true;
+
+      const href = link.getAttribute("href");
+
+      if (href && href.startsWith("#")) {
+        target = document.querySelector(href);
+      }
     }
   });
 
-  if (found) {
+  // 2. Sections check karo
+  if (!found) {
+    document.querySelectorAll("section").forEach(function (section) {
+      const text = section.textContent.toLowerCase();
+
+      if (!found && text.includes(searchText)) {
+        found = true;
+        target = section;
+      }
+    });
+  }
+
+  // 3. Cards check karo
+  if (!found) {
+    document.querySelectorAll(".card").forEach(function (card) {
+      const text = card.textContent.toLowerCase();
+
+      if (text.includes(searchText)) {
+        found = true;
+        target = card;
+      }
+    });
+  }
+
+  // Result mila
+  if (found && target) {
     noResults.style.display = "none";
+
+    setTimeout(function () {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }, 100);
   } else {
     noResults.style.display = "block";
   }
 });
-
+    
     /* =========================
        SCROLL PROGRESS
     ========================= */

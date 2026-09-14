@@ -1764,84 +1764,147 @@ window.addEventListener("DOMContentLoaded", function () {
     /* =========================
        SEARCH
     ========================= */
+
+    /* =========================
+   SMART SEARCH
+========================= */
+
 const siteSearch = document.getElementById("siteSearch");
 const noResults = document.getElementById("noResults");
 
 function performSearch() {
+
   const searchText = siteSearch.value.toLowerCase().trim();
 
+  // Empty search
   if (searchText === "") {
     noResults.style.display = "none";
     return;
   }
 
+  // At least 2 characters
   if (searchText.length < 2) {
     noResults.style.display = "none";
     return;
   }
 
   let target = null;
+  let bestScore = 0;
 
-  // Pehle navigation ke exact naam check karo
+  // Search priority:
+  // 1. Navigation links
+  // 2. Section headings
+  // 3. Cards
+  // 4. Sections
+
   document.querySelectorAll("nav a").forEach(function (link) {
-    if (target) return;
 
     const text = link.textContent.toLowerCase().trim();
 
     if (text === searchText) {
-      const href = link.getAttribute("href");
-
-      if (href && href.startsWith("#")) {
-        target = document.querySelector(href);
-      }
+      target = document.querySelector(link.getAttribute("href"));
+      bestScore = 100;
     }
+
   });
 
-  // Phir sections ke andar search karo
+  // Search headings
   if (!target) {
-    document.querySelectorAll("section").forEach(function (section) {
-      if (target) return;
 
-      const text = section.textContent.toLowerCase();
+    document.querySelectorAll("h1, h2, h3").forEach(function (heading) {
 
-      if (text.includes(searchText)) {
-        target = section;
+      const text = heading.textContent.toLowerCase().trim();
+      let score = 0;
+
+      if (text === searchText) {
+        score = 90;
+      } else if (text.startsWith(searchText)) {
+        score = 70;
+      } else if (text.includes(searchText)) {
+        score = 50;
       }
+
+      if (score > bestScore) {
+        target = heading.closest("section") || heading;
+        bestScore = score;
+      }
+
     });
+
   }
 
-  // Phir cards mein search karo
+  // Search cards
   if (!target) {
+
     document.querySelectorAll(".card").forEach(function (card) {
-      if (target) return;
 
       const text = card.textContent.toLowerCase();
 
-      if (text.includes(searchText)) {
+      if (text.includes(searchText) && bestScore < 40) {
         target = card;
+        bestScore = 40;
       }
+
     });
+
   }
 
+  // Search sections
+  if (!target) {
+
+    document.querySelectorAll("section").forEach(function (section) {
+
+      const text = section.textContent.toLowerCase();
+
+      if (text.includes(searchText) && bestScore < 20) {
+        target = section;
+        bestScore = 20;
+      }
+
+    });
+
+  }
+
+  // Result found
   if (target) {
+
     noResults.style.display = "none";
 
     target.scrollIntoView({
       behavior: "smooth",
       block: "start"
     });
-  } else {
+
+    // Small highlight effect
+    target.style.transition = "box-shadow 0.4s ease";
+
+    target.style.boxShadow =
+      "0 0 0 3px rgba(230, 57, 70, 0.35)";
+
+    setTimeout(function () {
+      target.style.boxShadow = "";
+    }, 1500);
+
+  }
+
+  // No result
+  else {
+
     noResults.style.display = "block";
   }
+
 }
 
-// Enter dabane par search
+
+// Search when pressing Enter
 siteSearch.addEventListener("keydown", function (event) {
+
   if (event.key === "Enter") {
+    event.preventDefault();
     performSearch();
   }
+
 });
-    
     /* =========================
        SCROLL PROGRESS
     ========================= */

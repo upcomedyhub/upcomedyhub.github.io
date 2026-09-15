@@ -42,7 +42,42 @@
       line-height: 1.6;
       transition: background 0.3s ease, color 0.3s ease;
     }
+/* =========================
+   ANNOUNCEMENT BAR
+========================= */
 
+.announcement-bar {
+  width: 100%;
+  background: #111111;
+  color: white;
+  text-align: center;
+  padding: 9px 15px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.announcement-bar a {
+  color: #ffffff;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.dark-mode .announcement-bar {
+  background: #ffffff;
+  color: #111111;
+}
+
+.dark-mode .announcement-bar a {
+  color: #111111;
+}
+
+@media (max-width: 700px) {
+  .announcement-bar {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
 
     /* =========================
        HEADER

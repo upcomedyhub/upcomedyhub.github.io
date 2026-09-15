@@ -480,7 +480,37 @@
 #faq .card p {
   margin-bottom: 0;
 }
+/* =========================
+   FAQ EXPAND / COLLAPSE
+========================= */
 
+#faq .faq-question {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+#faq .faq-question::after {
+  content: "+";
+  font-size: 22px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+#faq .faq-question.active::after {
+  content: "−";
+}
+
+#faq .faq-answer {
+  display: none;
+  margin-top: 8px;
+}
+
+#faq .faq-answer.show {
+  display: block;
+}
     /* =========================
        FOOTER
     ========================= */

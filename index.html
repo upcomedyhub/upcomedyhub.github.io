@@ -2195,7 +2195,25 @@ window.addEventListener("DOMContentLoaded", function () {
 
       }
     );
+    /* =========================
+       CLOSE MENU ON OUTSIDE TAP
+    ========================= */
 
+    document.addEventListener("click", function (event) {
+
+      const header = document.querySelector("header");
+
+      if (
+        header &&
+        !header.contains(event.target) &&
+        nav.classList.contains("show-menu")
+      ) {
+
+        nav.classList.remove("show-menu");
+
+      }
+
+    });
 
     /* =========================
        SEARCH

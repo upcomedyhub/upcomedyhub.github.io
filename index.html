@@ -1010,7 +1010,7 @@
       }
 
       nav.show-menu {
-        display:none;
+        display: none;
       }
 
       nav a {
@@ -2341,17 +2341,21 @@ siteSearch.addEventListener("keydown", function (event) {
   }
 
 });
-    const clearSearch = document.getElementById("clearSearch");
+   const clearSearch = document.getElementById("clearSearch");
+
+siteSearch.addEventListener("input", function () {
+  if (siteSearch.value.trim() !== "") {
+    clearSearch.style.display = "flex";
+  } else {
+    clearSearch.style.display = "none";
+  }
+});
 
 clearSearch.addEventListener("click", function () {
   siteSearch.value = "";
+  clearSearch.style.display = "none";
   noResults.style.display = "none";
-
-  document.querySelectorAll(".card").forEach(function (card) {
-    card.style.display = "";
-  });
-});
-    
+});  
     /* =========================
        SCROLL PROGRESS
     ========================= */

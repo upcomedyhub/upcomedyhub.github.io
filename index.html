@@ -704,7 +704,46 @@
       background: white;
       color: #111111;
     }
+/* =========================
+   BACK TO TOP TOOLTIP
+========================= */
 
+#backToTop {
+  position: relative;
+}
+
+#backToTop::after {
+  content: "Back to Top";
+  position: absolute;
+  right: 58px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #111111;
+  color: #ffffff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+#backToTop:hover::after {
+  opacity: 1;
+}
+
+.dark-mode #backToTop::after {
+  background: #ffffff;
+  color: #111111;
+}
+
+@media (max-width: 700px) {
+  #backToTop::after {
+    display: none;
+  }
+  }
 
     /* =========================
        FLOATING SUBSCRIBE

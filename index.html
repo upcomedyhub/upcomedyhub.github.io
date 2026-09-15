@@ -2222,7 +2222,17 @@ clearSearch.addEventListener("click", function () {
       }
 
     }
+const cookieNotice = document.getElementById("cookieNotice");
+const cookieAccept = document.getElementById("cookieAccept");
 
+if (!localStorage.getItem("cookieAccepted")) {
+  cookieNotice.style.display = "flex";
+}
+
+cookieAccept.addEventListener("click", function () {
+  localStorage.setItem("cookieAccepted", "true");
+  cookieNotice.style.display = "none";
+});
   </script>
 
 

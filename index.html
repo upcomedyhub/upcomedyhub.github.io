@@ -693,7 +693,58 @@
     .dark-mode .share-float {
       background: white;
       color: #111111;
-    }
+    } 
+    /* =========================
+   SEARCH BOX + CLEAR BUTTON
+========================= */
+
+.search-box {
+  position: relative;
+  width: 100%;
+}
+
+.search-box input {
+  padding-right: 50px;
+}
+
+#clearSearch {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: transparent;
+  color: #777777;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#clearSearch:hover {
+  background: #eeeeee;
+  color: #111111;
+}
+
+.dark-mode #clearSearch {
+  color: #aaaaaa;
+}
+
+.dark-mode #clearSearch:hover {
+  background: #333333;
+  color: #ffffff;
+  }
 
 
     /* =========================
@@ -1927,51 +1978,7 @@ clearSearch.addEventListener("click", function () {
     card.style.display = "";
   });
 });
-    /* =========================
-   SEARCH BOX + CLEAR BUTTON
-========================= */
-
-.search-box {
-  position: relative;
-  width: 100%;
-}
-
-.search-box input {
-  padding-right: 50px;
-}
-
-#clearSearch {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 34px;
-  height: 34px;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  color: #777;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-#clearSearch:hover {
-  background: #eeeeee;
-  color: #111111;
-}
-
-.dark-mode #clearSearch {
-  color: #aaaaaa;
-}
-
-.dark-mode #clearSearch:hover {
-  background: #333333;
-  color: #ffffff;
-}
+    
     /* =========================
        SCROLL PROGRESS
     ========================= */

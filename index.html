@@ -2669,6 +2669,23 @@ cookieAccept.addEventListener("click", function () {
     answer.classList.toggle("show");
   });
 });
+    const galleryImages = document.querySelectorAll(".gallery-item img");
+const galleryLightbox = document.getElementById("galleryLightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const closeGallery = document.getElementById("closeGallery");
+
+galleryImages.forEach(function (image) {
+  image.addEventListener("click", function () {
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+    galleryLightbox.style.display = "flex";
+  });
+});
+
+closeGallery.addEventListener("click", function () {
+  galleryLightbox.style.display = "none";
+  lightboxImage.src = "";
+});
   </script>
 
 

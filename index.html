@@ -3001,7 +3001,24 @@ closeGallery.addEventListener("click", function () {
     lightboxImage.src = "";
   }
 });
+// =========================
+// VISITOR COUNTER
+// =========================
 
+const visitorCount = document.getElementById("visitorCount");
+
+if (visitorCount) {
+  fetch("https://api.counterapi.dev/v1/upcomedyhub/visits/up")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      visitorCount.textContent = data.count.toLocaleString();
+    })
+    .catch(function () {
+      visitorCount.textContent = "—";
+    });
+}
   </script>
 
 

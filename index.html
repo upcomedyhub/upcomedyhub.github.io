@@ -2686,6 +2686,12 @@ closeGallery.addEventListener("click", function () {
   galleryLightbox.style.display = "none";
   lightboxImage.src = "";
 });
+    galleryLightbox.addEventListener("click", function (event) {
+  if (event.target === galleryLightbox) {
+    galleryLightbox.style.display = "none";
+    lightboxImage.src = "";
+  }
+});
   </script>
 
 

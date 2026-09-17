@@ -1148,7 +1148,99 @@
     .youtube-stat-card p {
       font-size: 16px;
     }
+/* =========================
+   NEWSLETTER
+========================= */
 
+#newsletter {
+  text-align: center;
+  max-width: none;
+  background: #fafafa;
+}
+
+.newsletter-card {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.newsletter-card h3 {
+  margin-bottom: 10px;
+}
+
+.newsletter-card p {
+  margin-top: 8px;
+}
+
+.newsletter-form {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.newsletter-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.newsletter-form input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #ffffff;
+  color: #111111;
+  box-sizing: border-box;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+}
+
+.newsletter-form button {
+  margin-top: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.newsletter-note {
+  font-size: 12px;
+  color: #777777;
+  margin-top: 12px;
+}
+
+.dark-mode #newsletter {
+  background: #161616;
+}
+
+.dark-mode .newsletter-form input {
+  background: #222222;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+.dark-mode .newsletter-note {
+  color: #bbbbbb;
+}
+
+@media (max-width: 700px) {
+  #newsletter {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .newsletter-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .newsletter-form input {
+    font-size: 16px;
+  }
+    }
     /* =========================
        BOTTOM SAFE SPACE
     ========================= */
@@ -2311,7 +2403,7 @@
       </div>
 
     </section>
-
+<a href="#newsletter">📩 Newsletter</a>
     <!-- =========================
          SOCIAL
     ========================= -->
@@ -2355,7 +2447,70 @@
       </p>
 
     </section>
+<section id="newsletter">
 
+  <h2 class="section-title">
+    📩 Stay Connected
+  </h2>
+
+  <div class="card newsletter-card">
+
+    <h3>
+      🔥 UPComedyHub Updates
+    </h3>
+
+    <p>
+      Naye comedy videos, Shorts aur important updates
+      ke baare mein email par updates paane ke liye subscribe karein.
+    </p>
+
+    <form
+      class="newsletter-form"
+      action="https://formsubmit.co/upcomedyhub@gmail.com"
+      method="POST">
+
+      <input
+        type="hidden"
+        name="_subject"
+        value="New UPComedyHub Newsletter Subscriber">
+
+      <input
+        type="hidden"
+        name="_captcha"
+        value="false">
+
+      <input
+        type="hidden"
+        name="_template"
+        value="table">
+
+      <label for="newsletterEmail">
+        📧 Email Address
+      </label>
+
+      <input
+        type="email"
+        id="newsletterEmail"
+        name="Email"
+        placeholder="Apna email address"
+        required>
+
+      <button
+        type="submit"
+        class="btn">
+        🚀 Subscribe to Updates
+      </button>
+
+    </form>
+
+    <p class="newsletter-note">
+      🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
+      ke liye use kiya jayega.
+    </p>
+
+  </div>
+
+</section>
     <!-- =========================
          CTA
     ========================= -->

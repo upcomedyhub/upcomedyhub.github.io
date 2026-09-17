@@ -472,10 +472,6 @@
       margin-bottom: 0;
     }
 
-    /* =========================
-       FAQ EXPAND / COLLAPSE
-    ========================= */
-
     #faq .faq-question {
       cursor: pointer;
       display: flex;
@@ -518,10 +514,6 @@
       color: white;
     }
 
-    /* =========================
-       FOOTER LEGAL LINKS
-    ========================= */
-
     .footer-legal {
       margin-top: 12px;
       display: flex;
@@ -546,12 +538,6 @@
 
     .footer-legal span {
       opacity: 0.6;
-    }
-
-    @media (max-width: 700px) {
-      .footer-legal a {
-        font-size: 13px;
-      }
     }
 
     /* =========================
@@ -773,10 +759,6 @@
       color: #111111;
     }
 
-    /* =========================
-       BACK TO TOP TOOLTIP
-    ========================= */
-
     #backToTop::after {
       content: "Back to Top";
       position: absolute;
@@ -802,12 +784,6 @@
     .dark-mode #backToTop::after {
       background: #ffffff;
       color: #111111;
-    }
-
-    @media (max-width: 700px) {
-      #backToTop::after {
-        display: none;
-      }
     }
 
     /* =========================
@@ -890,7 +866,7 @@
     }
 
     /* =========================
-       SEARCH BOX + CLEAR BUTTON
+       SEARCH BOX + CLEAR
     ========================= */
 
     .search-box {
@@ -966,15 +942,9 @@
       overflow: hidden;
       background: #f2f2f2;
       min-height: 180px;
-    }
-
-    .gallery-placeholder {
-      width: 100%;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 50px;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
     }
 
     .gallery-item img {
@@ -987,6 +957,20 @@
 
     .gallery-item:hover img {
       transform: scale(1.05);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .gallery-placeholder {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
     }
 
     .dark-mode .gallery-item {
@@ -1038,15 +1022,6 @@
     .dark-mode .gallery-caption {
       background: #222222;
       color: #ffffff;
-    }
-
-    .gallery-item {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .gallery-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
     /* =========================
@@ -1106,19 +1081,6 @@
       min-height: 120px;
     }
 
-    @media (max-width: 700px) {
-      #website-enquiry .contact-card {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      #website-enquiry input,
-      #website-enquiry select,
-      #website-enquiry textarea {
-        font-size: 16px;
-      }
-    }
-
     /* =========================
        VISITOR COUNTER
     ========================= */
@@ -1158,14 +1120,33 @@
       color: #bbbbbb;
     }
 
-    @media (max-width: 700px) {
-      .visitor-counter-card p {
-        font-size: 15px;
-      }
+    /* =========================
+       YOUTUBE STATS
+    ========================= */
 
-      .stats4u-counter {
-        max-width: 100%;
-      }
+    #youtube-stats {
+      text-align: center;
+    }
+
+    .youtube-stat-card {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .youtube-stat-card h3 {
+      margin-bottom: 12px;
+    }
+
+    #youtubeSubscribers {
+      display: block;
+      color: #e63946;
+      font-size: 32px;
+      font-weight: 800;
+      margin-top: 5px;
+    }
+
+    .youtube-stat-card p {
+      font-size: 16px;
     }
 
     /* =========================
@@ -1174,12 +1155,6 @@
 
     footer {
       padding-bottom: 110px;
-    }
-
-    @media (max-width: 700px) {
-      footer {
-        padding-bottom: 130px;
-      }
     }
 
     /* =========================
@@ -1199,18 +1174,14 @@
       #themeToggle {
         width: 42px;
         height: 42px;
-
         font-size: 20px;
-
         margin-right: 8px;
       }
 
       #menuToggle {
         display: block;
-
         width: 42px;
         height: 42px;
-
         font-size: 22px;
       }
 
@@ -1222,7 +1193,10 @@
         top: 100%;
         right: 15px;
 
-        width: 180px;
+        width: 250px;
+
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
 
         background: white;
 
@@ -1246,9 +1220,7 @@
 
       nav a {
         margin: 0;
-
         padding: 10px 12px;
-
         border-radius: 10px;
       }
 
@@ -1288,39 +1260,35 @@
       .whatsapp-float {
         right: 15px;
         bottom: 15px;
-
         width: 52px;
         height: 52px;
-
         font-size: 25px;
       }
 
       #backToTop {
         right: 15px;
         bottom: 135px;
-
         width: 44px;
         height: 44px;
-
         font-size: 20px;
+      }
+
+      #backToTop::after {
+        display: none;
       }
 
       .subscribe-float {
         left: 15px;
         bottom: 15px;
-
         padding: 10px 14px;
-
         font-size: 13px;
       }
 
       .share-float {
         left: 15px;
         bottom: 75px;
-
         width: 48px;
         height: 48px;
-
         font-size: 22px;
       }
 
@@ -1342,41 +1310,36 @@
       .gallery-item img {
         height: 140px;
       }
+
+      .youtube-stat-card p {
+        font-size: 14px;
+      }
+
+      #youtubeSubscribers {
+        font-size: 27px;
+      }
+
+      .visitor-counter-card p {
+        font-size: 15px;
+      }
+
+      #website-enquiry .contact-card {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      #website-enquiry input,
+      #website-enquiry select,
+      #website-enquiry textarea {
+        font-size: 16px;
+      }
+
+      footer {
+        padding-bottom: 130px;
+      }
+
     }
-#youtube-stats {
-  text-align: center;
-}
 
-.youtube-stat-card {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.youtube-stat-card h3 {
-  margin-bottom: 12px;
-}
-
-#youtubeSubscribers {
-  display: block;
-  color: #e63946;
-  font-size: 32px;
-  font-weight: 800;
-  margin-top: 5px;
-}
-
-.youtube-stat-card p {
-  font-size: 16px;
-}
-
-@media (max-width: 700px) {
-  #youtubeSubscribers {
-    font-size: 27px;
-  }
-
-  .youtube-stat-card p {
-    font-size: 14px;
-  }
-    }
   </style>
 
 </head>
@@ -1436,12 +1399,27 @@
 
     <nav>
 
-      <a href="#home">Home</a>
-      <a href="#shorts">Shorts</a>
-      <a href="#videos">Videos</a>
-      <a href="#team">Team</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#home">🏠 Home</a>
+
+      <a href="#shorts">🎬 Shorts</a>
+
+      <a href="#videos">🎥 Videos</a>
+
+      <a href="#team">👥 Team</a>
+
+      <a href="#youtube-stats">📊 YouTube Stats</a>
+
+      <a href="#website-enquiry">💻 Website Banwani Hai?</a>
+
+      <a href="#gallery">🖼️ Gallery</a>
+
+      <a href="#faq">❓ FAQ</a>
+
+      <a href="#visitor-counter">👀 Website Visitors</a>
+
+      <a href="#about">ℹ️ About</a>
+
+      <a href="#contact">📩 Contact</a>
 
     </nav>
 
@@ -1812,6 +1790,10 @@
 
     <section id="gallery">
 
+      <h2 class="section-title">
+        🖼️ Gallery
+      </h2>
+
       <p>
         UPComedyHub के कुछ खास moments और यादें ❤️😂
       </p>
@@ -1947,7 +1929,7 @@
 
       <div class="container">
 
-        <h2>
+        <h2 class="section-title">
           ❓ Frequently Asked Questions
         </h2>
 
@@ -2301,29 +2283,35 @@
       </div>
 
     </section>
-<section id="youtube-stats">
 
-  <h2 class="section-title">
-    📊 YouTube Stats
-  </h2>
+    <!-- =========================
+         YOUTUBE STATS
+    ========================= -->
 
-  <div class="card youtube-stat-card">
+    <section id="youtube-stats">
 
-    <h3>
-      🔔 UPComedyHub Subscribers
-    </h3>
+      <h2 class="section-title">
+        📊 YouTube Stats
+      </h2>
 
-    <strong id="youtubeSubscribers">
-      ...
-    </strong>
+      <div class="card youtube-stat-card">
 
-    <p style="margin-top:10px;">
-      Hamari YouTube Family ❤️
-    </p>
+        <h3>
+          🔔 UPComedyHub Subscribers
+        </h3>
 
-  </div>
+        <strong id="youtubeSubscribers">
+          ...
+        </strong>
 
-</section>
+        <p style="margin-top:10px;">
+          Hamari YouTube Family ❤️
+        </p>
+
+      </div>
+
+    </section>
+
     <!-- =========================
          SOCIAL
     ========================= -->
@@ -2640,7 +2628,9 @@
 
     }
 
-    /* SAVE THEME AFTER REFRESH */
+    /* =========================
+       SAVE THEME AFTER REFRESH
+    ========================= */
 
     window.addEventListener("DOMContentLoaded", function () {
 
@@ -2712,7 +2702,8 @@
 
     document.addEventListener("click", function (event) {
 
-      const header = document.querySelector("header");
+      const header =
+        document.querySelector("header");
 
       if (
         header &&
@@ -3183,51 +3174,63 @@
 
       }
     );
-const youtubeSubscribers =
-  document.getElementById("youtubeSubscribers");
 
-if (youtubeSubscribers) {
+    /* =========================
+       YOUTUBE SUBSCRIBER COUNT
+    ========================= */
 
-  const youtubeUrl =
-    "https://www.youtube.com/@up_comedyhub";
+    const youtubeSubscribers =
+      document.getElementById(
+        "youtubeSubscribers"
+      );
 
-  fetch(
-    "https://pulse.walls.sh/profile?url=" +
-    encodeURIComponent(youtubeUrl)
-  )
-    .then(function (response) {
+    if (youtubeSubscribers) {
 
-      if (!response.ok) {
-        throw new Error("Pulse request failed");
-      }
+      const youtubeUrl =
+        "https://www.youtube.com/@up_comedyhub";
 
-      return response.json();
+      fetch(
+        "https://pulse.walls.sh/profile?url=" +
+        encodeURIComponent(youtubeUrl)
+      )
+        .then(function (response) {
 
-    })
-    .then(function (data) {
+          if (!response.ok) {
+            throw new Error("Pulse request failed");
+          }
 
-      const subscriberValue = data.followers;
+          return response.json();
 
-      if (typeof subscriberValue === "number") {
+        })
+        .then(function (data) {
 
-        youtubeSubscribers.textContent =
-          subscriberValue.toLocaleString("en-IN");
+          const subscriberValue =
+            data.followers;
 
-      } else {
+          if (
+            typeof subscriberValue === "number"
+          ) {
 
-        youtubeSubscribers.textContent =
-          subscriberValue || "—";
+            youtubeSubscribers.textContent =
+              subscriberValue.toLocaleString("en-IN");
 
-      }
+          } else {
 
-    })
-    .catch(function () {
-
-      youtubeSubscribers.textContent = "—";
-
-    });
+            youtubeSubscribers.textContent =
+              subscriberValue || "—";
 
           }
+
+        })
+        .catch(function () {
+
+          youtubeSubscribers.textContent =
+            "—";
+
+        });
+
+    }
+
   </script>
 
 </body>

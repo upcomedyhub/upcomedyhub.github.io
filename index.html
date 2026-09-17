@@ -1343,7 +1343,40 @@
         height: 140px;
       }
     }
+#youtube-stats {
+  text-align: center;
+}
 
+.youtube-stat-card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.youtube-stat-card h3 {
+  margin-bottom: 12px;
+}
+
+#youtubeSubscribers {
+  display: block;
+  color: #e63946;
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 5px;
+}
+
+.youtube-stat-card p {
+  font-size: 16px;
+}
+
+@media (max-width: 700px) {
+  #youtubeSubscribers {
+    font-size: 27px;
+  }
+
+  .youtube-stat-card p {
+    font-size: 14px;
+  }
+    }
   </style>
 
 </head>
@@ -2268,7 +2301,29 @@
       </div>
 
     </section>
+<section id="youtube-stats">
 
+  <h2 class="section-title">
+    📊 YouTube Stats
+  </h2>
+
+  <div class="card youtube-stat-card">
+
+    <h3>
+      🔔 UPComedyHub Subscribers
+    </h3>
+
+    <strong id="youtubeSubscribers">
+      ...
+    </strong>
+
+    <p style="margin-top:10px;">
+      Hamari YouTube Family ❤️
+    </p>
+
+  </div>
+
+</section>
     <!-- =========================
          SOCIAL
     ========================= -->
@@ -3128,7 +3183,51 @@
 
       }
     );
+const youtubeSubscribers =
+  document.getElementById("youtubeSubscribers");
 
+if (youtubeSubscribers) {
+
+  const youtubeUrl =
+    "https://www.youtube.com/@up_comedyhub";
+
+  fetch(
+    "https://pulse.walls.sh/profile?url=" +
+    encodeURIComponent(youtubeUrl)
+  )
+    .then(function (response) {
+
+      if (!response.ok) {
+        throw new Error("Pulse request failed");
+      }
+
+      return response.json();
+
+    })
+    .then(function (data) {
+
+      const subscriberValue = data.followers;
+
+      if (typeof subscriberValue === "number") {
+
+        youtubeSubscribers.textContent =
+          subscriberValue.toLocaleString("en-IN");
+
+      } else {
+
+        youtubeSubscribers.textContent =
+          subscriberValue || "—";
+
+      }
+
+    })
+    .catch(function () {
+
+      youtubeSubscribers.textContent = "—";
+
+    });
+
+          }
   </script>
 
 </body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://upcomedyhub.github.io/sitemap.xml

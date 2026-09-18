@@ -60,16 +60,48 @@
       background: #111111;
       color: white;
       text-align: center;
-      padding: 9px 15px;
+      padding: 9px 40px 9px 15px;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: 0.2px;
+      position: relative;
     }
 
     .announcement-bar a {
       color: #ffffff;
       text-decoration: underline;
       margin-left: 5px;
+    }
+
+    #closeAnnouncement {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 26px;
+      height: 26px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+
+      font-size: 15px;
+      line-height: 1;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: 0.2s ease;
+    }
+
+    #closeAnnouncement:hover {
+      background: rgba(255, 255, 255, 0.3);
     }
 
     .dark-mode .announcement-bar {
@@ -81,10 +113,19 @@
       color: #111111;
     }
 
+    .dark-mode #closeAnnouncement {
+      background: rgba(0, 0, 0, 0.1);
+      color: #111111;
+    }
+
+    .dark-mode #closeAnnouncement:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
     @media (max-width: 700px) {
       .announcement-bar {
         font-size: 12px;
-        padding: 8px 10px;
+        padding: 8px 36px 8px 10px;
       }
     }
 
@@ -2006,9 +2047,16 @@
 
   <div id="scrollProgress"></div>
 
-  <div class="announcement-bar">
+  <div class="announcement-bar" id="announcementBar">
     🔥 New Comedy Video Coming Soon!
     <a href="#shorts">Watch Shorts</a>
+
+    <button
+      type="button"
+      id="closeAnnouncement"
+      aria-label="Close announcement">
+      ✕
+    </button>
   </div>
 
   <div class="cookie-notice" id="cookieNotice">
@@ -4184,6 +4232,34 @@ updateRecentlyViewed();
     revealElements.forEach(function (element) {
       revealObserver.observe(element);
     });
+
+    /* =========================
+       SMART ANNOUNCEMENT BAR
+    ========================= */
+
+    const announcementBar =
+      document.getElementById("announcementBar");
+
+    const closeAnnouncement =
+      document.getElementById("closeAnnouncement");
+
+    if (announcementBar && closeAnnouncement) {
+
+      if (localStorage.getItem("announcementClosed") === "true") {
+
+        announcementBar.style.display = "none";
+
+      }
+
+      closeAnnouncement.addEventListener("click", function () {
+
+        announcementBar.style.display = "none";
+
+        localStorage.setItem("announcementClosed", "true");
+
+      });
+
+    }
   </script>
 
 </body>

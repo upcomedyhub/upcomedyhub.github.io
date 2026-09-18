@@ -16,8 +16,7 @@
 
   <meta
     name="description"
-    content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda."
-  >
+    content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 
   <style>
 
@@ -254,7 +253,8 @@
     ========================= */
 
     .hero {
-      min-height: 75vh;
+      position: relative;
+      min-height: 82vh;
 
       display: flex;
       justify-content: center;
@@ -262,28 +262,130 @@
 
       text-align: center;
 
-      padding: 60px 20px;
+      padding: 70px 20px;
+      overflow: hidden;
 
       background: linear-gradient(
         135deg,
-        #ffffff,
-        #fff5f5
+        #1a0b0d 0%,
+        #3a0f12 35%,
+        #7a1620 65%,
+        #e63946 100%
       );
+      background-size: 200% 200%;
+      animation: heroGradient 10s ease infinite;
 
       max-width: none;
+    }
+
+    @keyframes heroGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* floating glow blobs behind hero content */
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero::before {
+      width: 320px;
+      height: 320px;
+      background: #ff7a59;
+      top: -80px;
+      left: -60px;
+      animation: floatBlob 8s ease-in-out infinite;
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      background: #ffd166;
+      bottom: -60px;
+      right: -40px;
+      animation: floatBlob 9s ease-in-out infinite reverse;
+    }
+
+    @keyframes floatBlob {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(25px) scale(1.08); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: heroFadeUp 0.9s ease both;
+    }
+
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-badge .flame {
+      display: inline-block;
+      animation: flamePulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes flamePulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(-4deg); }
     }
 
     .hero h1 {
       font-size: clamp(40px, 8vw, 80px);
       font-weight: 900;
       margin-bottom: 15px;
+
+      background: linear-gradient(90deg, #ffffff, #ffd166 55%, #ffffff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 4s linear infinite;
+
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    @keyframes shineText {
+      to { background-position: -200% center; }
     }
 
     .hero p {
       font-size: 20px;
       max-width: 700px;
       margin: 8px auto;
-      color: #555555;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     /* =========================
@@ -309,11 +411,32 @@
       background: #111111;
       color: white;
 
-      transition: 0.2s ease;
+      transition: 0.25s ease;
     }
 
     .btn:hover {
       transform: translateY(-2px);
+    }
+
+    .hero .btn {
+      background: #ffffff;
+      color: #111111;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+    }
+
+    .hero .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero .btn.btn-outline {
+      background: transparent;
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .hero .btn.btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
     }
 
     /* =========================
@@ -569,17 +692,8 @@
       color: white;
     }
 
-    .dark-mode .hero {
-      background:
-        linear-gradient(
-          135deg,
-          #111111,
-          #1a1010
-        );
-    }
-
     .dark-mode .hero p {
-      color: #dddddd;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .dark-mode .card {
@@ -1453,8 +1567,8 @@
       }
 
       .hero {
-        min-height: 65vh;
-        padding: 50px 20px;
+        min-height: 70vh;
+        padding: 55px 20px;
       }
 
       .hero h1 {
@@ -1736,10 +1850,14 @@
       class="hero"
       id="home">
 
-      <div>
+      <div class="hero-content">
+
+        <span class="hero-badge">
+          <span class="flame">🔥</span> Desi Comedy Hub
+        </span>
 
         <h1>
-          UPComedyHub 🔥
+          UPComedyHub
         </h1>
 
         <p>
@@ -1761,7 +1879,7 @@
           </a>
 
           <a
-            class="btn"
+            class="btn btn-outline"
             href="https://youtube.com/@up_comedyhub"
             target="_blank"
             rel="noopener noreferrer">

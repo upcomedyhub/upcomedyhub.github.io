@@ -349,16 +349,20 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.25);
       color: #ffffff;
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
+      font-family: 'Anton', Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       margin-bottom: 22px;
-      backdrop-filter: blur(6px);
+
+      background: linear-gradient(90deg, #ffffff, #ffd166 55%, #ffffff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 4s linear infinite;
     }
 
     .hero-badge .flame {
@@ -575,6 +579,58 @@
 
     .contact-card {
       text-align: center;
+    }
+
+    /* =========================
+       STYLISH SECTION HEADINGS
+       (Contact + About)
+    ========================= */
+
+    #contact .section-title,
+    .about .section-title {
+      font-family: 'Anton', Arial, sans-serif;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      background: linear-gradient(90deg, #e63946, #ff9a5a 55%, #e63946);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 4s linear infinite;
+    }
+
+    .dark-mode #contact .section-title,
+    .dark-mode .about .section-title {
+      background: linear-gradient(90deg, #ff7a70, #ffd166 55%, #ff7a70);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* mailto / content links -> brand red instead of default blue */
+    .card p a,
+    .about-inner p a,
+    #privacy p a,
+    #terms p a {
+      color: #e63946;
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(230, 57, 70, 0.4);
+    }
+
+    .card p a:hover,
+    .about-inner p a:hover,
+    #privacy p a:hover,
+    #terms p a:hover {
+      border-bottom-color: #e63946;
+    }
+
+    .dark-mode .card p a,
+    .dark-mode .about-inner p a {
+      color: #ff8a80;
     }
 
     /* =========================
@@ -1887,6 +1943,10 @@
 <meta
   name="twitter:image"
   content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -1988,7 +2048,7 @@
       <div class="hero-content">
 
         <span class="hero-badge">
-          <span class="flame">🔥</span> Desi Comedy Hub
+          By Cobra The God
         </span>
 
         <h1>

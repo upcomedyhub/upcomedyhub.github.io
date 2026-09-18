@@ -3686,7 +3686,107 @@ siteSearch.addEventListener("input", advancedSearch);
         });
 
     }
+const recentlyViewedList =
+  document.getElementById("recentlyViewedList");
 
+const recentlyViewedEmpty =
+  document.getElementById("recentlyViewedEmpty");
+
+const recentlyViewed = [];
+
+function addRecentlyViewed(section) {
+
+  if (!section || !section.id) {
+    return;
+  }
+
+  const heading = section.querySelector("h1, h2, h3");
+
+  if (!heading) {
+    return;
+  }
+
+  const title = heading.textContent.trim();
+
+  const existingIndex = recentlyViewed.findIndex(function (item) {
+    return item.id === section.id;
+  });
+
+  if (existingIndex !== -1) {
+    recentlyViewed.splice(existingIndex, 1);
+  }
+
+  recentlyViewed.unshift({
+    id: section.id,
+    title: title
+  });
+
+  if (recentlyViewed.length > 5) {
+    recentlyViewed.pop();
+  }
+
+  updateRecentlyViewed();
+}
+
+function updateRecentlyViewed() {
+
+  recentlyViewedList.innerHTML = "";
+
+  if (recentlyViewed.length === 0) {
+    recentlyViewedEmpty.style.display = "block";
+    return;
+  }
+
+  recentlyViewedEmpty.style.display = "none";
+
+  recentlyViewed.forEach(function (item) {
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+    button.className = "recent-view-item";
+    button.textContent = "👀 " + item.title;
+
+    button.addEventListener("click", function () {
+
+      const target = document.getElementById(item.id);
+
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+
+    });
+
+    recentlyViewedList.appendChild(button);
+
+  });
+}
+
+const viewedSections = document.querySelectorAll("section[id]");
+
+const recentlyViewedObserver =
+  new IntersectionObserver(function (entries) {
+
+    entries.forEach(function (entry) {
+
+      if (entry.isIntersecting) {
+        addRecentlyViewed(entry.target);
+      }
+
+    });
+
+  }, {
+    threshold: 0.45
+  });
+
+viewedSections.forEach(function (section) {
+  recentlyViewedObserver.observe(section);
+});
+
+updateRecentlyViewed();
   </script>
 
 </body>

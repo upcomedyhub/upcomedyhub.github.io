@@ -664,7 +664,63 @@
     .dark-mode .site-search input::placeholder {
       color: #aaaaaa;
     }
+#recently-viewed {
+  text-align: center;
+}
 
+.recently-viewed-card {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#recentlyViewedEmpty {
+  color: #777777;
+  margin: 0;
+}
+
+#recentlyViewedList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.recent-view-item {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.recent-view-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+}
+
+.dark-mode .recent-view-item {
+  background: #222222;
+  border-color: #444444;
+  color: #ffffff;
+}
+
+.dark-mode #recentlyViewedEmpty {
+  color: #bbbbbb;
+}
+
+@media (max-width: 700px) {
+  .recently-viewed-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .recent-view-item {
+    padding: 10px 12px;
+  }
+}
     /* =========================
        SCROLL PROGRESS
     ========================= */

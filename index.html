@@ -590,6 +590,127 @@
     }
 
     /* =========================
+       FEATURED VIDEO
+    ========================= */
+
+    #featured-video {
+      max-width: 1100px;
+    }
+
+    .featured-video-card {
+      display: flex;
+      flex-wrap: wrap;
+
+      background: white;
+      border: 1px solid #eeeeee;
+      border-radius: 22px;
+      overflow: hidden;
+
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .dark-mode .featured-video-card {
+      background: #1b1b1b;
+      border-color: #333333;
+    }
+
+    .featured-video-embed {
+      flex: 1 1 340px;
+      min-width: 280px;
+      aspect-ratio: 9 / 16;
+      max-height: 480px;
+    }
+
+    .featured-video-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .featured-video-info {
+      flex: 1 1 280px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+
+      background: rgba(230, 57, 70, 0.1);
+      color: #e63946;
+
+      padding: 6px 14px;
+      border-radius: 30px;
+
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .featured-video-info h3 {
+      font-size: 26px;
+    }
+
+    .featured-video-info p {
+      color: #666666;
+    }
+
+    .dark-mode .featured-video-info p {
+      color: #cccccc;
+    }
+
+    .featured-video-info .btn {
+      width: fit-content;
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .featured-video-embed {
+        max-height: 420px;
+      }
+
+      .featured-video-info {
+        padding: 22px;
+      }
+
+      .featured-video-info h3 {
+        font-size: 22px;
+      }
+    }
+
+    /* =========================
+       VIDEO CARD HOVER PREVIEW
+       (desktop only)
+    ========================= */
+
+    @media (min-width: 701px) {
+
+      #shorts .filterable-card,
+      #videos .filterable-card {
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+
+      #shorts .filterable-card:hover,
+      #videos .filterable-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 18px 40px rgba(230, 57, 70, 0.15);
+        border-color: #e63946;
+      }
+
+    }
+
+
+    /* =========================
        SECTIONS
     ========================= */
 
@@ -2581,6 +2702,67 @@
             target="_blank"
             rel="noopener noreferrer">
             🔔 Subscribe
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================
+         FEATURED VIDEO
+    ========================= -->
+
+    <section id="featured-video">
+
+      <h2 class="section-title reveal">
+        ⭐ Featured Video
+      </h2>
+
+      <div class="featured-video-card reveal">
+
+        <div class="featured-video-embed">
+
+          <iframe
+            src="https://www.youtube.com/embed/BM9td5ALOkw"
+            title="UPComedyHub Featured Video"
+            loading="lazy"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share
+            "
+            allowfullscreen>
+          </iframe>
+
+        </div>
+
+        <div class="featured-video-info">
+
+          <span class="featured-badge">
+            🎬 Featured Video
+          </span>
+
+          <h3>
+            Funny Desi Comedy 😂
+          </h3>
+
+          <p>
+            UPComedyHub ka sabse pasandida video — desi andaaz mein
+            comedy jo aapko haste rehne par majboor kar degi.
+          </p>
+
+          <a
+            class="btn"
+            href="https://youtube.com/@up_comedyhub"
+            target="_blank"
+            rel="noopener noreferrer">
+            👀 Watch on YouTube
           </a>
 
         </div>

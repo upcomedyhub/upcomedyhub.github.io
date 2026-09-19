@@ -1083,6 +1083,30 @@
     }
 
     /* =========================
+       QUICK ACTIONS (WhatsApp + Subscribe)
+    ========================= */
+
+    const quickActions =
+      document.getElementById("quickActions");
+
+    const quickActionsToggle =
+      document.getElementById("quickActionsToggle");
+
+    if (quickActions && quickActionsToggle) {
+
+      quickActionsToggle.addEventListener("click", function () {
+        quickActions.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!quickActions.contains(event.target)) {
+          quickActions.classList.remove("active");
+        }
+      });
+
+    }
+
+    /* =========================
        DARK MODE
     ========================= */
 
@@ -2540,14 +2564,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-  <link rel="manifest" href="/manifest.json">
-
-<meta name="theme-color" content="#111111">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="UPComedyHub">
 </head>
 
 <body>
@@ -4563,39 +4579,43 @@ siteSearch.addEventListener("input", advancedSearch);
     const backToTop =
       document.getElementById("backToTop");
 
-    window.addEventListener(
-      "scroll",
-      function () {
+    if (backToTop) {
 
-        if (window.scrollY > 400) {
+      window.addEventListener(
+        "scroll",
+        function () {
 
-          backToTop.style.display =
-            "flex";
+          if (window.scrollY > 400) {
 
-        } else {
+            backToTop.style.display =
+              "flex";
 
-          backToTop.style.display =
-            "none";
+          } else {
+
+            backToTop.style.display =
+              "none";
+
+          }
 
         }
+      );
 
-      }
-    );
+      backToTop.addEventListener(
+        "click",
+        function () {
 
-    backToTop.addEventListener(
-      "click",
-      function () {
+          window.scrollTo({
 
-        window.scrollTo({
+            top: 0,
 
-          top: 0,
+            behavior: "smooth"
 
-          behavior: "smooth"
+          });
 
-        });
+        }
+      );
 
-      }
-    );
+    }
 
     /* =========================
        TOAST NOTIFICATION
@@ -5328,19 +5348,7 @@ updateRecentlyViewed();
 
     }
   </script>
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("/service-worker.js")
-      .then(function () {
-        console.log("UPComedyHub App Service Worker Registered");
-      })
-      .catch(function (error) {
-        console.log("Service Worker Registration Failed:", error);
-      });
-  });
-}
-</script>
+
 </body>
 
 </html>

@@ -1081,7 +1081,8 @@
     .footer-legal span {
       opacity: 0.6;
     }
-/* =========================
+
+    /* =========================
        DARK MODE
     ========================= */
 
@@ -3679,26 +3680,6 @@
             data-params="form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20"
             data-screen="1"
             async>
-    // Quick Actions: WhatsApp + Subscribe
-    const quickActions =
-      document.getElementById("quickActions");
-
-    const quickActionsToggle =
-      document.getElementById("quickActionsToggle");
-
-    if (quickActions && quickActionsToggle) {
-      quickActionsToggle.addEventListener("click", function (event) {
-        event.stopPropagation();
-        quickActions.classList.toggle("active");
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!quickActions.contains(event.target)) {
-          quickActions.classList.remove("active");
-        }
-      });
-    }
-
           </script>
 
         </div>
@@ -4107,6 +4088,25 @@
   ========================= -->
 
   <script>
+
+    /* =========================
+       QUICK ACTIONS (WhatsApp + Subscribe)
+    ========================= */
+
+    const quickActions = document.getElementById("quickActions");
+    const quickActionsToggle = document.getElementById("quickActionsToggle");
+
+    if (quickActions && quickActionsToggle) {
+      quickActionsToggle.addEventListener("click", function () {
+        quickActions.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!quickActions.contains(event.target)) {
+          quickActions.classList.remove("active");
+        }
+      });
+    }
 
     /* =========================
        PAGE LOADER
@@ -4574,43 +4574,39 @@ siteSearch.addEventListener("input", advancedSearch);
     const backToTop =
       document.getElementById("backToTop");
 
-    if (backToTop) {
+    window.addEventListener(
+      "scroll",
+      function () {
 
-      window.addEventListener(
-        "scroll",
-        function () {
+        if (window.scrollY > 400) {
 
-          if (window.scrollY > 400) {
+          backToTop.style.display =
+            "flex";
 
-            backToTop.style.display =
-              "flex";
+        } else {
 
-          } else {
-
-            backToTop.style.display =
-              "none";
-
-          }
+          backToTop.style.display =
+            "none";
 
         }
-      );
 
-      backToTop.addEventListener(
-        "click",
-        function () {
+      }
+    );
 
-          window.scrollTo({
+    backToTop.addEventListener(
+      "click",
+      function () {
 
-            top: 0,
+        window.scrollTo({
 
-            behavior: "smooth"
+          top: 0,
 
-          });
+          behavior: "smooth"
 
-        }
-      );
+        });
 
-    }
+      }
+    );
 
     /* =========================
        TOAST NOTIFICATION

@@ -5110,4 +5110,35 @@ updateRecentlyViewed();
       revealObserver.observe(element);
     });
 
-    /* ===================
+    /* =========================
+       SMART ANNOUNCEMENT BAR
+    ========================= */
+
+    const announcementBar =
+      document.getElementById("announcementBar");
+
+    const closeAnnouncement =
+      document.getElementById("closeAnnouncement");
+
+    if (announcementBar && closeAnnouncement) {
+
+      if (localStorage.getItem("announcementClosed") === "true") {
+
+        announcementBar.style.display = "none";
+
+      }
+
+      closeAnnouncement.addEventListener("click", function () {
+
+        announcementBar.style.display = "none";
+
+        localStorage.setItem("announcementClosed", "true");
+
+      });
+
+    }
+  </script>
+
+</body>
+
+</html>

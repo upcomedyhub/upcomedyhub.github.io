@@ -1143,41 +1143,125 @@
     }
 
     /* =========================
-       FLOATING WHATSAPP
+       QUICK ACTIONS (WhatsApp + Subscribe combined)
     ========================= */
 
-    .whatsapp-float {
+    .quick-actions {
       position: fixed;
 
       right: 20px;
       bottom: 20px;
 
+      z-index: 9998;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .quick-actions-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+
+      margin-bottom: 4px;
+    }
+
+    .quick-action-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 10px 16px;
+
+      border-radius: 30px;
+
+      color: white;
+
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: 800;
+
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+      pointer-events: none;
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .quick-actions.active .quick-action-item {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .quick-actions.active .quick-action-item:nth-child(1) {
+      transition-delay: 0.05s;
+    }
+
+    .quick-actions.active .quick-action-item:nth-child(2) {
+      transition-delay: 0.12s;
+    }
+
+    .quick-action-item.qa-whatsapp {
+      background: #25D366;
+    }
+
+    .quick-action-item.qa-subscribe {
+      background: #e63946;
+    }
+
+    .quick-action-item:hover {
+      transform: translateY(-2px) scale(1.03);
+    }
+
+    #quickActionsToggle {
       width: 58px;
       height: 58px;
 
+      border: none;
       border-radius: 50%;
 
-      background: #25D366;
+      background: #111111;
       color: white;
+
+      font-size: 26px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      font-size: 28px;
+      cursor: pointer;
 
-      text-decoration: none;
-
-      box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.25);
-
-      z-index: 9998;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
 
       transition: 0.3s ease;
     }
 
-    .whatsapp-float:hover {
+    #quickActionsToggle:hover {
       transform: scale(1.08);
+    }
+
+    .quick-actions.active #quickActionsToggle {
+      transform: rotate(45deg);
+      background: #e63946;
+    }
+
+    .dark-mode #quickActionsToggle {
+      background: white;
+      color: #111111;
+    }
+
+    .dark-mode .quick-actions.active #quickActionsToggle {
+      background: #e63946;
+      color: white;
     }
 
     /* =========================
@@ -1252,42 +1336,6 @@
     .dark-mode #backToTop::after {
       background: #ffffff;
       color: #111111;
-    }
-
-    /* =========================
-       FLOATING SUBSCRIBE
-    ========================= */
-
-    .subscribe-float {
-      position: fixed;
-
-      left: 20px;
-      bottom: 20px;
-
-      padding: 12px 18px;
-
-      border-radius: 30px;
-
-      background: #e63946;
-      color: white;
-
-      text-decoration: none;
-
-      font-size: 15px;
-      font-weight: 800;
-
-      box-shadow:
-        0 6px 18px rgba(0, 0, 0, 0.25);
-
-      z-index: 9995;
-
-      transition: 0.3s ease;
-    }
-
-    .subscribe-float:hover {
-      transform:
-        translateY(-3px)
-        scale(1.03);
     }
 
     /* =========================
@@ -1513,6 +1561,248 @@
       max-height: 90vh;
       object-fit: contain;
       border-radius: 12px;
+    }
+
+    .gallery-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      width: 48px;
+      height: 48px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+
+      font-size: 32px;
+      line-height: 1;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: 0.2s ease;
+    }
+
+    .gallery-nav-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .gallery-nav-prev {
+      left: 12px;
+    }
+
+    .gallery-nav-next {
+      right: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .gallery-nav-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+      }
+    }
+
+    /* =========================
+       TOAST NOTIFICATION
+    ========================= */
+
+    #toastNotification {
+      position: fixed;
+      left: 50%;
+      bottom: 100px;
+      transform: translateX(-50%) translateY(20px);
+
+      background: #111111;
+      color: white;
+
+      padding: 12px 22px;
+
+      border-radius: 30px;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+
+      opacity: 0;
+      pointer-events: none;
+
+      z-index: 100001;
+
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #toastNotification.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .dark-mode #toastNotification {
+      background: white;
+      color: #111111;
+    }
+
+    /* =========================
+       COPY BUTTON (contact info)
+    ========================= */
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      margin-left: 8px;
+
+      padding: 4px 10px;
+
+      border: 1px solid #dddddd;
+      border-radius: 20px;
+
+      background: transparent;
+      color: #555555;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      vertical-align: middle;
+
+      transition: 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: #e63946;
+      border-color: #e63946;
+      color: white;
+    }
+
+    .dark-mode .copy-btn {
+      border-color: #444444;
+      color: #cccccc;
+    }
+
+    /* =========================
+       REACTION BUTTONS
+    ========================= */
+
+    .reaction-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .reaction-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+
+      padding: 6px 12px;
+
+      border: 1px solid #eeeeee;
+      border-radius: 20px;
+
+      background: #fafafa;
+      color: #333333;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .reaction-btn:hover {
+      transform: translateY(-2px);
+      border-color: #e63946;
+    }
+
+    .reaction-btn.reacted {
+      background: #e63946;
+      border-color: #e63946;
+      color: white;
+    }
+
+    .reaction-btn .reaction-pop {
+      display: inline-block;
+    }
+
+    .reaction-btn.pop-animate .reaction-pop {
+      animation: reactionPop 0.35s ease;
+    }
+
+    @keyframes reactionPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+      100% { transform: scale(1); }
+    }
+
+    .dark-mode .reaction-btn {
+      background: #222222;
+      border-color: #444444;
+      color: #eeeeee;
+    }
+
+    /* =========================
+       CATEGORY FILTER TABS
+    ========================= */
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin: -15px 0 30px;
+    }
+
+    .filter-tab {
+      padding: 8px 18px;
+
+      border: 1px solid #dddddd;
+      border-radius: 30px;
+
+      background: white;
+      color: #333333;
+
+      font-size: 13px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: #e63946;
+    }
+
+    .filter-tab.active {
+      background: #e63946;
+      border-color: #e63946;
+      color: white;
+    }
+
+    .dark-mode .filter-tab {
+      background: #1b1b1b;
+      border-color: #444444;
+      color: #eeeeee;
+    }
+
+    .filterable-card.filtered-out {
+      display: none;
     }
 
     #closeGallery {
@@ -1964,12 +2254,15 @@
         height: 400px;
       }
 
-      .whatsapp-float {
+      .quick-actions {
         right: 15px;
         bottom: 15px;
+      }
+
+      #quickActionsToggle {
         width: 52px;
         height: 52px;
-        font-size: 25px;
+        font-size: 24px;
       }
 
       #backToTop {
@@ -1982,13 +2275,6 @@
 
       #backToTop::after {
         display: none;
-      }
-
-      .subscribe-float {
-        left: 15px;
-        bottom: 15px;
-        padding: 10px 14px;
-        font-size: 13px;
       }
 
       .share-float {
@@ -2366,9 +2652,15 @@
         🔥 Latest Shorts
       </h2>
 
+      <div class="filter-tabs reveal" id="contentFilterTabs">
+        <button type="button" class="filter-tab active" data-filter="all">🎬 All</button>
+        <button type="button" class="filter-tab" data-filter="shorts">😂 Shorts</button>
+        <button type="button" class="filter-tab" data-filter="long">🎥 Long Videos</button>
+      </div>
+
       <div class="cards reveal-stagger">
 
-        <div class="card">
+        <div class="card filterable-card" data-category="shorts">
 
           <h3>
             Funny Desi Comedy 😂
@@ -2394,9 +2686,21 @@
 
           </div>
 
+          <div class="reaction-bar" data-reaction-id="short-1">
+            <button type="button" class="reaction-btn" data-emoji="😂">
+              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="❤️">
+              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="🔥">
+              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
+            </button>
+          </div>
+
         </div>
 
-        <div class="card">
+        <div class="card filterable-card" data-category="shorts">
 
           <h3>
             Desi Comedy 🤣
@@ -2406,9 +2710,21 @@
             Entertainment aur funny moments ka daily dose.
           </p>
 
+          <div class="reaction-bar" data-reaction-id="short-2">
+            <button type="button" class="reaction-btn" data-emoji="😂">
+              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="❤️">
+              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="🔥">
+              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
+            </button>
+          </div>
+
         </div>
 
-        <div class="card">
+        <div class="card filterable-card" data-category="shorts">
 
           <h3>
             Comedy Dhamaka 🔥
@@ -2417,6 +2733,18 @@
           <p>
             UPComedyHub ke funny videos ka collection.
           </p>
+
+          <div class="reaction-bar" data-reaction-id="short-3">
+            <button type="button" class="reaction-btn" data-emoji="😂">
+              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="❤️">
+              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
+            </button>
+            <button type="button" class="reaction-btn" data-emoji="🔥">
+              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
+            </button>
+          </div>
 
         </div>
 
@@ -2436,7 +2764,7 @@
 
       <div class="cards reveal-stagger">
 
-        <div class="card">
+        <div class="card filterable-card" data-category="long">
 
           <h3>
             Long Videos
@@ -2448,7 +2776,7 @@
 
         </div>
 
-        <div class="card">
+        <div class="card filterable-card" data-category="long">
 
           <h3>
             Popular Videos
@@ -2698,10 +3026,26 @@
           ✕
         </button>
 
+        <button
+          type="button"
+          id="prevGallery"
+          class="gallery-nav-btn gallery-nav-prev"
+          aria-label="Previous photo">
+          ‹
+        </button>
+
         <img
           id="lightboxImage"
           src=""
           alt="UPComedyHub Gallery Photo">
+
+        <button
+          type="button"
+          id="nextGallery"
+          class="gallery-nav-btn gallery-nav-next"
+          aria-label="Next photo">
+          ›
+        </button>
 
       </div>
 
@@ -2873,6 +3217,14 @@
               upcomedyhub@gmail.com
             </a>
 
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy-text="upcomedyhub@gmail.com"
+              aria-label="Copy email address">
+              📋 Copy
+            </button>
+
           </p>
 
           <p>
@@ -2897,6 +3249,15 @@
 
           <p>
             Directly humse WhatsApp par contact karein.
+
+            <button
+              type="button"
+              class="copy-btn"
+              data-copy-text="+91 92369 94154"
+              aria-label="Copy WhatsApp number">
+              📋 Copy Number
+            </button>
+
           </p>
 
           <br>
@@ -2928,6 +3289,29 @@
             href="mailto:upcomedyhub@gmail.com?subject=UPComedyHub%20Collaboration">
             🤝 Collaborate
           </a>
+
+        </div>
+
+        <div class="card contact-card">
+
+          <h3>
+            🔗 Website Link
+          </h3>
+
+          <p>
+            Ye link kisi ko bhi share karne ke liye copy karein.
+          </p>
+
+          <br>
+
+          <button
+            type="button"
+            class="btn copy-btn-primary"
+            data-copy-text="https://upcomedyhub.github.io/"
+            aria-label="Copy website link"
+            style="border:none; cursor:pointer;">
+            🔗 Copy Website Link
+          </button>
 
         </div>
 
@@ -3439,17 +3823,41 @@
   </footer>
 
   <!-- =========================
-       FLOATING WHATSAPP
+       QUICK ACTIONS (WhatsApp + Subscribe)
   ========================= -->
 
-  <a
-    class="whatsapp-float"
-    href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20contact%20karna%20hai."
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Contact UPComedyHub on WhatsApp">
-    💬
-  </a>
+  <div class="quick-actions" id="quickActions">
+
+    <div class="quick-actions-menu">
+
+      <a
+        class="quick-action-item qa-whatsapp"
+        href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20contact%20karna%20hai."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contact UPComedyHub on WhatsApp">
+        💬 WhatsApp
+      </a>
+
+      <a
+        class="quick-action-item qa-subscribe"
+        href="https://youtube.com/@up_comedyhub"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Subscribe to UPComedyHub on YouTube">
+        🔔 Subscribe
+      </a>
+
+    </div>
+
+    <button
+      id="quickActionsToggle"
+      type="button"
+      aria-label="Quick actions">
+      💬
+    </button>
+
+  </div>
 
   <!-- =========================
        BACK TO TOP
@@ -3461,19 +3869,6 @@
     aria-label="Back to top">
     ↑
   </button>
-
-  <!-- =========================
-       FLOATING SUBSCRIBE
-  ========================= -->
-
-  <a
-    class="subscribe-float"
-    href="https://youtube.com/@up_comedyhub"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Subscribe to UPComedyHub on YouTube">
-    🔔 Subscribe
-  </a>
 
   <!-- =========================
        FLOATING SHARE
@@ -4013,6 +4408,37 @@ siteSearch.addEventListener("input", advancedSearch);
     );
 
     /* =========================
+       TOAST NOTIFICATION
+    ========================= */
+
+    let toastTimeout;
+
+    function showToast(message) {
+
+      let toast = document.getElementById("toastNotification");
+
+      if (!toast) {
+
+        toast = document.createElement("div");
+        toast.id = "toastNotification";
+        document.body.appendChild(toast);
+
+      }
+
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(toastTimeout);
+
+      toastTimeout = setTimeout(function () {
+
+        toast.classList.remove("show");
+
+      }, 2000);
+
+    }
+
+    /* =========================
        SHARE WEBSITE
     ========================= */
 
@@ -4050,16 +4476,14 @@ siteSearch.addEventListener("input", advancedSearch);
           .then(
             function () {
 
-              alert(
-                "🔗 Website link copy ho gaya!"
-              );
+              showToast("🔗 Link copied!");
 
             }
           )
           .catch(
             function () {
 
-              alert(
+              showToast(
                 "🔗 Ye website link share karein: " +
                 window.location.href
               );
@@ -4070,6 +4494,206 @@ siteSearch.addEventListener("input", advancedSearch);
       }
 
     }
+
+    /* =========================
+       COPY-TO-CLIPBOARD (Contact Info)
+    ========================= */
+
+    document
+      .querySelectorAll("[data-copy-text]")
+      .forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+          const textToCopy =
+            button.getAttribute("data-copy-text");
+
+          navigator.clipboard
+            .writeText(textToCopy)
+            .then(function () {
+
+              showToast("✅ Copied!");
+
+            })
+            .catch(function () {
+
+              showToast(
+                "Copy nahi ho paaya: " + textToCopy
+              );
+
+            });
+
+        });
+
+      });
+
+    /* =========================
+       REACTION BUTTONS
+    ========================= */
+
+    document
+      .querySelectorAll(".reaction-bar")
+      .forEach(function (bar) {
+
+        const reactionId =
+          bar.getAttribute("data-reaction-id");
+
+        const storageKey =
+          "reactions:" + reactionId;
+
+        let counts = {};
+
+        try {
+
+          counts =
+            JSON.parse(
+              localStorage.getItem(storageKey)
+            ) || {};
+
+        } catch (error) {
+
+          counts = {};
+
+        }
+
+        const userReactedKey =
+          "reacted:" + reactionId;
+
+        const userReactedEmoji =
+          localStorage.getItem(userReactedKey);
+
+        bar
+          .querySelectorAll(".reaction-btn")
+          .forEach(function (button) {
+
+            const emoji =
+              button.getAttribute("data-emoji");
+
+            const countSpan =
+              button.querySelector(".reaction-count");
+
+            countSpan.textContent =
+              counts[emoji] || 0;
+
+            if (emoji === userReactedEmoji) {
+
+              button.classList.add("reacted");
+
+            }
+
+            button.addEventListener("click", function () {
+
+              const alreadyReacted =
+                localStorage.getItem(userReactedKey);
+
+              if (alreadyReacted === emoji) {
+
+                return;
+
+              }
+
+              if (alreadyReacted) {
+
+                counts[alreadyReacted] =
+                  Math.max(
+                    0,
+                    (counts[alreadyReacted] || 1) - 1
+                  );
+
+                const prevButton =
+                  bar.querySelector(
+                    '[data-emoji="' + alreadyReacted + '"]'
+                  );
+
+                if (prevButton) {
+
+                  prevButton.classList.remove("reacted");
+
+                  prevButton.querySelector(
+                    ".reaction-count"
+                  ).textContent =
+                    counts[alreadyReacted];
+
+                }
+
+              }
+
+              counts[emoji] =
+                (counts[emoji] || 0) + 1;
+
+              countSpan.textContent = counts[emoji];
+
+              button.classList.add("reacted");
+
+              button.classList.add("pop-animate");
+
+              setTimeout(function () {
+
+                button.classList.remove("pop-animate");
+
+              }, 350);
+
+              localStorage.setItem(
+                userReactedKey,
+                emoji
+              );
+
+              localStorage.setItem(
+                storageKey,
+                JSON.stringify(counts)
+              );
+
+            });
+
+          });
+
+      });
+
+    /* =========================
+       CATEGORY FILTER TABS
+    ========================= */
+
+    const filterTabs =
+      document.querySelectorAll(
+        "#contentFilterTabs .filter-tab"
+      );
+
+    const filterableCards =
+      document.querySelectorAll(".filterable-card");
+
+    filterTabs.forEach(function (tab) {
+
+      tab.addEventListener("click", function () {
+
+        filterTabs.forEach(function (t) {
+          t.classList.remove("active");
+        });
+
+        tab.classList.add("active");
+
+        const filter =
+          tab.getAttribute("data-filter");
+
+        filterableCards.forEach(function (card) {
+
+          const category =
+            card.getAttribute("data-category");
+
+          if (filter === "all" || filter === category) {
+
+            card.classList.remove("filtered-out");
+
+          } else {
+
+            card.classList.add("filtered-out");
+
+          }
+
+        });
+
+      });
+
+    });
 
     /* =========================
        COOKIE NOTICE
@@ -4131,6 +4755,11 @@ siteSearch.addEventListener("input", advancedSearch);
         ".gallery-item img"
       );
 
+    const galleryImagesArray =
+      Array.from(galleryImages);
+
+    let currentGalleryIndex = 0;
+
     const galleryLightbox =
       document.getElementById(
         "galleryLightbox"
@@ -4146,20 +4775,39 @@ siteSearch.addEventListener("input", advancedSearch);
         "closeGallery"
       );
 
-    galleryImages.forEach(function (image) {
+    const prevGallery =
+      document.getElementById(
+        "prevGallery"
+      );
+
+    const nextGallery =
+      document.getElementById(
+        "nextGallery"
+      );
+
+    function openGalleryAt(index) {
+
+      currentGalleryIndex =
+        (index + galleryImagesArray.length) %
+        galleryImagesArray.length;
+
+      const image =
+        galleryImagesArray[currentGalleryIndex];
+
+      lightboxImage.src = image.src;
+      lightboxImage.alt = image.alt;
+
+      galleryLightbox.style.display = "flex";
+
+    }
+
+    galleryImagesArray.forEach(function (image, index) {
 
       image.addEventListener(
         "click",
         function () {
 
-          lightboxImage.src =
-            image.src;
-
-          lightboxImage.alt =
-            image.alt;
-
-          galleryLightbox.style.display =
-            "flex";
+          openGalleryAt(index);
 
         }
       );
@@ -4177,6 +4825,83 @@ siteSearch.addEventListener("input", advancedSearch);
 
       }
     );
+
+    if (prevGallery) {
+
+      prevGallery.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        openGalleryAt(currentGalleryIndex - 1);
+
+      });
+
+    }
+
+    if (nextGallery) {
+
+      nextGallery.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        openGalleryAt(currentGalleryIndex + 1);
+
+      });
+
+    }
+
+    document.addEventListener("keydown", function (event) {
+
+      if (galleryLightbox.style.display !== "flex") {
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+
+        openGalleryAt(currentGalleryIndex + 1);
+
+      } else if (event.key === "ArrowLeft") {
+
+        openGalleryAt(currentGalleryIndex - 1);
+
+      } else if (event.key === "Escape") {
+
+        galleryLightbox.style.display = "none";
+        lightboxImage.src = "";
+
+      }
+
+    });
+
+    // Swipe support for mobile
+    let galleryTouchStartX = 0;
+
+    galleryLightbox.addEventListener("touchstart", function (event) {
+
+      galleryTouchStartX = event.changedTouches[0].screenX;
+
+    });
+
+    galleryLightbox.addEventListener("touchend", function (event) {
+
+      const touchEndX = event.changedTouches[0].screenX;
+      const diff = touchEndX - galleryTouchStartX;
+
+      if (Math.abs(diff) > 40) {
+
+        if (diff < 0) {
+
+          openGalleryAt(currentGalleryIndex + 1);
+
+        } else {
+
+          openGalleryAt(currentGalleryIndex - 1);
+
+        }
+
+      }
+
+    });
 
     galleryLightbox.addEventListener(
       "click",
@@ -4385,35 +5110,4 @@ updateRecentlyViewed();
       revealObserver.observe(element);
     });
 
-    /* =========================
-       SMART ANNOUNCEMENT BAR
-    ========================= */
-
-    const announcementBar =
-      document.getElementById("announcementBar");
-
-    const closeAnnouncement =
-      document.getElementById("closeAnnouncement");
-
-    if (announcementBar && closeAnnouncement) {
-
-      if (localStorage.getItem("announcementClosed") === "true") {
-
-        announcementBar.style.display = "none";
-
-      }
-
-      closeAnnouncement.addEventListener("click", function () {
-
-        announcementBar.style.display = "none";
-
-        localStorage.setItem("announcementClosed", "true");
-
-      });
-
-    }
-  </script>
-
-</body>
-
-</html>
+    /* ===================

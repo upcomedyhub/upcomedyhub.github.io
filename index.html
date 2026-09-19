@@ -1288,6 +1288,8 @@
       gap: 10px;
 
       margin-bottom: 4px;
+
+      pointer-events: none;
     }
 
     .quick-action-item {
@@ -1315,6 +1317,10 @@
       transition:
         opacity 0.25s ease,
         transform 0.25s ease;
+    }
+
+    .quick-actions.active .quick-actions-menu {
+      pointer-events: auto;
     }
 
     .quick-actions.active .quick-action-item {
@@ -2271,6 +2277,38 @@
     }
 
     /* =========================
+       LANGUAGE TOGGLE
+    ========================= */
+
+    #langToggle {
+      border: none;
+      background: #f1f1f1;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      width: 46px;
+      height: 46px;
+
+      border-radius: 50%;
+
+      cursor: pointer;
+
+      margin-right: 8px;
+
+      transition: 0.3s ease;
+    }
+
+    #langToggle:hover {
+      transform: scale(1.08);
+    }
+
+    .dark-mode #langToggle {
+      background: #2a2a2a;
+      color: white;
+    }
+
+    /* =========================
        MOBILE
     ========================= */
 
@@ -2288,6 +2326,13 @@
   width: 36px;
   height: 36px;
 }
+
+      #langToggle {
+        width: 38px;
+        height: 38px;
+        font-size: 12px;
+        margin-right: 6px;
+      }
 
       #themeToggle {
         width: 42px;
@@ -2595,14 +2640,15 @@
 
   <div class="cookie-notice" id="cookieNotice">
 
-    <p>
+    <p data-en="🍪 This website may use basic cookies to keep your experience better.">
       🍪 Ye website basic cookies ka use kar sakti hai
       taaki experience better rahe.
     </p>
 
     <button
       type="button"
-      id="cookieAccept">
+      id="cookieAccept"
+      data-en="Got It 👍">
       Got It 👍
     </button>
 
@@ -2621,6 +2667,14 @@
     class="logo-profile">
   <span>UPComedyHub</span>
     </div>
+
+    <button
+      id="langToggle"
+      type="button"
+      onclick="toggleLanguage()"
+      aria-label="Switch language">
+      EN
+    </button>
 
     <button
       id="themeToggle"
@@ -2649,7 +2703,7 @@
 
       <a href="#youtube-stats">📊 YouTube Stats</a>
 
-      <a href="#website-enquiry">💻 Website Banwani Hai?</a>
+      <a href="#website-enquiry" data-en="💻 Need a Website?">💻 Website Banwani Hai?</a>
 
       <a href="#gallery">🖼️ Gallery</a>
 
@@ -2686,11 +2740,11 @@
           UPComedyHub
         </h1>
 
-        <p>
+        <p data-en="Your Laughter, Our Identity — UPComedyHub 🔥">
           Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥
         </p>
 
-        <p>
+        <p data-en="Desi comedy, funny Shorts and entertainment — all under one roof.">
           Desi comedy, funny Shorts aur entertainment ka ek hi adda.
         </p>
 
@@ -2762,7 +2816,7 @@
             Funny Desi Comedy 😂
           </h3>
 
-          <p>
+          <p data-en="UPComedyHub's most loved video — desi-style comedy that will keep you laughing.">
             UPComedyHub ka sabse pasandida video — desi andaaz mein
             comedy jo aapko haste rehne par majboor kar degi.
           </p>
@@ -2809,6 +2863,7 @@
 
     <p
       id="noResults"
+      data-en="😅 Sorry! Nothing found."
       style="
         display:none;
         text-align:center;
@@ -2825,7 +2880,7 @@
 
   <div class="card recently-viewed-card reveal">
 
-    <p id="recentlyViewedEmpty">
+    <p id="recentlyViewedEmpty" data-en="You haven't viewed any section yet. 😊">
       Abhi aapne koi section nahi dekha. 😊
     </p>
 
@@ -2898,7 +2953,7 @@
             Desi Comedy 🤣
           </h3>
 
-          <p>
+          <p data-en="Your daily dose of entertainment and funny moments.">
             Entertainment aur funny moments ka daily dose.
           </p>
 
@@ -2922,7 +2977,7 @@
             Comedy Dhamaka 🔥
           </h3>
 
-          <p>
+          <p data-en="A collection of UPComedyHub's funny videos.">
             UPComedyHub ke funny videos ka collection.
           </p>
 
@@ -2962,7 +3017,7 @@
             Long Videos
           </h3>
 
-          <p>
+          <p data-en="Our upcoming and popular long videos.">
             Hamare upcoming aur popular long videos.
           </p>
 
@@ -2974,7 +3029,7 @@
             Popular Videos
           </h3>
 
-          <p>
+          <p data-en="Our audience's favourite comedy videos.">
             Audience ke favourite comedy videos.
           </p>
 
@@ -3160,7 +3215,7 @@
         🖼️ Gallery
       </h2>
 
-      <p>
+      <p data-en="Some special moments and memories from UPComedyHub ❤️😂">
         UPComedyHub के कुछ खास moments और यादें ❤️😂
       </p>
 
@@ -3257,7 +3312,7 @@
           ❤️ About UPComedyHub
         </h2>
 
-        <p>
+        <p data-en="UPComedyHub is a desi comedy and entertainment platform, where we try to bring a smile to your face through funny Shorts, comedy videos and entertaining moments.">
           UPComedyHub ek desi comedy aur entertainment platform hai,
           jahan hum funny Shorts, comedy videos aur entertaining
           moments ke through aapke face par smile lane ki koshish karte hain.
@@ -3269,7 +3324,7 @@
           📖 Our Story
         </h3>
 
-        <p>
+        <p data-en="UPComedyHub began with a simple idea — to make clean, relatable and entertaining comedy in a desi style that everyone can enjoy.">
           UPComedyHub ki shuruaat ek simple idea ke saath hui —
           desi style mein clean, relatable aur entertaining comedy
           banana jo har kisi ko enjoy ho.
@@ -3281,7 +3336,7 @@
           😂 Why UPComedyHub?
         </h3>
 
-        <p>
+        <p data-en="Because laughter is for everyone! Our goal is simple: to turn relatable situations, desi characters and funny moments into entertaining videos.">
           Kyunki hansi sabke liye hai! Hamara goal simple hai:
           relatable situations, desi characters aur funny moments
           ko entertaining videos mein convert karna.
@@ -3293,7 +3348,7 @@
           🎯 Our Mission
         </h3>
 
-        <p>
+        <p data-en="Our mission is to make UPComedyHub an entertainment platform where people can forget their stress and enjoy a few moments of smiles.">
           Hamara mission hai ki UPComedyHub ko ek aisa entertainment
           platform banaya jaye jahan log apna stress bhoolkar kuch
           moments ke liye enjoy aur smile kar saken.
@@ -3317,11 +3372,11 @@
 
         <div class="card">
 
-          <h3 class="faq-question">
+          <h3 class="faq-question" data-en="😂 What is UPComedyHub?">
             😂 UPComedyHub क्या है?
           </h3>
 
-          <p class="faq-answer">
+          <p class="faq-answer" data-en="UPComedyHub is a desi comedy and entertainment platform, where you get to watch funny videos and Shorts.">
             UPComedyHub एक desi comedy और entertainment platform है,
             जहाँ आपको funny videos और Shorts देखने को मिलते हैं।
           </p>
@@ -3330,11 +3385,11 @@
 
         <div class="card">
 
-          <h3 class="faq-question">
+          <h3 class="faq-question" data-en="🎬 Where can I find new videos?">
             🎬 नए videos कहाँ मिलेंगे?
           </h3>
 
-          <p class="faq-answer">
+          <p class="faq-answer" data-en="Head to the Shorts and Videos sections to watch our latest Shorts and videos.">
             हमारे latest Shorts और videos देखने के लिए Shorts और Videos
             sections पर जाएँ।
           </p>
@@ -3343,11 +3398,11 @@
 
         <div class="card">
 
-          <h3 class="faq-question">
+          <h3 class="faq-question" data-en="📱 Where can I follow UPComedyHub?">
             📱 UPComedyHub को कहाँ follow करें?
           </h3>
 
-          <p class="faq-answer">
+          <p class="faq-answer" data-en="You can follow us on YouTube, Instagram and Facebook.">
             आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।
           </p>
 
@@ -3355,11 +3410,11 @@
 
         <div class="card">
 
-          <h3 class="faq-question">
+          <h3 class="faq-question" data-en="🤝 How do I contact for collaboration?">
             🤝 Collaboration के लिए कैसे contact करें?
           </h3>
 
-          <p class="faq-answer">
+          <p class="faq-answer" data-en="For collaboration or any business enquiry, email us.">
             Collaboration या किसी भी business enquiry के लिए हमें email करें।
           </p>
 
@@ -3367,7 +3422,7 @@
 
         <div class="card">
 
-          <h3 class="faq-question">
+          <h3 class="faq-question" data-en="📧 What is UPComedyHub's email?">
             📧 UPComedyHub का email क्या है?
           </h3>
 
@@ -3439,7 +3494,7 @@
             💬 WhatsApp
           </h3>
 
-          <p>
+          <p data-en="Contact us directly on WhatsApp.">
             Directly humse WhatsApp par contact karein.
 
             <button
@@ -3470,7 +3525,7 @@
             🤝 Collaboration
           </h3>
 
-          <p>
+          <p data-en="Email us for collaboration or any business enquiry.">
             Collaboration ya business enquiry ke liye humein email karein.
           </p>
 
@@ -3490,7 +3545,7 @@
             🔗 Website Link
           </h3>
 
-          <p>
+          <p data-en="Copy this link to share it with anyone.">
             Ye link kisi ko bhi share karne ke liye copy karein.
           </p>
 
@@ -3517,7 +3572,7 @@
 
     <section id="website-enquiry">
 
-      <h2 class="section-title reveal">
+      <h2 class="section-title reveal" data-en="💻 Need a Website?">
         💻 Website Banwani Hai?
       </h2>
 
@@ -3527,7 +3582,7 @@
           🌐 Professional Website Development
         </h3>
 
-        <p style="margin-top:10px;">
+        <p style="margin-top:10px;" data-en="Send us an enquiry to get a professional website built for your business, brand, creator profile or project.">
           Apne business, brand, creator profile ya project ke liye
           professional website banwane ke liye enquiry bhejein.
         </p>
@@ -3536,7 +3591,7 @@
           💰 <strong>Price:</strong> ₹10,000 – ₹2,00,000+
         </p>
 
-        <p style="font-size:14px; margin-top:5px;">
+        <p style="font-size:14px; margin-top:5px;" data-en="The final price will be decided based on the website's requirements and features.">
           Final price website ki requirements aur features ke according decide hoga.
         </p>
 
@@ -3569,6 +3624,7 @@
             id="visitorName"
             name="Name"
             placeholder="Apna naam"
+            data-en-placeholder="Your name"
             required
             style="width:100%; padding:12px; margin:6px 0 15px; border:1px solid #ddd; border-radius:10px; font-size:15px;">
 
@@ -3581,6 +3637,7 @@
             id="visitorMobile"
             name="Mobile Number"
             placeholder="Apna mobile number"
+            data-en-placeholder="Your mobile number"
             required
             style="width:100%; padding:12px; margin:6px 0 15px; border:1px solid #ddd; border-radius:10px; font-size:15px;">
 
@@ -3593,6 +3650,7 @@
             id="visitorEmail"
             name="Email"
             placeholder="Apna email"
+            data-en-placeholder="Your email"
             required
             style="width:100%; padding:12px; margin:6px 0 15px; border:1px solid #ddd; border-radius:10px; font-size:15px;">
 
@@ -3640,6 +3698,7 @@
             id="websiteRequirements"
             name="Requirements / Message"
             placeholder="Aapko kis type ki website chahiye?"
+            data-en-placeholder="What type of website do you need?"
             rows="5"
             required
             style="width:100%; padding:12px; margin:6px 0 15px; border:1px solid #ddd; border-radius:10px; font-size:15px; resize:vertical;"></textarea>
@@ -3653,7 +3712,7 @@
 
         </form>
 
-        <p style="font-size:12px; margin-top:15px; color:#777;">
+        <p style="font-size:12px; margin-top:15px; color:#777;" data-en="🔒 Your contact details will only be used for enquiry and reply purposes.">
           🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.
         </p>
 
@@ -3677,7 +3736,7 @@
           🔥 UPComedyHub Family
         </h3>
 
-        <p style="margin-top:15px;">
+        <p style="margin-top:15px;" data-en="So far on the UPComedyHub website">
           Ab tak UPComedyHub website par
         </p>
 
@@ -3694,11 +3753,11 @@
 
         </div>
 
-        <p style="margin-top:15px;">
+        <p style="margin-top:15px;" data-en="visits have been recorded ❤️">
           visits record ho chuke hain ❤️
         </p>
 
-        <small>
+        <small data-en="You're a part of the UPComedyHub family too! 😎">
           Aap bhi UPComedyHub family ka hissa hain! 😎
         </small>
 
@@ -3726,7 +3785,7 @@
           ...
         </strong>
 
-        <p style="margin-top:10px;">
+        <p style="margin-top:10px;" data-en="Our YouTube Family ❤️">
           Hamari YouTube Family ❤️
         </p>
 
@@ -3793,7 +3852,7 @@
       🔥 UPComedyHub Updates
     </h3>
 
-    <p>
+    <p data-en="Subscribe to get email updates about new comedy videos, Shorts and important announcements.">
       Naye comedy videos, Shorts aur important updates
       ke baare mein email par updates paane ke liye subscribe karein.
     </p>
@@ -3827,6 +3886,7 @@
         id="newsletterEmail"
         name="Email"
         placeholder="Apna email address"
+        data-en-placeholder="Your email address"
         required>
 
       <button
@@ -3837,7 +3897,7 @@
 
     </form>
 
-    <p class="newsletter-note">
+    <p class="newsletter-note" data-en="🔒 Your email will only be used for UPComedyHub updates and replies.">
       🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
       ke liye use kiya jayega.
     </p>
@@ -3851,11 +3911,11 @@
 
     <section class="cta">
 
-      <h2>
+      <h2 data-en="😂 Keep Laughing, Stay Connected!">
         😂 Haste Raho, Connected Raho!
       </h2>
 
-      <p style="margin-top:10px;">
+      <p style="margin-top:10px;" data-en="Support UPComedyHub and subscribe on YouTube for new comedy videos.">
         UPComedyHub ko support karein aur naye comedy videos
         ke liye YouTube par subscribe karein.
       </p>
@@ -3888,32 +3948,32 @@
         🔒 Privacy Policy
       </h2>
 
-      <p>
+      <p data-en="UPComedyHub respects your privacy. This website does not sell or share any personal information without your permission.">
         UPComedyHub आपके privacy का सम्मान करता है।
         यह website किसी भी personal information को बिना
         आपकी permission के sell या share नहीं करती।
       </p>
 
-      <p>
+      <p data-en="UPComedyHub website uses the Stats4U visitor counter for visitor count and basic audience measurement. When a page opens, the browser technically sends the IP address, browser identification and viewed page address to Stats4U.">
         UPComedyHub website visitor count और basic audience
         measurement के लिए Stats4U visitor counter का उपयोग करती है।
         Page खुलने पर browser technical रूप से IP address,
         browser identification और viewed page address Stats4U को भेजता है।
       </p>
 
-      <p>
+      <p data-en="According to Stats4U, IP address is not stored in statistics. It is used to create a salted daily hash for approximate country/city and daily visitor counting. The counter does not set cookies.">
         Stats4U के अनुसार IP address statistics में store नहीं होता।
         इसका उपयोग approximate country/city और daily visitor counting
         के लिए salted daily hash बनाने में होता है।
         Counter cookies set नहीं करता।
       </p>
 
-      <p>
+      <p data-en="According to Stats4U, daily statistics are kept for 400 days and processing happens in Poland.">
         Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं
         और processing Poland में होती है।
       </p>
 
-      <p>
+      <p data-en="Screen information measurement is enabled in this counter. So the counter script may also read three values like screen resolution, browser window width and pixel ratio.">
         इस counter में screen information measurement enabled है।
         इसलिए counter script screen resolution, browser window width
         और pixel ratio जैसी तीन values भी पढ़ सकती है।
@@ -3929,7 +3989,7 @@
         </a>
       </p>
 
-      <p>
+      <p data-en="For any questions you can contact us at">
         किसी भी सवाल के लिए आप हमसे
         <a href="mailto:upcomedyhub@gmail.com">
           upcomedyhub@gmail.com
@@ -3953,23 +4013,23 @@
         📋 Terms & Conditions
       </h2>
 
-      <p>
+      <p data-en="The purpose of the content available on the UPComedyHub website is to provide entertainment and information.">
         UPComedyHub website par available content ka purpose
         entertainment aur information provide karna hai.
       </p>
 
-      <p>
+      <p data-en="Do not use or redistribute the videos, images and other content given on the website for commercial purposes without permission.">
         Website par diye gaye videos, images aur other content
         ko bina permission ke commercial purpose ke liye use
         ya redistribute na karein.
       </p>
 
-      <p>
+      <p data-en="While using the website, it is necessary to respect applicable laws and the rights of others.">
         Website use karte waqt applicable laws aur dusron ke
         rights ka respect karna zaroori hai.
       </p>
 
-      <p>
+      <p data-en="For any question, contact us at:">
         Kisi bhi question ke liye contact karein:
         <a href="mailto:upcomedyhub@gmail.com">
           upcomedyhub@gmail.com
@@ -3990,7 +4050,7 @@
       © 2026 UPComedyHub. All Rights Reserved.
     </p>
 
-    <p style="margin-top:8px;">
+    <p style="margin-top:8px;" data-en="Your Laughter, Our Identity — UPComedyHub 🔥">
       Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥
     </p>
 
@@ -4179,6 +4239,100 @@
       }
 
     }
+
+    /* =========================
+       LANGUAGE SWITCHER
+    ========================= */
+
+    const langToggle = document.getElementById("langToggle");
+    const translatableElements = document.querySelectorAll("[data-en]");
+    const placeholderElements = document.querySelectorAll("[data-en-placeholder]");
+
+    function applyLanguage(lang) {
+
+      translatableElements.forEach(function (element) {
+
+        if (!element.hasAttribute("data-hi")) {
+
+          element.setAttribute("data-hi", element.textContent);
+
+        }
+
+        if (lang === "en") {
+
+          element.textContent = element.getAttribute("data-en");
+
+        } else {
+
+          element.textContent = element.getAttribute("data-hi");
+
+        }
+
+      });
+
+      placeholderElements.forEach(function (element) {
+
+        if (!element.hasAttribute("data-hi-placeholder")) {
+
+          element.setAttribute(
+            "data-hi-placeholder",
+            element.getAttribute("placeholder")
+          );
+
+        }
+
+        if (lang === "en") {
+
+          element.setAttribute(
+            "placeholder",
+            element.getAttribute("data-en-placeholder")
+          );
+
+        } else {
+
+          element.setAttribute(
+            "placeholder",
+            element.getAttribute("data-hi-placeholder")
+          );
+
+        }
+
+      });
+
+      if (langToggle) {
+
+        langToggle.textContent = lang === "en" ? "हि" : "EN";
+
+      }
+
+      document.documentElement.setAttribute(
+        "lang",
+        lang === "en" ? "en" : "hi-Latn"
+      );
+
+    }
+
+    function toggleLanguage() {
+
+      const currentLang =
+        localStorage.getItem("siteLanguage") || "hi";
+
+      const newLang = currentLang === "en" ? "hi" : "en";
+
+      localStorage.setItem("siteLanguage", newLang);
+
+      applyLanguage(newLang);
+
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+
+      const savedLang =
+        localStorage.getItem("siteLanguage") || "hi";
+
+      applyLanguage(savedLang);
+
+    });
 
     /* =========================
        SAVE THEME AFTER REFRESH

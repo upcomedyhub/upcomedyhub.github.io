@@ -5340,6 +5340,49 @@ updateRecentlyViewed();
       });
 
     }
+    /* =========================
+   DOWNLOAD APP / PWA INSTALL
+========================= */
+
+let deferredPrompt;
+
+const installAppBtn = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", function (event) {
+  event.preventDefault();
+
+  deferredPrompt = event;
+
+  if (installAppBtn) {
+    installAppBtn.style.display = "inline-block";
+  }
+});
+
+if (installAppBtn) {
+  installAppBtn.addEventListener("click", async function () {
+
+    if (!deferredPrompt) {
+      return;
+    }
+
+    deferredPrompt.prompt();
+
+    const choiceResult = await deferredPrompt.userChoice;
+
+    deferredPrompt = null;
+
+    installAppBtn.style.display = "none";
+
+  });
+}
+
+window.addEventListener("appinstalled", function () {
+
+  if (installAppBtn) {
+    installAppBtn.style.display = "none";
+  }
+
+});
   </script>
 
 </body>

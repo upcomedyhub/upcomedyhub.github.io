@@ -1083,30 +1083,6 @@
     }
 
     /* =========================
-       QUICK ACTIONS (WhatsApp + Subscribe)
-    ========================= */
-
-    const quickActions =
-      document.getElementById("quickActions");
-
-    const quickActionsToggle =
-      document.getElementById("quickActionsToggle");
-
-    if (quickActions && quickActionsToggle) {
-
-      quickActionsToggle.addEventListener("click", function () {
-        quickActions.classList.toggle("active");
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!quickActions.contains(event.target)) {
-          quickActions.classList.remove("active");
-        }
-      });
-
-    }
-
-    /* =========================
        DARK MODE
     ========================= */
 
@@ -4112,6 +4088,28 @@
   ========================= -->
 
   <script>
+
+    // Quick Actions: WhatsApp + Subscribe
+    const quickActions =
+      document.getElementById("quickActions");
+
+    const quickActionsToggle =
+      document.getElementById("quickActionsToggle");
+
+    if (quickActions && quickActionsToggle) {
+      quickActionsToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        quickActions.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!quickActions.contains(event.target)) {
+          quickActions.classList.remove("active");
+        }
+      });
+    }
+
+
 
     /* =========================
        PAGE LOADER

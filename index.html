@@ -23,9 +23,75 @@
     rel="apple-touch-icon"
     href="IMG_20260917_172912.jpg">
 
+  <!-- SEO Meta Tags -->
   <meta
     name="description"
-    content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
+    content="UPComedyHub par dekhiye desi comedy, funny videos aur entertaining Shorts. Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥">
+
+  <meta
+    name="keywords"
+    content="upcomedyhub, desi comedy, hindi comedy, funny videos, comedy shorts, indian comedy, up comedy">
+
+  <meta
+    name="author"
+    content="UPComedyHub">
+
+  <meta
+    name="robots"
+    content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://upcomedyhub.github.io/">
+
+  <!-- Social Sharing -->
+  <meta
+    property="og:title"
+    content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
+
+  <meta
+    property="og:description"
+    content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
+
+  <meta
+    property="og:url"
+    content="https://upcomedyhub.github.io/">
+
+  <meta
+    property="og:type"
+    content="website">
+
+  <meta
+    property="og:site_name"
+    content="UPComedyHub">
+
+  <meta
+    property="og:image"
+    content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
+
+  <meta
+    property="og:image:alt"
+    content="UPComedyHub Profile Photo">
+
+  <meta
+    name="twitter:card"
+    content="summary_large_image">
+
+  <meta
+    name="twitter:title"
+    content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
+
+  <meta
+    name="twitter:description"
+    content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
+
+  <meta
+    name="twitter:image"
+    content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
   <style>
 
@@ -305,20 +371,20 @@
     }
 
     .logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 24px;
-  font-weight: 800;
-}
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 24px;
+      font-weight: 800;
+    }
 
-.logo-profile {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
+    .logo-profile {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
 
     /* =========================
        NAVIGATION
@@ -430,7 +496,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* floating glow blobs behind hero content */
     .hero::before,
     .hero::after {
       content: "";
@@ -687,7 +752,6 @@
 
     /* =========================
        VIDEO CARD HOVER PREVIEW
-       (desktop only)
     ========================= */
 
     @media (min-width: 701px) {
@@ -708,7 +772,6 @@
       }
 
     }
-
 
     /* =========================
        SECTIONS
@@ -841,7 +904,6 @@
 
     /* =========================
        STYLISH SECTION HEADINGS
-       (Contact + About)
     ========================= */
 
     #contact .section-title,
@@ -868,7 +930,6 @@
       -webkit-text-fill-color: transparent;
     }
 
-    /* mailto / content links -> brand red instead of default blue */
     .card p a,
     .about-inner p a,
     #privacy p a,
@@ -945,6 +1006,8 @@
     #faq .faq-answer {
       font-size: 14px;
       color: #555555;
+      display: none;
+      margin-top: 6px;
     }
 
     .dark-mode #faq .faq-answer {
@@ -960,11 +1023,6 @@
 
     #faq .faq-question.active::after {
       content: "−";
-    }
-
-    #faq .faq-answer {
-      display: none;
-      margin-top: 6px;
     }
 
     #faq .faq-answer.show {
@@ -1054,6 +1112,7 @@
       background: #111111;
 
       color: white;
+      padding-bottom: 110px;
     }
 
     .footer-legal {
@@ -1186,63 +1245,65 @@
     .dark-mode .site-search input::placeholder {
       color: #aaaaaa;
     }
-#recently-viewed {
-  text-align: center;
-}
 
-.recently-viewed-card {
-  max-width: 700px;
-  margin: 0 auto;
-}
+    #recently-viewed {
+      text-align: center;
+    }
 
-#recentlyViewedEmpty {
-  color: #777777;
-  margin: 0;
-}
+    .recently-viewed-card {
+      max-width: 700px;
+      margin: 0 auto;
+    }
 
-#recentlyViewedList {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
+    #recentlyViewedEmpty {
+      color: #777777;
+      margin: 0;
+    }
 
-.recent-view-item {
-  padding: 12px 15px;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  background: #ffffff;
-  cursor: pointer;
-  text-align: left;
-  font-weight: 700;
-  transition: 0.2s ease;
-}
+    #recentlyViewedList {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
 
-.recent-view-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-}
+    .recent-view-item {
+      padding: 12px 15px;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      background: #ffffff;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
 
-.dark-mode .recent-view-item {
-  background: #222222;
-  border-color: #444444;
-  color: #ffffff;
-}
+    .recent-view-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    }
 
-.dark-mode #recentlyViewedEmpty {
-  color: #bbbbbb;
-}
+    .dark-mode .recent-view-item {
+      background: #222222;
+      border-color: #444444;
+      color: #ffffff;
+    }
 
-@media (max-width: 700px) {
-  .recently-viewed-card {
-    width: 100%;
-    box-sizing: border-box;
-  }
+    .dark-mode #recentlyViewedEmpty {
+      color: #bbbbbb;
+    }
 
-  .recent-view-item {
-    padding: 10px 12px;
-  }
-}
+    @media (max-width: 700px) {
+      .recently-viewed-card {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .recent-view-item {
+        padding: 10px 12px;
+      }
+    }
+
     /* =========================
        SCROLL PROGRESS
     ========================= */
@@ -1553,59 +1614,61 @@
       background: #333333;
       color: #ffffff;
     }
-.search-results {
-  max-width: 700px;
-  margin: 10px auto 0;
-  text-align: left;
-}
 
-.search-result-item {
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  padding: 12px 15px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+    .search-results {
+      max-width: 700px;
+      margin: 10px auto 0;
+      text-align: left;
+    }
 
-.search-result-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-}
+    .search-result-item {
+      background: #ffffff;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      padding: 12px 15px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
 
-.search-result-item strong {
-  display: block;
-  font-size: 16px;
-}
+    .search-result-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    }
 
-.search-result-item span {
-  display: block;
-  margin-top: 4px;
-  font-size: 13px;
-  color: #777777;
-}
+    .search-result-item strong {
+      display: block;
+      font-size: 16px;
+    }
 
-.dark-mode .search-result-item {
-  background: #222222;
-  border-color: #444444;
-  color: #ffffff;
-}
+    .search-result-item span {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      color: #777777;
+    }
 
-.dark-mode .search-result-item span {
-  color: #bbbbbb;
-}
+    .dark-mode .search-result-item {
+      background: #222222;
+      border-color: #444444;
+      color: #ffffff;
+    }
 
-@media (max-width: 700px) {
-  .search-results {
-    width: 100%;
-    box-sizing: border-box;
-  }
+    .dark-mode .search-result-item span {
+      color: #bbbbbb;
+    }
 
-  .search-result-item {
-    padding: 10px 12px;
-  }
-}
+    @media (max-width: 700px) {
+      .search-results {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .search-result-item {
+        padding: 10px 12px;
+      }
+    }
+
     /* =========================
        GALLERY
     ========================= */
@@ -2079,140 +2142,142 @@
     .youtube-stat-card p {
       font-size: 16px;
     }
-/* =========================
-   NEWSLETTER
-========================= */
 
-#newsletter {
-  text-align: center;
-  max-width: none;
-  background: #fafafa;
-}
+    /* =========================
+       NEWSLETTER
+    ========================= */
 
-.newsletter-card {
-  max-width: 650px;
-  margin: 0 auto;
-}
-
-.newsletter-card h3 {
-  margin-bottom: 10px;
-}
-
-.newsletter-card p {
-  margin-top: 8px;
-}
-
-.newsletter-form {
-  margin-top: 25px;
-  text-align: left;
-}
-
-.newsletter-form label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.newsletter-form input {
-  width: 100%;
-  padding: 13px 15px;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
-  font-size: 16px;
-  font-family: inherit;
-  background: #ffffff;
-  color: #111111;
-  box-sizing: border-box;
-}
-
-.newsletter-form input:focus {
-  outline: none;
-  border-color: #e63946;
-  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
-}
-
-.newsletter-form button {
-  margin-top: 12px;
-  border: none;
-  cursor: pointer;
-}
-
-.newsletter-note {
-  font-size: 12px;
-  color: #777777;
-  margin-top: 12px;
-}
-
-#newsletter .newsletter-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(230, 57, 70, 0.1);
-  border: 1px solid rgba(230, 57, 70, 0.35);
-  color: #e63946;
-  padding: 7px 16px;
-  border-radius: 30px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  margin-bottom: 14px;
-}
-
-#newsletter .newsletter-badge .flame {
-  display: inline-block;
-  animation: flamePulse 1.6s ease-in-out infinite;
-}
-
-#newsletter .section-title {
-  font-size: clamp(30px, 6vw, 44px);
-  font-weight: 900;
-  margin-bottom: 12px;
-
-  background: linear-gradient(90deg, #e63946, #ff9a5a 55%, #e63946);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shineText 4s linear infinite;
-}
-
-.dark-mode #newsletter .section-title {
-  background: linear-gradient(90deg, #ff7a70, #ffd166 55%, #ff7a70);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.dark-mode #newsletter {
-  background: #161616;
-}
-
-.dark-mode .newsletter-form input {
-  background: #222222;
-  color: #ffffff;
-  border-color: #444444;
-}
-
-.dark-mode .newsletter-note {
-  color: #bbbbbb;
-}
-
-@media (max-width: 700px) {
-  #newsletter {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .newsletter-card {
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .newsletter-form input {
-    font-size: 16px;
-  }
+    #newsletter {
+      text-align: center;
+      max-width: none;
+      background: #fafafa;
     }
+
+    .newsletter-card {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .newsletter-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .newsletter-card p {
+      margin-top: 8px;
+    }
+
+    .newsletter-form {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .newsletter-form label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .newsletter-form input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid #dddddd;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      background: #ffffff;
+      color: #111111;
+      box-sizing: border-box;
+    }
+
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+    }
+
+    .newsletter-form button {
+      margin-top: 12px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .newsletter-note {
+      font-size: 12px;
+      color: #777777;
+      margin-top: 12px;
+    }
+
+    #newsletter .newsletter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(230, 57, 70, 0.1);
+      border: 1px solid rgba(230, 57, 70, 0.35);
+      color: #e63946;
+      padding: 7px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+    }
+
+    #newsletter .newsletter-badge .flame {
+      display: inline-block;
+      animation: flamePulse 1.6s ease-in-out infinite;
+    }
+
+    #newsletter .section-title {
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 900;
+      margin-bottom: 12px;
+
+      background: linear-gradient(90deg, #e63946, #ff9a5a 55%, #e63946);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 4s linear infinite;
+    }
+
+    .dark-mode #newsletter .section-title {
+      background: linear-gradient(90deg, #ff7a70, #ffd166 55%, #ff7a70);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .dark-mode #newsletter {
+      background: #161616;
+    }
+
+    .dark-mode .newsletter-form input {
+      background: #222222;
+      color: #ffffff;
+      border-color: #444444;
+    }
+
+    .dark-mode .newsletter-note {
+      color: #bbbbbb;
+    }
+
+    @media (max-width: 700px) {
+      #newsletter {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .newsletter-card {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .newsletter-form input {
+        font-size: 16px;
+      }
+    }
+
     /* =========================
        SCROLL REVEAL ANIMATION
     ========================= */
@@ -2263,15 +2328,7 @@
     }
 
     /* =========================
-       BOTTOM SAFE SPACE
-    ========================= */
-
-    footer {
-      padding-bottom: 110px;
-    }
-
-    /* =========================
-       MOBILE
+       MOBILE RESPONSIVE
     ========================= */
 
     @media (max-width: 700px) {
@@ -2281,13 +2338,13 @@
       }
 
       .logo {
-  font-size: 20px;
-}
+        font-size: 20px;
+      }
 
-.logo-profile {
-  width: 36px;
-  height: 36px;
-}
+      .logo-profile {
+        width: 36px;
+        height: 36px;
+      }
 
       #themeToggle {
         width: 42px;
@@ -2305,31 +2362,19 @@
 
       nav {
         display: none;
-
         position: absolute;
-
         top: 100%;
         right: 15px;
-
         width: 250px;
-
         max-height: calc(100vh - 80px);
         overflow-y: auto;
-
         background: white;
-
         padding: 12px;
-
         border-radius: 15px;
-
-        box-shadow:
-          0 8px 25px rgba(0, 0, 0, 0.15);
-
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         flex-direction: column;
-
         align-items: stretch;
-
-        gap: 5px;
+        gap: 2px !important;
       }
 
       nav.show-menu {
@@ -2337,8 +2382,9 @@
       }
 
       nav a {
-        margin: 0;
-        padding: 10px 12px;
+        padding: 8px 12px !important;
+        margin: 0 !important;
+        line-height: 1.2 !important;
         border-radius: 10px;
       }
 
@@ -2453,93 +2499,8 @@
       }
 
     }
-/* =========================
-   COMPACT MOBILE MENU
-========================= */
 
-@media (max-width: 700px) {
-
-  nav a {
-    padding: 8px 12px !important;
-    margin: 0 !important;
-    line-height: 1.2 !important;
-  }
-
-  nav {
-    gap: 2px !important;
-  }
-
-    }
   </style>
-<!-- SEO Meta Tags -->
-<meta
-  name="description"
-  content="UPComedyHub par dekhiye desi comedy, funny videos aur entertaining Shorts. Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥">
-
-<meta
-  name="keywords"
-  content="upcomedyhub, desi comedy, hindi comedy, funny videos, comedy shorts, indian comedy, up comedy">
-
-<meta
-  name="author"
-  content="UPComedyHub">
-
-<meta
-  name="robots"
-  content="index, follow">
-
-<link
-  rel="canonical"
-  href="https://upcomedyhub.github.io/">
-
-<!-- Social Sharing -->
-<meta
-  property="og:title"
-  content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
-
-<meta
-  property="og:description"
-  content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
-
-<meta
-  property="og:url"
-  content="https://upcomedyhub.github.io/">
-
-<meta
-  property="og:type"
-  content="website">
-
-<meta
-  property="og:site_name"
-  content="UPComedyHub">
-  <!-- Social Preview Image -->
-<meta
-  property="og:image"
-  content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
-
-<meta
-  property="og:image:alt"
-  content="UPComedyHub Profile Photo">
-
-<meta
-  name="twitter:card"
-  content="summary_large_image">
-
-<meta
-  name="twitter:title"
-  content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
-
-<meta
-  name="twitter:description"
-  content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
-
-<meta
-  name="twitter:image"
-  content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -2607,11 +2568,11 @@
   <header>
 
     <div class="logo">
-  <img
-    src="IMG_20260917_172912.jpg"
-    alt="UPComedyHub Profile"
-    class="logo-profile">
-  <span>UPComedyHub</span>
+      <img
+        src="IMG_20260917_172912.jpg"
+        alt="UPComedyHub Profile"
+        class="logo-profile">
+      <span>UPComedyHub</span>
     </div>
 
     <button
@@ -2807,23 +2768,29 @@
       ">
       😅 Sorry! Kuch nahi mila.
     </p>
-<section id="recently-viewed">
 
-  <h2 class="section-title reveal">
-    🕘 Recently Viewed
-  </h2>
+    <!-- =========================
+         RECENTLY VIEWED
+    ========================= -->
 
-  <div class="card recently-viewed-card reveal">
+    <section id="recently-viewed">
 
-    <p id="recentlyViewedEmpty">
-      Abhi aapne koi section nahi dekha. 😊
-    </p>
+      <h2 class="section-title reveal">
+        🕘 Recently Viewed
+      </h2>
 
-    <div id="recentlyViewedList"></div>
+      <div class="card recently-viewed-card reveal">
 
-  </div>
+        <p id="recentlyViewedEmpty">
+          Abhi aapne koi section nahi dekha. 😊
+        </p>
 
-</section>
+        <div id="recentlyViewedList"></div>
+
+      </div>
+
+    </section>
+
     <!-- =========================
          SHORTS
     ========================= -->
@@ -3767,74 +3734,80 @@
       </p>
 
     </section>
-<section id="newsletter">
 
-  <span class="newsletter-badge">
-    <span class="flame">🔥</span> Never Miss an Update
-  </span>
+    <!-- =========================
+         NEWSLETTER
+    ========================= -->
 
-  <h2 class="section-title reveal">
-    📩 Stay Connected
-  </h2>
+    <section id="newsletter">
 
-  <div class="card newsletter-card reveal">
+      <span class="newsletter-badge">
+        <span class="flame">🔥</span> Never Miss an Update
+      </span>
 
-    <h3>
-      🔥 UPComedyHub Updates
-    </h3>
+      <h2 class="section-title reveal">
+        📩 Stay Connected
+      </h2>
 
-    <p>
-      Naye comedy videos, Shorts aur important updates
-      ke baare mein email par updates paane ke liye subscribe karein.
-    </p>
+      <div class="card newsletter-card reveal">
 
-    <form
-      class="newsletter-form"
-      action="https://formsubmit.co/upcomedyhub@gmail.com"
-      method="POST">
+        <h3>
+          🔥 UPComedyHub Updates
+        </h3>
 
-      <input
-        type="hidden"
-        name="_subject"
-        value="New UPComedyHub Newsletter Subscriber">
+        <p>
+          Naye comedy videos, Shorts aur important updates
+          ke baare mein email par updates paane ke liye subscribe karein.
+        </p>
 
-      <input
-        type="hidden"
-        name="_captcha"
-        value="false">
+        <form
+          class="newsletter-form"
+          action="https://formsubmit.co/upcomedyhub@gmail.com"
+          method="POST">
 
-      <input
-        type="hidden"
-        name="_template"
-        value="table">
+          <input
+            type="hidden"
+            name="_subject"
+            value="New UPComedyHub Newsletter Subscriber">
 
-      <label for="newsletterEmail">
-        📧 Email Address
-      </label>
+          <input
+            type="hidden"
+            name="_captcha"
+            value="false">
 
-      <input
-        type="email"
-        id="newsletterEmail"
-        name="Email"
-        placeholder="Apna email address"
-        required>
+          <input
+            type="hidden"
+            name="_template"
+            value="table">
 
-      <button
-        type="submit"
-        class="btn">
-        🚀 Subscribe to Updates
-      </button>
+          <label for="newsletterEmail">
+            📧 Email Address
+          </label>
 
-    </form>
+          <input
+            type="email"
+            id="newsletterEmail"
+            name="Email"
+            placeholder="Apna email address"
+            required>
 
-    <p class="newsletter-note">
-      🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
-      ke liye use kiya jayega.
-    </p>
+          <button
+            type="submit"
+            class="btn">
+            🚀 Subscribe to Updates
+          </button>
 
-  </div>
+        </form>
 
-</section>
+        <p class="newsletter-note">
+          🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
+          ke liye use kiya jayega.
+        </p>
+
+      </div>
+
+    </section>
+
     <!-- =========================
          CTA
     ========================= -->
@@ -4089,28 +4062,6 @@
 
   <script>
 
-    // Quick Actions: WhatsApp + Subscribe
-    const quickActions =
-      document.getElementById("quickActions");
-
-    const quickActionsToggle =
-      document.getElementById("quickActionsToggle");
-
-    if (quickActions && quickActionsToggle) {
-      quickActionsToggle.addEventListener("click", function (event) {
-        event.stopPropagation();
-        quickActions.classList.toggle("active");
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!quickActions.contains(event.target)) {
-          quickActions.classList.remove("active");
-        }
-      });
-    }
-
-
-
     /* =========================
        PAGE LOADER
     ========================= */
@@ -4140,8 +4091,6 @@
 
     });
 
-    // Fallback: agar load event kabhi fire na ho (slow network),
-    // to bhi loader hamesha ke liye stuck na rahe
     setTimeout(hidePageLoader, 4000);
 
     /* =========================
@@ -4219,8 +4168,7 @@
     );
 
     /* =========================
-       CLOSE MOBILE MENU
-       AFTER CLICK
+       CLOSE MOBILE MENU AFTER CLICK
     ========================= */
 
     const navLinks =
@@ -4460,84 +4408,87 @@
 
       noResults.style.display = "none";
 
-    });
-    
-const searchResults = document.getElementById("searchResults");
-
-function advancedSearch() {
-  const searchText = siteSearch.value.toLowerCase().trim();
-
-  searchResults.innerHTML = "";
-  noResults.style.display = "none";
-
-  if (searchText.length < 2) {
-    return;
-  }
-
-  const searchableItems = [];
-
-  document.querySelectorAll("section").forEach(function (section) {
-
-    const heading = section.querySelector("h1, h2, h3");
-
-    if (!heading) {
-      return;
-    }
-
-    const text = section.textContent.toLowerCase();
-
-    if (text.includes(searchText)) {
-
-      searchableItems.push({
-        title: heading.textContent.trim(),
-        section: section,
-        preview: section.textContent
-          .replace(/\s+/g, " ")
-          .trim()
-          .slice(0, 120)
-      });
-
-    }
-
-  });
-
-  if (searchableItems.length === 0) {
-    noResults.style.display = "block";
-    return;
-  }
-
-  searchableItems.forEach(function (item) {
-
-    const result = document.createElement("div");
-
-    result.className = "search-result-item";
-
-    result.innerHTML =
-      "<strong>" + item.title + "</strong>" +
-      "<span>" + item.preview + "...</span>";
-
-    result.addEventListener("click", function () {
-
-      item.section.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-
       searchResults.innerHTML = "";
 
-      siteSearch.value = "";
-
-      clearSearch.style.display = "none";
-
     });
+    
+    const searchResults = document.getElementById("searchResults");
 
-    searchResults.appendChild(result);
+    function advancedSearch() {
+      const searchText = siteSearch.value.toLowerCase().trim();
 
-  });
+      searchResults.innerHTML = "";
+      noResults.style.display = "none";
 
-}
+      if (searchText.length < 2) {
+        return;
+      }
 
-siteSearch.addEventListener("input", advancedSearch);
+      const searchableItems = [];
+
+      document.querySelectorAll("section").forEach(function (section) {
+
+        const heading = section.querySelector("h1, h2, h3");
+
+        if (!heading) {
+          return;
+        }
+
+        const text = section.textContent.toLowerCase();
+
+        if (text.includes(searchText)) {
+
+          searchableItems.push({
+            title: heading.textContent.trim(),
+            section: section,
+            preview: section.textContent
+              .replace(/\s+/g, " ")
+              .trim()
+              .slice(0, 120)
+          });
+
+        }
+
+      });
+
+      if (searchableItems.length === 0) {
+        noResults.style.display = "block";
+        return;
+      }
+
+      searchableItems.forEach(function (item) {
+
+        const result = document.createElement("div");
+
+        result.className = "search-result-item";
+
+        result.innerHTML =
+          "<strong>" + item.title + "</strong>" +
+          "<span>" + item.preview + "...</span>";
+
+        result.addEventListener("click", function () {
+
+          item.section.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+          searchResults.innerHTML = "";
+
+          siteSearch.value = "";
+
+          clearSearch.style.display = "none";
+
+        });
+
+        searchResults.appendChild(result);
+
+      });
+
+    }
+
+    siteSearch.addEventListener("input", advancedSearch);
+
     /* =========================
        SCROLL PROGRESS
     ========================= */
@@ -4612,6 +4563,31 @@ siteSearch.addEventListener("input", advancedSearch);
 
         }
       );
+
+    }
+
+    /* =========================
+       QUICK ACTIONS (WhatsApp + Subscribe)
+    ========================= */
+
+    const quickActions =
+      document.getElementById("quickActions");
+
+    const quickActionsToggle =
+      document.getElementById("quickActionsToggle");
+
+    if (quickActions && quickActionsToggle) {
+
+      quickActionsToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        quickActions.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!quickActions.contains(event.target)) {
+          quickActions.classList.remove("active");
+        }
+      });
 
     }
 
@@ -5081,7 +5057,6 @@ siteSearch.addEventListener("input", advancedSearch);
 
     });
 
-    // Swipe support for mobile
     let galleryTouchStartX = 0;
 
     galleryLightbox.addEventListener("touchstart", function (event) {
@@ -5185,107 +5160,112 @@ siteSearch.addEventListener("input", advancedSearch);
         });
 
     }
-const recentlyViewedList =
-  document.getElementById("recentlyViewedList");
 
-const recentlyViewedEmpty =
-  document.getElementById("recentlyViewedEmpty");
+    /* =========================
+       RECENTLY VIEWED
+    ========================= */
 
-const recentlyViewed = [];
+    const recentlyViewedList =
+      document.getElementById("recentlyViewedList");
 
-function addRecentlyViewed(section) {
+    const recentlyViewedEmpty =
+      document.getElementById("recentlyViewedEmpty");
 
-  if (!section || !section.id) {
-    return;
-  }
+    const recentlyViewed = [];
 
-  const heading = section.querySelector("h1, h2, h3");
+    function addRecentlyViewed(section) {
 
-  if (!heading) {
-    return;
-  }
+      if (!section || !section.id) {
+        return;
+      }
 
-  const title = heading.textContent.trim();
+      const heading = section.querySelector("h1, h2, h3");
 
-  const existingIndex = recentlyViewed.findIndex(function (item) {
-    return item.id === section.id;
-  });
+      if (!heading) {
+        return;
+      }
 
-  if (existingIndex !== -1) {
-    recentlyViewed.splice(existingIndex, 1);
-  }
+      const title = heading.textContent.trim();
 
-  recentlyViewed.unshift({
-    id: section.id,
-    title: title
-  });
+      const existingIndex = recentlyViewed.findIndex(function (item) {
+        return item.id === section.id;
+      });
 
-  if (recentlyViewed.length > 5) {
-    recentlyViewed.pop();
-  }
+      if (existingIndex !== -1) {
+        recentlyViewed.splice(existingIndex, 1);
+      }
 
-  updateRecentlyViewed();
-}
+      recentlyViewed.unshift({
+        id: section.id,
+        title: title
+      });
 
-function updateRecentlyViewed() {
+      if (recentlyViewed.length > 5) {
+        recentlyViewed.pop();
+      }
 
-  recentlyViewedList.innerHTML = "";
+      updateRecentlyViewed();
+    }
 
-  if (recentlyViewed.length === 0) {
-    recentlyViewedEmpty.style.display = "block";
-    return;
-  }
+    function updateRecentlyViewed() {
 
-  recentlyViewedEmpty.style.display = "none";
+      recentlyViewedList.innerHTML = "";
 
-  recentlyViewed.forEach(function (item) {
+      if (recentlyViewed.length === 0) {
+        recentlyViewedEmpty.style.display = "block";
+        return;
+      }
 
-    const button = document.createElement("button");
+      recentlyViewedEmpty.style.display = "none";
 
-    button.type = "button";
-    button.className = "recent-view-item";
-    button.textContent = "👀 " + item.title;
+      recentlyViewed.forEach(function (item) {
 
-    button.addEventListener("click", function () {
+        const button = document.createElement("button");
 
-      const target = document.getElementById(item.id);
+        button.type = "button";
+        button.className = "recent-view-item";
+        button.textContent = "👀 " + item.title;
 
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
+        button.addEventListener("click", function () {
+
+          const target = document.getElementById(item.id);
+
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start"
+            });
+          }
+
         });
-      }
 
+        recentlyViewedList.appendChild(button);
+
+      });
+    }
+
+    const viewedSections = document.querySelectorAll("section[id]");
+
+    const recentlyViewedObserver =
+      new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+          if (entry.isIntersecting) {
+            addRecentlyViewed(entry.target);
+          }
+
+        });
+
+      }, {
+        threshold: 0.45
+      });
+
+    viewedSections.forEach(function (section) {
+      recentlyViewedObserver.observe(section);
     });
 
-    recentlyViewedList.appendChild(button);
-
-  });
-}
-
-const viewedSections = document.querySelectorAll("section[id]");
-
-const recentlyViewedObserver =
-  new IntersectionObserver(function (entries) {
-
-    entries.forEach(function (entry) {
-
-      if (entry.isIntersecting) {
-        addRecentlyViewed(entry.target);
-      }
-
-    });
-
-  }, {
-    threshold: 0.45
-  });
-
-viewedSections.forEach(function (section) {
-  recentlyViewedObserver.observe(section);
-});
-
-updateRecentlyViewed();
+    updateRecentlyViewed();
 
     /* =========================
        SCROLL REVEAL ANIMATION

@@ -23,75 +23,9 @@
     rel="apple-touch-icon"
     href="IMG_20260917_172912.jpg">
 
-  <!-- SEO Meta Tags -->
   <meta
     name="description"
-    content="UPComedyHub par dekhiye desi comedy, funny videos aur entertaining Shorts. Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥">
-
-  <meta
-    name="keywords"
-    content="upcomedyhub, desi comedy, hindi comedy, funny videos, comedy shorts, indian comedy, up comedy">
-
-  <meta
-    name="author"
-    content="UPComedyHub">
-
-  <meta
-    name="robots"
-    content="index, follow">
-
-  <link
-    rel="canonical"
-    href="https://upcomedyhub.github.io/">
-
-  <!-- Social Sharing -->
-  <meta
-    property="og:title"
-    content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
-
-  <meta
-    property="og:description"
-    content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
-
-  <meta
-    property="og:url"
-    content="https://upcomedyhub.github.io/">
-
-  <meta
-    property="og:type"
-    content="website">
-
-  <meta
-    property="og:site_name"
-    content="UPComedyHub">
-
-  <meta
-    property="og:image"
-    content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
-
-  <meta
-    property="og:image:alt"
-    content="UPComedyHub Profile Photo">
-
-  <meta
-    name="twitter:card"
-    content="summary_large_image">
-
-  <meta
-    name="twitter:title"
-    content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
-
-  <meta
-    name="twitter:description"
-    content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
-
-  <meta
-    name="twitter:image"
-    content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 
   <style>
 
@@ -371,20 +305,20 @@
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: 24px;
-      font-weight: 800;
-    }
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 24px;
+  font-weight: 800;
+}
 
-    .logo-profile {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      object-fit: cover;
-      display: block;
-    }
+.logo-profile {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
 
     /* =========================
        NAVIGATION
@@ -496,6 +430,7 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* floating glow blobs behind hero content */
     .hero::before,
     .hero::after {
       content: "";
@@ -752,6 +687,7 @@
 
     /* =========================
        VIDEO CARD HOVER PREVIEW
+       (desktop only)
     ========================= */
 
     @media (min-width: 701px) {
@@ -772,6 +708,7 @@
       }
 
     }
+
 
     /* =========================
        SECTIONS
@@ -904,6 +841,7 @@
 
     /* =========================
        STYLISH SECTION HEADINGS
+       (Contact + About)
     ========================= */
 
     #contact .section-title,
@@ -930,6 +868,7 @@
       -webkit-text-fill-color: transparent;
     }
 
+    /* mailto / content links -> brand red instead of default blue */
     .card p a,
     .about-inner p a,
     #privacy p a,
@@ -1006,8 +945,6 @@
     #faq .faq-answer {
       font-size: 14px;
       color: #555555;
-      display: none;
-      margin-top: 6px;
     }
 
     .dark-mode #faq .faq-answer {
@@ -1023,6 +960,11 @@
 
     #faq .faq-question.active::after {
       content: "−";
+    }
+
+    #faq .faq-answer {
+      display: none;
+      margin-top: 6px;
     }
 
     #faq .faq-answer.show {
@@ -1112,7 +1054,6 @@
       background: #111111;
 
       color: white;
-      padding-bottom: 110px;
     }
 
     .footer-legal {
@@ -1140,8 +1081,7 @@
     .footer-legal span {
       opacity: 0.6;
     }
-
-    /* =========================
+/* =========================
        DARK MODE
     ========================= */
 
@@ -1245,65 +1185,63 @@
     .dark-mode .site-search input::placeholder {
       color: #aaaaaa;
     }
+#recently-viewed {
+  text-align: center;
+}
 
-    #recently-viewed {
-      text-align: center;
-    }
+.recently-viewed-card {
+  max-width: 700px;
+  margin: 0 auto;
+}
 
-    .recently-viewed-card {
-      max-width: 700px;
-      margin: 0 auto;
-    }
+#recentlyViewedEmpty {
+  color: #777777;
+  margin: 0;
+}
 
-    #recentlyViewedEmpty {
-      color: #777777;
-      margin: 0;
-    }
+#recentlyViewedList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
 
-    #recentlyViewedList {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
+.recent-view-item {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
 
-    .recent-view-item {
-      padding: 12px 15px;
-      border: 1px solid #dddddd;
-      border-radius: 10px;
-      background: #ffffff;
-      cursor: pointer;
-      text-align: left;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
+.recent-view-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+}
 
-    .recent-view-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-    }
+.dark-mode .recent-view-item {
+  background: #222222;
+  border-color: #444444;
+  color: #ffffff;
+}
 
-    .dark-mode .recent-view-item {
-      background: #222222;
-      border-color: #444444;
-      color: #ffffff;
-    }
+.dark-mode #recentlyViewedEmpty {
+  color: #bbbbbb;
+}
 
-    .dark-mode #recentlyViewedEmpty {
-      color: #bbbbbb;
-    }
+@media (max-width: 700px) {
+  .recently-viewed-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    @media (max-width: 700px) {
-      .recently-viewed-card {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .recent-view-item {
-        padding: 10px 12px;
-      }
-    }
-
+  .recent-view-item {
+    padding: 10px 12px;
+  }
+}
     /* =========================
        SCROLL PROGRESS
     ========================= */
@@ -1614,61 +1552,59 @@
       background: #333333;
       color: #ffffff;
     }
+.search-results {
+  max-width: 700px;
+  margin: 10px auto 0;
+  text-align: left;
+}
 
-    .search-results {
-      max-width: 700px;
-      margin: 10px auto 0;
-      text-align: left;
-    }
+.search-result-item {
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
 
-    .search-result-item {
-      background: #ffffff;
-      border: 1px solid #dddddd;
-      border-radius: 10px;
-      padding: 12px 15px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
+.search-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+}
 
-    .search-result-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
-    }
+.search-result-item strong {
+  display: block;
+  font-size: 16px;
+}
 
-    .search-result-item strong {
-      display: block;
-      font-size: 16px;
-    }
+.search-result-item span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #777777;
+}
 
-    .search-result-item span {
-      display: block;
-      margin-top: 4px;
-      font-size: 13px;
-      color: #777777;
-    }
+.dark-mode .search-result-item {
+  background: #222222;
+  border-color: #444444;
+  color: #ffffff;
+}
 
-    .dark-mode .search-result-item {
-      background: #222222;
-      border-color: #444444;
-      color: #ffffff;
-    }
+.dark-mode .search-result-item span {
+  color: #bbbbbb;
+}
 
-    .dark-mode .search-result-item span {
-      color: #bbbbbb;
-    }
+@media (max-width: 700px) {
+  .search-results {
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    @media (max-width: 700px) {
-      .search-results {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .search-result-item {
-        padding: 10px 12px;
-      }
-    }
-
+  .search-result-item {
+    padding: 10px 12px;
+  }
+}
     /* =========================
        GALLERY
     ========================= */
@@ -2142,142 +2078,140 @@
     .youtube-stat-card p {
       font-size: 16px;
     }
+/* =========================
+   NEWSLETTER
+========================= */
 
-    /* =========================
-       NEWSLETTER
-    ========================= */
+#newsletter {
+  text-align: center;
+  max-width: none;
+  background: #fafafa;
+}
 
-    #newsletter {
-      text-align: center;
-      max-width: none;
-      background: #fafafa;
+.newsletter-card {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.newsletter-card h3 {
+  margin-bottom: 10px;
+}
+
+.newsletter-card p {
+  margin-top: 8px;
+}
+
+.newsletter-form {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.newsletter-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.newsletter-form input {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #ffffff;
+  color: #111111;
+  box-sizing: border-box;
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: #e63946;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
+}
+
+.newsletter-form button {
+  margin-top: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.newsletter-note {
+  font-size: 12px;
+  color: #777777;
+  margin-top: 12px;
+}
+
+#newsletter .newsletter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(230, 57, 70, 0.1);
+  border: 1px solid rgba(230, 57, 70, 0.35);
+  color: #e63946;
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 14px;
+}
+
+#newsletter .newsletter-badge .flame {
+  display: inline-block;
+  animation: flamePulse 1.6s ease-in-out infinite;
+}
+
+#newsletter .section-title {
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 900;
+  margin-bottom: 12px;
+
+  background: linear-gradient(90deg, #e63946, #ff9a5a 55%, #e63946);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineText 4s linear infinite;
+}
+
+.dark-mode #newsletter .section-title {
+  background: linear-gradient(90deg, #ff7a70, #ffd166 55%, #ff7a70);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark-mode #newsletter {
+  background: #161616;
+}
+
+.dark-mode .newsletter-form input {
+  background: #222222;
+  color: #ffffff;
+  border-color: #444444;
+}
+
+.dark-mode .newsletter-note {
+  color: #bbbbbb;
+}
+
+@media (max-width: 700px) {
+  #newsletter {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .newsletter-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .newsletter-form input {
+    font-size: 16px;
+  }
     }
-
-    .newsletter-card {
-      max-width: 650px;
-      margin: 0 auto;
-    }
-
-    .newsletter-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .newsletter-card p {
-      margin-top: 8px;
-    }
-
-    .newsletter-form {
-      margin-top: 25px;
-      text-align: left;
-    }
-
-    .newsletter-form label {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .newsletter-form input {
-      width: 100%;
-      padding: 13px 15px;
-      border: 1px solid #dddddd;
-      border-radius: 10px;
-      font-size: 16px;
-      font-family: inherit;
-      background: #ffffff;
-      color: #111111;
-      box-sizing: border-box;
-    }
-
-    .newsletter-form input:focus {
-      outline: none;
-      border-color: #e63946;
-      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.12);
-    }
-
-    .newsletter-form button {
-      margin-top: 12px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .newsletter-note {
-      font-size: 12px;
-      color: #777777;
-      margin-top: 12px;
-    }
-
-    #newsletter .newsletter-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(230, 57, 70, 0.1);
-      border: 1px solid rgba(230, 57, 70, 0.35);
-      color: #e63946;
-      padding: 7px 16px;
-      border-radius: 30px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-      margin-bottom: 14px;
-    }
-
-    #newsletter .newsletter-badge .flame {
-      display: inline-block;
-      animation: flamePulse 1.6s ease-in-out infinite;
-    }
-
-    #newsletter .section-title {
-      font-size: clamp(30px, 6vw, 44px);
-      font-weight: 900;
-      margin-bottom: 12px;
-
-      background: linear-gradient(90deg, #e63946, #ff9a5a 55%, #e63946);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shineText 4s linear infinite;
-    }
-
-    .dark-mode #newsletter .section-title {
-      background: linear-gradient(90deg, #ff7a70, #ffd166 55%, #ff7a70);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .dark-mode #newsletter {
-      background: #161616;
-    }
-
-    .dark-mode .newsletter-form input {
-      background: #222222;
-      color: #ffffff;
-      border-color: #444444;
-    }
-
-    .dark-mode .newsletter-note {
-      color: #bbbbbb;
-    }
-
-    @media (max-width: 700px) {
-      #newsletter {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      .newsletter-card {
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .newsletter-form input {
-        font-size: 16px;
-      }
-    }
-
     /* =========================
        SCROLL REVEAL ANIMATION
     ========================= */
@@ -2328,7 +2262,15 @@
     }
 
     /* =========================
-       MOBILE RESPONSIVE
+       BOTTOM SAFE SPACE
+    ========================= */
+
+    footer {
+      padding-bottom: 110px;
+    }
+
+    /* =========================
+       MOBILE
     ========================= */
 
     @media (max-width: 700px) {
@@ -2338,13 +2280,13 @@
       }
 
       .logo {
-        font-size: 20px;
-      }
+  font-size: 20px;
+}
 
-      .logo-profile {
-        width: 36px;
-        height: 36px;
-      }
+.logo-profile {
+  width: 36px;
+  height: 36px;
+}
 
       #themeToggle {
         width: 42px;
@@ -2362,19 +2304,31 @@
 
       nav {
         display: none;
+
         position: absolute;
+
         top: 100%;
         right: 15px;
+
         width: 250px;
+
         max-height: calc(100vh - 80px);
         overflow-y: auto;
+
         background: white;
+
         padding: 12px;
+
         border-radius: 15px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+        box-shadow:
+          0 8px 25px rgba(0, 0, 0, 0.15);
+
         flex-direction: column;
+
         align-items: stretch;
-        gap: 2px !important;
+
+        gap: 5px;
       }
 
       nav.show-menu {
@@ -2382,9 +2336,8 @@
       }
 
       nav a {
-        padding: 8px 12px !important;
-        margin: 0 !important;
-        line-height: 1.2 !important;
+        margin: 0;
+        padding: 10px 12px;
         border-radius: 10px;
       }
 
@@ -2499,8 +2452,93 @@
       }
 
     }
+/* =========================
+   COMPACT MOBILE MENU
+========================= */
 
+@media (max-width: 700px) {
+
+  nav a {
+    padding: 8px 12px !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  nav {
+    gap: 2px !important;
+  }
+
+    }
   </style>
+<!-- SEO Meta Tags -->
+<meta
+  name="description"
+  content="UPComedyHub par dekhiye desi comedy, funny videos aur entertaining Shorts. Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥">
+
+<meta
+  name="keywords"
+  content="upcomedyhub, desi comedy, hindi comedy, funny videos, comedy shorts, indian comedy, up comedy">
+
+<meta
+  name="author"
+  content="UPComedyHub">
+
+<meta
+  name="robots"
+  content="index, follow">
+
+<link
+  rel="canonical"
+  href="https://upcomedyhub.github.io/">
+
+<!-- Social Sharing -->
+<meta
+  property="og:title"
+  content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
+
+<meta
+  property="og:description"
+  content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
+
+<meta
+  property="og:url"
+  content="https://upcomedyhub.github.io/">
+
+<meta
+  property="og:type"
+  content="website">
+
+<meta
+  property="og:site_name"
+  content="UPComedyHub">
+  <!-- Social Preview Image -->
+<meta
+  property="og:image"
+  content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
+
+<meta
+  property="og:image:alt"
+  content="UPComedyHub Profile Photo">
+
+<meta
+  name="twitter:card"
+  content="summary_large_image">
+
+<meta
+  name="twitter:title"
+  content="UPComedyHub — Desi Comedy & Entertainment 😂🔥">
+
+<meta
+  name="twitter:description"
+  content="Desi comedy, funny videos aur entertaining Shorts — UPComedyHub par! 😂🔥">
+
+<meta
+  name="twitter:image"
+  content="https://upcomedyhub.github.io/IMG_20260917_172912.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -2568,11 +2606,11 @@
   <header>
 
     <div class="logo">
-      <img
-        src="IMG_20260917_172912.jpg"
-        alt="UPComedyHub Profile"
-        class="logo-profile">
-      <span>UPComedyHub</span>
+  <img
+    src="IMG_20260917_172912.jpg"
+    alt="UPComedyHub Profile"
+    class="logo-profile">
+  <span>UPComedyHub</span>
     </div>
 
     <button
@@ -2768,29 +2806,23 @@
       ">
       😅 Sorry! Kuch nahi mila.
     </p>
+<section id="recently-viewed">
 
-    <!-- =========================
-         RECENTLY VIEWED
-    ========================= -->
+  <h2 class="section-title reveal">
+    🕘 Recently Viewed
+  </h2>
 
-    <section id="recently-viewed">
+  <div class="card recently-viewed-card reveal">
 
-      <h2 class="section-title reveal">
-        🕘 Recently Viewed
-      </h2>
+    <p id="recentlyViewedEmpty">
+      Abhi aapne koi section nahi dekha. 😊
+    </p>
 
-      <div class="card recently-viewed-card reveal">
+    <div id="recentlyViewedList"></div>
 
-        <p id="recentlyViewedEmpty">
-          Abhi aapne koi section nahi dekha. 😊
-        </p>
+  </div>
 
-        <div id="recentlyViewedList"></div>
-
-      </div>
-
-    </section>
-
+</section>
     <!-- =========================
          SHORTS
     ========================= -->
@@ -3647,6 +3679,26 @@
             data-params="form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20"
             data-screen="1"
             async>
+    // Quick Actions: WhatsApp + Subscribe
+    const quickActions =
+      document.getElementById("quickActions");
+
+    const quickActionsToggle =
+      document.getElementById("quickActionsToggle");
+
+    if (quickActions && quickActionsToggle) {
+      quickActionsToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        quickActions.classList.toggle("active");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!quickActions.contains(event.target)) {
+          quickActions.classList.remove("active");
+        }
+      });
+    }
+
           </script>
 
         </div>
@@ -3734,80 +3786,74 @@
       </p>
 
     </section>
+<section id="newsletter">
 
-    <!-- =========================
-         NEWSLETTER
-    ========================= -->
+  <span class="newsletter-badge">
+    <span class="flame">🔥</span> Never Miss an Update
+  </span>
 
-    <section id="newsletter">
+  <h2 class="section-title reveal">
+    📩 Stay Connected
+  </h2>
 
-      <span class="newsletter-badge">
-        <span class="flame">🔥</span> Never Miss an Update
-      </span>
+  <div class="card newsletter-card reveal">
 
-      <h2 class="section-title reveal">
-        📩 Stay Connected
-      </h2>
+    <h3>
+      🔥 UPComedyHub Updates
+    </h3>
 
-      <div class="card newsletter-card reveal">
+    <p>
+      Naye comedy videos, Shorts aur important updates
+      ke baare mein email par updates paane ke liye subscribe karein.
+    </p>
 
-        <h3>
-          🔥 UPComedyHub Updates
-        </h3>
+    <form
+      class="newsletter-form"
+      action="https://formsubmit.co/upcomedyhub@gmail.com"
+      method="POST">
 
-        <p>
-          Naye comedy videos, Shorts aur important updates
-          ke baare mein email par updates paane ke liye subscribe karein.
-        </p>
+      <input
+        type="hidden"
+        name="_subject"
+        value="New UPComedyHub Newsletter Subscriber">
 
-        <form
-          class="newsletter-form"
-          action="https://formsubmit.co/upcomedyhub@gmail.com"
-          method="POST">
+      <input
+        type="hidden"
+        name="_captcha"
+        value="false">
 
-          <input
-            type="hidden"
-            name="_subject"
-            value="New UPComedyHub Newsletter Subscriber">
+      <input
+        type="hidden"
+        name="_template"
+        value="table">
 
-          <input
-            type="hidden"
-            name="_captcha"
-            value="false">
+      <label for="newsletterEmail">
+        📧 Email Address
+      </label>
 
-          <input
-            type="hidden"
-            name="_template"
-            value="table">
+      <input
+        type="email"
+        id="newsletterEmail"
+        name="Email"
+        placeholder="Apna email address"
+        required>
 
-          <label for="newsletterEmail">
-            📧 Email Address
-          </label>
+      <button
+        type="submit"
+        class="btn">
+        🚀 Subscribe to Updates
+      </button>
 
-          <input
-            type="email"
-            id="newsletterEmail"
-            name="Email"
-            placeholder="Apna email address"
-            required>
+    </form>
 
-          <button
-            type="submit"
-            class="btn">
-            🚀 Subscribe to Updates
-          </button>
+    <p class="newsletter-note">
+      🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
+      ke liye use kiya jayega.
+    </p>
 
-        </form>
+  </div>
 
-        <p class="newsletter-note">
-          🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose
-          ke liye use kiya jayega.
-        </p>
-
-      </div>
-
-    </section>
-
+</section>
     <!-- =========================
          CTA
     ========================= -->
@@ -4091,6 +4137,8 @@
 
     });
 
+    // Fallback: agar load event kabhi fire na ho (slow network),
+    // to bhi loader hamesha ke liye stuck na rahe
     setTimeout(hidePageLoader, 4000);
 
     /* =========================
@@ -4168,7 +4216,8 @@
     );
 
     /* =========================
-       CLOSE MOBILE MENU AFTER CLICK
+       CLOSE MOBILE MENU
+       AFTER CLICK
     ========================= */
 
     const navLinks =
@@ -4408,87 +4457,84 @@
 
       noResults.style.display = "none";
 
-      searchResults.innerHTML = "";
-
     });
     
-    const searchResults = document.getElementById("searchResults");
+const searchResults = document.getElementById("searchResults");
 
-    function advancedSearch() {
-      const searchText = siteSearch.value.toLowerCase().trim();
+function advancedSearch() {
+  const searchText = siteSearch.value.toLowerCase().trim();
 
-      searchResults.innerHTML = "";
-      noResults.style.display = "none";
+  searchResults.innerHTML = "";
+  noResults.style.display = "none";
 
-      if (searchText.length < 2) {
-        return;
-      }
+  if (searchText.length < 2) {
+    return;
+  }
 
-      const searchableItems = [];
+  const searchableItems = [];
 
-      document.querySelectorAll("section").forEach(function (section) {
+  document.querySelectorAll("section").forEach(function (section) {
 
-        const heading = section.querySelector("h1, h2, h3");
+    const heading = section.querySelector("h1, h2, h3");
 
-        if (!heading) {
-          return;
-        }
+    if (!heading) {
+      return;
+    }
 
-        const text = section.textContent.toLowerCase();
+    const text = section.textContent.toLowerCase();
 
-        if (text.includes(searchText)) {
+    if (text.includes(searchText)) {
 
-          searchableItems.push({
-            title: heading.textContent.trim(),
-            section: section,
-            preview: section.textContent
-              .replace(/\s+/g, " ")
-              .trim()
-              .slice(0, 120)
-          });
-
-        }
-
-      });
-
-      if (searchableItems.length === 0) {
-        noResults.style.display = "block";
-        return;
-      }
-
-      searchableItems.forEach(function (item) {
-
-        const result = document.createElement("div");
-
-        result.className = "search-result-item";
-
-        result.innerHTML =
-          "<strong>" + item.title + "</strong>" +
-          "<span>" + item.preview + "...</span>";
-
-        result.addEventListener("click", function () {
-
-          item.section.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-          searchResults.innerHTML = "";
-
-          siteSearch.value = "";
-
-          clearSearch.style.display = "none";
-
-        });
-
-        searchResults.appendChild(result);
-
+      searchableItems.push({
+        title: heading.textContent.trim(),
+        section: section,
+        preview: section.textContent
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 120)
       });
 
     }
 
-    siteSearch.addEventListener("input", advancedSearch);
+  });
 
+  if (searchableItems.length === 0) {
+    noResults.style.display = "block";
+    return;
+  }
+
+  searchableItems.forEach(function (item) {
+
+    const result = document.createElement("div");
+
+    result.className = "search-result-item";
+
+    result.innerHTML =
+      "<strong>" + item.title + "</strong>" +
+      "<span>" + item.preview + "...</span>";
+
+    result.addEventListener("click", function () {
+
+      item.section.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      searchResults.innerHTML = "";
+
+      siteSearch.value = "";
+
+      clearSearch.style.display = "none";
+
+    });
+
+    searchResults.appendChild(result);
+
+  });
+
+}
+
+siteSearch.addEventListener("input", advancedSearch);
     /* =========================
        SCROLL PROGRESS
     ========================= */
@@ -4563,31 +4609,6 @@
 
         }
       );
-
-    }
-
-    /* =========================
-       QUICK ACTIONS (WhatsApp + Subscribe)
-    ========================= */
-
-    const quickActions =
-      document.getElementById("quickActions");
-
-    const quickActionsToggle =
-      document.getElementById("quickActionsToggle");
-
-    if (quickActions && quickActionsToggle) {
-
-      quickActionsToggle.addEventListener("click", function (event) {
-        event.stopPropagation();
-        quickActions.classList.toggle("active");
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!quickActions.contains(event.target)) {
-          quickActions.classList.remove("active");
-        }
-      });
 
     }
 
@@ -5057,6 +5078,7 @@
 
     });
 
+    // Swipe support for mobile
     let galleryTouchStartX = 0;
 
     galleryLightbox.addEventListener("touchstart", function (event) {
@@ -5160,112 +5182,107 @@
         });
 
     }
+const recentlyViewedList =
+  document.getElementById("recentlyViewedList");
 
-    /* =========================
-       RECENTLY VIEWED
-    ========================= */
+const recentlyViewedEmpty =
+  document.getElementById("recentlyViewedEmpty");
 
-    const recentlyViewedList =
-      document.getElementById("recentlyViewedList");
+const recentlyViewed = [];
 
-    const recentlyViewedEmpty =
-      document.getElementById("recentlyViewedEmpty");
+function addRecentlyViewed(section) {
 
-    const recentlyViewed = [];
+  if (!section || !section.id) {
+    return;
+  }
 
-    function addRecentlyViewed(section) {
+  const heading = section.querySelector("h1, h2, h3");
 
-      if (!section || !section.id) {
-        return;
-      }
+  if (!heading) {
+    return;
+  }
 
-      const heading = section.querySelector("h1, h2, h3");
+  const title = heading.textContent.trim();
 
-      if (!heading) {
-        return;
-      }
+  const existingIndex = recentlyViewed.findIndex(function (item) {
+    return item.id === section.id;
+  });
 
-      const title = heading.textContent.trim();
+  if (existingIndex !== -1) {
+    recentlyViewed.splice(existingIndex, 1);
+  }
 
-      const existingIndex = recentlyViewed.findIndex(function (item) {
-        return item.id === section.id;
-      });
+  recentlyViewed.unshift({
+    id: section.id,
+    title: title
+  });
 
-      if (existingIndex !== -1) {
-        recentlyViewed.splice(existingIndex, 1);
-      }
+  if (recentlyViewed.length > 5) {
+    recentlyViewed.pop();
+  }
 
-      recentlyViewed.unshift({
-        id: section.id,
-        title: title
-      });
+  updateRecentlyViewed();
+}
 
-      if (recentlyViewed.length > 5) {
-        recentlyViewed.pop();
-      }
+function updateRecentlyViewed() {
 
-      updateRecentlyViewed();
-    }
+  recentlyViewedList.innerHTML = "";
 
-    function updateRecentlyViewed() {
+  if (recentlyViewed.length === 0) {
+    recentlyViewedEmpty.style.display = "block";
+    return;
+  }
 
-      recentlyViewedList.innerHTML = "";
+  recentlyViewedEmpty.style.display = "none";
 
-      if (recentlyViewed.length === 0) {
-        recentlyViewedEmpty.style.display = "block";
-        return;
-      }
+  recentlyViewed.forEach(function (item) {
 
-      recentlyViewedEmpty.style.display = "none";
+    const button = document.createElement("button");
 
-      recentlyViewed.forEach(function (item) {
+    button.type = "button";
+    button.className = "recent-view-item";
+    button.textContent = "👀 " + item.title;
 
-        const button = document.createElement("button");
+    button.addEventListener("click", function () {
 
-        button.type = "button";
-        button.className = "recent-view-item";
-        button.textContent = "👀 " + item.title;
+      const target = document.getElementById(item.id);
 
-        button.addEventListener("click", function () {
-
-          const target = document.getElementById(item.id);
-
-          if (target) {
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start"
-            });
-          }
-
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
         });
+      }
 
-        recentlyViewedList.appendChild(button);
-
-      });
-    }
-
-    const viewedSections = document.querySelectorAll("section[id]");
-
-    const recentlyViewedObserver =
-      new IntersectionObserver(function (entries) {
-
-        entries.forEach(function (entry) {
-
-          if (entry.isIntersecting) {
-            addRecentlyViewed(entry.target);
-          }
-
-        });
-
-      }, {
-        threshold: 0.45
-      });
-
-    viewedSections.forEach(function (section) {
-      recentlyViewedObserver.observe(section);
     });
 
-    updateRecentlyViewed();
+    recentlyViewedList.appendChild(button);
+
+  });
+}
+
+const viewedSections = document.querySelectorAll("section[id]");
+
+const recentlyViewedObserver =
+  new IntersectionObserver(function (entries) {
+
+    entries.forEach(function (entry) {
+
+      if (entry.isIntersecting) {
+        addRecentlyViewed(entry.target);
+      }
+
+    });
+
+  }, {
+    threshold: 0.45
+  });
+
+viewedSections.forEach(function (section) {
+  recentlyViewedObserver.observe(section);
+});
+
+updateRecentlyViewed();
 
     /* =========================
        SCROLL REVEAL ANIMATION

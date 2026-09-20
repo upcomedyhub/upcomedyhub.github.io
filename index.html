@@ -695,6 +695,78 @@
     }
 
     /* =========================
+       AUTO-FETCHED YOUTUBE VIDEOS
+    ========================= */
+
+    .yt-video-card {
+      padding: 0;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .yt-video-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .yt-video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .yt-video-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.15);
+      transition: background 0.2s ease;
+    }
+
+    .yt-video-play span {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(230, 57, 70, 0.9);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .yt-video-card:hover .yt-video-play {
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .yt-video-info {
+      padding: 16px 18px;
+    }
+
+    .yt-video-info h3 {
+      font-size: 15px;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .yt-video-date {
+      font-size: 12px;
+      color: #888888;
+    }
+
+    .dark-mode .yt-video-date {
+      color: #aaaaaa;
+    }
+
+    /* =========================
        SECTIONS
     ========================= */
 
@@ -2171,18 +2243,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       margin-bottom: 20px;
     }
 
     .support-qr-wrap img {
-      width: 220px;
-      height: 220px;
-      background: #ffffff;
-      padding: 10px;
+      width: 300px;
+      height: 300px;
+      background: #000000;
+      padding: 0;
       border-radius: 14px;
       border: 1px solid #eeeeee;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     .dark-mode .support-qr-wrap img {
@@ -2221,8 +2295,8 @@
         padding: 14px 18px;
       }
       .support-qr-wrap img {
-        width: 180px;
-        height: 180px;
+        width: 280px;
+        height: 280px;
       }
     }
 
@@ -2747,19 +2821,13 @@
     ========================= -->
 
     <section id="videos">
-      <h2 class="section-title reveal">🎬 Videos</h2>
-      <div class="cards reveal-stagger">
-        <div class="card filterable-card" data-category="long">
-          <h3>Long Videos</h3>
-          <p data-en="Our upcoming and popular long videos." data-simple-hi="हमारे आने वाले और लोकप्रिय लंबे वीडियो।">
-            Hamare upcoming aur popular long videos.
-          </p>
-        </div>
-        <div class="card filterable-card" data-category="long">
-          <h3>Popular Videos</h3>
-          <p data-en="Our audience's favourite comedy videos." data-simple-hi="हमारे दर्शकों के पसंदीदा कॉमेडी वीडियो।">
-            Audience ke favourite comedy videos.
-          </p>
+      <h2 class="section-title reveal">🎬 All Videos</h2>
+      <p class="reveal" style="text-align:center; margin-top:-20px; margin-bottom:30px; color:#777;">
+        Seedha YouTube se — hamesha latest 15 videos yahan automatically dikhengi 🔄
+      </p>
+      <div class="cards reveal-stagger" id="youtubeVideosContainer">
+        <div class="card">
+          <p>⏳ Videos load ho rahe hain...</p>
         </div>
       </div>
     </section>
@@ -3379,7 +3447,6 @@
 
     /* =========================
        3-WAY LANGUAGE SWITCHER
-       Hinglish → Devanagari → English
     ========================= */
 
     const langToggle = document.getElementById("langToggle");
@@ -3747,11 +3814,110 @@
     });
 
     /* =========================
+       AUTO-FETCH YOUTUBE VIDEOS
+       (Direct RSS XML parser — 100% free, unlimited, no API key)
+    ========================= */
+
+    (function () {
+      const YT_CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
+      const videosContainer = document.getElementById("youtubeVideosContainer");
+
+      if (!videosContainer) return;
+
+      const rssUrl =
+        "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT_CHANNEL_ID;
+
+      // Free public CORS proxy (unlimited, no signup needed)
+      const proxyUrl =
+        "https://api.allorigins.win/raw?url=" + encodeURIComponent(rssUrl);
+
+      fetch(proxyUrl)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("RSS fetch failed");
+          }
+          return response.text();
+        })
+        .then(function (xmlText) {
+
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(xmlText, "text/xml");
+          const entries = xml.getElementsByTagName("entry");
+
+          if (!entries || entries.length === 0) {
+            videosContainer.innerHTML =
+              '<div class="card"><p>Abhi koi video nahi mila.</p></div>';
+            return;
+          }
+
+          videosContainer.innerHTML = "";
+
+          const maxVideos = Math.min(entries.length, 15);
+
+          for (let i = 0; i < maxVideos; i++) {
+
+            const entry = entries[i];
+
+            const videoIdEl = entry.getElementsByTagName("yt:videoId")[0];
+            const titleEl = entry.getElementsByTagName("title")[0];
+            const publishedEl = entry.getElementsByTagName("published")[0];
+            const linkEl = entry.getElementsByTagName("link")[0];
+
+            const videoId = videoIdEl ? videoIdEl.textContent : "";
+            const title = titleEl ? titleEl.textContent : "Untitled";
+            const published = publishedEl ? publishedEl.textContent : "";
+            const link = linkEl ? linkEl.getAttribute("href") : "";
+
+            const thumb = videoId
+              ? "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg"
+              : "";
+
+            const publishedDate = published
+              ? new Date(published).toLocaleDateString("en-IN", {
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric"
+                })
+              : "";
+
+            const safeTitle = title.replace(/"/g, "&quot;");
+
+            const card = document.createElement("a");
+            card.href = link;
+            card.target = "_blank";
+            card.rel = "noopener noreferrer";
+            card.className = "card filterable-card yt-video-card";
+            card.setAttribute("data-category", "long");
+
+            card.innerHTML =
+              '<div class="yt-video-thumb">' +
+                '<img src="' + thumb + '" alt="' + safeTitle + '" loading="lazy">' +
+                '<div class="yt-video-play"><span>▶</span></div>' +
+              "</div>" +
+              '<div class="yt-video-info">' +
+                "<h3>" + title + "</h3>" +
+                '<div class="yt-video-date">📅 ' + publishedDate + "</div>" +
+              "</div>";
+
+            videosContainer.appendChild(card);
+
+          }
+
+        })
+        .catch(function () {
+
+          videosContainer.innerHTML =
+            '<div class="card"><p>⚠️ Videos load nahi ho paaye. Thodi der baad try karein.</p></div>';
+
+        });
+
+    })();
+
+    /* =========================
        FILTER TABS
     ========================= */
 
     const filterTabs = document.querySelectorAll("#contentFilterTabs .filter-tab");
-    const filterableCards = document.querySelectorAll(".filterable-card");
 
     filterTabs.forEach(function (tab) {
       tab.addEventListener("click", function () {
@@ -3759,7 +3925,9 @@
         tab.classList.add("active");
         const filter = tab.getAttribute("data-filter");
 
-        filterableCards.forEach(function (card) {
+        // re-query every time: catches videos that were added
+        // dynamically (after the YouTube RSS fetch) too
+        document.querySelectorAll(".filterable-card").forEach(function (card) {
           const category = card.getAttribute("data-category");
           if (filter === "all" || filter === category) {
             card.classList.remove("filtered-out");

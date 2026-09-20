@@ -695,75 +695,118 @@
     }
 
     /* =========================
-       AUTO-FETCHED YOUTUBE VIDEOS
+       VIDEO EMBED CARDS (click to play)
     ========================= */
 
-    .yt-video-card {
+    .video-embed-card {
       padding: 0;
       overflow: hidden;
-      text-decoration: none;
-      color: inherit;
       display: block;
+      background: #ffffff;
     }
 
-    .yt-video-thumb {
+    .dark-mode .video-embed-card {
+      background: #1b1b1b;
+    }
+
+    .video-embed-thumb {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 9 / 16;
       overflow: hidden;
       background: #000;
+      cursor: pointer;
     }
 
-    .yt-video-thumb img {
+    .video-embed-thumb--long {
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-embed-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .yt-video-play {
+    .video-embed-play {
       position: absolute;
       inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0, 0, 0, 0.15);
+      background: rgba(0, 0, 0, 0.2);
       transition: background 0.2s ease;
     }
 
-    .yt-video-play span {
-      width: 52px;
-      height: 52px;
+    .video-embed-thumb:hover .video-embed-play {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .video-embed-play span {
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
-      background: rgba(230, 57, 70, 0.9);
+      background: rgba(230, 57, 70, 0.95);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 22px;
+      padding-left: 5px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     }
 
-    .yt-video-card:hover .yt-video-play {
-      background: rgba(0, 0, 0, 0.35);
+    .video-embed-card iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
-    .yt-video-info {
-      padding: 16px 18px;
+    .video-embed-info {
+      padding: 14px 16px;
     }
 
-    .yt-video-info h3 {
+    .video-embed-info h3 {
       font-size: 15px;
       line-height: 1.35;
-      margin-bottom: 8px;
+      margin: 0 0 8px 0;
     }
 
-    .yt-video-date {
+    .video-embed-date {
       font-size: 12px;
       color: #888888;
+      margin-bottom: 10px;
     }
 
-    .dark-mode .yt-video-date {
+    .dark-mode .video-embed-date {
       color: #aaaaaa;
+    }
+
+    .video-watch-yt {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      background: #e63946;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      border: none !important;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .video-watch-yt:hover {
+      background: #d62828;
+      transform: translateY(-2px);
+    }
+
+    .dark-mode .video-watch-yt {
+      background: #e63946;
+      color: #ffffff !important;
     }
 
     /* =========================
@@ -2552,9 +2595,11 @@
     name="keywords"
     content="upcomedyhub, desi comedy, hindi comedy, funny videos, comedy shorts, indian comedy, up comedy">
 
-  <meta name="author" content="UPComedyHub">
+  <meta
+    name="author" content="UPComedyHub">
 
-  <meta name="robots" content="index, follow">
+  <meta
+    name="robots" content="index, follow">
 
   <link rel="canonical" href="https://upcomedyhub.github.io/">
 
@@ -2741,7 +2786,7 @@
     </section>
 
     <!-- =========================
-         SHORTS
+         SHORTS (Auto-fetched from YouTube)
     ========================= -->
 
     <section id="shorts">
@@ -2753,82 +2798,63 @@
         <button type="button" class="filter-tab" data-filter="long">🎥 Long Videos</button>
       </div>
 
-      <div class="cards reveal-stagger">
-        <div class="card filterable-card" data-category="shorts">
-          <h3>Funny Desi Comedy 😂</h3>
-          <div class="short-video">
-            <iframe
-              src="https://www.youtube.com/embed/BM9td5ALOkw"
-              title="UPComedyHub Short"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
-          </div>
-          <div class="reaction-bar" data-reaction-id="short-1">
-            <button type="button" class="reaction-btn" data-emoji="😂">
-              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="❤️">
-              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="🔥">
-              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="card filterable-card" data-category="shorts">
-          <h3>Desi Comedy 🤣</h3>
-          <p data-en="Your daily dose of entertainment and funny moments." data-simple-hi="मनोरंजन और हास्य पलों की दैनिक खुराक।">
-            Entertainment aur funny moments ka daily dose.
-          </p>
-          <div class="reaction-bar" data-reaction-id="short-2">
-            <button type="button" class="reaction-btn" data-emoji="😂">
-              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="❤️">
-              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="🔥">
-              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="card filterable-card" data-category="shorts">
-          <h3>Comedy Dhamaka 🔥</h3>
-          <p data-en="A collection of UPComedyHub's funny videos." data-simple-hi="यूपी कॉमेडी हब के फनी वीडियो का संग्रह।">
-            UPComedyHub ke funny videos ka collection.
-          </p>
-          <div class="reaction-bar" data-reaction-id="short-3">
-            <button type="button" class="reaction-btn" data-emoji="😂">
-              <span class="reaction-pop">😂</span> Funny <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="❤️">
-              <span class="reaction-pop">❤️</span> Loved it <span class="reaction-count">0</span>
-            </button>
-            <button type="button" class="reaction-btn" data-emoji="🔥">
-              <span class="reaction-pop">🔥</span> Awesome <span class="reaction-count">0</span>
-            </button>
-          </div>
+      <div class="cards" id="latestVideosGrid">
+        <div class="card" id="videosLoadingCard">
+          <p>⏳ Videos load ho rahe hain...</p>
         </div>
       </div>
     </section>
 
     <!-- =========================
-         VIDEOS
+         VIDEOS (Manual long videos)
     ========================= -->
 
     <section id="videos">
-      <h2 class="section-title reveal">🎬 All Videos</h2>
-      <p class="reveal" style="text-align:center; margin-top:-20px; margin-bottom:30px; color:#777;">
-        Seedha YouTube se — hamesha latest 15 videos yahan automatically dikhengi 🔄
-      </p>
-      <div class="cards reveal-stagger" id="youtubeVideosContainer">
-        <div class="card">
-          <p>⏳ Videos load ho rahe hain...</p>
+      <h2 class="section-title reveal">🎬 Videos</h2>
+
+      <div class="cards">
+
+        <!-- ==============================
+             VIDEO 1 - Hmmgh9V8tmM
+        ============================== -->
+        <div class="card filterable-card video-embed-card" data-category="long">
+          <div class="video-embed-thumb video-embed-thumb--long" data-video-id="Hmmgh9V8tmM">
+            <img src="https://i.ytimg.com/vi/Hmmgh9V8tmM/hqdefault.jpg" alt="UPComedyHub Long Video 1" loading="lazy">
+            <div class="video-embed-play"><span>▶</span></div>
+          </div>
+          <div class="video-embed-info">
+            <h3>UPComedyHub Video 1</h3>
+            <div class="video-embed-date">🎬 Long Video</div>
+            <a class="video-watch-yt" href="https://www.youtube.com/watch?v=Hmmgh9V8tmM" target="_blank" rel="noopener noreferrer">▶ YouTube par dekho</a>
+          </div>
         </div>
+
+        <!-- ==============================
+             VIDEO 2 - YdM3e4HICew
+        ============================== -->
+        <div class="card filterable-card video-embed-card" data-category="long">
+          <div class="video-embed-thumb video-embed-thumb--long" data-video-id="YdM3e4HICew">
+            <img src="https://i.ytimg.com/vi/YdM3e4HICew/hqdefault.jpg" alt="UPComedyHub Long Video 2" loading="lazy">
+            <div class="video-embed-play"><span>▶</span></div>
+          </div>
+          <div class="video-embed-info">
+            <h3>UPComedyHub Video 2</h3>
+            <div class="video-embed-date">🎬 Long Video</div>
+            <a class="video-watch-yt" href="https://www.youtube.com/watch?v=YdM3e4HICew" target="_blank" rel="noopener noreferrer">▶ YouTube par dekho</a>
+          </div>
+        </div>
+
+        <!-- ==============================
+             👇 NAYA VIDEO ADD KARNE KE LIYE
+             yeh block copy karo, upar wale
+             ke baad paste karo, aur sirf
+             4 jagah VIDEO_ID badal do:
+             - data-video-id="VIDEO_ID"
+             - src="...vi/VIDEO_ID/hqdefault.jpg"
+             - href="...watch?v=VIDEO_ID"
+             - <h3>Video ka Title</h3>
+        ============================== -->
+
       </div>
     </section>
 
@@ -3815,19 +3841,20 @@
 
     /* =========================
        AUTO-FETCH YOUTUBE VIDEOS
-       (Direct RSS XML parser — 100% free, unlimited, no API key)
+       (Direct RSS XML parser — free unlimited)
+       Videos Shorts section mein load hongi
+       aur website par hi play hongi
     ========================= */
 
     (function () {
       const YT_CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
-      const videosContainer = document.getElementById("youtubeVideosContainer");
+      const grid = document.getElementById("latestVideosGrid");
 
-      if (!videosContainer) return;
+      if (!grid) return;
 
       const rssUrl =
         "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT_CHANNEL_ID;
 
-      // Free public CORS proxy (unlimited, no signup needed)
       const proxyUrl =
         "https://api.allorigins.win/raw?url=" + encodeURIComponent(rssUrl);
 
@@ -3844,13 +3871,14 @@
           const xml = parser.parseFromString(xmlText, "text/xml");
           const entries = xml.getElementsByTagName("entry");
 
+          const loadingCard = document.getElementById("videosLoadingCard");
+          if (loadingCard) loadingCard.remove();
+
           if (!entries || entries.length === 0) {
-            videosContainer.innerHTML =
+            grid.innerHTML =
               '<div class="card"><p>Abhi koi video nahi mila.</p></div>';
             return;
           }
-
-          videosContainer.innerHTML = "";
 
           const maxVideos = Math.min(entries.length, 15);
 
@@ -3861,16 +3889,15 @@
             const videoIdEl = entry.getElementsByTagName("yt:videoId")[0];
             const titleEl = entry.getElementsByTagName("title")[0];
             const publishedEl = entry.getElementsByTagName("published")[0];
-            const linkEl = entry.getElementsByTagName("link")[0];
 
             const videoId = videoIdEl ? videoIdEl.textContent : "";
             const title = titleEl ? titleEl.textContent : "Untitled";
             const published = publishedEl ? publishedEl.textContent : "";
-            const link = linkEl ? linkEl.getAttribute("href") : "";
 
-            const thumb = videoId
-              ? "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg"
-              : "";
+            if (!videoId) continue;
+
+            const thumb =
+              "https://i.ytimg.com/vi/" + videoId + "/hqdefault.jpg";
 
             const publishedDate = published
               ? new Date(published).toLocaleDateString("en-IN", {
@@ -3882,36 +3909,71 @@
 
             const safeTitle = title.replace(/"/g, "&quot;");
 
-            const card = document.createElement("a");
-            card.href = link;
-            card.target = "_blank";
-            card.rel = "noopener noreferrer";
-            card.className = "card filterable-card yt-video-card";
-            card.setAttribute("data-category", "long");
+            const card = document.createElement("div");
+            card.className = "card filterable-card video-embed-card";
+            card.setAttribute("data-category", "shorts");
+            card.setAttribute("data-video-id", videoId);
 
             card.innerHTML =
-              '<div class="yt-video-thumb">' +
+              '<div class="video-embed-thumb" data-video-id="' + videoId + '">' +
                 '<img src="' + thumb + '" alt="' + safeTitle + '" loading="lazy">' +
-                '<div class="yt-video-play"><span>▶</span></div>' +
-              "</div>" +
-              '<div class="yt-video-info">' +
-                "<h3>" + title + "</h3>" +
-                '<div class="yt-video-date">📅 ' + publishedDate + "</div>" +
-              "</div>";
+                '<div class="video-embed-play"><span>▶</span></div>' +
+              '</div>' +
+              '<div class="video-embed-info">' +
+                '<h3>' + title + '</h3>' +
+                '<div class="video-embed-date">📅 ' + publishedDate + '</div>' +
+                '<a class="video-watch-yt" href="https://www.youtube.com/watch?v=' + videoId + '" target="_blank" rel="noopener noreferrer">▶ YouTube par dekho</a>' +
+              '</div>';
 
-            videosContainer.appendChild(card);
-
+            grid.appendChild(card);
           }
 
         })
         .catch(function () {
 
-          videosContainer.innerHTML =
-            '<div class="card"><p>⚠️ Videos load nahi ho paaye. Thodi der baad try karein.</p></div>';
+          const loadingCard = document.getElementById("videosLoadingCard");
+          if (loadingCard) {
+            loadingCard.innerHTML =
+              '<p>⚠️ Videos load nahi ho paaye. Thodi der baad try karein.</p>';
+          }
 
         });
 
     })();
+
+    /* =========================
+       CLICK-TO-PLAY VIDEO
+       (Shorts section + Videos section
+        dono ke liye ek hi logic)
+    ========================= */
+
+    document.addEventListener("click", function (event) {
+
+      const thumb = event.target.closest(".video-embed-thumb");
+      if (!thumb) return;
+
+      // Agar already iframe hai to skip
+      if (thumb.querySelector("iframe")) return;
+
+      const videoId = thumb.getAttribute("data-video-id");
+      if (!videoId) return;
+
+      const iframe = document.createElement("iframe");
+      iframe.src =
+        "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0";
+      iframe.title = "UPComedyHub Video";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.setAttribute("allowfullscreen", "");
+      iframe.style.width = "100%";
+      iframe.style.height = "100%";
+      iframe.style.border = "none";
+
+      thumb.innerHTML = "";
+      thumb.appendChild(iframe);
+      thumb.style.cursor = "default";
+
+    });
 
     /* =========================
        FILTER TABS
@@ -3925,8 +3987,7 @@
         tab.classList.add("active");
         const filter = tab.getAttribute("data-filter");
 
-        // re-query every time: catches videos that were added
-        // dynamically (after the YouTube RSS fetch) too
+        // re-query every time (YouTube videos baad me add hote hain)
         document.querySelectorAll(".filterable-card").forEach(function (card) {
           const category = card.getAttribute("data-category");
           if (filter === "all" || filter === category) {

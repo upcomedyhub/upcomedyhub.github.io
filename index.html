@@ -1990,6 +1990,243 @@
     }
 
     /* =========================
+       SUPPORT / DONATE
+    ========================= */
+
+    #support {
+      text-align: center;
+      max-width: 1200px;
+    }
+
+    .support-card {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 32px 26px;
+    }
+
+    .support-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(230, 57, 70, 0.1);
+      color: #e63946;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      margin-bottom: 14px;
+    }
+
+    .support-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .support-card > p {
+      color: #666666;
+      font-size: 15px;
+      margin-bottom: 22px;
+    }
+
+    .dark-mode .support-card > p {
+      color: #cccccc;
+    }
+
+    .support-amounts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .amount-btn {
+      padding: 10px 20px;
+      border: 2px solid #dddddd;
+      border-radius: 30px;
+      background: #ffffff;
+      color: #333333;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .amount-btn:hover {
+      border-color: #e63946;
+      transform: translateY(-2px);
+    }
+
+    .amount-btn.active {
+      background: #e63946;
+      border-color: #e63946;
+      color: #ffffff;
+    }
+
+    .dark-mode .amount-btn {
+      background: #222222;
+      border-color: #444444;
+      color: #eeeeee;
+    }
+
+    .dark-mode .amount-btn.active {
+      background: #e63946;
+      border-color: #e63946;
+      color: #ffffff;
+    }
+
+    .support-main-btn {
+      width: 100%;
+      padding: 15px 22px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      background: #e63946;
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(230, 57, 70, 0.3);
+      margin: 0;
+    }
+
+    .support-main-btn:hover {
+      background: #d62828;
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 12px 28px rgba(230, 57, 70, 0.4);
+    }
+
+    .dark-mode .support-main-btn {
+      background: #e63946;
+      color: #ffffff;
+    }
+
+    .support-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 18px;
+      color: #999999;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .support-divider::before,
+    .support-divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #eeeeee;
+    }
+
+    .dark-mode .support-divider::before,
+    .dark-mode .support-divider::after {
+      background: #333333;
+    }
+
+    .support-upi-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      background: #fafafa;
+      border: 1px dashed #dddddd;
+      border-radius: 12px;
+      margin-bottom: 22px;
+    }
+
+    .dark-mode .support-upi-row {
+      background: #1f1f1f;
+      border-color: #444444;
+    }
+
+    .upi-info {
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .upi-info small {
+      display: block;
+      font-size: 11px;
+      color: #999999;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+
+    .upi-info strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: #111111;
+      word-break: break-all;
+    }
+
+    .dark-mode .upi-info strong {
+      color: #ffffff;
+    }
+
+    .support-qr-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .support-qr-wrap img {
+      width: 220px;
+      height: 220px;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid #eeeeee;
+      object-fit: contain;
+    }
+
+    .dark-mode .support-qr-wrap img {
+      border-color: #444444;
+    }
+
+    .support-qr-wrap p {
+      font-size: 13px;
+      color: #777777;
+      margin: 0;
+    }
+
+    .dark-mode .support-qr-wrap p {
+      color: #bbbbbb;
+    }
+
+    .support-note {
+      font-size: 12px;
+      color: #999999;
+      margin: 0;
+    }
+
+    @media (max-width: 700px) {
+      .support-card {
+        padding: 26px 20px;
+      }
+      .support-card h3 {
+        font-size: 20px;
+      }
+      .amount-btn {
+        padding: 9px 16px;
+        font-size: 13px;
+      }
+      .support-main-btn {
+        font-size: 15px;
+        padding: 14px 18px;
+      }
+      .support-qr-wrap img {
+        width: 180px;
+        height: 180px;
+      }
+    }
+
+    /* =========================
        SCROLL REVEAL
     ========================= */
 
@@ -2024,6 +2261,7 @@
     .reveal-stagger.active > *:nth-child(7) { transition-delay: 0.65s; }
     .reveal-stagger.active > *:nth-child(8) { transition-delay: 0.75s; }
     .reveal-stagger.active > *:nth-child(9) { transition-delay: 0.85s; }
+    .reveal-stagger.active > *:nth-child(10) { transition-delay: 0.95s; }
 
     @media (prefers-reduced-motion: reduce) {
       .reveal,
@@ -2332,6 +2570,7 @@
       <a href="#about">ℹ️ About</a>
       <a href="#contact">📩 Contact</a>
       <a href="#newsletter">📩 Newsletter</a>
+      <a href="#support">☕ Support</a>
     </nav>
   </header>
 
@@ -2582,6 +2821,11 @@
         <div class="card team-card">
           <img src="shubham_singh_gtm_20_20260910_114512740.jpg" alt="Shubham - Actor" loading="lazy">
           <h3>Shubham</h3>
+          <p>🎭 Actor</p>
+        </div>
+        <div class="card team-card">
+          <img src="IMG_20260919_172225632_HDR_PORTRAIT.jpg" alt="Nigam - Actor" loading="lazy">
+          <h3>Nigam</h3>
           <p>🎭 Actor</p>
         </div>
       </div>
@@ -2885,6 +3129,69 @@
         <p class="newsletter-note" data-en="🔒 Your email will only be used for UPComedyHub updates and replies." data-simple-hi="🔒 आपका ईमेल केवल यूपी कॉमेडी हब अपडेट और उत्तर के उद्देश्य से उपयोग किया जाएगा।">
           🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose ke liye use kiya jayega.
         </p>
+      </div>
+    </section>
+
+    <!-- =========================
+         SUPPORT / DONATE
+    ========================= -->
+
+    <section id="support">
+      <h2 class="section-title reveal">☕ Support UPComedyHub</h2>
+
+      <div class="card support-card reveal">
+
+        <span class="support-badge">❤️ Aapka Support, Hamari Taakat</span>
+
+        <h3>Ek Chai Pilao ☕</h3>
+
+        <p data-en="If you enjoy our comedy, support us with a small chai. Every contribution helps us create more videos! ❤️" data-simple-hi="अगर आपको हमारी कॉमेडी पसंद है, तो एक छोटी सी चाय पिलाकर सपोर्ट करें। आपका हर योगदान नए वीडियो बनाने में मदद करता है! ❤️">
+          Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️
+        </p>
+
+        <div class="support-amounts">
+          <button type="button" class="amount-btn" data-amount="50">₹50</button>
+          <button type="button" class="amount-btn active" data-amount="100">₹100</button>
+          <button type="button" class="amount-btn" data-amount="200">₹200</button>
+          <button type="button" class="amount-btn" data-amount="500">₹500</button>
+          <button type="button" class="amount-btn" data-amount="">Custom</button>
+        </div>
+
+        <button type="button" id="upiPayBtn" class="btn support-main-btn">
+          💳 Pay ₹100 via UPI
+        </button>
+
+        <div class="support-divider">
+          <span>OR</span>
+        </div>
+
+        <div class="support-upi-row">
+          <div class="upi-info">
+            <small>UPI ID</small>
+            <strong id="upiIdDisplay">9236994154@axl</strong>
+          </div>
+          <button
+            type="button"
+            class="copy-btn"
+            data-copy-text="9236994154@axl"
+            aria-label="Copy UPI ID">
+            📋 Copy
+          </button>
+        </div>
+
+        <div class="support-qr-wrap">
+          <img
+            id="upiQrImage"
+            src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg"
+            alt="UPI QR Code - Scan to Support"
+            loading="lazy">
+          <p>📱 Scan this QR with any UPI app</p>
+        </div>
+
+        <p class="support-note">
+          🔒 100% secure. Payment directly humare UPI par aata hai.
+        </p>
+
       </div>
     </section>
 
@@ -3222,26 +3529,6 @@
           if (score > bestScore) {
             target = heading.closest("section") || heading;
             bestScore = score;
-          }
-        });
-      }
-
-      if (!target) {
-        document.querySelectorAll(".card").forEach(function (card) {
-          const text = card.textContent.toLowerCase();
-          if (text.includes(searchText) && bestScore < 40) {
-            target = card;
-            bestScore = 40;
-          }
-        });
-      }
-
-      if (!target) {
-        document.querySelectorAll("section").forEach(function (section) {
-          const text = section.textContent.toLowerCase();
-          if (text.includes(searchText) && bestScore < 20) {
-            target = section;
-            bestScore = 20;
           }
         });
       }
@@ -3730,6 +4017,60 @@
     window.addEventListener("appinstalled", function () {
       if (installAppBtn) installAppBtn.style.display = "none";
     });
+
+    /* =========================
+       SUPPORT / DONATE
+    ========================= */
+
+    const UPI_ID = "9236994154@axl";
+    const UPI_NAME = "UPComedyHub";
+
+    let selectedAmount = 100;
+
+    const amountButtons = document.querySelectorAll(".amount-btn");
+    const upiPayBtn = document.getElementById("upiPayBtn");
+
+    amountButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+
+        amountButtons.forEach(function (b) {
+          b.classList.remove("active");
+        });
+        btn.classList.add("active");
+
+        const amt = btn.getAttribute("data-amount");
+        selectedAmount = amt;
+
+        if (amt === "") {
+          upiPayBtn.textContent = "💳 Pay Custom Amount via UPI";
+        } else {
+          upiPayBtn.textContent = "💳 Pay ₹" + amt + " via UPI";
+        }
+      });
+    });
+
+    if (upiPayBtn) {
+      upiPayBtn.addEventListener("click", function () {
+
+        let upiLink = "upi://pay?pa=" + encodeURIComponent(UPI_ID) +
+                      "&pn=" + encodeURIComponent(UPI_NAME) +
+                      "&cu=INR";
+
+        if (selectedAmount !== "") {
+          upiLink += "&am=" + selectedAmount;
+        }
+
+        window.location.href = upiLink;
+
+        setTimeout(function () {
+          if (window.innerWidth > 768 && navigator.clipboard) {
+            navigator.clipboard.writeText(UPI_ID).then(function () {
+              showToast("📋 UPI ID copied: " + UPI_ID);
+            });
+          }
+        }, 800);
+      });
+    }
   </script>
 
   <script>

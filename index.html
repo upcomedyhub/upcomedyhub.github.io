@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥</title>
 <link rel="icon" type="image/jpeg" href="IMG_20260917_172912.jpg">
-<link rel="apple-touch-icon" href="IMG_20260917_172912.jpg">
 <meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 <meta name="theme-color" content="#111111">
 <link rel="manifest" href="/manifest.json">
@@ -53,7 +52,6 @@ nav.top-nav a:hover{color:#e63946}
 .dark-mode header{background:#111;border-bottom-color:#333}
 .dark-mode nav.top-nav a{color:#fff}
 
-/* MENU BACKDROP — z-index header se kam, taaki menu ke upar click jaaye */
 .menu-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:999}
 .menu-backdrop.show{display:block}
 
@@ -894,7 +892,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* MENU */
 const menuToggle = document.getElementById("menuToggle");
 const topNav = document.querySelector(".top-nav");
 const menuBackdrop = document.getElementById("menuBackdrop");
@@ -915,7 +912,6 @@ menuToggle.addEventListener("click", (e) => {
 menuBackdrop.addEventListener("click", closeMenu);
 topNav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
 
-/* ANNOUNCEMENT */
 const announcementBar = document.getElementById("announcementBar");
 const closeAnnouncement = document.getElementById("closeAnnouncement");
 if (localStorage.getItem("announcementClosed") === "true") announcementBar.style.display = "none";
@@ -924,7 +920,6 @@ closeAnnouncement.addEventListener("click", () => {
   localStorage.setItem("announcementClosed", "true");
 });
 
-/* COOKIE */
 const cookieNotice = document.getElementById("cookieNotice");
 const cookieAccept = document.getElementById("cookieAccept");
 if (!localStorage.getItem("cookieAccepted")) cookieNotice.style.display = "flex";
@@ -933,7 +928,6 @@ cookieAccept.addEventListener("click", () => {
   cookieNotice.style.display = "none";
 });
 
-/* LOADER */
 function hideLoader() {
   const l = document.getElementById("pageLoader");
   if (!l) return;
@@ -943,7 +937,6 @@ function hideLoader() {
 window.addEventListener("load", () => setTimeout(hideLoader, 400));
 setTimeout(hideLoader, 4000);
 
-/* SCROLL */
 const backToTop = document.getElementById("backToTop");
 window.addEventListener("scroll", () => {
   const st = window.scrollY;
@@ -954,12 +947,10 @@ window.addEventListener("scroll", () => {
 });
 backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-/* QUICK ACTIONS */
 document.getElementById("quickActionsToggle").addEventListener("click", () => {
   document.getElementById("quickActions").classList.toggle("active");
 });
 
-/* TOAST */
 let toastTimeout;
 function showToast(msg) {
   const t = document.getElementById("toastNotification");
@@ -969,21 +960,18 @@ function showToast(msg) {
   toastTimeout = setTimeout(() => t.classList.remove("show"), 2200);
 }
 
-/* SHARE */
 function shareWebsite() {
   const d = { title: "UPComedyHub", text: "😂 UPComedyHub par Desi Comedy dekho!", url: window.location.href };
   if (navigator.share) navigator.share(d).catch(() => {});
   else navigator.clipboard.writeText(window.location.href).then(() => showToast("🔗 Link copied!"));
 }
 
-/* COPY */
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-copy-text]");
   if (!btn) return;
   navigator.clipboard.writeText(btn.getAttribute("data-copy-text")).then(() => showToast("✅ Copied!"));
 });
 
-/* FAQ */
 document.querySelectorAll(".faq-q").forEach(q => {
   q.addEventListener("click", () => {
     const a = q.nextElementSibling;
@@ -991,7 +979,6 @@ document.querySelectorAll(".faq-q").forEach(q => {
   });
 });
 
-/* FIREBASE AUTH */
 auth.onAuthStateChanged(async (user) => {
   currentUser = user;
   if (user) {
@@ -1044,73 +1031,45 @@ function updateProfileUI() {
   } else { lo.style.display = "block"; li.style.display = "none"; }
 }
 
-/* FETCH REELS — 4 PROXY FALLBACK */
+/* =========================
+   FETCH REELS — YouTube Data API v3
+========================= */
 (function fetchReels() {
-  const YT = "UCVZgUX5-li8xln9JQKZifqA";
+  const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
+  const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
   const grid = document.getElementById("reelsGrid");
-  const rssUrl = "https://www.youtube.com/feeds/videos.xml?channel_id=" + YT;
 
-  const proxies = [
-    { url: "https://corsproxy.io/?url=", json: false },
-    { url: "https://api.codetabs.com/v1/proxy?quest=", json: false },
-    { url: "https://api.allorigins.win/raw?url=", json: false },
-    { url: "https://api.rss2json.com/v1/api.json?rss_url=", json: true }
-  ];
+  grid.innerHTML = '<div class="card"><p>⏳ Loading Shorts...</p></div>';
 
-  function tryProxy(idx) {
-    if (idx >= proxies.length) {
-      grid.innerHTML = '<div class="card"><p>⚠️ Videos load nahi ho paaye. Internet check karein ya thodi der baad try karein.</p></div>';
-      return;
-    }
-    const p = proxies[idx];
-    const url = p.url + encodeURIComponent(rssUrl);
+  fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=" + CHANNEL_ID + "&key=" + API_KEY)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.items || !data.items.length) {
+        throw new Error("Channel not found — check ID");
+      }
+      const uploadsId = data.items[0].contentDetails.relatedPlaylists.uploads;
+      return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + uploadsId + "&maxResults=15&key=" + API_KEY);
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (!data.items || !data.items.length) {
+        throw new Error("No videos found");
+      }
+      renderReels(data.items);
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = '<div class="card"><p>⚠️ Error: ' + err.message + '</p></div>';
+    });
 
-    fetch(url)
-      .then(r => { if (!r.ok) throw new Error("fail"); return p.json ? r.json() : r.text(); })
-      .then(data => {
-        let entries = [];
-        if (p.json) {
-          if (data.status === "ok" && data.items && data.items.length > 0) {
-            entries = data.items.map(item => ({
-              videoId: (item.link.match(/[?&]v=([^&]+)/) || [])[1] || "",
-              title: item.title || "Untitled",
-              pub: item.pubDate || ""
-            })).filter(e => e.videoId);
-          }
-        } else {
-          const xml = new DOMParser().parseFromString(data, "text/xml");
-          if (xml.querySelector("parsererror")) throw new Error("bad xml");
-          const list = xml.getElementsByTagName("entry");
-          for (let i = 0; i < list.length; i++) {
-            const e = list[i];
-            const v = e.getElementsByTagName("yt:videoId")[0];
-            const t = e.getElementsByTagName("title")[0];
-            const pd = e.getElementsByTagName("published")[0];
-            if (v && v.textContent) {
-              entries.push({
-                videoId: v.textContent,
-                title: t ? t.textContent : "Untitled",
-                pub: pd ? pd.textContent : ""
-              });
-            }
-          }
-        }
-        if (entries.length === 0) throw new Error("empty");
-        renderReels(entries);
-      })
-      .catch(() => tryProxy(idx + 1));
-  }
-
-  function renderReels(entries) {
+  function renderReels(items) {
     grid.innerHTML = "";
-    const max = Math.min(entries.length, 15);
-    for (let i = 0; i < max; i++) {
-      const item = entries[i];
-      const vid = item.videoId;
-      const title = item.title;
-      const pub = item.pub;
+    items.forEach(item => {
+      const vid = item.snippet.resourceId.videoId;
+      const title = item.snippet.title;
+      const pub = item.snippet.publishedAt;
       allVideos[vid] = { title, category: "shorts" };
-      const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+      const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
       const dateStr = pub ? new Date(pub).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }) : "";
       const card = document.createElement("div");
       card.className = "video-card";
@@ -1126,14 +1085,11 @@ function updateProfileUI() {
           <div class="video-actions"></div>
         </div>`;
       grid.appendChild(card);
-    }
+    });
     refreshAllVideoActions();
   }
-
-  tryProxy(0);
 })();
 
-/* REGISTER MANUAL VIDEOS */
 document.querySelectorAll("#videosGrid .video-card").forEach(card => {
   const vid = card.getAttribute("data-video-id");
   if (vid) {
@@ -1145,7 +1101,6 @@ document.querySelectorAll("#videosGrid .video-card").forEach(card => {
   }
 });
 
-/* CLICK TO PLAY */
 document.addEventListener("click", (e) => {
   const thumb = e.target.closest(".video-thumb");
   if (!thumb || thumb.querySelector("iframe")) return;
@@ -1162,7 +1117,6 @@ document.addEventListener("click", (e) => {
   thumb.innerHTML = ""; thumb.appendChild(iframe); thumb.style.cursor = "default";
 });
 
-/* VIDEO ACTIONS */
 function refreshAllVideoActions() {
   document.querySelectorAll(".video-card").forEach(card => {
     const vid = card.getAttribute("data-video-id");
@@ -1215,7 +1169,6 @@ async function toggleSave(vid) {
   } catch (e) { showToast("❌ Error"); }
 }
 
-/* COMMENTS */
 const commentsOverlay = document.getElementById("commentsOverlay");
 document.getElementById("commentsClose").addEventListener("click", closeComments);
 commentsOverlay.addEventListener("click", (e) => { if (e.target === commentsOverlay) closeComments(); });
@@ -1287,7 +1240,6 @@ function formatTimeAgo(date) {
   return date.toLocaleDateString("en-IN");
 }
 
-/* NOTIFICATIONS */
 const bellBtn = document.getElementById("bellBtn");
 const notifPanel = document.getElementById("notifPanel");
 bellBtn.addEventListener("click", (e) => {
@@ -1305,7 +1257,6 @@ document.addEventListener("click", (e) => {
   if (!notifPanel.contains(e.target) && !bellBtn.contains(e.target)) notifPanel.classList.remove("show");
 });
 
-/* SEARCH */
 const tsi = document.getElementById("tabSearchInput");
 if (tsi) {
   tsi.addEventListener("input", () => {
@@ -1333,7 +1284,6 @@ if (tsi) {
   });
 }
 
-/* UPI */
 const UPI_ID = "9236994154@axl";
 const UPI_NAME = "UPComedyHub";
 let selectedAmount = 100;
@@ -1355,7 +1305,6 @@ document.getElementById("upiPayBtn").addEventListener("click", () => {
   }, 800);
 });
 
-/* YOUTUBE SUBS */
 const yts = document.getElementById("youtubeSubscribers");
 if (yts) {
   fetch("https://pulse.walls.sh/profile?url=" + encodeURIComponent("https://www.youtube.com/@up_comedyhub"))
@@ -1364,7 +1313,6 @@ if (yts) {
     .catch(() => { yts.textContent = "—"; });
 }
 
-/* RECENTLY VIEWED */
 const rvList = document.getElementById("recentlyViewedList");
 const rvEmpty = document.getElementById("recentlyViewedEmpty");
 const rv = [];

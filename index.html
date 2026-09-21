@@ -205,6 +205,10 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .video-info h3{font-size:14px;line-height:1.35;font-weight:700;color:inherit}
 .video-date{font-size:11px;color:#888}
 .dark-mode .video-date{color:#aaa}
+.video-likes-link{font-size:12px;font-weight:700;color:#e63946;cursor:pointer;padding:2px 0;transition:.2s;display:none}
+.video-likes-link:hover{text-decoration:underline}
+.video-likes-link.show{display:block}
+.dark-mode .video-likes-link{color:#ff8a80}
 .video-grid.reels{display:flex;flex-direction:column;gap:20px;max-width:500px;margin:0 auto;padding:0 12px}
 .video-grid.reels .video-card{width:100%;border-radius:20px}
 .video-thumb.reel{aspect-ratio:9/16;max-height:75vh;border-radius:0}
@@ -241,6 +245,21 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .comment-form button{background:#e63946;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:800;cursor:pointer;font-size:14px;font-family:inherit}
 .comments-login-msg{padding:20px;text-align:center;color:#888;font-size:14px}
 .comments-login-btn{background:#4285f4;color:#fff;border:none;padding:12px 20px;border-radius:8px;font-weight:700;cursor:pointer;margin-top:10px;font-size:14px;font-family:inherit}
+.likes-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:10001;align-items:flex-end;justify-content:center}
+.likes-overlay.show{display:flex}
+.likes-box{background:#fff;width:100%;max-width:600px;max-height:70vh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:slideUp .3s ease}
+.dark-mode .likes-box{background:#1b1b1b;color:#fff}
+.likes-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #eee}
+.dark-mode .likes-header{border-color:#333}
+.likes-header h3{font-size:16px}
+.likes-close{background:none;border:none;font-size:24px;cursor:pointer;color:#666}
+.likes-list{flex:1;overflow-y:auto;padding:12px 20px}
+.likes-user{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5}
+.dark-mode .likes-user{border-color:#333}
+.likes-user:last-child{border:none}
+.likes-user img{width:42px;height:42px;border-radius:50%;object-fit:cover;background:#eee}
+.likes-user-name{font-weight:700;font-size:14px;color:inherit}
+.likes-empty{padding:30px;text-align:center;color:#888;font-size:14px}
 .profile-card{max-width:600px;margin:0 auto;text-align:center;padding:30px}
 .profile-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #e63946;margin-bottom:14px;background:#eee}
 .profile-name{font-size:22px;font-weight:800;margin-bottom:4px}
@@ -307,6 +326,14 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .admin-item{background:#222;border-color:#444}
 .admin-item button{background:#e63946;color:#fff;border:none;padding:5px 12px;border-radius:15px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
 .admin-warning{background:#fff3cd;border:1px solid #ffc107;color:#856404;padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:16px;text-align:center;max-width:700px;margin-left:auto;margin-right:auto}
+.admin-likes-video{padding:14px;background:#fafafa;border:1px solid #eee;border-radius:12px;margin-bottom:10px}
+.dark-mode .admin-likes-video{background:#222;border-color:#444}
+.admin-likes-header{font-weight:800;font-size:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;color:#e63946}
+.admin-likes-header small{font-weight:700;background:#e63946;color:#fff;padding:2px 10px;border-radius:12px;font-size:11px}
+.admin-likes-users{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;color:#555}
+.dark-mode .admin-likes-users{color:#bbb}
+.admin-likes-user-chip{background:#fff;border:1px solid #ddd;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700}
+.dark-mode .admin-likes-user-chip{background:#333;border-color:#555;color:#fff}
 @media(max-width:700px){
   header{padding:10px 15px}
   .logo{font-size:20px}
@@ -754,6 +781,13 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
     </div>
 
     <div class="admin-card">
+      <h3>❤️ Likes Management (Per Video)</h3>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.</p>
+      <button type="button" class="admin-btn" id="loadLikesBtn">🔄 Load Likes</button>
+      <div id="adminLikesList" style="margin-top:16px"></div>
+    </div>
+
+    <div class="admin-card">
       <h3>🏆 Fan of the Week</h3>
       <label class="admin-label">Fan Name</label>
       <input type="text" class="admin-input" id="adminFanName" placeholder="Fan ka naam">
@@ -797,8 +831,8 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
       <input type="text" class="admin-input" id="adminVideoId" placeholder="BM9td5ALOkw">
       <label class="admin-label">Category</label>
       <select class="admin-input" id="adminVideoCat">
-        <option value="long">🎥 Long Video</option>
-        <option value="shorts">🎬 Short</option>
+        <option value="long">🎥 Long Video (Videos tab mein jayegi)</option>
+        <option value="shorts">🎬 Short (Reels tab mein jayegi)</option>
       </select>
       <button type="button" class="admin-btn green" id="addVideoBtn">➕ Add Video</button>
       <div id="adminVideoList" style="margin-top:16px"></div>
@@ -825,6 +859,13 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
     <div class="comments-header"><h3>💬 Comments</h3><button type="button" class="comments-close" id="commentsClose">✕</button></div>
     <div class="comments-list" id="commentsList"></div>
     <div id="commentFormWrap"></div>
+  </div>
+</div>
+
+<div class="likes-overlay" id="likesOverlay">
+  <div class="likes-box">
+    <div class="likes-header"><h3>❤️ Liked by</h3><button type="button" class="likes-close" id="likesClose">✕</button></div>
+    <div class="likes-list" id="likesList"></div>
   </div>
 </div>
 
@@ -881,6 +922,7 @@ let userLikedVideos = new Set();
 let userSavedVideos = new Set();
 let allVideos = {};
 let currentCommentsVideoId = null;
+let likesByVideo = {}; // { videoId: [{userId, userName, userPhoto}, ...] }
 
 function setLanguage(lang) { localStorage.setItem("siteLanguage", lang); }
 window.addEventListener("DOMContentLoaded", () => {
@@ -1052,6 +1094,44 @@ async function loadUserLikesAndSaves(uid) {
   } catch (e) {}
 }
 
+/* ============ LOAD ALL LIKES (for counts + list) ============ */
+async function loadAllLikes() {
+  try {
+    const snap = await db.collection("likes").get();
+    likesByVideo = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      if (!likesByVideo[d.videoId]) likesByVideo[d.videoId] = [];
+      likesByVideo[d.videoId].push({
+        userId: d.userId,
+        userName: d.userName || "User"
+      });
+    });
+    refreshAllVideoActions();
+  } catch (e) { console.error("Load likes failed:", e); }
+}
+
+/* ============ LIKES MODAL ============ */
+const likesOverlay = document.getElementById("likesOverlay");
+document.getElementById("likesClose").addEventListener("click", () => likesOverlay.classList.remove("show"));
+likesOverlay.addEventListener("click", (e) => { if (e.target === likesOverlay) likesOverlay.classList.remove("show"); });
+
+function showLikesList(vid) {
+  const list = document.getElementById("likesList");
+  const users = likesByVideo[vid] || [];
+  if (users.length === 0) {
+    list.innerHTML = "<p class='likes-empty'>Abhi kisi ne like nahi kiya 😊</p>";
+  } else {
+    list.innerHTML = users.map(u => `
+      <div class="likes-user">
+        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.userName)}&background=e63946&color=fff" alt="">
+        <div class="likes-user-name">${escapeHtml(u.userName)}</div>
+      </div>
+    `).join("");
+  }
+  likesOverlay.classList.add("show");
+}
+
 document.getElementById("googleLoginBtn").addEventListener("click", async () => {
   try {
     await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
@@ -1079,7 +1159,7 @@ function updateProfileUI() {
   } else { lo.style.display = "block"; li.style.display = "none"; }
 }
 
-/* ============ FETCH REELS — YouTube Data API v3 ============ */
+/* ============ FETCH REELS ============ */
 (function fetchReels() {
   const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
@@ -1096,15 +1176,17 @@ function updateProfileUI() {
     .then(r => r.json())
     .then(data => {
       if (!data.items || !data.items.length) throw new Error("No videos found");
-      renderReels(data.items);
+      grid.innerHTML = "";
+      renderYoutubeReels(data.items);
+      appendManualShortsToReels();
     })
     .catch(err => {
       console.error(err);
-      grid.innerHTML = '<div class="card"><p>⚠️ Error: ' + err.message + '</p></div>';
+      grid.innerHTML = "";
+      appendManualShortsToReels();
     });
 
-  function renderReels(items) {
-    grid.innerHTML = "";
+  function renderYoutubeReels(items) {
     items.forEach(item => {
       const vid = item.snippet.resourceId.videoId;
       const title = item.snippet.title;
@@ -1115,6 +1197,7 @@ function updateProfileUI() {
       const card = document.createElement("div");
       card.className = "video-card";
       card.setAttribute("data-video-id", vid);
+      card.setAttribute("data-category", "shorts");
       card.innerHTML = `
         <div class="video-thumb reel" data-video-id="${vid}" data-original-img="${thumb}">
           <img src="${thumb}" alt="${title.replace(/"/g,"&quot;")}" loading="lazy">
@@ -1123,22 +1206,62 @@ function updateProfileUI() {
         <div class="video-info">
           <h3>${title}</h3>
           <div class="video-date">📅 ${dateStr}</div>
+          <div class="video-likes-link" data-vid="${vid}"></div>
           <div class="video-actions"></div>
         </div>`;
       grid.appendChild(card);
     });
     refreshAllVideoActions();
+    refreshLikesLinks();
   }
 })();
 
-/* ============ LOAD MANUAL VIDEOS FROM FIRESTORE ============ */
+async function appendManualShortsToReels() {
+  try {
+    const snap = await db.collection("manualVideos").where("category", "==", "shorts").get();
+    if (snap.empty) return;
+    const grid = document.getElementById("reelsGrid");
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    });
+    docs.forEach(doc => {
+      const d = doc.data();
+      const vid = d.videoId;
+      if (allVideos[vid] && allVideos[vid]._manual) return;
+      allVideos[vid] = { title: d.title, category: "shorts", _manual: true };
+      const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.setAttribute("data-video-id", vid);
+      card.setAttribute("data-category", "shorts");
+      card.setAttribute("data-manual", "1");
+      card.innerHTML = `
+        <div class="video-thumb reel" data-video-id="${vid}" data-original-img="${thumb}">
+          <img src="${thumb}" alt="${d.title.replace(/"/g,"&quot;")}" loading="lazy">
+          <div class="video-play"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <h3>${d.title}</h3>
+          <div class="video-date">🎬 Short</div>
+          <div class="video-likes-link" data-vid="${vid}"></div>
+          <div class="video-actions"></div>
+        </div>`;
+      grid.appendChild(card);
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+  } catch (e) { console.error(e); }
+}
+
+/* ============ LOAD MANUAL LONG VIDEOS ============ */
 async function loadManualVideos() {
   try {
-    const snap = await db.collection("manualVideos").orderBy("createdAt", "desc").get();
+    const snap = await db.collection("manualVideos").where("category", "==", "long").get();
     const grid = document.getElementById("videosGrid");
     grid.innerHTML = "";
 
-    // HARDCODED VIDEOS (permanent)
     const hardcoded = [
       { title: "UPComedyHub Video 1", videoId: "Hmmgh9V8tmM", category: "long" },
       { title: "UPComedyHub Video 2", videoId: "YdM3e4HICew", category: "long" }
@@ -1150,6 +1273,7 @@ async function loadManualVideos() {
       const card = document.createElement("div");
       card.className = "video-card";
       card.setAttribute("data-video-id", vid);
+      card.setAttribute("data-category", "long");
       card.innerHTML = `
         <div class="video-thumb" data-video-id="${vid}" data-original-img="${thumb}">
           <img src="${thumb}" alt="${d.title}" loading="lazy">
@@ -1158,14 +1282,19 @@ async function loadManualVideos() {
         <div class="video-info">
           <h3>${d.title}</h3>
           <div class="video-date">🎬 Long Video</div>
+          <div class="video-likes-link" data-vid="${vid}"></div>
           <div class="video-actions"></div>
         </div>`;
       grid.appendChild(card);
     });
 
-    // FIRESTORE VIDEOS (admin-added)
     if (!snap.empty) {
-      snap.forEach(doc => {
+      const docs = snap.docs.sort((a,b) => {
+        const ta = a.data().createdAt?.seconds || 0;
+        const tb = b.data().createdAt?.seconds || 0;
+        return tb - ta;
+      });
+      docs.forEach(doc => {
         const d = doc.data();
         const vid = d.videoId;
         allVideos[vid] = { title: d.title, category: d.category };
@@ -1173,6 +1302,7 @@ async function loadManualVideos() {
         const card = document.createElement("div");
         card.className = "video-card";
         card.setAttribute("data-video-id", vid);
+        card.setAttribute("data-category", "long");
         card.innerHTML = `
           <div class="video-thumb" data-video-id="${vid}" data-original-img="${thumb}">
             <img src="${thumb}" alt="${d.title.replace(/"/g,"&quot;")}" loading="lazy">
@@ -1180,18 +1310,45 @@ async function loadManualVideos() {
           </div>
           <div class="video-info">
             <h3>${d.title}</h3>
-            <div class="video-date">🎬 ${d.category === "long" ? "Long Video" : "Short"}</div>
+            <div class="video-date">🎬 Long Video</div>
+            <div class="video-likes-link" data-vid="${vid}"></div>
             <div class="video-actions"></div>
           </div>`;
         grid.appendChild(card);
       });
     }
     refreshAllVideoActions();
+    refreshLikesLinks();
   } catch (e) {
     console.error(e);
     document.getElementById("videosGrid").innerHTML = '<div class="card" style="grid-column:1/-1"><p>⚠️ Videos load nahi ho paaye</p></div>';
   }
 }
+
+/* ============ REFRESH LIKES LINKS ============ */
+function refreshLikesLinks() {
+  document.querySelectorAll(".video-likes-link").forEach(el => {
+    const vid = el.getAttribute("data-vid");
+    const count = (likesByVideo[vid] || []).length;
+    if (count > 0) {
+      el.textContent = "❤️ " + count + (count === 1 ? " person liked this" : " people liked this");
+      el.classList.add("show");
+    } else {
+      el.classList.remove("show");
+    }
+  });
+}
+
+/* ============ CLICK HANDLERS ============ */
+document.addEventListener("click", (e) => {
+  // Likes link click
+  const likesLink = e.target.closest(".video-likes-link");
+  if (likesLink) {
+    e.stopPropagation();
+    showLikesList(likesLink.getAttribute("data-vid"));
+    return;
+  }
+});
 
 /* CLICK TO PLAY */
 document.addEventListener("click", (e) => {
@@ -1216,8 +1373,10 @@ function refreshAllVideoActions() {
     if (!a) return;
     const l = userLikedVideos.has(vid);
     const s = userSavedVideos.has(vid);
+    const count = (likesByVideo[vid] || []).length;
+    const likeLabel = count > 0 ? count : "Like";
     a.innerHTML = `
-      <button type="button" class="action-btn ${l?"liked":""}" data-action="like" data-vid="${vid}"><span class="ico">${l?"❤️":"🤍"}</span><span>Like</span></button>
+      <button type="button" class="action-btn ${l?"liked":""}" data-action="like" data-vid="${vid}"><span class="ico">${l?"❤️":"🤍"}</span><span>${likeLabel}</span></button>
       <button type="button" class="action-btn" data-action="comment" data-vid="${vid}"><span class="ico">💬</span><span>Comment</span></button>
       <button type="button" class="action-btn" data-action="share" data-vid="${vid}"><span class="ico">📤</span><span>Share</span></button>
       <button type="button" class="action-btn ${s?"saved":""}" data-action="save" data-vid="${vid}"><span class="ico">${s?"🔖":"📑"}</span><span>Save</span></button>`;
@@ -1245,10 +1404,26 @@ async function toggleLike(vid) {
   const ref = db.collection("likes").doc(currentUser.uid + "_" + vid);
   try {
     const d = await ref.get();
-    if (d.exists) { await ref.delete(); userLikedVideos.delete(vid); showToast("🤍 Like removed"); }
-    else { await ref.set({ userId:currentUser.uid, videoId:vid, userName:currentUser.displayName||"User", createdAt:firebase.firestore.FieldValue.serverTimestamp() }); userLikedVideos.add(vid); showToast("❤️ Liked!"); }
-    refreshAllVideoActions(); updateProfileUI();
-  } catch (e) { showToast("❌ Error"); }
+    if (d.exists) {
+      await ref.delete();
+      userLikedVideos.delete(vid);
+      // Remove from local likesByVideo
+      if (likesByVideo[vid]) {
+        likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
+      }
+      showToast("🤍 Like removed");
+    } else {
+      await ref.set({ userId:currentUser.uid, videoId:vid, userName:currentUser.displayName||"User", createdAt:firebase.firestore.FieldValue.serverTimestamp() });
+      userLikedVideos.add(vid);
+      // Add to local likesByVideo
+      if (!likesByVideo[vid]) likesByVideo[vid] = [];
+      likesByVideo[vid].push({ userId: currentUser.uid, userName: currentUser.displayName || "User" });
+      showToast("❤️ Liked!");
+    }
+    refreshAllVideoActions();
+    refreshLikesLinks();
+    updateProfileUI();
+  } catch (e) { showToast("❌ Error"); console.error(e); }
 }
 async function toggleSave(vid) {
   const ref = db.collection("saves").doc(currentUser.uid + "_" + vid);
@@ -1260,6 +1435,7 @@ async function toggleSave(vid) {
   } catch (e) { showToast("❌ Error"); }
 }
 
+/* ============ COMMENTS ============ */
 const commentsOverlay = document.getElementById("commentsOverlay");
 document.getElementById("commentsClose").addEventListener("click", closeComments);
 commentsOverlay.addEventListener("click", (e) => { if (e.target === commentsOverlay) closeComments(); });
@@ -1280,7 +1456,6 @@ async function openComments(vid) {
   loadComments(vid);
 }
 
-/* FIXED — Manual sort, no composite index needed */
 async function loadComments(vid) {
   const list = document.getElementById("commentsList");
   try {
@@ -1543,6 +1718,10 @@ document.getElementById("addVideoBtn").addEventListener("click", async () => {
     showToast("✅ Video added!");
     loadManualVideosList();
     loadManualVideos();
+    if (cat === "shorts") {
+      document.querySelectorAll('#reelsGrid .video-card[data-manual="1"]').forEach(c => c.remove());
+      appendManualShortsToReels();
+    }
   } catch (e) { showToast("❌ Error"); console.error(e); }
 });
 
@@ -1556,7 +1735,8 @@ async function loadManualVideosList() {
       const d = doc.data();
       const el = document.createElement("div");
       el.className = "admin-item";
-      el.innerHTML = `<span><strong>${escapeHtml(d.title)}</strong> (${d.videoId})</span><button data-del="${doc.id}">🗑️ Delete</button>`;
+      const catLabel = d.category === "long" ? "🎥 Long" : "🎬 Short";
+      el.innerHTML = `<span><strong>${escapeHtml(d.title)}</strong> <small>(${catLabel})</small><br><small style="color:#888">${d.videoId}</small></span><button data-del="${doc.id}">🗑️</button>`;
       list.appendChild(el);
     });
     list.querySelectorAll("[data-del]").forEach(b => {
@@ -1567,11 +1747,55 @@ async function loadManualVideosList() {
           showToast("🗑️ Deleted");
           loadManualVideosList();
           loadManualVideos();
+          document.querySelectorAll('#reelsGrid .video-card[data-manual="1"]').forEach(c => c.remove());
+          appendManualShortsToReels();
         } catch (e) { showToast("❌ Error"); }
       });
     });
   } catch (e) { console.error(e); }
 }
+
+/* ============ ADMIN LIKES MANAGEMENT ============ */
+document.getElementById("loadLikesBtn").addEventListener("click", async () => {
+  const list = document.getElementById("adminLikesList");
+  list.innerHTML = "<p style='color:#888;font-size:13px'>Loading...</p>";
+  try {
+    const snap = await db.collection("likes").get();
+    const grouped = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      if (!grouped[d.videoId]) grouped[d.videoId] = [];
+      grouped[d.videoId].push({
+        userName: d.userName || "User",
+        userId: d.userId
+      });
+    });
+    const videos = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length);
+    if (videos.length === 0) {
+      list.innerHTML = "<p style='color:#888;font-size:13px'>Abhi koi like nahi hua</p>";
+      return;
+    }
+    list.innerHTML = "";
+    videos.forEach(([vid, users]) => {
+      const title = allVideos[vid] ? allVideos[vid].title : vid;
+      const div = document.createElement("div");
+      div.className = "admin-likes-video";
+      div.innerHTML = `
+        <div class="admin-likes-header">
+          <span>🎬 ${escapeHtml(title.slice(0, 50))}${title.length > 50 ? '...' : ''}</span>
+          <small>❤️ ${users.length}</small>
+        </div>
+        <div class="admin-likes-users">
+          ${users.map(u => `<span class="admin-likes-user-chip">${escapeHtml(u.userName)}</span>`).join("")}
+        </div>
+      `;
+      list.appendChild(div);
+    });
+  } catch (e) {
+    console.error(e);
+    list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>";
+  }
+});
 
 document.getElementById("loadUsersBtn").addEventListener("click", async () => {
   try {
@@ -1690,10 +1914,11 @@ window.addEventListener("DOMContentLoaded", () => {
     loadAnnouncement();
     loadNotice();
     loadManualVideos();
+    loadAllLikes();
   }, 1500);
 });
 
-console.log("✅ UPComedyHub Loaded with Admin Panel");
+console.log("✅ UPComedyHub Loaded with Admin Panel + Likes System");
 </script>
 </body>
 </html>

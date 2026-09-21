@@ -1029,7 +1029,6 @@ auth.onAuthStateChanged(async (user) => {
       }, { merge: true });
       await loadUserLikesAndSaves(user.uid);
     } catch (e) { console.error(e); }
-    // Show admin tab if user is admin
     if (user.uid === ADMIN_UID) {
       document.getElementById("adminTabBtn").style.display = "flex";
     } else {
@@ -1138,9 +1137,34 @@ async function loadManualVideos() {
     const snap = await db.collection("manualVideos").orderBy("createdAt", "desc").get();
     const grid = document.getElementById("videosGrid");
     grid.innerHTML = "";
-    if (snap.empty) {
-      grid.innerHTML = '<div class="card" style="grid-column:1/-1"><p>Abhi koi video nahi. Admin panel se add karein.</p></div>';
-    } else {
+
+    // HARDCODED VIDEOS (permanent)
+    const hardcoded = [
+      { title: "UPComedyHub Video 1", videoId: "Hmmgh9V8tmM", category: "long" },
+      { title: "UPComedyHub Video 2", videoId: "YdM3e4HICew", category: "long" }
+    ];
+    hardcoded.forEach(d => {
+      const vid = d.videoId;
+      allVideos[vid] = { title: d.title, category: d.category };
+      const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.setAttribute("data-video-id", vid);
+      card.innerHTML = `
+        <div class="video-thumb" data-video-id="${vid}" data-original-img="${thumb}">
+          <img src="${thumb}" alt="${d.title}" loading="lazy">
+          <div class="video-play"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <h3>${d.title}</h3>
+          <div class="video-date">🎬 Long Video</div>
+          <div class="video-actions"></div>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // FIRESTORE VIDEOS (admin-added)
+    if (!snap.empty) {
       snap.forEach(doc => {
         const d = doc.data();
         const vid = d.videoId;
@@ -1256,13 +1280,23 @@ async function openComments(vid) {
   loadComments(vid);
 }
 
+/* FIXED — Manual sort, no composite index needed */
 async function loadComments(vid) {
   const list = document.getElementById("commentsList");
   try {
-    const snap = await db.collection("comments").where("videoId","==",vid).orderBy("createdAt","desc").limit(100).get();
-    if (snap.empty) { list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>"; return; }
+    const snap = await db.collection("comments").where("videoId","==",vid).get();
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    }).slice(0, 100);
+
+    if (docs.length === 0) {
+      list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>";
+      return;
+    }
     list.innerHTML = "";
-    snap.forEach(doc => {
+    docs.forEach(doc => {
       const d = doc.data();
       const canDel = currentUser && (currentUser.uid === d.userId || currentUser.uid === ADMIN_UID);
       const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
@@ -1277,7 +1311,10 @@ async function loadComments(vid) {
         try { await db.collection("comments").doc(b.getAttribute("data-cid")).delete(); showToast("🗑️"); loadComments(vid); } catch (e) {}
       });
     });
-  } catch (e) { list.innerHTML = "<p style='color:#e63946;text-align:center;padding:20px'>Load fail</p>"; }
+  } catch (e) {
+    console.error(e);
+    list.innerHTML = "<p style='color:#e63946;text-align:center;padding:20px'>Load fail</p>";
+  }
 }
 
 async function postComment() {
@@ -1554,11 +1591,16 @@ document.getElementById("loadUsersBtn").addEventListener("click", async () => {
 
 document.getElementById("loadCommentsBtn").addEventListener("click", async () => {
   try {
-    const snap = await db.collection("comments").orderBy("createdAt", "desc").limit(30).get();
+    const snap = await db.collection("comments").get();
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    }).slice(0, 30);
     const list = document.getElementById("adminCommentsList");
-    if (snap.empty) { list.innerHTML = "<p style='color:#888;font-size:13px'>Koi comment nahi</p>"; return; }
+    if (docs.length === 0) { list.innerHTML = "<p style='color:#888;font-size:13px'>Koi comment nahi</p>"; return; }
     list.innerHTML = "";
-    snap.forEach(doc => {
+    docs.forEach(doc => {
       const d = doc.data();
       const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
       const el = document.createElement("div");

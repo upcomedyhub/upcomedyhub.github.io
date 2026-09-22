@@ -397,6 +397,39 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .fun-scorebar{color:#bbb}
 .fun-zone-login-note{text-align:center;margin-top:12px;color:#888;font-size:12px}
 @media(max-width:520px){.fun-game-grid{grid-template-columns:1fr}.fun-zone{padding:16px}.fun-zone-head h3{font-size:23px}}
+
+/* =========================
+   FUN ZONE PLAYER PROFILE + DAILY CHALLENGE
+========================= */
+.fun-player-card{margin-top:16px;padding:16px;border:1px solid #eee;border-radius:16px;background:#fff}
+.dark-mode .fun-player-card{background:#202020;border-color:#444}
+.fun-player-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.fun-avatar-wrap{position:relative;flex:0 0 auto}
+.fun-avatar{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #e63946;background:#f2f2f2;display:block}
+.fun-photo-btn{display:inline-block;margin-top:7px;font-size:11px;font-weight:800;color:#e63946;cursor:pointer}
+.fun-photo-input{display:none}
+.fun-player-info{flex:1;min-width:190px}
+.fun-player-name{font-size:18px;font-weight:900;margin-bottom:4px}
+.fun-player-meta{font-size:12px;color:#777}
+.dark-mode .fun-player-meta{color:#bbb}
+.fun-xp-bar{height:9px;background:#eee;border-radius:20px;overflow:hidden;margin-top:9px}
+.dark-mode .fun-xp-bar{background:#444}
+.fun-xp-fill{height:100%;width:0;background:#e63946;border-radius:20px;transition:width .3s ease}
+.fun-player-input{width:100%;max-width:240px;border:1px solid #ddd;border-radius:10px;padding:9px 11px;font:inherit;margin-top:8px;background:#fff;color:#222}
+.dark-mode .fun-player-input{background:#292929;color:#fff;border-color:#555}
+.fun-extra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.fun-extra-card{border:1px solid #eee;background:#fff;border-radius:16px;padding:16px;text-align:center}
+.dark-mode .fun-extra-card{background:#222;border-color:#444}
+.fun-extra-card h4{font-size:17px;margin-bottom:6px}
+.fun-extra-card p{font-size:13px;color:#777;margin-bottom:10px}
+.dark-mode .fun-extra-card p{color:#bbb}
+.fun-streak{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,.1);color:#e63946;border-radius:20px;padding:5px 10px;font-size:12px;font-weight:800}
+.fun-share-btn{border:none;background:#e63946;color:#fff;padding:9px 14px;border-radius:22px;font-weight:800;cursor:pointer;font-family:inherit}
+.daily-option{width:100%;margin:6px 0}
+.fun-leaderboard{margin-top:12px;text-align:left}
+.fun-leader-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;border-bottom:1px solid #eee;font-size:13px}
+.dark-mode .fun-leader-row{border-color:#333}
+@media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -819,6 +852,40 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
       <div class="fun-panel" id="funGuessPanel"></div>
       <div class="fun-panel" id="funReactionPanel"></div>
       <div class="fun-panel" id="funSpinPanel"></div>
+
+      <div class="fun-player-card">
+        <div class="fun-player-row">
+          <div class="fun-avatar-wrap">
+            <img id="funPlayerAvatar" class="fun-avatar" src="IMG_20260917_172912.jpg" alt="Player photo">
+            <label class="fun-photo-btn" for="funPlayerPhoto">📷 Change Photo</label>
+            <input class="fun-photo-input" id="funPlayerPhoto" type="file" accept="image/*">
+          </div>
+          <div class="fun-player-info">
+            <div class="fun-player-name" id="funPlayerName">Player 😎</div>
+            <div class="fun-player-meta" id="funPlayerMeta">Level 1 • 0 XP</div>
+            <div class="fun-xp-bar"><div class="fun-xp-fill" id="funXpFill"></div></div>
+            <input class="fun-player-input" id="funPlayerNameInput" type="text" maxlength="18" placeholder="Apna nickname likho">
+          </div>
+        </div>
+      </div>
+
+      <div class="fun-extra-grid">
+        <div class="fun-extra-card">
+          <h4>🔥 Daily Challenge</h4>
+          <p id="dailyChallengeText">Aaj ka challenge load ho raha hai...</p>
+          <div id="dailyChallengeOptions"></div>
+          <div class="fun-streak" id="dailyChallengeStatus">🎯 Aaj ka challenge</div>
+        </div>
+        <div class="fun-extra-card">
+          <h4>🏆 Local Leaderboard</h4>
+          <p>Is device par top players.</p>
+          <div class="fun-leaderboard" id="funLeaderboard"></div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:14px">
+        <button type="button" class="fun-share-btn" id="funShareScore">📤 Share My Score</button>
+      </div>
+
       <div class="fun-scorebar"><span>🏆 Best Quiz: <b id="funBestQuiz">0</b></span><span>⚡ Best Reaction: <b id="funBestReaction">0</b> ms</span></div>
       <div class="fun-zone-login-note">💡 Game scores is device par save hote hain.</div>
     </div>
@@ -2052,16 +2119,16 @@ console.log("✅ UPComedyHub Loaded with all fixes");
   const $ = (id) => document.getElementById(id);
   const panels = document.querySelectorAll('.fun-panel');
   const quizData = [
-    {q:'UPComedyHub ka main content kya hai?',o:['Desi Comedy','Cooking','News','Cricket'],a:0},
-    {q:'Comedy video mein sabse important cheez kya hoti hai?',o:['Timing','Homework','Weather','Maths'],a:0},
-    {q:'Funny Shorts kis platform par sabse directly milte hain?',o:['YouTube','Calculator','Maps','Calendar'],a:0},
-    {q:'"LOL" ka common meaning kya hai?',o:['Laughing Out Loud','Lots Of Lunch','Line Of Logic','Love On Line'],a:0},
-    {q:'Meme ka main purpose kya hota hai?',o:['Entertainment','Banking','Driving','Shopping'],a:0},
-    {q:'Punchline ka role kya hota hai?',o:['Joke ka funny payoff','Video upload','Thumbnail crop','Music download'],a:0},
-    {q:'Comedy mein reaction kab useful hota hai?',o:['Funny moment ko highlight karne ke liye','Password change karne ke liye','Battery charge karne ke liye','Map kholne ke liye'],a:0},
-    {q:'Short video mein strong opening ko kya bol sakte hain?',o:['Hook','Footer','Invoice','Router'],a:0},
-    {q:'Audience ko website par wapas lane mein kya help karta hai?',o:['Daily fresh content','Blank page','Broken button','Slow loading'],a:0},
-    {q:'UPComedyHub Fun Zone mein kya milta hai?',o:['Mini Games','Only weather','Only shopping','Only calculator'],a:0}
+    {q:'UPComedyHub ka main content kya hai?',o:['Cooking','Desi Comedy','News','Cricket'],a:1},
+    {q:'Comedy video mein sabse important cheez kya hoti hai?',o:['Homework','Timing','Weather','Maths'],a:1},
+    {q:'Funny Shorts kis platform par sabse directly milte hain?',o:['Calculator','Maps','YouTube','Calendar'],a:2},
+    {q:'\"LOL\" ka common meaning kya hai?',o:['Lots Of Lunch','Line Of Logic','Love On Line','Laughing Out Loud'],a:3},
+    {q:'Meme ka main purpose kya hota hai?',o:['Banking','Driving','Entertainment','Shopping'],a:2},
+    {q:'Punchline ka role kya hota hai?',o:['Video upload','Joke ka funny payoff','Thumbnail crop','Music download'],a:1},
+    {q:'Comedy mein reaction kab useful hota hai?',o:['Password change karne ke liye','Battery charge karne ke liye','Map kholne ke liye','Funny moment ko highlight karne ke liye'],a:3},
+    {q:'Short video mein strong opening ko kya bol sakte hain?',o:['Footer','Invoice','Hook','Router'],a:2},
+    {q:'Audience ko website par wapas lane mein kya help karta hai?',o:['Blank page','Daily fresh content','Broken button','Slow loading'],a:1},
+    {q:'UPComedyHub Fun Zone mein kya milta hai?',o:['Only weather','Only shopping','Only calculator','Mini Games'],a:3}
   ];
   const guessData=[
     {q:'"Bhai ye kya dekh raha hoon!" kis type ki line lagti hai?',o:['Funny reaction','Weather report','School notice','Recipe'],a:0},
@@ -2075,14 +2142,14 @@ console.log("✅ UPComedyHub Loaded with all fixes");
     const p=$('funQuizPanel'), item=quizData[quizIndex];
     if(!item){
       const best=Math.max(Number(localStorage.getItem('upchBestQuiz')||0),quizScore);
-      localStorage.setItem('upchBestQuiz',best); $('funBestQuiz').textContent=best;
+      localStorage.setItem('upchBestQuiz',best); $('funBestQuiz').textContent=best; upchAddXP(quizScore*10); upchSaveLocalScore(quizScore, 'Quiz');
       p.innerHTML='<div class="fun-question">🏆 Quiz Complete!</div><p class="fun-result">Tumhara score: '+quizScore+'/'+quizData.length+' 🔥</p><button type="button" class="fun-small-btn" id="quizAgain">🔄 Play Again</button>';
       $('quizAgain').onclick=()=>{quizIndex=0;quizScore=0;renderQuiz();}; return;
     }
     p.innerHTML='<div class="fun-question">Q'+(quizIndex+1)+'/'+quizData.length+' — '+item.q+'</div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="quizResult"></div>';
     p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{
       p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);
-      const i=Number(btn.dataset.i); if(i===item.a){quizScore++;btn.classList.add('correct');$('quizResult').textContent='✅ Sahi jawab!';}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('quizResult').textContent='😅 Next time!';}
+      const i=Number(btn.dataset.i); if(i===item.a){quizScore++; upchAddXP(5);btn.classList.add('correct');$('quizResult').textContent='✅ Sahi jawab!';}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('quizResult').textContent='😅 Next time!';}
       setTimeout(()=>{quizIndex++;renderQuiz();},650);
     });
   }
@@ -2090,7 +2157,7 @@ console.log("✅ UPComedyHub Loaded with all fixes");
     const p=$('funGuessPanel'); let idx=Number(p.dataset.idx||0); const item=guessData[idx];
     if(!item){p.innerHTML='<div class="fun-question">🎬 Guess Game Complete!</div><p class="fun-result">Nice! 😎</p><button type="button" class="fun-small-btn" id="guessAgain">🔄 Play Again</button>';p.querySelector('#guessAgain').onclick=()=>{p.dataset.idx=0;renderGuess();};return;}
     p.innerHTML='<div class="fun-question">'+item.q+'</div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="guessResult"></div>';
-    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);const i=Number(btn.dataset.i);if(i===item.a){btn.classList.add('correct');$('guessResult').textContent='😂 Correct!';}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('guessResult').textContent='😅 Close!';}setTimeout(()=>{p.dataset.idx=idx+1;renderGuess();},650);});
+    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);const i=Number(btn.dataset.i);if(i===item.a){btn.classList.add('correct');$('guessResult').textContent='😂 Correct!';upchAddXP(5);}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('guessResult').textContent='😅 Close!';}setTimeout(()=>{p.dataset.idx=idx+1;renderGuess();},650);});
   }
   function setupReaction(){
     const p=$('funReactionPanel');
@@ -2099,7 +2166,7 @@ console.log("✅ UPComedyHub Loaded with all fixes");
     b.onclick=()=>{
       if(state==='idle'){state='waiting';b.className='';b.textContent='WAIT...';status.textContent='🟡 Green hote hi tap karo!';const delay=1000+Math.random()*3000;timer=setTimeout(()=>{state='go';start=performance.now();b.className='go';b.textContent='TAP NOW!';status.textContent='🟢 GO!';},delay);}
       else if(state==='waiting'){clearTimeout(timer);state='idle';b.className='ready';b.textContent='START';status.textContent='Too soon 😅';res.textContent='Green hone ke baad tap karna hai!';}
-      else if(state==='go'){const ms=Math.round(performance.now()-start);state='idle';b.className='ready';b.textContent='START';status.textContent='🔥 Great reaction!';res.textContent='Your time: '+ms+' ms';const old=Number(localStorage.getItem('upchBestReaction')||0);if(!old||ms<old){localStorage.setItem('upchBestReaction',ms);$('funBestReaction').textContent=ms;} }
+      else if(state==='go'){const ms=Math.round(performance.now()-start);state='idle';b.className='ready';b.textContent='START';status.textContent='🔥 Great reaction!';res.textContent='Your time: '+ms+' ms';upchAddXP(10);const old=Number(localStorage.getItem('upchBestReaction')||0);if(!old||ms<old){localStorage.setItem('upchBestReaction',ms);$('funBestReaction').textContent=ms;} }
     };
   }
   function setupSpin(){
@@ -2116,6 +2183,51 @@ console.log("✅ UPComedyHub Loaded with all fixes");
   }));
   $('funBestQuiz').textContent=Number(localStorage.getItem('upchBestQuiz')||0);
   $('funBestReaction').textContent=Number(localStorage.getItem('upchBestReaction')||0);
+
+  /* PLAYER PROFILE + XP + DAILY CHALLENGE + LOCAL LEADERBOARD + SHARE */
+  const playerKey='upchPlayerProfile';
+  const player=JSON.parse(localStorage.getItem(playerKey)||'{}');
+  let playerXP=Number(player.xp||0);
+  function levelForXP(xp){return Math.floor(xp/100)+1;}
+  function renderPlayer(){
+    const name=player.name||'Player'; const level=levelForXP(playerXP); const within=playerXP%100;
+    $('funPlayerName').textContent=name+' 😎';
+    $('funPlayerMeta').textContent='Level '+level+' • '+playerXP+' XP';
+    $('funXpFill').style.width=within+'%';
+    if(player.photo) $('funPlayerAvatar').src=player.photo;
+    localStorage.setItem(playerKey,JSON.stringify({name,photo:player.photo||'',xp:playerXP}));
+  }
+  window.upchAddXP=function(amount){playerXP+=Number(amount)||0;renderPlayer();};
+  window.upchSaveLocalScore=function(score,game){
+    const scores=JSON.parse(localStorage.getItem('upchFunScores')||'[]');
+    scores.push({name:player.name||'Player',score:Number(score)||0,game:game||'Game'});
+    scores.sort((a,b)=>b.score-a.score);
+    localStorage.setItem('upchFunScores',JSON.stringify(scores.slice(0,20)));
+    renderBoard();
+  };
+  function renderBoard(){
+    const el=$('funLeaderboard'); if(!el)return;
+    const scores=JSON.parse(localStorage.getItem('upchFunScores')||'[]').slice(0,5);
+    el.innerHTML=scores.length?scores.map((x,i)=>'<div class="fun-leader-row"><span>'+(i+1)+'. '+x.name+' <small style="color:#888">('+x.game+')</small></span><b>'+x.score+'</b></div>').join(''):'<div style="text-align:center;color:#888;font-size:13px">Abhi koi score nahi.</div>';
+  }
+  const nameInput=$('funPlayerNameInput');
+  if(nameInput){nameInput.value=player.name||'';nameInput.addEventListener('change',()=>{player.name=nameInput.value.trim().slice(0,18)||'Player';renderPlayer();renderBoard();});}
+  const photoInput=$('funPlayerPhoto');
+  if(photoInput){photoInput.addEventListener('change',()=>{const file=photoInput.files&&photoInput.files[0];if(!file)return;if(file.size>2*1024*1024){alert('Photo 2MB se chhoti rakho 😎');photoInput.value='';return;}const reader=new FileReader();reader.onload=()=>{player.photo=reader.result;renderPlayer();};reader.readAsDataURL(file);});}
+
+  const daily=[
+    {q:'Dost ne udhaar liya aur reply karna band kar diya. Best reaction?',o:['😂 Haan bhai','😭 Paisa gaya','😎 Koi baat nahi','📞 Call pe call'],a:1},
+    {q:'UPComedyHub par sabse pehle kya dekhoge?',o:['🧠 Quiz','🎬 Shorts','🤣 Meme','🎡 Spin'],a:1},
+    {q:'Funny video ka best ending kya hota hai?',o:['😴 Long speech','😂 Unexpected twist','📚 Lecture','😐 No ending'],a:1},
+    {q:'Friend ke funny dialogue par tumhara reaction?',o:['😐 Ignore','🤣 Full laugh','📱 Record','👏 Taali'],a:1},
+    {q:'Comedy dekhte waqt sabse important kya?',o:['🔊 Volume','🍿 Snacks','😂 Hansi','📶 Network'],a:2}
+  ];
+  const dayKey='upchDailyChallenge_'+new Date().toISOString().slice(0,10);
+  const item=daily[Math.floor(Date.now()/86400000)%daily.length];
+  const dq=$('dailyChallengeText'), box=$('dailyChallengeOptions'), ds=$('dailyChallengeStatus');
+  if(dq&&box){dq.textContent=item.q;box.innerHTML=item.o.map((x,i)=>'<button type="button" class="fun-option daily-option" data-i="'+i+'">'+x+'</button>').join('');const done=localStorage.getItem(dayKey);if(done){ds.textContent=done==='1'?'✅ Challenge complete!':'😅 Try again tomorrow!';box.querySelectorAll('button').forEach(b=>b.disabled=true);}box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=Number(b.dataset.i)===item.a;localStorage.setItem(dayKey,ok?'1':'0');if(ok)upchAddXP(15);ds.textContent=ok?'🎉 Correct! +15 XP':'😅 Not this time!';box.querySelectorAll('button').forEach(x=>{x.disabled=true;if(Number(x.dataset.i)===item.a)x.classList.add('correct');if(x===b&&!ok)x.classList.add('wrong');});});}
+  const share=$('funShareScore');if(share)share.onclick=async()=>{const level=levelForXP(playerXP);const text='😂 Maine UPComedyHub Fun Zone me Level '+level+' aur '+playerXP+' XP bana liye! 🎮 Tum bhi try karo: https://upcomedyhub.github.io/';try{if(navigator.share)await navigator.share({title:'UPComedyHub Fun Zone',text,url:'https://upcomedyhub.github.io/'});else{await navigator.clipboard.writeText(text);alert('Score copy ho gaya! Ab share kar do 😎');}}catch(e){}};
+  renderPlayer();renderBoard();
 })();
 
 </script>

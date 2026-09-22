@@ -36,10 +36,11 @@ header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px soli
 .logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800}
 .logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
 .header-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
-#themeToggle{border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111}
+#messageBtn{border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111}
+#messageBtn:hover{transform:scale(1.04)}
 #bellBtn{position:relative;border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
 #bellBadge{position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
-.dark-mode #themeToggle,.dark-mode #bellBtn{background:#2a2a2a;color:#fff}
+.dark-mode #messageBtn,.dark-mode #bellBtn{background:#2a2a2a;color:#fff}
 #menuToggle{display:none;border:none;background:#f1f1f1;font-size:24px;width:46px;height:46px;border-radius:12px;cursor:pointer;color:#111}
 .dark-mode #menuToggle{background:#2a2a2a;color:#fff}
 nav.top-nav{display:flex;align-items:center}
@@ -263,6 +264,18 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .profile-card{max-width:600px;margin:0 auto;text-align:center;padding:30px}
 .profile-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #e63946;margin-bottom:14px;background:#eee}
 .profile-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.profile-username{font-size:16px;font-weight:700;color:#e63946;margin:2px 0 6px}
+.profile-bio{font-size:14px;color:#777;line-height:1.5;max-width:420px;margin:0 auto 14px;white-space:pre-wrap;word-break:break-word}
+.dark-mode .profile-bio{color:#aaa}
+.profile-edit-card{margin-top:16px;text-align:left}
+.profile-edit-card[hidden]{display:none}
+.profile-edit-card label{display:block;font-weight:700;margin:10px 0 6px}
+.profile-edit-card input,.profile-edit-card textarea{width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:12px;padding:11px 12px;font:inherit;background:#fff;color:#222}
+.dark-mode .profile-edit-card input,.dark-mode .profile-edit-card textarea{background:#1d1d1d;color:#fff;border-color:#444}
+.profile-edit-card textarea{min-height:90px;resize:vertical}
+.profile-edit-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.profile-edit-hint{font-size:12px;color:#888;margin-top:5px}
+
 .profile-email{color:#888;font-size:14px;margin-bottom:20px}
 .login-google{background:#4285f4;color:#fff;border:none;padding:14px 28px;border-radius:30px;font-weight:800;cursor:pointer;font-size:15px;display:inline-flex;align-items:center;gap:10px;font-family:inherit}
 .profile-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
@@ -338,7 +351,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   header{padding:10px 15px}
   .logo{font-size:20px}
   .logo-profile{width:36px;height:36px}
-  #themeToggle,#bellBtn{width:38px;height:38px;font-size:18px}
+  #messageBtn,#bellBtn{width:38px;height:38px;font-size:18px}
   #menuToggle{display:block;width:38px;height:38px;font-size:20px}
   nav.top-nav{display:none;position:fixed;top:60px;right:15px;width:250px;max-height:calc(100vh - 80px);overflow-y:auto;background:#fff;padding:12px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.15);flex-direction:column;align-items:stretch;gap:5px;z-index:1100}
   nav.top-nav.show-menu{display:flex}
@@ -464,7 +477,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   </div>
   <div class="header-controls">
     <button id="bellBtn" type="button">🔔<span id="bellBadge"></span></button>
-    <button id="themeToggle" type="button" onclick="toggleTheme()">🌙</button>
+    <button id="messageBtn" type="button" onclick="openMessages()" aria-label="Messages">💬</button>
     <button id="menuToggle" type="button">☰</button>
   </div>
   <nav class="top-nav">
@@ -809,9 +822,24 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         </button>
       </div>
       <div id="profileLoggedIn" style="display:none">
-        <img id="userPhoto" class="profile-avatar" src="" alt="">
+        <img id="userPhoto" class="profile-avatar" src="" alt="Profile photo">
         <div id="userName" class="profile-name"></div>
+        <div id="profileUsername" class="profile-username">@username</div>
+        <div id="profileBio" class="profile-bio">No bio yet.</div>
         <div id="userEmail" class="profile-email"></div>
+        <button type="button" id="editProfileBtn" style="margin-top:10px;background:#111;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit">✏️ Edit Profile</button>
+        <div id="profileEditCard" class="card profile-edit-card" hidden>
+          <h3 style="margin-top:0">✏️ Edit Profile</h3>
+          <label for="usernameInput">Username</label>
+          <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
+          <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+          <label for="bioInput">Bio</label>
+          <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..."></textarea>
+          <div class="profile-edit-actions">
+            <button type="button" id="cancelProfileEdit" style="background:#eee;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Cancel</button>
+            <button type="button" id="saveProfileBtn" style="background:#e63946;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
+          </div>
+        </div>
         <div class="profile-stats">
           <div class="stat-box"><div class="stat-num" id="statLikes">0</div><div class="stat-label">Videos Liked</div></div>
           <div class="stat-box"><div class="stat-num" id="statSaves">0</div><div class="stat-label">Videos Saved</div></div>
@@ -831,6 +859,16 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
             <option value="hi">Hinglish</option>
             <option value="simple-hi">हिंदी</option>
             <option value="en">English</option>
+          </select>
+        </div>
+        <div class="settings-row">
+          <div class="settings-label">
+            <span>Appearance</span>
+            <small>Theme ab Profile → Settings → Appearance se change karein</small>
+          </div>
+          <select class="settings-select" id="themeSelect" aria-label="Appearance">
+            <option value="light">☀️ Light</option>
+            <option value="dark">🌙 Dark</option>
           </select>
         </div>
       </div>
@@ -1125,21 +1163,29 @@ function switchTab(name) {
 navButtons.forEach(btn => btn.addEventListener("click", () => switchTab(btn.getAttribute("data-tab"))));
 
 /* ============ THEME ============ */
+function applyTheme(theme) {
+  const selected = theme === "dark" ? "dark" : "light";
+  document.body.classList.toggle("dark-mode", selected === "dark");
+  localStorage.setItem("theme", selected);
+  const sel = document.getElementById("themeSelect");
+  if (sel) sel.value = selected;
+}
 function toggleTheme() {
-  document.body.classList.toggle("dark-mode");
-  const btn = document.getElementById("themeToggle");
-  if (document.body.classList.contains("dark-mode")) {
-    localStorage.setItem("theme", "dark"); btn.textContent = "☀️";
-  } else {
-    localStorage.setItem("theme", "light"); btn.textContent = "🌙";
-  }
+  applyTheme(document.body.classList.contains("dark-mode") ? "light" : "dark");
 }
 window.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("theme") === "dark") {
-    document.body.classList.add("dark-mode");
-    document.getElementById("themeToggle").textContent = "☀️";
-  }
+  applyTheme(localStorage.getItem("theme") || "light");
+  const themeSelect = document.getElementById("themeSelect");
+  if (themeSelect) themeSelect.addEventListener("change", (e) => applyTheme(e.target.value));
 });
+
+/* ============ MESSAGES ENTRY ============ */
+function openMessages() {
+  // Messaging UI will be expanded in the Social phase.
+  showToast(currentUser ? "💬 Messages section jaldi aa raha hai" : "🔐 Messages ke liye pehle login karein");
+  if (!currentUser) switchTab("profile");
+}
+window.openMessages = openMessages;
 
 /* ============ MOBILE MENU ============ */
 const menuToggle = document.getElementById("menuToggle");
@@ -1223,6 +1269,153 @@ document.querySelectorAll(".faq-q").forEach(q => {
   });
 });
 
+/* ============ PROFILE IDENTITY ============ */
+function normalizeUsername(value) {
+  return String(value || "").trim().toLowerCase().replace(/^@+/, "");
+}
+function isValidUsername(username) {
+  return /^[a-z0-9._]{3,30}$/.test(username) && !username.includes("..") && !username.startsWith(".") && !username.endsWith(".");
+}
+function usernameBaseFromName(name) {
+  let base = normalizeUsername(name).replace(/[^a-z0-9._]/g, "");
+  if (!base) base = "user";
+  if (!/^[a-z0-9]/.test(base)) base = "user" + base;
+  return base.slice(0, 24);
+}
+
+async function ensurePublicProfile(user) {
+  const profileRef = db.collection("publicProfiles").doc(user.uid);
+  const userRef = db.collection("users").doc(user.uid);
+  const profileSnap = await profileRef.get();
+  if (profileSnap.exists && profileSnap.data().username) {
+    const existing = profileSnap.data();
+    await userRef.set({
+      username: existing.username,
+      bio: existing.bio || ""
+    }, { merge: true });
+    return existing;
+  }
+
+  const base = usernameBaseFromName(user.displayName || "user");
+  let chosen = base;
+  let found = false;
+  for (let i = 0; i < 100; i++) {
+    const candidate = i === 0 ? base : (base.slice(0, 27) + i).slice(0, 30);
+    const snap = await db.collection("usernames").doc(candidate).get();
+    if (!snap.exists || snap.data().uid === user.uid) {
+      chosen = candidate;
+      found = true;
+      break;
+    }
+  }
+  if (!found) throw new Error("Could not create a unique username");
+
+  const profile = {
+    uid: user.uid,
+    username: chosen,
+    displayName: user.displayName || "User",
+    photoURL: user.photoURL || "",
+    bio: "",
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+  const batch = db.batch();
+  batch.set(profileRef, profile, { merge: true });
+  batch.set(db.collection("usernames").doc(chosen), {
+    uid: user.uid,
+    username: chosen,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }, { merge: true });
+  batch.set(userRef, { username: chosen, bio: "" }, { merge: true });
+  await batch.commit();
+  return profile;
+}
+
+async function saveProfileIdentity() {
+  if (!currentUser) return;
+  const input = document.getElementById("usernameInput");
+  const bioInput = document.getElementById("bioInput");
+  const saveBtn = document.getElementById("saveProfileBtn");
+  const newUsername = normalizeUsername(input.value);
+  const newBio = String(bioInput.value || "").trim().slice(0, 160);
+  if (!isValidUsername(newUsername)) {
+    showToast("❌ Username: 3–30 chars, only a-z, 0-9, _ and .");
+    return;
+  }
+  saveBtn.disabled = true;
+  saveBtn.textContent = "Saving...";
+  try {
+    const profileRef = db.collection("publicProfiles").doc(currentUser.uid);
+    const profileSnap = await profileRef.get();
+    const oldUsername = normalizeUsername(profileSnap.exists ? profileSnap.data().username : "");
+    await db.runTransaction(async (tx) => {
+      const newUsernameRef = db.collection("usernames").doc(newUsername);
+      const newUsernameSnap = await tx.get(newUsernameRef);
+      if (newUsernameSnap.exists && newUsernameSnap.data().uid !== currentUser.uid) {
+        throw new Error("USERNAME_TAKEN");
+      }
+      if (oldUsername && oldUsername !== newUsername) {
+        const oldUsernameRef = db.collection("usernames").doc(oldUsername);
+        const oldUsernameSnap = await tx.get(oldUsernameRef);
+        if (oldUsernameSnap.exists && oldUsernameSnap.data().uid === currentUser.uid) tx.delete(oldUsernameRef);
+      }
+      tx.set(newUsernameRef, {
+        uid: currentUser.uid,
+        username: newUsername,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      tx.set(profileRef, {
+        uid: currentUser.uid,
+        username: newUsername,
+        displayName: currentUser.displayName || "User",
+        photoURL: currentUser.photoURL || "",
+        bio: newBio,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      tx.set(db.collection("users").doc(currentUser.uid), {
+        username: newUsername,
+        bio: newBio
+      }, { merge: true });
+    });
+    await loadProfileIdentity();
+    document.getElementById("profileEditCard").hidden = true;
+    showToast("✅ Profile updated!");
+  } catch (e) {
+    console.error("Profile update failed:", e);
+    showToast(e.message === "USERNAME_TAKEN" ? "❌ Ye username already taken hai" : "❌ Profile update failed");
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = "Save Profile";
+  }
+}
+
+async function loadProfileIdentity() {
+  if (!currentUser) return null;
+  try {
+    const snap = await db.collection("publicProfiles").doc(currentUser.uid).get();
+    const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
+    document.getElementById("profileUsername").textContent = "@" + (data.username || "user");
+    document.getElementById("profileBio").textContent = data.bio || "No bio yet.";
+    document.getElementById("usernameInput").value = data.username || "";
+    document.getElementById("bioInput").value = data.bio || "";
+    return data;
+  } catch (e) {
+    console.error("Profile identity load failed:", e);
+    return null;
+  }
+}
+
+function initProfileIdentityUI() {
+  document.getElementById("editProfileBtn").addEventListener("click", async () => {
+    await loadProfileIdentity();
+    document.getElementById("profileEditCard").hidden = false;
+  });
+  document.getElementById("cancelProfileEdit").addEventListener("click", () => {
+    document.getElementById("profileEditCard").hidden = true;
+  });
+  document.getElementById("saveProfileBtn").addEventListener("click", saveProfileIdentity);
+}
+
 /* ============ AUTH ============ */
 auth.onAuthStateChanged(async (user) => {
   currentUser = user;
@@ -1232,6 +1425,7 @@ auth.onAuthStateChanged(async (user) => {
         name: user.displayName || "User", email: user.email, photo: user.photoURL || "",
         lastSeen: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true });
+      await ensurePublicProfile(user);
       await loadUserLikesAndSaves(user.uid);
     } catch (e) { console.error(e); }
     if (user.uid === ADMIN_UID) {
@@ -1321,10 +1515,13 @@ function updateProfileUI() {
     document.getElementById("userPhoto").src = currentUser.photoURL || "";
     document.getElementById("userName").textContent = currentUser.displayName || "User";
     document.getElementById("userEmail").textContent = currentUser.email || "";
+    loadProfileIdentity();
     document.getElementById("statLikes").textContent = userLikedVideos.size;
     document.getElementById("statSaves").textContent = userSavedVideos.size;
   } else { lo.style.display = "block"; li.style.display = "none"; }
 }
+
+initProfileIdentityUI();
 
 /* ============ FETCH REELS ============ */
 (function fetchReels() {

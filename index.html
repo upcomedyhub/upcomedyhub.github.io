@@ -201,7 +201,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .video-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);transition:.2s}
 .video-play span{width:52px;height:52px;border-radius:50%;background:rgba(230,57,70,.95);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;padding-left:4px;box-shadow:0 6px 20px rgba(0,0,0,.4)}
-.video-thumb iframe{width:100%;height:100%;border:none;display:block}.video-fullscreen-btn{position:absolute;right:9px;bottom:9px;z-index:4;border:none;background:rgba(0,0,0,.78);color:#fff;width:38px;height:34px;border-radius:9px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}.video-fullscreen-btn:hover{background:#000}
+.video-thumb iframe{width:100%;height:100%;border:none;display:block}.video-fullscreen-btn{position:absolute;right:9px;bottom:9px;z-index:4;border:none;background:rgba(0,0,0,.78);color:#fff;width:38px;height:34px;border-radius:9px;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center}.video-fullscreen-btn:hover{background:#000}.video-thumb.video-fs{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;background:#000!important;z-index:100000!important;border-radius:0!important;display:flex!important;align-items:center!important;justify-content:center!important}.video-thumb.video-fs iframe{width:100vw!important;height:56.25vw!important;max-height:100vh!important;max-width:177.78vh!important;aspect-ratio:16/9!important;background:#000!important}.video-thumb.video-fs .video-fullscreen-btn{right:12px;bottom:12px}.video-thumb.video-fs.landscape-lock{width:100vw!important;height:100vh!important}
 .video-info{padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
 .video-info h3{font-size:14px;line-height:1.35;font-weight:700;color:inherit}
 .video-date{font-size:11px;color:#888}
@@ -1378,17 +1378,28 @@ async function loadRequests(){
   const list=document.getElementById("requestsList"); if(!list||!currentUser)return;
   list.innerHTML='<p style="color:#888;font-size:12px">Loading...</p>';
   try{
-    const [incoming,outgoing]=await Promise.all([
+    const [incoming,outgoing,msgIncoming,msgOutgoing]=await Promise.all([
       db.collection("friendRequests").where("to","==",currentUser.uid).get(),
-      db.collection("friendRequests").where("from","==",currentUser.uid).get()
+      db.collection("friendRequests").where("from","==",currentUser.uid).get(),
+      db.collection("messageRequests").where("to","==",currentUser.uid).get(),
+      db.collection("messageRequests").where("from","==",currentUser.uid).get()
     ]);
     const rows=[];
     for(const doc of incoming.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.from).get();if(ps.exists)rows.push({kind:"incoming",id:doc.id,uid:d.from,...ps.data()});}
     for(const doc of outgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"outgoing",id:doc.id,uid:d.to,...ps.data()});}
+    for(const doc of msgIncoming.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.from).get();if(ps.exists)rows.push({kind:"message-incoming",id:doc.id,uid:d.from,...ps.data()});}
+    for(const doc of msgOutgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"message-outgoing",id:doc.id,uid:d.to,...ps.data()});}
     if(!rows.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 2px">No pending requests.</p>';return;}
-    list.innerHTML=rows.map(r=>`<div class="person-row"><img src="${escapeAttr(avatarFor(r))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(r.displayName||"User")}</div><div class="person-username">@${escapeHtml(r.username||"user")}</div></div>${r.kind==="incoming"?`<button type="button" class="person-action" data-accept="${escapeAttr(r.id)}" data-friend="${escapeAttr(r.uid)}">Accept</button>`:`<span style="font-size:11px;color:#888">Sent</span>`}</div>`).join("");
+    list.innerHTML=rows.map(r=>{
+      const label=r.kind.startsWith("message")?"💬 Message Request":"👥 Friend Request";
+      const action=r.kind==="incoming"?`<button type="button" class="person-action" data-accept="${escapeAttr(r.id)}" data-friend="${escapeAttr(r.uid)}">Accept</button>`
+        :r.kind==="message-incoming"?`<button type="button" class="person-action" data-accept-message="${escapeAttr(r.id)}" data-message-user="${escapeAttr(r.uid)}">Accept & Chat</button>`
+        :`<span style="font-size:11px;color:#888">Sent</span>`;
+      return `<div class="person-row"><img src="${escapeAttr(avatarFor(r))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(r.displayName||"User")}</div><div class="person-username">@${escapeHtml(r.username||"user")}</div><div style="font-size:10px;color:#888;margin-top:3px">${label}</div></div>${action}</div>`;
+    }).join("");
     list.querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",()=>acceptFriendRequest(b.dataset.accept,b.dataset.friend)));
-  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Requests load nahi hue.</p>';}
+    list.querySelectorAll("[data-accept-message]").forEach(b=>b.addEventListener("click",()=>acceptMessageRequest(b.dataset.acceptMessage,b.dataset.messageUser)));
+  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Requests load nahi hue. Rules check karo.</p>';}
 }
 async function buildPersonSearchResult(uid, profile, container, options={}){
   const data=profile||{};
@@ -1416,8 +1427,9 @@ async function buildPersonSearchResult(uid, profile, container, options={}){
     }else if(outgoing.docs.length){
       actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Request sent</span>';
     }else{
-      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
+      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-add-search]").onclick=()=>sendFriendRequest(uid,data);
+      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
     }
     const followBtn=actions.querySelector("[data-follow-action]");
     if(followBtn) followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Following":"Follow";};
@@ -1454,6 +1466,30 @@ async function searchUsersAnywhere(query, out){
   }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;padding:8px 0">People search failed.</p>';}
 }
 
+async function sendMessageRequest(uid,profile){
+  if(!currentUser||!uid||uid===currentUser.uid)return;
+  try{
+    const requestId=pairId(currentUser.uid,uid);
+    const ref=db.collection("messageRequests").doc(requestId);
+    const existing=await ref.get();
+    if(existing.exists && existing.data().status==="pending"){showToast("⏳ Message request already sent");return;}
+    await ref.set({from:currentUser.uid,to:uid,status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp(),senderName:currentUser.displayName||"Someone"});
+    await createNotification(uid,"message_request","💬 New message request",(currentUser.displayName||"Someone")+" wants to message you.",{requestId,profileUid:currentUser.uid});
+    showToast("💬 Message request sent");
+  }catch(e){console.error(e);showToast("❌ Message request failed");}
+}
+async function acceptMessageRequest(requestId,fromUid){
+  if(!currentUser)return;
+  try{
+    const ref=db.collection("messageRequests").doc(requestId);
+    await ref.update({status:"accepted",respondedAt:firebase.firestore.FieldValue.serverTimestamp()});
+    await createNotification(fromUid,"message_request_accepted","💬 Message request accepted",(currentUser.displayName||"User")+" accepted your message request.",{requestId});
+    const ps=await db.collection("publicProfiles").doc(fromUid).get();
+    showToast("💬 Request accepted");
+    loadRequests();
+    if(ps.exists)openChat({uid:fromUid,...ps.data()});
+  }catch(e){console.error(e);showToast("❌ Message request accept failed");}
+}
 async function sendFriendRequest(uid,profile){
   try{
     const existing=await db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get();
@@ -1478,7 +1514,7 @@ async function openChat(friend){
   if(!friend||!currentUser)return;
   currentChatFriend=friend; currentConversationId=pairId(currentUser.uid,friend.uid);
   document.getElementById("chatEmpty").style.display="none"; document.getElementById("chatActive").style.display="flex";
-  const chatPanel=document.getElementById("chatPanel"); if(chatPanel) chatPanel.style.display="flex";
+  const chatPanel=document.getElementById("chatPanel"); if(chatPanel) { chatPanel.style.display="flex"; setTimeout(()=>chatPanel.scrollIntoView({behavior:"smooth",block:"nearest"}),80); }
   document.getElementById("chatFriendPhoto").src=avatarFor(friend); document.getElementById("chatFriendName").textContent=friend.displayName||"User"; document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
   if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
   const convRef=db.collection("conversations").doc(currentConversationId);
@@ -1531,9 +1567,9 @@ function renderNotifications(){
   const now=Date.now();
   notificationsCache=notificationsCache.filter(n=>!(n.type==="new_video"&&n.expiresAt&&n.expiresAt.toMillis&&n.expiresAt.toMillis()<now));
   if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
-  const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
+  const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
   list.innerHTML=notificationsCache.map(n=>{const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();return `<div class="notif-card ${n.read?'':'unread'}" data-notif="${escapeAttr(n.id)}" data-type="${escapeAttr(n.type||'')}"><div class="notif-icon">${icons[n.type]||'🔔'}</div><div class="notif-card-body"><div class="notif-card-title">${escapeHtml(n.title||'Notification')}</div><div class="notif-card-text">${escapeHtml(n.text||'')}</div><div class="notif-card-time">${escapeHtml(formatTimeAgo(d))}</div></div></div>`;}).join("");
-  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
+  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
 }
 async function markNotificationRead(id){try{await db.collection("notifications").doc(id).update({read:true});}catch(e){}}
 async function markAllNotificationsRead(){if(!currentUser)return;const unread=notificationsCache.filter(n=>!n.read);const batch=db.batch();unread.forEach(n=>batch.update(db.collection("notifications").doc(n.id),{read:true}));try{await batch.commit();showToast("✓ All notifications read");}catch(e){showToast("❌ Update failed");}}
@@ -2271,7 +2307,17 @@ document.addEventListener("click", (e) => {
   iframe.setAttribute("allowfullscreen","");
   thumb.innerHTML = ""; thumb.appendChild(iframe);
   const fs=document.createElement("button"); fs.type="button"; fs.className="video-fullscreen-btn"; fs.title="Fullscreen"; fs.setAttribute("aria-label","Fullscreen"); fs.textContent="⛶";
-  fs.addEventListener("click",ev=>{ev.stopPropagation();const target=thumb; if(target.requestFullscreen)target.requestFullscreen().catch(()=>{}); else if(iframe.requestFullscreen)iframe.requestFullscreen().catch(()=>{});});
+  fs.addEventListener("click",async ev=>{
+    ev.stopPropagation();
+    const target=thumb;
+    target.classList.add("video-fs");
+    try{ if(target.requestFullscreen) await target.requestFullscreen(); else if(iframe.requestFullscreen) await iframe.requestFullscreen(); }catch(err){ console.warn("Fullscreen request failed",err); }
+    try{ if(screen.orientation && screen.orientation.lock) await screen.orientation.lock("landscape"); }catch(err){ /* mobile browsers may not allow orientation lock */ }
+  });
+  const exitFs=()=>{
+    if(!document.fullscreenElement) { thumb.classList.remove("video-fs","landscape-lock"); try{screen.orientation?.unlock?.();}catch(e){} }
+  };
+  document.addEventListener("fullscreenchange",exitFs,{once:false});
   thumb.appendChild(fs); thumb.style.cursor = "default";
 });
 

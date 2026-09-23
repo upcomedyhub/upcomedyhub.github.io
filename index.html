@@ -263,6 +263,11 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .likes-empty{padding:30px;text-align:center;color:#888;font-size:14px}
 .profile-card{max-width:600px;margin:0 auto;text-align:center;padding:30px}
 .profile-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #e63946;margin-bottom:14px;background:#eee}
+.profile-photo-actions{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 4px}
+.profile-photo-btn,.profile-photo-remove{border:none;padding:8px 12px;border-radius:18px;font-weight:700;cursor:pointer;font-family:inherit;font-size:12px}
+.profile-photo-btn{background:#111;color:#fff}
+.profile-photo-remove{background:#eee;color:#333}
+.profile-photo-hint{display:block;color:#888;font-size:11px;margin-bottom:12px}
 .profile-name{font-size:22px;font-weight:800;margin-bottom:4px}
 .profile-username{font-size:16px;font-weight:700;color:#e63946;margin:2px 0 6px}
 .profile-bio{font-size:14px;color:#777;line-height:1.5;max-width:420px;margin:0 auto 14px;white-space:pre-wrap;word-break:break-word}
@@ -823,6 +828,12 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
       </div>
       <div id="profileLoggedIn" style="display:none">
         <img id="userPhoto" class="profile-avatar" src="" alt="Profile photo">
+        <div class="profile-photo-actions">
+          <label for="profilePhotoInput" class="profile-photo-btn">📷 Change Photo</label>
+          <input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <button type="button" id="removeProfilePhotoBtn" class="profile-photo-remove">Remove</button>
+        </div>
+        <small class="profile-photo-hint">JPG, PNG ya WebP • max 5 MB • free storage</small>
         <div id="userName" class="profile-name"></div>
         <div id="profileUsername" class="profile-username">@username</div>
         <div id="profileBio" class="profile-bio">No bio yet.</div>
@@ -1084,6 +1095,7 @@ const db = firebase.firestore();
 const ADMIN_UID = "r0RaLtN45wgsTt5CDFkkXeiW43c2";
 
 let currentUser = null;
+let currentProfilePhotoURL = "";
 let userLikedVideos = new Set();
 let userSavedVideos = new Set();
 let allVideos = {};
@@ -1368,7 +1380,7 @@ async function saveProfileIdentity() {
         uid: currentUser.uid,
         username: newUsername,
         displayName: currentUser.displayName || "User",
-        photoURL: currentUser.photoURL || "",
+        photoURL: (profileSnap.exists && profileSnap.data().photoURL) || currentUser.photoURL || "",
         bio: newBio,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true });
@@ -1394,8 +1406,11 @@ async function loadProfileIdentity() {
   try {
     const snap = await db.collection("publicProfiles").doc(currentUser.uid).get();
     const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
+    currentProfilePhotoURL = data.photoURL || currentUser.photoURL || "";
     document.getElementById("profileUsername").textContent = "@" + (data.username || "user");
     document.getElementById("profileBio").textContent = data.bio || "No bio yet.";
+    const photoEl = document.getElementById("userPhoto");
+    if (photoEl) photoEl.src = currentProfilePhotoURL;
     document.getElementById("usernameInput").value = data.username || "";
     document.getElementById("bioInput").value = data.bio || "";
     return data;
@@ -1419,6 +1434,7 @@ function initProfileIdentityUI() {
 /* ============ AUTH ============ */
 auth.onAuthStateChanged(async (user) => {
   currentUser = user;
+  currentProfilePhotoURL = user ? (user.photoURL || "") : "";
   if (user) {
     try {
       await db.collection("users").doc(user.uid).set({
@@ -1507,12 +1523,129 @@ document.getElementById("logoutBtn").addEventListener("click", async () => {
   showToast("👋 Logged out");
 });
 
+function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("PHOTO_READ_FAILED"));
+    reader.readAsDataURL(file);
+  });
+}
+
+function canvasToBlob(canvas, type, quality) {
+  return new Promise(resolve => canvas.toBlob(resolve, type, quality));
+}
+
+async function compressProfilePhoto(file) {
+  const dataUrl = await fileToDataURL(file);
+  const img = new Image();
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = () => reject(new Error("PHOTO_DECODE_FAILED"));
+    img.src = dataUrl;
+  });
+
+  const maxSide = 256;
+  const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
+  const width = Math.max(1, Math.round((img.naturalWidth || img.width) * scale));
+  const height = Math.max(1, Math.round((img.naturalHeight || img.height) * scale));
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext("2d", { alpha: false });
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, width, height);
+  ctx.drawImage(img, 0, 0, width, height);
+
+  let quality = 0.82;
+  let blob = await canvasToBlob(canvas, "image/jpeg", quality);
+  while (blob && blob.size > 280 * 1024 && quality > 0.45) {
+    quality -= 0.07;
+    blob = await canvasToBlob(canvas, "image/jpeg", quality);
+  }
+  if (!blob || blob.size > 320 * 1024) throw new Error("PHOTO_TOO_LARGE_AFTER_COMPRESSION");
+  return await fileToDataURL(blob);
+}
+
+async function uploadProfilePhoto(file) {
+  if (!currentUser || !file) return;
+  const input = document.getElementById("profilePhotoInput");
+  const btn = document.querySelector(".profile-photo-btn");
+  if (!file.type || !["image/jpeg","image/png","image/webp"].includes(file.type)) {
+    showToast("❌ Sirf JPG, PNG ya WebP photo allowed hai");
+    if (input) input.value = "";
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    showToast("❌ Original photo 5 MB se chhoti honi chahiye");
+    if (input) input.value = "";
+    return;
+  }
+  if (btn) { btn.textContent = "Processing..."; btn.style.pointerEvents = "none"; }
+  try {
+    const photoData = await compressProfilePhoto(file);
+    if (btn) btn.textContent = "Saving...";
+    await db.collection("publicProfiles").doc(currentUser.uid).set({
+      uid: currentUser.uid,
+      photoURL: photoData,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    await db.collection("users").doc(currentUser.uid).set({
+      photo: photoData,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    currentProfilePhotoURL = photoData;
+    const photoEl = document.getElementById("userPhoto");
+    if (photoEl) photoEl.src = photoData;
+    showToast("✅ Profile photo updated!");
+  } catch (e) {
+    console.error("Profile photo save failed:", e);
+    const msg = e.message === "PHOTO_TOO_LARGE_AFTER_COMPRESSION"
+      ? "❌ Photo compress nahi ho paayi. Dusri photo try karo."
+      : "❌ Photo save failed. Internet ya Firestore Rules check karo.";
+    showToast(msg);
+  } finally {
+    if (btn) { btn.textContent = "📷 Change Photo"; btn.style.pointerEvents = "auto"; }
+    if (input) input.value = "";
+  }
+}
+
+async function removeProfilePhoto() {
+  if (!currentUser) return;
+  try {
+    const googlePhoto = currentUser.providerData && currentUser.providerData[0]
+      ? (currentUser.providerData[0].photoURL || "") : "";
+    await db.collection("publicProfiles").doc(currentUser.uid).set({
+      photoURL: googlePhoto,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    await db.collection("users").doc(currentUser.uid).set({
+      photo: googlePhoto,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true });
+    currentProfilePhotoURL = googlePhoto;
+    const photoEl = document.getElementById("userPhoto");
+    if (photoEl) photoEl.src = googlePhoto;
+    showToast(googlePhoto ? "↩️ Google profile photo restored" : "🗑️ Profile photo removed");
+  } catch (e) {
+    console.error("Remove profile photo failed:", e);
+    showToast("❌ Photo remove failed");
+  }
+}
+
+function initProfilePhotoUI() {
+  const input = document.getElementById("profilePhotoInput");
+  const removeBtn = document.getElementById("removeProfilePhotoBtn");
+  if (input) input.addEventListener("change", e => uploadProfilePhoto(e.target.files && e.target.files[0]));
+  if (removeBtn) removeBtn.addEventListener("click", removeProfilePhoto);
+}
+
 function updateProfileUI() {
   const lo = document.getElementById("profileLoggedOut");
   const li = document.getElementById("profileLoggedIn");
   if (currentUser) {
     lo.style.display = "none"; li.style.display = "block";
-    document.getElementById("userPhoto").src = currentUser.photoURL || "";
+    document.getElementById("userPhoto").src = currentProfilePhotoURL || currentUser.photoURL || "";
     document.getElementById("userName").textContent = currentUser.displayName || "User";
     document.getElementById("userEmail").textContent = currentUser.email || "";
     loadProfileIdentity();
@@ -1522,6 +1655,7 @@ function updateProfileUI() {
 }
 
 initProfileIdentityUI();
+initProfilePhotoUI();
 
 /* ============ FETCH REELS ============ */
 (function fetchReels() {
@@ -1843,7 +1977,7 @@ async function openComments(vid) {
   document.getElementById("commentsList").innerHTML = "<p style='color:#888'>Loading...</p>";
   const fw = document.getElementById("commentFormWrap");
   if (currentUser) {
-    fw.innerHTML = `<div class="comment-form"><img src="${escapeAttr(currentUser.photoURL||'')}" style="width:32px;height:32px;border-radius:50%" alt=""><input type="text" id="commentInput" placeholder="Add a comment..." maxlength="500"><button type="button" id="postCommentBtn">Post</button></div>`;
+    fw.innerHTML = `<div class="comment-form"><img src="${escapeAttr(currentProfilePhotoURL || currentUser.photoURL || '')}" style="width:32px;height:32px;border-radius:50%" alt=""><input type="text" id="commentInput" placeholder="Add a comment..." maxlength="500"><button type="button" id="postCommentBtn">Post</button></div>`;
     document.getElementById("postCommentBtn").addEventListener("click", postComment);
     document.getElementById("commentInput").addEventListener("keydown", (e) => { if (e.key === "Enter") postComment(); });
   } else {
@@ -1901,7 +2035,7 @@ async function postComment() {
 
     await db.collection("comments").add({
       videoId: currentCommentsVideoId, userId: currentUser.uid,
-      userName: currentUser.displayName || "User", userPhoto: currentUser.photoURL || "",
+      userName: currentUser.displayName || "User", userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
       text: txt, createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     inp.value = ""; showToast("💬 Posted!"); loadComments(currentCommentsVideoId);

@@ -302,7 +302,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .settings-select:focus{border-color:#e63946}
 .dark-mode .settings-select{background:#222;color:#fff;border-color:#444}
 .notif-panel{position:fixed;top:70px;right:12px;width:320px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);padding:16px;display:none;z-index:10000;max-height:70vh;overflow-y:auto}
-/* SETTINGS MODAL */
 .settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10030;align-items:center;justify-content:center;padding:14px}
 .settings-overlay.show{display:flex}
 .settings-modal{width:min(620px,100%);background:#fff;color:#111;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
@@ -311,7 +310,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .settings-launch-card{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .settings-launch-copy h3{margin:0 0 5px}.settings-launch-copy p{margin:0;color:#888;font-size:13px}
 .settings-open-btn{border:none;background:#111;color:#fff;padding:10px 15px;border-radius:18px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}.dark-mode .settings-open-btn{background:#fff;color:#111}
-/* SOCIAL / NOTIFICATIONS */
 .notifications-overlay,.messages-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10020;align-items:center;justify-content:center;padding:14px}
 .notifications-overlay.show,.messages-overlay.show{display:flex}
 .notifications-box{width:min(720px,100%);height:min(82vh,760px);background:#fff;border-radius:22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
@@ -335,39 +333,110 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .notif-card-body{flex:1;min-width:0}.notif-card-title{font-size:13px;font-weight:800;line-height:1.35}.notif-card-text{font-size:12px;color:#777;margin-top:2px;line-height:1.4}.dark-mode .notif-card-text{color:#bbb}.notif-card-time{font-size:10px;color:#999;margin-top:5px}
 .messages-box{width:min(980px,100%);height:min(84vh,780px);background:#fff;border-radius:22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .dark-mode .messages-box{background:#171717;color:#fff}
-.messages-layout{display:grid;grid-template-columns:320px 1fr;min-height:0;flex:1}
+.messages-layout{display:grid;grid-template-columns:360px 1fr;min-height:0;flex:1}
 .messages-sidebar{border-right:1px solid #eee;display:flex;flex-direction:column;min-width:0}.dark-mode .messages-sidebar{border-color:#333}
-.community-tabs{display:flex;gap:6px;padding:10px;overflow:auto;border-bottom:1px solid #eee}.dark-mode .community-tabs{border-color:#333}
-.community-tab{border:none;background:#f2f2f2;color:#333;padding:8px 10px;border-radius:16px;white-space:nowrap;font-size:11px;font-weight:800;cursor:pointer}.community-tab.active{background:#e63946;color:#fff}.dark-mode .community-tab{background:#292929;color:#fff}.dark-mode .community-tab.active{background:#e63946;color:#fff}
-.community-pane{display:none;flex:1;min-height:0;overflow:auto;padding:12px}.community-pane.active{display:block}
-.community-search{display:flex;gap:7px;margin-bottom:10px}.community-search input{flex:1;min-width:0;border:1px solid #ddd;border-radius:18px;padding:9px 11px;font:inherit;background:#fff}.dark-mode .community-search input{background:#222;color:#fff;border-color:#444}
-.community-search button{border:none;background:#e63946;color:#fff;border-radius:18px;padding:8px 12px;font-weight:800;cursor:pointer}
-.person-row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #f0f0f0}.dark-mode .person-row{border-color:#333}.person-row img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}.person-main{flex:1;min-width:0}.person-name{font-size:13px;font-weight:800}.person-username{font-size:11px;color:#e63946}.person-action{border:none;background:#111;color:#fff;padding:7px 10px;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer}.dark-mode .person-action{background:#fff;color:#111}
-.chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0}.chat-empty{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:#888;padding:30px}.chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee}.dark-mode .chat-header{border-color:#333}.chat-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}.chat-header-info{flex:1;min-width:0}.chat-header-name{font-weight:800;font-size:14px}.chat-header-username{font-size:11px;color:#e63946}.chat-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}.chat-bubble-row{display:flex}.chat-bubble-row.mine{justify-content:flex-end}.chat-bubble{max-width:min(76%,430px);padding:9px 11px;border-radius:16px;background:#f0f0f0;color:#222;font-size:13px;position:relative;word-break:break-word}.chat-bubble-row.mine .chat-bubble{background:#e63946;color:#fff;border-bottom-right-radius:5px}.chat-bubble-row:not(.mine) .chat-bubble{border-bottom-left-radius:5px}.chat-meta{font-size:9px;opacity:.7;margin-top:4px}.reply-preview{font-size:10px;padding:6px 8px;border-left:3px solid currentColor;opacity:.75;margin-bottom:5px}.chat-tools{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}.reaction-summary{margin-top:3px;min-height:14px;opacity:.9}.chat-tool{border:none;background:transparent;padding:1px;font-size:13px;cursor:pointer}.chat-composer{border-top:1px solid #eee;padding:10px;display:flex;gap:7px;align-items:flex-end}.dark-mode .chat-composer{border-color:#333}.chat-composer textarea{flex:1;min-height:42px;max-height:110px;resize:vertical;border:1px solid #ddd;border-radius:18px;padding:10px 12px;font:inherit;background:#fff;color:#222}.dark-mode .chat-composer textarea{background:#222;color:#fff;border-color:#444}.chat-send{border:none;background:#e63946;color:#fff;width:42px;height:42px;border-radius:50%;font-size:17px;cursor:pointer}.chat-replying{padding:7px 12px;background:#fff3f3;border-top:1px solid #f3d4d4;font-size:11px;color:#8a2028}.dark-mode .chat-replying{background:#2a1b1d;border-color:#4a2a2d}
-@media(max-width:720px){.messages-box{height:92vh;border-radius:18px}.messages-layout{grid-template-columns:1fr}.messages-sidebar{height:34%;border-right:none;border-bottom:1px solid #eee}.dark-mode .messages-sidebar{border-bottom-color:#333}.chat-panel{height:66%}.notifications-box{height:90vh}.notifications-overlay,.messages-overlay{padding:6px}}
-.profile-stats-4{grid-template-columns:repeat(4,1fr)}
-.messages-overlay.inline-mode{position:fixed;inset:0;background:rgba(0,0,0,.68);padding:14px;display:flex;z-index:10020;margin:0}
-.messages-overlay.inline-mode .messages-box{width:min(980px,100%);height:min(84vh,780px);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);border:0}
-.dark-mode .messages-overlay.inline-mode .messages-box{border-color:#333}
-.messages-overlay.inline-mode .messages-layout{min-height:430px}
-.messages-overlay.inline-mode .messages-sidebar{min-height:430px}
-.messages-overlay.inline-mode .chat-panel{min-height:430px}
-.community-tabs{scrollbar-width:none}
+.community-tabs{display:flex;gap:8px;padding:10px 14px;overflow-x:auto;border-bottom:1px solid #efefef;flex-shrink:0;scrollbar-width:none}
 .community-tabs::-webkit-scrollbar{display:none}
-.search-people-card{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid #eee}
+.dark-mode .community-tabs{border-bottom-color:#262626}
+.community-tab{border:1px solid #dbdbdb;background:#fff;color:#111;padding:7px 18px;border-radius:20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s}
+.community-tab:hover{background:#f5f5f5}
+.community-tab.active{background:#111;color:#fff;border-color:#111}
+.dark-mode .community-tab{background:transparent;border-color:#363636;color:#fff}
+.dark-mode .community-tab:hover{background:#1a1a1a}
+.dark-mode .community-tab.active{background:#fff;color:#111;border-color:#fff}
+.community-pane{display:none;flex:1;min-height:0;overflow:auto;padding:0}.community-pane.active{display:block}
+.community-search{display:flex;gap:7px;margin:12px 14px}.community-search input{flex:1;min-width:0;border:1px solid #ddd;border-radius:18px;padding:10px 14px;font:inherit;background:#fff;font-size:14px;outline:none}.dark-mode .community-search input{background:#222;color:#fff;border-color:#444}
+.community-search button{border:none;background:#e63946;color:#fff;border-radius:18px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px}
+.chat-list-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .12s}
+.chat-list-item:hover,.chat-list-item:active{background:#f5f5f5}
+.dark-mode .chat-list-item:hover,.dark-mode .chat-list-item:active{background:#1a1a1a}
+.chat-list-item img{width:56px;height:56px;border-radius:50%;object-fit:cover;background:#efefef;flex-shrink:0}
+.dark-mode .chat-list-item img{background:#262626}
+.chat-list-info{flex:1;min-width:0}
+.chat-list-name{font-size:15px;font-weight:700;color:#111;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dark-mode .chat-list-name{color:#fff}
+.chat-list-preview{font-size:13px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dark-mode .chat-list-preview{color:#a8a8a8}
+.chat-list-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.chat-list-time{font-size:12px;color:#999}
+.chat-list-unread{background:#e63946;color:#fff;font-size:11px;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
+.inbox-empty{text-align:center;color:#888;padding:60px 20px;font-size:14px}
+.inbox-empty .big-icon{font-size:52px;display:block;margin-bottom:14px;opacity:.5}
+.request-actions{display:flex;gap:6px;margin-top:6px}
+.request-actions button{border:none;padding:7px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.request-actions .accept-btn{background:#e63946;color:#fff}
+.request-actions .delete-btn{background:#f0f0f0;color:#111}
+.dark-mode .request-actions .delete-btn{background:#262626;color:#fff}
+.chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff}
+.dark-mode .chat-panel{background:#171717}
+.chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee}
+.dark-mode .chat-header{border-color:#333}
+.chat-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}
+.chat-header-info{flex:1;min-width:0}
+.chat-header-name{font-weight:800;font-size:14px}
+.chat-header-username{font-size:11px;color:#e63946}
+.chat-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}
+.chat-bubble-row{display:flex}
+.chat-bubble-row.mine{justify-content:flex-end}
+.chat-bubble{max-width:min(76%,430px);padding:10px 14px;border-radius:18px;background:#f0f0f0;color:#222;font-size:14px;position:relative;word-break:break-word;cursor:pointer}
+.chat-bubble-row.mine .chat-bubble{background:#e63946;color:#fff;border-bottom-right-radius:6px}
+.chat-bubble-row:not(.mine) .chat-bubble{border-bottom-left-radius:6px}
+.dark-mode .chat-bubble-row:not(.mine) .chat-bubble{background:#262626;color:#fff}
+.chat-meta{font-size:10px;opacity:.7;margin-top:4px}
+.reply-preview{font-size:11px;padding:5px 8px;border-left:3px solid currentColor;opacity:.75;margin-bottom:5px;border-radius:4px}
+.chat-tools{display:none}
+.chat-bubble.tools-open .chat-tools{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid rgba(255,255,255,.2)}
+.chat-bubble-row:not(.mine) .chat-bubble.tools-open .chat-tools{border-top-color:rgba(0,0,0,.1)}
+.chat-tool{border:none;background:rgba(255,255,255,.15);padding:4px 8px;border-radius:8px;font-size:13px;cursor:pointer;color:inherit}
+.chat-bubble-row:not(.mine) .chat-tool{background:rgba(0,0,0,.06)}
+.reaction-summary{margin-top:3px;min-height:12px;opacity:.9}
+.chat-composer{border-top:1px solid #eee;padding:10px;display:flex;gap:8px;align-items:flex-end}
+.dark-mode .chat-composer{border-color:#333}
+.chat-composer textarea{flex:1;min-height:42px;max-height:110px;resize:none;border:1px solid #ddd;border-radius:22px;padding:10px 16px;font:inherit;background:#f5f5f5;color:#222;font-size:15px;outline:none}
+.dark-mode .chat-composer textarea{background:#1c1c1c;color:#fff;border-color:#262626}
+.chat-send{border:none;background:#e63946;color:#fff;width:42px;height:42px;border-radius:50%;font-size:16px;cursor:pointer;flex-shrink:0}
+.chat-replying{padding:8px 14px;background:#fff3f3;border-top:1px solid #f3d4d4;font-size:12px;color:#8a2028;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dark-mode .chat-replying{background:#2a1b1d;border-color:#4a2a2d;color:#ff8a80}
+@media(max-width:720px){
+  .messages-overlay.show{padding:0;align-items:stretch;justify-content:stretch}
+  .messages-box{width:100%;height:100vh;height:100dvh;max-height:none;border-radius:0;box-shadow:none}
+  .dark-mode .messages-box{background:#000}
+  .messages-layout{display:block;position:relative;height:calc(100vh - 54px);height:calc(100dvh - 54px);min-height:0;overflow:hidden}
+  .messages-sidebar{width:100%;height:100%;border:none;display:flex;flex-direction:column}
+  .messages-sidebar.mobile-hidden{display:none}
+  .chat-panel{position:absolute;inset:0;width:100%;height:100%;background:#fff;z-index:5;display:none}
+  .dark-mode .chat-panel{background:#000}
+  .chat-panel.mobile-open{display:flex !important;flex-direction:column}
+  .social-header{padding:10px 12px;min-height:54px;flex-shrink:0}
+  .social-header h3{font-size:17px;font-weight:700;flex:1;text-align:center;margin:0}
+  .mobile-back-btn{display:flex}
+  .social-close{width:34px;height:34px;font-size:15px}
+  .chat-header{padding:8px 12px;gap:10px;flex-shrink:0;background:#fff}
+  .dark-mode .chat-header{background:#000}
+  .chat-header img{width:34px;height:34px}
+  .chat-messages{flex:1;min-height:0;overflow-y:auto;padding:14px 12px;gap:6px;background:#fff}
+  .dark-mode .chat-messages{background:#000}
+  .chat-bubble{max-width:78%;font-size:14.5px;padding:10px 14px;border-radius:20px}
+  .chat-composer{padding:8px 10px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));flex-shrink:0;background:#fff;border-top:1px solid #efefef}
+  .dark-mode .chat-composer{background:#000;border-top-color:#262626}
+  .notifications-box{height:90vh}
+  .notifications-overlay{padding:6px}
+}
+.mobile-back-btn{display:none;background:none;border:none;color:inherit;width:36px;height:36px;border-radius:50%;align-items:center;justify-content:center;font-size:20px;cursor:pointer;padding:0;flex-shrink:0;transition:background .15s}
+.mobile-back-btn:hover{background:rgba(0,0,0,.06)}
+.dark-mode .mobile-back-btn:hover{background:rgba(255,255,255,.08)}
+.profile-stats-4{grid-template-columns:repeat(4,1fr)}
+.search-people-card{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid #eee}
 .dark-mode .search-people-card{border-color:#333}
 .search-people-card img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
 .search-people-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-.search-people-actions button{border:none;background:#e63946;color:#fff;padding:7px 10px;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer}
+.search-people-actions button{border:none;background:#e63946;color:#fff;padding:7px 12px;border-radius:16px;font-size:12px;font-weight:800;cursor:pointer}
 .search-people-actions button.secondary{background:#111}
 .dark-mode .search-people-actions button.secondary{background:#fff;color:#111}
 .search-people-meta{flex:1;min-width:0}
 .search-people-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .search-people-username{font-size:11px;color:#e63946}
 .search-people-stats{font-size:10px;color:#888;margin-top:2px}
-.dark-mode .search-people-stats{color:#aaa}
-@media(max-width:720px){.profile-stats-4{grid-template-columns:repeat(2,1fr)}.messages-overlay.inline-mode .messages-layout{display:block;min-height:0}.messages-overlay.inline-mode .messages-sidebar{min-height:0;border-bottom:none}.messages-overlay.inline-mode .community-pane{max-height:430px}.messages-overlay.inline-mode .chat-panel{min-height:430px;margin-top:10px;border-top:1px solid #eee}.dark-mode .messages-overlay.inline-mode .chat-panel{border-color:#333}.community-tabs{padding:8px;gap:5px}.community-tab{flex:1;text-align:center;padding:9px 8px;font-size:11px}.community-search{position:sticky;top:0;background:inherit;padding-bottom:7px;z-index:2}.search-people-actions{justify-content:flex-start}}
-
 .dark-mode .notif-panel{background:#1b1b1b;color:#fff}
 .notif-panel.show{display:block}
 .notif-panel h4{font-size:15px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #eee}
@@ -440,8 +509,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   .notif-panel{right:8px;left:8px;width:auto}
   footer{padding-bottom:120px}
 }
-
-/* PROFILE FUN ZONE */
 .fun-zone{margin-top:24px;padding:22px;border:1px solid #eee;border-radius:20px;background:linear-gradient(135deg,#fff8f8,#fff);box-shadow:0 10px 30px rgba(230,57,70,.08)}
 .dark-mode .fun-zone{background:linear-gradient(135deg,#211719,#1b1b1b);border-color:#333}
 .fun-zone-head{text-align:center;margin-bottom:18px}
@@ -481,10 +548,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .fun-scorebar{color:#bbb}
 .fun-zone-login-note{text-align:center;margin-top:12px;color:#888;font-size:12px}
 @media(max-width:520px){.fun-game-grid{grid-template-columns:1fr}.fun-zone{padding:16px}.fun-zone-head h3{font-size:23px}}
-
-/* =========================
-   FUN ZONE PLAYER PROFILE + DAILY CHALLENGE
-========================= */
 .fun-player-card{margin-top:16px;padding:16px;border:1px solid #eee;border-radius:16px;background:#fff}
 .dark-mode .fun-player-card{background:#202020;border-color:#444}
 .fun-player-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -515,10 +578,10 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .fun-leader-row{border-color:#333}
 @media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}}
 .settings-modal .settings-row{padding:16px 0}.settings-modal .settings-label span{font-size:15px}.settings-modal .settings-label small{font-size:12px}.settings-modal .settings-select{min-width:150px}
-@media(max-width:720px){.settings-overlay{padding:7px}.settings-modal{width:100%;max-height:90vh}.settings-modal-body{padding:14px}.settings-modal .settings-row{align-items:flex-start}.settings-modal .settings-select,.settings-modal .settings-open-btn{max-width:48%;white-space:nowrap}.search-people-card{align-items:flex-start;flex-wrap:wrap}.search-people-actions{width:100%;padding-left:54px}.messages-overlay.inline-mode .messages-layout{display:grid;min-height:0}.messages-overlay.inline-mode .messages-sidebar{min-height:0}.messages-overlay.inline-mode .chat-panel{min-height:0;margin-top:0;border-top:none}}
+@media(max-width:720px){.settings-overlay{padding:7px}.settings-modal{width:100%;max-height:90vh}.settings-modal-body{padding:14px}.settings-modal .settings-row{align-items:flex-start}.settings-modal .settings-select,.settings-modal .settings-open-btn{max-width:48%;white-space:nowrap}.search-people-card{align-items:flex-start;flex-wrap:wrap}.search-people-actions{width:100%;padding-left:54px}}
 
 /* ============================================================
-   INSTAGRAM-STYLE PROFILE REDESIGN — UPComedyHub
+   INSTAGRAM-STYLE PROFILE REDESIGN
    ============================================================ */
 .profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px}
 #profileLoggedOut{text-align:center;padding:60px 20px}
@@ -564,8 +627,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .ig-posts-grid.grid-empty{display:block;text-align:center}
 .ig-empty{color:#888;font-size:14px;padding:60px 20px}
 .ig-empty-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
-.ig-post-tile{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;cursor:pointer}
-.ig-post-tile img{width:100%;height:100%;object-fit:cover;display:block}
 .ig-logout-btn{width:100%;padding:12px;border:1px solid #e63946;background:transparent;color:#e63946;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;margin-top:8px;transition:.15s}
 .ig-logout-btn:hover{background:#e63946;color:#fff}
 .ig-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:10040;align-items:center;justify-content:center;padding:14px}
@@ -598,301 +659,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   .ig-stat-label{font-size:11px}
   .ig-btn{min-width:110px;font-size:12px;padding:8px 12px}
   .ig-meta-stats{gap:16px;font-size:12px}
-}
-
-/* ============================================================
-   INSTAGRAM-STYLE MESSAGES — MOBILE FRIENDLY (NEW)
-   ============================================================ */
-.mobile-back-btn{
-  display:none;
-  background:none;border:none;color:inherit;
-  width:36px;height:36px;border-radius:50%;
-  align-items:center;justify-content:center;
-  font-size:20px;cursor:pointer;padding:0;flex-shrink:0;
-  transition:background .15s;
-}
-.mobile-back-btn:hover{background:rgba(0,0,0,.06)}
-.dark-mode .mobile-back-btn:hover{background:rgba(255,255,255,.08)}
-
-@media(max-width:720px){
-  /* Full-screen Instagram-style experience */
-  .messages-overlay.show{
-    padding:0;
-    align-items:stretch;
-    justify-content:stretch;
-  }
-  .messages-box{
-    width:100%;
-    height:100vh;
-    height:100dvh;
-    max-height:none;
-    border-radius:0;
-    box-shadow:none;
-  }
-  .dark-mode .messages-box{background:#0a0a0a}
-
-  /* Layout: only one pane at a time */
-  .messages-layout{
-    display:block;
-    position:relative;
-    height:calc(100vh - 58px);
-    height:calc(100dvh - 58px);
-    min-height:0;
-    overflow:hidden;
-  }
-  .messages-sidebar{
-    width:100%;
-    height:100%;
-    border-right:none;
-    border-bottom:none;
-    display:flex;
-    flex-direction:column;
-  }
-  .messages-sidebar.mobile-hidden{display:none}
-
-  /* Chat panel becomes a full-screen overlay within messages */
-  .chat-panel{
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    background:#fff;
-    z-index:5;
-    display:none;
-    flex-direction:column;
-  }
-  .dark-mode .chat-panel{background:#0a0a0a}
-  .chat-panel.mobile-open{display:flex !important}
-
-  /* Header tweaks */
-  .social-header{
-    padding:12px 14px;
-    min-height:56px;
-    flex-shrink:0;
-  }
-  .social-header h3{
-    font-size:16px;
-    font-weight:800;
-    flex:1;
-    margin-left:6px;
-  }
-  .mobile-back-btn{display:flex}
-  .social-close{
-    width:34px;
-    height:34px;
-    font-size:16px;
-  }
-
-  /* Chat header with back button */
-  .chat-header{
-    padding:10px 12px;
-    flex-shrink:0;
-    gap:8px;
-    border-bottom:1px solid #eee;
-  }
-  .dark-mode .chat-header{border-bottom-color:#222}
-  .chat-header img{
-    width:36px;
-    height:36px;
-  }
-  .chat-header-name{font-size:14px;font-weight:800}
-  .chat-header-username{font-size:11px}
-
-  /* Messages area */
-  .chat-messages{
-    padding:12px 10px;
-    gap:6px;
-    flex:1;
-    min-height:0;
-    overflow-y:auto;
-    overscroll-behavior:contain;
-    -webkit-overflow-scrolling:touch;
-  }
-  .chat-bubble{
-    max-width:82%;
-    font-size:14px;
-    padding:9px 13px;
-    border-radius:18px;
-    line-height:1.4;
-  }
-  .chat-bubble-row.mine .chat-bubble{
-    background:#e63946;
-    color:#fff;
-    border-bottom-right-radius:6px;
-  }
-  .chat-bubble-row:not(.mine) .chat-bubble{
-    background:#f0f0f0;
-    color:#111;
-    border-bottom-left-radius:6px;
-  }
-  .dark-mode .chat-bubble-row:not(.mine) .chat-bubble{
-    background:#262626;
-    color:#fff;
-  }
-  .chat-meta{
-    font-size:10px;
-    margin-top:5px;
-    opacity:.7;
-  }
-
-  /* Chat tools: more visible on mobile */
-  .chat-tools{
-    gap:8px;
-    margin-top:6px;
-    opacity:.75;
-  }
-  .chat-tool{
-    font-size:14px;
-    padding:3px 5px;
-    border-radius:6px;
-  }
-  .chat-tool:hover,.chat-tool:active{background:rgba(255,255,255,.15)}
-  .chat-bubble-row:not(.mine) .chat-tool:active{background:rgba(0,0,0,.08)}
-
-  /* Reply preview */
-  .reply-preview{
-    font-size:11px;
-    padding:6px 9px;
-    margin-bottom:6px;
-    border-radius:6px;
-  }
-
-  /* Composer at bottom */
-  .chat-composer{
-    padding:8px 10px;
-    padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));
-    gap:6px;
-    flex-shrink:0;
-    background:#fff;
-    border-top:1px solid #eee;
-  }
-  .dark-mode .chat-composer{
-    background:#0a0a0a;
-    border-top-color:#222;
-  }
-  .chat-composer textarea{
-    font-size:15px;
-    min-height:40px;
-    max-height:100px;
-    padding:10px 14px;
-    border-radius:20px;
-    background:#f5f5f5;
-    border-color:transparent;
-  }
-  .dark-mode .chat-composer textarea{
-    background:#1c1c1c;
-    border-color:#2a2a2a;
-  }
-  .chat-send{
-    width:40px;
-    height:40px;
-    font-size:16px;
-    flex-shrink:0;
-  }
-
-  /* Reply indicator */
-  .chat-replying{
-    padding:8px 12px;
-    font-size:12px;
-    flex-shrink:0;
-  }
-
-  /* Community tabs */
-  .community-tabs{
-    padding:8px 10px;
-    gap:6px;
-    flex-shrink:0;
-  }
-  .community-tab{
-    font-size:12px;
-    padding:9px 14px;
-    border-radius:18px;
-    font-weight:700;
-  }
-  .community-pane{
-    padding:10px 12px;
-    flex:1;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  /* Person rows — Instagram-like list */
-  .person-row{
-    padding:12px 4px;
-    gap:12px;
-  }
-  .person-row img{
-    width:48px;
-    height:48px;
-  }
-  .person-name{
-    font-size:14px;
-    font-weight:800;
-  }
-  .person-username{
-    font-size:12px;
-    margin-top:2px;
-  }
-  .person-action{
-    padding:8px 16px;
-    font-size:12px;
-    border-radius:10px;
-    font-weight:700;
-  }
-  .dark-mode .person-action{
-    background:#e63946;
-    color:#fff;
-  }
-
-  /* Search */
-  .community-search{
-    padding:0 0 10px 0;
-  }
-  .community-search input{
-    font-size:14px;
-    padding:11px 14px;
-    border-radius:20px;
-  }
-  .community-search button{
-    padding:10px 14px;
-    border-radius:20px;
-    font-size:13px;
-  }
-
-  /* Search results */
-  .search-people-card{
-    padding:12px 4px;
-    gap:12px;
-  }
-  .search-people-card img{
-    width:48px;
-    height:48px;
-  }
-  .search-people-name{font-size:14px}
-  .search-people-username{font-size:12px}
-  .search-people-actions{
-    width:100%;
-    padding-left:60px;
-    justify-content:flex-start;
-    gap:6px;
-    margin-top:6px;
-  }
-  .search-people-actions button{
-    padding:8px 12px;
-    font-size:12px;
-    border-radius:10px;
-  }
-}
-
-/* Extra small phones */
-@media(max-width:400px){
-  .messages-layout{
-    height:calc(100vh - 56px);
-    height:calc(100dvh - 56px);
-  }
-  .social-header h3{font-size:15px}
-  .chat-bubble{font-size:13.5px;max-width:85%}
-  .person-row img{width:44px;height:44px}
 }
 </style>
 </head>
@@ -1273,7 +1039,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   <section class="profile-section-ig">
     <h2 class="section-title">👤 My Profile</h2>
 
-    <!-- NEW IG-STYLE PROFILE -->
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
       <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
       <button type="button" id="googleLoginBtn" class="login-google">
@@ -1282,8 +1047,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
     </div>
 
     <div id="profileLoggedIn" class="profile-ig" style="display:none">
-
-      <!-- TOP ROW: Avatar + Stats -->
       <div class="ig-profile-top">
         <div class="ig-avatar-wrap">
           <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
@@ -1306,24 +1069,20 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         </div>
       </div>
 
-      <!-- Name + Username + Email -->
       <div class="ig-name-block">
         <div id="userName" class="ig-name"></div>
         <div id="profileUsername" class="ig-username">@username</div>
         <div id="userEmail"></div>
       </div>
 
-      <!-- Bio -->
       <div id="profileBio" class="ig-bio">No bio yet.</div>
 
-      <!-- Action Buttons -->
       <div class="ig-actions">
         <button type="button" id="editProfileBtn" class="ig-btn">✏️ Edit Profile</button>
         <button type="button" id="shareProfileBtn" class="ig-btn">📤 Share Profile</button>
         <button type="button" id="removeProfilePhotoBtn" class="ig-btn">🗑️ Remove Photo</button>
       </div>
 
-      <!-- Edit Profile Form -->
       <div id="profileEditCard" class="card profile-edit-card" hidden>
         <h3 style="margin-top:0">✏️ Edit Profile</h3>
         <label for="usernameInput">Username</label>
@@ -1337,20 +1096,17 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         </div>
       </div>
 
-      <!-- Meta Stats (Likes/Saves) -->
       <div class="ig-meta-stats">
         <span>❤️ <b id="statLikes">0</b> Videos Liked</span>
         <span>🔖 <b id="statSaves">0</b> Videos Saved</span>
       </div>
 
-      <!-- Posts Tabs -->
       <div class="ig-posts-tabs">
         <button type="button" class="ig-tab active" data-ig-tab="posts">📷 Posts</button>
         <button type="button" class="ig-tab" data-ig-tab="liked">❤️ Liked</button>
         <button type="button" class="ig-tab" data-ig-tab="saved">🔖 Saved</button>
       </div>
 
-      <!-- Posts Grid -->
       <div id="igPostsGrid" class="ig-posts-grid grid-empty">
         <div class="ig-empty">
           <span class="ig-empty-icon">📷</span>
@@ -1358,11 +1114,9 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         </div>
       </div>
 
-      <!-- Logout -->
       <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
     </div>
 
-    <!-- Followers / Following Modal -->
     <div class="ig-list-overlay" id="igListOverlay">
       <div class="ig-list-box">
         <div class="ig-list-header">
@@ -1379,6 +1133,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         <button type="button" class="settings-open-btn" id="settingsOpenBtn">⚙️ Open Settings</button>
       </div>
     </div>
+
     <div class="fun-zone" id="profileFunZone">
       <div class="fun-zone-head">
         <h3>🎮 Fun Zone</h3>
@@ -1543,7 +1298,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   </div>
 </div>
 
-
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
     <div class="social-header"><h3>⚙️ Settings</h3><button type="button" class="social-close" id="settingsClose">✕</button></div>
@@ -1557,27 +1311,33 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 
 <div class="messages-overlay" id="messagesOverlay">
   <div class="messages-box">
-    <div class="social-header">
+    <div class="social-header" id="messagesHeader">
       <button type="button" class="mobile-back-btn" id="messagesHeaderBack" aria-label="Back">←</button>
-      <h3>💬 Community & Messages</h3>
-      <button type="button" class="social-close" id="messagesClose">✕</button>
+      <h3 id="messagesHeaderTitle">Messages</h3>
+      <button type="button" class="social-close" id="messagesClose" aria-label="Close">✕</button>
     </div>
     <div class="messages-layout">
       <aside class="messages-sidebar" id="messagesSidebar">
         <div class="community-tabs">
-          <button type="button" class="community-tab active" data-community-tab="friends">Friends</button>
+          <button type="button" class="community-tab active" data-community-tab="primary">Primary</button>
           <button type="button" class="community-tab" data-community-tab="requests">Requests</button>
-          <button type="button" class="community-tab" data-community-tab="find">Find People</button>
+          <button type="button" class="community-tab" data-community-tab="general">General</button>
         </div>
-        <div class="community-pane active" id="community-friends"><div id="friendsList"></div></div>
-        <div class="community-pane" id="community-requests"><div id="requestsList"></div></div>
-        <div class="community-pane" id="community-find">
-          <div class="community-search"><input id="peopleSearchInput" type="text" placeholder="@username search karo"><button type="button" id="peopleSearchBtn">Search</button></div>
+        <div class="community-pane active" id="community-primary">
+          <div id="inboxList"></div>
+        </div>
+        <div class="community-pane" id="community-requests">
+          <div id="requestsList"></div>
+        </div>
+        <div class="community-pane" id="community-general">
+          <div class="community-search">
+            <input id="peopleSearchInput" type="text" placeholder="Search people...">
+            <button type="button" id="peopleSearchBtn">Search</button>
+          </div>
           <div id="peopleSearchResults"></div>
         </div>
       </aside>
       <section class="chat-panel" id="chatPanel">
-        <div class="chat-empty" id="chatEmpty" style="display:none"></div>
         <div id="chatActive" style="display:none;flex:1;min-height:0;flex-direction:column">
           <div class="chat-header">
             <button type="button" class="mobile-back-btn" id="chatBackBtn" aria-label="Back to list">←</button>
@@ -1588,8 +1348,14 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
             </div>
           </div>
           <div class="chat-messages" id="chatMessages"></div>
-          <div class="chat-replying" id="chatReplying" style="display:none"><span id="chatReplyText"></span> <button type="button" class="chat-tool" id="cancelReply">✕</button></div>
-          <div class="chat-composer"><textarea id="chatInput" maxlength="1000" placeholder="Message likho..." rows="1"></textarea><button type="button" class="chat-send" id="sendMessageBtn">➤</button></div>
+          <div class="chat-replying" id="chatReplying" style="display:none">
+            <span id="chatReplyText"></span>
+            <button type="button" class="chat-tool" id="cancelReply">✕</button>
+          </div>
+          <div class="chat-composer">
+            <textarea id="chatInput" maxlength="1000" placeholder="Message..." rows="1"></textarea>
+            <button type="button" class="chat-send" id="sendMessageBtn" aria-label="Send">➤</button>
+          </div>
         </div>
       </section>
     </div>
@@ -1624,6 +1390,10 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 </nav>
 
 <div id="toastNotification"></div>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCYMhMDey05I8fF5e2R-ddgXEASr1w-sUs",
@@ -1671,7 +1441,6 @@ function formatTimeAgo(date) {
   if (s < 604800) return Math.floor(s/86400)+"d";
   return date.toLocaleDateString("en-IN");
 }
-
 function isMobileViewport(){
   return window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
 }
@@ -1729,6 +1498,7 @@ function switchTab(name) {
     loadManualVideosList();
   }
 }
+window.switchTab = switchTab;
 navButtons.forEach(btn => btn.addEventListener("click", () => switchTab(btn.getAttribute("data-tab"))));
 
 /* ============ THEME ============ */
@@ -1740,9 +1510,6 @@ function applyTheme(theme, persist=true) {
   if(persist) localStorage.setItem("theme", selected);
   const sel = document.getElementById("themeSelect");
   if (sel) sel.value = selected;
-}
-function toggleTheme() {
-  applyTheme(document.body.classList.contains("dark-mode") ? "light" : "dark");
 }
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "system";
@@ -1756,488 +1523,31 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ============ TOAST ============ */
+let toastTimeout;
+function showToast(msg) {
+  const t = document.getElementById("toastNotification");
+  if(!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => t.classList.remove("show"), 2200);
+}
+window.showToast = showToast;
+
 /* ============ SETTINGS MODAL ============ */
 (function(){
-  const open=document.getElementById("settingsOpenBtn"), close=document.getElementById("settingsClose"), overlay=document.getElementById("settingsOverlay"), community=document.getElementById("communityBtn");
+  const open=document.getElementById("settingsOpenBtn");
+  const close=document.getElementById("settingsClose");
+  const overlay=document.getElementById("settingsOverlay");
+  const community=document.getElementById("communityBtn");
   if(open)open.addEventListener("click",()=>overlay?.classList.add("show"));
   if(close)close.addEventListener("click",()=>overlay?.classList.remove("show"));
   if(overlay)overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.classList.remove("show")});
   if(community)community.addEventListener("click",()=>{overlay?.classList.remove("show");openCommunity();});
 })();
 
-/* ============ FOLLOW SYSTEM ============ */
-function followId(from,to){ return from + "_" + to; }
-async function getFollowStatus(uid){
-  if(!currentUser || !uid || uid===currentUser.uid) return {following:false};
-  try{ const snap=await db.collection("follows").doc(followId(currentUser.uid,uid)).get(); return {following:snap.exists}; }catch(e){ return {following:false}; }
-}
-async function toggleFollow(uid, profile){
-  if(!currentUser || !uid || uid===currentUser.uid) return;
-  const ref=db.collection("follows").doc(followId(currentUser.uid,uid));
-  try{
-    const snap=await ref.get();
-    if(snap.exists){
-      await ref.delete();
-      showToast("Following removed");
-    }else{
-      await ref.set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-      await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
-      showToast("✅ Following");
-    }
-    await loadFollowCounts();
-  }catch(e){ console.error(e); showToast("❌ Follow update failed"); }
-}
-async function loadFollowCounts(){
-  if(!currentUser)return;
-  try{
-    const [followers,following]=await Promise.all([
-      db.collection("follows").where("to","==",currentUser.uid).get(),
-      db.collection("follows").where("from","==",currentUser.uid).get()
-    ]);
-    followCountCache={followers:followers.size,following:following.size};
-    const f=document.getElementById("statFollowers"), g=document.getElementById("statFollowing");
-    if(f)f.textContent=followers.size; if(g)g.textContent=following.size;
-  }catch(e){ console.warn("Follow counts load failed",e); }
-}
-
-/* ============ MESSAGES + COMMUNITY ============ */
-function pairId(a,b){ return [a,b].sort().join("_"); }
-function avatarFor(data){ return (data && (data.photoURL || data.photo || data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
-
-/* MOBILE-FRIENDLY: Toggle between list and chat */
-function showMobileChatPanel(){
-  if(!isMobileViewport()) return;
-  const sidebar = document.getElementById("messagesSidebar");
-  const panel = document.getElementById("chatPanel");
-  if(sidebar) sidebar.classList.add("mobile-hidden");
-  if(panel) panel.classList.add("mobile-open");
-}
-function showMobileSidebar(){
-  if(!isMobileViewport()) return;
-  const sidebar = document.getElementById("messagesSidebar");
-  const panel = document.getElementById("chatPanel");
-  if(sidebar) sidebar.classList.remove("mobile-hidden");
-  if(panel) panel.classList.remove("mobile-open");
-}
-
-function closeMessages(){
-  const o=document.getElementById("messagesOverlay");
-  if(o){o.classList.remove("show");o.classList.remove("inline-mode");}
-  if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
-  currentChatFriend=null; currentConversationId=null; currentReplyTo=null;
-  const cp=document.getElementById("chatPanel"); if(cp) { cp.style.display="none"; cp.classList.remove("mobile-open"); }
-  const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
-}
-
-async function loadFriends(){
-  const list=document.getElementById("friendsList"); if(!list||!currentUser)return;
-  list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 4px">Loading...</p>';
-  try{
-    const snap=await db.collection("friendships")
-      .where("users","array-contains",currentUser.uid)
-      .limit(50).get();
-    const friends=[];
-    for(const doc of snap.docs){
-      const ids=doc.data().users||[]; const other=ids.find(x=>x!==currentUser.uid); if(!other)continue;
-      const ps=await db.collection("publicProfiles").doc(other).get(); if(ps.exists)friends.push({uid:other,...ps.data()});
-    }
-    if(!friends.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Abhi koi friend nahi. Find People se request bhejo.</p>';return;}
-    list.innerHTML=friends.map(f=>`<div class="person-row"><img src="${escapeAttr(avatarFor(f))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(f.displayName||"User")}</div><div class="person-username">@${escapeHtml(f.username||"user")}</div></div><button type="button" class="person-action" data-chat-uid="${escapeAttr(f.uid)}">Chat</button></div>`).join("");
-    list.querySelectorAll("[data-chat-uid]").forEach(b=>b.addEventListener("click",()=>openChat(friends.find(x=>x.uid===b.dataset.chatUid))));
-  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Friends load nahi hue.</p>';}
-}
-
-async function loadRequests(){
-  const list=document.getElementById("requestsList"); if(!list||!currentUser)return;
-  list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 4px">Loading...</p>';
-  try{
-    const [incoming,outgoing,msgIncoming,msgOutgoing]=await Promise.all([
-      db.collection("friendRequests").where("to","==",currentUser.uid).get(),
-      db.collection("friendRequests").where("from","==",currentUser.uid).get(),
-      db.collection("messageRequests").where("to","==",currentUser.uid).get(),
-      db.collection("messageRequests").where("from","==",currentUser.uid).get()
-    ]);
-    const rows=[];
-    for(const doc of incoming.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.from).get();if(ps.exists)rows.push({kind:"incoming",id:doc.id,uid:d.from,...ps.data()});}
-    for(const doc of outgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"outgoing",id:doc.id,uid:d.to,...ps.data()});}
-    for(const doc of msgIncoming.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.from).get();if(ps.exists)rows.push({kind:"message-incoming",id:doc.id,uid:d.from,...ps.data()});}
-    for(const doc of msgOutgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"message-outgoing",id:doc.id,uid:d.to,...ps.data()});}
-    if(!rows.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">No pending requests.</p>';return;}
-    list.innerHTML=rows.map(r=>{
-      const label=r.kind.startsWith("message")?"💬 Message Request":"👥 Friend Request";
-      const action=r.kind==="incoming"?`<button type="button" class="person-action" data-accept="${escapeAttr(r.id)}" data-friend="${escapeAttr(r.uid)}">Accept</button>`
-        :r.kind==="message-incoming"?`<button type="button" class="person-action" data-accept-message="${escapeAttr(r.id)}" data-message-user="${escapeAttr(r.uid)}">Accept</button>`
-        :`<span style="font-size:11px;color:#888">Sent</span>`;
-      return `<div class="person-row"><img src="${escapeAttr(avatarFor(r))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(r.displayName||"User")}</div><div class="person-username">@${escapeHtml(r.username||"user")}</div><div style="font-size:10px;color:#888;margin-top:3px">${label}</div></div>${action}</div>`;
-    }).join("");
-    list.querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",()=>acceptFriendRequest(b.dataset.accept,b.dataset.friend)));
-    list.querySelectorAll("[data-accept-message]").forEach(b=>b.addEventListener("click",()=>acceptMessageRequest(b.dataset.acceptMessage,b.dataset.messageUser)));
-  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Requests load nahi hue.</p>';}
-}
-
-async function handleSearchMessage(uid,profile){
-  if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");return;}
-  try{
-    await sendMessageRequest(uid,profile);
-  }catch(e){
-    console.error("handleSearchMessage",e);
-    showToast("❌ Message action failed");
-  }
-}
-
-async function buildPersonSearchResult(uid, profile, container){
-  const data=profile||{};
-  const row=document.createElement("div"); row.className="search-people-card";
-  row.innerHTML=`<img src="${escapeAttr(avatarFor(data))}" alt=""><div class="search-people-meta"><div class="search-people-name">${escapeHtml(data.displayName||"User")}</div><div class="search-people-username">@${escapeHtml(data.username||"user")}</div><div class="search-people-stats"><span data-followers>0</span> followers • <span data-following>0</span> following</div></div><div class="search-people-actions"><span style="font-size:11px;color:#888">Loading…</span></div>`;
-  container.appendChild(row);
-  const actions=row.querySelector(".search-people-actions");
-  const safe=async(fn,fallback=null)=>{try{return await fn();}catch(e){console.warn("people action read",e);return fallback;}};
-  try{
-    const fr=await safe(()=>db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),null);
-    const outgoing=await safe(()=>db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").limit(1).get(),{empty:true,docs:[]});
-    const incoming=await safe(()=>db.collection("friendRequests").where("from","==",uid).where("to","==",currentUser.uid).where("status","==","pending").limit(1).get(),{empty:true,docs:[]});
-    const followSnap=await safe(()=>db.collection("follows").doc(followId(currentUser.uid,uid)).get(),{exists:false});
-    const followerSnap=await safe(()=>db.collection("follows").where("to","==",uid).limit(100).get(),{size:0});
-    const followingSnap=await safe(()=>db.collection("follows").where("from","==",uid).limit(100).get(),{size:0});
-    row.querySelector("[data-followers]").textContent=followerSnap?.size||0;
-    row.querySelector("[data-following]").textContent=followingSnap?.size||0;
-    const isFriend=!!fr?.exists; const hasIncoming=!!incoming?.docs?.length; const hasOutgoing=!!outgoing?.docs?.length;
-    if(isFriend){
-      actions.innerHTML='<button type="button" class="secondary" data-chat-search>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-chat-search]").onclick=()=>handleSearchMessage(uid,data);
-    }else if(hasIncoming){
-      actions.innerHTML='<button type="button" data-accept-search>Accept Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-accept-search]").onclick=()=>acceptFriendRequest(incoming.docs[0].id,uid);
-      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
-    }else if(hasOutgoing){
-      actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Friend request sent</span><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
-    }else{
-      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-add-search]").onclick=()=>sendFriendRequest(uid,data);
-      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
-    }
-    const followBtn=actions.querySelector("[data-follow-action]");
-    if(followBtn)followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Follow":"Following";};
-  }catch(e){
-    console.error("buildPersonSearchResult",e);
-    actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>Follow</button>';
-    actions.querySelector("[data-add-search]")?.addEventListener("click",()=>sendFriendRequest(uid,data));
-    actions.querySelector("[data-message-request]")?.addEventListener("click",()=>handleSearchMessage(uid,data));
-    actions.querySelector("[data-follow-action]")?.addEventListener("click",()=>toggleFollow(uid,data));
-  }
-}
-
-async function searchPeople(){
-  if(!currentUser)return;
-  const input=document.getElementById("peopleSearchInput"), q=normalizeUsername(input.value); const out=document.getElementById("peopleSearchResults");
-  if(!q){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Username enter karo.</p>';return;}
-  out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Searching...</p>';
-  try{
-    const us=await db.collection("usernames").doc(q).get();
-    if(!us.exists||us.data().uid===currentUser.uid){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">User nahi mila.</p>';return;}
-    const uid=us.data().uid, ps=await db.collection("publicProfiles").doc(uid).get(); if(!ps.exists){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Profile nahi mila.</p>';return;}
-    out.innerHTML=""; await buildPersonSearchResult(uid,ps.data(),out);
-  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Search failed.</p>';}
-}
-
-async function searchUsersAnywhere(query, out){
-  if(!currentUser || !out)return;
-  const q=normalizeUsername(query);
-  out.innerHTML="";
-  if(q.length<2)return;
-  out.innerHTML='<p style="color:#888;font-size:12px;padding:8px 4px">👤 People search...</p>';
-  try{
-    const snap=await db.collection("usernames").orderBy("username").startAt(q).endAt(q+"\uf8ff").limit(8).get();
-    const docs=snap.docs.filter(d=>d.data().uid!==currentUser.uid);
-    out.innerHTML="";
-    if(!docs.length){out.innerHTML='<p style="color:#888;text-align:center;padding:10px">Koi matching profile nahi mila.</p>';return;}
-    for(const d of docs){
-      const uid=d.data().uid; const ps=await db.collection("publicProfiles").doc(uid).get(); if(ps.exists) await buildPersonSearchResult(uid,ps.data(),out);
-    }
-  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;padding:8px 4px">People search failed.</p>';}
-}
-
-async function sendMessageRequest(uid,profile){
-  if(!currentUser||!uid||uid===currentUser.uid)return;
-  try{
-    const friendship=await db.collection("friendships").doc(pairId(currentUser.uid,uid)).get();
-    if(friendship.exists){
-      openChat({...profile,uid});
-      return;
-    }
-    const requestId=pairId(currentUser.uid,uid);
-    const ref=db.collection("messageRequests").doc(requestId);
-    const existing=await ref.get();
-    if(existing.exists && existing.data().status==="pending"){
-      showToast("⏳ Message request already sent");
-      return;
-    }
-    await ref.set({
-      from:currentUser.uid,
-      to:uid,
-      status:"pending",
-      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-      senderName:currentUser.displayName||"Someone"
-    });
-    await createNotification(
-      uid,
-      "message_request",
-      "💬 New message request",
-      (currentUser.displayName||"Someone")+" wants to message you.",
-      {requestId,profileUid:currentUser.uid}
-    );
-    showToast("💬 Message request sent");
-  }catch(e){
-    console.error("sendMessageRequest",e);
-    showToast("❌ Message request failed");
-  }
-}
-
-async function acceptMessageRequest(requestId,fromUid){
-  if(!currentUser)return;
-  try{
-    const ref=db.collection("messageRequests").doc(requestId);
-    await ref.update({status:"accepted",respondedAt:firebase.firestore.FieldValue.serverTimestamp()});
-    await createNotification(fromUid,"message_request_accepted","💬 Message request accepted",(currentUser.displayName||"User")+" accepted your message request.",{requestId});
-    const ps=await db.collection("publicProfiles").doc(fromUid).get();
-    showToast("💬 Request accepted");
-    loadRequests();
-    if(ps.exists)openChat({uid:fromUid,...ps.data()});
-  }catch(e){console.error(e);showToast("❌ Message request accept failed");}
-}
-
-async function sendFriendRequest(uid,profile){
-  try{
-    const existing=await db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get();
-    if(!existing.empty){showToast("⏳ Request already sent");return;}
-    const ref=db.collection("friendRequests").doc();
-    await ref.set({from:currentUser.uid,to:uid,status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-    await createNotification(uid,"friend_request","👥 New friend request",(currentUser.displayName||"Someone")+" sent you a friend request.",{requestId:ref.id});
-    showToast("✅ Friend request sent"); searchPeople();
-  }catch(e){console.error(e);showToast("❌ Request send failed");}
-}
-
-async function acceptFriendRequest(requestId,friendUid){
-  try{
-    const fid=pairId(currentUser.uid,friendUid), batch=db.batch();
-    batch.set(db.collection("friendships").doc(fid),{users:[currentUser.uid,friendUid].sort(),requestId:requestId,createdAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-    batch.update(db.collection("friendRequests").doc(requestId),{status:"accepted",respondedAt:firebase.firestore.FieldValue.serverTimestamp()});
-    await batch.commit();
-    await createNotification(friendUid,"friend_accepted","🤝 Friend request accepted",(currentUser.displayName||"Your friend")+" accepted your friend request.");
-    showToast("🤝 You are now friends"); loadFriends(); loadRequests();
-  }catch(e){console.error(e);showToast("❌ Accept failed");}
-}
-
-async function openChat(friend){
-  if(!friend||!currentUser)return;
-  currentChatFriend=friend; currentConversationId=pairId(currentUser.uid,friend.uid);
-
-  // Mobile: hide sidebar, show chat
-  showMobileChatPanel();
-
-  document.getElementById("chatEmpty").style.display="none";
-  document.getElementById("chatActive").style.display="flex";
-  const chatPanel=document.getElementById("chatPanel");
-  if(chatPanel) chatPanel.style.display="flex";
-  document.getElementById("chatFriendPhoto").src=avatarFor(friend);
-  document.getElementById("chatFriendName").textContent=friend.displayName||"User";
-  document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
-
-  if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
-
-  const convRef=db.collection("conversations").doc(currentConversationId);
-  try{
-    await convRef.set({
-      members:[currentUser.uid,friend.uid].sort(),
-      lastRead:{[currentUser.uid]:firebase.firestore.FieldValue.serverTimestamp()}
-    },{merge:true});
-    updateMessageBadge();
-  }catch(e){console.error(e);}
-
-  const msgsRef=convRef.collection("messages").orderBy("createdAt","asc").limitToLast(100);
-  chatUnsubscribe=msgsRef.onSnapshot(snap=>renderChatMessages(snap.docs),e=>{
-    console.error(e);
-    document.getElementById("chatMessages").innerHTML='<p style="color:#e63946;text-align:center;padding:20px">Messages load nahi hue. Rules check karo.</p>';
-  });
-}
-
-async function renderChatMessages(docs){
-  const box=document.getElementById("chatMessages");
-  const rows=docs.filter(doc=>!doc.data().deleted);
-  const html=rows.map(doc=>{
-    const d=doc.data();
-    const mine=d.senderId===currentUser.uid;
-    const dt=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate():new Date();
-    const reply=d.replyTo?`<div class="reply-preview">↪ ${escapeHtml(d.replyTo.text||"Message")}</div>`:"";
-    return `<div class="chat-bubble-row ${mine?'mine':''}">
-      <div class="chat-bubble" data-mid="${escapeAttr(doc.id)}">
-        ${reply}
-        <div class="chat-message-text">${escapeHtml(d.text||"")}</div>
-        <div class="chat-meta">${formatTimeAgo(dt)}</div>
-        <div class="chat-tools">
-          <button type="button" class="chat-tool" data-reply="${escapeAttr(doc.id)}">↩️</button>
-          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="❤️">❤️</button>
-          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😂">😂</button>
-          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="🔥">🔥</button>
-          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="👍">👍</button>
-          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😢">😢</button>
-          ${mine?`<button type="button" class="chat-tool" data-delete="${escapeAttr(doc.id)}">🗑️</button>`:""}
-        </div>
-        <div class="reaction-summary" data-reaction-summary="${escapeAttr(doc.id)}"></div>
-      </div>
-    </div>`;
-  }).join("");
-  box.innerHTML=html||'<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋</p>';
-
-  await Promise.all(rows.map(async doc=>{
-    try{
-      const snap=await db.collection("conversations").doc(currentConversationId).collection("messages").doc(doc.id).collection("reactions").get();
-      const counts={};snap.forEach(r=>{const em=r.data().emoji;if(em)counts[em]=(counts[em]||0)+1;});
-      const el=box.querySelector('[data-reaction-summary="'+CSS.escape(doc.id)+'"]');
-      if(el)el.innerHTML=Object.entries(counts).map(([em,c])=>`<span style="font-size:11px;margin-right:5px">${em} ${c}</span>`).join("");
-    }catch(e){}
-  }));
-  box.scrollTop=box.scrollHeight;
-}
-
-async function sendMessage(){
-  if(!currentUser||!currentConversationId||!currentChatFriend)return;
-  const input=document.getElementById("chatInput"), text=input.value.trim(); if(!text)return;
-  try{
-    const convRef=db.collection("conversations").doc(currentConversationId);
-    const payload={senderId:currentUser.uid,text:text,createdAt:firebase.firestore.FieldValue.serverTimestamp()};
-    if(currentReplyTo)payload.replyTo={id:currentReplyTo.id,text:currentReplyTo.text,senderId:currentReplyTo.senderId};
-    await convRef.collection("messages").add(payload);
-    await convRef.set({members:[currentUser.uid,currentChatFriend.uid].sort(),lastMessage:text.slice(0,120),lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),lastSenderId:currentUser.uid},{merge:true});
-    await createNotification(currentChatFriend.uid,"message","💬 New message",(currentUser.displayName||"Someone")+": "+text.slice(0,80),{conversationId:currentConversationId});
-    input.value=""; input.style.height="auto"; cancelReply(); updateMessageBadge();
-  }catch(e){console.error(e);showToast("❌ Message send failed");}
-}
-
-function cancelReply(){currentReplyTo=null;const el=document.getElementById("chatReplying");if(el)el.style.display="none";}
-async function deleteMessage(mid){if(!currentConversationId)return;try{await db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).delete();showToast("🗑️ Message deleted");}catch(e){showToast("❌ Delete failed");}}
-async function toggleReaction(mid,emoji){if(!currentConversationId||!currentUser)return;try{const r=db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).collection("reactions").doc(currentUser.uid);const snap=await r.get();if(snap.exists&&snap.data().emoji===emoji)await r.delete();else await r.set({emoji,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){console.error(e);showToast("❌ Reaction failed");}}
-
-async function createNotification(recipientId,type,title,text,extra={}){if(!recipientId)return;try{await db.collection("notifications").add({recipientId,type,title,text,read:false,senderId:currentUser?currentUser.uid:"system",createdAt:firebase.firestore.FieldValue.serverTimestamp(),...extra});}catch(e){console.error("Notification create failed",e);}}
-
-/* ============ INIT COMMUNITY UI (with mobile back) ============ */
-function initCommunityUI(){
-  document.getElementById("messagesClose").addEventListener("click",closeMessages);
-  document.getElementById("messagesOverlay").addEventListener("click",e=>{if(e.target.id==="messagesOverlay")closeMessages();});
-
-  // Mobile back button in header
-  const headerBack=document.getElementById("messagesHeaderBack");
-  if(headerBack) headerBack.addEventListener("click",()=>{
-    // If chat is open, go back to sidebar; otherwise close messages
-    const panel=document.getElementById("chatPanel");
-    if(panel && panel.classList.contains("mobile-open")){
-      if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
-      currentChatFriend=null; currentConversationId=null;
-      panel.classList.remove("mobile-open");
-      const cp=document.getElementById("chatActive"); if(cp) cp.style.display="none";
-      const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
-    } else {
-      closeMessages();
-    }
-  });
-
-  // Mobile back button in chat header
-  const chatBack=document.getElementById("chatBackBtn");
-  if(chatBack) chatBack.addEventListener("click",()=>{
-    if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
-    currentChatFriend=null; currentConversationId=null;
-    showMobileSidebar();
-    const cp=document.getElementById("chatActive"); if(cp) cp.style.display="none";
-  });
-
-  document.getElementById("peopleSearchBtn").addEventListener("click",searchPeople);
-  document.getElementById("peopleSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchPeople();});
-  document.getElementById("sendMessageBtn").addEventListener("click",sendMessage);
-
-  // Auto-grow chat input
-  const chatInput=document.getElementById("chatInput");
-  chatInput.addEventListener("input",()=>{
-    chatInput.style.height="auto";
-    chatInput.style.height=Math.min(chatInput.scrollHeight,110)+"px";
-  });
-  chatInput.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!isMobileViewport()){e.preventDefault();sendMessage();}});
-
-  document.getElementById("cancelReply").addEventListener("click",cancelReply);
-  document.getElementById("communityBtn").addEventListener("click",openMessages);
-
-  document.querySelectorAll("[data-community-tab]").forEach(tab=>tab.addEventListener("click",()=>{
-    document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));
-    document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));
-    tab.classList.add("active");
-    document.getElementById("community-"+tab.dataset.communityTab).classList.add("active");
-    if(tab.dataset.communityTab==="friends")loadFriends();
-    if(tab.dataset.communityTab==="requests")loadRequests();
-  }));
-
-  document.getElementById("chatMessages").addEventListener("click",e=>{
-    const r=e.target.closest("[data-reply]"),d=e.target.closest("[data-delete]"),x=e.target.closest("[data-react]");
-    if(r){
-      const id=r.dataset.reply;
-      const el=document.querySelector('[data-mid="'+CSS.escape(id)+'"]');
-      const text=el?el.querySelector('.chat-message-text')?.textContent||"Message":"Message";
-      currentReplyTo={id,text,senderId:el?.closest('.chat-bubble-row')?.classList.contains('mine')?currentUser.uid:currentChatFriend?.uid};
-      document.getElementById("chatReplyText").textContent="↪ "+text.slice(0,80);
-      document.getElementById("chatReplying").style.display="block";
-      document.getElementById("chatInput").focus();
-    }else if(d){deleteMessage(d.dataset.delete);}
-    else if(x){toggleReaction(x.dataset.react,x.dataset.emoji);}
-  });
-}
-
-function showMessagesOverlay(){
-  if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");switchTab("profile");return null;}
-  const o=document.getElementById("messagesOverlay");
-  if(!o)return null;
-  o.classList.remove("inline-mode"); o.classList.add("show");
-  const cp=document.getElementById("chatPanel"); if(cp){cp.style.display="none";cp.classList.remove("mobile-open");}
-  const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
-  return o;
-}
-
-async function openDirectMessages(){
-  const o=showMessagesOverlay(); if(!o)return;
-  const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Messages";
-  const tabs=o.querySelector(".community-tabs"); if(tabs)tabs.style.display="none";
-  document.querySelectorAll(".community-pane").forEach(p=>p.classList.remove("active"));
-  const friends=document.getElementById("community-friends"); if(friends)friends.classList.add("active");
-  await loadFriends();
-}
-
-async function openCommunity(){
-  const o=showMessagesOverlay(); if(!o)return;
-  const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Community & Messages";
-  const tabs=o.querySelector(".community-tabs"); if(tabs)tabs.style.display="flex";
-  document.querySelectorAll(".community-pane").forEach(p=>p.classList.remove("active"));
-  document.getElementById("community-friends")?.classList.add("active");
-  await loadFriends(); await loadRequests();
-}
-
-function openMessages(){ return openCommunity(); }
-window.openMessages=openDirectMessages;
-window.openDirectMessages=openDirectMessages;
-window.openCommunity=openCommunity;
-
-/* ============ MOBILE MENU ============ */
-const menuToggle = document.getElementById("menuToggle");
-const topNav = document.querySelector(".top-nav");
-const menuBackdrop = document.getElementById("menuBackdrop");
-function openMenu() { topNav.classList.add("show-menu"); menuBackdrop.classList.add("show"); }
-function closeMenu() { topNav.classList.remove("show-menu"); menuBackdrop.classList.remove("show"); }
-if(menuToggle){
-  menuToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (topNav.classList.contains("show-menu")) closeMenu(); else openMenu();
-  });
-}
-if(menuBackdrop) menuBackdrop.addEventListener("click", closeMenu);
-if(topNav) topNav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-  /* ============ NOTIFICATIONS ============ */
+/* ============ NOTIFICATIONS ============ */
 const bellBtn = document.getElementById("bellBtn");
 if(bellBtn) bellBtn.addEventListener("click", e=>{e.stopPropagation();openNotifications();});
 
@@ -2250,7 +1560,7 @@ async function loadNotifications(){
     renderNotifications(); updateNotificationBadge();
   },e=>{
     console.error("Notification listener",e);
-    list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui. Firestore index/rules check karo.</p>';
+    list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui.</p>';
   });
 }
 
@@ -2258,7 +1568,10 @@ function renderNotifications(){
   const list=document.getElementById("notifList"); if(!list)return;
   const now=Date.now();
   notificationsCache=notificationsCache.filter(n=>!(n.type==="new_video"&&n.expiresAt&&n.expiresAt.toMillis&&n.expiresAt.toMillis()<now));
-  if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
+  if(!notificationsCache.length){
+    list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';
+    return;
+  }
   const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
   list.innerHTML=notificationsCache.map(n=>{
     const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();
@@ -2276,11 +1589,11 @@ function renderNotifications(){
     markNotificationRead(el.dataset.notif);
     if(n?.type==="message"){
       document.getElementById("notificationsOverlay").classList.remove("show");
-      openMessages();
+      openDirectMessages();
     }else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){
       document.getElementById("notificationsOverlay").classList.remove("show");
-      openCommunity();
-      document.querySelector('[data-community-tab="requests"]')?.click();
+      openDirectMessages();
+      setTimeout(()=>document.querySelector('[data-community-tab="requests"]')?.click(),300);
     }else if(n?.type==="follow"){
       document.getElementById("notificationsOverlay").classList.remove("show");
       switchTab("profile");
@@ -2338,7 +1651,6 @@ function openNotifications(){
   o.classList.add("show");loadNotifications();
 }
 
-// Notification close listeners
 (function(){
   const nc=document.getElementById("notificationsClose");
   const no=document.getElementById("notificationsOverlay");
@@ -2347,6 +1659,18 @@ function openNotifications(){
   const mb=document.getElementById("markAllNotifBtn"); if(mb)mb.addEventListener("click",markAllNotificationsRead);
   const cb=document.getElementById("clearOldNotifBtn"); if(cb)cb.addEventListener("click",clearOldNotifications);
 })();
+
+async function createNotification(recipientId,type,title,text,extra={}){
+  if(!recipientId)return;
+  try{
+    await db.collection("notifications").add({
+      recipientId,type,title,text,read:false,
+      senderId:currentUser?currentUser.uid:"system",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      ...extra
+    });
+  }catch(e){console.error("Notification create failed",e);}
+}
 
 function createNewVideoNotifications(){
   if(!currentUser)return;
@@ -2364,6 +1688,46 @@ function createNewVideoNotifications(){
       {videoId:id,category:v.category,expiresAt:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+24*60*60*1000))}
     ));
   }
+}
+
+/* ============ FOLLOW SYSTEM ============ */
+function followId(from,to){ return from + "_" + to; }
+async function getFollowStatus(uid){
+  if(!currentUser || !uid || uid===currentUser.uid) return {following:false};
+  try{
+    const snap=await db.collection("follows").doc(followId(currentUser.uid,uid)).get();
+    return {following:snap.exists};
+  }catch(e){ return {following:false}; }
+}
+async function toggleFollow(uid){
+  if(!currentUser || !uid || uid===currentUser.uid) return;
+  const ref=db.collection("follows").doc(followId(currentUser.uid,uid));
+  try{
+    const snap=await ref.get();
+    if(snap.exists){
+      await ref.delete();
+      showToast("Following removed");
+    }else{
+      await ref.set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
+      showToast("✅ Following");
+    }
+    await loadFollowCounts();
+  }catch(e){ console.error(e); showToast("❌ Follow update failed"); }
+}
+
+async function loadFollowCounts(){
+  if(!currentUser)return;
+  try{
+    const [followers,following]=await Promise.all([
+      db.collection("follows").where("to","==",currentUser.uid).get(),
+      db.collection("follows").where("from","==",currentUser.uid).get()
+    ]);
+    followCountCache={followers:followers.size,following:following.size};
+    const f=document.getElementById("statFollowers"), g=document.getElementById("statFollowing");
+    if(f)f.textContent=followers.size;
+    if(g)g.textContent=following.size;
+  }catch(e){ console.warn("Follow counts load failed",e); }
 }
 
 /* ============ ANNOUNCEMENT / COOKIE / LOADER ============ */
@@ -2408,16 +1772,6 @@ if(qat) qat.addEventListener("click", () => {
   document.getElementById("quickActions").classList.toggle("active");
 });
 
-let toastTimeout;
-function showToast(msg) {
-  const t = document.getElementById("toastNotification");
-  if(!t)return;
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => t.classList.remove("show"), 2200);
-}
-
 function shareWebsite() {
   const d = { title: "UPComedyHub", text: "😂 UPComedyHub par Desi Comedy dekho!", url: window.location.href };
   if (navigator.share) navigator.share(d).catch(() => {});
@@ -2438,7 +1792,22 @@ document.querySelectorAll(".faq-q").forEach(q => {
   });
 });
 
-/* ============ PROFILE IDENTITY ============ */
+/* ============ MOBILE MENU ============ */
+const menuToggle = document.getElementById("menuToggle");
+const topNav = document.querySelector(".top-nav");
+const menuBackdrop = document.getElementById("menuBackdrop");
+function openMenu() { topNav.classList.add("show-menu"); menuBackdrop.classList.add("show"); }
+function closeMenu() { topNav.classList.remove("show-menu"); menuBackdrop.classList.remove("show"); }
+if(menuToggle){
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (topNav.classList.contains("show-menu")) closeMenu(); else openMenu();
+  });
+}
+if(menuBackdrop) menuBackdrop.addEventListener("click", closeMenu);
+if(topNav) topNav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+
+/* ============ USERNAME HELPERS ============ */
 function normalizeUsername(value) {
   return String(value || "").trim().toLowerCase().replace(/^@+/, "");
 }
@@ -2451,8 +1820,570 @@ function usernameBaseFromName(name) {
   if (!/^[a-z0-9]/.test(base)) base = "user" + base;
   return base.slice(0, 24);
 }
+function pairId(a,b){ return [a,b].sort().join("_"); }
+function avatarFor(data){ return (data && (data.photoURL || data.photo || data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
+  /* ============================================================
+   MESSAGES + COMMUNITY (Instagram-style)
+   ============================================================ */
 
-async function ensurePublicProfile(user) {
+function showMobileChatPanel(){
+  if(!isMobileViewport()) return;
+  const sidebar = document.getElementById("messagesSidebar");
+  const panel = document.getElementById("chatPanel");
+  if(sidebar) sidebar.classList.add("mobile-hidden");
+  if(panel) panel.classList.add("mobile-open");
+}
+function showMobileSidebar(){
+  if(!isMobileViewport()) return;
+  const sidebar = document.getElementById("messagesSidebar");
+  const panel = document.getElementById("chatPanel");
+  if(sidebar) sidebar.classList.remove("mobile-hidden");
+  if(panel) panel.classList.remove("mobile-open");
+}
+
+function closeMessages(){
+  const o=document.getElementById("messagesOverlay");
+  if(o){o.classList.remove("show");o.classList.remove("inline-mode");}
+  if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+  currentChatFriend=null; currentConversationId=null; currentReplyTo=null;
+  const cp=document.getElementById("chatPanel");
+  if(cp){cp.style.display="none";cp.classList.remove("mobile-open");}
+  const sb=document.getElementById("messagesSidebar");
+  if(sb) sb.classList.remove("mobile-hidden");
+  const act=document.getElementById("chatActive");
+  if(act) act.style.display="none";
+}
+
+/* ---------- INBOX (Primary Tab) ---------- */
+async function loadInbox(){
+  const list=document.getElementById("inboxList");
+  if(!list||!currentUser)return;
+  list.innerHTML='<p class="inbox-empty" style="padding:30px 20px">Loading...</p>';
+  try{
+    const snap=await db.collection("conversations")
+      .where("members","array-contains",currentUser.uid)
+      .limit(50).get();
+    if(snap.empty){
+      list.innerHTML='<div class="inbox-empty"><span class="big-icon">💬</span>Abhi koi chat nahi.<br>General tab se kisi ko message karo!</div>';
+      return;
+    }
+    const convs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    convs.sort((a,b)=>(b.lastMessageAt?.seconds||0)-(a.lastMessageAt?.seconds||0));
+    list.innerHTML="";
+    for(const c of convs){
+      const otherId=(c.members||[]).find(x=>x!==currentUser.uid);
+      if(!otherId) continue;
+      let profile=null;
+      try{
+        const ps=await db.collection("publicProfiles").doc(otherId).get();
+        profile=ps.exists?ps.data():{displayName:"User",username:"user"};
+      }catch(e){ profile={displayName:"User",username:"user"}; }
+
+      const lastMsg=c.lastMessage||"";
+      const lastAt=c.lastMessageAt?.seconds?formatTimeAgo(new Date(c.lastMessageAt.seconds*1000)):"";
+      const isUnread=c.lastSenderId && c.lastSenderId!==currentUser.uid &&
+        (c.lastMessageAt?.seconds||0) > (c.lastRead?.[currentUser.uid]?.seconds||0);
+
+      const item=document.createElement("div");
+      item.className="chat-list-item";
+      item.innerHTML=`
+        <img src="${escapeAttr(avatarFor(profile))}" alt="">
+        <div class="chat-list-info">
+          <div class="chat-list-name">${escapeHtml(profile.displayName||"User")}</div>
+          <div class="chat-list-preview">${escapeHtml(lastMsg.slice(0,60)||"Tap to chat")}</div>
+        </div>
+        <div class="chat-list-right">
+          ${lastAt?`<span class="chat-list-time">${escapeHtml(lastAt)}</span>`:""}
+          ${isUnread?'<span class="chat-list-unread">●</span>':""}
+        </div>`;
+      item.addEventListener("click",()=>openChat({uid:otherId,...profile}));
+      list.appendChild(item);
+    }
+  }catch(e){
+    console.error(e);
+    list.innerHTML='<p class="inbox-empty" style="color:#e63946">Inbox load nahi hua.</p>';
+  }
+}
+
+/* ---------- REQUESTS (Instagram-style) ---------- */
+async function loadRequests(){
+  const list=document.getElementById("requestsList");
+  if(!list||!currentUser)return;
+  list.innerHTML='<p class="inbox-empty" style="padding:30px 20px">Loading...</p>';
+  try{
+    const [msgIncoming,msgOutgoing]=await Promise.all([
+      db.collection("messageRequests").where("to","==",currentUser.uid).get(),
+      db.collection("messageRequests").where("from","==",currentUser.uid).get()
+    ]);
+    const rows=[];
+    for(const doc of msgIncoming.docs){
+      const d=doc.data();
+      if(d.status!=="pending")continue;
+      let ps=null;
+      try{ ps=await db.collection("publicProfiles").doc(d.from).get(); }catch(e){}
+      if(ps&&ps.exists) rows.push({kind:"incoming",id:doc.id,uid:d.from,...ps.data()});
+    }
+    for(const doc of msgOutgoing.docs){
+      const d=doc.data();
+      if(d.status!=="pending")continue;
+      let ps=null;
+      try{ ps=await db.collection("publicProfiles").doc(d.to).get(); }catch(e){}
+      if(ps&&ps.exists) rows.push({kind:"outgoing",id:doc.id,uid:d.to,...ps.data()});
+    }
+    if(!rows.length){
+      list.innerHTML='<div class="inbox-empty"><span class="big-icon">📭</span>No requests.<br>Message requests yahan aayengi.</div>';
+      return;
+    }
+    list.innerHTML="";
+    rows.forEach(r=>{
+      const isIncoming = r.kind==="incoming";
+      const item=document.createElement("div");
+      item.className="chat-list-item";
+      item.style.alignItems="flex-start";
+      item.innerHTML=`
+        <img src="${escapeAttr(avatarFor(r))}" alt="">
+        <div class="chat-list-info">
+          <div class="chat-list-name">${escapeHtml(r.displayName||"User")}</div>
+          <div class="chat-list-preview">@${escapeHtml(r.username||"user")}</div>
+          <div class="request-actions">
+            ${isIncoming?`
+              <button type="button" class="accept-btn" data-accept="${escapeAttr(r.id)}" data-uid="${escapeAttr(r.uid)}">Accept</button>
+              <button type="button" class="delete-btn" data-reject="${escapeAttr(r.id)}">Delete</button>
+            `:`
+              <span style="font-size:12px;color:#888;padding:7px 0">Request sent</span>
+            `}
+          </div>
+        </div>`;
+      list.appendChild(item);
+    });
+    list.querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      acceptMessageRequest(b.getAttribute("data-accept"),b.getAttribute("data-uid"));
+    }));
+    list.querySelectorAll("[data-reject]").forEach(b=>b.addEventListener("click",async(e)=>{
+      e.stopPropagation();
+      if(!confirm("Delete this request?"))return;
+      try{
+        await db.collection("messageRequests").doc(b.getAttribute("data-reject")).delete();
+        showToast("🗑️ Request deleted");
+        loadRequests();
+      }catch(err){showToast("❌ Delete failed");}
+    }));
+  }catch(e){
+    console.error(e);
+    list.innerHTML='<p class="inbox-empty" style="color:#e63946">Requests load nahi hui.</p>';
+  }
+}
+
+/* ---------- GENERAL (Search) ---------- */
+async function loadGeneral(){
+  const out=document.getElementById("peopleSearchResults");
+  if(!out)return;
+  out.innerHTML='<p class="inbox-empty" style="padding:20px">Search karne ke liye upar box me username likho</p>';
+}
+
+async function handleSearchMessage(uid,profile){
+  if(!currentUser){showToast("🔐 Login karein");return;}
+  try{
+    await sendMessageRequest(uid,profile);
+  }catch(e){
+    console.error(e);
+    showToast("❌ Message action failed");
+  }
+}
+
+async function buildPersonSearchResult(uid, profile, container){
+  const data=profile||{};
+  const row=document.createElement("div"); row.className="chat-list-item";
+  row.innerHTML=`
+    <img src="${escapeAttr(avatarFor(data))}" alt="">
+    <div class="chat-list-info">
+      <div class="chat-list-name">${escapeHtml(data.displayName||"User")}</div>
+      <div class="chat-list-preview">@${escapeHtml(data.username||"user")}</div>
+    </div>
+    <div class="request-actions"><span style="font-size:11px;color:#888">…</span></div>`;
+  container.appendChild(row);
+  const actions=row.querySelector(".request-actions");
+  const safe=async(fn,fallback=null)=>{try{return await fn();}catch(e){return fallback;}};
+  try{
+    const fr=await safe(()=>db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),null);
+    const reqSnap=await safe(()=>db.collection("messageRequests").doc(pairId(currentUser.uid,uid)).get(),null);
+    const isFriend=!!fr?.exists;
+    const reqData=reqSnap?.exists?reqSnap.data():null;
+    const hasSentReq=reqData?.status==="pending";
+    const isAccepted=reqData?.status==="accepted";
+
+    if(isFriend || isAccepted){
+      actions.innerHTML='<button type="button" class="accept-btn" data-chat>Message</button>';
+      actions.querySelector("[data-chat]").onclick=()=>openChat({...data,uid});
+    }else if(hasSentReq){
+      actions.innerHTML='<span style="font-size:12px;color:#888;padding:7px 0">Request sent</span>';
+    }else{
+      actions.innerHTML='<button type="button" class="accept-btn" data-msg>Message</button>';
+      actions.querySelector("[data-msg]").onclick=()=>sendMessageRequest(uid,data);
+    }
+  }catch(e){
+    console.error(e);
+    actions.innerHTML='<button type="button" class="accept-btn" data-msg>Message</button>';
+    actions.querySelector("[data-msg]").onclick=()=>sendMessageRequest(uid,data);
+  }
+}
+
+async function searchPeople(){
+  if(!currentUser)return;
+  const input=document.getElementById("peopleSearchInput");
+  const q=normalizeUsername(input.value);
+  const out=document.getElementById("peopleSearchResults");
+  if(!q){out.innerHTML='<p class="inbox-empty" style="padding:20px">Username enter karo.</p>';return;}
+  out.innerHTML='<p class="inbox-empty" style="padding:20px">Searching...</p>';
+  try{
+    const us=await db.collection("usernames").doc(q).get();
+    if(!us.exists||us.data().uid===currentUser.uid){
+      out.innerHTML='<p class="inbox-empty" style="padding:20px">User nahi mila.</p>';
+      return;
+    }
+    const uid=us.data().uid;
+    const ps=await db.collection("publicProfiles").doc(uid).get();
+    if(!ps.exists){out.innerHTML='<p class="inbox-empty" style="padding:20px">Profile nahi mila.</p>';return;}
+    out.innerHTML="";
+    await buildPersonSearchResult(uid,ps.data(),out);
+  }catch(e){
+    console.error(e);
+    out.innerHTML='<p class="inbox-empty" style="color:#e63946;padding:20px">Search failed.</p>';
+  }
+}
+
+async function searchUsersAnywhere(query, out){
+  if(!currentUser || !out)return;
+  const q=normalizeUsername(query);
+  out.innerHTML="";
+  if(q.length<2)return;
+  try{
+    const snap=await db.collection("usernames").orderBy("username").startAt(q).endAt(q+"\uf8ff").limit(8).get();
+    const docs=snap.docs.filter(d=>d.data().uid!==currentUser.uid);
+    if(!docs.length){
+      out.innerHTML='<p class="inbox-empty" style="padding:20px">Koi matching profile nahi mila.</p>';
+      return;
+    }
+    for(const d of docs){
+      const uid=d.data().uid;
+      const ps=await db.collection("publicProfiles").doc(uid).get();
+      if(ps.exists) await buildPersonSearchResult(uid,ps.data(),out);
+    }
+  }catch(e){console.error(e);}
+}
+
+/* ---------- MESSAGE REQUEST FLOW ---------- */
+async function sendMessageRequest(uid,profile){
+  if(!currentUser||!uid||uid===currentUser.uid)return;
+  try{
+    const friendship=await db.collection("friendships").doc(pairId(currentUser.uid,uid)).get();
+    if(friendship.exists){ openChat({...profile,uid}); return; }
+    const requestId=pairId(currentUser.uid,uid);
+    const ref=db.collection("messageRequests").doc(requestId);
+    const existing=await ref.get();
+    if(existing.exists && existing.data().status==="pending"){
+      showToast("⏳ Request already sent");
+      return;
+    }
+    await ref.set({
+      from:currentUser.uid, to:uid, status:"pending",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      senderName:currentUser.displayName||"Someone"
+    });
+    await createNotification(uid,"message_request","💬 New message request",
+      (currentUser.displayName||"Someone")+" wants to message you.",
+      {requestId,profileUid:currentUser.uid});
+    showToast("💬 Message request sent");
+    // Refresh current search result
+    const out=document.getElementById("peopleSearchResults");
+    if(out){ out.innerHTML=""; const ps=await db.collection("publicProfiles").doc(uid).get(); if(ps.exists) await buildPersonSearchResult(uid,ps.data(),out); }
+  }catch(e){
+    console.error(e);
+    showToast("❌ Message request failed");
+  }
+}
+
+async function acceptMessageRequest(requestId,fromUid){
+  if(!currentUser)return;
+  try{
+    const ref=db.collection("messageRequests").doc(requestId);
+    await ref.update({status:"accepted",respondedAt:firebase.firestore.FieldValue.serverTimestamp()});
+    await createNotification(fromUid,"message_request_accepted","💬 Request accepted",
+      (currentUser.displayName||"User")+" accepted your message request.",{requestId});
+    const ps=await db.collection("publicProfiles").doc(fromUid).get();
+    showToast("✅ Request accepted");
+    loadRequests();
+    if(ps.exists) openChat({uid:fromUid,...ps.data()});
+  }catch(e){
+    console.error(e);
+    showToast("❌ Accept failed");
+  }
+}
+
+/* ---------- OPEN CHAT ---------- */
+async function openChat(friend){
+  if(!friend||!currentUser)return;
+  currentChatFriend=friend;
+  currentConversationId=pairId(currentUser.uid,friend.uid);
+
+  showMobileChatPanel();
+
+  document.getElementById("chatActive").style.display="flex";
+  const chatPanel=document.getElementById("chatPanel");
+  if(chatPanel) chatPanel.style.display="flex";
+  document.getElementById("chatFriendPhoto").src=avatarFor(friend);
+  document.getElementById("chatFriendName").textContent=friend.displayName||"User";
+  document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
+
+  if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+
+  const convRef=db.collection("conversations").doc(currentConversationId);
+  try{
+    await convRef.set({
+      members:[currentUser.uid,friend.uid].sort(),
+      lastRead:{[currentUser.uid]:firebase.firestore.FieldValue.serverTimestamp()}
+    },{merge:true});
+    updateMessageBadge();
+  }catch(e){console.error(e);}
+
+  const msgsRef=convRef.collection("messages").orderBy("createdAt","asc").limitToLast(100);
+  chatUnsubscribe=msgsRef.onSnapshot(snap=>renderChatMessages(snap.docs),e=>{
+    console.error(e);
+    document.getElementById("chatMessages").innerHTML='<p style="color:#e63946;text-align:center;padding:20px">Messages load nahi hue.</p>';
+  });
+}
+
+async function renderChatMessages(docs){
+  const box=document.getElementById("chatMessages");
+  const rows=docs.filter(doc=>!doc.data().deleted);
+  const html=rows.map(doc=>{
+    const d=doc.data();
+    const mine=d.senderId===currentUser.uid;
+    const dt=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate():new Date();
+    const reply=d.replyTo?`<div class="reply-preview">↪ ${escapeHtml(d.replyTo.text||"Message")}</div>`:"";
+    return `<div class="chat-bubble-row ${mine?'mine':''}">
+      <div class="chat-bubble" data-mid="${escapeAttr(doc.id)}">
+        ${reply}
+        <div class="chat-message-text">${escapeHtml(d.text||"")}</div>
+        <div class="chat-meta">${formatTimeAgo(dt)}</div>
+        <div class="chat-tools">
+          <button type="button" class="chat-tool" data-reply="${escapeAttr(doc.id)}">↩️</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="❤️">❤️</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😂">😂</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="🔥">🔥</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="👍">👍</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😢">😢</button>
+          ${mine?`<button type="button" class="chat-tool" data-delete="${escapeAttr(doc.id)}">🗑️</button>`:""}
+        </div>
+        <div class="reaction-summary" data-reaction-summary="${escapeAttr(doc.id)}"></div>
+      </div>
+    </div>`;
+  }).join("");
+  box.innerHTML=html||'<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋<br>Say hi!</p>';
+
+  await Promise.all(rows.map(async doc=>{
+    try{
+      const snap=await db.collection("conversations").doc(currentConversationId)
+        .collection("messages").doc(doc.id).collection("reactions").get();
+      const counts={};
+      snap.forEach(r=>{const em=r.data().emoji;if(em)counts[em]=(counts[em]||0)+1;});
+      const el=box.querySelector('[data-reaction-summary="'+CSS.escape(doc.id)+'"]');
+      if(el)el.innerHTML=Object.entries(counts).map(([em,c])=>`<span style="font-size:11px;margin-right:5px">${em} ${c}</span>`).join("");
+    }catch(e){}
+  }));
+  box.scrollTop=box.scrollHeight;
+}
+
+async function sendMessage(){
+  if(!currentUser||!currentConversationId||!currentChatFriend)return;
+  const input=document.getElementById("chatInput");
+  const text=input.value.trim();
+  if(!text)return;
+  try{
+    const convRef=db.collection("conversations").doc(currentConversationId);
+    const payload={senderId:currentUser.uid,text:text,createdAt:firebase.firestore.FieldValue.serverTimestamp()};
+    if(currentReplyTo)payload.replyTo={id:currentReplyTo.id,text:currentReplyTo.text,senderId:currentReplyTo.senderId};
+    await convRef.collection("messages").add(payload);
+    await convRef.set({
+      members:[currentUser.uid,currentChatFriend.uid].sort(),
+      lastMessage:text.slice(0,120),
+      lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),
+      lastSenderId:currentUser.uid
+    },{merge:true});
+    await createNotification(currentChatFriend.uid,"message","💬 New message",
+      (currentUser.displayName||"Someone")+": "+text.slice(0,80),
+      {conversationId:currentConversationId});
+    input.value=""; input.style.height="auto";
+    cancelReply();
+    updateMessageBadge();
+  }catch(e){
+    console.error(e);
+    showToast("❌ Message send failed");
+  }
+}
+
+function cancelReply(){
+  currentReplyTo=null;
+  const el=document.getElementById("chatReplying");
+  if(el)el.style.display="none";
+}
+
+async function deleteMessage(mid){
+  if(!currentConversationId)return;
+  try{
+    await db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).delete();
+    showToast("🗑️ Deleted");
+  }catch(e){showToast("❌ Delete failed");}
+}
+
+async function toggleReaction(mid,emoji){
+  if(!currentConversationId||!currentUser)return;
+  try{
+    const r=db.collection("conversations").doc(currentConversationId)
+      .collection("messages").doc(mid).collection("reactions").doc(currentUser.uid);
+    const snap=await r.get();
+    if(snap.exists&&snap.data().emoji===emoji)await r.delete();
+    else await r.set({emoji,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
+  }catch(e){console.error(e);showToast("❌ Reaction failed");}
+}
+
+/* ---------- INIT COMMUNITY UI ---------- */
+function initCommunityUI(){
+  const mc=document.getElementById("messagesClose");
+  if(mc) mc.addEventListener("click",closeMessages);
+  const mo=document.getElementById("messagesOverlay");
+  if(mo) mo.addEventListener("click",e=>{ if(e.target.id==="messagesOverlay")closeMessages(); });
+
+  const headerBack=document.getElementById("messagesHeaderBack");
+  if(headerBack) headerBack.addEventListener("click",()=>{
+    const panel=document.getElementById("chatPanel");
+    if(panel && panel.classList.contains("mobile-open")){
+      if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+      currentChatFriend=null; currentConversationId=null;
+      showMobileSidebar();
+      document.getElementById("chatActive").style.display="none";
+    } else {
+      closeMessages();
+    }
+  });
+
+  const chatBack=document.getElementById("chatBackBtn");
+  if(chatBack) chatBack.addEventListener("click",()=>{
+    if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+    currentChatFriend=null; currentConversationId=null;
+    showMobileSidebar();
+    document.getElementById("chatActive").style.display="none";
+    loadInbox();
+  });
+
+  const psb=document.getElementById("peopleSearchBtn");
+  if(psb) psb.addEventListener("click",searchPeople);
+  const psi=document.getElementById("peopleSearchInput");
+  if(psi) psi.addEventListener("keydown",e=>{ if(e.key==="Enter")searchPeople(); });
+
+  const smb=document.getElementById("sendMessageBtn");
+  if(smb) smb.addEventListener("click",sendMessage);
+
+  const chatInput=document.getElementById("chatInput");
+  if(chatInput){
+    chatInput.addEventListener("input",()=>{
+      chatInput.style.height="auto";
+      chatInput.style.height=Math.min(chatInput.scrollHeight,100)+"px";
+    });
+    chatInput.addEventListener("keydown",e=>{
+      if(e.key==="Enter"&&!e.shiftKey&&!isMobileViewport()){
+        e.preventDefault(); sendMessage();
+      }
+    });
+  }
+
+  const cr=document.getElementById("cancelReply");
+  if(cr) cr.addEventListener("click",cancelReply);
+
+  const cb=document.getElementById("communityBtn");
+  if(cb) cb.addEventListener("click",openMessages);
+
+  document.querySelectorAll("[data-community-tab]").forEach(tab=>tab.addEventListener("click",()=>{
+    document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));
+    tab.classList.add("active");
+    const tabName=tab.dataset.communityTab;
+    const pane=document.getElementById("community-"+tabName);
+    if(pane) pane.classList.add("active");
+    if(tabName==="primary") loadInbox();
+    if(tabName==="requests") loadRequests();
+    if(tabName==="general") loadGeneral();
+  }));
+
+  const cm=document.getElementById("chatMessages");
+  if(cm) cm.addEventListener("click",e=>{
+    const bubble=e.target.closest(".chat-bubble");
+    const r=e.target.closest("[data-reply]");
+    const d=e.target.closest("[data-delete]");
+    const x=e.target.closest("[data-react]");
+
+    if(r){
+      e.stopPropagation();
+      const id=r.dataset.reply;
+      const el=document.querySelector('[data-mid="'+CSS.escape(id)+'"]');
+      const text=el?el.querySelector('.chat-message-text')?.textContent||"Message":"Message";
+      currentReplyTo={id,text,senderId:el?.closest('.chat-bubble-row')?.classList.contains('mine')?currentUser.uid:currentChatFriend?.uid};
+      document.getElementById("chatReplyText").textContent="↪ "+text.slice(0,80);
+      document.getElementById("chatReplying").style.display="flex";
+      document.getElementById("chatInput").focus();
+      return;
+    }
+    if(d){ e.stopPropagation(); deleteMessage(d.dataset.delete); return; }
+    if(x){ e.stopPropagation(); toggleReaction(x.dataset.react,x.dataset.emoji); return; }
+
+    if(bubble){
+      document.querySelectorAll(".chat-bubble.tools-open").forEach(b=>{
+        if(b!==bubble)b.classList.remove("tools-open");
+      });
+      bubble.classList.toggle("tools-open");
+    }
+  });
+}
+
+function showMessagesOverlay(){
+  if(!currentUser){showToast("🔐 Login karein");switchTab("profile");return null;}
+  const o=document.getElementById("messagesOverlay");
+  if(!o)return null;
+  o.classList.remove("inline-mode"); o.classList.add("show");
+  const cp=document.getElementById("chatPanel");
+  if(cp){cp.style.display="none";cp.classList.remove("mobile-open");}
+  const sb=document.getElementById("messagesSidebar");
+  if(sb) sb.classList.remove("mobile-hidden");
+  const act=document.getElementById("chatActive");
+  if(act) act.style.display="none";
+  return o;
+}
+
+async function openDirectMessages(){
+  const o=showMessagesOverlay(); if(!o)return;
+  const title=document.getElementById("messagesHeaderTitle");
+  if(title)title.textContent="Messages";
+  document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));
+  document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));
+  const primaryTab=document.querySelector('[data-community-tab="primary"]');
+  if(primaryTab)primaryTab.classList.add("active");
+  const primaryPane=document.getElementById("community-primary");
+  if(primaryPane)primaryPane.classList.add("active");
+  await loadInbox();
+}
+
+async function openCommunity(){ return openDirectMessages(); }
+function openMessages(){ return openDirectMessages(); }
+
+window.openMessages=openDirectMessages;
+window.openDirectMessages=openDirectMessages;
+window.openCommunity=openCommunity;
+
+/* ============================================================
+   PROFILE IDENTITY
+   ============================================================ */
+async function ensurePublicProfile(user){
   const profileRef = db.collection("publicProfiles").doc(user.uid);
   const userRef = db.collection("users").doc(user.uid);
   const profileSnap = await profileRef.get();
@@ -2489,7 +2420,7 @@ async function ensurePublicProfile(user) {
   return profile;
 }
 
-async function saveProfileIdentity() {
+async function saveProfileIdentity(){
   if (!currentUser) return;
   const input = document.getElementById("usernameInput");
   const bioInput = document.getElementById("bioInput");
@@ -2502,11 +2433,11 @@ async function saveProfileIdentity() {
   }
   saveBtn.disabled = true;
   saveBtn.textContent = "Saving...";
-  try {
+  try{
     const profileRef = db.collection("publicProfiles").doc(currentUser.uid);
     const profileSnap = await profileRef.get();
     const oldUsername = normalizeUsername(profileSnap.exists ? profileSnap.data().username : "");
-    await db.runTransaction(async (tx) => {
+    await db.runTransaction(async (tx)=>{
       const newUsernameRef = db.collection("usernames").doc(newUsername);
       const newUsernameSnap = await tx.get(newUsernameRef);
       if (newUsernameSnap.exists && newUsernameSnap.data().uid !== currentUser.uid) throw new Error("USERNAME_TAKEN");
@@ -2528,18 +2459,18 @@ async function saveProfileIdentity() {
     await loadProfileIdentity();
     document.getElementById("profileEditCard").hidden = true;
     showToast("✅ Profile updated!");
-  } catch (e) {
+  }catch(e){
     console.error("Profile update failed:", e);
     showToast(e.message === "USERNAME_TAKEN" ? "❌ Ye username already taken hai" : "❌ Profile update failed");
-  } finally {
+  }finally{
     saveBtn.disabled = false;
     saveBtn.textContent = "Save Profile";
   }
 }
 
-async function loadProfileIdentity() {
+async function loadProfileIdentity(){
   if (!currentUser) return null;
-  try {
+  try{
     const snap = await db.collection("publicProfiles").doc(currentUser.uid).get();
     const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
     currentProfilePhotoURL = data.photoURL || currentUser.photoURL || "";
@@ -2551,25 +2482,27 @@ async function loadProfileIdentity() {
     document.getElementById("bioInput").value = data.bio || "";
     await loadFollowCounts();
     return data;
-  } catch (e) {
+  }catch(e){
     console.error("Profile identity load failed:", e);
     return null;
   }
 }
 
-function initProfileIdentityUI() {
+function initProfileIdentityUI(){
   const eb=document.getElementById("editProfileBtn");
   const ce=document.getElementById("cancelProfileEdit");
   const sp=document.getElementById("saveProfileBtn");
-  if(eb) eb.addEventListener("click", async () => {
+  if(eb) eb.addEventListener("click", async ()=>{
     await loadProfileIdentity();
     document.getElementById("profileEditCard").hidden = false;
   });
-  if(ce) ce.addEventListener("click", () => { document.getElementById("profileEditCard").hidden = true; });
+  if(ce) ce.addEventListener("click", ()=>{ document.getElementById("profileEditCard").hidden = true; });
   if(sp) sp.addEventListener("click", saveProfileIdentity);
 }
 
-/* ============ IG PROFILE — Followers/Following Modal + Share + Posts Tabs ============ */
+/* ============================================================
+   IG PROFILE — Followers/Following Modal + Share + Posts Tabs
+   ============================================================ */
 async function openIgList(kind){
   if(!currentUser){showToast("🔐 Login karein");return;}
   const overlay = document.getElementById("igListOverlay");
@@ -2581,7 +2514,7 @@ async function openIgList(kind){
   title.textContent = kind === "followers" ? "Followers" : "Following";
   content.innerHTML = '<p style="color:#888;text-align:center;padding:30px">Loading...</p>';
 
-  try {
+  try{
     let snap;
     if(kind === "followers"){
       snap = await db.collection("follows").where("to","==",currentUser.uid).limit(100).get();
@@ -2647,15 +2580,17 @@ async function openIgList(kind){
         finally { btn.disabled = false; }
       });
     });
-  } catch(e){
+  }catch(e){
     console.error(e);
     content.innerHTML = '<p style="color:#e63946;text-align:center;padding:30px">Load failed.</p>';
   }
 }
+
 function closeIgList(){
   const overlay = document.getElementById("igListOverlay");
   if(overlay) overlay.classList.remove("show");
 }
+
 function shareUserProfile(){
   if(!currentUser){showToast("🔐 Login karein");return;}
   const usernameEl = document.getElementById("profileUsername");
@@ -2668,6 +2603,7 @@ function shareUserProfile(){
     navigator.clipboard.writeText(shareUrl).then(()=>showToast("🔗 Profile link copied!"));
   }
 }
+
 function switchIgTab(tabName){
   document.querySelectorAll(".ig-tab").forEach(t =>
     t.classList.toggle("active", t.getAttribute("data-ig-tab") === tabName)
@@ -2685,6 +2621,7 @@ function switchIgTab(tabName){
     grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🔖</span>Saved videos jald yahan dikhengi! 🚀</div>';
   }
 }
+
 function initIgProfileUI(){
   const followersBtn = document.getElementById("statFollowersClick");
   const followingBtn = document.getElementById("statFollowingClick");
@@ -2701,122 +2638,24 @@ function initIgProfileUI(){
   });
 }
 
-/* ============ AUTH ============ */
-auth.onAuthStateChanged(async (user) => {
-  currentUser = user;
-  currentProfilePhotoURL = user ? (user.photoURL || "") : "";
-  if (user) {
-    try {
-      await db.collection("users").doc(user.uid).set({
-        name: user.displayName || "User", email: user.email, photo: user.photoURL || "",
-        lastSeen: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
-      await ensurePublicProfile(user);
-      await loadUserLikesAndSaves(user.uid);
-      await loadFollowCounts();
-      loadNotifications();
-      updateMessageBadge();
-      setTimeout(createNewVideoNotifications, 1200);
-    } catch (e) { console.error(e); }
-    if (user.uid === ADMIN_UID) {
-      document.getElementById("adminTabBtn").style.display = "flex";
-    } else {
-      document.getElementById("adminTabBtn").style.display = "none";
-    }
-  } else {
-    if(notificationsUnsubscribe){notificationsUnsubscribe();notificationsUnsubscribe=null;}
-    notificationsCache=[]; updateNotificationBadge();
-    const mb=document.getElementById("messageBadge"); if(mb)mb.style.display="none";
-    userLikedVideos.clear(); userSavedVideos.clear();
-    document.getElementById("adminTabBtn").style.display = "none";
-    const adminPane = document.getElementById("tab-admin");
-    if (adminPane && adminPane.classList.contains("active")) switchTab("home");
-  }
-  updateProfileUI();
-  refreshAllVideoActions();
-});
-
-async function loadUserLikesAndSaves(uid) {
-  userLikedVideos.clear(); userSavedVideos.clear();
-  try {
-    const l = await db.collection("likes").where("userId","==",uid).get();
-    l.forEach(d => userLikedVideos.add(d.data().videoId));
-    const s = await db.collection("saves").where("userId","==",uid).get();
-    s.forEach(d => userSavedVideos.add(d.data().videoId));
-  } catch (e) {}
-}
-
-/* ============ LIKES LOAD ============ */
-async function loadAllLikes() {
-  try {
-    const snap = await db.collection("likes").get();
-    likesByVideo = {};
-    snap.forEach(doc => {
-      const d = doc.data();
-      if (!likesByVideo[d.videoId]) likesByVideo[d.videoId] = [];
-      likesByVideo[d.videoId].push({ userId: d.userId, userName: d.userName || "User" });
-    });
-    refreshAllVideoActions();
-    refreshLikesLinks();
-  } catch (e) { console.error("Load likes failed:", e); }
-}
-
-/* ============ LIKES MODAL ============ */
-const likesOverlay = document.getElementById("likesOverlay");
-if(likesOverlay){
-  const lc=document.getElementById("likesClose"); if(lc)lc.addEventListener("click", () => likesOverlay.classList.remove("show"));
-  likesOverlay.addEventListener("click", (e) => { if (e.target === likesOverlay) likesOverlay.classList.remove("show"); });
-}
-
-function showLikesList(vid) {
-  const list = document.getElementById("likesList");
-  const users = likesByVideo[vid] || [];
-  if (users.length === 0) {
-    list.innerHTML = "<p class='likes-empty'>Abhi kisi ne like nahi kiya 😊</p>";
-  } else {
-    list.innerHTML = users.map(u => `
-      <div class="likes-user">
-        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.userName)}&background=e63946&color=fff" alt="">
-        <div class="likes-user-name">${escapeHtml(u.userName)}</div>
-      </div>
-    `).join("");
-  }
-  likesOverlay.classList.add("show");
-}
-
-/* ============ LOGIN/LOGOUT ============ */
-const glb=document.getElementById("googleLoginBtn");
-if(glb) glb.addEventListener("click", async () => {
-  try {
-    await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    showToast("✅ Login successful!");
-  } catch (e) {
-    console.error(e);
-    showToast("❌ " + (e.code || "Login failed"));
-  }
-});
-const lob=document.getElementById("logoutBtn");
-if(lob) lob.addEventListener("click", async () => {
-  await auth.signOut();
-  showToast("👋 Logged out");
-});
-
-/* ============ PROFILE PHOTO ============ */
-function fileToDataURL(file) {
-  return new Promise((resolve, reject) => {
+/* ============================================================
+   PROFILE PHOTO
+   ============================================================ */
+function fileToDataURL(file){
+  return new Promise((resolve, reject)=>{
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
     reader.onerror = () => reject(new Error("PHOTO_READ_FAILED"));
     reader.readAsDataURL(file);
   });
 }
-function canvasToBlob(canvas, type, quality) {
+function canvasToBlob(canvas, type, quality){
   return new Promise(resolve => canvas.toBlob(resolve, type, quality));
 }
-async function compressProfilePhoto(file) {
+async function compressProfilePhoto(file){
   const dataUrl = await fileToDataURL(file);
   const img = new Image();
-  await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject)=>{
     img.onload = resolve;
     img.onerror = () => reject(new Error("PHOTO_DECODE_FAILED"));
     img.src = dataUrl;
@@ -2840,7 +2679,7 @@ async function compressProfilePhoto(file) {
   return await fileToDataURL(blob);
 }
 
-async function uploadProfilePhoto(file) {
+async function uploadProfilePhoto(file){
   if (!currentUser || !file) return;
   const input = document.getElementById("profilePhotoInput");
   const imgEl = document.getElementById("userPhoto");
@@ -2853,7 +2692,7 @@ async function uploadProfilePhoto(file) {
     if (input) input.value = ""; return;
   }
   if (imgEl) imgEl.style.opacity = "0.5";
-  try {
+  try{
     const photoData = await compressProfilePhoto(file);
     await db.collection("publicProfiles").doc(currentUser.uid).set({
       uid: currentUser.uid, photoURL: photoData,
@@ -2866,21 +2705,21 @@ async function uploadProfilePhoto(file) {
     currentProfilePhotoURL = photoData;
     if (imgEl) imgEl.src = photoData;
     showToast("✅ Profile photo updated!");
-  } catch (e) {
+  }catch(e){
     console.error("Profile photo save failed:", e);
     const msg = e.message === "PHOTO_TOO_LARGE_AFTER_COMPRESSION"
       ? "❌ Photo compress nahi ho paayi. Dusri photo try karo."
       : "❌ Photo save failed. Internet ya Firestore Rules check karo.";
     showToast(msg);
-  } finally {
+  }finally{
     if (imgEl) imgEl.style.opacity = "1";
     if (input) input.value = "";
   }
 }
 
-async function removeProfilePhoto() {
+async function removeProfilePhoto(){
   if (!currentUser) return;
-  try {
+  try{
     const googlePhoto = currentUser.providerData && currentUser.providerData[0] ? (currentUser.providerData[0].photoURL || "") : "";
     await db.collection("publicProfiles").doc(currentUser.uid).set({
       photoURL: googlePhoto,
@@ -2894,20 +2733,20 @@ async function removeProfilePhoto() {
     const photoEl = document.getElementById("userPhoto");
     if (photoEl) photoEl.src = googlePhoto;
     showToast(googlePhoto ? "↩️ Google profile photo restored" : "🗑️ Profile photo removed");
-  } catch (e) {
+  }catch(e){
     console.error("Remove profile photo failed:", e);
     showToast("❌ Photo remove failed");
   }
 }
 
-function initProfilePhotoUI() {
+function initProfilePhotoUI(){
   const input = document.getElementById("profilePhotoInput");
   const removeBtn = document.getElementById("removeProfilePhotoBtn");
   if (input) input.addEventListener("change", e => uploadProfilePhoto(e.target.files && e.target.files[0]));
   if (removeBtn) removeBtn.addEventListener("click", removeProfilePhoto);
 }
 
-function updateProfileUI() {
+function updateProfileUI(){
   const lo = document.getElementById("profileLoggedOut");
   const li = document.getElementById("profileLoggedIn");
   if (currentUser) {
@@ -2918,17 +2757,149 @@ function updateProfileUI() {
     loadProfileIdentity();
     document.getElementById("statLikes").textContent = userLikedVideos.size;
     document.getElementById("statSaves").textContent = userSavedVideos.size;
-  } else { lo.style.display = "block"; li.style.display = "none"; }
+  } else {
+    lo.style.display = "block"; li.style.display = "none";
+  }
 }
 
-/* Init all UI */
-initProfileIdentityUI();
-initProfilePhotoUI();
-initCommunityUI();
-initIgProfileUI();
+/* ============================================================
+   AUTH
+   ============================================================ */
+auth.onAuthStateChanged(async (user) => {
+  currentUser = user;
+  currentProfilePhotoURL = user ? (user.photoURL || "") : "";
+  if (user) {
+    try{
+      await db.collection("users").doc(user.uid).set({
+        name: user.displayName || "User", email: user.email, photo: user.photoURL || "",
+        lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      await ensurePublicProfile(user);
+      await loadUserLikesAndSaves(user.uid);
+      await loadFollowCounts();
+      loadNotifications();
+      updateMessageBadge();
+      setTimeout(createNewVideoNotifications, 1200);
+    }catch(e){ console.error(e); }
+    if (user.uid === ADMIN_UID) {
+      document.getElementById("adminTabBtn").style.display = "flex";
+    } else {
+      document.getElementById("adminTabBtn").style.display = "none";
+    }
+  } else {
+    if(notificationsUnsubscribe){notificationsUnsubscribe();notificationsUnsubscribe=null;}
+    notificationsCache=[]; updateNotificationBadge();
+    const mb=document.getElementById("messageBadge"); if(mb)mb.style.display="none";
+    userLikedVideos.clear(); userSavedVideos.clear();
+    document.getElementById("adminTabBtn").style.display = "none";
+    const adminPane = document.getElementById("tab-admin");
+    if (adminPane && adminPane.classList.contains("active")) switchTab("home");
+  }
+  updateProfileUI();
+  refreshAllVideoActions();
+});
 
-/* ============ FETCH REELS ============ */
-(function fetchReels() {
+async function loadUserLikesAndSaves(uid){
+  userLikedVideos.clear(); userSavedVideos.clear();
+  try{
+    const l = await db.collection("likes").where("userId","==",uid).get();
+    l.forEach(d => userLikedVideos.add(d.data().videoId));
+    const s = await db.collection("saves").where("userId","==",uid).get();
+    s.forEach(d => userSavedVideos.add(d.data().videoId));
+  }catch(e){}
+}
+
+const glb=document.getElementById("googleLoginBtn");
+if(glb) glb.addEventListener("click", async ()=>{
+  try{
+    await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    showToast("✅ Login successful!");
+  }catch(e){
+    console.error(e);
+    showToast("❌ " + (e.code || "Login failed"));
+  }
+});
+const lob=document.getElementById("logoutBtn");
+if(lob) lob.addEventListener("click", async ()=>{
+  await auth.signOut();
+  showToast("👋 Logged out");
+});
+
+/* ============================================================
+   LIKES / SAVES
+   ============================================================ */
+async function loadAllLikes(){
+  try{
+    const snap = await db.collection("likes").get();
+    likesByVideo = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      if (!likesByVideo[d.videoId]) likesByVideo[d.videoId] = [];
+      likesByVideo[d.videoId].push({ userId: d.userId, userName: d.userName || "User" });
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+  }catch(e){ console.error("Load likes failed:", e); }
+}
+
+const likesOverlay = document.getElementById("likesOverlay");
+if(likesOverlay){
+  const lc=document.getElementById("likesClose");
+  if(lc)lc.addEventListener("click", () => likesOverlay.classList.remove("show"));
+  likesOverlay.addEventListener("click", (e) => { if (e.target === likesOverlay) likesOverlay.classList.remove("show"); });
+}
+
+function showLikesList(vid){
+  const list = document.getElementById("likesList");
+  const users = likesByVideo[vid] || [];
+  if (users.length === 0) {
+    list.innerHTML = "<p class='likes-empty'>Abhi kisi ne like nahi kiya 😊</p>";
+  } else {
+    list.innerHTML = users.map(u => `
+      <div class="likes-user">
+        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.userName)}&background=e63946&color=fff" alt="">
+        <div class="likes-user-name">${escapeHtml(u.userName)}</div>
+      </div>
+    `).join("");
+  }
+  likesOverlay.classList.add("show");
+}
+
+async function toggleLike(vid){
+  const ref = db.collection("likes").doc(currentUser.uid + "_" + vid);
+  try{
+    const d = await ref.get();
+    if (d.exists) {
+      await ref.delete();
+      userLikedVideos.delete(vid);
+      if (likesByVideo[vid]) likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
+      showToast("🤍 Like removed");
+    } else {
+      await ref.set({ userId:currentUser.uid, videoId:vid, userName:currentUser.displayName||"User", createdAt:firebase.firestore.FieldValue.serverTimestamp() });
+      userLikedVideos.add(vid);
+      if (!likesByVideo[vid]) likesByVideo[vid] = [];
+      likesByVideo[vid].push({ userId: currentUser.uid, userName: currentUser.displayName || "User" });
+      showToast("❤️ Liked!");
+      await createNotification(ADMIN_UID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked a video.",{videoId:vid});
+    }
+    refreshAllVideoActions();
+    updateProfileUI();
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+}
+
+async function toggleSave(vid){
+  const ref = db.collection("saves").doc(currentUser.uid + "_" + vid);
+  try{
+    const d = await ref.get();
+    if (d.exists) { await ref.delete(); userSavedVideos.delete(vid); showToast("📑 Removed"); }
+    else { await ref.set({ userId:currentUser.uid, videoId:vid, createdAt:firebase.firestore.FieldValue.serverTimestamp() }); userSavedVideos.add(vid); showToast("🔖 Saved!"); }
+    refreshAllVideoActions(); updateProfileUI();
+  }catch(e){ showToast("❌ Error"); }
+}
+  /* ============================================================
+   FETCH REELS (YouTube)
+   ============================================================ */
+(function fetchReels(){
   const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
   const grid = document.getElementById("reelsGrid");
@@ -2955,7 +2926,7 @@ initIgProfileUI();
       appendManualShortsToReels();
     });
 
-  function renderYoutubeReels(items) {
+  function renderYoutubeReels(items){
     items.forEach(item => {
       const vid = item.snippet.resourceId.videoId;
       const title = item.snippet.title;
@@ -2985,9 +2956,11 @@ initIgProfileUI();
   }
 })();
 
-/* ============ MANUAL SHORTS ============ */
-async function appendManualShortsToReels() {
-  try {
+/* ============================================================
+   MANUAL SHORTS
+   ============================================================ */
+async function appendManualShortsToReels(){
+  try{
     const grid = document.getElementById("reelsGrid");
     if (!grid) return;
     const snap = await db.collection("manualVideos").where("category", "==", "shorts").get();
@@ -3024,17 +2997,19 @@ async function appendManualShortsToReels() {
     });
     refreshAllVideoActions(); refreshLikesLinks();
     createNewVideoNotifications(); updateNotificationBadge();
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
 
-async function refreshManualShorts() {
+async function refreshManualShorts(){
   document.querySelectorAll('#reelsGrid .video-card[data-manual="1"]').forEach(c => c.remove());
   Object.keys(allVideos).forEach(k => { if (allVideos[k] && allVideos[k]._manual) delete allVideos[k]; });
   await appendManualShortsToReels();
 }
 
-/* ============ MANUAL LONG VIDEOS ============ */
-async function loadManualVideos() {
+/* ============================================================
+   MANUAL LONG VIDEOS
+   ============================================================ */
+async function loadManualVideos(){
   const grid = document.getElementById("videosGrid");
   if (!grid) return;
   grid.innerHTML = "";
@@ -3063,7 +3038,7 @@ async function loadManualVideos() {
       </div>`;
     grid.appendChild(card);
   });
-  try {
+  try{
     const snap = await db.collection("manualVideos").where("category", "==", "long").get();
     if (!snap.empty) {
       const docs = snap.docs.sort((a, b) => {
@@ -3095,28 +3070,32 @@ async function loadManualVideos() {
         grid.appendChild(card);
       });
     }
-  } catch (e) { console.warn("Manual videos load fail:", e); }
+  }catch(e){ console.warn("Manual videos load fail:", e); }
   refreshAllVideoActions(); refreshLikesLinks();
   createNewVideoNotifications(); updateNotificationBadge();
 }
 
-/* ============ LIKES LINKS ============ */
-function refreshLikesLinks() {
+/* ============================================================
+   LIKES LINKS + PLAY VIDEO + ACTION BUTTONS
+   ============================================================ */
+function refreshLikesLinks(){
   document.querySelectorAll(".video-likes-link").forEach(el => {
     const vid = el.getAttribute("data-vid");
     const count = (likesByVideo[vid] || []).length;
     if (count > 0) {
       el.textContent = "❤️ " + count + (count === 1 ? " person liked this" : " people liked this");
       el.classList.add("show");
-    } else { el.classList.remove("show"); }
+    } else {
+      el.classList.remove("show");
+    }
   });
 }
+
 document.addEventListener("click", (e) => {
   const likesLink = e.target.closest(".video-likes-link");
   if (likesLink) { e.stopPropagation(); showLikesList(likesLink.getAttribute("data-vid")); return; }
 });
 
-/* ============ PLAY VIDEO ============ */
 document.addEventListener("click", (e) => {
   const thumb = e.target.closest(".video-thumb");
   if (!thumb || thumb.querySelector("iframe")) return;
@@ -3130,7 +3109,8 @@ document.addEventListener("click", (e) => {
   iframe.setAttribute("allowfullscreen","");
   thumb.innerHTML = ""; thumb.appendChild(iframe);
   const fs=document.createElement("button");
-  fs.type="button"; fs.className="video-fullscreen-btn"; fs.title="Fullscreen"; fs.setAttribute("aria-label","Fullscreen"); fs.textContent="⛶";
+  fs.type="button"; fs.className="video-fullscreen-btn";
+  fs.title="Fullscreen"; fs.setAttribute("aria-label","Fullscreen"); fs.textContent="⛶";
   fs.addEventListener("click",async ev=>{
     ev.stopPropagation();
     const target=thumb;
@@ -3145,8 +3125,7 @@ document.addEventListener("click", (e) => {
   thumb.appendChild(fs); thumb.style.cursor = "default";
 });
 
-/* ============ ACTION BUTTONS ============ */
-function refreshAllVideoActions() {
+function refreshAllVideoActions(){
   document.querySelectorAll(".video-card").forEach(card => {
     const vid = card.getAttribute("data-video-id");
     if (!vid) return;
@@ -3164,6 +3143,7 @@ function refreshAllVideoActions() {
   });
   refreshLikesLinks();
 }
+window.refreshAllVideoActions = refreshAllVideoActions;
 
 document.addEventListener("click", async (e) => {
   const btn = e.target.closest(".action-btn");
@@ -3182,47 +3162,22 @@ document.addEventListener("click", async (e) => {
   else if (action === "comment") openComments(vid);
 });
 
-async function toggleLike(vid) {
-  const ref = db.collection("likes").doc(currentUser.uid + "_" + vid);
-  try {
-    const d = await ref.get();
-    if (d.exists) {
-      await ref.delete();
-      userLikedVideos.delete(vid);
-      if (likesByVideo[vid]) likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
-      showToast("🤍 Like removed");
-    } else {
-      await ref.set({ userId:currentUser.uid, videoId:vid, userName:currentUser.displayName||"User", createdAt:firebase.firestore.FieldValue.serverTimestamp() });
-      userLikedVideos.add(vid);
-      if (!likesByVideo[vid]) likesByVideo[vid] = [];
-      likesByVideo[vid].push({ userId: currentUser.uid, userName: currentUser.displayName || "User" });
-      showToast("❤️ Liked!");
-      await createNotification(ADMIN_UID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked a video.",{videoId:vid});
-    }
-    refreshAllVideoActions(); updateProfileUI();
-  } catch (e) { showToast("❌ Error"); console.error(e); }
-}
-
-async function toggleSave(vid) {
-  const ref = db.collection("saves").doc(currentUser.uid + "_" + vid);
-  try {
-    const d = await ref.get();
-    if (d.exists) { await ref.delete(); userSavedVideos.delete(vid); showToast("📑 Removed"); }
-    else { await ref.set({ userId:currentUser.uid, videoId:vid, createdAt:firebase.firestore.FieldValue.serverTimestamp() }); userSavedVideos.add(vid); showToast("🔖 Saved!"); }
-    refreshAllVideoActions(); updateProfileUI();
-  } catch (e) { showToast("❌ Error"); }
-}
-
-/* ============ COMMENTS ============ */
+/* ============================================================
+   COMMENTS
+   ============================================================ */
 const commentsOverlay = document.getElementById("commentsOverlay");
 if(commentsOverlay){
-  const cc=document.getElementById("commentsClose"); if(cc)cc.addEventListener("click", closeComments);
+  const cc=document.getElementById("commentsClose");
+  if(cc)cc.addEventListener("click", closeComments);
   commentsOverlay.addEventListener("click", (e) => { if (e.target === commentsOverlay) closeComments(); });
 }
-function closeComments() { if(commentsOverlay) commentsOverlay.classList.remove("show"); currentCommentsVideoId = null; }
-window.closeComments=closeComments;
+function closeComments(){
+  if(commentsOverlay) commentsOverlay.classList.remove("show");
+  currentCommentsVideoId = null;
+}
+window.closeComments = closeComments;
 
-async function openComments(vid) {
+async function openComments(vid){
   currentCommentsVideoId = vid;
   commentsOverlay.classList.add("show");
   document.getElementById("commentsList").innerHTML = "<p style='color:#888'>Loading...</p>";
@@ -3237,15 +3192,16 @@ async function openComments(vid) {
   loadComments(vid);
 }
 
-async function loadComments(vid) {
+async function loadComments(vid){
   const list = document.getElementById("commentsList");
-  try {
+  try{
     const snap = await db.collection("comments").where("videoId","==",vid).get();
     const docs = snap.docs.sort((a,b) => {
       const ta = a.data().createdAt?.seconds || 0;
       const tb = b.data().createdAt?.seconds || 0;
       return tb - ta;
     }).slice(0, 100);
+
     if (docs.length === 0) {
       list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>";
       return;
@@ -3266,33 +3222,36 @@ async function loadComments(vid) {
         try { await db.collection("comments").doc(b.getAttribute("data-cid")).delete(); showToast("🗑️"); loadComments(vid); } catch (e) {}
       });
     });
-  } catch (e) {
+  }catch(e){
     console.error(e);
     list.innerHTML = "<p style='color:#e63946;text-align:center;padding:20px'>Load fail</p>";
   }
 }
 
-async function postComment() {
+async function postComment(){
   if (!currentUser || !currentCommentsVideoId) return;
   const inp = document.getElementById("commentInput");
   const txt = inp.value.trim();
   if (!txt) return;
-  try {
+  try{
     const us = await db.collection("comments").where("videoId","==",currentCommentsVideoId).get();
     let myCount = 0;
     us.forEach(d => { if (d.data().userId === currentUser.uid) myCount++; });
     if (myCount >= 5) { showToast("⚠️ Max 5 comments"); return; }
     await db.collection("comments").add({
       videoId: currentCommentsVideoId, userId: currentUser.uid,
-      userName: currentUser.displayName || "User", userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+      userName: currentUser.displayName || "User",
+      userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
       text: txt, createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     await createNotification(ADMIN_UID,"comment","💬 New comment",(currentUser.displayName||"Someone")+" commented on a video.",{videoId:currentCommentsVideoId});
     inp.value = ""; showToast("💬 Posted!"); loadComments(currentCommentsVideoId);
-  } catch (e) { showToast("❌ Error"); console.error(e); }
+  }catch(e){ showToast("❌ Error"); console.error(e); }
 }
 
-/* ============ SEARCH ============ */
+/* ============================================================
+   SEARCH
+   ============================================================ */
 const tsi = document.getElementById("tabSearchInput");
 let peopleSearchTimer=null;
 if (tsi) {
@@ -3324,7 +3283,9 @@ if (tsi) {
   });
 }
 
-/* ============ UPI ============ */
+/* ============================================================
+   UPI
+   ============================================================ */
 const UPI_ID = "9236994154@axl";
 const UPI_NAME = "UPComedyHub";
 let selectedAmount = 100;
@@ -3347,7 +3308,9 @@ if(upiBtn) upiBtn.addEventListener("click", () => {
   }, 800);
 });
 
-/* ============ YT SUBS ============ */
+/* ============================================================
+   YT SUBS
+   ============================================================ */
 const yts = document.getElementById("youtubeSubscribers");
 if (yts) {
   fetch("https://pulse.walls.sh/profile?url=" + encodeURIComponent("https://www.youtube.com/@up_comedyhub"))
@@ -3356,11 +3319,13 @@ if (yts) {
     .catch(() => { yts.textContent = "—"; });
 }
 
-/* ============ RECENTLY VIEWED ============ */
+/* ============================================================
+   RECENTLY VIEWED
+   ============================================================ */
 const rvList = document.getElementById("recentlyViewedList");
 const rvEmpty = document.getElementById("recentlyViewedEmpty");
 const rv = [];
-function addRV(sec) {
+function addRV(sec){
   if (!sec || !sec.id) return;
   const h = sec.querySelector("h1, h2, h3");
   if (!h) return;
@@ -3371,7 +3336,7 @@ function addRV(sec) {
   if (rv.length > 5) rv.pop();
   updateRV();
 }
-function updateRV() {
+function updateRV(){
   if(!rvList) return;
   rvList.innerHTML = "";
   if (rv.length === 0) { rvEmpty.style.display = "block"; return; }
@@ -3389,9 +3354,11 @@ const rvObs = new IntersectionObserver((entries) => {
 document.querySelectorAll("#tab-home section[id]").forEach(s => rvObs.observe(s));
 updateRV();
 
-/* ============ ADMIN ============ */
-async function loadAdminStats() {
-  try {
+/* ============================================================
+   ADMIN
+   ============================================================ */
+async function loadAdminStats(){
+  try{
     const [users, comments, likes, saves] = await Promise.all([
       db.collection("users").get(), db.collection("comments").get(),
       db.collection("likes").get(), db.collection("saves").get()
@@ -3400,11 +3367,11 @@ async function loadAdminStats() {
     document.getElementById("statTotalComments").textContent = comments.size;
     document.getElementById("statTotalLikes").textContent = likes.size;
     document.getElementById("statTotalSaves").textContent = saves.size;
-  } catch (e) { console.error(e); showToast("❌ Stats load failed"); }
+  }catch(e){ console.error(e); showToast("❌ Stats load failed"); }
 }
 
-async function loadAdminConfig() {
-  try {
+async function loadAdminConfig(){
+  try{
     const fan = await db.collection("admin_config").doc("fan_of_week").get();
     if (fan.exists) {
       const d = fan.data();
@@ -3426,12 +3393,12 @@ async function loadAdminConfig() {
       document.getElementById("adminNoticeMsg").value = d.message || "";
       document.getElementById("adminNoticeEnabled").value = d.enabled ? "true" : "false";
     }
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
 
 const sfBtn=document.getElementById("saveFanBtn");
 if(sfBtn) sfBtn.addEventListener("click", async () => {
-  try {
+  try{
     await db.collection("admin_config").doc("fan_of_week").set({
       name: document.getElementById("adminFanName").value.trim(),
       photo: document.getElementById("adminFanPhoto").value.trim(),
@@ -3441,7 +3408,7 @@ if(sfBtn) sfBtn.addEventListener("click", async () => {
     });
     showToast("✅ Fan of Week saved!");
     loadFanOfWeek();
-  } catch (e) { showToast("❌ Save failed"); console.error(e); }
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
 });
 
 async function broadcastAdminNotification(type,title,text,extra={}){
@@ -3461,7 +3428,7 @@ async function broadcastAdminNotification(type,title,text,extra={}){
 
 const saBtn=document.getElementById("saveAnnounceBtn");
 if(saBtn) saBtn.addEventListener("click", async () => {
-  try {
+  try{
     await db.collection("admin_config").doc("announcement").set({
       text: document.getElementById("adminAnnounceText").value.trim(),
       btnText: document.getElementById("adminAnnounceBtn").value.trim(),
@@ -3470,12 +3437,12 @@ if(saBtn) saBtn.addEventListener("click", async () => {
     await broadcastAdminNotification("announcement","📢 UPComedyHub Announcement",document.getElementById("adminAnnounceText").value.trim());
     showToast("✅ Announcement saved!");
     loadAnnouncement();
-  } catch (e) { showToast("❌ Save failed"); console.error(e); }
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
 });
 
 const snBtn=document.getElementById("saveNoticeBtn");
 if(snBtn) snBtn.addEventListener("click", async () => {
-  try {
+  try{
     await db.collection("admin_config").doc("notice").set({
       title: document.getElementById("adminNoticeTitle").value.trim(),
       message: document.getElementById("adminNoticeMsg").value.trim(),
@@ -3484,7 +3451,7 @@ if(snBtn) snBtn.addEventListener("click", async () => {
     });
     if(document.getElementById("adminNoticeEnabled").value === "true") await broadcastAdminNotification("announcement",document.getElementById("adminNoticeTitle").value.trim(),document.getElementById("adminNoticeMsg").value.trim());
     showToast("✅ Notice saved!");
-  } catch (e) { showToast("❌ Save failed"); console.error(e); }
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
 });
 
 const avBtn=document.getElementById("addVideoBtn");
@@ -3493,7 +3460,7 @@ if(avBtn) avBtn.addEventListener("click", async () => {
   const vid = document.getElementById("adminVideoId").value.trim();
   const cat = document.getElementById("adminVideoCat").value;
   if (!title || !vid) { showToast("⚠️ Title aur Video ID dono chahiye"); return; }
-  try {
+  try{
     await db.collection("manualVideos").add({
       title, videoId: vid, category: cat,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -3503,11 +3470,11 @@ if(avBtn) avBtn.addEventListener("click", async () => {
     showToast("✅ Video added!");
     loadManualVideosList(); loadManualVideos();
     if (cat === "shorts") refreshManualShorts();
-  } catch (e) { showToast("❌ Error"); console.error(e); }
+  }catch(e){ showToast("❌ Error"); console.error(e); }
 });
 
-async function loadManualVideosList() {
-  try {
+async function loadManualVideosList(){
+  try{
     const snap = await db.collection("manualVideos").orderBy("createdAt", "desc").get();
     const list = document.getElementById("adminVideoList");
     if (snap.empty) { list.innerHTML = "<p style='color:#888;font-size:13px'>Koi manual video nahi</p>"; return; }
@@ -3523,20 +3490,20 @@ async function loadManualVideosList() {
     list.querySelectorAll("[data-del]").forEach(b => {
       b.addEventListener("click", async () => {
         if (!confirm("Delete?")) return;
-        try {
+        try{
           await db.collection("manualVideos").doc(b.getAttribute("data-del")).delete();
           showToast("🗑️ Deleted"); loadManualVideosList(); loadManualVideos(); refreshManualShorts();
-        } catch (e) { showToast("❌ Error"); }
+        }catch(e){ showToast("❌ Error"); }
       });
     });
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
 
 const llBtn=document.getElementById("loadLikesBtn");
 if(llBtn) llBtn.addEventListener("click", async () => {
   const list = document.getElementById("adminLikesList");
   list.innerHTML = "<p style='color:#888;font-size:13px'>Loading...</p>";
-  try {
+  try{
     const snap = await db.collection("likes").get();
     const grouped = {};
     snap.forEach(doc => {
@@ -3554,12 +3521,12 @@ if(llBtn) llBtn.addEventListener("click", async () => {
       div.innerHTML = `<div class="admin-likes-header"><span>🎬 ${escapeHtml(title.slice(0, 50))}${title.length > 50 ? '...' : ''}</span><small>❤️ ${users.length}</small></div><div class="admin-likes-users">${users.map(u => `<span class="admin-likes-user-chip">${escapeHtml(u.userName)}</span>`).join("")}</div>`;
       list.appendChild(div);
     });
-  } catch (e) { console.error(e); list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>"; }
+  }catch(e){ console.error(e); list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>"; }
 });
 
 const luBtn=document.getElementById("loadUsersBtn");
 if(luBtn) luBtn.addEventListener("click", async () => {
-  try {
+  try{
     const snap = await db.collection("users").orderBy("lastSeen", "desc").limit(50).get();
     const list = document.getElementById("adminUsersList");
     if (snap.empty) { list.innerHTML = "<p style='color:#888;font-size:13px'>Koi user nahi</p>"; return; }
@@ -3571,12 +3538,12 @@ if(luBtn) luBtn.addEventListener("click", async () => {
       el.innerHTML = `<span><img src="${escapeAttr(d.photo || '')}" style="width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px"><strong>${escapeHtml(d.name || "User")}</strong> — <small>${escapeHtml(d.email || "")}</small></span>`;
       list.appendChild(el);
     });
-  } catch (e) { showToast("❌ Error"); console.error(e); }
+  }catch(e){ showToast("❌ Error"); console.error(e); }
 });
 
 const lcBtn=document.getElementById("loadCommentsBtn");
 if(lcBtn) lcBtn.addEventListener("click", async () => {
-  try {
+  try{
     const snap = await db.collection("comments").get();
     const docs = snap.docs.sort((a,b) => {
       const ta = a.data().createdAt?.seconds || 0;
@@ -3597,21 +3564,23 @@ if(lcBtn) lcBtn.addEventListener("click", async () => {
     list.querySelectorAll("[data-delc]").forEach(b => {
       b.addEventListener("click", async () => {
         if (!confirm("Delete?")) return;
-        try {
+        try{
           await db.collection("comments").doc(b.getAttribute("data-delc")).delete();
           showToast("🗑️ Deleted"); document.getElementById("loadCommentsBtn").click();
-        } catch (e) { showToast("❌ Error"); }
+        }catch(e){ showToast("❌ Error"); }
       });
     });
-  } catch (e) { showToast("❌ Error"); console.error(e); }
+  }catch(e){ showToast("❌ Error"); console.error(e); }
 });
 
 const rsBtn=document.getElementById("refreshStats");
 if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
 
-/* ============ ADMIN CONFIG LOADERS ============ */
-async function loadFanOfWeek() {
-  try {
+/* ============================================================
+   ADMIN CONFIG LOADERS
+   ============================================================ */
+async function loadFanOfWeek(){
+  try{
     const doc = await db.collection("admin_config").doc("fan_of_week").get();
     if (doc.exists) {
       const d = doc.data();
@@ -3624,11 +3593,11 @@ async function loadFanOfWeek() {
       if (msgEl && d.message) msgEl.textContent = d.message;
       if (dateEl && d.date) dateEl.textContent = "📅 " + d.date;
     }
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
 
-async function loadAnnouncement() {
-  try {
+async function loadAnnouncement(){
+  try{
     const doc = await db.collection("admin_config").doc("announcement").get();
     if (doc.exists) {
       const d = doc.data();
@@ -3637,11 +3606,11 @@ async function loadAnnouncement() {
       if (d.text && textEl) textEl.textContent = d.text;
       if (d.btnText && linkEl) linkEl.textContent = d.btnText;
     }
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
 
-async function loadNotice() {
-  try {
+async function loadNotice(){
+  try{
     const doc = await db.collection("admin_config").doc("notice").get();
     if (doc.exists) {
       const d = doc.data();
@@ -3666,8 +3635,16 @@ async function loadNotice() {
         });
       }
     }
-  } catch (e) { console.error(e); }
+  }catch(e){ console.error(e); }
 }
+
+/* ============================================================
+   INIT
+   ============================================================ */
+initProfileIdentityUI();
+initProfilePhotoUI();
+initCommunityUI();
+initIgProfileUI();
 
 window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
@@ -3676,9 +3653,11 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 1500);
 });
 
-console.log("✅ UPComedyHub Loaded with all fixes");
+console.log("✅ UPComedyHub Loaded with Instagram-style messaging");
 
-/* ============ FUN ZONE GAMES ============ */
+/* ============================================================
+   FUN ZONE GAMES
+   ============================================================ */
 (function(){
   const $ = (id) => document.getElementById(id);
   const panels = document.querySelectorAll('.fun-panel');

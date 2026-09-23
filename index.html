@@ -1365,7 +1365,9 @@ async function loadFriends(){
   const list=document.getElementById("friendsList"); if(!list||!currentUser)return;
   list.innerHTML='<p style="color:#888;font-size:12px">Loading...</p>';
   try{
-    const snap=await db.collection("friendships").where("users","array-contains",currentUser.uid).get();
+    const snap=await db.collection("friendships")
+      .where("users","array-contains",currentUser.uid)
+      .limit(50).get();
     const friends=[];
     for(const doc of snap.docs){
       const ids=doc.data().users||[]; const other=ids.find(x=>x!==currentUser.uid); if(!other)continue;
@@ -1403,6 +1405,16 @@ async function loadRequests(){
     list.querySelectorAll("[data-accept-message]").forEach(b=>b.addEventListener("click",()=>acceptMessageRequest(b.dataset.acceptMessage,b.dataset.messageUser)));
   }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Requests load nahi hue. Rules check karo.</p>';}
 }
+async function handleSearchMessage(uid,profile){
+  if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");return;}
+  try{
+    await sendMessageRequest(uid,profile);
+  }catch(e){
+    console.error("handleSearchMessage",e);
+    showToast("❌ Message action failed");
+  }
+}
+
 async function buildPersonSearchResult(uid, profile, container, options={}){
   const data=profile||{};
   const row=document.createElement("div"); row.className="search-people-card";
@@ -1422,18 +1434,18 @@ async function buildPersonSearchResult(uid, profile, container, options={}){
     const isFriend=!!fr?.exists; const hasIncoming=!!incoming?.docs?.length; const hasOutgoing=!!outgoing?.docs?.length;
     if(isFriend){
       actions.innerHTML='<button type="button" class="secondary" data-chat-search>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-chat-search]").onclick=()=>openChat({...data,uid});
+      actions.querySelector("[data-chat-search]").onclick=()=>handleSearchMessage(uid,data);
     }else if(hasIncoming){
       actions.innerHTML='<button type="button" data-accept-search>Accept Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-accept-search]").onclick=()=>acceptFriendRequest(incoming.docs[0].id,uid);
-      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
+      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
     }else if(hasOutgoing){
       actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Friend request sent</span><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
-      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
+      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
     }else{
       actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-add-search]").onclick=()=>sendFriendRequest(uid,data);
-      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
+      actions.querySelector("[data-message-request]").onclick=()=>handleSearchMessage(uid,data);
     }
     const followBtn=actions.querySelector("[data-follow-action]");
     if(followBtn)followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Follow":"Following";};
@@ -1441,7 +1453,7 @@ async function buildPersonSearchResult(uid, profile, container, options={}){
     console.error("buildPersonSearchResult",e);
     actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>Follow</button>';
     actions.querySelector("[data-add-search]")?.addEventListener("click",()=>sendFriendRequest(uid,data));
-    actions.querySelector("[data-message-request]")?.addEventListener("click",()=>sendMessageRequest(uid,data));
+    actions.querySelector("[data-message-request]")?.addEventListener("click",()=>handleSearchMessage(uid,data));
     actions.querySelector("[data-follow-action]")?.addEventListener("click",()=>toggleFollow(uid,data));
   }
 }
@@ -1479,14 +1491,40 @@ async function searchUsersAnywhere(query, out){
 async function sendMessageRequest(uid,profile){
   if(!currentUser||!uid||uid===currentUser.uid)return;
   try{
+    // If the person is already a friend, open the real chat instead of creating a request.
+    const friendship=await db.collection("friendships").doc(pairId(currentUser.uid,uid)).get();
+    if(friendship.exists){
+      openChat({...profile,uid});
+      return;
+    }
+
     const requestId=pairId(currentUser.uid,uid);
     const ref=db.collection("messageRequests").doc(requestId);
     const existing=await ref.get();
-    if(existing.exists && existing.data().status==="pending"){showToast("⏳ Message request already sent");return;}
-    await ref.set({from:currentUser.uid,to:uid,status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp(),senderName:currentUser.displayName||"Someone"});
-    await createNotification(uid,"message_request","💬 New message request",(currentUser.displayName||"Someone")+" wants to message you.",{requestId,profileUid:currentUser.uid});
+    if(existing.exists && existing.data().status==="pending"){
+      showToast("⏳ Message request already sent");
+      return;
+    }
+
+    await ref.set({
+      from:currentUser.uid,
+      to:uid,
+      status:"pending",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      senderName:currentUser.displayName||"Someone"
+    });
+    await createNotification(
+      uid,
+      "message_request",
+      "💬 New message request",
+      (currentUser.displayName||"Someone")+" wants to message you.",
+      {requestId,profileUid:currentUser.uid}
+    );
     showToast("💬 Message request sent");
-  }catch(e){console.error(e);showToast("❌ Message request failed");}
+  }catch(e){
+    console.error("sendMessageRequest",e);
+    showToast("❌ Message request failed");
+  }
 }
 async function acceptMessageRequest(requestId,fromUid){
   if(!currentUser)return;

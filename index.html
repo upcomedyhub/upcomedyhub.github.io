@@ -302,6 +302,15 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .settings-select:focus{border-color:#e63946}
 .dark-mode .settings-select{background:#222;color:#fff;border-color:#444}
 .notif-panel{position:fixed;top:70px;right:12px;width:320px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.2);padding:16px;display:none;z-index:10000;max-height:70vh;overflow-y:auto}
+/* SETTINGS MODAL */
+.settings-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10030;align-items:center;justify-content:center;padding:14px}
+.settings-overlay.show{display:flex}
+.settings-modal{width:min(620px,100%);background:#fff;color:#111;border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.dark-mode .settings-modal{background:#171717;color:#fff}
+.settings-modal-body{padding:18px 20px}
+.settings-launch-card{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.settings-launch-copy h3{margin:0 0 5px}.settings-launch-copy p{margin:0;color:#888;font-size:13px}
+.settings-open-btn{border:none;background:#111;color:#fff;padding:10px 15px;border-radius:18px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}.dark-mode .settings-open-btn{background:#fff;color:#111}
 /* SOCIAL / NOTIFICATIONS */
 .notifications-overlay,.messages-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10020;align-items:center;justify-content:center;padding:14px}
 .notifications-overlay.show,.messages-overlay.show{display:flex}
@@ -337,8 +346,8 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0}.chat-empty{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:#888;padding:30px}.chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee}.dark-mode .chat-header{border-color:#333}.chat-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}.chat-header-info{flex:1;min-width:0}.chat-header-name{font-weight:800;font-size:14px}.chat-header-username{font-size:11px;color:#e63946}.chat-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}.chat-bubble-row{display:flex}.chat-bubble-row.mine{justify-content:flex-end}.chat-bubble{max-width:min(76%,430px);padding:9px 11px;border-radius:16px;background:#f0f0f0;color:#222;font-size:13px;position:relative;word-break:break-word}.chat-bubble-row.mine .chat-bubble{background:#e63946;color:#fff;border-bottom-right-radius:5px}.chat-bubble-row:not(.mine) .chat-bubble{border-bottom-left-radius:5px}.chat-meta{font-size:9px;opacity:.7;margin-top:4px}.reply-preview{font-size:10px;padding:6px 8px;border-left:3px solid currentColor;opacity:.75;margin-bottom:5px}.chat-tools{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}.reaction-summary{margin-top:3px;min-height:14px;opacity:.9}.chat-tool{border:none;background:transparent;padding:1px;font-size:13px;cursor:pointer}.chat-composer{border-top:1px solid #eee;padding:10px;display:flex;gap:7px;align-items:flex-end}.dark-mode .chat-composer{border-color:#333}.chat-composer textarea{flex:1;min-height:42px;max-height:110px;resize:vertical;border:1px solid #ddd;border-radius:18px;padding:10px 12px;font:inherit;background:#fff;color:#222}.dark-mode .chat-composer textarea{background:#222;color:#fff;border-color:#444}.chat-send{border:none;background:#e63946;color:#fff;width:42px;height:42px;border-radius:50%;font-size:17px;cursor:pointer}.chat-replying{padding:7px 12px;background:#fff3f3;border-top:1px solid #f3d4d4;font-size:11px;color:#8a2028}.dark-mode .chat-replying{background:#2a1b1d;border-color:#4a2a2d}
 @media(max-width:720px){.messages-box{height:92vh;border-radius:18px}.messages-layout{grid-template-columns:1fr}.messages-sidebar{height:34%;border-right:none;border-bottom:1px solid #eee}.dark-mode .messages-sidebar{border-bottom-color:#333}.chat-panel{height:66%}.notifications-box{height:90vh}.notifications-overlay,.messages-overlay{padding:6px}}
 .profile-stats-4{grid-template-columns:repeat(4,1fr)}
-.messages-overlay.inline-mode{position:static;inset:auto;background:none;padding:0;display:block;z-index:auto;margin-top:14px}
-.messages-overlay.inline-mode .messages-box{width:100%;height:auto;max-height:none;border-radius:16px;box-shadow:none;border:1px solid #eee}
+.messages-overlay.inline-mode{position:fixed;inset:0;background:rgba(0,0,0,.68);padding:14px;display:flex;z-index:10020;margin:0}
+.messages-overlay.inline-mode .messages-box{width:min(980px,100%);height:min(84vh,780px);border-radius:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);border:0}
 .dark-mode .messages-overlay.inline-mode .messages-box{border-color:#333}
 .messages-overlay.inline-mode .messages-layout{min-height:430px}
 .messages-overlay.inline-mode .messages-sidebar{min-height:430px}
@@ -505,6 +514,8 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .fun-leader-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;border-bottom:1px solid #eee;font-size:13px}
 .dark-mode .fun-leader-row{border-color:#333}
 @media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}}
+.settings-modal .settings-row{padding:16px 0}.settings-modal .settings-label span{font-size:15px}.settings-modal .settings-label small{font-size:12px}.settings-modal .settings-select{min-width:150px}
+@media(max-width:720px){.settings-overlay{padding:7px}.settings-modal{width:100%;max-height:90vh}.settings-modal-body{padding:14px}.settings-modal .settings-row{align-items:flex-start}.settings-modal .settings-select,.settings-modal .settings-open-btn{max-width:48%;white-space:nowrap}.search-people-card{align-items:flex-start;flex-wrap:wrap}.search-people-actions{width:100%;padding-left:54px}.messages-overlay.inline-mode .messages-layout{display:grid;min-height:0}.messages-overlay.inline-mode .messages-sidebar{min-height:0}.messages-overlay.inline-mode .chat-panel{min-height:0;margin-top:0;border-top:none}}
 </style>
 </head>
 <body>
@@ -539,7 +550,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   </div>
   <div class="header-controls">
     <button id="bellBtn" type="button">🔔<span id="bellBadge"></span></button>
-    <button id="messageBtn" type="button" onclick="openMessages()" aria-label="Messages">💬<span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span></button>
+    <button id="messageBtn" type="button" onclick="openDirectMessages()" aria-label="Messages">💬<span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span></button>
     <button id="menuToggle" type="button">☰</button>
   </div>
   <nav class="top-nav">
@@ -925,40 +936,11 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
       </div>
     </div>
     <div class="settings-section">
-      <div class="settings-card">
-        <h3>⚙️ Settings</h3>
-        <div class="settings-row">
-          <div class="settings-label">
-            <span>Language</span>
-            <small>Choose your preferred language</small>
-          </div>
-          <select class="settings-select" id="languageSelect">
-            <option value="hi">Hinglish</option>
-            <option value="simple-hi">हिंदी</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <div class="settings-row">
-          <div class="settings-label">
-            <span>Appearance</span>
-            <small>Light ya Dark theme choose karein</small>
-          </div>
-          <select class="settings-select" id="themeSelect" aria-label="Appearance">
-            <option value="system">📱 System</option>
-            <option value="light">☀️ Light</option>
-            <option value="dark">🌙 Dark</option>
-          </select>
-        </div>
-        <div class="settings-row">
-          <div class="settings-label">
-            <span>Community</span>
-            <small>Friends, requests aur private messages</small>
-          </div>
-          <button type="button" class="settings-select" id="communityBtn" style="border:none;background:#111;color:#fff;font-weight:800">👥 Open Community</button>
-        </div>
+      <div class="settings-card settings-launch-card">
+        <div class="settings-launch-copy"><h3>⚙️ Settings</h3><p>Language, Appearance aur Community & Messages manage karein.</p></div>
+        <button type="button" class="settings-open-btn" id="settingsOpenBtn">⚙️ Open Settings</button>
       </div>
     </div>
-
     <div class="fun-zone" id="profileFunZone">
       <div class="fun-zone-head">
         <h3>🎮 Fun Zone</h3>
@@ -1123,6 +1105,17 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   </div>
 </div>
 
+
+<div class="settings-overlay" id="settingsOverlay">
+  <div class="settings-modal">
+    <div class="social-header"><h3>⚙️ Settings</h3><button type="button" class="social-close" id="settingsClose">✕</button></div>
+    <div class="settings-modal-body">
+      <div class="settings-row"><div class="settings-label"><span>Language</span><small>Choose your preferred language</small></div><select class="settings-select" id="languageSelect"><option value="hi">Hinglish</option><option value="simple-hi">हिंदी</option><option value="en">English</option></select></div>
+      <div class="settings-row"><div class="settings-label"><span>Appearance</span><small>System / Light / Dark mode</small></div><select class="settings-select" id="themeSelect" aria-label="Appearance"><option value="system">📱 System</option><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option></select></div>
+      <div class="settings-row settings-community-row"><div class="settings-label"><span>Community & Messages</span><small>Friends, requests, followers and private messages</small></div><button type="button" class="settings-open-btn" id="communityBtn">👥 Open Community</button></div>
+    </div>
+  </div>
+</div>
 
 <div class="messages-overlay" id="messagesOverlay">
   <div class="messages-box">
@@ -1315,6 +1308,15 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ============ SETTINGS MODAL ============ */
+(function(){
+  const open=document.getElementById("settingsOpenBtn"), close=document.getElementById("settingsClose"), overlay=document.getElementById("settingsOverlay"), community=document.getElementById("communityBtn");
+  if(open)open.addEventListener("click",()=>overlay?.classList.add("show"));
+  if(close)close.addEventListener("click",()=>overlay?.classList.remove("show"));
+  if(overlay)overlay.addEventListener("click",e=>{if(e.target===overlay)overlay.classList.remove("show")});
+  if(community)community.addEventListener("click",()=>{overlay?.classList.remove("show");openCommunity();});
+})();
+
 /* ============ FOLLOW SYSTEM ============ */
 function followId(from,to){ return from + "_" + to; }
 async function getFollowStatus(uid){
@@ -1404,36 +1406,44 @@ async function loadRequests(){
 async function buildPersonSearchResult(uid, profile, container, options={}){
   const data=profile||{};
   const row=document.createElement("div"); row.className="search-people-card";
-  row.innerHTML=`<img src="${escapeAttr(avatarFor(data))}" alt=""><div class="search-people-meta"><div class="search-people-name">${escapeHtml(data.displayName||"User")}</div><div class="search-people-username">@${escapeHtml(data.username||"user")}</div><div class="search-people-stats"><span data-followers>0</span> followers • <span data-following>0</span> following</div></div><div class="search-people-actions"></div>`;
+  row.innerHTML=`<img src="${escapeAttr(avatarFor(data))}" alt=""><div class="search-people-meta"><div class="search-people-name">${escapeHtml(data.displayName||"User")}</div><div class="search-people-username">@${escapeHtml(data.username||"user")}</div><div class="search-people-stats"><span data-followers>0</span> followers • <span data-following>0</span> following</div></div><div class="search-people-actions"><span style="font-size:11px;color:#888">Loading…</span></div>`;
   container.appendChild(row);
   const actions=row.querySelector(".search-people-actions");
+  const safe=async(fn,fallback=null)=>{try{return await fn();}catch(e){console.warn("people action read",e);return fallback;}};
   try{
-    const [fr, outgoing, incoming, followSnap, followerSnap, followingSnap]=await Promise.all([
-      db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),
-      db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get(),
-      db.collection("friendRequests").where("from","==",uid).where("to","==",currentUser.uid).where("status","==","pending").get(),
-      db.collection("follows").doc(followId(currentUser.uid,uid)).get(),
-      db.collection("follows").where("to","==",uid).get(),
-      db.collection("follows").where("from","==",uid).get()
-    ]);
-    row.querySelector("[data-followers]").textContent=followerSnap.size;
-    row.querySelector("[data-following]").textContent=followingSnap.size;
-    if(fr.exists){
-      actions.innerHTML='<button type="button" class="secondary" data-chat-search>💬 Message</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
+    const fr=await safe(()=>db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),null);
+    const outgoing=await safe(()=>db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").limit(1).get(),{empty:true,docs:[]});
+    const incoming=await safe(()=>db.collection("friendRequests").where("from","==",uid).where("to","==",currentUser.uid).where("status","==","pending").limit(1).get(),{empty:true,docs:[]});
+    const followSnap=await safe(()=>db.collection("follows").doc(followId(currentUser.uid,uid)).get(),{exists:false});
+    const followerSnap=await safe(()=>db.collection("follows").where("to","==",uid).limit(100).get(),{size:0});
+    const followingSnap=await safe(()=>db.collection("follows").where("from","==",uid).limit(100).get(),{size:0});
+    row.querySelector("[data-followers]").textContent=followerSnap?.size||0;
+    row.querySelector("[data-following]").textContent=followingSnap?.size||0;
+    const isFriend=!!fr?.exists; const hasIncoming=!!incoming?.docs?.length; const hasOutgoing=!!outgoing?.docs?.length;
+    if(isFriend){
+      actions.innerHTML='<button type="button" class="secondary" data-chat-search>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-chat-search]").onclick=()=>openChat({...data,uid});
-    }else if(incoming.docs.length){
-      actions.innerHTML='<button type="button" data-accept-search>Accept</button>';
+    }else if(hasIncoming){
+      actions.innerHTML='<button type="button" data-accept-search>Accept Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-accept-search]").onclick=()=>acceptFriendRequest(incoming.docs[0].id,uid);
-    }else if(outgoing.docs.length){
-      actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Request sent</span>';
+      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
+    }else if(hasOutgoing){
+      actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Friend request sent</span><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
+      actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
     }else{
-      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
+      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>'+(followSnap?.exists?'Following':'Follow')+'</button>';
       actions.querySelector("[data-add-search]").onclick=()=>sendFriendRequest(uid,data);
       actions.querySelector("[data-message-request]").onclick=()=>sendMessageRequest(uid,data);
     }
     const followBtn=actions.querySelector("[data-follow-action]");
-    if(followBtn) followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Following":"Follow";};
-  }catch(e){ console.error(e); actions.innerHTML='<span style="font-size:11px;color:#e63946">Actions unavailable</span>'; }
+    if(followBtn)followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Follow":"Following";};
+  }catch(e){
+    console.error("buildPersonSearchResult",e);
+    actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" class="secondary" data-message-request>💬 Message</button><button type="button" data-follow-action>Follow</button>';
+    actions.querySelector("[data-add-search]")?.addEventListener("click",()=>sendFriendRequest(uid,data));
+    actions.querySelector("[data-message-request]")?.addEventListener("click",()=>sendMessageRequest(uid,data));
+    actions.querySelector("[data-follow-action]")?.addEventListener("click",()=>toggleFollow(uid,data));
+  }
 }
 
 async function searchPeople(){
@@ -1569,7 +1579,7 @@ function renderNotifications(){
   if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
   const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
   list.innerHTML=notificationsCache.map(n=>{const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();return `<div class="notif-card ${n.read?'':'unread'}" data-notif="${escapeAttr(n.id)}" data-type="${escapeAttr(n.type||'')}"><div class="notif-icon">${icons[n.type]||'🔔'}</div><div class="notif-card-body"><div class="notif-card-title">${escapeHtml(n.title||'Notification')}</div><div class="notif-card-text">${escapeHtml(n.text||'')}</div><div class="notif-card-time">${escapeHtml(formatTimeAgo(d))}</div></div></div>`;}).join("");
-  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
+  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openCommunity();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
 }
 async function markNotificationRead(id){try{await db.collection("notifications").doc(id).update({read:true});}catch(e){}}
 async function markAllNotificationsRead(){if(!currentUser)return;const unread=notificationsCache.filter(n=>!n.read);const batch=db.batch();unread.forEach(n=>batch.update(db.collection("notifications").doc(n.id),{read:true}));try{await batch.commit();showToast("✓ All notifications read");}catch(e){showToast("❌ Update failed");}}
@@ -1601,19 +1611,35 @@ function initCommunityUI(){
   document.querySelectorAll("[data-community-tab]").forEach(tab=>tab.addEventListener("click",()=>{document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));tab.classList.add("active");document.getElementById("community-"+tab.dataset.communityTab).classList.add("active");if(tab.dataset.communityTab==="friends")loadFriends();if(tab.dataset.communityTab==="requests")loadRequests();}));
   document.getElementById("chatMessages").addEventListener("click",e=>{const r=e.target.closest("[data-reply]"),d=e.target.closest("[data-delete]"),x=e.target.closest("[data-react]");if(r){const id=r.dataset.reply;const el=document.querySelector('[data-mid="'+CSS.escape(id)+'"]');const text=el?el.querySelector(':scope > div')?.textContent||"Message":"Message";currentReplyTo={id,text,senderId:el?.closest('.chat-bubble-row')?.classList.contains('mine')?currentUser.uid:currentChatFriend?.uid};document.getElementById("chatReplyText").textContent="↪ "+text.slice(0,80);document.getElementById("chatReplying").style.display="block";document.getElementById("chatInput").focus();}else if(d){deleteMessage(d.dataset.delete);}else if(x){toggleReaction(x.dataset.react,x.dataset.emoji);}});
 }
-function openMessages(){
-  if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");switchTab("profile");return;}
-  switchTab("profile");
+function showMessagesOverlay(){
+  if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");switchTab("profile");return null;}
   const o=document.getElementById("messagesOverlay");
-  const settingsCard=document.querySelector(".settings-card");
-  if(settingsCard && o.parentElement!==settingsCard) settingsCard.appendChild(o);
-  o.classList.add("inline-mode");
-  o.classList.add("show");
+  if(!o)return null;
+  o.classList.remove("inline-mode"); o.classList.add("show");
   const cp=document.getElementById("chatPanel"); if(cp) cp.style.display="none";
-  loadFriends();loadRequests();
-  setTimeout(()=>o.scrollIntoView({behavior:"smooth",block:"center"}),120);
+  return o;
 }
-window.openMessages=openMessages;
+async function openDirectMessages(){
+  const o=showMessagesOverlay(); if(!o)return;
+  const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Messages";
+  const tabs=o.querySelector(".community-tabs"); if(tabs)tabs.style.display="none";
+  document.querySelectorAll(".community-pane").forEach(p=>p.classList.remove("active"));
+  const friends=document.getElementById("community-friends"); if(friends)friends.classList.add("active");
+  await loadFriends();
+}
+async function openCommunity(){
+  const o=showMessagesOverlay(); if(!o)return;
+  const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Community & Messages";
+  const tabs=o.querySelector(".community-tabs"); if(tabs)tabs.style.display="flex";
+  document.querySelectorAll(".community-pane").forEach(p=>p.classList.remove("active"));
+  document.getElementById("community-friends")?.classList.add("active");
+  await loadFriends(); await loadRequests();
+}
+function openMessages(){ return openCommunity(); }
+window.openMessages=openDirectMessages;
+window.openDirectMessages=openDirectMessages;
+window.openCommunity=openCommunity;
+
 /* ============ MOBILE MENU ============ */
 const menuToggle = document.getElementById("menuToggle");
 const topNav = document.querySelector(".top-nav");

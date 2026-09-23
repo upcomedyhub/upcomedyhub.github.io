@@ -516,37 +516,21 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 @media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}}
 .settings-modal .settings-row{padding:16px 0}.settings-modal .settings-label span{font-size:15px}.settings-modal .settings-label small{font-size:12px}.settings-modal .settings-select{min-width:150px}
 @media(max-width:720px){.settings-overlay{padding:7px}.settings-modal{width:100%;max-height:90vh}.settings-modal-body{padding:14px}.settings-modal .settings-row{align-items:flex-start}.settings-modal .settings-select,.settings-modal .settings-open-btn{max-width:48%;white-space:nowrap}.search-people-card{align-items:flex-start;flex-wrap:wrap}.search-people-actions{width:100%;padding-left:54px}.messages-overlay.inline-mode .messages-layout{display:grid;min-height:0}.messages-overlay.inline-mode .messages-sidebar{min-height:0}.messages-overlay.inline-mode .chat-panel{min-height:0;margin-top:0;border-top:none}}
+
 /* ============================================================
    INSTAGRAM-STYLE PROFILE REDESIGN — UPComedyHub
    ============================================================ */
 .profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px}
-
-/* Logged Out State */
 #profileLoggedOut{text-align:center;padding:60px 20px}
 #profileLoggedOut p{color:#888;margin-bottom:20px;font-size:15px}
-
-/* Logged In - IG Layout */
 #profileLoggedIn.profile-ig{padding:24px 0 40px}
-
-/* TOP ROW: Avatar + Stats */
 .ig-profile-top{display:flex;align-items:center;gap:32px;margin-bottom:20px}
 .ig-avatar-wrap{position:relative;flex:0 0 auto}
-.ig-avatar{
-  width:88px;height:88px;border-radius:50%;object-fit:cover;
-  border:3px solid #fff;box-shadow:0 0 0 3px #e63946;
-  background:#f2f2f2;display:block;
-}
+.ig-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 0 3px #e63946;background:#f2f2f2;display:block}
 .dark-mode .ig-avatar{border-color:#111}
-.ig-avatar-edit{
-  position:absolute;bottom:0;right:0;width:30px;height:30px;border-radius:50%;
-  background:#e63946;color:#fff;display:flex;align-items:center;justify-content:center;
-  font-size:14px;cursor:pointer;border:2px solid #fff;
-  box-shadow:0 2px 8px rgba(0,0,0,.15);transition:.15s;
-}
+.ig-avatar-edit{position:absolute;bottom:0;right:0;width:30px;height:30px;border-radius:50%;background:#e63946;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:.15s}
 .ig-avatar-edit:hover{transform:scale(1.08)}
 .dark-mode .ig-avatar-edit{border-color:#111}
-
-/* Stats Row — 3 columns like IG */
 .ig-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1;text-align:center}
 .ig-stat{padding:8px 4px;border-radius:10px;cursor:pointer;transition:background .15s}
 .ig-stat:hover{background:rgba(0,0,0,.04)}
@@ -555,125 +539,57 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .ig-stat-num{color:#fff}
 .ig-stat-label{font-size:12px;color:#777;margin-top:2px;font-weight:600}
 .dark-mode .ig-stat-label{color:#aaa}
-
-/* Name Block */
 .ig-name-block{margin:8px 0 6px}
 .ig-name{font-size:16px;font-weight:700;color:#111;margin-bottom:2px}
 .dark-mode .ig-name{color:#fff}
 .ig-username{font-size:14px;color:#e63946;font-weight:600}
 #userEmail{font-size:13px;color:#888;margin-top:4px}
-
-/* Bio */
-.ig-bio{
-  font-size:14px;line-height:1.5;color:#555;margin:10px 0 16px;
-  white-space:pre-wrap;word-break:break-word;
-}
+.ig-bio{font-size:14px;line-height:1.5;color:#555;margin:10px 0 16px;white-space:pre-wrap;word-break:break-word}
 .dark-mode .ig-bio{color:#ccc}
-
-/* Action Buttons */
 .ig-actions{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.ig-btn{
-  flex:1;min-width:130px;padding:9px 16px;
-  border:1px solid #ddd;background:#f5f5f5;color:#111;
-  border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;
-  font-family:inherit;transition:background .15s;
-}
+.ig-btn{flex:1;min-width:130px;padding:9px 16px;border:1px solid #ddd;background:#f5f5f5;color:#111;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:background .15s}
 .ig-btn:hover{background:#e8e8e8}
 .dark-mode .ig-btn{background:#2a2a2a;border-color:#444;color:#fff}
 .dark-mode .ig-btn:hover{background:#333}
-
-/* Meta stats */
-.ig-meta-stats{
-  display:flex;gap:24px;padding:12px 0;
-  border-top:1px solid #eee;border-bottom:1px solid #eee;
-  font-size:13px;color:#666;margin-bottom:16px;
-}
+.ig-meta-stats{display:flex;gap:24px;padding:12px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;font-size:13px;color:#666;margin-bottom:16px}
 .dark-mode .ig-meta-stats{border-color:#333;color:#aaa}
 .ig-meta-stats b{color:#e63946;font-weight:800}
-
-/* Posts Tabs */
 .ig-posts-tabs{display:flex;gap:0;border-bottom:1px solid #eee;margin-bottom:0}
 .dark-mode .ig-posts-tabs{border-color:#333}
-.ig-tab{
-  flex:1;padding:12px 8px;background:none;border:none;
-  border-bottom:2px solid transparent;
-  font-size:11px;font-weight:800;color:#888;cursor:pointer;font-family:inherit;
-  text-transform:uppercase;letter-spacing:.8px;transition:.15s;
-}
+.ig-tab{flex:1;padding:12px 8px;background:none;border:none;border-bottom:2px solid transparent;font-size:11px;font-weight:800;color:#888;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.8px;transition:.15s}
 .ig-tab.active{color:#111;border-bottom-color:#111}
 .dark-mode .ig-tab{color:#888}
 .dark-mode .ig-tab.active{color:#fff;border-bottom-color:#fff}
-
-/* Posts Grid */
-.ig-posts-grid{
-  min-height:220px;display:grid;grid-template-columns:repeat(3,1fr);
-  gap:3px;margin-bottom:20px;padding-top:4px;
-}
+.ig-posts-grid{min-height:220px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:20px;padding-top:4px}
 .ig-posts-grid.grid-empty{display:block;text-align:center}
 .ig-empty{color:#888;font-size:14px;padding:60px 20px}
 .ig-empty-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
 .ig-post-tile{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;cursor:pointer}
 .ig-post-tile img{width:100%;height:100%;object-fit:cover;display:block}
-
-/* Logout */
-.ig-logout-btn{
-  width:100%;padding:12px;border:1px solid #e63946;background:transparent;
-  color:#e63946;border-radius:10px;font-weight:700;cursor:pointer;
-  font-family:inherit;font-size:14px;margin-top:8px;transition:.15s;
-}
+.ig-logout-btn{width:100%;padding:12px;border:1px solid #e63946;background:transparent;color:#e63946;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;margin-top:8px;transition:.15s}
 .ig-logout-btn:hover{background:#e63946;color:#fff}
-
-/* Followers/Following Modal */
-.ig-list-overlay{
-  position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;
-  z-index:10040;align-items:center;justify-content:center;padding:14px;
-}
+.ig-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:10040;align-items:center;justify-content:center;padding:14px}
 .ig-list-overlay.show{display:flex}
-.ig-list-box{
-  width:min(420px,100%);height:min(72vh,620px);background:#fff;
-  border-radius:16px;display:flex;flex-direction:column;overflow:hidden;
-  box-shadow:0 20px 60px rgba(0,0,0,.4);
-}
+.ig-list-box{width:min(420px,100%);height:min(72vh,620px);background:#fff;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .dark-mode .ig-list-box{background:#1b1b1b}
-.ig-list-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 18px;border-bottom:1px solid #eee;flex-shrink:0;
-}
+.ig-list-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #eee;flex-shrink:0}
 .dark-mode .ig-list-header{border-color:#333}
 .ig-list-header h3{font-size:16px;font-weight:800}
-.ig-list-header button{
-  border:none;background:#f1f1f1;color:#333;width:32px;height:32px;
-  border-radius:50%;cursor:pointer;font-size:16px;
-}
+.ig-list-header button{border:none;background:#f1f1f1;color:#333;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px}
 .dark-mode .ig-list-header button{background:#2a2a2a;color:#fff}
 .ig-list-content{flex:1;overflow-y:auto;padding:8px 16px}
-.ig-user-row{
-  display:flex;align-items:center;gap:12px;padding:10px 0;
-  border-bottom:1px solid #f5f5f5;
-}
+.ig-user-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5}
 .dark-mode .ig-user-row{border-color:#2a2a2a}
-.ig-user-row img{
-  width:44px;height:44px;border-radius:50%;object-fit:cover;
-  background:#eee;flex:0 0 auto;
-}
+.ig-user-row img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
 .ig-user-meta{flex:1;min-width:0}
-.ig-user-name{
-  font-size:14px;font-weight:700;color:#111;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
+.ig-user-name{font-size:14px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dark-mode .ig-user-name{color:#fff}
 .ig-user-username{font-size:12px;color:#888;margin-top:2px}
-.ig-user-action{
-  border:none;background:#e63946;color:#fff;padding:7px 14px;
-  border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;
-  font-family:inherit;white-space:nowrap;
-}
+.ig-user-action{border:none;background:#e63946;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
 .ig-user-action.secondary{background:#f1f1f1;color:#111}
 .dark-mode .ig-user-action.secondary{background:#2a2a2a;color:#fff}
 .ig-list-empty{text-align:center;color:#888;padding:60px 20px;font-size:14px}
 .ig-list-empty .big-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
-
-/* Mobile adjustments */
 @media(max-width:520px){
   .ig-profile-top{gap:18px}
   .ig-avatar{width:76px;height:76px}
@@ -682,6 +598,301 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
   .ig-stat-label{font-size:11px}
   .ig-btn{min-width:110px;font-size:12px;padding:8px 12px}
   .ig-meta-stats{gap:16px;font-size:12px}
+}
+
+/* ============================================================
+   INSTAGRAM-STYLE MESSAGES — MOBILE FRIENDLY (NEW)
+   ============================================================ */
+.mobile-back-btn{
+  display:none;
+  background:none;border:none;color:inherit;
+  width:36px;height:36px;border-radius:50%;
+  align-items:center;justify-content:center;
+  font-size:20px;cursor:pointer;padding:0;flex-shrink:0;
+  transition:background .15s;
+}
+.mobile-back-btn:hover{background:rgba(0,0,0,.06)}
+.dark-mode .mobile-back-btn:hover{background:rgba(255,255,255,.08)}
+
+@media(max-width:720px){
+  /* Full-screen Instagram-style experience */
+  .messages-overlay.show{
+    padding:0;
+    align-items:stretch;
+    justify-content:stretch;
+  }
+  .messages-box{
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    max-height:none;
+    border-radius:0;
+    box-shadow:none;
+  }
+  .dark-mode .messages-box{background:#0a0a0a}
+
+  /* Layout: only one pane at a time */
+  .messages-layout{
+    display:block;
+    position:relative;
+    height:calc(100vh - 58px);
+    height:calc(100dvh - 58px);
+    min-height:0;
+    overflow:hidden;
+  }
+  .messages-sidebar{
+    width:100%;
+    height:100%;
+    border-right:none;
+    border-bottom:none;
+    display:flex;
+    flex-direction:column;
+  }
+  .messages-sidebar.mobile-hidden{display:none}
+
+  /* Chat panel becomes a full-screen overlay within messages */
+  .chat-panel{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    background:#fff;
+    z-index:5;
+    display:none;
+    flex-direction:column;
+  }
+  .dark-mode .chat-panel{background:#0a0a0a}
+  .chat-panel.mobile-open{display:flex !important}
+
+  /* Header tweaks */
+  .social-header{
+    padding:12px 14px;
+    min-height:56px;
+    flex-shrink:0;
+  }
+  .social-header h3{
+    font-size:16px;
+    font-weight:800;
+    flex:1;
+    margin-left:6px;
+  }
+  .mobile-back-btn{display:flex}
+  .social-close{
+    width:34px;
+    height:34px;
+    font-size:16px;
+  }
+
+  /* Chat header with back button */
+  .chat-header{
+    padding:10px 12px;
+    flex-shrink:0;
+    gap:8px;
+    border-bottom:1px solid #eee;
+  }
+  .dark-mode .chat-header{border-bottom-color:#222}
+  .chat-header img{
+    width:36px;
+    height:36px;
+  }
+  .chat-header-name{font-size:14px;font-weight:800}
+  .chat-header-username{font-size:11px}
+
+  /* Messages area */
+  .chat-messages{
+    padding:12px 10px;
+    gap:6px;
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  .chat-bubble{
+    max-width:82%;
+    font-size:14px;
+    padding:9px 13px;
+    border-radius:18px;
+    line-height:1.4;
+  }
+  .chat-bubble-row.mine .chat-bubble{
+    background:#e63946;
+    color:#fff;
+    border-bottom-right-radius:6px;
+  }
+  .chat-bubble-row:not(.mine) .chat-bubble{
+    background:#f0f0f0;
+    color:#111;
+    border-bottom-left-radius:6px;
+  }
+  .dark-mode .chat-bubble-row:not(.mine) .chat-bubble{
+    background:#262626;
+    color:#fff;
+  }
+  .chat-meta{
+    font-size:10px;
+    margin-top:5px;
+    opacity:.7;
+  }
+
+  /* Chat tools: more visible on mobile */
+  .chat-tools{
+    gap:8px;
+    margin-top:6px;
+    opacity:.75;
+  }
+  .chat-tool{
+    font-size:14px;
+    padding:3px 5px;
+    border-radius:6px;
+  }
+  .chat-tool:hover,.chat-tool:active{background:rgba(255,255,255,.15)}
+  .chat-bubble-row:not(.mine) .chat-tool:active{background:rgba(0,0,0,.08)}
+
+  /* Reply preview */
+  .reply-preview{
+    font-size:11px;
+    padding:6px 9px;
+    margin-bottom:6px;
+    border-radius:6px;
+  }
+
+  /* Composer at bottom */
+  .chat-composer{
+    padding:8px 10px;
+    padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));
+    gap:6px;
+    flex-shrink:0;
+    background:#fff;
+    border-top:1px solid #eee;
+  }
+  .dark-mode .chat-composer{
+    background:#0a0a0a;
+    border-top-color:#222;
+  }
+  .chat-composer textarea{
+    font-size:15px;
+    min-height:40px;
+    max-height:100px;
+    padding:10px 14px;
+    border-radius:20px;
+    background:#f5f5f5;
+    border-color:transparent;
+  }
+  .dark-mode .chat-composer textarea{
+    background:#1c1c1c;
+    border-color:#2a2a2a;
+  }
+  .chat-send{
+    width:40px;
+    height:40px;
+    font-size:16px;
+    flex-shrink:0;
+  }
+
+  /* Reply indicator */
+  .chat-replying{
+    padding:8px 12px;
+    font-size:12px;
+    flex-shrink:0;
+  }
+
+  /* Community tabs */
+  .community-tabs{
+    padding:8px 10px;
+    gap:6px;
+    flex-shrink:0;
+  }
+  .community-tab{
+    font-size:12px;
+    padding:9px 14px;
+    border-radius:18px;
+    font-weight:700;
+  }
+  .community-pane{
+    padding:10px 12px;
+    flex:1;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* Person rows — Instagram-like list */
+  .person-row{
+    padding:12px 4px;
+    gap:12px;
+  }
+  .person-row img{
+    width:48px;
+    height:48px;
+  }
+  .person-name{
+    font-size:14px;
+    font-weight:800;
+  }
+  .person-username{
+    font-size:12px;
+    margin-top:2px;
+  }
+  .person-action{
+    padding:8px 16px;
+    font-size:12px;
+    border-radius:10px;
+    font-weight:700;
+  }
+  .dark-mode .person-action{
+    background:#e63946;
+    color:#fff;
+  }
+
+  /* Search */
+  .community-search{
+    padding:0 0 10px 0;
+  }
+  .community-search input{
+    font-size:14px;
+    padding:11px 14px;
+    border-radius:20px;
+  }
+  .community-search button{
+    padding:10px 14px;
+    border-radius:20px;
+    font-size:13px;
+  }
+
+  /* Search results */
+  .search-people-card{
+    padding:12px 4px;
+    gap:12px;
+  }
+  .search-people-card img{
+    width:48px;
+    height:48px;
+  }
+  .search-people-name{font-size:14px}
+  .search-people-username{font-size:12px}
+  .search-people-actions{
+    width:100%;
+    padding-left:60px;
+    justify-content:flex-start;
+    gap:6px;
+    margin-top:6px;
+  }
+  .search-people-actions button{
+    padding:8px 12px;
+    font-size:12px;
+    border-radius:10px;
+  }
+}
+
+/* Extra small phones */
+@media(max-width:400px){
+  .messages-layout{
+    height:calc(100vh - 56px);
+    height:calc(100dvh - 56px);
+  }
+  .social-header h3{font-size:15px}
+  .chat-bubble{font-size:13.5px;max-width:85%}
+  .person-row img{width:44px;height:44px}
 }
 </style>
 </head>
@@ -1059,107 +1270,109 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 </div>
 
 <div id="tab-profile" class="tab-pane">
-  <section>
+  <section class="profile-section-ig">
     <h2 class="section-title">👤 My Profile</h2>
-<!-- NEW IG-STYLE PROFILE -->
-<div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
-  <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
-  <button type="button" id="googleLoginBtn" class="login-google">
-    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:20px"> Continue with Google
-  </button>
-</div>
 
-<div id="profileLoggedIn" class="profile-ig" style="display:none">
-
-  <!-- TOP ROW: Avatar + Stats -->
-  <div class="ig-profile-top">
-    <div class="ig-avatar-wrap">
-      <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
-      <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo">📷</label>
-      <input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+    <!-- NEW IG-STYLE PROFILE -->
+    <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
+      <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
+      <button type="button" id="googleLoginBtn" class="login-google">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:20px"> Continue with Google
+      </button>
     </div>
-    <div class="ig-stats-row">
-      <div class="ig-stat" id="statPostsClick">
-        <div class="ig-stat-num" id="statPosts">0</div>
-        <div class="ig-stat-label">Posts</div>
+
+    <div id="profileLoggedIn" class="profile-ig" style="display:none">
+
+      <!-- TOP ROW: Avatar + Stats -->
+      <div class="ig-profile-top">
+        <div class="ig-avatar-wrap">
+          <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
+          <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo">📷</label>
+          <input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+        </div>
+        <div class="ig-stats-row">
+          <div class="ig-stat" id="statPostsClick">
+            <div class="ig-stat-num" id="statPosts">0</div>
+            <div class="ig-stat-label">Posts</div>
+          </div>
+          <div class="ig-stat" id="statFollowersClick">
+            <div class="ig-stat-num" id="statFollowers">0</div>
+            <div class="ig-stat-label">Followers</div>
+          </div>
+          <div class="ig-stat" id="statFollowingClick">
+            <div class="ig-stat-num" id="statFollowing">0</div>
+            <div class="ig-stat-label">Following</div>
+          </div>
+        </div>
       </div>
-      <div class="ig-stat" id="statFollowersClick">
-        <div class="ig-stat-num" id="statFollowers">0</div>
-        <div class="ig-stat-label">Followers</div>
+
+      <!-- Name + Username + Email -->
+      <div class="ig-name-block">
+        <div id="userName" class="ig-name"></div>
+        <div id="profileUsername" class="ig-username">@username</div>
+        <div id="userEmail"></div>
       </div>
-      <div class="ig-stat" id="statFollowingClick">
-        <div class="ig-stat-num" id="statFollowing">0</div>
-        <div class="ig-stat-label">Following</div>
+
+      <!-- Bio -->
+      <div id="profileBio" class="ig-bio">No bio yet.</div>
+
+      <!-- Action Buttons -->
+      <div class="ig-actions">
+        <button type="button" id="editProfileBtn" class="ig-btn">✏️ Edit Profile</button>
+        <button type="button" id="shareProfileBtn" class="ig-btn">📤 Share Profile</button>
+        <button type="button" id="removeProfilePhotoBtn" class="ig-btn">🗑️ Remove Photo</button>
+      </div>
+
+      <!-- Edit Profile Form -->
+      <div id="profileEditCard" class="card profile-edit-card" hidden>
+        <h3 style="margin-top:0">✏️ Edit Profile</h3>
+        <label for="usernameInput">Username</label>
+        <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
+        <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+        <label for="bioInput">Bio</label>
+        <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..."></textarea>
+        <div class="profile-edit-actions">
+          <button type="button" id="cancelProfileEdit" style="background:#eee;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Cancel</button>
+          <button type="button" id="saveProfileBtn" style="background:#e63946;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
+        </div>
+      </div>
+
+      <!-- Meta Stats (Likes/Saves) -->
+      <div class="ig-meta-stats">
+        <span>❤️ <b id="statLikes">0</b> Videos Liked</span>
+        <span>🔖 <b id="statSaves">0</b> Videos Saved</span>
+      </div>
+
+      <!-- Posts Tabs -->
+      <div class="ig-posts-tabs">
+        <button type="button" class="ig-tab active" data-ig-tab="posts">📷 Posts</button>
+        <button type="button" class="ig-tab" data-ig-tab="liked">❤️ Liked</button>
+        <button type="button" class="ig-tab" data-ig-tab="saved">🔖 Saved</button>
+      </div>
+
+      <!-- Posts Grid -->
+      <div id="igPostsGrid" class="ig-posts-grid grid-empty">
+        <div class="ig-empty">
+          <span class="ig-empty-icon">📷</span>
+          Abhi koi post nahi. Jald aa raha hai! 🚀
+        </div>
+      </div>
+
+      <!-- Logout -->
+      <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
+    </div>
+
+    <!-- Followers / Following Modal -->
+    <div class="ig-list-overlay" id="igListOverlay">
+      <div class="ig-list-box">
+        <div class="ig-list-header">
+          <h3 id="igListTitle">Followers</h3>
+          <button type="button" id="igListClose">✕</button>
+        </div>
+        <div class="ig-list-content" id="igListContent"></div>
       </div>
     </div>
-  </div>
 
-  <!-- Name + Username + Email -->
-  <div class="ig-name-block">
-    <div id="userName" class="ig-name"></div>
-    <div id="profileUsername" class="ig-username">@username</div>
-    <div id="userEmail"></div>
-  </div>
-
-  <!-- Bio -->
-  <div id="profileBio" class="ig-bio">No bio yet.</div>
-
-  <!-- Action Buttons -->
-  <div class="ig-actions">
-    <button type="button" id="editProfileBtn" class="ig-btn">✏️ Edit Profile</button>
-    <button type="button" id="shareProfileBtn" class="ig-btn">📤 Share Profile</button>
-    <button type="button" id="removeProfilePhotoBtn" class="ig-btn">🗑️ Remove Photo</button>
-  </div>
-
-  <!-- Edit Profile Form -->
-  <div id="profileEditCard" class="card profile-edit-card" hidden>
-    <h3 style="margin-top:0">✏️ Edit Profile</h3>
-    <label for="usernameInput">Username</label>
-    <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
-    <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
-    <label for="bioInput">Bio</label>
-    <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..."></textarea>
-    <div class="profile-edit-actions">
-      <button type="button" id="cancelProfileEdit" style="background:#eee;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Cancel</button>
-      <button type="button" id="saveProfileBtn" style="background:#e63946;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
-    </div>
-  </div>
-
-  <!-- Meta Stats (Likes/Saves) -->
-  <div class="ig-meta-stats">
-    <span>❤️ <b id="statLikes">0</b> Videos Liked</span>
-    <span>🔖 <b id="statSaves">0</b> Videos Saved</span>
-  </div>
-
-  <!-- Posts Tabs -->
-  <div class="ig-posts-tabs">
-    <button type="button" class="ig-tab active" data-ig-tab="posts">📷 Posts</button>
-    <button type="button" class="ig-tab" data-ig-tab="liked">❤️ Liked</button>
-    <button type="button" class="ig-tab" data-ig-tab="saved">🔖 Saved</button>
-  </div>
-
-  <!-- Posts Grid -->
-  <div id="igPostsGrid" class="ig-posts-grid grid-empty">
-    <div class="ig-empty">
-      <span class="ig-empty-icon">📷</span>
-      Abhi koi post nahi. Jald aa raha hai! 🚀
-    </div>
-  </div>
-
-  <!-- Logout -->
-  <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
-</div>
-
-<!-- Followers / Following Modal -->
-<div class="ig-list-overlay" id="igListOverlay">
-  <div class="ig-list-box">
-    <div class="ig-list-header">
-      <h3 id="igListTitle">Followers</h3>
-      <button type="button" id="igListClose">✕</button>
-    </div>
-    <div class="ig-list-content" id="igListContent"></div>
-  </div>
-</div>
     <div class="settings-section">
       <div class="settings-card settings-launch-card">
         <div class="settings-launch-copy"><h3>⚙️ Settings</h3><p>Language, Appearance aur Community & Messages manage karein.</p></div>
@@ -1344,9 +1557,13 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 
 <div class="messages-overlay" id="messagesOverlay">
   <div class="messages-box">
-    <div class="social-header"><h3>💬 Community & Messages</h3><button type="button" class="social-close" id="messagesClose">✕</button></div>
+    <div class="social-header">
+      <button type="button" class="mobile-back-btn" id="messagesHeaderBack" aria-label="Back">←</button>
+      <h3>💬 Community & Messages</h3>
+      <button type="button" class="social-close" id="messagesClose">✕</button>
+    </div>
     <div class="messages-layout">
-      <aside class="messages-sidebar">
+      <aside class="messages-sidebar" id="messagesSidebar">
         <div class="community-tabs">
           <button type="button" class="community-tab active" data-community-tab="friends">Friends</button>
           <button type="button" class="community-tab" data-community-tab="requests">Requests</button>
@@ -1362,15 +1579,23 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
       <section class="chat-panel" id="chatPanel">
         <div class="chat-empty" id="chatEmpty" style="display:none"></div>
         <div id="chatActive" style="display:none;flex:1;min-height:0;flex-direction:column">
-          <div class="chat-header"><img id="chatFriendPhoto" src="" alt=""><div class="chat-header-info"><div class="chat-header-name" id="chatFriendName">Friend</div><div class="chat-header-username" id="chatFriendUsername">@username</div></div></div>
+          <div class="chat-header">
+            <button type="button" class="mobile-back-btn" id="chatBackBtn" aria-label="Back to list">←</button>
+            <img id="chatFriendPhoto" src="" alt="">
+            <div class="chat-header-info">
+              <div class="chat-header-name" id="chatFriendName">Friend</div>
+              <div class="chat-header-username" id="chatFriendUsername">@username</div>
+            </div>
+          </div>
           <div class="chat-messages" id="chatMessages"></div>
           <div class="chat-replying" id="chatReplying" style="display:none"><span id="chatReplyText"></span> <button type="button" class="chat-tool" id="cancelReply">✕</button></div>
-          <div class="chat-composer"><textarea id="chatInput" maxlength="1000" placeholder="Message likho..."></textarea><button type="button" class="chat-send" id="sendMessageBtn">➤</button></div>
+          <div class="chat-composer"><textarea id="chatInput" maxlength="1000" placeholder="Message likho..." rows="1"></textarea><button type="button" class="chat-send" id="sendMessageBtn">➤</button></div>
         </div>
       </section>
     </div>
   </div>
 </div>
+
 <footer>
   <p>© 2026 UPComedyHub. All Rights Reserved.</p>
   <p style="margin-top:8px">Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥</p>
@@ -1399,11 +1624,6 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 </nav>
 
 <div id="toastNotification"></div>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCYMhMDey05I8fF5e2R-ddgXEASr1w-sUs",
@@ -1434,7 +1654,6 @@ let notificationsCache = [];
 let notificationsUnsubscribe = null;
 let followCountCache = {followers:0, following:0};
 
-
 /* ============ HELPERS ============ */
 function escapeHtml(t) { const d = document.createElement("div"); d.textContent = t == null ? "" : t; return d.innerHTML; }
 function escapeAttr(t) {
@@ -1451,6 +1670,10 @@ function formatTimeAgo(date) {
   if (s < 86400) return Math.floor(s/3600)+"h";
   if (s < 604800) return Math.floor(s/86400)+"d";
   return date.toLocaleDateString("en-IN");
+}
+
+function isMobileViewport(){
+  return window.matchMedia && window.matchMedia("(max-width: 720px)").matches;
 }
 
 function setLanguage(lang) {
@@ -1580,15 +1803,35 @@ async function loadFollowCounts(){
 /* ============ MESSAGES + COMMUNITY ============ */
 function pairId(a,b){ return [a,b].sort().join("_"); }
 function avatarFor(data){ return (data && (data.photoURL || data.photo || data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
+
+/* MOBILE-FRIENDLY: Toggle between list and chat */
+function showMobileChatPanel(){
+  if(!isMobileViewport()) return;
+  const sidebar = document.getElementById("messagesSidebar");
+  const panel = document.getElementById("chatPanel");
+  if(sidebar) sidebar.classList.add("mobile-hidden");
+  if(panel) panel.classList.add("mobile-open");
+}
+function showMobileSidebar(){
+  if(!isMobileViewport()) return;
+  const sidebar = document.getElementById("messagesSidebar");
+  const panel = document.getElementById("chatPanel");
+  if(sidebar) sidebar.classList.remove("mobile-hidden");
+  if(panel) panel.classList.remove("mobile-open");
+}
+
 function closeMessages(){
-  const o=document.getElementById("messagesOverlay"); if(o){o.classList.remove("show");o.classList.remove("inline-mode");}
+  const o=document.getElementById("messagesOverlay");
+  if(o){o.classList.remove("show");o.classList.remove("inline-mode");}
   if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
   currentChatFriend=null; currentConversationId=null; currentReplyTo=null;
-  const cp=document.getElementById("chatPanel"); if(cp) cp.style.display="none";
+  const cp=document.getElementById("chatPanel"); if(cp) { cp.style.display="none"; cp.classList.remove("mobile-open"); }
+  const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
 }
+
 async function loadFriends(){
   const list=document.getElementById("friendsList"); if(!list||!currentUser)return;
-  list.innerHTML='<p style="color:#888;font-size:12px">Loading...</p>';
+  list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 4px">Loading...</p>';
   try{
     const snap=await db.collection("friendships")
       .where("users","array-contains",currentUser.uid)
@@ -1598,14 +1841,15 @@ async function loadFriends(){
       const ids=doc.data().users||[]; const other=ids.find(x=>x!==currentUser.uid); if(!other)continue;
       const ps=await db.collection("publicProfiles").doc(other).get(); if(ps.exists)friends.push({uid:other,...ps.data()});
     }
-    if(!friends.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 2px">Abhi koi friend nahi. Find People se request bhejo.</p>';return;}
+    if(!friends.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Abhi koi friend nahi. Find People se request bhejo.</p>';return;}
     list.innerHTML=friends.map(f=>`<div class="person-row"><img src="${escapeAttr(avatarFor(f))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(f.displayName||"User")}</div><div class="person-username">@${escapeHtml(f.username||"user")}</div></div><button type="button" class="person-action" data-chat-uid="${escapeAttr(f.uid)}">Chat</button></div>`).join("");
     list.querySelectorAll("[data-chat-uid]").forEach(b=>b.addEventListener("click",()=>openChat(friends.find(x=>x.uid===b.dataset.chatUid))));
-  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Friends load nahi hue.</p>';}
+  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Friends load nahi hue.</p>';}
 }
+
 async function loadRequests(){
   const list=document.getElementById("requestsList"); if(!list||!currentUser)return;
-  list.innerHTML='<p style="color:#888;font-size:12px">Loading...</p>';
+  list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 4px">Loading...</p>';
   try{
     const [incoming,outgoing,msgIncoming,msgOutgoing]=await Promise.all([
       db.collection("friendRequests").where("to","==",currentUser.uid).get(),
@@ -1618,18 +1862,19 @@ async function loadRequests(){
     for(const doc of outgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"outgoing",id:doc.id,uid:d.to,...ps.data()});}
     for(const doc of msgIncoming.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.from).get();if(ps.exists)rows.push({kind:"message-incoming",id:doc.id,uid:d.from,...ps.data()});}
     for(const doc of msgOutgoing.docs){const d=doc.data();if(d.status!=="pending")continue;const ps=await db.collection("publicProfiles").doc(d.to).get();if(ps.exists)rows.push({kind:"message-outgoing",id:doc.id,uid:d.to,...ps.data()});}
-    if(!rows.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:10px 2px">No pending requests.</p>';return;}
+    if(!rows.length){list.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">No pending requests.</p>';return;}
     list.innerHTML=rows.map(r=>{
       const label=r.kind.startsWith("message")?"💬 Message Request":"👥 Friend Request";
       const action=r.kind==="incoming"?`<button type="button" class="person-action" data-accept="${escapeAttr(r.id)}" data-friend="${escapeAttr(r.uid)}">Accept</button>`
-        :r.kind==="message-incoming"?`<button type="button" class="person-action" data-accept-message="${escapeAttr(r.id)}" data-message-user="${escapeAttr(r.uid)}">Accept & Chat</button>`
+        :r.kind==="message-incoming"?`<button type="button" class="person-action" data-accept-message="${escapeAttr(r.id)}" data-message-user="${escapeAttr(r.uid)}">Accept</button>`
         :`<span style="font-size:11px;color:#888">Sent</span>`;
       return `<div class="person-row"><img src="${escapeAttr(avatarFor(r))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(r.displayName||"User")}</div><div class="person-username">@${escapeHtml(r.username||"user")}</div><div style="font-size:10px;color:#888;margin-top:3px">${label}</div></div>${action}</div>`;
     }).join("");
     list.querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",()=>acceptFriendRequest(b.dataset.accept,b.dataset.friend)));
     list.querySelectorAll("[data-accept-message]").forEach(b=>b.addEventListener("click",()=>acceptMessageRequest(b.dataset.acceptMessage,b.dataset.messageUser)));
-  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Requests load nahi hue. Rules check karo.</p>';}
+  }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Requests load nahi hue.</p>';}
 }
+
 async function handleSearchMessage(uid,profile){
   if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");return;}
   try{
@@ -1640,7 +1885,7 @@ async function handleSearchMessage(uid,profile){
   }
 }
 
-async function buildPersonSearchResult(uid, profile, container, options={}){
+async function buildPersonSearchResult(uid, profile, container){
   const data=profile||{};
   const row=document.createElement("div"); row.className="search-people-card";
   row.innerHTML=`<img src="${escapeAttr(avatarFor(data))}" alt=""><div class="search-people-meta"><div class="search-people-name">${escapeHtml(data.displayName||"User")}</div><div class="search-people-username">@${escapeHtml(data.username||"user")}</div><div class="search-people-stats"><span data-followers>0</span> followers • <span data-following>0</span> following</div></div><div class="search-people-actions"><span style="font-size:11px;color:#888">Loading…</span></div>`;
@@ -1686,14 +1931,14 @@ async function buildPersonSearchResult(uid, profile, container, options={}){
 async function searchPeople(){
   if(!currentUser)return;
   const input=document.getElementById("peopleSearchInput"), q=normalizeUsername(input.value); const out=document.getElementById("peopleSearchResults");
-  if(!q){out.innerHTML='<p style="color:#888;font-size:12px">Username enter karo.</p>';return;}
-  out.innerHTML='<p style="color:#888;font-size:12px">Searching...</p>';
+  if(!q){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Username enter karo.</p>';return;}
+  out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Searching...</p>';
   try{
     const us=await db.collection("usernames").doc(q).get();
-    if(!us.exists||us.data().uid===currentUser.uid){out.innerHTML='<p style="color:#888;font-size:12px">User nahi mila.</p>';return;}
-    const uid=us.data().uid, ps=await db.collection("publicProfiles").doc(uid).get(); if(!ps.exists){out.innerHTML='<p style="color:#888;font-size:12px">Profile nahi mila.</p>';return;}
+    if(!us.exists||us.data().uid===currentUser.uid){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">User nahi mila.</p>';return;}
+    const uid=us.data().uid, ps=await db.collection("publicProfiles").doc(uid).get(); if(!ps.exists){out.innerHTML='<p style="color:#888;font-size:12px;padding:12px 4px">Profile nahi mila.</p>';return;}
     out.innerHTML=""; await buildPersonSearchResult(uid,ps.data(),out);
-  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;font-size:12px">Search failed.</p>';}
+  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;font-size:12px;padding:12px 4px">Search failed.</p>';}
 }
 
 async function searchUsersAnywhere(query, out){
@@ -1701,7 +1946,7 @@ async function searchUsersAnywhere(query, out){
   const q=normalizeUsername(query);
   out.innerHTML="";
   if(q.length<2)return;
-  out.innerHTML='<p style="color:#888;font-size:12px;padding:8px 0">👤 People search...</p>';
+  out.innerHTML='<p style="color:#888;font-size:12px;padding:8px 4px">👤 People search...</p>';
   try{
     const snap=await db.collection("usernames").orderBy("username").startAt(q).endAt(q+"\uf8ff").limit(8).get();
     const docs=snap.docs.filter(d=>d.data().uid!==currentUser.uid);
@@ -1710,19 +1955,17 @@ async function searchUsersAnywhere(query, out){
     for(const d of docs){
       const uid=d.data().uid; const ps=await db.collection("publicProfiles").doc(uid).get(); if(ps.exists) await buildPersonSearchResult(uid,ps.data(),out);
     }
-  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;padding:8px 0">People search failed.</p>';}
+  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;padding:8px 4px">People search failed.</p>';}
 }
 
 async function sendMessageRequest(uid,profile){
   if(!currentUser||!uid||uid===currentUser.uid)return;
   try{
-    // If the person is already a friend, open the real chat instead of creating a request.
     const friendship=await db.collection("friendships").doc(pairId(currentUser.uid,uid)).get();
     if(friendship.exists){
       openChat({...profile,uid});
       return;
     }
-
     const requestId=pairId(currentUser.uid,uid);
     const ref=db.collection("messageRequests").doc(requestId);
     const existing=await ref.get();
@@ -1730,7 +1973,6 @@ async function sendMessageRequest(uid,profile){
       showToast("⏳ Message request already sent");
       return;
     }
-
     await ref.set({
       from:currentUser.uid,
       to:uid,
@@ -1751,6 +1993,7 @@ async function sendMessageRequest(uid,profile){
     showToast("❌ Message request failed");
   }
 }
+
 async function acceptMessageRequest(requestId,fromUid){
   if(!currentUser)return;
   try{
@@ -1763,6 +2006,7 @@ async function acceptMessageRequest(requestId,fromUid){
     if(ps.exists)openChat({uid:fromUid,...ps.data()});
   }catch(e){console.error(e);showToast("❌ Message request accept failed");}
 }
+
 async function sendFriendRequest(uid,profile){
   try{
     const existing=await db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get();
@@ -1773,6 +2017,7 @@ async function sendFriendRequest(uid,profile){
     showToast("✅ Friend request sent"); searchPeople();
   }catch(e){console.error(e);showToast("❌ Request send failed");}
 }
+
 async function acceptFriendRequest(requestId,friendUid){
   try{
     const fid=pairId(currentUser.uid,friendUid), batch=db.batch();
@@ -1783,23 +2028,68 @@ async function acceptFriendRequest(requestId,friendUid){
     showToast("🤝 You are now friends"); loadFriends(); loadRequests();
   }catch(e){console.error(e);showToast("❌ Accept failed");}
 }
+
 async function openChat(friend){
   if(!friend||!currentUser)return;
   currentChatFriend=friend; currentConversationId=pairId(currentUser.uid,friend.uid);
-  document.getElementById("chatEmpty").style.display="none"; document.getElementById("chatActive").style.display="flex";
-  const chatPanel=document.getElementById("chatPanel"); if(chatPanel) { chatPanel.style.display="flex"; setTimeout(()=>chatPanel.scrollIntoView({behavior:"smooth",block:"nearest"}),80); }
-  document.getElementById("chatFriendPhoto").src=avatarFor(friend); document.getElementById("chatFriendName").textContent=friend.displayName||"User"; document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
+
+  // Mobile: hide sidebar, show chat
+  showMobileChatPanel();
+
+  document.getElementById("chatEmpty").style.display="none";
+  document.getElementById("chatActive").style.display="flex";
+  const chatPanel=document.getElementById("chatPanel");
+  if(chatPanel) chatPanel.style.display="flex";
+  document.getElementById("chatFriendPhoto").src=avatarFor(friend);
+  document.getElementById("chatFriendName").textContent=friend.displayName||"User";
+  document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
+
   if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+
   const convRef=db.collection("conversations").doc(currentConversationId);
-  try{await convRef.set({members:[currentUser.uid,friend.uid].sort(),lastRead:{[currentUser.uid]:firebase.firestore.FieldValue.serverTimestamp()}},{merge:true});updateMessageBadge();}catch(e){console.error(e);}
+  try{
+    await convRef.set({
+      members:[currentUser.uid,friend.uid].sort(),
+      lastRead:{[currentUser.uid]:firebase.firestore.FieldValue.serverTimestamp()}
+    },{merge:true});
+    updateMessageBadge();
+  }catch(e){console.error(e);}
+
   const msgsRef=convRef.collection("messages").orderBy("createdAt","asc").limitToLast(100);
-  chatUnsubscribe=msgsRef.onSnapshot(snap=>renderChatMessages(snap.docs),e=>{console.error(e);document.getElementById("chatMessages").innerHTML='<p style="color:#e63946">Messages load nahi hue. Rules check karo.</p>';});
+  chatUnsubscribe=msgsRef.onSnapshot(snap=>renderChatMessages(snap.docs),e=>{
+    console.error(e);
+    document.getElementById("chatMessages").innerHTML='<p style="color:#e63946;text-align:center;padding:20px">Messages load nahi hue. Rules check karo.</p>';
+  });
 }
+
 async function renderChatMessages(docs){
   const box=document.getElementById("chatMessages");
   const rows=docs.filter(doc=>!doc.data().deleted);
-  const html=rows.map(doc=>{const d=doc.data();const mine=d.senderId===currentUser.uid;const dt=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate():new Date();const reply=d.replyTo?`<div class="reply-preview">↪ ${escapeHtml(d.replyTo.text||"Message")}</div>`:"";return `<div class="chat-bubble-row ${mine?'mine':''}"><div class="chat-bubble" data-mid="${escapeAttr(doc.id)}">${reply}<div class="chat-message-text">${escapeHtml(d.text||"")}</div><div class="chat-meta">${formatTimeAgo(dt)}</div><div class="chat-tools"><button type="button" class="chat-tool" data-reply="${escapeAttr(doc.id)}">↩️</button><button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="❤️">❤️</button><button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😂">😂</button><button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="🔥">🔥</button><button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="👍">👍</button><button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😢">😢</button>${mine?`<button type="button" class="chat-tool" data-delete="${escapeAttr(doc.id)}">🗑️</button>`:""}</div><div class="reaction-summary" data-reaction-summary="${escapeAttr(doc.id)}"></div></div></div>`;}).join("");
-  box.innerHTML=html||'<p style="color:#888;text-align:center;margin:auto">No messages yet 👋</p>';
+  const html=rows.map(doc=>{
+    const d=doc.data();
+    const mine=d.senderId===currentUser.uid;
+    const dt=d.createdAt&&d.createdAt.toDate?d.createdAt.toDate():new Date();
+    const reply=d.replyTo?`<div class="reply-preview">↪ ${escapeHtml(d.replyTo.text||"Message")}</div>`:"";
+    return `<div class="chat-bubble-row ${mine?'mine':''}">
+      <div class="chat-bubble" data-mid="${escapeAttr(doc.id)}">
+        ${reply}
+        <div class="chat-message-text">${escapeHtml(d.text||"")}</div>
+        <div class="chat-meta">${formatTimeAgo(dt)}</div>
+        <div class="chat-tools">
+          <button type="button" class="chat-tool" data-reply="${escapeAttr(doc.id)}">↩️</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="❤️">❤️</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😂">😂</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="🔥">🔥</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="👍">👍</button>
+          <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😢">😢</button>
+          ${mine?`<button type="button" class="chat-tool" data-delete="${escapeAttr(doc.id)}">🗑️</button>`:""}
+        </div>
+        <div class="reaction-summary" data-reaction-summary="${escapeAttr(doc.id)}"></div>
+      </div>
+    </div>`;
+  }).join("");
+  box.innerHTML=html||'<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋</p>';
+
   await Promise.all(rows.map(async doc=>{
     try{
       const snap=await db.collection("conversations").doc(currentConversationId).collection("messages").doc(doc.id).collection("reactions").get();
@@ -1810,6 +2100,7 @@ async function renderChatMessages(docs){
   }));
   box.scrollTop=box.scrollHeight;
 }
+
 async function sendMessage(){
   if(!currentUser||!currentConversationId||!currentChatFriend)return;
   const input=document.getElementById("chatInput"), text=input.value.trim(); if(!text)return;
@@ -1820,68 +2111,95 @@ async function sendMessage(){
     await convRef.collection("messages").add(payload);
     await convRef.set({members:[currentUser.uid,currentChatFriend.uid].sort(),lastMessage:text.slice(0,120),lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),lastSenderId:currentUser.uid},{merge:true});
     await createNotification(currentChatFriend.uid,"message","💬 New message",(currentUser.displayName||"Someone")+": "+text.slice(0,80),{conversationId:currentConversationId});
-    input.value=""; cancelReply(); updateMessageBadge();
+    input.value=""; input.style.height="auto"; cancelReply(); updateMessageBadge();
   }catch(e){console.error(e);showToast("❌ Message send failed");}
 }
+
 function cancelReply(){currentReplyTo=null;const el=document.getElementById("chatReplying");if(el)el.style.display="none";}
 async function deleteMessage(mid){if(!currentConversationId)return;try{await db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).delete();showToast("🗑️ Message deleted");}catch(e){showToast("❌ Delete failed");}}
 async function toggleReaction(mid,emoji){if(!currentConversationId||!currentUser)return;try{const r=db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).collection("reactions").doc(currentUser.uid);const snap=await r.get();if(snap.exists&&snap.data().emoji===emoji)await r.delete();else await r.set({emoji,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});}catch(e){console.error(e);showToast("❌ Reaction failed");}}
+
 async function createNotification(recipientId,type,title,text,extra={}){if(!recipientId)return;try{await db.collection("notifications").add({recipientId,type,title,text,read:false,senderId:currentUser?currentUser.uid:"system",createdAt:firebase.firestore.FieldValue.serverTimestamp(),...extra});}catch(e){console.error("Notification create failed",e);}}
-async function loadNotifications(){
-  if(!currentUser)return;
-  const list=document.getElementById("notifList"); if(!list)return;
-  if(notificationsUnsubscribe){notificationsUnsubscribe();notificationsUnsubscribe=null;}
-  notificationsUnsubscribe=db.collection("notifications").where("recipientId","==",currentUser.uid).limit(50).onSnapshot(snap=>{
-    notificationsCache=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0)); renderNotifications(); updateNotificationBadge();
-  },e=>{console.error("Notification listener",e);list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui. Firestore index/rules check karo.</p>';});
-}
-function renderNotifications(){
-  const list=document.getElementById("notifList"); if(!list)return;
-  const now=Date.now();
-  notificationsCache=notificationsCache.filter(n=>!(n.type==="new_video"&&n.expiresAt&&n.expiresAt.toMillis&&n.expiresAt.toMillis()<now));
-  if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
-  const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
-  list.innerHTML=notificationsCache.map(n=>{const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();return `<div class="notif-card ${n.read?'':'unread'}" data-notif="${escapeAttr(n.id)}" data-type="${escapeAttr(n.type||'')}"><div class="notif-icon">${icons[n.type]||'🔔'}</div><div class="notif-card-body"><div class="notif-card-title">${escapeHtml(n.title||'Notification')}</div><div class="notif-card-text">${escapeHtml(n.text||'')}</div><div class="notif-card-time">${escapeHtml(formatTimeAgo(d))}</div></div></div>`;}).join("");
-  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openCommunity();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
-}
-async function markNotificationRead(id){try{await db.collection("notifications").doc(id).update({read:true});}catch(e){}}
-async function markAllNotificationsRead(){if(!currentUser)return;const unread=notificationsCache.filter(n=>!n.read);const batch=db.batch();unread.forEach(n=>batch.update(db.collection("notifications").doc(n.id),{read:true}));try{await batch.commit();showToast("✓ All notifications read");}catch(e){showToast("❌ Update failed");}}
-async function clearOldNotifications(){if(!currentUser)return;const old=notificationsCache.filter(n=>n.read);if(!old.length){showToast("No old notifications");return;}const batch=db.batch();old.forEach(n=>batch.delete(db.collection("notifications").doc(n.id)));try{await batch.commit();showToast("🗑️ Old notifications cleared");}catch(e){showToast("❌ Clear failed");}}
-function updateNotificationBadge(){const badge=document.getElementById("bellBadge");if(!badge)return;const count=notificationsCache.filter(n=>!n.read).length;badge.textContent=count>9?'9+':count;badge.style.display=count?'flex':'none';}
-function updateBellBadge(){ updateNotificationBadge(); }
-async function updateMessageBadge(){
-  const badge=document.getElementById("messageBadge"); if(!badge||!currentUser)return;
-  try{
-    const snap=await db.collection("conversations").where("members","array-contains",currentUser.uid).get();
-    let count=0; snap.forEach(doc=>{const d=doc.data();if(d.lastSenderId===currentUser.uid)return;const last=d.lastMessageAt?.seconds||0;const read=d.lastRead&&d.lastRead[currentUser.uid]?.seconds||0;if(last>read)count++;});
-    badge.textContent=count>9?'9+':count; badge.style.display=count?'flex':'none';
-  }catch(e){badge.style.display="none";}
-}
-function openNotifications(){const o=document.getElementById("notificationsOverlay");if(!o)return;if(!currentUser){showToast("🔐 Notifications ke liye login karein");switchTab("profile");return;}o.classList.add("show");loadNotifications();}
+
+/* ============ INIT COMMUNITY UI (with mobile back) ============ */
 function initCommunityUI(){
   document.getElementById("messagesClose").addEventListener("click",closeMessages);
   document.getElementById("messagesOverlay").addEventListener("click",e=>{if(e.target.id==="messagesOverlay")closeMessages();});
-  document.getElementById("notificationsClose").addEventListener("click",()=>document.getElementById("notificationsOverlay").classList.remove("show"));
-  document.getElementById("notificationsOverlay").addEventListener("click",e=>{if(e.target.id==="notificationsOverlay")e.currentTarget.classList.remove("show");});
-  document.getElementById("markAllNotifBtn").addEventListener("click",markAllNotificationsRead);
-  document.getElementById("clearOldNotifBtn").addEventListener("click",clearOldNotifications);
+
+  // Mobile back button in header
+  const headerBack=document.getElementById("messagesHeaderBack");
+  if(headerBack) headerBack.addEventListener("click",()=>{
+    // If chat is open, go back to sidebar; otherwise close messages
+    const panel=document.getElementById("chatPanel");
+    if(panel && panel.classList.contains("mobile-open")){
+      if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+      currentChatFriend=null; currentConversationId=null;
+      panel.classList.remove("mobile-open");
+      const cp=document.getElementById("chatActive"); if(cp) cp.style.display="none";
+      const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
+    } else {
+      closeMessages();
+    }
+  });
+
+  // Mobile back button in chat header
+  const chatBack=document.getElementById("chatBackBtn");
+  if(chatBack) chatBack.addEventListener("click",()=>{
+    if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
+    currentChatFriend=null; currentConversationId=null;
+    showMobileSidebar();
+    const cp=document.getElementById("chatActive"); if(cp) cp.style.display="none";
+  });
+
   document.getElementById("peopleSearchBtn").addEventListener("click",searchPeople);
   document.getElementById("peopleSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchPeople();});
   document.getElementById("sendMessageBtn").addEventListener("click",sendMessage);
-  document.getElementById("chatInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage();}});
+
+  // Auto-grow chat input
+  const chatInput=document.getElementById("chatInput");
+  chatInput.addEventListener("input",()=>{
+    chatInput.style.height="auto";
+    chatInput.style.height=Math.min(chatInput.scrollHeight,110)+"px";
+  });
+  chatInput.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey&&!isMobileViewport()){e.preventDefault();sendMessage();}});
+
   document.getElementById("cancelReply").addEventListener("click",cancelReply);
   document.getElementById("communityBtn").addEventListener("click",openMessages);
-  document.querySelectorAll("[data-community-tab]").forEach(tab=>tab.addEventListener("click",()=>{document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));tab.classList.add("active");document.getElementById("community-"+tab.dataset.communityTab).classList.add("active");if(tab.dataset.communityTab==="friends")loadFriends();if(tab.dataset.communityTab==="requests")loadRequests();}));
-  document.getElementById("chatMessages").addEventListener("click",e=>{const r=e.target.closest("[data-reply]"),d=e.target.closest("[data-delete]"),x=e.target.closest("[data-react]");if(r){const id=r.dataset.reply;const el=document.querySelector('[data-mid="'+CSS.escape(id)+'"]');const text=el?el.querySelector(':scope > div')?.textContent||"Message":"Message";currentReplyTo={id,text,senderId:el?.closest('.chat-bubble-row')?.classList.contains('mine')?currentUser.uid:currentChatFriend?.uid};document.getElementById("chatReplyText").textContent="↪ "+text.slice(0,80);document.getElementById("chatReplying").style.display="block";document.getElementById("chatInput").focus();}else if(d){deleteMessage(d.dataset.delete);}else if(x){toggleReaction(x.dataset.react,x.dataset.emoji);}});
+
+  document.querySelectorAll("[data-community-tab]").forEach(tab=>tab.addEventListener("click",()=>{
+    document.querySelectorAll("[data-community-tab]").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".community-pane").forEach(x=>x.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById("community-"+tab.dataset.communityTab).classList.add("active");
+    if(tab.dataset.communityTab==="friends")loadFriends();
+    if(tab.dataset.communityTab==="requests")loadRequests();
+  }));
+
+  document.getElementById("chatMessages").addEventListener("click",e=>{
+    const r=e.target.closest("[data-reply]"),d=e.target.closest("[data-delete]"),x=e.target.closest("[data-react]");
+    if(r){
+      const id=r.dataset.reply;
+      const el=document.querySelector('[data-mid="'+CSS.escape(id)+'"]');
+      const text=el?el.querySelector('.chat-message-text')?.textContent||"Message":"Message";
+      currentReplyTo={id,text,senderId:el?.closest('.chat-bubble-row')?.classList.contains('mine')?currentUser.uid:currentChatFriend?.uid};
+      document.getElementById("chatReplyText").textContent="↪ "+text.slice(0,80);
+      document.getElementById("chatReplying").style.display="block";
+      document.getElementById("chatInput").focus();
+    }else if(d){deleteMessage(d.dataset.delete);}
+    else if(x){toggleReaction(x.dataset.react,x.dataset.emoji);}
+  });
 }
+
 function showMessagesOverlay(){
   if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");switchTab("profile");return null;}
   const o=document.getElementById("messagesOverlay");
   if(!o)return null;
   o.classList.remove("inline-mode"); o.classList.add("show");
-  const cp=document.getElementById("chatPanel"); if(cp) cp.style.display="none";
+  const cp=document.getElementById("chatPanel"); if(cp){cp.style.display="none";cp.classList.remove("mobile-open");}
+  const sb=document.getElementById("messagesSidebar"); if(sb) sb.classList.remove("mobile-hidden");
   return o;
 }
+
 async function openDirectMessages(){
   const o=showMessagesOverlay(); if(!o)return;
   const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Messages";
@@ -1890,6 +2208,7 @@ async function openDirectMessages(){
   const friends=document.getElementById("community-friends"); if(friends)friends.classList.add("active");
   await loadFriends();
 }
+
 async function openCommunity(){
   const o=showMessagesOverlay(); if(!o)return;
   const title=o.querySelector(".social-header h3"); if(title)title.textContent="💬 Community & Messages";
@@ -1898,6 +2217,7 @@ async function openCommunity(){
   document.getElementById("community-friends")?.classList.add("active");
   await loadFriends(); await loadRequests();
 }
+
 function openMessages(){ return openCommunity(); }
 window.openMessages=openDirectMessages;
 window.openDirectMessages=openDirectMessages;
@@ -1909,26 +2229,156 @@ const topNav = document.querySelector(".top-nav");
 const menuBackdrop = document.getElementById("menuBackdrop");
 function openMenu() { topNav.classList.add("show-menu"); menuBackdrop.classList.add("show"); }
 function closeMenu() { topNav.classList.remove("show-menu"); menuBackdrop.classList.remove("show"); }
-menuToggle.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (topNav.classList.contains("show-menu")) closeMenu(); else openMenu();
-});
-menuBackdrop.addEventListener("click", closeMenu);
-topNav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+if(menuToggle){
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (topNav.classList.contains("show-menu")) closeMenu(); else openMenu();
+  });
+}
+if(menuBackdrop) menuBackdrop.addEventListener("click", closeMenu);
+if(topNav) topNav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+  /* ============ NOTIFICATIONS ============ */
+const bellBtn = document.getElementById("bellBtn");
+if(bellBtn) bellBtn.addEventListener("click", e=>{e.stopPropagation();openNotifications();});
+
+async function loadNotifications(){
+  if(!currentUser)return;
+  const list=document.getElementById("notifList"); if(!list)return;
+  if(notificationsUnsubscribe){notificationsUnsubscribe();notificationsUnsubscribe=null;}
+  notificationsUnsubscribe=db.collection("notifications").where("recipientId","==",currentUser.uid).limit(50).onSnapshot(snap=>{
+    notificationsCache=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+    renderNotifications(); updateNotificationBadge();
+  },e=>{
+    console.error("Notification listener",e);
+    list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui. Firestore index/rules check karo.</p>';
+  });
+}
+
+function renderNotifications(){
+  const list=document.getElementById("notifList"); if(!list)return;
+  const now=Date.now();
+  notificationsCache=notificationsCache.filter(n=>!(n.type==="new_video"&&n.expiresAt&&n.expiresAt.toMillis&&n.expiresAt.toMillis()<now));
+  if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
+  const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
+  list.innerHTML=notificationsCache.map(n=>{
+    const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();
+    return `<div class="notif-card ${n.read?'':'unread'}" data-notif="${escapeAttr(n.id)}" data-type="${escapeAttr(n.type||'')}">
+      <div class="notif-icon">${icons[n.type]||'🔔'}</div>
+      <div class="notif-card-body">
+        <div class="notif-card-title">${escapeHtml(n.title||'Notification')}</div>
+        <div class="notif-card-text">${escapeHtml(n.text||'')}</div>
+        <div class="notif-card-time">${escapeHtml(formatTimeAgo(d))}</div>
+      </div>
+    </div>`;
+  }).join("");
+  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{
+    const n=notificationsCache.find(x=>x.id===el.dataset.notif);
+    markNotificationRead(el.dataset.notif);
+    if(n?.type==="message"){
+      document.getElementById("notificationsOverlay").classList.remove("show");
+      openMessages();
+    }else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){
+      document.getElementById("notificationsOverlay").classList.remove("show");
+      openCommunity();
+      document.querySelector('[data-community-tab="requests"]')?.click();
+    }else if(n?.type==="follow"){
+      document.getElementById("notificationsOverlay").classList.remove("show");
+      switchTab("profile");
+    }else if(n?.type==="new_video"&&n.videoId){
+      document.getElementById("notificationsOverlay").classList.remove("show");
+      switchTab(n.category==="shorts"?"reels":"videos");
+    }
+  }));
+}
+
+async function markNotificationRead(id){try{await db.collection("notifications").doc(id).update({read:true});}catch(e){}}
+async function markAllNotificationsRead(){
+  if(!currentUser)return;
+  const unread=notificationsCache.filter(n=>!n.read);
+  const batch=db.batch();
+  unread.forEach(n=>batch.update(db.collection("notifications").doc(n.id),{read:true}));
+  try{await batch.commit();showToast("✓ All notifications read");}catch(e){showToast("❌ Update failed");}
+}
+async function clearOldNotifications(){
+  if(!currentUser)return;
+  const old=notificationsCache.filter(n=>n.read);
+  if(!old.length){showToast("No old notifications");return;}
+  const batch=db.batch();
+  old.forEach(n=>batch.delete(db.collection("notifications").doc(n.id)));
+  try{await batch.commit();showToast("🗑️ Old notifications cleared");}catch(e){showToast("❌ Clear failed");}
+}
+function updateNotificationBadge(){
+  const badge=document.getElementById("bellBadge");if(!badge)return;
+  const count=notificationsCache.filter(n=>!n.read).length;
+  badge.textContent=count>9?'9+':count;
+  badge.style.display=count?'flex':'none';
+}
+function updateBellBadge(){ updateNotificationBadge(); }
+
+async function updateMessageBadge(){
+  const badge=document.getElementById("messageBadge"); if(!badge||!currentUser)return;
+  try{
+    const snap=await db.collection("conversations").where("members","array-contains",currentUser.uid).get();
+    let count=0;
+    snap.forEach(doc=>{
+      const d=doc.data();
+      if(d.lastSenderId===currentUser.uid)return;
+      const last=d.lastMessageAt?.seconds||0;
+      const read=d.lastRead&&d.lastRead[currentUser.uid]?.seconds||0;
+      if(last>read)count++;
+    });
+    badge.textContent=count>9?'9+':count;
+    badge.style.display=count?'flex':'none';
+  }catch(e){badge.style.display="none";}
+}
+
+function openNotifications(){
+  const o=document.getElementById("notificationsOverlay");if(!o)return;
+  if(!currentUser){showToast("🔐 Notifications ke liye login karein");switchTab("profile");return;}
+  o.classList.add("show");loadNotifications();
+}
+
+// Notification close listeners
+(function(){
+  const nc=document.getElementById("notificationsClose");
+  const no=document.getElementById("notificationsOverlay");
+  if(nc)nc.addEventListener("click",()=>no.classList.remove("show"));
+  if(no)no.addEventListener("click",e=>{if(e.target.id==="notificationsOverlay")e.target.classList.remove("show");});
+  const mb=document.getElementById("markAllNotifBtn"); if(mb)mb.addEventListener("click",markAllNotificationsRead);
+  const cb=document.getElementById("clearOldNotifBtn"); if(cb)cb.addEventListener("click",clearOldNotifications);
+})();
+
+function createNewVideoNotifications(){
+  if(!currentUser)return;
+  const seenKey="upchSeenVideos";
+  const seen=JSON.parse(localStorage.getItem(seenKey)||"[]");
+  const fresh=Object.entries(allVideos).filter(([id])=>!seen.includes(id));
+  if(fresh.length){
+    const next=seen.concat(fresh.map(([id])=>id)).slice(-200);
+    localStorage.setItem(seenKey,JSON.stringify(next));
+    fresh.slice(0,10).forEach(([id,v])=>createNotification(
+      currentUser.uid,
+      "new_video",
+      "🎬 New "+(v.category==="shorts"?"Short":"Video"),
+      v.title||"A new video is available.",
+      {videoId:id,category:v.category,expiresAt:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+24*60*60*1000))}
+    ));
+  }
+}
 
 /* ============ ANNOUNCEMENT / COOKIE / LOADER ============ */
 const announcementBar = document.getElementById("announcementBar");
 const closeAnnouncement = document.getElementById("closeAnnouncement");
-if (localStorage.getItem("announcementClosed") === "true") announcementBar.style.display = "none";
-closeAnnouncement.addEventListener("click", () => {
+if (announcementBar && localStorage.getItem("announcementClosed") === "true") announcementBar.style.display = "none";
+if(closeAnnouncement) closeAnnouncement.addEventListener("click", () => {
   announcementBar.style.display = "none";
   localStorage.setItem("announcementClosed", "true");
 });
 
 const cookieNotice = document.getElementById("cookieNotice");
 const cookieAccept = document.getElementById("cookieAccept");
-if (!localStorage.getItem("cookieAccepted")) cookieNotice.style.display = "flex";
-cookieAccept.addEventListener("click", () => {
+if (cookieNotice && !localStorage.getItem("cookieAccepted")) cookieNotice.style.display = "flex";
+if(cookieAccept) cookieAccept.addEventListener("click", () => {
   localStorage.setItem("cookieAccepted", "true");
   cookieNotice.style.display = "none";
 });
@@ -1948,18 +2398,20 @@ window.addEventListener("scroll", () => {
   const st = window.scrollY;
   const dh = document.documentElement.scrollHeight - window.innerHeight;
   const p = dh > 0 ? (st / dh) * 100 : 0;
-  document.getElementById("scrollProgress").style.width = p + "%";
-  backToTop.style.display = st > 400 ? "flex" : "none";
+  const sp=document.getElementById("scrollProgress"); if(sp) sp.style.width = p + "%";
+  if(backToTop) backToTop.style.display = st > 400 ? "flex" : "none";
 });
-backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+if(backToTop) backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-document.getElementById("quickActionsToggle").addEventListener("click", () => {
+const qat=document.getElementById("quickActionsToggle");
+if(qat) qat.addEventListener("click", () => {
   document.getElementById("quickActions").classList.toggle("active");
 });
 
 let toastTimeout;
 function showToast(msg) {
   const t = document.getElementById("toastNotification");
+  if(!t)return;
   t.textContent = msg;
   t.classList.add("show");
   clearTimeout(toastTimeout);
@@ -1971,6 +2423,7 @@ function shareWebsite() {
   if (navigator.share) navigator.share(d).catch(() => {});
   else navigator.clipboard.writeText(window.location.href).then(() => showToast("🔗 Link copied!"));
 }
+window.shareWebsite=shareWebsite;
 
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-copy-text]");
@@ -2005,30 +2458,20 @@ async function ensurePublicProfile(user) {
   const profileSnap = await profileRef.get();
   if (profileSnap.exists && profileSnap.data().username) {
     const existing = profileSnap.data();
-    await userRef.set({
-      username: existing.username,
-      bio: existing.bio || ""
-    }, { merge: true });
+    await userRef.set({username: existing.username, bio: existing.bio || ""},{ merge: true });
     return existing;
   }
-
   const base = usernameBaseFromName(user.displayName || "user");
   let chosen = base;
   let found = false;
   for (let i = 0; i < 100; i++) {
     const candidate = i === 0 ? base : (base.slice(0, 27) + i).slice(0, 30);
     const snap = await db.collection("usernames").doc(candidate).get();
-    if (!snap.exists || snap.data().uid === user.uid) {
-      chosen = candidate;
-      found = true;
-      break;
-    }
+    if (!snap.exists || snap.data().uid === user.uid) { chosen = candidate; found = true; break; }
   }
   if (!found) throw new Error("Could not create a unique username");
-
   const profile = {
-    uid: user.uid,
-    username: chosen,
+    uid: user.uid, username: chosen,
     displayName: user.displayName || "User",
     photoURL: user.photoURL || "",
     bio: "",
@@ -2038,8 +2481,7 @@ async function ensurePublicProfile(user) {
   const batch = db.batch();
   batch.set(profileRef, profile, { merge: true });
   batch.set(db.collection("usernames").doc(chosen), {
-    uid: user.uid,
-    username: chosen,
+    uid: user.uid, username: chosen,
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true });
   batch.set(userRef, { username: chosen, bio: "" }, { merge: true });
@@ -2067,31 +2509,21 @@ async function saveProfileIdentity() {
     await db.runTransaction(async (tx) => {
       const newUsernameRef = db.collection("usernames").doc(newUsername);
       const newUsernameSnap = await tx.get(newUsernameRef);
-      if (newUsernameSnap.exists && newUsernameSnap.data().uid !== currentUser.uid) {
-        throw new Error("USERNAME_TAKEN");
-      }
+      if (newUsernameSnap.exists && newUsernameSnap.data().uid !== currentUser.uid) throw new Error("USERNAME_TAKEN");
       if (oldUsername && oldUsername !== newUsername) {
         const oldUsernameRef = db.collection("usernames").doc(oldUsername);
         const oldUsernameSnap = await tx.get(oldUsernameRef);
         if (oldUsernameSnap.exists && oldUsernameSnap.data().uid === currentUser.uid) tx.delete(oldUsernameRef);
       }
-      tx.set(newUsernameRef, {
-        uid: currentUser.uid,
-        username: newUsername,
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
+      tx.set(newUsernameRef, { uid: currentUser.uid, username: newUsername, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
       tx.set(profileRef, {
-        uid: currentUser.uid,
-        username: newUsername,
+        uid: currentUser.uid, username: newUsername,
         displayName: currentUser.displayName || "User",
         photoURL: (profileSnap.exists && profileSnap.data().photoURL) || currentUser.photoURL || "",
         bio: newBio,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       }, { merge: true });
-      tx.set(db.collection("users").doc(currentUser.uid), {
-        username: newUsername,
-        bio: newBio
-      }, { merge: true });
+      tx.set(db.collection("users").doc(currentUser.uid), { username: newUsername, bio: newBio }, { merge: true });
     });
     await loadProfileIdentity();
     document.getElementById("profileEditCard").hidden = true;
@@ -2126,14 +2558,147 @@ async function loadProfileIdentity() {
 }
 
 function initProfileIdentityUI() {
-  document.getElementById("editProfileBtn").addEventListener("click", async () => {
+  const eb=document.getElementById("editProfileBtn");
+  const ce=document.getElementById("cancelProfileEdit");
+  const sp=document.getElementById("saveProfileBtn");
+  if(eb) eb.addEventListener("click", async () => {
     await loadProfileIdentity();
     document.getElementById("profileEditCard").hidden = false;
   });
-  document.getElementById("cancelProfileEdit").addEventListener("click", () => {
-    document.getElementById("profileEditCard").hidden = true;
+  if(ce) ce.addEventListener("click", () => { document.getElementById("profileEditCard").hidden = true; });
+  if(sp) sp.addEventListener("click", saveProfileIdentity);
+}
+
+/* ============ IG PROFILE — Followers/Following Modal + Share + Posts Tabs ============ */
+async function openIgList(kind){
+  if(!currentUser){showToast("🔐 Login karein");return;}
+  const overlay = document.getElementById("igListOverlay");
+  const title = document.getElementById("igListTitle");
+  const content = document.getElementById("igListContent");
+  if(!overlay||!title||!content)return;
+
+  overlay.classList.add("show");
+  title.textContent = kind === "followers" ? "Followers" : "Following";
+  content.innerHTML = '<p style="color:#888;text-align:center;padding:30px">Loading...</p>';
+
+  try {
+    let snap;
+    if(kind === "followers"){
+      snap = await db.collection("follows").where("to","==",currentUser.uid).limit(100).get();
+    } else {
+      snap = await db.collection("follows").where("from","==",currentUser.uid).limit(100).get();
+    }
+    if(snap.empty){
+      content.innerHTML = '<div class="ig-list-empty"><span class="big-icon">'+(kind==="followers"?"👥":"👤")+'</span>'+(kind==="followers"?"Abhi koi follower nahi.":"Aap kisi ko follow nahi karte.")+'</div>';
+      return;
+    }
+    const rows = [];
+    for(const doc of snap.docs){
+      const d = doc.data();
+      const otherUid = kind === "followers" ? d.from : d.to;
+      if(!otherUid) continue;
+      const ps = await db.collection("publicProfiles").doc(otherUid).get();
+      if(ps.exists) rows.push({ uid: otherUid, ...ps.data() });
+    }
+    if(rows.length === 0){
+      content.innerHTML = '<div class="ig-list-empty"><span class="big-icon">👥</span>Koi user nahi mila.</div>';
+      return;
+    }
+    const followStatuses = {};
+    if(kind === "followers"){
+      const myFollowingSnap = await db.collection("follows").where("from","==",currentUser.uid).get();
+      const myFollowing = new Set();
+      myFollowingSnap.forEach(d => myFollowing.add(d.data().to));
+      rows.forEach(r => { followStatuses[r.uid] = myFollowing.has(r.uid); });
+    } else {
+      rows.forEach(r => { followStatuses[r.uid] = true; });
+    }
+    content.innerHTML = rows.map(r => `
+      <div class="ig-user-row">
+        <img src="${escapeAttr(avatarFor(r))}" alt="">
+        <div class="ig-user-meta">
+          <div class="ig-user-name">${escapeHtml(r.displayName||"User")}</div>
+          <div class="ig-user-username">@${escapeHtml(r.username||"user")}</div>
+        </div>
+        <button type="button" class="ig-user-action ${followStatuses[r.uid]?"secondary":""}" data-follow-toggle="${escapeAttr(r.uid)}" data-following="${followStatuses[r.uid]?"1":"0"}">
+          ${followStatuses[r.uid] ? "Following" : "Follow"}
+        </button>
+      </div>
+    `).join("");
+    content.querySelectorAll("[data-follow-toggle]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const uid = btn.getAttribute("data-follow-toggle");
+        const wasFollowing = btn.getAttribute("data-following") === "1";
+        btn.disabled = true;
+        try {
+          if(wasFollowing){
+            await db.collection("follows").doc(followId(currentUser.uid, uid)).delete();
+            btn.textContent = "Follow"; btn.setAttribute("data-following","0"); btn.classList.remove("secondary");
+          } else {
+            await db.collection("follows").doc(followId(currentUser.uid, uid)).set({
+              from:currentUser.uid, to:uid,
+              createdAt:firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
+            btn.textContent = "Following"; btn.setAttribute("data-following","1"); btn.classList.add("secondary");
+          }
+          await loadFollowCounts();
+        } catch(e){ console.error(e); showToast("❌ Follow update failed"); }
+        finally { btn.disabled = false; }
+      });
+    });
+  } catch(e){
+    console.error(e);
+    content.innerHTML = '<p style="color:#e63946;text-align:center;padding:30px">Load failed.</p>';
+  }
+}
+function closeIgList(){
+  const overlay = document.getElementById("igListOverlay");
+  if(overlay) overlay.classList.remove("show");
+}
+function shareUserProfile(){
+  if(!currentUser){showToast("🔐 Login karein");return;}
+  const usernameEl = document.getElementById("profileUsername");
+  const username = usernameEl ? usernameEl.textContent.replace("@","").trim() : "";
+  const shareUrl = "https://upcomedyhub.github.io/?u=" + encodeURIComponent(username);
+  const shareText = "Check out @" + username + " on UPComedyHub!";
+  if(navigator.share){
+    navigator.share({ title:"UPComedyHub Profile", text: shareText, url: shareUrl }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(shareUrl).then(()=>showToast("🔗 Profile link copied!"));
+  }
+}
+function switchIgTab(tabName){
+  document.querySelectorAll(".ig-tab").forEach(t =>
+    t.classList.toggle("active", t.getAttribute("data-ig-tab") === tabName)
+  );
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid) return;
+  if(tabName === "posts"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi. Jald aa raha hai! 🚀</div>';
+  } else if(tabName === "liked"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">❤️</span>Liked videos jald yahan dikhengi! 🚀</div>';
+  } else if(tabName === "saved"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🔖</span>Saved videos jald yahan dikhengi! 🚀</div>';
+  }
+}
+function initIgProfileUI(){
+  const followersBtn = document.getElementById("statFollowersClick");
+  const followingBtn = document.getElementById("statFollowingClick");
+  const closeBtn = document.getElementById("igListClose");
+  const overlay = document.getElementById("igListOverlay");
+  const shareBtn = document.getElementById("shareProfileBtn");
+  if(followersBtn) followersBtn.addEventListener("click", ()=>openIgList("followers"));
+  if(followingBtn) followingBtn.addEventListener("click", ()=>openIgList("following"));
+  if(closeBtn) closeBtn.addEventListener("click", closeIgList);
+  if(overlay) overlay.addEventListener("click", e=>{ if(e.target === overlay) closeIgList(); });
+  if(shareBtn) shareBtn.addEventListener("click", shareUserProfile);
+  document.querySelectorAll(".ig-tab").forEach(tab => {
+    tab.addEventListener("click", () => switchIgTab(tab.getAttribute("data-ig-tab")));
   });
-  document.getElementById("saveProfileBtn").addEventListener("click", saveProfileIdentity);
 }
 
 /* ============ AUTH ============ */
@@ -2160,7 +2725,8 @@ auth.onAuthStateChanged(async (user) => {
     }
   } else {
     if(notificationsUnsubscribe){notificationsUnsubscribe();notificationsUnsubscribe=null;}
-    notificationsCache=[]; updateNotificationBadge(); const mb=document.getElementById("messageBadge"); if(mb)mb.style.display="none";
+    notificationsCache=[]; updateNotificationBadge();
+    const mb=document.getElementById("messageBadge"); if(mb)mb.style.display="none";
     userLikedVideos.clear(); userSavedVideos.clear();
     document.getElementById("adminTabBtn").style.display = "none";
     const adminPane = document.getElementById("tab-admin");
@@ -2188,10 +2754,7 @@ async function loadAllLikes() {
     snap.forEach(doc => {
       const d = doc.data();
       if (!likesByVideo[d.videoId]) likesByVideo[d.videoId] = [];
-      likesByVideo[d.videoId].push({
-        userId: d.userId,
-        userName: d.userName || "User"
-      });
+      likesByVideo[d.videoId].push({ userId: d.userId, userName: d.userName || "User" });
     });
     refreshAllVideoActions();
     refreshLikesLinks();
@@ -2200,8 +2763,10 @@ async function loadAllLikes() {
 
 /* ============ LIKES MODAL ============ */
 const likesOverlay = document.getElementById("likesOverlay");
-document.getElementById("likesClose").addEventListener("click", () => likesOverlay.classList.remove("show"));
-likesOverlay.addEventListener("click", (e) => { if (e.target === likesOverlay) likesOverlay.classList.remove("show"); });
+if(likesOverlay){
+  const lc=document.getElementById("likesClose"); if(lc)lc.addEventListener("click", () => likesOverlay.classList.remove("show"));
+  likesOverlay.addEventListener("click", (e) => { if (e.target === likesOverlay) likesOverlay.classList.remove("show"); });
+}
 
 function showLikesList(vid) {
   const list = document.getElementById("likesList");
@@ -2220,7 +2785,8 @@ function showLikesList(vid) {
 }
 
 /* ============ LOGIN/LOGOUT ============ */
-document.getElementById("googleLoginBtn").addEventListener("click", async () => {
+const glb=document.getElementById("googleLoginBtn");
+if(glb) glb.addEventListener("click", async () => {
   try {
     await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     showToast("✅ Login successful!");
@@ -2229,11 +2795,13 @@ document.getElementById("googleLoginBtn").addEventListener("click", async () => 
     showToast("❌ " + (e.code || "Login failed"));
   }
 });
-document.getElementById("logoutBtn").addEventListener("click", async () => {
+const lob=document.getElementById("logoutBtn");
+if(lob) lob.addEventListener("click", async () => {
   await auth.signOut();
   showToast("👋 Logged out");
 });
 
+/* ============ PROFILE PHOTO ============ */
 function fileToDataURL(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -2242,11 +2810,9 @@ function fileToDataURL(file) {
     reader.readAsDataURL(file);
   });
 }
-
 function canvasToBlob(canvas, type, quality) {
   return new Promise(resolve => canvas.toBlob(resolve, type, quality));
 }
-
 async function compressProfilePhoto(file) {
   const dataUrl = await fileToDataURL(file);
   const img = new Image();
@@ -2255,19 +2821,15 @@ async function compressProfilePhoto(file) {
     img.onerror = () => reject(new Error("PHOTO_DECODE_FAILED"));
     img.src = dataUrl;
   });
-
   const maxSide = 256;
   const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
   const width = Math.max(1, Math.round((img.naturalWidth || img.width) * scale));
   const height = Math.max(1, Math.round((img.naturalHeight || img.height) * scale));
   const canvas = document.createElement("canvas");
-  canvas.width = width;
-  canvas.height = height;
+  canvas.width = width; canvas.height = height;
   const ctx = canvas.getContext("2d", { alpha: false });
-  ctx.fillStyle = "#ffffff";
-  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, width, height);
   ctx.drawImage(img, 0, 0, width, height);
-
   let quality = 0.82;
   let blob = await canvasToBlob(canvas, "image/jpeg", quality);
   while (blob && blob.size > 280 * 1024 && quality > 0.45) {
@@ -2281,24 +2843,20 @@ async function compressProfilePhoto(file) {
 async function uploadProfilePhoto(file) {
   if (!currentUser || !file) return;
   const input = document.getElementById("profilePhotoInput");
-  const btn = document.querySelector(".profile-photo-btn");
+  const imgEl = document.getElementById("userPhoto");
   if (!file.type || !["image/jpeg","image/png","image/webp"].includes(file.type)) {
     showToast("❌ Sirf JPG, PNG ya WebP photo allowed hai");
-    if (input) input.value = "";
-    return;
+    if (input) input.value = ""; return;
   }
   if (file.size > 5 * 1024 * 1024) {
     showToast("❌ Original photo 5 MB se chhoti honi chahiye");
-    if (input) input.value = "";
-    return;
+    if (input) input.value = ""; return;
   }
-  if (btn) { btn.textContent = "Processing..."; btn.style.pointerEvents = "none"; }
+  if (imgEl) imgEl.style.opacity = "0.5";
   try {
     const photoData = await compressProfilePhoto(file);
-    if (btn) btn.textContent = "Saving...";
     await db.collection("publicProfiles").doc(currentUser.uid).set({
-      uid: currentUser.uid,
-      photoURL: photoData,
+      uid: currentUser.uid, photoURL: photoData,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
     await db.collection("users").doc(currentUser.uid).set({
@@ -2306,8 +2864,7 @@ async function uploadProfilePhoto(file) {
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true });
     currentProfilePhotoURL = photoData;
-    const photoEl = document.getElementById("userPhoto");
-    if (photoEl) photoEl.src = photoData;
+    if (imgEl) imgEl.src = photoData;
     showToast("✅ Profile photo updated!");
   } catch (e) {
     console.error("Profile photo save failed:", e);
@@ -2316,7 +2873,7 @@ async function uploadProfilePhoto(file) {
       : "❌ Photo save failed. Internet ya Firestore Rules check karo.";
     showToast(msg);
   } finally {
-    if (btn) { btn.textContent = "📷 Change Photo"; btn.style.pointerEvents = "auto"; }
+    if (imgEl) imgEl.style.opacity = "1";
     if (input) input.value = "";
   }
 }
@@ -2324,8 +2881,7 @@ async function uploadProfilePhoto(file) {
 async function removeProfilePhoto() {
   if (!currentUser) return;
   try {
-    const googlePhoto = currentUser.providerData && currentUser.providerData[0]
-      ? (currentUser.providerData[0].photoURL || "") : "";
+    const googlePhoto = currentUser.providerData && currentUser.providerData[0] ? (currentUser.providerData[0].photoURL || "") : "";
     await db.collection("publicProfiles").doc(currentUser.uid).set({
       photoURL: googlePhoto,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -2365,15 +2921,18 @@ function updateProfileUI() {
   } else { lo.style.display = "block"; li.style.display = "none"; }
 }
 
+/* Init all UI */
 initProfileIdentityUI();
 initProfilePhotoUI();
 initCommunityUI();
+initIgProfileUI();
 
 /* ============ FETCH REELS ============ */
 (function fetchReels() {
   const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
   const grid = document.getElementById("reelsGrid");
+  if(!grid) return;
   grid.innerHTML = '<div class="card"><p>⏳ Loading Shorts...</p></div>';
 
   fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=" + CHANNEL_ID + "&key=" + API_KEY)
@@ -2421,10 +2980,8 @@ initCommunityUI();
         </div>`;
       grid.appendChild(card);
     });
-    refreshAllVideoActions();
-    refreshLikesLinks();
-    createNewVideoNotifications();
-    updateNotificationBadge();
+    refreshAllVideoActions(); refreshLikesLinks();
+    createNewVideoNotifications(); updateNotificationBadge();
   }
 })();
 
@@ -2435,23 +2992,16 @@ async function appendManualShortsToReels() {
     if (!grid) return;
     const snap = await db.collection("manualVideos").where("category", "==", "shorts").get();
     if (snap.empty) return;
-
     const docs = snap.docs.sort((a, b) => {
       const ta = a.data().createdAt?.seconds || 0;
       const tb = b.data().createdAt?.seconds || 0;
       return tb - ta;
     });
-
-    const alreadyRendered = new Set(
-      Array.from(grid.querySelectorAll('.video-card[data-manual="1"]'))
-        .map(c => c.getAttribute("data-video-id"))
-    );
-
+    const alreadyRendered = new Set(Array.from(grid.querySelectorAll('.video-card[data-manual="1"]')).map(c => c.getAttribute("data-video-id")));
     docs.forEach(doc => {
       const d = doc.data();
       const vid = d.videoId;
       if (!vid || alreadyRendered.has(vid)) return;
-
       allVideos[vid] = { title: d.title, category: "shorts", _manual: true };
       const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
       const card = document.createElement("div");
@@ -2472,10 +3022,8 @@ async function appendManualShortsToReels() {
         </div>`;
       grid.appendChild(card);
     });
-    refreshAllVideoActions();
-    refreshLikesLinks();
-    createNewVideoNotifications();
-    updateNotificationBadge();
+    refreshAllVideoActions(); refreshLikesLinks();
+    createNewVideoNotifications(); updateNotificationBadge();
   } catch (e) { console.error(e); }
 }
 
@@ -2490,7 +3038,6 @@ async function loadManualVideos() {
   const grid = document.getElementById("videosGrid");
   if (!grid) return;
   grid.innerHTML = "";
-
   const hardcoded = [
     { title: "UPComedyHub Video 1", videoId: "Hmmgh9V8tmM", category: "long" },
     { title: "UPComedyHub Video 2", videoId: "YdM3e4HICew", category: "long" }
@@ -2516,7 +3063,6 @@ async function loadManualVideos() {
       </div>`;
     grid.appendChild(card);
   });
-
   try {
     const snap = await db.collection("manualVideos").where("category", "==", "long").get();
     if (!snap.empty) {
@@ -2549,14 +3095,9 @@ async function loadManualVideos() {
         grid.appendChild(card);
       });
     }
-  } catch (e) {
-    console.warn("Manual videos load fail (hardcoded still shown):", e);
-  }
-
-  refreshAllVideoActions();
-  refreshLikesLinks();
-  createNewVideoNotifications();
-  updateNotificationBadge();
+  } catch (e) { console.warn("Manual videos load fail:", e); }
+  refreshAllVideoActions(); refreshLikesLinks();
+  createNewVideoNotifications(); updateNotificationBadge();
 }
 
 /* ============ LIKES LINKS ============ */
@@ -2567,19 +3108,12 @@ function refreshLikesLinks() {
     if (count > 0) {
       el.textContent = "❤️ " + count + (count === 1 ? " person liked this" : " people liked this");
       el.classList.add("show");
-    } else {
-      el.classList.remove("show");
-    }
+    } else { el.classList.remove("show"); }
   });
 }
-
 document.addEventListener("click", (e) => {
   const likesLink = e.target.closest(".video-likes-link");
-  if (likesLink) {
-    e.stopPropagation();
-    showLikesList(likesLink.getAttribute("data-vid"));
-    return;
-  }
+  if (likesLink) { e.stopPropagation(); showLikesList(likesLink.getAttribute("data-vid")); return; }
 });
 
 /* ============ PLAY VIDEO ============ */
@@ -2595,13 +3129,14 @@ document.addEventListener("click", (e) => {
   iframe.allow = "accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen";
   iframe.setAttribute("allowfullscreen","");
   thumb.innerHTML = ""; thumb.appendChild(iframe);
-  const fs=document.createElement("button"); fs.type="button"; fs.className="video-fullscreen-btn"; fs.title="Fullscreen"; fs.setAttribute("aria-label","Fullscreen"); fs.textContent="⛶";
+  const fs=document.createElement("button");
+  fs.type="button"; fs.className="video-fullscreen-btn"; fs.title="Fullscreen"; fs.setAttribute("aria-label","Fullscreen"); fs.textContent="⛶";
   fs.addEventListener("click",async ev=>{
     ev.stopPropagation();
     const target=thumb;
     target.classList.add("video-fs");
-    try{ if(target.requestFullscreen) await target.requestFullscreen(); else if(iframe.requestFullscreen) await iframe.requestFullscreen(); }catch(err){ console.warn("Fullscreen request failed",err); }
-    try{ if(screen.orientation && screen.orientation.lock) await screen.orientation.lock("landscape"); }catch(err){ /* mobile browsers may not allow orientation lock */ }
+    try{ if(target.requestFullscreen) await target.requestFullscreen(); else if(iframe.requestFullscreen) await iframe.requestFullscreen(); }catch(err){}
+    try{ if(screen.orientation && screen.orientation.lock) await screen.orientation.lock("landscape"); }catch(err){}
   });
   const exitFs=()=>{
     if(!document.fullscreenElement) { thumb.classList.remove("video-fs","landscape-lock"); try{screen.orientation?.unlock?.();}catch(e){} }
@@ -2654,9 +3189,7 @@ async function toggleLike(vid) {
     if (d.exists) {
       await ref.delete();
       userLikedVideos.delete(vid);
-      if (likesByVideo[vid]) {
-        likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
-      }
+      if (likesByVideo[vid]) likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
       showToast("🤍 Like removed");
     } else {
       await ref.set({ userId:currentUser.uid, videoId:vid, userName:currentUser.displayName||"User", createdAt:firebase.firestore.FieldValue.serverTimestamp() });
@@ -2666,8 +3199,7 @@ async function toggleLike(vid) {
       showToast("❤️ Liked!");
       await createNotification(ADMIN_UID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked a video.",{videoId:vid});
     }
-    refreshAllVideoActions();
-    updateProfileUI();
+    refreshAllVideoActions(); updateProfileUI();
   } catch (e) { showToast("❌ Error"); console.error(e); }
 }
 
@@ -2683,9 +3215,12 @@ async function toggleSave(vid) {
 
 /* ============ COMMENTS ============ */
 const commentsOverlay = document.getElementById("commentsOverlay");
-document.getElementById("commentsClose").addEventListener("click", closeComments);
-commentsOverlay.addEventListener("click", (e) => { if (e.target === commentsOverlay) closeComments(); });
-function closeComments() { commentsOverlay.classList.remove("show"); currentCommentsVideoId = null; }
+if(commentsOverlay){
+  const cc=document.getElementById("commentsClose"); if(cc)cc.addEventListener("click", closeComments);
+  commentsOverlay.addEventListener("click", (e) => { if (e.target === commentsOverlay) closeComments(); });
+}
+function closeComments() { if(commentsOverlay) commentsOverlay.classList.remove("show"); currentCommentsVideoId = null; }
+window.closeComments=closeComments;
 
 async function openComments(vid) {
   currentCommentsVideoId = vid;
@@ -2711,7 +3246,6 @@ async function loadComments(vid) {
       const tb = b.data().createdAt?.seconds || 0;
       return tb - ta;
     }).slice(0, 100);
-
     if (docs.length === 0) {
       list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>";
       return;
@@ -2748,7 +3282,6 @@ async function postComment() {
     let myCount = 0;
     us.forEach(d => { if (d.data().userId === currentUser.uid) myCount++; });
     if (myCount >= 5) { showToast("⚠️ Max 5 comments"); return; }
-
     await db.collection("comments").add({
       videoId: currentCommentsVideoId, userId: currentUser.uid,
       userName: currentUser.displayName || "User", userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
@@ -2759,20 +3292,6 @@ async function postComment() {
   } catch (e) { showToast("❌ Error"); console.error(e); }
 }
 
-/* ============ NOTIFICATIONS ============ */
-const bellBtn = document.getElementById("bellBtn");
-bellBtn.addEventListener("click", e=>{e.stopPropagation();openNotifications();});
-function createNewVideoNotifications(){
-  if(!currentUser)return;
-  const seenKey="upchSeenVideos";
-  const seen=JSON.parse(localStorage.getItem(seenKey)||"[]");
-  const fresh=Object.entries(allVideos).filter(([id])=>!seen.includes(id));
-  if(fresh.length){
-    const next=seen.concat(fresh.map(([id])=>id)).slice(-200); localStorage.setItem(seenKey,JSON.stringify(next));
-    fresh.slice(0,10).forEach(([id,v])=>createNotification(currentUser.uid,"new_video","🎬 New "+(v.category==="shorts"?"Short":"Video"),v.title||"A new video is available.",{videoId:id,category:v.category,expiresAt:firebase.firestore.Timestamp.fromDate(new Date(Date.now()+24*60*60*1000))}));
-  }
-}
-document.addEventListener("click",e=>{if(e.target.closest(".notifications-overlay"))return;});
 /* ============ SEARCH ============ */
 const tsi = document.getElementById("tabSearchInput");
 let peopleSearchTimer=null;
@@ -2818,7 +3337,8 @@ document.querySelectorAll(".amount-btn").forEach(btn => {
     p.textContent = selectedAmount === "" ? "💳 Pay Custom Amount" : "💳 Pay ₹" + selectedAmount + " via UPI";
   });
 });
-document.getElementById("upiPayBtn").addEventListener("click", () => {
+const upiBtn=document.getElementById("upiPayBtn");
+if(upiBtn) upiBtn.addEventListener("click", () => {
   let link = "upi://pay?pa=" + encodeURIComponent(UPI_ID) + "&pn=" + encodeURIComponent(UPI_NAME) + "&cu=INR";
   if (selectedAmount !== "") link += "&am=" + selectedAmount;
   window.location.href = link;
@@ -2852,6 +3372,7 @@ function addRV(sec) {
   updateRV();
 }
 function updateRV() {
+  if(!rvList) return;
   rvList.innerHTML = "";
   if (rv.length === 0) { rvEmpty.style.display = "block"; return; }
   rvEmpty.style.display = "none";
@@ -2872,10 +3393,8 @@ updateRV();
 async function loadAdminStats() {
   try {
     const [users, comments, likes, saves] = await Promise.all([
-      db.collection("users").get(),
-      db.collection("comments").get(),
-      db.collection("likes").get(),
-      db.collection("saves").get()
+      db.collection("users").get(), db.collection("comments").get(),
+      db.collection("likes").get(), db.collection("saves").get()
     ]);
     document.getElementById("statTotalUsers").textContent = users.size;
     document.getElementById("statTotalComments").textContent = comments.size;
@@ -2910,7 +3429,8 @@ async function loadAdminConfig() {
   } catch (e) { console.error(e); }
 }
 
-document.getElementById("saveFanBtn").addEventListener("click", async () => {
+const sfBtn=document.getElementById("saveFanBtn");
+if(sfBtn) sfBtn.addEventListener("click", async () => {
   try {
     await db.collection("admin_config").doc("fan_of_week").set({
       name: document.getElementById("adminFanName").value.trim(),
@@ -2939,7 +3459,8 @@ async function broadcastAdminNotification(type,title,text,extra={}){
   }catch(e){console.error("Broadcast notification failed",e);}
 }
 
-document.getElementById("saveAnnounceBtn").addEventListener("click", async () => {
+const saBtn=document.getElementById("saveAnnounceBtn");
+if(saBtn) saBtn.addEventListener("click", async () => {
   try {
     await db.collection("admin_config").doc("announcement").set({
       text: document.getElementById("adminAnnounceText").value.trim(),
@@ -2952,7 +3473,8 @@ document.getElementById("saveAnnounceBtn").addEventListener("click", async () =>
   } catch (e) { showToast("❌ Save failed"); console.error(e); }
 });
 
-document.getElementById("saveNoticeBtn").addEventListener("click", async () => {
+const snBtn=document.getElementById("saveNoticeBtn");
+if(snBtn) snBtn.addEventListener("click", async () => {
   try {
     await db.collection("admin_config").doc("notice").set({
       title: document.getElementById("adminNoticeTitle").value.trim(),
@@ -2965,7 +3487,8 @@ document.getElementById("saveNoticeBtn").addEventListener("click", async () => {
   } catch (e) { showToast("❌ Save failed"); console.error(e); }
 });
 
-document.getElementById("addVideoBtn").addEventListener("click", async () => {
+const avBtn=document.getElementById("addVideoBtn");
+if(avBtn) avBtn.addEventListener("click", async () => {
   const title = document.getElementById("adminVideoTitle").value.trim();
   const vid = document.getElementById("adminVideoId").value.trim();
   const cat = document.getElementById("adminVideoCat").value;
@@ -2978,8 +3501,7 @@ document.getElementById("addVideoBtn").addEventListener("click", async () => {
     document.getElementById("adminVideoTitle").value = "";
     document.getElementById("adminVideoId").value = "";
     showToast("✅ Video added!");
-    loadManualVideosList();
-    loadManualVideos();
+    loadManualVideosList(); loadManualVideos();
     if (cat === "shorts") refreshManualShorts();
   } catch (e) { showToast("❌ Error"); console.error(e); }
 });
@@ -3003,18 +3525,15 @@ async function loadManualVideosList() {
         if (!confirm("Delete?")) return;
         try {
           await db.collection("manualVideos").doc(b.getAttribute("data-del")).delete();
-          showToast("🗑️ Deleted");
-          loadManualVideosList();
-          loadManualVideos();
-          refreshManualShorts();
+          showToast("🗑️ Deleted"); loadManualVideosList(); loadManualVideos(); refreshManualShorts();
         } catch (e) { showToast("❌ Error"); }
       });
     });
   } catch (e) { console.error(e); }
 }
 
-/* ============ ADMIN LIKES ============ */
-document.getElementById("loadLikesBtn").addEventListener("click", async () => {
+const llBtn=document.getElementById("loadLikesBtn");
+if(llBtn) llBtn.addEventListener("click", async () => {
   const list = document.getElementById("adminLikesList");
   list.innerHTML = "<p style='color:#888;font-size:13px'>Loading...</p>";
   try {
@@ -3023,39 +3542,23 @@ document.getElementById("loadLikesBtn").addEventListener("click", async () => {
     snap.forEach(doc => {
       const d = doc.data();
       if (!grouped[d.videoId]) grouped[d.videoId] = [];
-      grouped[d.videoId].push({
-        userName: d.userName || "User",
-        userId: d.userId
-      });
+      grouped[d.videoId].push({ userName: d.userName || "User", userId: d.userId });
     });
     const videos = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length);
-    if (videos.length === 0) {
-      list.innerHTML = "<p style='color:#888;font-size:13px'>Abhi koi like nahi hua</p>";
-      return;
-    }
+    if (videos.length === 0) { list.innerHTML = "<p style='color:#888;font-size:13px'>Abhi koi like nahi hua</p>"; return; }
     list.innerHTML = "";
     videos.forEach(([vid, users]) => {
       const title = allVideos[vid] ? allVideos[vid].title : vid;
       const div = document.createElement("div");
       div.className = "admin-likes-video";
-      div.innerHTML = `
-        <div class="admin-likes-header">
-          <span>🎬 ${escapeHtml(title.slice(0, 50))}${title.length > 50 ? '...' : ''}</span>
-          <small>❤️ ${users.length}</small>
-        </div>
-        <div class="admin-likes-users">
-          ${users.map(u => `<span class="admin-likes-user-chip">${escapeHtml(u.userName)}</span>`).join("")}
-        </div>
-      `;
+      div.innerHTML = `<div class="admin-likes-header"><span>🎬 ${escapeHtml(title.slice(0, 50))}${title.length > 50 ? '...' : ''}</span><small>❤️ ${users.length}</small></div><div class="admin-likes-users">${users.map(u => `<span class="admin-likes-user-chip">${escapeHtml(u.userName)}</span>`).join("")}</div>`;
       list.appendChild(div);
     });
-  } catch (e) {
-    console.error(e);
-    list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>";
-  }
+  } catch (e) { console.error(e); list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>"; }
 });
 
-document.getElementById("loadUsersBtn").addEventListener("click", async () => {
+const luBtn=document.getElementById("loadUsersBtn");
+if(luBtn) luBtn.addEventListener("click", async () => {
   try {
     const snap = await db.collection("users").orderBy("lastSeen", "desc").limit(50).get();
     const list = document.getElementById("adminUsersList");
@@ -3071,7 +3574,8 @@ document.getElementById("loadUsersBtn").addEventListener("click", async () => {
   } catch (e) { showToast("❌ Error"); console.error(e); }
 });
 
-document.getElementById("loadCommentsBtn").addEventListener("click", async () => {
+const lcBtn=document.getElementById("loadCommentsBtn");
+if(lcBtn) lcBtn.addEventListener("click", async () => {
   try {
     const snap = await db.collection("comments").get();
     const docs = snap.docs.sort((a,b) => {
@@ -3095,15 +3599,15 @@ document.getElementById("loadCommentsBtn").addEventListener("click", async () =>
         if (!confirm("Delete?")) return;
         try {
           await db.collection("comments").doc(b.getAttribute("data-delc")).delete();
-          showToast("🗑️ Deleted");
-          document.getElementById("loadCommentsBtn").click();
+          showToast("🗑️ Deleted"); document.getElementById("loadCommentsBtn").click();
         } catch (e) { showToast("❌ Error"); }
       });
     });
   } catch (e) { showToast("❌ Error"); console.error(e); }
 });
 
-document.getElementById("refreshStats").addEventListener("click", loadAdminStats);
+const rsBtn=document.getElementById("refreshStats");
+if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
 
 /* ============ ADMIN CONFIG LOADERS ============ */
 async function loadFanOfWeek() {
@@ -3123,7 +3627,6 @@ async function loadFanOfWeek() {
   } catch (e) { console.error(e); }
 }
 
-/* ✅ FIXED — Announcement Bar update */
 async function loadAnnouncement() {
   try {
     const doc = await db.collection("admin_config").doc("announcement").get();
@@ -3168,11 +3671,8 @@ async function loadNotice() {
 
 window.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
-    loadFanOfWeek();
-    loadAnnouncement();
-    loadNotice();
-    loadManualVideos();
-    loadAllLikes();
+    loadFanOfWeek(); loadAnnouncement(); loadNotice();
+    loadManualVideos(); loadAllLikes();
   }, 1500);
 });
 
@@ -3186,7 +3686,7 @@ console.log("✅ UPComedyHub Loaded with all fixes");
     {q:'UPComedyHub ka main content kya hai?',o:['Cooking','Desi Comedy','News','Cricket'],a:1},
     {q:'Comedy video mein sabse important cheez kya hoti hai?',o:['Homework','Timing','Weather','Maths'],a:1},
     {q:'Funny Shorts kis platform par sabse directly milte hain?',o:['Calculator','Maps','YouTube','Calendar'],a:2},
-    {q:'\"LOL\" ka common meaning kya hai?',o:['Lots Of Lunch','Line Of Logic','Love On Line','Laughing Out Loud'],a:3},
+    {q:'"LOL" ka common meaning kya hai?',o:['Lots Of Lunch','Line Of Logic','Love On Line','Laughing Out Loud'],a:3},
     {q:'Meme ka main purpose kya hota hai?',o:['Banking','Driving','Entertainment','Shopping'],a:2},
     {q:'Punchline ka role kya hota hai?',o:['Video upload','Joke ka funny payoff','Thumbnail crop','Music download'],a:1},
     {q:'Comedy mein reaction kab useful hota hai?',o:['Password change karne ke liye','Battery charge karne ke liye','Map kholne ke liye','Funny moment ko highlight karne ke liye'],a:3},
@@ -3201,67 +3701,82 @@ console.log("✅ UPComedyHub Loaded with all fixes");
   ];
   let quizIndex=0, quizScore=0;
   function hidePanels(){panels.forEach(p=>p.classList.remove('active'));}
-  function openPanel(id){hidePanels(); $(id).classList.add('active');}
+  function openPanel(id){hidePanels(); const el=$(id); if(el) el.classList.add('active');}
   function renderQuiz(){
-    const p=$('funQuizPanel'), item=quizData[quizIndex];
+    const p=$('funQuizPanel'); if(!p) return;
+    const item=quizData[quizIndex];
     if(!item){
       const best=Math.max(Number(localStorage.getItem('upchBestQuiz')||0),quizScore);
-      localStorage.setItem('upchBestQuiz',best); $('funBestQuiz').textContent=best; upchAddXP(quizScore*10); upchSaveLocalScore(quizScore, 'Quiz');
+      localStorage.setItem('upchBestQuiz',best);
+      const fq=$('funBestQuiz'); if(fq) fq.textContent=best;
+      upchAddXP(quizScore*10); upchSaveLocalScore(quizScore, 'Quiz');
       p.innerHTML='<div class="fun-question">🏆 Quiz Complete!</div><p class="fun-result">Tumhara score: '+quizScore+'/'+quizData.length+' 🔥</p><button type="button" class="fun-small-btn" id="quizAgain">🔄 Play Again</button>';
       $('quizAgain').onclick=()=>{quizIndex=0;quizScore=0;renderQuiz();}; return;
     }
     p.innerHTML='<div class="fun-question">Q'+(quizIndex+1)+'/'+quizData.length+' — '+item.q+'</div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="quizResult"></div>';
     p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{
       p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);
-      const i=Number(btn.dataset.i); if(i===item.a){quizScore++; upchAddXP(5);btn.classList.add('correct');$('quizResult').textContent='✅ Sahi jawab!';}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('quizResult').textContent='😅 Next time!';}
+      const i=Number(btn.dataset.i);
+      if(i===item.a){quizScore++; upchAddXP(5);btn.classList.add('correct');$('quizResult').textContent='✅ Sahi jawab!';}
+      else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('quizResult').textContent='😅 Next time!';}
       setTimeout(()=>{quizIndex++;renderQuiz();},650);
     });
   }
   function renderGuess(){
-    const p=$('funGuessPanel'); let idx=Number(p.dataset.idx||0); const item=guessData[idx];
+    const p=$('funGuessPanel'); if(!p)return;
+    let idx=Number(p.dataset.idx||0);
+    const item=guessData[idx];
     if(!item){p.innerHTML='<div class="fun-question">🎬 Guess Game Complete!</div><p class="fun-result">Nice! 😎</p><button type="button" class="fun-small-btn" id="guessAgain">🔄 Play Again</button>';p.querySelector('#guessAgain').onclick=()=>{p.dataset.idx=0;renderGuess();};return;}
     p.innerHTML='<div class="fun-question">'+item.q+'</div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="guessResult"></div>';
-    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);const i=Number(btn.dataset.i);if(i===item.a){btn.classList.add('correct');$('guessResult').textContent='😂 Correct!';upchAddXP(5);}else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('guessResult').textContent='😅 Close!';}setTimeout(()=>{p.dataset.idx=idx+1;renderGuess();},650);});
+    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick=()=>{
+      p.querySelectorAll('.fun-option').forEach(b=>b.disabled=true);
+      const i=Number(btn.dataset.i);
+      if(i===item.a){btn.classList.add('correct');$('guessResult').textContent='😂 Correct!';upchAddXP(5);}
+      else{btn.classList.add('wrong');p.querySelectorAll('.fun-option')[item.a].classList.add('correct');$('guessResult').textContent='😅 Close!';}
+      setTimeout(()=>{p.dataset.idx=idx+1;renderGuess();},650);
+    });
   }
   function setupReaction(){
-    const p=$('funReactionPanel');
+    const p=$('funReactionPanel'); if(!p)return;
     p.innerHTML='<div class="fun-question">⚡ Reaction Test</div><div class="reaction-box"><p id="reactionStatus" style="margin-bottom:12px;font-weight:800">Ready?</p><button type="button" id="reactionBtn" class="ready">START</button></div><div class="fun-result" id="reactionResult"></div>';
-    let start=0,timer=null,state='idle'; const b=$('reactionBtn'),status=$('reactionStatus'),res=$('reactionResult');
+    let start=0,timer=null,state='idle';
+    const b=$('reactionBtn'),status=$('reactionStatus'),res=$('reactionResult');
     b.onclick=()=>{
       if(state==='idle'){state='waiting';b.className='';b.textContent='WAIT...';status.textContent='🟡 Green hote hi tap karo!';const delay=1000+Math.random()*3000;timer=setTimeout(()=>{state='go';start=performance.now();b.className='go';b.textContent='TAP NOW!';status.textContent='🟢 GO!';},delay);}
       else if(state==='waiting'){clearTimeout(timer);state='idle';b.className='ready';b.textContent='START';status.textContent='Too soon 😅';res.textContent='Green hone ke baad tap karna hai!';}
-      else if(state==='go'){const ms=Math.round(performance.now()-start);state='idle';b.className='ready';b.textContent='START';status.textContent='🔥 Great reaction!';res.textContent='Your time: '+ms+' ms';upchAddXP(10);const old=Number(localStorage.getItem('upchBestReaction')||0);if(!old||ms<old){localStorage.setItem('upchBestReaction',ms);$('funBestReaction').textContent=ms;} }
+      else if(state==='go'){const ms=Math.round(performance.now()-start);state='idle';b.className='ready';b.textContent='START';status.textContent='🔥 Great reaction!';res.textContent='Your time: '+ms+' ms';upchAddXP(10);const old=Number(localStorage.getItem('upchBestReaction')||0);if(!old||ms<old){localStorage.setItem('upchBestReaction',ms);const fb=$('funBestReaction');if(fb)fb.textContent=ms;}}
     };
   }
   function setupSpin(){
-    const p=$('funSpinPanel');p.innerHTML='<div class="fun-question">🎡 Comedy Spin Wheel</div><div class="spin-wrap"><div id="spinWheel"><span>SPIN</span></div><button type="button" class="fun-small-btn" id="spinBtn">🎡 Spin Now</button><p class="fun-result" id="spinResult"></p></div>';
-    const results=['😂 Ek Joke sunao','🎬 Ek Short dekho','🧠 Quiz khelo','🔥 Apna score share karo','🤣 Meme caption banao','💬 Dost ko funny message bhejo','🎯 Daily challenge try karo','🏆 Leaderboard check karo'];let rot=0;
+    const p=$('funSpinPanel'); if(!p)return;
+    p.innerHTML='<div class="fun-question">🎡 Comedy Spin Wheel</div><div class="spin-wrap"><div id="spinWheel"><span>SPIN</span></div><button type="button" class="fun-small-btn" id="spinBtn">🎡 Spin Now</button><p class="fun-result" id="spinResult"></p></div>';
+    const results=['😂 Ek Joke sunao','🎬 Ek Short dekho','🧠 Quiz khelo','🔥 Apna score share karo','🤣 Meme caption banao','💬 Dost ko funny message bhejo','🎯 Daily challenge try karo','🏆 Leaderboard check karo'];
+    let rot=0;
     $('spinBtn').onclick=()=>{const wheel=$('spinWheel');const i=Math.floor(Math.random()*results.length);rot+=720+i*(360/results.length);wheel.style.transform='rotate('+rot+'deg)';setTimeout(()=>$('spinResult').textContent=results[i],1200);};
   }
   document.querySelectorAll('.fun-game-btn').forEach(btn=>btn.addEventListener('click',()=>{
     const type=btn.dataset.fun;
     if(type==='quiz'){quizIndex=0;quizScore=0;renderQuiz();openPanel('funQuizPanel');}
-    if(type==='guess'){$('funGuessPanel').dataset.idx=0;renderGuess();openPanel('funGuessPanel');}
+    if(type==='guess'){const p=$('funGuessPanel');if(p)p.dataset.idx=0;renderGuess();openPanel('funGuessPanel');}
     if(type==='reaction'){setupReaction();openPanel('funReactionPanel');}
     if(type==='spin'){setupSpin();openPanel('funSpinPanel');}
   }));
-  $('funBestQuiz').textContent=Number(localStorage.getItem('upchBestQuiz')||0);
-  $('funBestReaction').textContent=Number(localStorage.getItem('upchBestReaction')||0);
+  const fbq=$('funBestQuiz'); if(fbq)fbq.textContent=Number(localStorage.getItem('upchBestQuiz')||0);
+  const fbr=$('funBestReaction'); if(fbr)fbr.textContent=Number(localStorage.getItem('upchBestReaction')||0);
 
   const funZone=document.getElementById('profileFunZone'), funToggle=document.getElementById('funZoneToggle');
   if(funZone&&funToggle){funToggle.addEventListener('click',()=>{const open=funZone.classList.toggle('open');funToggle.textContent=open?'✕ Close Fun Zone':'🎮 Open Fun Zone';});}
 
-  /* PLAYER PROFILE + XP + DAILY CHALLENGE + LOCAL LEADERBOARD + SHARE */
   const playerKey='upchPlayerProfile';
   const player=JSON.parse(localStorage.getItem(playerKey)||'{}');
   let playerXP=Number(player.xp||0);
   function levelForXP(xp){return Math.floor(xp/100)+1;}
   function renderPlayer(){
     const name=player.name||'Player'; const level=levelForXP(playerXP); const within=playerXP%100;
-    $('funPlayerName').textContent=name+' 😎';
-    $('funPlayerMeta').textContent='Level '+level+' • '+playerXP+' XP';
-    $('funXpFill').style.width=within+'%';
-    if(player.photo) $('funPlayerAvatar').src=player.photo;
+    const pn=$('funPlayerName'); if(pn)pn.textContent=name+' 😎';
+    const pm=$('funPlayerMeta'); if(pm)pm.textContent='Level '+level+' • '+playerXP+' XP';
+    const pf=$('funXpFill'); if(pf)pf.style.width=within+'%';
+    if(player.photo){const av=$('funPlayerAvatar');if(av)av.src=player.photo;}
     localStorage.setItem(playerKey,JSON.stringify({name,photo:player.photo||'',xp:playerXP}));
   }
   window.upchAddXP=function(amount){playerXP+=Number(amount)||0;renderPlayer();};
@@ -3292,8 +3807,15 @@ console.log("✅ UPComedyHub Loaded with all fixes");
   const dayKey='upchDailyChallenge_'+new Date().toISOString().slice(0,10);
   const item=daily[Math.floor(Date.now()/86400000)%daily.length];
   const dq=$('dailyChallengeText'), box=$('dailyChallengeOptions'), ds=$('dailyChallengeStatus');
-  if(dq&&box){dq.textContent=item.q;box.innerHTML=item.o.map((x,i)=>'<button type="button" class="fun-option daily-option" data-i="'+i+'">'+x+'</button>').join('');const done=localStorage.getItem(dayKey);if(done){ds.textContent=done==='1'?'✅ Challenge complete!':'😅 Try again tomorrow!';box.querySelectorAll('button').forEach(b=>b.disabled=true);}box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=Number(b.dataset.i)===item.a;localStorage.setItem(dayKey,ok?'1':'0');if(ok)upchAddXP(15);ds.textContent=ok?'🎉 Correct! +15 XP':'😅 Not this time!';box.querySelectorAll('button').forEach(x=>{x.disabled=true;if(Number(x.dataset.i)===item.a)x.classList.add('correct');if(x===b&&!ok)x.classList.add('wrong');});});}
-  const share=$('funShareScore');if(share)share.onclick=async()=>{const level=levelForXP(playerXP);const text='😂 Maine UPComedyHub Fun Zone me Level '+level+' aur '+playerXP+' XP bana liye! 🎮 Tum bhi try karo: https://upcomedyhub.github.io/';try{if(navigator.share)await navigator.share({title:'UPComedyHub Fun Zone',text,url:'https://upcomedyhub.github.io/'});else{await navigator.clipboard.writeText(text);alert('Score copy ho gaya! Ab share kar do 😎');}}catch(e){}};
+  if(dq&&box){
+    dq.textContent=item.q;
+    box.innerHTML=item.o.map((x,i)=>'<button type="button" class="fun-option daily-option" data-i="'+i+'">'+x+'</button>').join('');
+    const done=localStorage.getItem(dayKey);
+    if(done){ds.textContent=done==='1'?'✅ Challenge complete!':'😅 Try again tomorrow!';box.querySelectorAll('button').forEach(b=>b.disabled=true);}
+    box.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=Number(b.dataset.i)===item.a;localStorage.setItem(dayKey,ok?'1':'0');if(ok)upchAddXP(15);ds.textContent=ok?'🎉 Correct! +15 XP':'😅 Not this time!';box.querySelectorAll('button').forEach(x=>{x.disabled=true;if(Number(x.dataset.i)===item.a)x.classList.add('correct');if(x===b&&!ok)x.classList.add('wrong');});});
+  }
+  const share=$('funShareScore');
+  if(share) share.onclick=async()=>{const level=levelForXP(playerXP);const text='😂 Maine UPComedyHub Fun Zone me Level '+level+' aur '+playerXP+' XP bana liye! 🎮 Tum bhi try karo: https://upcomedyhub.github.io/';try{if(navigator.share)await navigator.share({title:'UPComedyHub Fun Zone',text,url:'https://upcomedyhub.github.io/'});else{await navigator.clipboard.writeText(text);alert('Score copy ho gaya! Ab share kar do 😎');}}catch(e){}};
   renderPlayer();renderBoard();
 })();
 

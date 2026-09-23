@@ -336,6 +336,28 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .person-row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #f0f0f0}.dark-mode .person-row{border-color:#333}.person-row img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}.person-main{flex:1;min-width:0}.person-name{font-size:13px;font-weight:800}.person-username{font-size:11px;color:#e63946}.person-action{border:none;background:#111;color:#fff;padding:7px 10px;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer}.dark-mode .person-action{background:#fff;color:#111}
 .chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0}.chat-empty{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:#888;padding:30px}.chat-header{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #eee}.dark-mode .chat-header{border-color:#333}.chat-header img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#eee}.chat-header-info{flex:1;min-width:0}.chat-header-name{font-weight:800;font-size:14px}.chat-header-username{font-size:11px;color:#e63946}.chat-messages{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:8px}.chat-bubble-row{display:flex}.chat-bubble-row.mine{justify-content:flex-end}.chat-bubble{max-width:min(76%,430px);padding:9px 11px;border-radius:16px;background:#f0f0f0;color:#222;font-size:13px;position:relative;word-break:break-word}.chat-bubble-row.mine .chat-bubble{background:#e63946;color:#fff;border-bottom-right-radius:5px}.chat-bubble-row:not(.mine) .chat-bubble{border-bottom-left-radius:5px}.chat-meta{font-size:9px;opacity:.7;margin-top:4px}.reply-preview{font-size:10px;padding:6px 8px;border-left:3px solid currentColor;opacity:.75;margin-bottom:5px}.chat-tools{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap}.reaction-summary{margin-top:3px;min-height:14px;opacity:.9}.chat-tool{border:none;background:transparent;padding:1px;font-size:13px;cursor:pointer}.chat-composer{border-top:1px solid #eee;padding:10px;display:flex;gap:7px;align-items:flex-end}.dark-mode .chat-composer{border-color:#333}.chat-composer textarea{flex:1;min-height:42px;max-height:110px;resize:vertical;border:1px solid #ddd;border-radius:18px;padding:10px 12px;font:inherit;background:#fff;color:#222}.dark-mode .chat-composer textarea{background:#222;color:#fff;border-color:#444}.chat-send{border:none;background:#e63946;color:#fff;width:42px;height:42px;border-radius:50%;font-size:17px;cursor:pointer}.chat-replying{padding:7px 12px;background:#fff3f3;border-top:1px solid #f3d4d4;font-size:11px;color:#8a2028}.dark-mode .chat-replying{background:#2a1b1d;border-color:#4a2a2d}
 @media(max-width:720px){.messages-box{height:92vh;border-radius:18px}.messages-layout{grid-template-columns:1fr}.messages-sidebar{height:34%;border-right:none;border-bottom:1px solid #eee}.dark-mode .messages-sidebar{border-bottom-color:#333}.chat-panel{height:66%}.notifications-box{height:90vh}.notifications-overlay,.messages-overlay{padding:6px}}
+.profile-stats-4{grid-template-columns:repeat(4,1fr)}
+.messages-overlay.inline-mode{position:static;inset:auto;background:none;padding:0;display:block;z-index:auto;margin-top:14px}
+.messages-overlay.inline-mode .messages-box{width:100%;height:auto;max-height:none;border-radius:16px;box-shadow:none;border:1px solid #eee}
+.dark-mode .messages-overlay.inline-mode .messages-box{border-color:#333}
+.messages-overlay.inline-mode .messages-layout{min-height:430px}
+.messages-overlay.inline-mode .messages-sidebar{min-height:430px}
+.messages-overlay.inline-mode .chat-panel{min-height:430px}
+.community-tabs{scrollbar-width:none}
+.community-tabs::-webkit-scrollbar{display:none}
+.search-people-card{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid #eee}
+.dark-mode .search-people-card{border-color:#333}
+.search-people-card img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
+.search-people-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.search-people-actions button{border:none;background:#e63946;color:#fff;padding:7px 10px;border-radius:16px;font-size:11px;font-weight:800;cursor:pointer}
+.search-people-actions button.secondary{background:#111}
+.dark-mode .search-people-actions button.secondary{background:#fff;color:#111}
+.search-people-meta{flex:1;min-width:0}
+.search-people-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-people-username{font-size:11px;color:#e63946}
+.search-people-stats{font-size:10px;color:#888;margin-top:2px}
+.dark-mode .search-people-stats{color:#aaa}
+@media(max-width:720px){.profile-stats-4{grid-template-columns:repeat(2,1fr)}.messages-overlay.inline-mode .messages-layout{display:block;min-height:0}.messages-overlay.inline-mode .messages-sidebar{min-height:0;border-bottom:none}.messages-overlay.inline-mode .community-pane{max-height:430px}.messages-overlay.inline-mode .chat-panel{min-height:430px;margin-top:10px;border-top:1px solid #eee}.dark-mode .messages-overlay.inline-mode .chat-panel{border-color:#333}.community-tabs{padding:8px;gap:5px}.community-tab{flex:1;text-align:center;padding:9px 8px;font-size:11px}.community-search{position:sticky;top:0;background:inherit;padding-bottom:7px;z-index:2}.search-people-actions{justify-content:flex-start}}
 
 .dark-mode .notif-panel{background:#1b1b1b;color:#fff}
 .notif-panel.show{display:block}
@@ -852,7 +874,8 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 <div id="tab-search" class="tab-pane">
   <section>
     <h2 class="section-title">🔍 Search</h2>
-    <div class="site-search"><input type="text" id="tabSearchInput" placeholder="🔍 Search on UPComedyHub..."></div>
+    <div class="site-search"><input type="text" id="tabSearchInput" placeholder="🔍 Search videos, pages ya @username..."></div>
+    <div class="search-results" id="tabPeopleSearchResults"></div>
     <div class="search-results" id="tabSearchResults"></div>
   </section>
 </div>
@@ -892,7 +915,9 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
             <button type="button" id="saveProfileBtn" style="background:#e63946;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
           </div>
         </div>
-        <div class="profile-stats">
+        <div class="profile-stats profile-stats-4">
+          <div class="stat-box"><div class="stat-num" id="statFollowers">0</div><div class="stat-label">Followers</div></div>
+          <div class="stat-box"><div class="stat-num" id="statFollowing">0</div><div class="stat-label">Following</div></div>
           <div class="stat-box"><div class="stat-num" id="statLikes">0</div><div class="stat-label">Videos Liked</div></div>
           <div class="stat-box"><div class="stat-num" id="statSaves">0</div><div class="stat-label">Videos Saved</div></div>
         </div>
@@ -919,6 +944,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
             <small>Light ya Dark theme choose karein</small>
           </div>
           <select class="settings-select" id="themeSelect" aria-label="Appearance">
+            <option value="system">📱 System</option>
             <option value="light">☀️ Light</option>
             <option value="dark">🌙 Dark</option>
           </select>
@@ -928,7 +954,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
             <span>Community</span>
             <small>Friends, requests aur private messages</small>
           </div>
-          <button type="button" class="settings-select" id="communityBtn" style="border:none;background:#111;color:#fff;font-weight:800">👥 Open</button>
+          <button type="button" class="settings-select" id="communityBtn" style="border:none;background:#111;color:#fff;font-weight:800">👥 Open Community</button>
         </div>
       </div>
     </div>
@@ -1116,7 +1142,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
         </div>
       </aside>
       <section class="chat-panel" id="chatPanel">
-        <div class="chat-empty" id="chatEmpty">👥 Friend select karo aur private chat start karo.<br><small>Unknown users ko direct message nahi kar sakte.</small></div>
+        <div class="chat-empty" id="chatEmpty" style="display:none"></div>
         <div id="chatActive" style="display:none;flex:1;min-height:0;flex-direction:column">
           <div class="chat-header"><img id="chatFriendPhoto" src="" alt=""><div class="chat-header-info"><div class="chat-header-name" id="chatFriendName">Friend</div><div class="chat-header-username" id="chatFriendUsername">@username</div></div></div>
           <div class="chat-messages" id="chatMessages"></div>
@@ -1188,6 +1214,7 @@ let chatUnsubscribe = null;
 let currentReplyTo = null;
 let notificationsCache = [];
 let notificationsUnsubscribe = null;
+let followCountCache = {followers:0, following:0};
 
 
 /* ============ HELPERS ============ */
@@ -1254,6 +1281,7 @@ function switchTab(name) {
   navButtons.forEach(b => b.classList.toggle("active", b.getAttribute("data-tab") === name));
   window.scrollTo({ top: 0, behavior: "smooth" });
   if (name === "profile") updateProfileUI();
+  else if (document.getElementById("messagesOverlay")?.classList.contains("show")) closeMessages();
   if (name === "admin") {
     loadAdminStats();
     loadAdminConfig();
@@ -1263,10 +1291,12 @@ function switchTab(name) {
 navButtons.forEach(btn => btn.addEventListener("click", () => switchTab(btn.getAttribute("data-tab"))));
 
 /* ============ THEME ============ */
-function applyTheme(theme) {
-  const selected = theme === "dark" ? "dark" : "light";
-  document.body.classList.toggle("dark-mode", selected === "dark");
-  localStorage.setItem("theme", selected);
+function getSystemTheme(){ return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+function applyTheme(theme, persist=true) {
+  const selected = ["dark","light","system"].includes(theme) ? theme : "system";
+  const actual = selected === "system" ? getSystemTheme() : selected;
+  document.body.classList.toggle("dark-mode", actual === "dark");
+  if(persist) localStorage.setItem("theme", selected);
   const sel = document.getElementById("themeSelect");
   if (sel) sel.value = selected;
 }
@@ -1274,18 +1304,60 @@ function toggleTheme() {
   applyTheme(document.body.classList.contains("dark-mode") ? "light" : "dark");
 }
 window.addEventListener("DOMContentLoaded", () => {
-  applyTheme(localStorage.getItem("theme") || "light");
+  const savedTheme = localStorage.getItem("theme") || "system";
+  applyTheme(savedTheme, false);
   const themeSelect = document.getElementById("themeSelect");
-  if (themeSelect) themeSelect.addEventListener("change", (e) => applyTheme(e.target.value));
+  if (themeSelect) themeSelect.addEventListener("change", (e) => applyTheme(e.target.value, true));
+  if(window.matchMedia){
+    const mq=window.matchMedia("(prefers-color-scheme: dark)");
+    const sync=()=>{ if((localStorage.getItem("theme")||"system")==="system") applyTheme("system",false); };
+    if(mq.addEventListener) mq.addEventListener("change",sync); else if(mq.addListener) mq.addListener(sync);
+  }
 });
+
+/* ============ FOLLOW SYSTEM ============ */
+function followId(from,to){ return from + "_" + to; }
+async function getFollowStatus(uid){
+  if(!currentUser || !uid || uid===currentUser.uid) return {following:false};
+  try{ const snap=await db.collection("follows").doc(followId(currentUser.uid,uid)).get(); return {following:snap.exists}; }catch(e){ return {following:false}; }
+}
+async function toggleFollow(uid, profile){
+  if(!currentUser || !uid || uid===currentUser.uid) return;
+  const ref=db.collection("follows").doc(followId(currentUser.uid,uid));
+  try{
+    const snap=await ref.get();
+    if(snap.exists){
+      await ref.delete();
+      showToast("Following removed");
+    }else{
+      await ref.set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
+      showToast("✅ Following");
+    }
+    await loadFollowCounts();
+  }catch(e){ console.error(e); showToast("❌ Follow update failed"); }
+}
+async function loadFollowCounts(){
+  if(!currentUser)return;
+  try{
+    const [followers,following]=await Promise.all([
+      db.collection("follows").where("to","==",currentUser.uid).get(),
+      db.collection("follows").where("from","==",currentUser.uid).get()
+    ]);
+    followCountCache={followers:followers.size,following:following.size};
+    const f=document.getElementById("statFollowers"), g=document.getElementById("statFollowing");
+    if(f)f.textContent=followers.size; if(g)g.textContent=following.size;
+  }catch(e){ console.warn("Follow counts load failed",e); }
+}
 
 /* ============ MESSAGES + COMMUNITY ============ */
 function pairId(a,b){ return [a,b].sort().join("_"); }
 function avatarFor(data){ return (data && (data.photoURL || data.photo || data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
 function closeMessages(){
-  const o=document.getElementById("messagesOverlay"); if(o)o.classList.remove("show");
+  const o=document.getElementById("messagesOverlay"); if(o){o.classList.remove("show");o.classList.remove("inline-mode");}
   if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
   currentChatFriend=null; currentConversationId=null; currentReplyTo=null;
+  const cp=document.getElementById("chatPanel"); if(cp) cp.style.display="none";
 }
 async function loadFriends(){
   const list=document.getElementById("friendsList"); if(!list||!currentUser)return;
@@ -1318,6 +1390,40 @@ async function loadRequests(){
     list.querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",()=>acceptFriendRequest(b.dataset.accept,b.dataset.friend)));
   }catch(e){console.error(e);list.innerHTML='<p style="color:#e63946;font-size:12px">Requests load nahi hue.</p>';}
 }
+async function buildPersonSearchResult(uid, profile, container, options={}){
+  const data=profile||{};
+  const row=document.createElement("div"); row.className="search-people-card";
+  row.innerHTML=`<img src="${escapeAttr(avatarFor(data))}" alt=""><div class="search-people-meta"><div class="search-people-name">${escapeHtml(data.displayName||"User")}</div><div class="search-people-username">@${escapeHtml(data.username||"user")}</div><div class="search-people-stats"><span data-followers>0</span> followers • <span data-following>0</span> following</div></div><div class="search-people-actions"></div>`;
+  container.appendChild(row);
+  const actions=row.querySelector(".search-people-actions");
+  try{
+    const [fr, outgoing, incoming, followSnap, followerSnap, followingSnap]=await Promise.all([
+      db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),
+      db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get(),
+      db.collection("friendRequests").where("from","==",uid).where("to","==",currentUser.uid).where("status","==","pending").get(),
+      db.collection("follows").doc(followId(currentUser.uid,uid)).get(),
+      db.collection("follows").where("to","==",uid).get(),
+      db.collection("follows").where("from","==",uid).get()
+    ]);
+    row.querySelector("[data-followers]").textContent=followerSnap.size;
+    row.querySelector("[data-following]").textContent=followingSnap.size;
+    if(fr.exists){
+      actions.innerHTML='<button type="button" class="secondary" data-chat-search>💬 Message</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
+      actions.querySelector("[data-chat-search]").onclick=()=>openChat({...data,uid});
+    }else if(incoming.docs.length){
+      actions.innerHTML='<button type="button" data-accept-search>Accept</button>';
+      actions.querySelector("[data-accept-search]").onclick=()=>acceptFriendRequest(incoming.docs[0].id,uid);
+    }else if(outgoing.docs.length){
+      actions.innerHTML='<span style="font-size:11px;color:#888;padding:7px 4px">Request sent</span>';
+    }else{
+      actions.innerHTML='<button type="button" data-add-search>👥 Add Friend</button><button type="button" data-follow-action>'+(followSnap.exists?'Following':'Follow')+'</button>';
+      actions.querySelector("[data-add-search]").onclick=()=>sendFriendRequest(uid,data);
+    }
+    const followBtn=actions.querySelector("[data-follow-action]");
+    if(followBtn) followBtn.onclick=async()=>{await toggleFollow(uid,data);followBtn.textContent=followBtn.textContent.includes("Following")?"Following":"Follow";};
+  }catch(e){ console.error(e); actions.innerHTML='<span style="font-size:11px;color:#e63946">Actions unavailable</span>'; }
+}
+
 async function searchPeople(){
   if(!currentUser)return;
   const input=document.getElementById("peopleSearchInput"), q=normalizeUsername(input.value); const out=document.getElementById("peopleSearchResults");
@@ -1327,16 +1433,27 @@ async function searchPeople(){
     const us=await db.collection("usernames").doc(q).get();
     if(!us.exists||us.data().uid===currentUser.uid){out.innerHTML='<p style="color:#888;font-size:12px">User nahi mila.</p>';return;}
     const uid=us.data().uid, ps=await db.collection("publicProfiles").doc(uid).get(); if(!ps.exists){out.innerHTML='<p style="color:#888;font-size:12px">Profile nahi mila.</p>';return;}
-    const friendRef=db.collection("friendships").doc(pairId(currentUser.uid,uid)), fr=await friendRef.get();
-    const incoming=await db.collection("friendRequests").where("from","==",uid).get();
-    let action='<button type="button" class="person-action" id="sendFriendBtn">Add Friend</button>';
-    if(fr.exists) action='<span style="font-size:11px;color:#2e8b57;font-weight:800">Friends ✓</span>';
-    else if(incoming.docs.some(d=>d.data().to===currentUser.uid&&d.data().status==="pending")) action='<button type="button" class="person-action" id="acceptSearchBtn">Accept</button>';
-    out.innerHTML=`<div class="person-row"><img src="${escapeAttr(avatarFor(ps.data()))}" alt=""><div class="person-main"><div class="person-name">${escapeHtml(ps.data().displayName||"User")}</div><div class="person-username">@${escapeHtml(ps.data().username||q)}</div></div>${action}</div>`;
-    if(document.getElementById("sendFriendBtn"))document.getElementById("sendFriendBtn").onclick=()=>sendFriendRequest(uid,ps.data());
-    if(document.getElementById("acceptSearchBtn"))document.getElementById("acceptSearchBtn").onclick=()=>acceptFriendRequest((incoming.docs.find(d=>d.data().to===currentUser.uid&&d.data().status==="pending")||incoming.docs[0]).id,uid);
+    out.innerHTML=""; await buildPersonSearchResult(uid,ps.data(),out);
   }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;font-size:12px">Search failed.</p>';}
 }
+
+async function searchUsersAnywhere(query, out){
+  if(!currentUser || !out)return;
+  const q=normalizeUsername(query);
+  out.innerHTML="";
+  if(q.length<2)return;
+  out.innerHTML='<p style="color:#888;font-size:12px;padding:8px 0">👤 People search...</p>';
+  try{
+    const snap=await db.collection("usernames").orderBy("username").startAt(q).endAt(q+"\uf8ff").limit(8).get();
+    const docs=snap.docs.filter(d=>d.data().uid!==currentUser.uid);
+    out.innerHTML="";
+    if(!docs.length){out.innerHTML='<p style="color:#888;text-align:center;padding:10px">Koi matching profile nahi mila.</p>';return;}
+    for(const d of docs){
+      const uid=d.data().uid; const ps=await db.collection("publicProfiles").doc(uid).get(); if(ps.exists) await buildPersonSearchResult(uid,ps.data(),out);
+    }
+  }catch(e){console.error(e);out.innerHTML='<p style="color:#e63946;padding:8px 0">People search failed.</p>';}
+}
+
 async function sendFriendRequest(uid,profile){
   try{
     const existing=await db.collection("friendRequests").where("from","==",currentUser.uid).where("to","==",uid).where("status","==","pending").get();
@@ -1361,6 +1478,7 @@ async function openChat(friend){
   if(!friend||!currentUser)return;
   currentChatFriend=friend; currentConversationId=pairId(currentUser.uid,friend.uid);
   document.getElementById("chatEmpty").style.display="none"; document.getElementById("chatActive").style.display="flex";
+  const chatPanel=document.getElementById("chatPanel"); if(chatPanel) chatPanel.style.display="flex";
   document.getElementById("chatFriendPhoto").src=avatarFor(friend); document.getElementById("chatFriendName").textContent=friend.displayName||"User"; document.getElementById("chatFriendUsername").textContent="@"+(friend.username||"user");
   if(chatUnsubscribe){chatUnsubscribe();chatUnsubscribe=null;}
   const convRef=db.collection("conversations").doc(currentConversationId);
@@ -1413,9 +1531,9 @@ function renderNotifications(){
   const now=Date.now();
   notificationsCache=notificationsCache.filter(n=>!(n.type==="new_video"&&n.expiresAt&&n.expiresAt.toMillis&&n.expiresAt.toMillis()<now));
   if(!notificationsCache.length){list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>';return;}
-  const icons={friend_request:"👥",friend_accepted:"🤝",like:"❤️",comment:"💬",reply:"↩️",message:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
+  const icons={friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
   list.innerHTML=notificationsCache.map(n=>{const d=n.createdAt&&n.createdAt.toDate?n.createdAt.toDate():new Date();return `<div class="notif-card ${n.read?'':'unread'}" data-notif="${escapeAttr(n.id)}" data-type="${escapeAttr(n.type||'')}"><div class="notif-icon">${icons[n.type]||'🔔'}</div><div class="notif-card-body"><div class="notif-card-title">${escapeHtml(n.title||'Notification')}</div><div class="notif-card-text">${escapeHtml(n.text||'')}</div><div class="notif-card-time">${escapeHtml(formatTimeAgo(d))}</div></div></div>`;}).join("");
-  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
+  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{const n=notificationsCache.find(x=>x.id===el.dataset.notif);markNotificationRead(el.dataset.notif);if(n?.type==="message"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();}else if(n?.type==="friend_request"||n?.type==="friend_accepted"){document.getElementById("notificationsOverlay").classList.remove("show");openMessages();document.querySelector("[data-community-tab=\"requests\"]")?.click();}else if(n?.type==="follow"){document.getElementById("notificationsOverlay").classList.remove("show");switchTab("profile");}else if(n?.type==="new_video"&&n.videoId){document.getElementById("notificationsOverlay").classList.remove("show");switchTab(n.videoId&&n.category==="shorts"?"reels":"videos");}}));
 }
 async function markNotificationRead(id){try{await db.collection("notifications").doc(id).update({read:true});}catch(e){}}
 async function markAllNotificationsRead(){if(!currentUser)return;const unread=notificationsCache.filter(n=>!n.read);const batch=db.batch();unread.forEach(n=>batch.update(db.collection("notifications").doc(n.id),{read:true}));try{await batch.commit();showToast("✓ All notifications read");}catch(e){showToast("❌ Update failed");}}
@@ -1449,7 +1567,15 @@ function initCommunityUI(){
 }
 function openMessages(){
   if(!currentUser){showToast("🔐 Messages ke liye pehle login karein");switchTab("profile");return;}
-  const o=document.getElementById("messagesOverlay");o.classList.add("show");loadFriends();loadRequests();
+  switchTab("profile");
+  const o=document.getElementById("messagesOverlay");
+  const settingsCard=document.querySelector(".settings-card");
+  if(settingsCard && o.parentElement!==settingsCard) settingsCard.appendChild(o);
+  o.classList.add("inline-mode");
+  o.classList.add("show");
+  const cp=document.getElementById("chatPanel"); if(cp) cp.style.display="none";
+  loadFriends();loadRequests();
+  setTimeout(()=>o.scrollIntoView({behavior:"smooth",block:"center"}),120);
 }
 window.openMessages=openMessages;
 /* ============ MOBILE MENU ============ */
@@ -1666,6 +1792,7 @@ async function loadProfileIdentity() {
     if (photoEl) photoEl.src = currentProfilePhotoURL;
     document.getElementById("usernameInput").value = data.username || "";
     document.getElementById("bioInput").value = data.bio || "";
+    await loadFollowCounts();
     return data;
   } catch (e) {
     console.error("Profile identity load failed:", e);
@@ -1696,6 +1823,7 @@ auth.onAuthStateChanged(async (user) => {
       }, { merge: true });
       await ensurePublicProfile(user);
       await loadUserLikesAndSaves(user.uid);
+      await loadFollowCounts();
       loadNotifications();
       updateMessageBadge();
       setTimeout(createNewVideoNotifications, 1200);
@@ -2312,19 +2440,23 @@ function createNewVideoNotifications(){
 document.addEventListener("click",e=>{if(e.target.closest(".notifications-overlay"))return;});
 /* ============ SEARCH ============ */
 const tsi = document.getElementById("tabSearchInput");
+let peopleSearchTimer=null;
 if (tsi) {
   tsi.addEventListener("input", () => {
     const q = tsi.value.toLowerCase().trim();
     const tr = document.getElementById("tabSearchResults");
-    tr.innerHTML = "";
+    const pr = document.getElementById("tabPeopleSearchResults");
+    if(peopleSearchTimer)clearTimeout(peopleSearchTimer);
+    tr.innerHTML = ""; pr.innerHTML="";
     if (q.length < 2) return;
+    peopleSearchTimer=setTimeout(()=>searchUsersAnywhere(q,pr),280);
     const matches = [];
     document.querySelectorAll("#tab-home section").forEach(sec => {
       const h = sec.querySelector("h1, h2, h3");
       if (!h) return;
       if (sec.textContent.toLowerCase().includes(q)) matches.push({ title: h.textContent.trim(), el: sec });
     });
-    if (matches.length === 0) { tr.innerHTML = "<p style='text-align:center;color:#888'>😅 Kuch nahi mila</p>"; return; }
+    if (matches.length === 0) { tr.innerHTML = "<p style='text-align:center;color:#888;padding:8px'>📺 Site content me kuch nahi mila</p>"; return; }
     matches.slice(0,10).forEach(m => {
       const d = document.createElement("div");
       d.className = "search-result-item";

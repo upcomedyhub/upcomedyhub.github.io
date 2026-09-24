@@ -692,16 +692,22 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .community-search input{background:#1c1c1c;color:#fff;border-color:#333}
 .community-search button{border:none;background:#e63946;color:#fff;border-radius:18px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px}
 
-/* Search People Card — Follow / Add Friend / Message buttons */
-.search-people-card{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #efefef;flex-wrap:wrap}
+/* Search People Card — clean clickable row, Instagram-style (tap to open profile) */
+.search-people-card{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #efefef;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s}
+.search-people-card:active{background:rgba(0,0,0,.04)}
 .dark-mode .search-people-card{border-color:#262626}
+.dark-mode .search-people-card:active{background:rgba(255,255,255,.06)}
 .search-people-card img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
 .search-people-meta{flex:1;min-width:0}
 .search-people-name{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.search-people-username{font-size:12px;color:#e63946;margin-top:1px}
-.search-people-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-.search-people-actions button{border:none;padding:8px 14px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .15s,transform .1s}
-.search-people-actions button:active{transform:scale(.95)}
+.search-people-username{font-size:12px;color:#e63946;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-people-chevron{flex:0 0 auto;font-size:20px;color:#bbb;font-weight:400}
+.dark-mode .search-people-chevron{color:#555}
+
+/* Profile modal Follow/Message actions */
+.profile-modal-actions{display:flex;gap:8px;justify-content:center;padding:0 20px;margin-bottom:6px;flex-wrap:wrap}
+.profile-modal-actions button{border:none;padding:9px 18px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:opacity .15s,transform .1s}
+.profile-modal-actions button:active{transform:scale(.96)}
 
 /* Chat Panel */
 .chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff;position:relative;overflow:hidden}
@@ -922,8 +928,8 @@ body.messages-open .bottom-nav{display:none !important}
    ============================================================ */
 @media(max-width:720px){
   .messages-overlay.show{padding:0;align-items:stretch;justify-content:stretch}
-  .messages-box{width:100%;height:100dvh;max-height:100dvh;border-radius:0;box-shadow:none}
-  .messages-layout{display:block;position:relative;height:calc(100dvh - 56px);min-height:0;overflow:hidden}
+  .messages-box{width:100%;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;border-radius:0;box-shadow:none}
+  .messages-layout{display:block;position:relative;height:calc(100vh - 56px);height:calc(100dvh - 56px);min-height:0;overflow:hidden}
   .messages-sidebar{width:100%;height:100%;border-right:none;display:flex;flex-direction:column}
   .messages-sidebar.mobile-hidden{display:none}
   .chat-panel{position:absolute;inset:0;width:100%;height:100%;background:#fff;z-index:5;display:none}
@@ -1784,7 +1790,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div class="quick-actions" id="quickActions">
   <div class="quick-actions-menu">
-    <a class="quick-action-item qa-whatsapp" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp</a>
+    <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener">💬 WhatsApp</a>
     <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
   </div>
   <button id="quickActionsToggle" type="button" aria-label="Quick actions">💬</button>
@@ -2965,63 +2971,14 @@ async function searchPeople(){
   }catch(e){ console.error(e); out.innerHTML = '<p class="inbox-empty" style="color:#e63946;padding:20px">Search failed.</p>'; }
 }
 
-/* ---------- SEARCH RESULT (Follow + Add Friend + Message) ---------- */
+/* ---------- SEARCH RESULT (clean row, tap to open profile) ---------- */
 async function buildPersonSearchResult(uid, profile, container){
   const data = profile || {};
   const row = document.createElement("div");
   row.className = "search-people-card";
-  row.innerHTML = '<img src="'+escapeAttr(avatarFor(data))+'"><div class="search-people-meta"><div class="search-people-name">'+escapeHtml(data.displayName||"User")+'</div><div class="search-people-username">@'+escapeHtml(data.username||"user")+'</div></div><div class="search-people-actions"><span style="font-size:11px;color:#888">…</span></div>';
+  row.innerHTML = '<img src="'+escapeAttr(avatarFor(data))+'"><div class="search-people-meta"><div class="search-people-name">'+escapeHtml(data.displayName||"User")+'</div><div class="search-people-username">@'+escapeHtml(data.username||"user")+'</div></div><span class="search-people-chevron">›</span>';
+  row.addEventListener("click", ()=>showUserProfileModal({uid,...data}));
   container.appendChild(row);
-  const actions = row.querySelector(".search-people-actions");
-  try{
-    const [fr, reqSnap, folSnap] = await Promise.all([
-      db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),
-      db.collection("messageRequests").doc(pairId(currentUser.uid,uid)).get(),
-      db.collection("follows").doc(followId(currentUser.uid,uid)).get()
-    ]);
-    const isFriend = fr.exists;
-    const rq = reqSnap.exists ? reqSnap.data() : null;
-    const hasReq = rq?.status === "pending";
-    const isAccepted = rq?.status === "accepted";
-    const isFollowing = folSnap.exists;
-
-    let html = '<button type="button" data-follow style="background:'+(isFollowing?'#efefef':'#0095f6')+';color:'+(isFollowing?'#111':'#fff')+'">'+(isFollowing?'Following':'Follow')+'</button>';
-    if(isFriend || isAccepted) html += '<button type="button" data-chat style="background:#efefef;color:#111">💬 Message</button>';
-    else if(hasReq) html += '<button type="button" disabled style="background:#efefef;color:#888">Sent ✓</button>';
-    else {
-      html += '<button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
-      html += '<button type="button" data-msg style="background:#efefef;color:#111">💬 Message</button>';
-    }
-    actions.innerHTML = html;
-
-    const fb = actions.querySelector("[data-follow]");
-    if(fb) fb.onclick = async ()=>{
-      fb.disabled = true;
-      try{
-        if(fb.textContent.trim() === "Following"){
-          await db.collection("follows").doc(followId(currentUser.uid,uid)).delete();
-          fb.textContent = "Follow"; fb.style.background = "#0095f6"; fb.style.color = "#fff";
-        } else {
-          await db.collection("follows").doc(followId(currentUser.uid,uid)).set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-          await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
-          fb.textContent = "Following"; fb.style.background = "#efefef"; fb.style.color = "#111";
-        }
-        await loadFollowCounts();
-      }catch(e){ console.error(e); showToast("❌ Follow failed"); }
-      finally{ fb.disabled = false; }
-    };
-    const cb = actions.querySelector("[data-chat]");
-    if(cb) cb.onclick = ()=>openChat({uid,...data});
-    const ab = actions.querySelector("[data-add]");
-    if(ab) ab.onclick = async ()=>{ ab.disabled = true; ab.textContent = "Sending..."; try{ await sendMessageRequest(uid,data); ab.textContent = "Sent ✓"; ab.style.background = "#efefef"; ab.style.color = "#888"; }catch(e){ ab.disabled = false; } };
-    const mb = actions.querySelector("[data-msg]");
-    if(mb) mb.onclick = async ()=>{ mb.disabled = true; mb.textContent = "Sending..."; try{ await sendMessageRequest(uid,data); mb.textContent = "Sent ✓"; mb.style.background = "#efefef"; mb.style.color = "#888"; }catch(e){ mb.disabled = false; } };
-  }catch(e){
-    console.error(e);
-    actions.innerHTML = '<button type="button" data-follow style="background:#0095f6;color:#fff">Follow</button><button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
-    actions.querySelector("[data-follow]").onclick = ()=>toggleFollow(uid);
-    actions.querySelector("[data-add]").onclick = ()=>sendMessageRequest(uid,data);
-  }
 }
 
 /* ---------- MESSAGE REQUEST FLOW ---------- */
@@ -3436,15 +3393,70 @@ function showReactionMenu(bubble){
 function hideReactionMenu(){ const m = document.getElementById("reactionMenu"); if(m) m.classList.remove("show"); activeReactionMid = null; }
 
 /* ---------- USER PROFILE MODAL ---------- */
-function showUserProfileModal(user){
+async function showUserProfileModal(user){
   const ov = document.getElementById("igListOverlay");
   const t = document.getElementById("igListTitle");
   const c = document.getElementById("igListContent");
-  if(!ov || !t || !c) return;
+  if(!ov || !t || !c || !user) return;
   ov.classList.add("show");
   t.textContent = "Profile";
-  c.innerHTML = '<div style="text-align:center;padding:20px 10px"><img src="'+escapeAttr(avatarFor(user))+'" style="width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 3px #e63946"><div style="font-size:18px;font-weight:800;margin-bottom:2px">'+escapeHtml(user.displayName||"User")+'</div><div style="font-size:13px;color:#e63946;font-weight:600;margin-bottom:12px">@'+escapeHtml(user.username||"user")+'</div>'+(user.bio?'<div style="font-size:14px;color:#666;padding:0 20px;margin-bottom:16px">'+escapeHtml(user.bio)+'</div>':'')+'<button type="button" id="closeProfileModal" style="padding:10px 20px;border-radius:10px;border:none;background:#e63946;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">Close</button></div>';
+  const uid = user.uid;
+  const isSelf = currentUser && uid === currentUser.uid;
+  c.innerHTML = '<div style="text-align:center;padding:20px 10px"><img src="'+escapeAttr(avatarFor(user))+'" style="width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 3px #e63946"><div style="font-size:18px;font-weight:800;margin-bottom:2px">'+escapeHtml(user.displayName||"User")+'</div><div style="font-size:13px;color:#e63946;font-weight:600;margin-bottom:12px">@'+escapeHtml(user.username||"user")+'</div>'+(user.bio?'<div style="font-size:14px;color:#666;padding:0 20px;margin-bottom:16px">'+escapeHtml(user.bio)+'</div>':'')+'<div class="profile-modal-actions" id="profileModalActions">'+(isSelf||!currentUser?'':'<span style="font-size:12px;color:#888">Loading…</span>')+'</div><button type="button" id="closeProfileModal" style="margin-top:6px;padding:10px 20px;border-radius:10px;border:none;background:#efefef;color:#111;font-weight:700;cursor:pointer;font-family:inherit">Close</button></div>';
   document.getElementById("closeProfileModal").addEventListener("click",()=>ov.classList.remove("show"));
+
+  if(isSelf || !currentUser || !uid) return;
+  const actions = document.getElementById("profileModalActions");
+  try{
+    const [fr, reqSnap, folSnap] = await Promise.all([
+      db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),
+      db.collection("messageRequests").doc(pairId(currentUser.uid,uid)).get(),
+      db.collection("follows").doc(followId(currentUser.uid,uid)).get()
+    ]);
+    if(!ov.classList.contains("show")) return; // modal closed meanwhile
+    const isFriend = fr.exists;
+    const rq = reqSnap.exists ? reqSnap.data() : null;
+    const hasReq = rq?.status === "pending";
+    const isAccepted = rq?.status === "accepted";
+    const isFollowing = folSnap.exists;
+
+    let html = '<button type="button" data-follow style="background:'+(isFollowing?'#efefef':'#0095f6')+';color:'+(isFollowing?'#111':'#fff')+'">'+(isFollowing?'Following':'Follow')+'</button>';
+    if(isFriend || isAccepted) html += '<button type="button" data-chat style="background:#efefef;color:#111">💬 Message</button>';
+    else if(hasReq) html += '<button type="button" disabled style="background:#efefef;color:#888">Sent ✓</button>';
+    else {
+      html += '<button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
+      html += '<button type="button" data-msg style="background:#efefef;color:#111">💬 Message</button>';
+    }
+    actions.innerHTML = html;
+
+    const fb = actions.querySelector("[data-follow]");
+    if(fb) fb.onclick = async ()=>{
+      fb.disabled = true;
+      try{
+        if(fb.textContent.trim() === "Following"){
+          await db.collection("follows").doc(followId(currentUser.uid,uid)).delete();
+          fb.textContent = "Follow"; fb.style.background = "#0095f6"; fb.style.color = "#fff";
+        } else {
+          await db.collection("follows").doc(followId(currentUser.uid,uid)).set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+          await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
+          fb.textContent = "Following"; fb.style.background = "#efefef"; fb.style.color = "#111";
+        }
+        await loadFollowCounts();
+      }catch(e){ console.error(e); showToast("❌ Follow failed"); }
+      finally{ fb.disabled = false; }
+    };
+    const cb = actions.querySelector("[data-chat]");
+    if(cb) cb.onclick = ()=>{ ov.classList.remove("show"); openChat({uid,...user}); };
+    const ab = actions.querySelector("[data-add]");
+    if(ab) ab.onclick = async ()=>{ ab.disabled = true; ab.textContent = "Sending..."; try{ await sendMessageRequest(uid,user); ab.textContent = "Sent ✓"; ab.style.background = "#efefef"; ab.style.color = "#888"; }catch(e){ ab.disabled = false; } };
+    const mb = actions.querySelector("[data-msg]");
+    if(mb) mb.onclick = async ()=>{ mb.disabled = true; mb.textContent = "Sending..."; try{ await sendMessageRequest(uid,user); mb.textContent = "Sent ✓"; mb.style.background = "#efefef"; mb.style.color = "#888"; }catch(e){ mb.disabled = false; } };
+  }catch(e){
+    console.error(e);
+    actions.innerHTML = '<button type="button" data-follow style="background:#0095f6;color:#fff">Follow</button><button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
+    actions.querySelector("[data-follow]").onclick = ()=>toggleFollow(uid);
+    actions.querySelector("[data-add]").onclick = ()=>sendMessageRequest(uid,user);
+  }
 }
 
 /* ---------- INIT COMMUNITY UI ---------- */

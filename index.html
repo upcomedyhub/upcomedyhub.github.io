@@ -2792,6 +2792,8 @@ function showMobileSidebar(){
 function closeMessages(){
   const o = document.getElementById("messagesOverlay");
   if(o) o.classList.remove("show");
+   const mb = document.getElementById("messagesBox");
+if(mb) mb.classList.remove("chat-open");
   if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
   if(typeof typingUnsubscribe !== "undefined" && typingUnsubscribe){ typingUnsubscribe(); typingUnsubscribe = null; }
   if(typeof notesUnsubscribe !== "undefined" && notesUnsubscribe){ notesUnsubscribe(); notesUnsubscribe = null; }
@@ -3335,7 +3337,8 @@ async function openChat(friend){
   currentConversationId = pairId(currentUser.uid, friend.uid);
 
   showMobileChatPanel();
-
+const mb = document.getElementById("messagesBox");
+if(mb && isMobileViewport()) mb.classList.add("chat-open");
   document.getElementById("chatActive").style.display = "flex";
   const chatPanel = document.getElementById("chatPanel");
   if(chatPanel) chatPanel.style.display = "flex";
@@ -3389,6 +3392,7 @@ async function renderChatMessages(docs){
   const rows = docs.filter(doc => !doc.data().deleted);
   const html = [];
   let lastDay = "";
+  let lastSender = null;
 
   for(const doc of rows){
     const d = doc.data();
@@ -3398,9 +3402,13 @@ async function renderChatMessages(docs){
     if(dayKey !== lastDay){
       html.push('<div class="chat-time-sep">' + escapeHtml(getTimeSeparatorLabel(dt)) + '</div>');
       lastDay = dayKey;
+      lastSender = null;
     }
 
     const mine = d.senderId === currentUser.uid;
+    const sameSender = (lastSender === d.senderId);
+    lastSender = d.senderId;
+
     const reply = d.replyTo
       ? '<div class="reply-preview">↪ ' + escapeHtml((d.replyTo.text || "Message").slice(0, 60)) + '</div>'
       : "";
@@ -3431,24 +3439,10 @@ async function renderChatMessages(docs){
       status = '<span class="' + cls + '">' + tick + '</span>';
     }
 
-    const tools = '<div class="chat-tools">' +
-      '<button type="button" class="chat-tool" data-reply="' + escapeAttr(doc.id) + '">↩️</button>' +
-      '<button type="button" class="chat-tool" data-react="' + escapeAttr(doc.id) + '" data-emoji="❤️">❤️</button>' +
-      '<button type="button" class="chat-tool" data-react="' + escapeAttr(doc.id) + '" data-emoji="😂">😂</button>' +
-      '<button type="button" class="chat-tool" data-react="' + escapeAttr(doc.id) + '" data-emoji="🔥">🔥</button>' +
-      '<button type="button" class="chat-tool" data-react="' + escapeAttr(doc.id) + '" data-emoji="👍">👍</button>' +
-      '<button type="button" class="chat-tool" data-react="' + escapeAttr(doc.id) + '" data-emoji="😢">😢</button>' +
-      (mine
-        ? '<button type="button" class="chat-tool" data-delete-me="' + escapeAttr(doc.id) + '" title="Delete for me">🗑️</button>' +
-          '<button type="button" class="chat-tool" data-delete-all="' + escapeAttr(doc.id) + '" title="Delete for everyone">🚫</button>'
-        : '') +
-    '</div>';
-
-    html.push('<div class="chat-bubble-row ' + (mine ? 'mine' : '') + '">' +
-      '<div class="chat-bubble" data-mid="' + escapeAttr(doc.id) + '">' +
+    html.push('<div class="chat-bubble-row ' + (mine ? 'mine' : '') + (sameSender ? ' same-sender' : '') + '">' +
+      '<div class="chat-bubble" data-mid="' + escapeAttr(doc.id) + '" data-sender="' + escapeAttr(d.senderId) + '">' +
         reply + content +
         '<div class="chat-meta">' + escapeHtml(dt.toLocaleTimeString("en-IN", {hour:"2-digit", minute:"2-digit"})) + status + '</div>' +
-        tools +
         '<div class="reaction-summary" data-reaction-summary="' + escapeAttr(doc.id) + '"></div>' +
       '</div>' +
     '</div>');
@@ -3457,24 +3451,28 @@ async function renderChatMessages(docs){
   box.innerHTML = html.join("") ||
     '<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋<br>Say hi!</p>';
 
+  // Load reactions
   await Promise.all(rows.map(async doc => {
     try {
       const snap = await db.collection("conversations").doc(currentConversationId)
         .collection("messages").doc(doc.id).collection("reactions").get();
       const counts = {};
+      let myReaction = null;
       snap.forEach(r => {
         const em = r.data().emoji;
         if(em) counts[em] = (counts[em] || 0) + 1;
+        if(r.id === currentUser.uid) myReaction = em;
       });
       const el = box.querySelector('[data-reaction-summary="' + CSS.escape(doc.id) + '"]');
-      if(el) el.innerHTML = Object.entries(counts).map(([em, c]) =>
-        '<span style="font-size:11px;margin-right:5px">' + em + ' ' + c + '</span>').join("");
+      if(el) {
+        el.innerHTML = Object.entries(counts).map(([em, c]) =>
+          '<span>' + em + (c > 1 ? ' ' + c : '') + '</span>').join("");
+      }
     } catch(e){}
   }));
 
   box.scrollTop = box.scrollHeight;
 }
-
 /* ============================================================
    SEND MESSAGE
    ============================================================ */
@@ -4017,71 +4015,75 @@ function initCommunityUI(){
   if(sendRec) sendRec.addEventListener("click", () => stopRecording(true));
 
   const cm = document.getElementById("chatMessages");
-  if(cm){
-    cm.addEventListener("click", async (e) => {
-      const bubble = e.target.closest(".chat-bubble");
+  const cm = document.getElementById("chatMessages");
+if(cm){
+  // Click for image open + voice play only
+  cm.addEventListener("click", async (e) => {
+    // Open image
+    const img = e.target.closest("[data-open-image]");
+    if(img){
+      e.stopPropagation();
+      const w = window.open("");
+      w.document.write('<img src="' + img.getAttribute("data-open-image") + '" style="max-width:100%;max-height:100vh;margin:auto;display:block">');
+      return;
+    }
 
-      const img = e.target.closest("[data-open-image]");
-      if(img){
-        e.stopPropagation();
-        const w = window.open("");
-        w.document.write('<img src="' + img.getAttribute("data-open-image") + '" style="max-width:100%;max-height:100vh;margin:auto;display:block">');
-        return;
-      }
-
-      const vp = e.target.closest(".voice-play-btn");
-      if(vp){
-        e.stopPropagation();
-        const wrap = vp.closest(".voice-bubble");
-        const audio = wrap?.querySelector("audio");
-        const bars = wrap?.querySelectorAll(".voice-bar");
-        if(audio){
-          if(audio.paused){
-            audio.play();
-            vp.textContent = "⏸";
-            bars?.forEach(b => b.classList.add("playing"));
-            audio.onended = () => {
-              vp.textContent = "▶";
-              bars?.forEach(b => b.classList.remove("playing"));
-            };
-          } else {
-            audio.pause();
+    // Voice play
+    const vp = e.target.closest(".voice-play-btn");
+    if(vp){
+      e.stopPropagation();
+      const wrap = vp.closest(".voice-bubble");
+      const audio = wrap?.querySelector("audio");
+      const bars = wrap?.querySelectorAll(".voice-bar");
+      if(audio){
+        if(audio.paused){
+          audio.play();
+          vp.textContent = "⏸";
+          bars?.forEach(b => b.classList.add("playing"));
+          audio.onended = () => {
             vp.textContent = "▶";
             bars?.forEach(b => b.classList.remove("playing"));
-          }
+          };
+        } else {
+          audio.pause();
+          vp.textContent = "▶";
+          bars?.forEach(b => b.classList.remove("playing"));
         }
-        return;
       }
+      return;
+    }
+  });
 
-      const r = e.target.closest("[data-reply]");
-      const dMe = e.target.closest("[data-delete-me]");
-      const dAll = e.target.closest("[data-delete-all]");
-      const x = e.target.closest("[data-react]");
+  // Long-press for reaction menu
+  let pressTimer = null;
+  let pressedBubble = null;
 
-      if(r){
-        e.stopPropagation();
-        const id = r.dataset.reply;
-        const el = document.querySelector('[data-mid="' + CSS.escape(id) + '"]');
-        const text = el?.querySelector(".chat-message-text")?.textContent || "Message";
-        const mine = el?.closest(".chat-bubble-row")?.classList.contains("mine");
-        currentReplyTo = { id, text, senderId: mine ? currentUser.uid : currentChatFriend?.uid };
-        document.getElementById("chatReplyText").textContent = "↪ " + text.slice(0, 80);
-        document.getElementById("chatReplying").style.display = "flex";
-        document.getElementById("chatInput").focus();
-        return;
-      }
-      if(dMe){ e.stopPropagation(); deleteMessageForMe(dMe.dataset.deleteMe); return; }
-      if(dAll){ e.stopPropagation(); deleteMessageForEveryone(dAll.dataset.deleteAll); return; }
-      if(x){ e.stopPropagation(); toggleReaction(x.dataset.react, x.dataset.emoji); return; }
+  const startPress = (e) => {
+    const bubble = e.target.closest(".chat-bubble");
+    if(!bubble) return;
+    if(e.target.closest("[data-open-image]") || e.target.closest(".voice-play-btn")) return;
 
-      if(bubble){
-        document.querySelectorAll(".chat-bubble.tools-open").forEach(b => {
-          if(b !== bubble) b.classList.remove("tools-open");
-        });
-        bubble.classList.toggle("tools-open");
-      }
-    });
-  }
+    pressedBubble = bubble;
+    pressTimer = setTimeout(() => {
+      if(navigator.vibrate) navigator.vibrate(15);
+      showReactionMenu(bubble);
+    }, 450);
+  };
+
+  const cancelPress = () => {
+    if(pressTimer){ clearTimeout(pressTimer); pressTimer = null; }
+    pressedBubble = null;
+  };
+
+  cm.addEventListener("touchstart", startPress, {passive:true});
+  cm.addEventListener("touchend", cancelPress);
+  cm.addEventListener("touchmove", cancelPress);
+  cm.addEventListener("touchcancel", cancelPress);
+
+  cm.addEventListener("mousedown", startPress);
+  cm.addEventListener("mouseup", cancelPress);
+  cm.addEventListener("mouseleave", cancelPress);
+                                             }
 
   initEmojiPicker();
   initChatSearch();
@@ -4112,7 +4114,178 @@ function openMessages(){ return openDirectMessages(); }
 window.openMessages = openDirectMessages;
 window.openDirectMessages = openDirectMessages;
 window.openCommunity = openCommunity;
+/* ============================================================
+   LONG-PRESS REACTION MENU
+   ============================================================ */
+let activeReactionMid = null;
 
+function showReactionMenu(bubble){
+  const menu = document.getElementById("reactionMenu");
+  if(!menu) return;
+  const mid = bubble.getAttribute("data-mid");
+  if(!mid) return;
+  activeReactionMid = mid;
+
+  const rect = bubble.getBoundingClientRect();
+  const menuWidth = 280; // approx
+  const menuHeight = 54;
+
+  let left = rect.left + rect.width / 2 - menuWidth / 2;
+  if(left < 8) left = 8;
+  if(left + menuWidth > window.innerWidth - 8) left = window.innerWidth - menuWidth - 8;
+
+  let top = rect.top - menuHeight - 8;
+  if(top < 8){
+    top = rect.bottom + 8;
+  }
+
+  menu.style.left = left + "px";
+  menu.style.top = top + "px";
+  menu.classList.add("show");
+}
+
+function hideReactionMenu(){
+  const menu = document.getElementById("reactionMenu");
+  if(menu) menu.classList.remove("show");
+  activeReactionMid = null;
+}
+
+// Attach reaction button handlers
+window.addEventListener("DOMContentLoaded", () => {
+  const menu = document.getElementById("reactionMenu");
+  if(menu){
+    menu.querySelectorAll("button[data-reaction]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const emoji = btn.getAttribute("data-reaction");
+        const mid = activeReactionMid;
+        hideReactionMenu();
+        if(mid) await toggleReaction(mid, emoji);
+      });
+    });
+  }
+
+  // Close menu on tap outside
+  document.addEventListener("click", (e) => {
+    const menu = document.getElementById("reactionMenu");
+    if(menu && menu.classList.contains("show")){
+      if(!e.target.closest("#reactionMenu")) hideReactionMenu();
+    }
+  });
+  document.addEventListener("touchstart", (e) => {
+    const menu = document.getElementById("reactionMenu");
+    if(menu && menu.classList.contains("show")){
+      if(!e.target.closest("#reactionMenu")) hideReactionMenu();
+    }
+  }, {passive:true});
+});
+
+/* ============================================================
+   PROFILE PIC CLICK → USER INFO MODAL
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  const avatarBtn = document.getElementById("chatAvatarBtn");
+  if(avatarBtn){
+    avatarBtn.addEventListener("click", () => {
+      if(!currentChatFriend) return;
+      showUserProfileModal(currentChatFriend);
+    });
+  }
+
+  const videoBtn = document.getElementById("videoCallBtn");
+  if(videoBtn){
+    videoBtn.addEventListener("click", () => {
+      showToast("📹 Video call coming soon...");
+    });
+  }
+});
+
+function showUserProfileModal(user){
+  const overlay = document.getElementById("igListOverlay");
+  const title = document.getElementById("igListTitle");
+  const content = document.getElementById("igListContent");
+  if(!overlay || !title || !content) return;
+
+  overlay.classList.add("show");
+  title.textContent = "Profile";
+
+  const photo = avatarFor(user);
+  const name = user.displayName || "User";
+  const username = user.username || "user";
+  const bio = user.bio || "";
+
+  content.innerHTML =
+    '<div style="text-align:center;padding:20px 10px">' +
+      '<img src="' + escapeAttr(photo) + '" style="width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 3px #e63946">' +
+      '<div style="font-size:18px;font-weight:800;margin-bottom:2px">' + escapeHtml(name) + '</div>' +
+      '<div style="font-size:13px;color:#e63946;font-weight:600;margin-bottom:12px">@' + escapeHtml(username) + '</div>' +
+      (bio ? '<div style="font-size:14px;color:#666;padding:0 20px;margin-bottom:16px;line-height:1.5">' + escapeHtml(bio) + '</div>' : '') +
+      '<div style="display:flex;gap:8px;justify-content:center;padding:0 20px">' +
+        '<button type="button" id="profileMsgBtn" style="flex:1;max-width:160px;padding:10px 16px;border-radius:10px;border:none;background:#e63946;color:#fff;font-weight:700;cursor:pointer;font-family:inherit">💬 Message</button>' +
+      '</div>' +
+    '</div>';
+
+  const msgBtn = document.getElementById("profileMsgBtn");
+  if(msgBtn){
+    msgBtn.addEventListener("click", () => {
+      overlay.classList.remove("show");
+    });
+  }
+}
+
+/* ============================================================
+   FIX RECORDING (min duration + proper chunk capture)
+   ============================================================ */
+// Replace existing startRecording/stopRecording with these safer versions:
+
+async function startRecording(){
+  if(!currentUser || !currentConversationId) return;
+  if(mediaRecorder && mediaRecorder.state === "recording") return;
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    // Pick best supported mime type
+    let mimeType = "audio/webm";
+    if(typeof MediaRecorder !== "undefined" && MediaRecorder.isTypeSupported){
+      if(MediaRecorder.isTypeSupported("audio/webm;codecs=opus")) mimeType = "audio/webm;codecs=opus";
+      else if(MediaRecorder.isTypeSupported("audio/webm")) mimeType = "audio/webm";
+      else if(MediaRecorder.isTypeSupported("audio/mp4")) mimeType = "audio/mp4";
+      else if(MediaRecorder.isTypeSupported("audio/ogg")) mimeType = "audio/ogg";
+    }
+
+    mediaRecorder = new MediaRecorder(stream, {mimeType});
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e => {
+      if(e.data && e.data.size > 0) audioChunks.push(e.data);
+    };
+
+    // Start with 500ms timeslice so we get chunks even for short recordings
+    mediaRecorder.start(500);
+
+    // Wait a moment to ensure recording actually started
+    await new Promise(res => setTimeout(res, 100));
+
+    recordingStart = Date.now();
+
+    const bar = document.getElementById("recordingBar");
+    const timer = document.getElementById("recTimer");
+    const composer = document.getElementById("chatComposer");
+    const input = document.getElementById("chatInput");
+    const camBtn = document.getElementById("imageBtn");
+    const emojiBtn = document.getElementById("emojiBtn");
+    const micBtn = document.getElementById("micBtn");
+    const sendBtn = document.getElementById("sendMessageBtn");
+
+    if(bar) bar.classList.add("show");
+    if(input) input.style.display = "none";
+    if(camBtn) camBtn.style.display = "none";
+    if(emojiBtn) emojiBtn.style.display = "none";
+    if(micBtn) micBtn.style.display = "none";
+    if(sendBtn) sendBtn.style.display = "none";
+
+    recordingInterval = setInterval(() => {
+
+   
 console.log("✅ JS Part 2 loaded");
    /* ============================================================
    PROFILE IDENTITY

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7a1620"/>
+      <stop offset="50%" stop-color="#e63946"/>
+      <stop offset="100%" stop-color="#ff7a59"/>
+    </linearGradient>
+    <linearGradient id="smileGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#ff9a5a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="110" ry="110" fill="url(#bgGrad)"/>
+
+  <!-- Decorative blob top-left -->
+  <circle cx="100" cy="100" r="70" fill="#ffd166" opacity="0.25"/>
+  <!-- Decorative blob bottom-right -->
+  <circle cx="420" cy="430" r="90" fill="#ffffff" opacity="0.12"/>
+
+  <!-- UP letters (big, bold, condensed) -->
+  <text x="256" y="230"
+        font-family="Anton, Arial Black, sans-serif"
+        font-size="130"
+        font-weight="900"
+        text-anchor="middle"
+        fill="#ffffff"
+        letter-spacing="-6">UP</text>
+
+  <!-- Smile face below -->
+  <g transform="translate(256, 340)">
+    <!-- Face circle -->
+    <circle r="70" fill="#ffd166"/>
+    <!-- Eyes -->
+    <circle cx="-22" cy="-18" r="9" fill="#111"/>
+    <circle cx="22" cy="-18" r="9" fill="#111"/>
+    <!-- Smile -->
+    <path d="M -30 8 Q 0 42 30 8"
+          stroke="#111"
+          stroke-width="8"
+          stroke-linecap="round"
+          fill="none"/>
+  </g>
+
+  <!-- Small "Comedy" text at bottom -->
+  <text x="256" y="475"
+        font-family="Anton, Arial Black, sans-serif"
+        font-size="28"
+        font-weight="900"
+        text-anchor="middle"
+        fill="#ffffff"
+        opacity="0.9"
+        letter-spacing="8">COMEDY HUB</text>
+</svg>

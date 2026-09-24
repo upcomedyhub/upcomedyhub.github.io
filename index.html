@@ -4013,8 +4013,7 @@ function initCommunityUI(){
   if(cancelRec) cancelRec.addEventListener("click", () => stopRecording(false));
   const sendRec = document.getElementById("sendRecBtn");
   if(sendRec) sendRec.addEventListener("click", () => stopRecording(true));
-
-  const cm = document.getElementById("chatMessages");
+   
   const cm = document.getElementById("chatMessages");
 if(cm){
   // Click for image open + voice play only
@@ -4283,11 +4282,98 @@ async function startRecording(){
     if(micBtn) micBtn.style.display = "none";
     if(sendBtn) sendBtn.style.display = "none";
 
-    recordingInterval = setInterval(() => {
+        recordingInterval = setInterval(() => {
+      const s = Math.floor((Date.now() - recordingStart) / 1000);
+      const m = Math.floor(s / 60);
+      const ss = s % 60;
+      if(timer) timer.textContent = m + ":" + String(ss).padStart(2, "0");
+      if(s >= 60) stopRecording(true);
+    }, 250);
+  } catch(e){
+    console.error("Mic failed", e);
+    showToast("❌ Mic permission nahi mili");
+  }
+}
 
-   
-console.log("✅ JS Part 2 loaded");
-   /* ============================================================
+async function stopRecording(send=true){
+  if(!mediaRecorder) return;
+  try {
+    if(mediaRecorder.state === "recording") mediaRecorder.requestData();
+  } catch(e){}
+  await new Promise(res => setTimeout(res, 150));
+  try {
+    if(mediaRecorder.state !== "inactive") mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(t => t.stop());
+  } catch(e){}
+  clearInterval(recordingInterval);
+  recordingInterval = null;
+
+  const bar = document.getElementById("recordingBar");
+  const input = document.getElementById("chatInput");
+  const camBtn = document.getElementById("imageBtn");
+  const emojiBtn = document.getElementById("emojiBtn");
+  const micBtn = document.getElementById("micBtn");
+  const sendBtn = document.getElementById("sendMessageBtn");
+  if(bar) bar.classList.remove("show");
+  if(input) input.style.display = "";
+  if(camBtn) camBtn.style.display = "";
+  if(emojiBtn) emojiBtn.style.display = "";
+  if(micBtn) micBtn.style.display = "";
+  if(sendBtn) sendBtn.style.display = "";
+
+  const duration = Math.round((Date.now() - recordingStart) / 1000);
+
+  if(!send){ audioChunks = []; mediaRecorder = null; return; }
+
+  if(!audioChunks.length || duration < 1){
+    showToast("⚠️ Recording too short");
+    audioChunks = []; mediaRecorder = null;
+    return;
+  }
+
+  const blob = new Blob(audioChunks, {type: (mediaRecorder && mediaRecorder.mimeType) || "audio/webm"});
+  audioChunks = [];
+  mediaRecorder = null;
+
+  if(blob.size < 500){ showToast("⚠️ Recording too short"); return; }
+  if(blob.size > 900 * 1024){ showToast("❌ Recording too long (max 60s)"); return; }
+
+  const dataUrl = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(blob);
+  });
+
+  try {
+    const convRef = db.collection("conversations").doc(currentConversationId);
+    await convRef.collection("messages").add({
+      senderId: currentUser.uid,
+      text: "",
+      mediaType: "voice",
+      mediaUrl: dataUrl,
+      mediaDuration: Math.max(1, duration),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await convRef.set({
+      members: [currentUser.uid, currentChatFriend.uid].sort(),
+      lastMessage: "🎤 Voice message",
+      lastMessageType: "voice",
+      lastMessageAt: firebase.firestore.FieldValue.serverTimestamp(),
+      lastSenderId: currentUser.uid
+    }, { merge: true });
+    await createNotification(currentChatFriend.uid, "message", "💬 New message",
+      (currentUser.displayName || "Someone") + " sent a voice message",
+      {conversationId: currentConversationId});
+    showToast("✅ Voice message sent");
+    updateMessageBadge();
+  } catch(e){
+    console.error("Voice send failed", e);
+    showToast("❌ Voice send failed");
+  }
+}
+
+/* ============================================================
    PROFILE IDENTITY
    ============================================================ */
 async function ensurePublicProfile(user){

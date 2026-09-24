@@ -3816,3 +3816,2646 @@ async function loadFollowCounts(){
 
 console.log("✅ UPComedyHub JS Part 1/3 loaded");
 </script>
+/* ============================================================
+   UPCOMEDYHUB — JAVASCRIPT PART 2/3
+   Full Instagram-Style Messages System
+   ============================================================ */
+
+/* ---------- Mobile Panel Toggle ---------- */
+function showMobileChatPanel(){
+  if(!isMobileViewport()) return;
+  const sb = document.getElementById("messagesSidebar");
+  const cp = document.getElementById("chatPanel");
+  if(sb) sb.classList.add("mobile-hidden");
+  if(cp) cp.classList.add("mobile-open");
+}
+function showMobileSidebar(){
+  if(!isMobileViewport()) return;
+  const sb = document.getElementById("messagesSidebar");
+  const cp = document.getElementById("chatPanel");
+  if(sb) sb.classList.remove("mobile-hidden");
+  if(cp) cp.classList.remove("mobile-open");
+}
+
+/* ---------- Close Messages ---------- */
+function closeMessages(){
+  const o = document.getElementById("messagesOverlay");
+  if(o) o.classList.remove("show");
+  if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+  if(typingUnsubscribe){ typingUnsubscribe(); typingUnsubscribe = null; }
+  if(convUnsubscribe){ convUnsubscribe(); convUnsubscribe = null; }
+  currentChatFriend = null;
+  currentConversationId = null;
+  currentReplyTo = null;
+  const cp = document.getElementById("chatPanel");
+  if(cp){ cp.style.display = "none"; cp.classList.remove("mobile-open"); }
+  const sb = document.getElementById("messagesSidebar");
+  if(sb) sb.classList.remove("mobile-hidden");
+  const act = document.getElementById("chatActive");
+  if(act) act.style.display = "none";
+}
+
+/* ---------- SHOW MESSAGES OVERLAY ---------- */
+function showMessagesOverlay(){
+  if(!currentUser){
+    showToast("🔐 Messages ke liye pehle login karein");
+    switchTab("profile");
+    return null;
+  }
+  const o = document.getElementById("messagesOverlay");
+  if(!o) return null;
+  o.classList.add("show");
+  const cp = document.getElementById("chatPanel");
+  if(cp){ cp.style.display = "none"; cp.classList.remove("mobile-open"); }
+  const sb = document.getElementById("messagesSidebar");
+  if(sb) sb.classList.remove("mobile-hidden");
+  const act = document.getElementById("chatActive");
+  if(act) act.style.display = "none";
+  return o;
+}
+
+/* ============================================================
+   NOTES ROW (Instagram Notes)
+   ============================================================ */
+let notesUnsubscribe = null;
+
+function loadNotesRow(){
+  const row = document.getElementById("notesRow");
+  if(!row || !currentUser) return;
+  if(notesUnsubscribe){ notesUnsubscribe(); notesUnsubscribe = null; }
+
+  notesUnsubscribe = db.collection("notes")
+    .where("expiresAt", ">", new Date())
+    .limit(30)
+    .onSnapshot(async snap => {
+      const notes = [];
+      for(const doc of snap.docs){
+        const d = doc.data();
+        if(d.uid === currentUser.uid) continue;
+        notes.push({id: doc.id, ...d});
+      }
+      // Load my own note separately
+      let myNote = null;
+      try{
+        const mySnap = await db.collection("notes").doc(currentUser.uid).get();
+        if(mySnap.exists){
+          const md = mySnap.data();
+          if(md.expiresAt && md.expiresAt.toDate() > new Date()) myNote = {id: mySnap.id, ...md};
+        }
+      }catch(e){}
+
+      // Sort by createdAt desc
+      notes.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+      const items = [];
+
+      // Self note bubble
+      items.push(renderSelfNote(myNote));
+
+      // Others' notes
+      for(const n of notes.slice(0, 20)){
+        // Get profile
+        let profile = null;
+        try{
+          const ps = await db.collection("publicProfiles").doc(n.uid).get();
+          profile = ps.exists ? ps.data() : null;
+        }catch(e){}
+        if(!profile) continue;
+        items.push(renderNote(n, profile));
+      }
+
+      row.innerHTML = items.join("");
+      // Click handlers
+      row.querySelectorAll("[data-note-self]").forEach(el => {
+        el.addEventListener("click", () => openNotesModal(myNote));
+      });
+      row.querySelectorAll("[data-note-uid]").forEach(el => {
+        el.addEventListener("click", async () => {
+          const uid = el.getAttribute("data-note-uid");
+          const ps = await db.collection("publicProfiles").doc(uid).get();
+          if(ps.exists) openChat({uid, ...ps.data()});
+        });
+      });
+    }, e => {
+      console.error("Notes listener failed", e);
+    });
+}
+
+function renderSelfNote(myNote){
+  const avatar = currentProfilePhotoURL || currentUser.photoURL || "https://ui-avatars.com/api/?name=U&background=e63946&color=fff";
+  const bubble = myNote
+    ? `<div class="note-bubble note-self" title="${escapeAttr(myNote.text||'')}">${escapeHtml((myNote.emoji||'') + ' ' + (myNote.text||'').slice(0,30))}</div>`
+    : `<div class="note-bubble">➕ Add note</div>`;
+  return `
+    <div class="note-item has-note" data-note-self>
+      ${bubble}
+      <div class="note-avatar-wrap">
+        <img class="note-avatar" src="${escapeAttr(avatar)}" alt="">
+      </div>
+      <div class="note-name">Your note</div>
+    </div>`;
+}
+
+function renderNote(n, profile){
+  const text = (n.emoji || "") + " " + (n.text || "");
+  return `
+    <div class="note-item has-note" data-note-uid="${escapeAttr(n.uid)}">
+      <div class="note-bubble" title="${escapeAttr(text)}">${escapeHtml(text.slice(0, 30))}</div>
+      <div class="note-avatar-wrap">
+        <img class="note-avatar" src="${escapeAttr(avatarFor(profile))}" alt="">
+      </div>
+      <div class="note-name">${escapeHtml(profile.displayName || "User")}</div>
+    </div>`;
+}
+
+/* ---------- Notes Modal ---------- */
+let selectedNoteEmoji = "✨";
+
+function openNotesModal(existingNote){
+  const overlay = document.getElementById("notesModalOverlay");
+  if(!overlay) return;
+  overlay.classList.add("show");
+  selectedNoteEmoji = existingNote?.emoji || "✨";
+  const txt = document.getElementById("noteTextInput");
+  if(txt) txt.value = existingNote?.text || "";
+  updateNoteCharCount();
+  document.querySelectorAll(".note-emoji").forEach(el => {
+    el.classList.toggle("selected", el.getAttribute("data-emoji") === selectedNoteEmoji);
+  });
+}
+
+function closeNotesModal(){
+  const overlay = document.getElementById("notesModalOverlay");
+  if(overlay) overlay.classList.remove("show");
+}
+
+function updateNoteCharCount(){
+  const t = document.getElementById("noteTextInput");
+  const c = document.getElementById("noteCharCount");
+  if(t && c) c.textContent = t.value.length;
+}
+
+async function saveNote(){
+  if(!currentUser) return;
+  const txt = document.getElementById("noteTextInput")?.value?.trim() || "";
+  if(!txt){ showToast("⚠️ Note khali nahi ho sakta"); return; }
+
+  try{
+    const now = new Date();
+    const expires = new Date(now.getTime() + 24*60*60*1000); // 24h
+
+    await db.collection("notes").doc(currentUser.uid).set({
+      uid: currentUser.uid,
+      emoji: selectedNoteEmoji,
+      text: txt.slice(0, 60),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      expiresAt: firebase.firestore.Timestamp.fromDate(expires)
+    });
+
+    showToast("✅ Note shared!");
+    closeNotesModal();
+  }catch(e){
+    console.error("Save note failed", e);
+    showToast("❌ Note save nahi hua");
+  }
+}
+
+/* ---------- INIT NOTES UI ---------- */
+function initNotesUI(){
+  const picker = document.getElementById("noteEmojiPicker");
+  if(picker){
+    picker.querySelectorAll(".note-emoji").forEach(el => {
+      el.addEventListener("click", () => {
+        selectedNoteEmoji = el.getAttribute("data-emoji");
+        picker.querySelectorAll(".note-emoji").forEach(x => x.classList.remove("selected"));
+        el.classList.add("selected");
+      });
+    });
+  }
+  const txt = document.getElementById("noteTextInput");
+  if(txt) txt.addEventListener("input", updateNoteCharCount);
+
+  const cancelBtn = document.getElementById("notesCancelBtn");
+  const shareBtn = document.getElementById("notesShareBtn");
+  const overlay = document.getElementById("notesModalOverlay");
+  if(cancelBtn) cancelBtn.addEventListener("click", closeNotesModal);
+  if(shareBtn) shareBtn.addEventListener("click", saveNote);
+  if(overlay) overlay.addEventListener("click", e => {
+    if(e.target === overlay) closeNotesModal();
+  });
+}
+
+/* ============================================================
+   INBOX (Primary Tab)
+   ============================================================ */
+async function loadInbox(){
+  const list = document.getElementById("inboxList");
+  if(!list || !currentUser) return;
+  list.innerHTML = '<p class="inbox-empty" style="padding:30px 20px">Loading...</p>';
+  try{
+    const snap = await db.collection("conversations")
+      .where("members", "array-contains", currentUser.uid)
+      .limit(50)
+      .get();
+
+    if(snap.empty){
+      list.innerHTML = '<div class="inbox-empty"><span class="big-icon">💬</span>Abhi koi chat nahi.<br>General tab se kisi ko message karo!</div>';
+      return;
+    }
+
+    const convs = snap.docs.map(d => ({id: d.id, ...d.data()}));
+    convs.sort((a,b) => (b.lastMessageAt?.seconds || 0) - (a.lastMessageAt?.seconds || 0));
+
+    list.innerHTML = "";
+    for(const c of convs){
+      const otherId = (c.members || []).find(x => x !== currentUser.uid);
+      if(!otherId) continue;
+
+      let profile = null;
+      try{
+        const ps = await db.collection("publicProfiles").doc(otherId).get();
+        profile = ps.exists ? ps.data() : {displayName:"User", username:"user"};
+      }catch(e){
+        profile = {displayName:"User", username:"user"};
+      }
+
+      const lastMsg = c.lastMessage || "";
+      const lastAt = c.lastMessageAt?.seconds
+        ? formatTimeAgo(new Date(c.lastMessageAt.seconds * 1000))
+        : "";
+      const isUnread = c.lastSenderId && c.lastSenderId !== currentUser.uid &&
+        (c.lastMessageAt?.seconds || 0) > ((c.lastRead && c.lastRead[currentUser.uid]?.seconds) || 0);
+
+      const preview = c.lastMessageType === "image" ? "📷 Photo"
+        : c.lastMessageType === "voice" ? "🎤 Voice message"
+        : lastMsg.slice(0, 60) || "Tap to chat";
+
+      const item = document.createElement("div");
+      item.className = "chat-list-item";
+      item.innerHTML = `
+        <img src="${escapeAttr(avatarFor(profile))}" alt="">
+        <div class="chat-list-info">
+          <div class="chat-list-name">${escapeHtml(profile.displayName || "User")}</div>
+          <div class="chat-list-preview">${escapeHtml(preview)}</div>
+        </div>
+        <div class="chat-list-right">
+          ${lastAt ? `<span class="chat-list-time">${escapeHtml(lastAt)}</span>` : ""}
+          ${isUnread ? '<span class="chat-list-unread">●</span>' : ""}
+        </div>`;
+      item.addEventListener("click", () => openChat({uid: otherId, ...profile}));
+      list.appendChild(item);
+    }
+  }catch(e){
+    console.error(e);
+    list.innerHTML = '<p class="inbox-empty" style="color:#e63946">Inbox load nahi hua.</p>';
+  }
+}
+
+/* ============================================================
+   REQUESTS
+   ============================================================ */
+async function loadRequests(){
+  const list = document.getElementById("requestsList");
+  if(!list || !currentUser) return;
+  list.innerHTML = '<p class="inbox-empty" style="padding:30px 20px">Loading...</p>';
+  try{
+    const [incoming, outgoing] = await Promise.all([
+      db.collection("messageRequests").where("to","==",currentUser.uid).get(),
+      db.collection("messageRequests").where("from","==",currentUser.uid).get()
+    ]);
+    const rows = [];
+    for(const doc of incoming.docs){
+      const d = doc.data();
+      if(d.status !== "pending") continue;
+      let ps = null;
+      try{ ps = await db.collection("publicProfiles").doc(d.from).get(); }catch(e){}
+      if(ps && ps.exists) rows.push({kind:"incoming", id:doc.id, uid:d.from, ...ps.data()});
+    }
+    for(const doc of outgoing.docs){
+      const d = doc.data();
+      if(d.status !== "pending") continue;
+      let ps = null;
+      try{ ps = await db.collection("publicProfiles").doc(d.to).get(); }catch(e){}
+      if(ps && ps.exists) rows.push({kind:"outgoing", id:doc.id, uid:d.to, ...ps.data()});
+    }
+
+    if(!rows.length){
+      list.innerHTML = '<div class="inbox-empty"><span class="big-icon">📭</span>No requests.<br>Message requests yahan aayengi.</div>';
+      return;
+    }
+
+    list.innerHTML = "";
+    rows.forEach(r => {
+      const isIncoming = r.kind === "incoming";
+      const item = document.createElement("div");
+      item.className = "chat-list-item";
+      item.style.alignItems = "flex-start";
+      item.innerHTML = `
+        <img src="${escapeAttr(avatarFor(r))}" alt="">
+        <div class="chat-list-info">
+          <div class="chat-list-name">${escapeHtml(r.displayName || "User")}</div>
+          <div class="chat-list-preview">@${escapeHtml(r.username || "user")}</div>
+          <div class="request-actions">
+            ${isIncoming ? `
+              <button type="button" class="accept-btn" data-accept="${escapeAttr(r.id)}" data-uid="${escapeAttr(r.uid)}">Accept</button>
+              <button type="button" class="delete-btn" data-reject="${escapeAttr(r.id)}">Delete</button>
+            ` : `<span style="font-size:12px;color:#888;padding:7px 0">Request sent</span>`}
+          </div>
+        </div>`;
+      list.appendChild(item);
+    });
+
+    list.querySelectorAll("[data-accept]").forEach(b => b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      acceptMessageRequest(b.getAttribute("data-accept"), b.getAttribute("data-uid"));
+    }));
+    list.querySelectorAll("[data-reject]").forEach(b => b.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      if(!confirm("Delete this request?")) return;
+      try{
+        await db.collection("messageRequests").doc(b.getAttribute("data-reject")).delete();
+        showToast("🗑️ Request deleted");
+        loadRequests();
+      }catch(err){ showToast("❌ Delete failed"); }
+    }));
+  }catch(e){
+    console.error(e);
+    list.innerHTML = '<p class="inbox-empty" style="color:#e63946">Requests load nahi hui.</p>';
+  }
+}
+
+/* ============================================================
+   GENERAL TAB (Search people)
+   ============================================================ */
+async function loadGeneral(){
+  const out = document.getElementById("peopleSearchResults");
+  if(!out) return;
+  out.innerHTML = '<p class="inbox-empty" style="padding:20px">Search karne ke liye upar box me username likho</p>';
+}
+
+async function searchPeople(){
+  if(!currentUser) return;
+  const input = document.getElementById("peopleSearchInput");
+  const q = normalizeUsername(input.value);
+  const out = document.getElementById("peopleSearchResults");
+  if(!q){
+    out.innerHTML = '<p class="inbox-empty" style="padding:20px">Username enter karo.</p>';
+    return;
+  }
+  out.innerHTML = '<p class="inbox-empty" style="padding:20px">Searching...</p>';
+  try{
+    const us = await db.collection("usernames").doc(q).get();
+    if(!us.exists || us.data().uid === currentUser.uid){
+      out.innerHTML = '<p class="inbox-empty" style="padding:20px">User nahi mila.</p>';
+      return;
+    }
+    const uid = us.data().uid;
+    const ps = await db.collection("publicProfiles").doc(uid).get();
+    if(!ps.exists){
+      out.innerHTML = '<p class="inbox-empty" style="padding:20px">Profile nahi mila.</p>';
+      return;
+    }
+    out.innerHTML = "";
+    await buildPersonSearchResult(uid, ps.data(), out);
+  }catch(e){
+    console.error(e);
+    out.innerHTML = '<p class="inbox-empty" style="color:#e63946;padding:20px">Search failed.</p>';
+  }
+}
+
+async function buildPersonSearchResult(uid, profile, container){
+  const data = profile || {};
+  const row = document.createElement("div");
+  row.className = "search-people-card";
+  row.innerHTML = `
+    <img src="${escapeAttr(avatarFor(data))}" alt="">
+    <div class="search-people-meta">
+      <div class="search-people-name">${escapeHtml(data.displayName || "User")}</div>
+      <div class="search-people-username">@${escapeHtml(data.username || "user")}</div>
+    </div>
+    <div class="search-people-actions"><span style="font-size:11px;color:#888">…</span></div>`;
+  container.appendChild(row);
+  const actions = row.querySelector(".search-people-actions");
+
+  try{
+    const fr = await db.collection("friendships").doc(pairId(currentUser.uid, uid)).get();
+    const reqSnap = await db.collection("messageRequests").doc(pairId(currentUser.uid, uid)).get();
+    const isFriend = fr.exists;
+    const reqData = reqSnap.exists ? reqSnap.data() : null;
+    const hasSentReq = reqData?.status === "pending";
+    const isAccepted = reqData?.status === "accepted";
+
+    if(isFriend || isAccepted){
+      actions.innerHTML = '<button type="button" data-chat>Message</button>';
+      actions.querySelector("[data-chat]").onclick = () => openChat({uid, ...data});
+    } else if(hasSentReq){
+      actions.innerHTML = '<span style="font-size:12px;color:#888;padding:7px 0">Request sent</span>';
+    } else {
+      actions.innerHTML = '<button type="button" data-msg>Message</button>';
+      actions.querySelector("[data-msg]").onclick = () => sendMessageRequest(uid, data);
+    }
+  }catch(e){
+    console.error(e);
+    actions.innerHTML = '<button type="button" data-msg>Message</button>';
+    actions.querySelector("[data-msg]").onclick = () => sendMessageRequest(uid, data);
+  }
+}
+
+/* ============================================================
+   MESSAGE REQUEST FLOW
+   ============================================================ */
+async function sendMessageRequest(uid, profile){
+  if(!currentUser || !uid || uid === currentUser.uid) return;
+  try{
+    const friendship = await db.collection("friendships").doc(pairId(currentUser.uid, uid)).get();
+    if(friendship.exists){ openChat({...profile, uid}); return; }
+
+    const requestId = pairId(currentUser.uid, uid);
+    const ref = db.collection("messageRequests").doc(requestId);
+    const existing = await ref.get();
+    if(existing.exists && existing.data().status === "pending"){
+      showToast("⏳ Request already sent");
+      return;
+    }
+
+    await ref.set({
+      from: currentUser.uid,
+      to: uid,
+      status: "pending",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      senderName: currentUser.displayName || "Someone"
+    });
+
+    await createNotification(uid, "message_request", "💬 New message request",
+      (currentUser.displayName || "Someone") + " wants to message you.",
+      {requestId, profileUid: currentUser.uid});
+    showToast("💬 Message request sent");
+
+    // Refresh search
+    const out = document.getElementById("peopleSearchResults");
+    if(out){
+      out.innerHTML = "";
+      const ps = await db.collection("publicProfiles").doc(uid).get();
+      if(ps.exists) await buildPersonSearchResult(uid, ps.data(), out);
+    }
+  }catch(e){
+    console.error(e);
+    showToast("❌ Message request failed");
+  }
+}
+
+async function acceptMessageRequest(requestId, fromUid){
+  if(!currentUser) return;
+  try{
+    const ref = db.collection("messageRequests").doc(requestId);
+    await ref.update({
+      status: "accepted",
+      respondedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await createNotification(fromUid, "message_request_accepted", "💬 Request accepted",
+      (currentUser.displayName || "User") + " accepted your message request.",
+      {requestId});
+    const ps = await db.collection("publicProfiles").doc(fromUid).get();
+    showToast("✅ Request accepted");
+    loadRequests();
+    if(ps.exists) openChat({uid: fromUid, ...ps.data()});
+  }catch(e){
+    console.error(e);
+    showToast("❌ Accept failed");
+  }
+}
+
+/* ============================================================
+   ONLINE STATUS + TYPING
+   ============================================================ */
+let typingUnsubscribe = null;
+let convUnsubscribe = null;
+let userStatusUnsubscribe = null;
+let typingTimer = null;
+
+function startUserStatusHeartbeat(){
+  if(!currentUser) return;
+  const userRef = db.collection("users").doc(currentUser.uid);
+  const update = () => {
+    userRef.set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true }).catch(()=>{});
+  };
+  update();
+  setInterval(update, 60000); // every 60 sec
+}
+
+function trackUserTyping(conversationId){
+  if(!currentUser || !conversationId) return;
+  // Called from chat input handler with debounce
+  const ref = db.collection("conversations").doc(conversationId).collection("typing").doc(currentUser.uid);
+  ref.set({
+    uid: currentUser.uid,
+    at: firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(()=>{});
+}
+
+function setupTypingListener(conversationId, friendUid){
+  if(typingUnsubscribe){ typingUnsubscribe(); typingUnsubscribe = null; }
+  const statusEl = document.getElementById("chatUserStatus");
+  const ref = db.collection("conversations").doc(conversationId).collection("typing").doc(friendUid);
+
+  typingUnsubscribe = ref.onSnapshot(snap => {
+    if(!snap.exists){ return updateChatUserStatus(friendUid, false); }
+    const d = snap.data();
+    const at = d.at?.toDate ? d.at.toDate().getTime() : 0;
+    const age = Date.now() - at;
+    if(age < 5000){
+      if(statusEl){
+        statusEl.textContent = "typing...";
+        statusEl.className = "chat-user-status typing";
+      }
+    } else {
+      updateChatUserStatus(friendUid, false);
+    }
+  }, () => {});
+}
+
+async function updateChatUserStatus(friendUid, isTyping){
+  const statusEl = document.getElementById("chatUserStatus");
+  if(!statusEl || !friendUid) return;
+  if(isTyping){
+    statusEl.textContent = "typing...";
+    statusEl.className = "chat-user-status typing";
+    return;
+  }
+  try{
+    const snap = await db.collection("users").doc(friendUid).get();
+    if(!snap.exists){
+      statusEl.textContent = "";
+      return;
+    }
+    const d = snap.data();
+    const lastSeen = d.lastSeen?.toDate ? d.lastSeen.toDate() : null;
+    if(lastSeen){
+      const ageMin = (Date.now() - lastSeen.getTime()) / 60000;
+      if(ageMin < 2){
+        statusEl.textContent = "● Online";
+        statusEl.className = "chat-user-status online";
+      } else {
+        statusEl.textContent = "last seen " + formatTimeAgo(lastSeen);
+        statusEl.className = "chat-user-status";
+      }
+    } else {
+      statusEl.textContent = "";
+    }
+  }catch(e){}
+}
+
+/* ============================================================
+   OPEN CHAT
+   ============================================================ */
+async function openChat(friend){
+  if(!friend || !currentUser) return;
+  currentChatFriend = friend;
+  currentConversationId = pairId(currentUser.uid, friend.uid);
+
+  showMobileChatPanel();
+
+  document.getElementById("chatActive").style.display = "flex";
+  const chatPanel = document.getElementById("chatPanel");
+  if(chatPanel) chatPanel.style.display = "flex";
+  document.getElementById("chatFriendPhoto").src = avatarFor(friend);
+  document.getElementById("chatFriendName").textContent = friend.displayName || "User";
+  document.getElementById("chatFriendUsername").textContent = "@" + (friend.username || "user");
+  const statusEl = document.getElementById("chatUserStatus");
+  if(statusEl) statusEl.textContent = "";
+
+  if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+
+  const convRef = db.collection("conversations").doc(currentConversationId);
+  try{
+    await convRef.set({
+      members: [currentUser.uid, friend.uid].sort(),
+      lastRead: { [currentUser.uid]: firebase.firestore.FieldValue.serverTimestamp() }
+    }, { merge: true });
+    updateMessageBadge();
+  }catch(e){ console.error(e); }
+
+  // Load messages
+  const msgsRef = convRef.collection("messages").orderBy("createdAt", "asc").limitToLast(50);
+  chatUnsubscribe = msgsRef.onSnapshot(
+    snap => renderChatMessages(snap.docs),
+    e => {
+      console.error(e);
+      document.getElementById("chatMessages").innerHTML =
+        '<p style="color:#e63946;text-align:center;padding:20px">Messages load nahi hue.</p>';
+    }
+  );
+
+  // Typing + Online status
+  setupTypingListener(currentConversationId, friend.uid);
+  updateChatUserStatus(friend.uid, false);
+}
+
+/* ============================================================
+   RENDER CHAT MESSAGES
+   ============================================================ */
+function getTimeSeparatorLabel(date){
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const target = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const diffDays = Math.round((today - target) / 86400000);
+  if(diffDays === 0) return "Today";
+  if(diffDays === 1) return "Yesterday";
+  if(diffDays < 7) return date.toLocaleDateString("en-IN", {weekday:"long"});
+  return date.toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"});
+}
+
+async function renderChatMessages(docs){
+  const box = document.getElementById("chatMessages");
+  if(!box) return;
+  const rows = docs.filter(doc => !doc.data().deleted || doc.data().deletedForEveryone === false);
+  const html = [];
+
+  let lastDay = "";
+  for(const doc of rows){
+    const d = doc.data();
+    const dt = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate() : new Date();
+    const dayKey = dt.toDateString();
+
+    // Time separator
+    if(dayKey !== lastDay){
+      html.push(`<div class="chat-time-sep">${escapeHtml(getTimeSeparatorLabel(dt))}</div>`);
+      lastDay = dayKey;
+    }
+
+    const mine = d.senderId === currentUser.uid;
+    const reply = d.replyTo
+      ? `<div class="reply-preview">↪ ${escapeHtml((d.replyTo.text || "Message").slice(0, 60))}</div>`
+      : "";
+
+    // Message content
+    let content = "";
+    if(d.deletedForEveryone){
+      content = `<div class="chat-message-text" style="font-style:italic;opacity:.7">🚫 This message was deleted</div>`;
+    } else if(d.mediaType === "image" && d.mediaUrl){
+      content = `<img class="chat-image-msg" src="${escapeAttr(d.mediaUrl)}" alt="Photo" data-open-image="${escapeAttr(d.mediaUrl)}">`
+              + (d.text ? `<div class="chat-message-text" style="margin-top:6px">${escapeHtml(d.text)}</div>` : "");
+    } else if(d.mediaType === "voice" && d.mediaUrl){
+      content = `
+        <div class="voice-bubble" data-voice-id="${escapeAttr(doc.id)}">
+          <button type="button" class="voice-play-btn" aria-label="Play">▶</button>
+          <div class="voice-waveform">
+            ${Array(16).fill(0).map((_,i) => `<div class="voice-bar" style="height:${6 + (i*3)%14}px"></div>`).join("")}
+          </div>
+          <span class="voice-duration">${(d.mediaDuration || 0)}s</span>
+          <audio src="${escapeAttr(d.mediaUrl)}" preload="none"></audio>
+        </div>`;
+    } else {
+      content = `<div class="chat-message-text">${escapeHtml(d.text || "")}</div>`;
+    }
+
+    // Status ticks (only for my messages, text messages)
+    let status = "";
+    if(mine && !d.deletedForEveryone){
+      const tick = d.readAt ? '✓✓' : (d.deliveredAt ? '✓✓' : '✓');
+      const cls = d.readAt ? 'chat-msg-status read' : 'chat-msg-status';
+      status = `<span class="${cls}">${tick}</span>`;
+    }
+
+    const tools = `
+      <div class="chat-tools">
+        <button type="button" class="chat-tool" data-reply="${escapeAttr(doc.id)}">↩️</button>
+        <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="❤️">❤️</button>
+        <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😂">😂</button>
+        <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="🔥">🔥</button>
+        <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="👍">👍</button>
+        <button type="button" class="chat-tool" data-react="${escapeAttr(doc.id)}" data-emoji="😢">😢</button>
+        ${mine ? `
+          <button type="button" class="chat-tool" data-delete-me="${escapeAttr(doc.id)}" title="Delete for me">🗑️</button>
+          <button type="button" class="chat-tool" data-delete-all="${escapeAttr(doc.id)}" title="Delete for everyone">🚫</button>
+        ` : ""}
+      </div>`;
+
+    html.push(`
+      <div class="chat-bubble-row ${mine ? 'mine' : ''}">
+        <div class="chat-bubble" data-mid="${escapeAttr(doc.id)}">
+          ${reply}
+          ${content}
+          <div class="chat-meta">${escapeHtml(dt.toLocaleTimeString("en-IN", {hour:"2-digit", minute:"2-digit"}))}${status}</div>
+          ${tools}
+          <div class="reaction-summary" data-reaction-summary="${escapeAttr(doc.id)}"></div>
+        </div>
+      </div>`);
+  }
+
+  box.innerHTML = html.join("") ||
+    '<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋<br>Say hi!</p>';
+
+  // Load reactions
+  await Promise.all(rows.map(async doc => {
+    try{
+      const snap = await db.collection("conversations").doc(currentConversationId)
+        .collection("messages").doc(doc.id).collection("reactions").get();
+      const counts = {};
+      snap.forEach(r => {
+        const em = r.data().emoji;
+        if(em) counts[em] = (counts[em] || 0) + 1;
+      });
+      const el = box.querySelector('[data-reaction-summary="' + CSS.escape(doc.id) + '"]');
+      if(el) el.innerHTML = Object.entries(counts)
+        .map(([em, c]) => `<span style="font-size:11px;margin-right:5px">${em} ${c}</span>`).join("");
+    }catch(e){}
+  }));
+
+  box.scrollTop = box.scrollHeight;
+}
+
+/* ============================================================
+   SEND MESSAGE
+   ============================================================ */
+async function sendMessage(){
+  if(!currentUser || !currentConversationId || !currentChatFriend) return;
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if(!text) return;
+  try{
+    const convRef = db.collection("conversations").doc(currentConversationId);
+    const payload = {
+      senderId: currentUser.uid,
+      text: text,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    if(currentReplyTo){
+      payload.replyTo = {
+        id: currentReplyTo.id,
+        text: currentReplyTo.text,
+        senderId: currentReplyTo.senderId
+      };
+    }
+    await convRef.collection("messages").add(payload);
+    await convRef.set({
+      members: [currentUser.uid, currentChatFriend.uid].sort(),
+      lastMessage: text.slice(0, 120),
+      lastMessageType: "text",
+      lastMessageAt: firebase.firestore.FieldValue.serverTimestamp(),
+      lastSenderId: currentUser.uid
+    }, { merge: true });
+
+    await createNotification(currentChatFriend.uid, "message", "💬 New message",
+      (currentUser.displayName || "Someone") + ": " + text.slice(0, 80),
+      {conversationId: currentConversationId});
+
+    input.value = "";
+    input.style.height = "auto";
+    cancelReply();
+    updateMessageBadge();
+  }catch(e){
+    console.error(e);
+    showToast("❌ Message send failed");
+  }
+}
+
+/* ============================================================
+   DELETE MESSAGE
+   ============================================================ */
+async function deleteMessageForMe(mid){
+  if(!currentConversationId) return;
+  if(!confirm("Delete for you?")) return;
+  try{
+    await db.collection("conversations").doc(currentConversationId)
+      .collection("messages").doc(mid).delete();
+    showToast("🗑️ Deleted");
+  }catch(e){ showToast("❌ Delete failed"); }
+}
+
+async function deleteMessageForEveryone(mid){
+  if(!currentConversationId) return;
+  if(!confirm("Delete for everyone?")) return;
+  try{
+    await db.collection("conversations").doc(currentConversationId)
+      .collection("messages").doc(mid).update({
+        text: "",
+        mediaUrl: firebase.firestore.FieldValue.delete(),
+        mediaType: firebase.firestore.FieldValue.delete(),
+        deletedForEveryone: true,
+        deletedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    showToast("🚫 Deleted for everyone");
+  }catch(e){
+    console.error(e);
+    showToast("❌ Delete failed");
+  }
+}
+
+/* ============================================================
+   REPLY / CANCEL REPLY
+   ============================================================ */
+function cancelReply(){
+  currentReplyTo = null;
+  const el = document.getElementById("chatReplying");
+  if(el) el.style.display = "none";
+}
+
+/* ============================================================
+   REACTIONS
+   ============================================================ */
+async function toggleReaction(mid, emoji){
+  if(!currentConversationId || !currentUser) return;
+  try{
+    const r = db.collection("conversations").doc(currentConversationId)
+      .collection("messages").doc(mid).collection("reactions").doc(currentUser.uid);
+    const snap = await r.get();
+    if(snap.exists && snap.data().emoji === emoji) await r.delete();
+    else await r.set({emoji, updatedAt: firebase.firestore.FieldValue.serverTimestamp()});
+  }catch(e){
+    console.error(e);
+    showToast("❌ Reaction failed");
+  }
+}
+
+/* ============================================================
+   EMOJI PICKER
+   ============================================================ */
+const EMOJI_LIST = [
+  "😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","😉","😊","😇","🥰","😍","🤩",
+  "😘","😗","😚","😙","🥲","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐",
+  "🤨","😐","😑","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒",
+  "🤕","🤢","🤮","🤧","🥵","🥶","🥴","😵","🤯","🤠","🥳","😎","🤓","🧐","😕","😟",
+  "🙁","☹️","😮","😯","😲","😳","🥺","😦","😧","😨","😰","😥","😢","😭","😱","😖",
+  "😣","😞","😓","😩","😫","🥱","😤","😡","😠","🤬","😈","👿","💀","💩","🤡","👻",
+  "❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❣️","💕","💞","💓","💗","💖",
+  "💘","💝","💟","✌️","🤞","🤟","🤘","👌","👍","👎","👏","🙌","🤝","🙏","💪","🎉",
+  "🔥","✨","⭐","🌟","💯","🎯","🚀","🎬","😂","🤣","😎","🥳","👀","🙈","🙉","🙊"
+];
+
+function initEmojiPicker(){
+  const grid = document.getElementById("emojiGrid");
+  const picker = document.getElementById("emojiPicker");
+  const btn = document.getElementById("emojiBtn");
+  if(!grid || !picker || !btn) return;
+
+  grid.innerHTML = EMOJI_LIST.map(e => `<button type="button" class="emoji-btn" data-emoji="${e}">${e}</button>`).join("");
+  grid.querySelectorAll(".emoji-btn").forEach(b => {
+    b.addEventListener("click", () => {
+      const input = document.getElementById("chatInput");
+      if(input){
+        const pos = input.selectionStart || input.value.length;
+        input.value = input.value.slice(0, pos) + b.getAttribute("data-emoji") + input.value.slice(pos);
+        input.focus();
+        input.selectionStart = input.selectionEnd = pos + b.getAttribute("data-emoji").length;
+      }
+    });
+  });
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    picker.classList.toggle("show");
+  });
+  document.addEventListener("click", (e) => {
+    if(!picker.contains(e.target) && e.target !== btn){
+      picker.classList.remove("show");
+    }
+  });
+}
+
+/* ============================================================
+   IMAGE SHARING
+   ============================================================ */
+async function compressChatImage(file){
+  const dataUrl = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = () => rej(new Error("read failed"));
+    r.readAsDataURL(file);
+  });
+  const img = new Image();
+  await new Promise((res, rej) => {
+    img.onload = res;
+    img.onerror = rej;
+    img.src = dataUrl;
+  });
+  const maxSide = 900;
+  const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
+  const w = Math.max(1, Math.round((img.naturalWidth || img.width) * scale));
+  const h = Math.max(1, Math.round((img.naturalHeight || img.height) * scale));
+  const c = document.createElement("canvas");
+  c.width = w; c.height = h;
+  const ctx = c.getContext("2d");
+  ctx.drawImage(img, 0, 0, w, h);
+  let quality = 0.75;
+  let blob = await new Promise(r => c.toBlob(r, "image/jpeg", quality));
+  while(blob && blob.size > 180 * 1024 && quality > 0.4){
+    quality -= 0.1;
+    blob = await new Promise(r => c.toBlob(r, "image/jpeg", quality));
+  }
+  if(!blob) throw new Error("compress failed");
+  return await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(blob);
+  });
+}
+
+async function sendImageFile(file){
+  if(!currentUser || !currentConversationId || !currentChatFriend) return;
+  if(!file) return;
+  if(!file.type || !file.type.startsWith("image/")){
+    showToast("❌ Sirf image bhej sakte hain");
+    return;
+  }
+  if(file.size > 8 * 1024 * 1024){
+    showToast("❌ Image 8 MB se chhoti honi chahiye");
+    return;
+  }
+  showToast("📷 Sending photo...");
+  try{
+    const dataUrl = await compressChatImage(file);
+    const convRef = db.collection("conversations").doc(currentConversationId);
+    await convRef.collection("messages").add({
+      senderId: currentUser.uid,
+      text: "",
+      mediaType: "image",
+      mediaUrl: dataUrl,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await convRef.set({
+      members: [currentUser.uid, currentChatFriend.uid].sort(),
+      lastMessage: "📷 Photo",
+      lastMessageType: "image",
+      lastMessageAt: firebase.firestore.FieldValue.serverTimestamp(),
+      lastSenderId: currentUser.uid
+    }, { merge: true });
+    await createNotification(currentChatFriend.uid, "message", "💬 New message",
+      (currentUser.displayName || "Someone") + " sent a photo",
+      {conversationId: currentConversationId});
+    showToast("✅ Photo sent");
+    updateMessageBadge();
+  }catch(e){
+    console.error("Image send failed", e);
+    showToast("❌ Photo send failed");
+  }
+}
+
+/* ============================================================
+   VOICE MESSAGE
+   ============================================================ */
+let mediaRecorder = null;
+let audioChunks = [];
+let recordingInterval = null;
+let recordingStart = 0;
+
+async function startRecording(){
+  if(!currentUser || !currentConversationId) return;
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e => { if(e.data.size > 0) audioChunks.push(e.data); };
+    mediaRecorder.start();
+    recordingStart = Date.now();
+    const bar = document.getElementById("recordingBar");
+    const timer = document.getElementById("recTimer");
+    const composer = document.getElementById("chatComposer");
+    const input = document.getElementById("chatInput");
+    if(bar) bar.classList.add("show");
+    if(composer){
+      composer.querySelectorAll(".composer-icon-btn").forEach(b => b.style.display = "none");
+      if(input) input.style.display = "none";
+      const send = document.getElementById("sendMessageBtn");
+      if(send) send.style.display = "none";
+    }
+    recordingInterval = setInterval(() => {
+      const s = Math.floor((Date.now() - recordingStart) / 1000);
+      const m = Math.floor(s / 60);
+      const ss = s % 60;
+      if(timer) timer.textContent = m + ":" + String(ss).padStart(2, "0");
+      if(s >= 60) stopRecording(true);
+    }, 500);
+  }catch(e){
+    console.error("Mic failed", e);
+    showToast("❌ Mic permission nahi mili");
+  }
+}
+
+async function stopRecording(send=true){
+  if(!mediaRecorder) return;
+  try{
+    mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(t => t.stop());
+  }catch(e){}
+  clearInterval(recordingInterval);
+  recordingInterval = null;
+
+  const bar = document.getElementById("recordingBar");
+  const composer = document.getElementById("chatComposer");
+  const input = document.getElementById("chatInput");
+  if(bar) bar.classList.remove("show");
+  if(composer){
+    composer.querySelectorAll(".composer-icon-btn").forEach(b => b.style.display = "");
+    if(input) input.style.display = "";
+    const send = document.getElementById("sendMessageBtn");
+    if(send) send.style.display = "";
+  }
+
+  if(!send){ audioChunks = []; mediaRecorder = null; return; }
+
+  const duration = Math.round((Date.now() - recordingStart) / 1000);
+  if(duration < 1 || !audioChunks.length){
+    showToast("⚠️ Recording too short");
+    audioChunks = []; mediaRecorder = null;
+    return;
+  }
+  const blob = new Blob(audioChunks, {type: "audio/webm"});
+  audioChunks = []; mediaRecorder = null;
+
+  if(blob.size > 900 * 1024){
+    showToast("❌ Recording too long");
+    return;
+  }
+
+  const dataUrl = await new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(blob);
+  });
+
+  try{
+    const convRef = db.collection("conversations").doc(currentConversationId);
+    await convRef.collection("messages").add({
+      senderId: currentUser.uid,
+      text: "",
+      mediaType: "voice",
+      mediaUrl: dataUrl,
+      mediaDuration: duration,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await convRef.set({
+      members: [currentUser.uid, currentChatFriend.uid].sort(),
+      lastMessage: "🎤 Voice message",
+      lastMessageType: "voice",
+      lastMessageAt: firebase.firestore.FieldValue.serverTimestamp(),
+      lastSenderId: currentUser.uid
+    }, { merge: true });
+    await createNotification(currentChatFriend.uid, "message", "💬 New message",
+      (currentUser.displayName || "Someone") + " sent a voice message",
+      {conversationId: currentConversationId});
+    showToast("✅ Voice message sent");
+    updateMessageBadge();
+  }catch(e){
+    console.error("Voice send failed", e);
+    showToast("❌ Voice send failed");
+  }
+}
+
+/* ============================================================
+   MESSAGE SEARCH OVERLAY
+   ============================================================ */
+function initMsgSearchOverlay(){
+  const openBtn = document.getElementById("openMsgSearchBtn");
+  const overlay = document.getElementById("msgSearchOverlay");
+  const closeBtn = document.getElementById("msgSearchClose");
+  const input = document.getElementById("msgSearchOverlayInput");
+  const results = document.getElementById("msgSearchResults");
+
+  if(openBtn) openBtn.addEventListener("click", () => {
+    overlay.classList.add("show");
+    setTimeout(() => input && input.focus(), 100);
+    if(results) results.innerHTML = '<p class="inbox-empty" style="padding:20px">Type a name or @username</p>';
+  });
+  if(closeBtn) closeBtn.addEventListener("click", () => overlay.classList.remove("show"));
+  if(overlay) overlay.addEventListener("click", e => {
+    if(e.target === overlay) overlay.classList.remove("show");
+  });
+
+  let timer = null;
+  if(input) input.addEventListener("input", () => {
+    clearTimeout(timer);
+    const q = input.value.trim();
+    if(q.length < 2){ results.innerHTML = ""; return; }
+    timer = setTimeout(async () => {
+      results.innerHTML = '<p class="inbox-empty" style="padding:20px">Searching...</p>';
+      try{
+        const ql = normalizeUsername(q);
+        const snap = await db.collection("usernames")
+          .orderBy("username").startAt(ql).endAt(ql + "\uf8ff").limit(10).get();
+        const docs = snap.docs.filter(d => d.data().uid !== currentUser.uid);
+        if(!docs.length){
+          results.innerHTML = '<p class="inbox-empty" style="padding:20px">Koi user nahi mila</p>';
+          return;
+        }
+        results.innerHTML = "";
+        for(const d of docs){
+          const uid = d.data().uid;
+          const ps = await db.collection("publicProfiles").doc(uid).get();
+          if(ps.exists) await buildPersonSearchResult(uid, ps.data(), results);
+        }
+      }catch(e){
+        console.error(e);
+        results.innerHTML = '<p class="inbox-empty" style="color:#e63946;padding:20px">Search failed</p>';
+      }
+    }, 280);
+  });
+}
+
+/* ============================================================
+   IN-CHAT SEARCH
+   ============================================================ */
+function initChatSearch(){
+  const toggle = document.getElementById("chatSearchToggle");
+  const wrap = document.getElementById("chatSearchWrap");
+  const close = document.getElementById("chatSearchClose");
+  const input = document.getElementById("chatSearchInput");
+
+  if(toggle) toggle.addEventListener("click", () => wrap.classList.toggle("show"));
+  if(close) close.addEventListener("click", () => {
+    wrap.classList.remove("show");
+    if(input) input.value = "";
+    highlightMessage("");
+  });
+  if(input) input.addEventListener("input", () => {
+    highlightMessage(input.value.trim().toLowerCase());
+  });
+}
+
+function highlightMessage(query){
+  const box = document.getElementById("chatMessages");
+  if(!box) return;
+  // Remove existing highlight
+  box.querySelectorAll(".chat-msg-highlight").forEach(el => {
+    const parent = el.parentNode;
+    parent.replaceChild(document.createTextNode(el.textContent), el);
+    parent.normalize();
+  });
+  if(!query) return;
+  box.querySelectorAll(".chat-message-text").forEach(el => {
+    const text = el.textContent;
+    const idx = text.toLowerCase().indexOf(query);
+    if(idx === -1) return;
+    const before = text.slice(0, idx);
+    const match = text.slice(idx, idx + query.length);
+    const after = text.slice(idx + query.length);
+    el.innerHTML = escapeHtml(before) +
+      '<span class="chat-msg-highlight">' + escapeHtml(match) + '</span>' +
+      escapeHtml(after);
+  });
+}
+
+/* ============================================================
+   INIT COMMUNITY UI
+   ============================================================ */
+function initCommunityUI(){
+  const mc = document.getElementById("messagesClose");
+  if(mc) mc.addEventListener("click", closeMessages);
+  const mo = document.getElementById("messagesOverlay");
+  if(mo) mo.addEventListener("click", e => {
+    if(e.target.id === "messagesOverlay") closeMessages();
+  });
+
+  // Header back button
+  const hb = document.getElementById("messagesHeaderBack");
+  if(hb) hb.addEventListener("click", () => {
+    const panel = document.getElementById("chatPanel");
+    if(panel && panel.classList.contains("mobile-open")){
+      if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+      if(typingUnsubscribe){ typingUnsubscribe(); typingUnsubscribe = null; }
+      currentChatFriend = null;
+      currentConversationId = null;
+      showMobileSidebar();
+      document.getElementById("chatActive").style.display = "none";
+    } else {
+      closeMessages();
+    }
+  });
+
+  // Chat back button
+  const cb = document.getElementById("chatBackBtn");
+  if(cb) cb.addEventListener("click", () => {
+    if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+    if(typingUnsubscribe){ typingUnsubscribe(); typingUnsubscribe = null; }
+    currentChatFriend = null;
+    currentConversationId = null;
+    showMobileSidebar();
+    document.getElementById("chatActive").style.display = "none";
+    loadInbox();
+  });
+
+  // People search
+  const psb = document.getElementById("peopleSearchBtn");
+  if(psb) psb.addEventListener("click", searchPeople);
+  const psi = document.getElementById("peopleSearchInput");
+  if(psi) psi.addEventListener("keydown", e => { if(e.key === "Enter") searchPeople(); });
+
+  // Sidebar search (msg search input)
+  const msr = document.getElementById("msgSearchInput");
+  if(msr) msr.addEventListener("input", () => {
+    const q = msr.value.trim().toLowerCase();
+    // Filter visible chat-list items
+    document.querySelectorAll("#inboxList .chat-list-item").forEach(item => {
+      const name = item.querySelector(".chat-list-name")?.textContent?.toLowerCase() || "";
+      const prev = item.querySelector(".chat-list-preview")?.textContent?.toLowerCase() || "";
+      item.style.display = (!q || name.includes(q) || prev.includes(q)) ? "" : "none";
+    });
+  });
+
+  // Tabs
+  document.querySelectorAll("[data-community-tab]").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll("[data-community-tab]").forEach(x => x.classList.remove("active"));
+      document.querySelectorAll(".community-pane").forEach(x => x.classList.remove("active"));
+      tab.classList.add("active");
+      const tabName = tab.dataset.communityTab;
+      const pane = document.getElementById("community-" + tabName);
+      if(pane) pane.classList.add("active");
+      if(tabName === "primary") loadInbox();
+      if(tabName === "requests") loadRequests();
+      if(tabName === "general") loadGeneral();
+    });
+  });
+
+  // Send button
+  const smb = document.getElementById("sendMessageBtn");
+  if(smb) smb.addEventListener("click", sendMessage);
+
+  // Textarea: auto-grow + typing indicator + Enter key
+  const chatInput = document.getElementById("chatInput");
+  if(chatInput){
+    chatInput.addEventListener("input", () => {
+      chatInput.style.height = "auto";
+      chatInput.style.height = Math.min(chatInput.scrollHeight, 110) + "px";
+      // Typing indicator debounce
+      if(currentConversationId){
+        clearTimeout(typingTimer);
+        trackUserTyping(currentConversationId);
+        typingTimer = setTimeout(() => {}, 1000);
+      }
+    });
+    chatInput.addEventListener("keydown", e => {
+      if(e.key === "Enter" && !e.shiftKey && !isMobileViewport()){
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+  }
+
+  // Cancel reply
+  const cr = document.getElementById("cancelReply");
+  if(cr) cr.addEventListener("click", cancelReply);
+
+  // Community button
+  const cmb = document.getElementById("communityBtn");
+  if(cmb) cmb.addEventListener("click", openCommunity);
+
+  // Image button + input
+  const imageBtn = document.getElementById("imageBtn");
+  const imageInput = document.getElementById("imageInput");
+  if(imageBtn && imageInput){
+    imageBtn.addEventListener("click", () => imageInput.click());
+    imageInput.addEventListener("change", () => {
+      const f = imageInput.files && imageInput.files[0];
+      if(f) sendImageFile(f);
+      imageInput.value = "";
+    });
+  }
+
+  // Mic button
+  const micBtn = document.getElementById("micBtn");
+  if(micBtn) micBtn.addEventListener("click", () => {
+    if(mediaRecorder && mediaRecorder.state === "recording") return;
+    startRecording();
+  });
+
+  // Recording controls
+  const cancelRec = document.getElementById("cancelRecBtn");
+  if(cancelRec) cancelRec.addEventListener("click", () => stopRecording(false));
+  const sendRec = document.getElementById("sendRecBtn");
+  if(sendRec) sendRec.addEventListener("click", () => stopRecording(true));
+
+  // Chat messages click — tools, reactions, delete, reply, image open, voice play
+  const cm = document.getElementById("chatMessages");
+  if(cm){
+    cm.addEventListener("click", async (e) => {
+      const bubble = e.target.closest(".chat-bubble");
+
+      // Open image
+      const img = e.target.closest("[data-open-image]");
+      if(img){
+        e.stopPropagation();
+        const w = window.open("");
+        w.document.write('<img src="' + img.getAttribute("data-open-image") + '" style="max-width:100%;max-height:100vh;margin:auto;display:block">');
+        return;
+      }
+
+      // Voice play
+      const vp = e.target.closest(".voice-play-btn");
+      if(vp){
+        e.stopPropagation();
+        const wrap = vp.closest(".voice-bubble");
+        const audio = wrap?.querySelector("audio");
+        const bars = wrap?.querySelectorAll(".voice-bar");
+        if(audio){
+          if(audio.paused){
+            audio.play();
+            vp.textContent = "⏸";
+            bars?.forEach(b => b.classList.add("playing"));
+            audio.onended = () => {
+              vp.textContent = "▶";
+              bars?.forEach(b => b.classList.remove("playing"));
+            };
+          } else {
+            audio.pause();
+            vp.textContent = "▶";
+            bars?.forEach(b => b.classList.remove("playing"));
+          }
+        }
+        return;
+      }
+
+      const r = e.target.closest("[data-reply]");
+      const dMe = e.target.closest("[data-delete-me]");
+      const dAll = e.target.closest("[data-delete-all]");
+      const x = e.target.closest("[data-react]");
+
+      if(r){
+        e.stopPropagation();
+        const id = r.dataset.reply;
+        const el = document.querySelector('[data-mid="' + CSS.escape(id) + '"]');
+        const text = el?.querySelector(".chat-message-text")?.textContent || "Message";
+        const mine = el?.closest(".chat-bubble-row")?.classList.contains("mine");
+        currentReplyTo = {
+          id, text,
+          senderId: mine ? currentUser.uid : currentChatFriend?.uid
+        };
+        document.getElementById("chatReplyText").textContent = "↪ " + text.slice(0, 80);
+        document.getElementById("chatReplying").style.display = "flex";
+        document.getElementById("chatInput").focus();
+        return;
+      }
+      if(dMe){ e.stopPropagation(); deleteMessageForMe(dMe.dataset.deleteMe); return; }
+      if(dAll){ e.stopPropagation(); deleteMessageForEveryone(dAll.dataset.deleteAll); return; }
+      if(x){ e.stopPropagation(); toggleReaction(x.dataset.react, x.dataset.emoji); return; }
+
+      // Toggle tools on bubble tap
+      if(bubble){
+        document.querySelectorAll(".chat-bubble.tools-open").forEach(b => {
+          if(b !== bubble) b.classList.remove("tools-open");
+        });
+        bubble.classList.toggle("tools-open");
+      }
+    });
+  }
+
+  // Init sub-modules
+  initEmojiPicker();
+  initChatSearch();
+  initNotesUI();
+  initMsgSearchOverlay();
+}
+
+/* ---------- Open Direct Messages / Community ---------- */
+async function openDirectMessages(){
+  const o = showMessagesOverlay();
+  if(!o) return;
+  const title = document.getElementById("messagesHeaderTitle");
+  if(title) title.textContent = "Messages";
+  document.querySelectorAll("[data-community-tab]").forEach(x => x.classList.remove("active"));
+  document.querySelectorAll(".community-pane").forEach(x => x.classList.remove("active"));
+  const p = document.querySelector('[data-community-tab="primary"]');
+  if(p) p.classList.add("active");
+  const pp = document.getElementById("community-primary");
+  if(pp) pp.classList.add("active");
+  await loadInbox();
+  loadNotesRow();
+}
+async function openCommunity(){ return openDirectMessages(); }
+function openMessages(){ return openDirectMessages(); }
+
+window.openMessages = openDirectMessages;
+window.openDirectMessages = openDirectMessages;
+window.openCommunity = openCommunity;
+window.closeMessages = closeMessages;
+
+console.log("✅ UPComedyHub JS Part 2/3 loaded");
+</script>
+       /* ============================================================
+   UPCOMEDYHUB — JAVASCRIPT PART 3/3
+   Videos, Comments, Likes, Search, Admin, Fun Zone, Init
+   ============================================================ */
+
+/* ---------- YOUTUBE REELS ---------- */
+(function fetchReels(){
+  const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
+  const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
+  const grid = document.getElementById("reelsGrid");
+  if(!grid) return;
+  grid.innerHTML = '<div class="card"><p>⏳ Loading Shorts...</p></div>';
+
+  fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=" + CHANNEL_ID + "&key=" + API_KEY)
+    .then(r => r.json())
+    .then(data => {
+      if(!data.items || !data.items.length) throw new Error("Channel not found");
+      const uploadsId = data.items[0].contentDetails.relatedPlaylists.uploads;
+      return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + uploadsId + "&maxResults=15&key=" + API_KEY);
+    })
+    .then(r => r.json())
+    .then(data => {
+      if(!data.items || !data.items.length) throw new Error("No videos found");
+      grid.innerHTML = "";
+      renderYoutubeReels(data.items);
+      appendManualShortsToReels();
+    })
+    .catch(err => {
+      console.error(err);
+      grid.innerHTML = "";
+      appendManualShortsToReels();
+    });
+
+  function renderYoutubeReels(items){
+    items.forEach(item => {
+      const vid = item.snippet.resourceId.videoId;
+      const title = item.snippet.title;
+      const pub = item.snippet.publishedAt;
+      allVideos[vid] = {title, category: "shorts"};
+      const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
+      const dateStr = pub ? new Date(pub).toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"}) : "";
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.setAttribute("data-video-id", vid);
+      card.setAttribute("data-category", "shorts");
+      card.innerHTML = `
+        <div class="video-thumb reel" data-video-id="${vid}" data-original-img="${escapeAttr(thumb)}">
+          <img src="${escapeAttr(thumb)}" alt="${escapeAttr(title)}" loading="lazy">
+          <div class="video-play"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <h3>${escapeHtml(title)}</h3>
+          <div class="video-date">📅 ${escapeHtml(dateStr)}</div>
+          <div class="video-likes-link" data-vid="${vid}"></div>
+          <div class="video-actions"></div>
+        </div>`;
+      grid.appendChild(card);
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+    createNewVideoNotifications();
+    updateNotificationBadge();
+  }
+})();
+
+/* ---------- MANUAL SHORTS ---------- */
+async function appendManualShortsToReels(){
+  try{
+    const grid = document.getElementById("reelsGrid");
+    if(!grid) return;
+    const snap = await db.collection("manualVideos").where("category", "==", "shorts").get();
+    if(snap.empty) return;
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    });
+    const alreadyRendered = new Set(
+      Array.from(grid.querySelectorAll('.video-card[data-manual="1"]')).map(c => c.getAttribute("data-video-id"))
+    );
+    docs.forEach(doc => {
+      const d = doc.data();
+      const vid = d.videoId;
+      if(!vid || alreadyRendered.has(vid)) return;
+      allVideos[vid] = {title: d.title, category: "shorts", _manual: true};
+      const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+      const card = document.createElement("div");
+      card.className = "video-card";
+      card.setAttribute("data-video-id", vid);
+      card.setAttribute("data-category", "shorts");
+      card.setAttribute("data-manual", "1");
+      card.innerHTML = `
+        <div class="video-thumb reel" data-video-id="${vid}" data-original-img="${escapeAttr(thumb)}">
+          <img src="${escapeAttr(thumb)}" alt="${escapeAttr(d.title)}" loading="lazy">
+          <div class="video-play"><span>▶</span></div>
+        </div>
+        <div class="video-info">
+          <h3>${escapeHtml(d.title)}</h3>
+          <div class="video-date">🎬 Short</div>
+          <div class="video-likes-link" data-vid="${vid}"></div>
+          <div class="video-actions"></div>
+        </div>`;
+      grid.appendChild(card);
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+    createNewVideoNotifications();
+    updateNotificationBadge();
+  }catch(e){ console.error(e); }
+}
+
+async function refreshManualShorts(){
+  document.querySelectorAll('#reelsGrid .video-card[data-manual="1"]').forEach(c => c.remove());
+  Object.keys(allVideos).forEach(k => {
+    if(allVideos[k] && allVideos[k]._manual) delete allVideos[k];
+  });
+  await appendManualShortsToReels();
+}
+
+/* ---------- MANUAL LONG VIDEOS ---------- */
+async function loadManualVideos(){
+  const grid = document.getElementById("videosGrid");
+  if(!grid) return;
+  grid.innerHTML = "";
+
+  const hardcoded = [
+    {title: "UPComedyHub Video 1", videoId: "Hmmgh9V8tmM", category: "long"},
+    {title: "UPComedyHub Video 2", videoId: "YdM3e4HICew", category: "long"}
+  ];
+  hardcoded.forEach(d => {
+    const vid = d.videoId;
+    allVideos[vid] = {title: d.title, category: d.category};
+    const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+    const card = document.createElement("div");
+    card.className = "video-card";
+    card.setAttribute("data-video-id", vid);
+    card.setAttribute("data-category", "long");
+    card.innerHTML = `
+      <div class="video-thumb" data-video-id="${vid}" data-original-img="${escapeAttr(thumb)}">
+        <img src="${escapeAttr(thumb)}" alt="${escapeAttr(d.title)}" loading="lazy">
+        <div class="video-play"><span>▶</span></div>
+      </div>
+      <div class="video-info">
+        <h3>${escapeHtml(d.title)}</h3>
+        <div class="video-date">🎬 Long Video</div>
+        <div class="video-likes-link" data-vid="${vid}"></div>
+        <div class="video-actions"></div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  try{
+    const snap = await db.collection("manualVideos").where("category", "==", "long").get();
+    if(!snap.empty){
+      const docs = snap.docs.sort((a,b) => {
+        const ta = a.data().createdAt?.seconds || 0;
+        const tb = b.data().createdAt?.seconds || 0;
+        return tb - ta;
+      });
+      docs.forEach(doc => {
+        const d = doc.data();
+        const vid = d.videoId;
+        if(!vid) return;
+        allVideos[vid] = {title: d.title, category: d.category};
+        const thumb = "https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg";
+        const card = document.createElement("div");
+        card.className = "video-card";
+        card.setAttribute("data-video-id", vid);
+        card.setAttribute("data-category", "long");
+        card.innerHTML = `
+          <div class="video-thumb" data-video-id="${vid}" data-original-img="${escapeAttr(thumb)}">
+            <img src="${escapeAttr(thumb)}" alt="${escapeAttr(d.title)}" loading="lazy">
+            <div class="video-play"><span>▶</span></div>
+          </div>
+          <div class="video-info">
+            <h3>${escapeHtml(d.title)}</h3>
+            <div class="video-date">🎬 Long Video</div>
+            <div class="video-likes-link" data-vid="${vid}"></div>
+            <div class="video-actions"></div>
+          </div>`;
+        grid.appendChild(card);
+      });
+    }
+  }catch(e){ console.warn("Manual videos load fail:", e); }
+
+  refreshAllVideoActions();
+  refreshLikesLinks();
+  createNewVideoNotifications();
+  updateNotificationBadge();
+}
+
+/* ---------- LIKES LINKS ---------- */
+function refreshLikesLinks(){
+  document.querySelectorAll(".video-likes-link").forEach(el => {
+    const vid = el.getAttribute("data-vid");
+    const count = (likesByVideo[vid] || []).length;
+    if(count > 0){
+      el.textContent = "❤️ " + count + (count === 1 ? " person liked this" : " people liked this");
+      el.classList.add("show");
+    } else {
+      el.classList.remove("show");
+    }
+  });
+}
+
+document.addEventListener("click", (e) => {
+  const likesLink = e.target.closest(".video-likes-link");
+  if(likesLink){
+    e.stopPropagation();
+    showLikesList(likesLink.getAttribute("data-vid"));
+    return;
+  }
+});
+
+/* ---------- PLAY VIDEO (in place) ---------- */
+document.addEventListener("click", (e) => {
+  const thumb = e.target.closest(".video-thumb");
+  if(!thumb || thumb.querySelector("iframe")) return;
+  const vid = thumb.getAttribute("data-video-id");
+  if(!vid) return;
+  const img = thumb.querySelector("img");
+  if(img && !thumb.getAttribute("data-original-img")) thumb.setAttribute("data-original-img", img.src);
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://www.youtube.com/embed/" + vid + "?autoplay=1&rel=0";
+  iframe.allow = "accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen";
+  iframe.setAttribute("allowfullscreen", "");
+  thumb.innerHTML = "";
+  thumb.appendChild(iframe);
+
+  const fs = document.createElement("button");
+  fs.type = "button";
+  fs.className = "video-fullscreen-btn";
+  fs.title = "Fullscreen";
+  fs.setAttribute("aria-label", "Fullscreen");
+  fs.textContent = "⛶";
+  fs.addEventListener("click", async (ev) => {
+    ev.stopPropagation();
+    const target = thumb;
+    target.classList.add("video-fs");
+    try{
+      if(target.requestFullscreen) await target.requestFullscreen();
+      else if(iframe.requestFullscreen) await iframe.requestFullscreen();
+    }catch(err){}
+    try{ if(screen.orientation && screen.orientation.lock) await screen.orientation.lock("landscape"); }catch(err){}
+  });
+  const exitFs = () => {
+    if(!document.fullscreenElement){
+      thumb.classList.remove("video-fs");
+      try{ screen.orientation?.unlock?.(); }catch(e){}
+    }
+  };
+  document.addEventListener("fullscreenchange", exitFs, {once:false});
+  thumb.appendChild(fs);
+  thumb.style.cursor = "default";
+});
+
+/* ---------- ACTION BUTTONS ---------- */
+function refreshAllVideoActions(){
+  document.querySelectorAll(".video-card").forEach(card => {
+    const vid = card.getAttribute("data-video-id");
+    if(!vid) return;
+    const a = card.querySelector(".video-actions");
+    if(!a) return;
+    const l = userLikedVideos.has(vid);
+    const s = userSavedVideos.has(vid);
+    const count = (likesByVideo[vid] || []).length;
+    const likeLabel = count > 0 ? count : "Like";
+    a.innerHTML = `
+      <button type="button" class="action-btn ${l ? "liked" : ""}" data-action="like" data-vid="${vid}">
+        <span class="ico">${l ? "❤️" : "🤍"}</span><span>${likeLabel}</span>
+      </button>
+      <button type="button" class="action-btn" data-action="comment" data-vid="${vid}">
+        <span class="ico">💬</span><span>Comment</span>
+      </button>
+      <button type="button" class="action-btn" data-action="share" data-vid="${vid}">
+        <span class="ico">📤</span><span>Share</span>
+      </button>
+      <button type="button" class="action-btn ${s ? "saved" : ""}" data-action="save" data-vid="${vid}">
+        <span class="ico">${s ? "🔖" : "📑"}</span><span>Save</span>
+      </button>`;
+  });
+  refreshLikesLinks();
+}
+window.refreshAllVideoActions = refreshAllVideoActions;
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".action-btn");
+  if(!btn) return;
+  const action = btn.getAttribute("data-action");
+  const vid = btn.getAttribute("data-vid");
+  if(action === "share"){
+    const url = "https://www.youtube.com/watch?v=" + vid;
+    if(navigator.share) navigator.share({title:"UPComedyHub", text:"Dekho ye video!", url}).catch(()=>{});
+    else navigator.clipboard.writeText(url).then(()=>showToast("🔗 Link copied!"));
+    return;
+  }
+  if(!currentUser){
+    showToast("🔒 Please login first");
+    switchTab("profile");
+    return;
+  }
+  if(action === "like") await toggleLike(vid);
+  else if(action === "save") await toggleSave(vid);
+  else if(action === "comment") openComments(vid);
+});
+
+async function toggleLike(vid){
+  const ref = db.collection("likes").doc(currentUser.uid + "_" + vid);
+  try{
+    const d = await ref.get();
+    if(d.exists){
+      await ref.delete();
+      userLikedVideos.delete(vid);
+      if(likesByVideo[vid]){
+        likesByVideo[vid] = likesByVideo[vid].filter(u => u.userId !== currentUser.uid);
+      }
+      showToast("🤍 Like removed");
+    } else {
+      await ref.set({
+        userId: currentUser.uid,
+        videoId: vid,
+        userName: currentUser.displayName || "User",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      userLikedVideos.add(vid);
+      if(!likesByVideo[vid]) likesByVideo[vid] = [];
+      likesByVideo[vid].push({userId: currentUser.uid, userName: currentUser.displayName || "User"});
+      showToast("❤️ Liked!");
+      await createNotification(ADMIN_UID, "like", "❤️ New like",
+        (currentUser.displayName || "Someone") + " liked a video.", {videoId: vid});
+    }
+    refreshAllVideoActions();
+    updateProfileUI();
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+}
+
+async function toggleSave(vid){
+  const ref = db.collection("saves").doc(currentUser.uid + "_" + vid);
+  try{
+    const d = await ref.get();
+    if(d.exists){
+      await ref.delete();
+      userSavedVideos.delete(vid);
+      showToast("📑 Removed");
+    } else {
+      await ref.set({
+        userId: currentUser.uid,
+        videoId: vid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      userSavedVideos.add(vid);
+      showToast("🔖 Saved!");
+    }
+    refreshAllVideoActions();
+    updateProfileUI();
+  }catch(e){ showToast("❌ Error"); }
+}
+
+/* ---------- COMMENTS ---------- */
+const commentsOverlay = document.getElementById("commentsOverlay");
+if(commentsOverlay){
+  const cc = document.getElementById("commentsClose");
+  if(cc) cc.addEventListener("click", closeComments);
+  commentsOverlay.addEventListener("click", (e) => {
+    if(e.target === commentsOverlay) closeComments();
+  });
+}
+
+function closeComments(){
+  if(commentsOverlay) commentsOverlay.classList.remove("show");
+  currentCommentsVideoId = null;
+}
+window.closeComments = closeComments;
+
+async function openComments(vid){
+  currentCommentsVideoId = vid;
+  commentsOverlay.classList.add("show");
+  document.getElementById("commentsList").innerHTML = "<p style='color:#888'>Loading...</p>";
+  const fw = document.getElementById("commentFormWrap");
+  if(currentUser){
+    fw.innerHTML = `<div class="comment-form">
+      <img src="${escapeAttr(currentProfilePhotoURL || currentUser.photoURL || '')}" style="width:32px;height:32px;border-radius:50%" alt="">
+      <input type="text" id="commentInput" placeholder="Add a comment..." maxlength="500">
+      <button type="button" id="postCommentBtn">Post</button>
+    </div>`;
+    document.getElementById("postCommentBtn").addEventListener("click", postComment);
+    document.getElementById("commentInput").addEventListener("keydown", (e) => {
+      if(e.key === "Enter") postComment();
+    });
+  } else {
+    fw.innerHTML = `<div class="comments-login-msg">
+      <p>Login karke comment karein</p>
+      <button type="button" class="comments-login-btn" onclick="closeComments();switchTab('profile');">Continue with Google</button>
+    </div>`;
+  }
+  loadComments(vid);
+}
+
+async function loadComments(vid){
+  const list = document.getElementById("commentsList");
+  try{
+    const snap = await db.collection("comments").where("videoId", "==", vid).get();
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    }).slice(0, 100);
+
+    if(docs.length === 0){
+      list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>";
+      return;
+    }
+    list.innerHTML = "";
+    docs.forEach(doc => {
+      const d = doc.data();
+      const canDel = currentUser && (currentUser.uid === d.userId || currentUser.uid === ADMIN_UID);
+      const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
+      const el = document.createElement("div");
+      el.className = "comment-item";
+      el.innerHTML = `<img src="${escapeAttr(d.userPhoto || '')}" class="comment-avatar" alt="">
+        <div class="comment-body">
+          <div class="comment-name">${escapeHtml(d.userName || "User")}</div>
+          <div class="comment-text">${escapeHtml(d.text || "")}</div>
+          <div class="comment-time">${escapeHtml(t)}${canDel ? `<button class="comment-del" data-cid="${doc.id}">Delete</button>` : ""}</div>
+        </div>`;
+      list.appendChild(el);
+    });
+    list.querySelectorAll(".comment-del").forEach(b => {
+      b.addEventListener("click", async () => {
+        if(!confirm("Delete?")) return;
+        try{
+          await db.collection("comments").doc(b.getAttribute("data-cid")).delete();
+          showToast("🗑️");
+          loadComments(vid);
+        }catch(e){}
+      });
+    });
+  }catch(e){
+    console.error(e);
+    list.innerHTML = "<p style='color:#e63946;text-align:center;padding:20px'>Load fail</p>";
+  }
+}
+
+async function postComment(){
+  if(!currentUser || !currentCommentsVideoId) return;
+  const inp = document.getElementById("commentInput");
+  const txt = inp.value.trim();
+  if(!txt) return;
+  try{
+    const us = await db.collection("comments").where("videoId", "==", currentCommentsVideoId).get();
+    let myCount = 0;
+    us.forEach(d => { if(d.data().userId === currentUser.uid) myCount++; });
+    if(myCount >= 5){ showToast("⚠️ Max 5 comments"); return; }
+
+    await db.collection("comments").add({
+      videoId: currentCommentsVideoId,
+      userId: currentUser.uid,
+      userName: currentUser.displayName || "User",
+      userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+      text: txt,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await createNotification(ADMIN_UID, "comment", "💬 New comment",
+      (currentUser.displayName || "Someone") + " commented on a video.",
+      {videoId: currentCommentsVideoId});
+    inp.value = "";
+    showToast("💬 Posted!");
+    loadComments(currentCommentsVideoId);
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+}
+
+/* ---------- LIKES LIST ---------- */
+const likesOverlay = document.getElementById("likesOverlay");
+if(likesOverlay){
+  const lc = document.getElementById("likesClose");
+  if(lc) lc.addEventListener("click", () => likesOverlay.classList.remove("show"));
+  likesOverlay.addEventListener("click", (e) => {
+    if(e.target === likesOverlay) likesOverlay.classList.remove("show");
+  });
+}
+
+function showLikesList(vid){
+  const list = document.getElementById("likesList");
+  const users = likesByVideo[vid] || [];
+  if(users.length === 0){
+    list.innerHTML = "<p class='likes-empty'>Abhi kisi ne like nahi kiya 😊</p>";
+  } else {
+    list.innerHTML = users.map(u => `
+      <div class="likes-user">
+        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(u.userName)}&background=e63946&color=fff" alt="">
+        <div class="likes-user-name">${escapeHtml(u.userName)}</div>
+      </div>
+    `).join("");
+  }
+  likesOverlay.classList.add("show");
+}
+
+async function loadAllLikes(){
+  try{
+    const snap = await db.collection("likes").get();
+    likesByVideo = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      if(!likesByVideo[d.videoId]) likesByVideo[d.videoId] = [];
+      likesByVideo[d.videoId].push({userId: d.userId, userName: d.userName || "User"});
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+  }catch(e){ console.error("Load likes failed:", e); }
+}
+
+/* ---------- SEARCH TAB ---------- */
+const tsi = document.getElementById("tabSearchInput");
+let peopleSearchTimer = null;
+if(tsi){
+  tsi.addEventListener("input", () => {
+    const q = tsi.value.toLowerCase().trim();
+    const tr = document.getElementById("tabSearchResults");
+    const pr = document.getElementById("tabPeopleSearchResults");
+    if(peopleSearchTimer) clearTimeout(peopleSearchTimer);
+    tr.innerHTML = "";
+    pr.innerHTML = "";
+    if(q.length < 2) return;
+    peopleSearchTimer = setTimeout(() => searchUsersAnywhere(q, pr), 280);
+    const matches = [];
+    document.querySelectorAll("#tab-home section").forEach(sec => {
+      const h = sec.querySelector("h1, h2, h3");
+      if(!h) return;
+      if(sec.textContent.toLowerCase().includes(q)) matches.push({title: h.textContent.trim(), el: sec});
+    });
+    if(matches.length === 0){
+      tr.innerHTML = "<p style='text-align:center;color:#888;padding:8px'>📺 Site content me kuch nahi mila</p>";
+      return;
+    }
+    matches.slice(0, 10).forEach(m => {
+      const d = document.createElement("div");
+      d.className = "search-result-item";
+      d.innerHTML = `<strong>${escapeHtml(m.title)}</strong>`;
+      d.addEventListener("click", () => {
+        switchTab("home");
+        setTimeout(() => m.el.scrollIntoView({behavior:"smooth", block:"start"}), 300);
+      });
+      tr.appendChild(d);
+    });
+  });
+}
+
+async function searchUsersAnywhere(query, out){
+  if(!currentUser || !out) return;
+  const q = normalizeUsername(query);
+  out.innerHTML = "";
+  if(q.length < 2) return;
+  out.innerHTML = '<p style="color:#888;font-size:12px;padding:8px 4px">👤 People search...</p>';
+  try{
+    const snap = await db.collection("usernames")
+      .orderBy("username").startAt(q).endAt(q + "\uf8ff").limit(8).get();
+    const docs = snap.docs.filter(d => d.data().uid !== currentUser.uid);
+    out.innerHTML = "";
+    if(!docs.length){
+      out.innerHTML = '<p style="color:#888;text-align:center;padding:10px">Koi matching profile nahi mila.</p>';
+      return;
+    }
+    for(const d of docs){
+      const uid = d.data().uid;
+      const ps = await db.collection("publicProfiles").doc(uid).get();
+      if(ps.exists) await buildPersonSearchResult(uid, ps.data(), out);
+    }
+  }catch(e){
+    console.error(e);
+    out.innerHTML = '<p style="color:#e63946;padding:8px 4px">People search failed.</p>';
+  }
+}
+
+/* ---------- UPI ---------- */
+const UPI_ID = "9236994154@axl";
+const UPI_NAME = "UPComedyHub";
+let selectedAmount = 100;
+document.querySelectorAll(".amount-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".amount-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedAmount = btn.getAttribute("data-amount");
+    const p = document.getElementById("upiPayBtn");
+    p.textContent = selectedAmount === "" ? "💳 Pay Custom Amount" : "💳 Pay ₹" + selectedAmount + " via UPI";
+  });
+});
+const upiBtn = document.getElementById("upiPayBtn");
+if(upiBtn) upiBtn.addEventListener("click", () => {
+  let link = "upi://pay?pa=" + encodeURIComponent(UPI_ID) + "&pn=" + encodeURIComponent(UPI_NAME) + "&cu=INR";
+  if(selectedAmount !== "") link += "&am=" + selectedAmount;
+  window.location.href = link;
+  setTimeout(() => {
+    if(window.innerWidth > 768 && navigator.clipboard) navigator.clipboard.writeText(UPI_ID).then(() => showToast("📋 " + UPI_ID));
+  }, 800);
+});
+
+/* ---------- YT SUBSCRIBERS ---------- */
+const yts = document.getElementById("youtubeSubscribers");
+if(yts){
+  fetch("https://pulse.walls.sh/profile?url=" + encodeURIComponent("https://www.youtube.com/@up_comedyhub"))
+    .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+    .then(d => {
+      yts.textContent = typeof d.followers === "number" ? d.followers.toLocaleString("en-IN") : (d.followers || "—");
+    })
+    .catch(() => { yts.textContent = "—"; });
+}
+
+/* ---------- RECENTLY VIEWED ---------- */
+const rvList = document.getElementById("recentlyViewedList");
+const rvEmpty = document.getElementById("recentlyViewedEmpty");
+const rv = [];
+function addRV(sec){
+  if(!sec || !sec.id) return;
+  const h = sec.querySelector("h1, h2, h3");
+  if(!h) return;
+  const t = h.textContent.trim();
+  const i = rv.findIndex(x => x.id === sec.id);
+  if(i !== -1) rv.splice(i, 1);
+  rv.unshift({id: sec.id, title: t});
+  if(rv.length > 5) rv.pop();
+  updateRV();
+}
+function updateRV(){
+  if(!rvList) return;
+  rvList.innerHTML = "";
+  if(rv.length === 0){ rvEmpty.style.display = "block"; return; }
+  rvEmpty.style.display = "none";
+  rv.forEach(item => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "recent-view-item";
+    b.textContent = "👀 " + item.title;
+    b.addEventListener("click", () => {
+      const t = document.getElementById(item.id);
+      if(t) t.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+    rvList.appendChild(b);
+  });
+}
+const rvObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) addRV(e.target); });
+}, {threshold: 0.45});
+document.querySelectorAll("#tab-home section[id]").forEach(s => rvObs.observe(s));
+updateRV();
+
+/* ---------- ADMIN ---------- */
+async function loadAdminStats(){
+  try{
+    const [users, comments, likes, saves] = await Promise.all([
+      db.collection("users").get(),
+      db.collection("comments").get(),
+      db.collection("likes").get(),
+      db.collection("saves").get()
+    ]);
+    document.getElementById("statTotalUsers").textContent = users.size;
+    document.getElementById("statTotalComments").textContent = comments.size;
+    document.getElementById("statTotalLikes").textContent = likes.size;
+    document.getElementById("statTotalSaves").textContent = saves.size;
+  }catch(e){ console.error(e); showToast("❌ Stats load failed"); }
+}
+
+async function loadAdminConfig(){
+  try{
+    const fan = await db.collection("admin_config").doc("fan_of_week").get();
+    if(fan.exists){
+      const d = fan.data();
+      document.getElementById("adminFanName").value = d.name || "";
+      document.getElementById("adminFanPhoto").value = d.photo || "";
+      document.getElementById("adminFanMessage").value = d.message || "";
+      document.getElementById("adminFanDate").value = d.date || "";
+    }
+    const ann = await db.collection("admin_config").doc("announcement").get();
+    if(ann.exists){
+      const d = ann.data();
+      document.getElementById("adminAnnounceText").value = d.text || "";
+      document.getElementById("adminAnnounceBtn").value = d.btnText || "";
+    }
+    const ntc = await db.collection("admin_config").doc("notice").get();
+    if(ntc.exists){
+      const d = ntc.data();
+      document.getElementById("adminNoticeTitle").value = d.title || "";
+      document.getElementById("adminNoticeMsg").value = d.message || "";
+      document.getElementById("adminNoticeEnabled").value = d.enabled ? "true" : "false";
+    }
+  }catch(e){ console.error(e); }
+}
+
+const sfBtn = document.getElementById("saveFanBtn");
+if(sfBtn) sfBtn.addEventListener("click", async () => {
+  try{
+    await db.collection("admin_config").doc("fan_of_week").set({
+      name: document.getElementById("adminFanName").value.trim(),
+      photo: document.getElementById("adminFanPhoto").value.trim(),
+      message: document.getElementById("adminFanMessage").value.trim(),
+      date: document.getElementById("adminFanDate").value.trim(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    showToast("✅ Fan of Week saved!");
+    loadFanOfWeek();
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
+});
+
+async function broadcastAdminNotification(type, title, text, extra={}){
+  if(!currentUser || currentUser.uid !== ADMIN_UID) return;
+  try{
+    const snap = await db.collection("users").get();
+    let batch = db.batch(), count = 0;
+    for(const doc of snap.docs){
+      const ref = db.collection("notifications").doc();
+      batch.set(ref, {
+        recipientId: doc.id, type, title, text, read: false,
+        senderId: ADMIN_UID,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        ...extra
+      });
+      count++;
+      if(count === 450){ await batch.commit(); batch = db.batch(); count = 0; }
+    }
+    if(count) await batch.commit();
+  }catch(e){ console.error("Broadcast notification failed", e); }
+}
+
+const saBtn = document.getElementById("saveAnnounceBtn");
+if(saBtn) saBtn.addEventListener("click", async () => {
+  try{
+    await db.collection("admin_config").doc("announcement").set({
+      text: document.getElementById("adminAnnounceText").value.trim(),
+      btnText: document.getElementById("adminAnnounceBtn").value.trim(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    await broadcastAdminNotification("announcement", "📢 UPComedyHub Announcement",
+      document.getElementById("adminAnnounceText").value.trim());
+    showToast("✅ Announcement saved!");
+    loadAnnouncement();
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
+});
+
+const snBtn = document.getElementById("saveNoticeBtn");
+if(snBtn) snBtn.addEventListener("click", async () => {
+  try{
+    await db.collection("admin_config").doc("notice").set({
+      title: document.getElementById("adminNoticeTitle").value.trim(),
+      message: document.getElementById("adminNoticeMsg").value.trim(),
+      enabled: document.getElementById("adminNoticeEnabled").value === "true",
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    if(document.getElementById("adminNoticeEnabled").value === "true"){
+      await broadcastAdminNotification("announcement",
+        document.getElementById("adminNoticeTitle").value.trim(),
+        document.getElementById("adminNoticeMsg").value.trim());
+    }
+    showToast("✅ Notice saved!");
+  }catch(e){ showToast("❌ Save failed"); console.error(e); }
+});
+
+const avBtn = document.getElementById("addVideoBtn");
+if(avBtn) avBtn.addEventListener("click", async () => {
+  const title = document.getElementById("adminVideoTitle").value.trim();
+  const vid = document.getElementById("adminVideoId").value.trim();
+  const cat = document.getElementById("adminVideoCat").value;
+  if(!title || !vid){ showToast("⚠️ Title aur Video ID dono chahiye"); return; }
+  try{
+    await db.collection("manualVideos").add({
+      title, videoId: vid, category: cat,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    document.getElementById("adminVideoTitle").value = "";
+    document.getElementById("adminVideoId").value = "";
+    showToast("✅ Video added!");
+    loadManualVideosList();
+    loadManualVideos();
+    if(cat === "shorts") refreshManualShorts();
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+});
+
+async function loadManualVideosList(){
+  try{
+    const snap = await db.collection("manualVideos").orderBy("createdAt", "desc").get();
+    const list = document.getElementById("adminVideoList");
+    if(snap.empty){
+      list.innerHTML = "<p style='color:#888;font-size:13px'>Koi manual video nahi</p>";
+      return;
+    }
+    list.innerHTML = "";
+    snap.forEach(doc => {
+      const d = doc.data();
+      const el = document.createElement("div");
+      el.className = "admin-item";
+      const catLabel = d.category === "long" ? "🎥 Long" : "🎬 Short";
+      el.innerHTML = `<span><strong>${escapeHtml(d.title)}</strong> <small>(${catLabel})</small><br><small style="color:#888">${escapeHtml(d.videoId)}</small></span><button data-del="${doc.id}">🗑️</button>`;
+      list.appendChild(el);
+    });
+    list.querySelectorAll("[data-del]").forEach(b => {
+      b.addEventListener("click", async () => {
+        if(!confirm("Delete?")) return;
+        try{
+          await db.collection("manualVideos").doc(b.getAttribute("data-del")).delete();
+          showToast("🗑️ Deleted");
+          loadManualVideosList();
+          loadManualVideos();
+          refreshManualShorts();
+        }catch(e){ showToast("❌ Error"); }
+      });
+    });
+  }catch(e){ console.error(e); }
+}
+
+const llBtn = document.getElementById("loadLikesBtn");
+if(llBtn) llBtn.addEventListener("click", async () => {
+  const list = document.getElementById("adminLikesList");
+  list.innerHTML = "<p style='color:#888;font-size:13px'>Loading...</p>";
+  try{
+    const snap = await db.collection("likes").get();
+    const grouped = {};
+    snap.forEach(doc => {
+      const d = doc.data();
+      if(!grouped[d.videoId]) grouped[d.videoId] = [];
+      grouped[d.videoId].push({userName: d.userName || "User", userId: d.userId});
+    });
+    const videos = Object.entries(grouped).sort((a,b) => b[1].length - a[1].length);
+    if(videos.length === 0){
+      list.innerHTML = "<p style='color:#888;font-size:13px'>Abhi koi like nahi hua</p>";
+      return;
+    }
+    list.innerHTML = "";
+    videos.forEach(([vid, users]) => {
+      const title = allVideos[vid] ? allVideos[vid].title : vid;
+      const div = document.createElement("div");
+      div.className = "admin-likes-video";
+      div.innerHTML = `
+        <div class="admin-likes-header">
+          <span>🎬 ${escapeHtml(title.slice(0, 50))}${title.length > 50 ? '...' : ''}</span>
+          <small>❤️ ${users.length}</small>
+        </div>
+        <div class="admin-likes-users">
+          ${users.map(u => `<span class="admin-likes-user-chip">${escapeHtml(u.userName)}</span>`).join("")}
+        </div>`;
+      list.appendChild(div);
+    });
+  }catch(e){
+    console.error(e);
+    list.innerHTML = "<p style='color:#e63946;font-size:13px'>Load failed</p>";
+  }
+});
+
+const luBtn = document.getElementById("loadUsersBtn");
+if(luBtn) luBtn.addEventListener("click", async () => {
+  try{
+    const snap = await db.collection("users").orderBy("lastSeen", "desc").limit(50).get();
+    const list = document.getElementById("adminUsersList");
+    if(snap.empty){
+      list.innerHTML = "<p style='color:#888;font-size:13px'>Koi user nahi</p>";
+      return;
+    }
+    list.innerHTML = "";
+    snap.forEach(doc => {
+      const d = doc.data();
+      const el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML = `<span><img src="${escapeAttr(d.photo || '')}" style="width:28px;height:28px;border-radius:50%;vertical-align:middle;margin-right:8px"><strong>${escapeHtml(d.name || "User")}</strong> — <small>${escapeHtml(d.email || "")}</small></span>`;
+      list.appendChild(el);
+    });
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+});
+
+const lcBtn = document.getElementById("loadCommentsBtn");
+if(lcBtn) lcBtn.addEventListener("click", async () => {
+  try{
+    const snap = await db.collection("comments").get();
+    const docs = snap.docs.sort((a,b) => {
+      const ta = a.data().createdAt?.seconds || 0;
+      const tb = b.data().createdAt?.seconds || 0;
+      return tb - ta;
+    }).slice(0, 30);
+    const list = document.getElementById("adminCommentsList");
+    if(docs.length === 0){
+      list.innerHTML = "<p style='color:#888;font-size:13px'>Koi comment nahi</p>";
+      return;
+    }
+    list.innerHTML = "";
+    docs.forEach(doc => {
+      const d = doc.data();
+      const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
+      const el = document.createElement("div");
+      el.className = "admin-item";
+      el.innerHTML = `<span><strong>${escapeHtml(d.userName || "User")}</strong> on <code>${escapeHtml(d.videoId)}</code>: ${escapeHtml((d.text || "").slice(0, 80))}...<br><small style="color:#888">${escapeHtml(t)}</small></span><button data-delc="${doc.id}">🗑️</button>`;
+      list.appendChild(el);
+    });
+    list.querySelectorAll("[data-delc]").forEach(b => {
+      b.addEventListener("click", async () => {
+        if(!confirm("Delete?")) return;
+        try{
+          await db.collection("comments").doc(b.getAttribute("data-delc")).delete();
+          showToast("🗑️ Deleted");
+          document.getElementById("loadCommentsBtn").click();
+        }catch(e){ showToast("❌ Error"); }
+      });
+    });
+  }catch(e){ showToast("❌ Error"); console.error(e); }
+});
+
+const rsBtn = document.getElementById("refreshStats");
+if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
+
+/* ---------- ADMIN CONFIG LOADERS ---------- */
+async function loadFanOfWeek(){
+  try{
+    const doc = await db.collection("admin_config").doc("fan_of_week").get();
+    if(doc.exists){
+      const d = doc.data();
+      const nameEl = document.querySelector(".fan-name");
+      const photoEl = document.querySelector(".fan-photo");
+      const msgEl = document.querySelector(".fan-message");
+      const dateEl = document.querySelector(".fan-date");
+      if(nameEl && d.name) nameEl.textContent = d.name;
+      if(photoEl && d.photo) photoEl.src = d.photo;
+      if(msgEl && d.message) msgEl.textContent = d.message;
+      if(dateEl && d.date) dateEl.textContent = "📅 " + d.date;
+    }
+  }catch(e){ console.error(e); }
+}
+
+async function loadAnnouncement(){
+  try{
+    const doc = await db.collection("admin_config").doc("announcement").get();
+    if(doc.exists){
+      const d = doc.data();
+      const textEl = document.getElementById("announcementText");
+      const linkEl = document.getElementById("announcementLink");
+      if(d.text && textEl) textEl.textContent = d.text;
+      if(d.btnText && linkEl) linkEl.textContent = d.btnText;
+    }
+  }catch(e){ console.error(e); }
+}
+
+async function loadNotice(){
+  try{
+    const doc = await db.collection("admin_config").doc("notice").get();
+    if(doc.exists){
+      const d = doc.data();
+      if(d.enabled && d.title && d.message){
+        const seen = sessionStorage.getItem("noticeSeen");
+        const curKey = d.updatedAt?.seconds?.toString() || "1";
+        if(seen === curKey) return;
+        const popup = document.createElement("div");
+        popup.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200000;display:flex;align-items:center;justify-content:center;padding:20px";
+        popup.innerHTML = `
+          <div style="background:#fff;border-radius:20px;padding:30px;max-width:400px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+            <div style="font-size:48px;margin-bottom:12px">📢</div>
+            <h3 style="font-size:20px;margin-bottom:12px;color:#e63946">${escapeHtml(d.title)}</h3>
+            <p style="font-size:15px;color:#555;line-height:1.6;margin-bottom:20px">${escapeHtml(d.message)}</p>
+            <button type="button" style="background:#e63946;color:#fff;border:none;padding:12px 28px;border-radius:25px;font-weight:800;cursor:pointer;font-size:15px">OK Samajh Gaya ✅</button>
+          </div>`;
+        document.body.appendChild(popup);
+        popup.querySelector("button").addEventListener("click", () => {
+          popup.remove();
+          sessionStorage.setItem("noticeSeen", curKey);
+        });
+      }
+    }
+  }catch(e){ console.error(e); }
+}
+
+/* ---------- ADMIN TAB BUTTON ---------- */
+/* handled by switchTab (checks currentUser.uid === ADMIN_UID) */
+
+/* ---------- FUN ZONE GAMES ---------- */
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const panels = document.querySelectorAll('.fun-panel');
+  const quizData = [
+    {q:'UPComedyHub ka main content kya hai?',o:['Cooking','Desi Comedy','News','Cricket'],a:1},
+    {q:'Comedy video mein sabse important cheez kya hoti hai?',o:['Homework','Timing','Weather','Maths'],a:1},
+    {q:'Funny Shorts kis platform par sabse directly milte hain?',o:['Calculator','Maps','YouTube','Calendar'],a:2},
+    {q:'"LOL" ka common meaning kya hai?',o:['Lots Of Lunch','Line Of Logic','Love On Line','Laughing Out Loud'],a:3},
+    {q:'Meme ka main purpose kya hota hai?',o:['Banking','Driving','Entertainment','Shopping'],a:2},
+    {q:'Punchline ka role kya hota hai?',o:['Video upload','Joke ka funny payoff','Thumbnail crop','Music download'],a:1},
+    {q:'Comedy mein reaction kab useful hota hai?',o:['Password change karne ke liye','Battery charge karne ke liye','Map kholne ke liye','Funny moment ko highlight karne ke liye'],a:3},
+    {q:'Short video mein strong opening ko kya bol sakte hain?',o:['Footer','Invoice','Hook','Router'],a:2},
+    {q:'Audience ko website par wapas lane mein kya help karta hai?',o:['Blank page','Daily fresh content','Broken button','Slow loading'],a:1},
+    {q:'UPComedyHub Fun Zone mein kya milta hai?',o:['Only weather','Only shopping','Only calculator','Mini Games'],a:3}
+  ];
+  const guessData = [
+    {q:'"Bhai ye kya dekh raha hoon!" kis type ki line lagti hai?',o:['Funny reaction','Weather report','School notice','Recipe'],a:0},
+    {q:'"Arre ruk ja, pehle meri baat sun!" ka mood?',o:['Comedy scene','Bank alert','Map direction','Exam result'],a:0},
+    {q:'"Maine kuch nahi kiya 😂" ka best category?',o:['Funny excuse','News headline','Recipe','Sports score'],a:0}
+  ];
+  let quizIndex = 0, quizScore = 0;
+
+  function hidePanels(){ panels.forEach(p => p.classList.remove('active')); }
+  function openPanel(id){ hidePanels(); const el = $(id); if(el) el.classList.add('active'); }
+
+  function renderQuiz(){
+    const p = $('funQuizPanel'); if(!p) return;
+    const item = quizData[quizIndex];
+    if(!item){
+      const best = Math.max(Number(localStorage.getItem('upchBestQuiz') || 0), quizScore);
+      localStorage.setItem('upchBestQuiz', best);
+      const fq = $('funBestQuiz'); if(fq) fq.textContent = best;
+      if(window.upchAddXP) window.upchAddXP(quizScore * 10);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(quizScore, 'Quiz');
+      p.innerHTML = '<div class="fun-question">🏆 Quiz Complete!</div><p class="fun-result">Tumhara score: ' + quizScore + '/' + quizData.length + ' 🔥</p><button type="button" class="fun-small-btn" id="quizAgain">🔄 Play Again</button>';
+      $('quizAgain').onclick = () => { quizIndex = 0; quizScore = 0; renderQuiz(); };
+      return;
+    }
+    p.innerHTML = '<div class="fun-question">Q' + (quizIndex + 1) + '/' + quizData.length + ' — ' + item.q + '</div><div class="fun-options">' + item.o.map((x, i) => '<button type="button" class="fun-option" data-i="' + i + '">' + x + '</button>').join('') + '</div><div class="fun-result" id="quizResult"></div>';
+    p.querySelectorAll('.fun-option').forEach(btn => btn.onclick = () => {
+      p.querySelectorAll('.fun-option').forEach(b => b.disabled = true);
+      const i = Number(btn.dataset.i);
+      if(i === item.a){ quizScore++; if(window.upchAddXP) window.upchAddXP(5); btn.classList.add('correct'); $('quizResult').textContent = '✅ Sahi jawab!'; }
+      else { btn.classList.add('wrong'); p.querySelectorAll('.fun-option')[item.a].classList.add('correct'); $('quizResult').textContent = '😅 Next time!'; }
+      setTimeout(() => { quizIndex++; renderQuiz(); }, 650);
+    });
+  }
+
+  function renderGuess(){
+    const p = $('funGuessPanel'); if(!p) return;
+    let idx = Number(p.dataset.idx || 0);
+    const item = guessData[idx];
+    if(!item){
+      p.innerHTML = '<div class="fun-question">🎬 Guess Game Complete!</div><p class="fun-result">Nice! 😎</p><button type="button" class="fun-small-btn" id="guessAgain">🔄 Play Again</button>';
+      p.querySelector('#guessAgain').onclick = () => { p.dataset.idx = 0; renderGuess(); };
+      return;
+    }
+    p.innerHTML = '<div class="fun-question">' + item.q + '</div><div class="fun-options">' + item.o.map((x, i) => '<button type="button" class="fun-option" data-i="' + i + '">' + x + '</button>').join('') + '</div><div class="fun-result" id="guessResult"></div>';
+    p.querySelectorAll('.fun-option').forEach(btn => btn.onclick = () => {
+      p.querySelectorAll('.fun-option').forEach(b => b.disabled = true);
+      const i = Number(btn.dataset.i);
+      if(i === item.a){ btn.classList.add('correct'); $('guessResult').textContent = '😂 Correct!'; if(window.upchAddXP) window.upchAddXP(5); }
+      else { btn.classList.add('wrong'); p.querySelectorAll('.fun-option')[item.a].classList.add('correct'); $('guessResult').textContent = '😅 Close!'; }
+      setTimeout(() => { p.dataset.idx = idx + 1; renderGuess(); }, 650);
+    });
+  }
+
+  function setupReaction(){
+    const p = $('funReactionPanel'); if(!p) return;
+    p.innerHTML = '<div class="fun-question">⚡ Reaction Test</div><div class="reaction-box"><p id="reactionStatus" style="margin-bottom:12px;font-weight:800">Ready?</p><button type="button" id="reactionBtn" class="ready">START</button></div><div class="fun-result" id="reactionResult"></div>';
+    let start = 0, timer = null, state = 'idle';
+    const b = $('reactionBtn'), status = $('reactionStatus'), res = $('reactionResult');
+    b.onclick = () => {
+      if(state === 'idle'){
+        state = 'waiting'; b.className = ''; b.textContent = 'WAIT...';
+        status.textContent = '🟡 Green hote hi tap karo!';
+        const delay = 1000 + Math.random() * 3000;
+        timer = setTimeout(() => {
+          state = 'go'; start = performance.now();
+          b.className = 'go'; b.textContent = 'TAP NOW!';
+          status.textContent = '🟢 GO!';
+        }, delay);
+      } else if(state === 'waiting'){
+        clearTimeout(timer); state = 'idle';
+        b.className = 'ready'; b.textContent = 'START';
+        status.textContent = 'Too soon 😅';
+        res.textContent = 'Green hone ke baad tap karna hai!';
+      } else if(state === 'go'){
+        const ms = Math.round(performance.now() - start);
+        state = 'idle';
+        b.className = 'ready'; b.textContent = 'START';
+        status.textContent = '🔥 Great reaction!';
+        res.textContent = 'Your time: ' + ms + ' ms';
+        if(window.upchAddXP) window.upchAddXP(10);
+        const old = Number(localStorage.getItem('upchBestReaction') || 0);
+        if(!old || ms < old){
+          localStorage.setItem('upchBestReaction', ms);
+          const fb = $('funBestReaction'); if(fb) fb.textContent = ms;
+        }
+      }
+    };
+  }
+
+  function setupSpin(){
+    const p = $('funSpinPanel'); if(!p) return;
+    p.innerHTML = '<div class="fun-question">🎡 Comedy Spin Wheel</div><div class="spin-wrap"><div id="spinWheel"><span>SPIN</span></div><button type="button" class="fun-small-btn" id="spinBtn">🎡 Spin Now</button><p class="fun-result" id="spinResult"></p></div>';
+    const results = ['😂 Ek Joke sunao','🎬 Ek Short dekho','🧠 Quiz khelo','🔥 Apna score share karo','🤣 Meme caption banao','💬 Dost ko funny message bhejo','🎯 Daily challenge try karo','🏆 Leaderboard check karo'];
+    let rot = 0;
+    $('spinBtn').onclick = () => {
+      const wheel = $('spinWheel');
+      const i = Math.floor(Math.random() * results.length);
+      rot += 720 + i * (360 / results.length);
+      wheel.style.transform = 'rotate(' + rot + 'deg)';
+      setTimeout(() => $('spinResult').textContent = results[i], 1200);
+    };
+  }
+
+  document.querySelectorAll('.fun-game-btn').forEach(btn => btn.addEventListener('click', () => {
+    const type = btn.dataset.fun;
+    if(type === 'quiz'){ quizIndex = 0; quizScore = 0; renderQuiz(); openPanel('funQuizPanel'); }
+    if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel'); }
+    if(type === 'reaction'){ setupReaction(); openPanel('funReactionPanel'); }
+    if(type === 'spin'){ setupSpin(); openPanel('funSpinPanel'); }
+  }));
+
+  const fbq = $('funBestQuiz'); if(fbq) fbq.textContent = Number(localStorage.getItem('upchBestQuiz') || 0);
+  const fbr = $('funBestReaction'); if(fbr) fbr.textContent = Number(localStorage.getItem('upchBestReaction') || 0);
+
+  const funZone = document.getElementById('profileFunZone');
+  const funToggle = document.getElementById('funZoneToggle');
+  if(funZone && funToggle){
+    funToggle.addEventListener('click', () => {
+      const open = funZone.classList.toggle('open');
+      funToggle.textContent = open ? '✕ Close Fun Zone' : '🎮 Open Fun Zone';
+    });
+  }
+
+  /* Player Profile + XP + Daily + Leaderboard + Share */
+  const playerKey = 'upchPlayerProfile';
+  const player = JSON.parse(localStorage.getItem(playerKey) || '{}');
+  let playerXP = Number(player.xp || 0);
+  function levelForXP(xp){ return Math.floor(xp / 100) + 1; }
+  function renderPlayer(){
+    const name = player.name || 'Player';
+    const level = levelForXP(playerXP);
+    const within = playerXP % 100;
+    const pn = $('funPlayerName'); if(pn) pn.textContent = name + ' 😎';
+    const pm = $('funPlayerMeta'); if(pm) pm.textContent = 'Level ' + level + ' • ' + playerXP + ' XP';
+    const pf = $('funXpFill'); if(pf) pf.style.width = within + '%';
+    if(player.photo){ const av = $('funPlayerAvatar'); if(av) av.src = player.photo; }
+    localStorage.setItem(playerKey, JSON.stringify({name, photo: player.photo || '', xp: playerXP}));
+  }
+  window.upchAddXP = function(amount){ playerXP += Number(amount) || 0; renderPlayer(); };
+  window.upchSaveLocalScore = function(score, game){
+    const scores = JSON.parse(localStorage.getItem('upchFunScores') || '[]');
+    scores.push({name: player.name || 'Player', score: Number(score) || 0, game: game || 'Game'});
+    scores.sort((a,b) => b.score - a.score);
+    localStorage.setItem('upchFunScores', JSON.stringify(scores.slice(0, 20)));
+    renderBoard();
+  };
+  function renderBoard(){
+    const el = $('funLeaderboard'); if(!el) return;
+    const scores = JSON.parse(localStorage.getItem('upchFunScores') || '[]').slice(0, 5);
+    el.innerHTML = scores.length
+      ? scores.map((x, i) => '<div class="fun-leader-row"><span>' + (i + 1) + '. ' + x.name + ' <small style="color:#888">(' + x.game + ')</small></span><b>' + x.score + '</b></div>').join('')
+      : '<div style="text-align:center;color:#888;font-size:13px">Abhi koi score nahi.</div>';
+  }
+  const nameInput = $('funPlayerNameInput');
+  if(nameInput){
+    nameInput.value = player.name || '';
+    nameInput.addEventListener('change', () => {
+      player.name = nameInput.value.trim().slice(0, 18) || 'Player';
+      renderPlayer(); renderBoard();
+    });
+  }
+  const photoInput = $('funPlayerPhoto');
+  if(photoInput){
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files && photoInput.files[0];
+      if(!file) return;
+      if(file.size > 2 * 1024 * 1024){ alert('Photo 2MB se chhoti rakho 😎'); photoInput.value = ''; return; }
+      const reader = new FileReader();
+      reader.onload = () => { player.photo = reader.result; renderPlayer(); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const daily = [
+    {q:'Dost ne udhaar liya aur reply karna band kar diya. Best reaction?',o:['😂 Haan bhai','😭 Paisa gaya','😎 Koi baat nahi','📞 Call pe call'],a:1},
+    {q:'UPComedyHub par sabse pehle kya dekhoge?',o:['🧠 Quiz','🎬 Shorts','🤣 Meme','🎡 Spin'],a:1},
+    {q:'Funny video ka best ending kya hota hai?',o:['😴 Long speech','😂 Unexpected twist','📚 Lecture','😐 No ending'],a:1},
+    {q:'Friend ke funny dialogue par tumhara reaction?',o:['😐 Ignore','🤣 Full laugh','📱 Record','👏 Taali'],a:1},
+    {q:'Comedy dekhte waqt sabse important kya?',o:['🔊 Volume','🍿 Snacks','😂 Hansi','📶 Network'],a:2}
+  ];
+  const dayKey = 'upchDailyChallenge_' + new Date().toISOString().slice(0, 10);
+  const item = daily[Math.floor(Date.now() / 86400000) % daily.length];
+  const dq = $('dailyChallengeText'), box = $('dailyChallengeOptions'), ds = $('dailyChallengeStatus');
+  if(dq && box){
+    dq.textContent = item.q;
+    box.innerHTML = item.o.map((x, i) => '<button type="button" class="fun-option daily-option" data-i="' + i + '">' + x + '</button>').join('');
+    const done = localStorage.getItem(dayKey);
+    if(done){
+      ds.textContent = done === '1' ? '✅ Challenge complete!' : '😅 Try again tomorrow!';
+      box.querySelectorAll('button').forEach(b => b.disabled = true);
+    }
+    box.querySelectorAll('button').forEach(b => b.onclick = () => {
+      const ok = Number(b.dataset.i) === item.a;
+      localStorage.setItem(dayKey, ok ? '1' : '0');
+      if(ok && window.upchAddXP) window.upchAddXP(15);
+      ds.textContent = ok ? '🎉 Correct! +15 XP' : '😅 Not this time!';
+      box.querySelectorAll('button').forEach(x => {
+        x.disabled = true;
+        if(Number(x.dataset.i) === item.a) x.classList.add('correct');
+        if(x === b && !ok) x.classList.add('wrong');
+      });
+    });
+  }
+  const share = $('funShareScore');
+  if(share) share.onclick = async () => {
+    const level = levelForXP(playerXP);
+    const text = '😂 Maine UPComedyHub Fun Zone me Level ' + level + ' aur ' + playerXP + ' XP bana liye! 🎮 Tum bhi try karo: https://upcomedyhub.github.io/';
+    try{
+      if(navigator.share) await navigator.share({title: 'UPComedyHub Fun Zone', text, url: 'https://upcomedyhub.github.io/'});
+      else { await navigator.clipboard.writeText(text); alert('Score copy ho gaya! Ab share kar do 😎'); }
+    }catch(e){}
+  };
+  renderPlayer();
+  renderBoard();
+})();
+
+/* ============================================================
+   INITIALIZATION (called after all functions defined)
+   ============================================================ */
+window.addEventListener("DOMContentLoaded", () => {
+  // Init UI modules
+  if(typeof initProfileIdentityUI === "function") initProfileIdentityUI();
+  if(typeof initProfilePhotoUI === "function") initProfilePhotoUI();
+  if(typeof initCommunityUI === "function") initCommunityUI();
+  if(typeof initIgProfileUI === "function") initIgProfileUI();
+
+  // Start user online heartbeat
+  if(typeof startUserStatusHeartbeat === "function"){
+    // Will start on login
+  }
+
+  // Delayed loaders
+  setTimeout(() => {
+    if(typeof loadFanOfWeek === "function") loadFanOfWeek();
+    if(typeof loadAnnouncement === "function") loadAnnouncement();
+    if(typeof loadNotice === "function") loadNotice();
+    if(typeof loadManualVideos === "function") loadManualVideos();
+    if(typeof loadAllLikes === "function") loadAllLikes();
+  }, 1500);
+});
+
+console.log("✅ UPComedyHub — All 3 JS parts loaded");
+</script>
+</body>
+</html>

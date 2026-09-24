@@ -45,7 +45,7 @@ button{font-family:inherit}
 /* Header */
 header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #eee;padding:12px 6%;display:flex;justify-content:space-between;align-items:center}
 .dark-mode header{background:#000;border-bottom-color:#262626}
-.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800}
+.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
 .header-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
 #messageBtn,#bellBtn{position:relative;border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111;transition:transform .15s}
@@ -958,6 +958,30 @@ body.messages-open .bottom-nav{display:none !important}
   .chat-list-item img{width:50px;height:50px}
   .reaction-menu button{width:36px;height:36px;font-size:22px}
 }
+/* Channel Shortcut Card (Home tab) */
+.channel-shortcut-card{display:flex;align-items:center;gap:12px;max-width:1200px;margin:16px auto 0;padding:12px 16px;background:#fafafa;border:1px solid #eee;border-radius:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s}
+.channel-shortcut-card:active{background:#f0f0f0}
+.dark-mode .channel-shortcut-card{background:#141414;border-color:#262626}
+.dark-mode .channel-shortcut-card:active{background:#1c1c1c}
+.channel-shortcut-card img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+.channel-shortcut-text{flex:1;min-width:0;display:flex;flex-direction:column}
+.channel-shortcut-text strong{font-size:14px}
+.channel-shortcut-text span{font-size:12px;color:#888;margin-top:2px}
+.channel-shortcut-arrow{font-size:22px;color:#bbb}
+
+/* Channel Profile Overlay (About/Team/Contact — moved out of Home) */
+.channel-profile-overlay{position:fixed;inset:0;background:#fff;display:none;z-index:99990;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.channel-profile-overlay.show{display:block}
+.dark-mode .channel-profile-overlay{background:#000;color:#fff}
+.channel-profile-header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#fff;border-bottom:1px solid #efefef;font-weight:800;font-size:16px}
+.dark-mode .channel-profile-header{background:#000;border-bottom-color:#262626}
+.channel-profile-back{width:36px;height:36px;border-radius:50%;border:none;background:#f1f1f1;font-size:22px;line-height:1;cursor:pointer}
+.dark-mode .channel-profile-back{background:#1c1c1c;color:#fff}
+.channel-profile-nav{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;background:#fafafa;border-bottom:1px solid #efefef;-webkit-overflow-scrolling:touch}
+.dark-mode .channel-profile-nav{background:#0a0a0a;border-bottom-color:#262626}
+.channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
+.dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
+.channel-profile-body{padding-bottom:40px}
 </style>
 </head>
 <body>
@@ -986,7 +1010,7 @@ body.messages-open .bottom-nav{display:none !important}
 </div>
 
 <header>
-  <div class="logo">
+  <div class="logo" id="channelProfileTrigger" role="button" tabindex="0" aria-label="Open Channel Profile">
     <img src="IMG_20260917_172912.jpg" alt="UPComedyHub" class="logo-profile">
     <span>UPComedyHub</span>
   </div>
@@ -997,20 +1021,7 @@ body.messages-open .bottom-nav{display:none !important}
     <button id="messageBtn" type="button" onclick="openDirectMessages()" aria-label="Messages">
       💬<span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span>
     </button>
-    <button id="menuToggle" type="button" aria-label="Menu">☰</button>
   </div>
-  <nav class="top-nav">
-    <a href="#home">🏠 Home</a>
-    <a href="#team">👥 Team</a>
-    <a href="#fan-of-week">🏆 Fan of Week</a>
-    <a href="#gallery">🖼️ Gallery</a>
-    <a href="#website-enquiry">💻 Website Banwani Hai?</a>
-    <a href="#faq">❓ FAQ</a>
-    <a href="#visitor-counter">👀 Visitors</a>
-    <a href="#contact">📩 Contact</a>
-    <a href="#newsletter">📩 Newsletter</a>
-    <a href="#support">☕ Support</a>
-  </nav>
 </header>
 
 <div class="notifications-overlay" id="notificationsOverlay">
@@ -1031,19 +1042,14 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-home" class="tab-pane active">
 
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <span class="hero-badge">By Cobra The God</span>
-      <h1>UPComedyHub</h1>
-      <p>Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥</p>
-      <p>Desi comedy, funny Shorts aur entertainment ka ek hi adda.</p>
-      <div class="buttons">
-        <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ Watch Shorts</a>
-        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
-        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
-      </div>
+  <div class="channel-shortcut-card" id="channelShortcutCard">
+    <img src="IMG_20260917_172912.jpg" alt="UPComedyHub">
+    <div class="channel-shortcut-text">
+      <strong>UPComedyHub</strong>
+      <span>Team, About, Contact aur zyada jaanne ke liye tap karein</span>
     </div>
-  </section>
+    <span class="channel-shortcut-arrow">›</span>
+  </div>
 
   <section id="featured-video">
     <h2 class="section-title">⭐ Featured Video</h2>
@@ -1065,6 +1071,46 @@ body.messages-open .bottom-nav{display:none !important}
     <div class="card recently-viewed-card">
       <p id="recentlyViewedEmpty">Abhi aapne koi section nahi dekha. 😊</p>
       <div id="recentlyViewedList"></div>
+    </div>
+  </section>
+
+  <section class="home-coming-soon">
+    <div class="container" style="text-align:center;padding:20px 20px 40px">
+      <p style="font-size:14px;color:#888">🎬 Jaldi hi yahan Stories aur pura video/reels feed aayega. Tab tak Reels aur Videos tab explore karein! 🔥</p>
+    </div>
+  </section>
+
+</div>
+<div class="channel-profile-overlay" id="channelProfileOverlay">
+  <div class="channel-profile-header">
+    <button type="button" class="channel-profile-back" id="channelProfileClose" aria-label="Back">‹</button>
+    <span>Channel Profile</span>
+    <span style="width:36px"></span>
+  </div>
+  <nav class="channel-profile-nav" id="channelProfileNav">
+    <a href="#home">🏠 Intro</a>
+    <a href="#team">👥 Team</a>
+    <a href="#fan-of-week">🏆 Fan of Week</a>
+    <a href="#gallery">🖼️ Gallery</a>
+    <a href="#website-enquiry">💻 Website Banwani Hai?</a>
+    <a href="#faq">❓ FAQ</a>
+    <a href="#visitor-counter">👀 Visitors</a>
+    <a href="#contact">📩 Contact</a>
+    <a href="#newsletter">📩 Newsletter</a>
+    <a href="#support">☕ Support</a>
+  </nav>
+  <div class="channel-profile-body">
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="hero-badge">By Cobra The God</span>
+      <h1>UPComedyHub</h1>
+      <p>Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥</p>
+      <p>Desi comedy, funny Shorts aur entertainment ka ek hi adda.</p>
+      <div class="buttons">
+        <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ Watch Shorts</a>
+        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
+        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
+      </div>
     </div>
   </section>
 
@@ -1310,6 +1356,16 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
   </section>
 
+  </div>
+
+  <div class="quick-actions" id="quickActions">
+    <div class="quick-actions-menu">
+      <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
+    </div>
+    <button id="quickActionsToggle" type="button" aria-label="Quick actions">💬</button>
+  </div>
+  <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website">🔗</a>
 </div>
 <div id="tab-reels" class="tab-pane">
   <section>
@@ -1788,16 +1844,8 @@ body.messages-open .bottom-nav{display:none !important}
   <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
 </footer>
 
-<div class="quick-actions" id="quickActions">
-  <div class="quick-actions-menu">
-    <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener">💬 WhatsApp</a>
-    <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
-  </div>
-  <button id="quickActionsToggle" type="button" aria-label="Quick actions">💬</button>
-</div>
 
 <button id="backToTop" type="button" aria-label="Back to top">↑</button>
-<a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website">🔗</a>
 
 <nav class="bottom-nav" id="bottomNav">
   <button type="button" data-tab="home" class="active"><span class="icon">🏠</span><span>Home</span></button>
@@ -2287,6 +2335,28 @@ async function openIgList(kind){
   }catch(e){ console.error(e); content.innerHTML='<p style="color:#e63946;text-align:center;padding:30px">Load failed.</p>'; }
 }
 
+/* ---------- CHANNEL PROFILE (About/Team/Contact page) ---------- */
+function openChannelProfile(anchorId){
+  const ov = document.getElementById("channelProfileOverlay");
+  if(!ov) return;
+  ov.classList.add("show");
+  document.body.classList.add("messages-open");
+  if(anchorId){
+    setTimeout(()=>{ const el = document.getElementById(anchorId); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }, 250);
+  }
+}
+function closeChannelProfile(){
+  const ov = document.getElementById("channelProfileOverlay");
+  if(ov) ov.classList.remove("show");
+  document.body.classList.remove("messages-open");
+}
+function shareWebsite(){
+  const url = "https://upcomedyhub.github.io/";
+  const txt = "UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda 🔥";
+  if(navigator.share) navigator.share({title:"UPComedyHub",text:txt,url}).catch(()=>{});
+  else if(navigator.clipboard) navigator.clipboard.writeText(url).then(()=>showToast("🔗 Link copied!"));
+}
+
 function closeIgList(){ const o = document.getElementById("igListOverlay"); if(o) o.classList.remove("show"); }
 function shareUserProfile(){
   if(!currentUser){ showToast("🔐 Login"); return; }
@@ -2592,7 +2662,7 @@ if(tsi){
     if(q.length < 2) return;
     peopleSearchTimer = setTimeout(()=>searchUsersAnywhere(q,pr),280);
     const matches = [];
-    document.querySelectorAll("#tab-home section").forEach(sec=>{
+    document.querySelectorAll("#tab-home section, #channelProfileOverlay section").forEach(sec=>{
       const h = sec.querySelector("h1,h2,h3"); if(!h) return;
       if(sec.textContent.toLowerCase().includes(q)) matches.push({title:h.textContent.trim(),el:sec});
     });
@@ -2601,7 +2671,10 @@ if(tsi){
       const d = document.createElement("div");
       d.className = "search-result-item";
       d.innerHTML = "<strong>"+escapeHtml(m.title)+"</strong>";
-      d.addEventListener("click",()=>{ switchTab("home"); setTimeout(()=>m.el.scrollIntoView({behavior:"smooth",block:"start"}),300); });
+      d.addEventListener("click",()=>{
+        if(document.getElementById("channelProfileOverlay")?.contains(m.el)){ openChannelProfile(); setTimeout(()=>m.el.scrollIntoView({behavior:"smooth",block:"start"}),300); }
+        else { switchTab("home"); setTimeout(()=>m.el.scrollIntoView({behavior:"smooth",block:"start"}),300); }
+      });
       tr.appendChild(d);
     });
   });
@@ -2660,7 +2733,7 @@ function updateRV(){
   rv.forEach(item=>{
     const b = document.createElement("button");
     b.type = "button"; b.className = "recent-view-item"; b.textContent = "👀 "+item.title;
-    b.addEventListener("click",()=>{ const t = document.getElementById(item.id); if(t) t.scrollIntoView({behavior:"smooth",block:"start"}); });
+    b.addEventListener("click",()=>{ const t = document.getElementById(item.id); if(!t) return; if(document.getElementById("channelProfileOverlay")?.contains(t)) openChannelProfile(item.id); else t.scrollIntoView({behavior:"smooth",block:"start"}); });
     rvList.appendChild(b);
   });
 }
@@ -3806,6 +3879,23 @@ window.addEventListener("DOMContentLoaded",()=>{
   const mab = document.getElementById("markAllNotifBtn"); if(mab) mab.addEventListener("click", markAllNotificationsRead);
   const cob = document.getElementById("clearOldNotifBtn"); if(cob) cob.addEventListener("click", clearOldNotifications);
 
+  const cpt = document.getElementById("channelProfileTrigger");
+  if(cpt){
+    cpt.addEventListener("click", ()=>openChannelProfile());
+    cpt.addEventListener("keydown", e=>{ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openChannelProfile(); } });
+  }
+  const cpc = document.getElementById("channelProfileClose");
+  if(cpc) cpc.addEventListener("click", closeChannelProfile);
+  const cpn = document.getElementById("channelProfileNav");
+  if(cpn) cpn.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); const id = a.getAttribute("href").slice(1); const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }));
+
+  const annLink = document.getElementById("announcementLink");
+  if(annLink) annLink.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("home"); });
+  document.querySelectorAll('.footer-legal a[href="#privacy"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("privacy"); }));
+  document.querySelectorAll('.footer-legal a[href="#terms"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("terms"); }));
+  const csc = document.getElementById("channelShortcutCard");
+  if(csc) csc.addEventListener("click", ()=>openChannelProfile());
+
   const mt = document.getElementById("menuToggle"), tn = document.querySelector(".top-nav"), mb = document.getElementById("menuBackdrop");
   function om(){ tn?.classList.add("show-menu"); mb?.classList.add("show"); }
   function cmn(){ tn?.classList.remove("show-menu"); mb?.classList.remove("show"); }
@@ -3843,7 +3933,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   });
 
   const rvObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) addRV(e.target); }); }, {threshold:0.45});
-  document.querySelectorAll("#tab-home section[id]").forEach(s=>rvObs.observe(s));
+  document.querySelectorAll("#tab-home section[id], #channelProfileOverlay section[id]").forEach(s=>rvObs.observe(s));
   updateRV();
 
   const glb = document.getElementById("googleLoginBtn");

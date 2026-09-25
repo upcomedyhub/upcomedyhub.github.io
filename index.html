@@ -527,6 +527,7 @@ body.messages-open .bottom-nav{display:none !important}
 .notif-card-time{font-size:10px;color:#999;margin-top:5px}
 
 /* Fun Zone */
+.fun-zone-section{max-width:935px;margin:0 auto;padding:0 16px}
 .fun-zone{margin-top:24px;padding:22px;border:1px solid #eee;border-radius:20px;background:linear-gradient(135deg,#fff8f8,#fff);box-shadow:0 10px 30px rgba(230,57,70,.08)}
 .dark-mode .fun-zone{background:linear-gradient(135deg,#1a0e10,#1b1b1b);border-color:#262626}
 .fun-zone-head{text-align:center;margin-bottom:18px}
@@ -649,6 +650,10 @@ body.messages-open .bottom-nav{display:none !important}
 .messages-overlay.show{display:flex}
 .messages-box{width:100%;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;background:#fff;border-radius:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:none}
 .dark-mode .messages-box{background:#000;color:#fff}
+.messages-box.chat-open .messages-layout{grid-template-columns:1fr}
+.messages-box.chat-open .messages-sidebar{display:none}
+.messages-box.chat-open .social-header{display:none}
+.messages-box.chat-open .chat-panel{display:flex}
 
 /* Messages Header */
 .messages-box .social-header{position:relative;display:flex;align-items:center;padding:10px 14px;min-height:56px;border-bottom:1px solid #efefef;flex-shrink:0;gap:8px}
@@ -745,7 +750,7 @@ body.messages-open .bottom-nav{display:none !important}
 .profile-modal-actions button:active{transform:scale(.96)}
 
 /* Chat Panel */
-.chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff;position:relative;overflow:hidden}
+.chat-panel{display:flex;flex-direction:column;min-width:0;min-height:0;background:#fff;position:relative;overflow:hidden;max-width:none;margin:0;padding:0}
 .dark-mode .chat-panel{background:#000}
 
 /* Chat Header */
@@ -1537,21 +1542,16 @@ body.messages-open .bottom-nav{display:none !important}
       <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
     </div>
 
-    <div class="settings-section">
-      <div class="settings-card settings-launch-card">
-        <div class="settings-launch-copy">
-          <h3>⚙️ Settings</h3>
-          <p>Language, Appearance aur Community &amp; Messages manage karein.</p>
-        </div>
-        <button type="button" class="settings-open-btn" id="settingsOpenBtn">⚙️ Open Settings</button>
-      </div>
-    </div>
+  </section>
+</div>
 
-    <div class="fun-zone" id="profileFunZone">
+<div id="tab-funzone" class="tab-pane">
+  <section class="fun-zone-section">
+    <h2 class="section-title"><svg class="ico"><use href="#i-gamepad"></use></svg> Fun Zone</h2>
+    <div class="fun-zone open" id="profileFunZone">
       <div class="fun-zone-head">
-        <h3>🎮 Fun Zone</h3>
         <p>Saare mini games ek hi jagah. Open karke play karo! 🔥</p>
-        <button type="button" class="fun-zone-toggle" id="funZoneToggle">🎮 Open Fun Zone</button>
+        <button type="button" class="fun-zone-toggle" id="funZoneToggle" style="display:none">🎮 Open Fun Zone</button>
       </div>
       <div class="fun-zone-body">
         <div class="fun-game-grid">
@@ -1978,7 +1978,7 @@ body.messages-open .bottom-nav{display:none !important}
   <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use href="#i-home"></use></svg></span><span>Home</span></button>
   <button type="button" data-tab="reels"><span class="icon"><svg class="ico"><use href="#i-film"></use></svg></span><span>Reels</span></button>
   <button type="button" id="createUploadBtn"><span class="icon"><svg class="ico"><use href="#i-plus-square"></use></svg></span><span>Create</span></button>
-  <button type="button" id="funZoneNavBtn"><span class="icon"><svg class="ico"><use href="#i-gamepad"></use></svg></span><span>Fun Zone</span></button>
+  <button type="button" id="funZoneNavBtn" data-tab="funzone"><span class="icon"><svg class="ico"><use href="#i-gamepad"></use></svg></span><span>Fun Zone</span></button>
   <button type="button" data-tab="profile"><span class="icon"><svg class="ico"><use href="#i-user"></use></svg></span><span>Profile</span></button>
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
@@ -2099,13 +2099,7 @@ window.switchTab = switchTab;
 navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
 const createUploadBtn = document.getElementById("createUploadBtn");
 if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>showToast("🚀 Upload feature jaldi aa raha hai! Tab tak bas comedy dekho 😄"));
-const funZoneNavBtn = document.getElementById("funZoneNavBtn");
-if(funZoneNavBtn) funZoneNavBtn.addEventListener("click", ()=>{
-  switchTab("profile");
-  const fz = document.getElementById("profileFunZone");
-  const ft = document.getElementById("funZoneToggle");
-  if(fz){ fz.classList.add("open"); if(ft) ft.textContent = "✕ Close Fun Zone"; setTimeout(()=>fz.scrollIntoView({behavior:"smooth",block:"start"}), 350); }
-});
+/* Fun Zone nav handled via data-tab="funzone" in switchTab */
 
 /* ---------- THEME ---------- */
 function getSystemTheme(){ return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark":"light"; }
@@ -3292,7 +3286,7 @@ async function openChat(friend){
   currentChatFriend = friend;
   currentConversationId = pairId(currentUser.uid, friend.uid);
   showMobileChatPanel();
-  const mb = document.getElementById("messagesBox"); if(mb && isMobileViewport()) mb.classList.add("chat-open");
+  const mb = document.getElementById("messagesBox"); if(mb) mb.classList.add("chat-open");
   document.getElementById("chatActive").style.display = "flex";
   const cp = document.getElementById("chatPanel"); if(cp) cp.style.display = "flex";
   setTimeout(updateComposerButtons, 0);

@@ -982,6 +982,7 @@ body.messages-open .bottom-nav{display:none !important}
 .channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
 .dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
 .channel-profile-body{padding-bottom:40px}
+.ico{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -1016,10 +1017,10 @@ body.messages-open .bottom-nav{display:none !important}
   </div>
   <div class="header-controls">
     <button id="bellBtn" type="button" aria-label="Notifications">
-      🔔<span id="bellBadge"></span>
+      <svg class="ico"><use href="#i-bell"></use></svg><span id="bellBadge"></span>
     </button>
     <button id="messageBtn" type="button" onclick="openDirectMessages()" aria-label="Messages">
-      💬<span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span>
+      <svg class="ico"><use href="#i-message"></use></svg><span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span>
     </button>
   </div>
 </header>
@@ -1038,21 +1039,35 @@ body.messages-open .bottom-nav{display:none !important}
   </div>
 </div>
 
+<svg style="display:none" aria-hidden="true">
+<symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
+<symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .8-5.2 4.9 1.4 7-6.2-3.6L5.8 21l1.4-7L2 8.3l7-.8L12 2z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.9-5 6-5s6 1.7 6 5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15 15.2c2.4.3 4.5 1.7 4.5 4.3"/></symbol>
+<symbol id="i-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v4a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a2 2 0 0 0 0 4h2M16 5h3a2 2 0 0 1 0 4h-2"/><path d="M12 13v3M9 20h6M10 16.5h4v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M21 16l-5.5-5.5L3 21"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.2 2.2 4.8 5.7 4.2 8 3.8 10 5 12 7.3 14 5 16 3.8 18.3 4.2c3.5.6 5.3 4 3.7 7.5C19.5 16.4 12 21 12 21z"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.7 2.2c-.8.5-1.2 1-1.2 2"/><circle cx="12" cy="17" r="0.2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="10" rx="1"/><path d="M2 19h20"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></symbol>
+<symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 3c-.5 1 .5 1.3 0 2.5M11 3c-.5 1 .5 1.3 0 2.5"/></symbol>
+</svg>
 <main>
 
 <div id="tab-home" class="tab-pane active">
 
-  <div class="channel-shortcut-card" id="channelShortcutCard">
-    <img src="IMG_20260917_172912.jpg" alt="UPComedyHub">
-    <div class="channel-shortcut-text">
-      <strong>UPComedyHub</strong>
-      <span>Team, About, Contact aur zyada jaanne ke liye tap karein</span>
-    </div>
-    <span class="channel-shortcut-arrow">›</span>
-  </div>
-
   <section id="featured-video">
-    <h2 class="section-title">⭐ Featured Video</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-star"></use></svg> Featured Video</h2>
     <div class="featured-video-card">
       <div class="featured-video-embed">
         <iframe src="https://www.youtube.com/embed/BM9td5ALOkw" title="Featured" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>
@@ -1063,14 +1078,6 @@ body.messages-open .bottom-nav{display:none !important}
         <p>UPComedyHub ka sabse pasandida video — desi andaaz mein comedy jo aapko haste rehne par majboor kar degi.</p>
         <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">👀 Watch on YouTube</a>
       </div>
-    </div>
-  </section>
-
-  <section id="recently-viewed">
-    <h2 class="section-title">🕘 Recently Viewed</h2>
-    <div class="card recently-viewed-card">
-      <p id="recentlyViewedEmpty">Abhi aapne koi section nahi dekha. 😊</p>
-      <div id="recentlyViewedList"></div>
     </div>
   </section>
 
@@ -1088,16 +1095,16 @@ body.messages-open .bottom-nav{display:none !important}
     <span style="width:36px"></span>
   </div>
   <nav class="channel-profile-nav" id="channelProfileNav">
-    <a href="#home">🏠 Intro</a>
-    <a href="#team">👥 Team</a>
-    <a href="#fan-of-week">🏆 Fan of Week</a>
-    <a href="#gallery">🖼️ Gallery</a>
-    <a href="#website-enquiry">💻 Website Banwani Hai?</a>
-    <a href="#faq">❓ FAQ</a>
-    <a href="#visitor-counter">👀 Visitors</a>
-    <a href="#contact">📩 Contact</a>
-    <a href="#newsletter">📩 Newsletter</a>
-    <a href="#support">☕ Support</a>
+    <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
+    <a href="#team"><svg class="ico"><use href="#i-users"></use></svg> Team</a>
+    <a href="#fan-of-week"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of Week</a>
+    <a href="#gallery"><svg class="ico"><use href="#i-image"></use></svg> Gallery</a>
+    <a href="#website-enquiry"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</a>
+    <a href="#faq"><svg class="ico"><use href="#i-help"></use></svg> FAQ</a>
+    <a href="#visitor-counter"><svg class="ico"><use href="#i-eye"></use></svg> Visitors</a>
+    <a href="#contact"><svg class="ico"><use href="#i-mail"></use></svg> Contact</a>
+    <a href="#newsletter"><svg class="ico"><use href="#i-mail"></use></svg> Newsletter</a>
+    <a href="#support"><svg class="ico"><use href="#i-coffee"></use></svg> Support</a>
   </nav>
   <div class="channel-profile-body">
   <section class="hero" id="home">
@@ -1108,14 +1115,14 @@ body.messages-open .bottom-nav{display:none !important}
       <p>Desi comedy, funny Shorts aur entertainment ka ek hi adda.</p>
       <div class="buttons">
         <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ Watch Shorts</a>
-        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
+        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
         <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
       </div>
     </div>
   </section>
 
   <section id="team">
-    <h2 class="section-title">👥 Our Team</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-users"></use></svg> Our Team</h2>
     <div class="team-group">
       <img src="IMG_20260804_133118670_HDR_AE.jpg" alt="Team" loading="lazy">
       <img src="IMG_20260804_133210534_HDR_AE.jpg" alt="Team" loading="lazy">
@@ -1136,7 +1143,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="fan-of-week">
-    <h2 class="section-title">🏆 Fan of the Week</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
     <div class="card fan-card">
       <span class="fan-badge">⭐ STAR FAN</span>
       <img src="IMG_20260917_172912.jpg" alt="Fan of the Week" class="fan-photo">
@@ -1148,7 +1155,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="gallery">
-    <h2 class="section-title">🖼️ Gallery</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-image"></use></svg> Gallery</h2>
     <p style="text-align:center;margin-top:-10px">UPComedyHub के कुछ खास moments और यादें ❤️😂</p>
     <div class="cards" style="margin-top:25px">
       <div class="card" style="padding:0;overflow:hidden"><img src="IMG_20260804_133118670_HDR_AE.jpg" alt="Gallery" style="width:100%;display:block" loading="lazy"><p style="padding:10px;text-align:center;font-weight:700;margin:0">UPComedyHub Team ❤️</p></div>
@@ -1159,7 +1166,7 @@ body.messages-open .bottom-nav{display:none !important}
 
   <section class="about" id="about">
     <div class="about-inner">
-      <h2 class="section-title">❤️ About UPComedyHub</h2>
+      <h2 class="section-title"><svg class="ico"><use href="#i-heart"></use></svg> About UPComedyHub</h2>
       <p>UPComedyHub ek desi comedy aur entertainment platform hai, jahan hum funny Shorts, comedy videos aur entertaining moments ke through aapke face par smile lane ki koshish karte hain.</p>
       <br>
       <h3>📖 Our Story</h3>
@@ -1174,7 +1181,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="faq">
-    <h2 class="section-title">❓ Frequently Asked Questions</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-help"></use></svg> Frequently Asked Questions</h2>
     <div class="card"><h3 class="faq-q">😂 UPComedyHub क्या है?</h3><p class="faq-a" style="display:none">UPComedyHub एक desi comedy और entertainment platform है, जहाँ आपको funny videos और Shorts देखने को मिलते हैं।</p></div>
     <div class="card"><h3 class="faq-q">🎬 नए videos कहाँ मिलेंगे?</h3><p class="faq-a" style="display:none">हमारे latest Shorts और videos देखने के लिए Shorts और Videos sections पर जाएँ।</p></div>
     <div class="card"><h3 class="faq-q">📱 UPComedyHub को कहाँ follow करें?</h3><p class="faq-a" style="display:none">आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।</p></div>
@@ -1183,7 +1190,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="contact">
-    <h2 class="section-title">📩 Contact Us</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Contact Us</h2>
     <div class="cards">
       <div class="card" style="text-align:center">
         <h3>📧 Email</h3>
@@ -1196,7 +1203,7 @@ body.messages-open .bottom-nav{display:none !important}
         <h3>💬 WhatsApp</h3>
         <p>Directly humse WhatsApp par contact karein. <button type="button" class="copy-btn" data-copy-text="+91 92369 94154">📋 Copy Number</button></p>
         <br>
-        <a class="btn" href="https://wa.me/919236994154?text=Hello%20UPComedyHub" target="_blank" rel="noopener">💬 WhatsApp</a>
+        <a class="btn" href="https://wa.me/919236994154?text=Hello%20UPComedyHub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
       </div>
       <div class="card" style="text-align:center">
         <h3>🤝 Collaboration</h3>
@@ -1214,7 +1221,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="website-enquiry">
-    <h2 class="section-title">💻 Website Banwani Hai?</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</h2>
     <div class="card" style="max-width:700px;margin:0 auto;text-align:center">
       <h3>🌐 Professional Website Development</h3>
       <p style="margin-top:10px">Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.</p>
@@ -1248,7 +1255,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="visitor-counter">
-    <h2 class="section-title">👀 Website Visitors</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-eye"></use></svg> Website Visitors</h2>
     <div class="card visitor-counter-card" style="text-align:center">
       <h3>🔥 UPComedyHub Family</h3>
       <p style="margin-top:15px">Ab tak UPComedyHub website par</p>
@@ -1261,7 +1268,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="youtube-stats">
-    <h2 class="section-title">📊 YouTube Stats</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-chart"></use></svg> YouTube Stats</h2>
     <div class="card" style="max-width:600px;margin:0 auto;text-align:center">
       <h3>🔔 UPComedyHub Subscribers</h3>
       <strong id="youtubeSubscribers" style="display:block;color:#e63946;font-size:32px;font-weight:800;margin-top:5px">...</strong>
@@ -1270,19 +1277,19 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="social">
-    <h2 class="section-title">🌐 Follow UPComedyHub</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-globe"></use></svg> Follow UPComedyHub</h2>
     <div class="buttons" style="text-align:center">
       <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ YouTube</a>
       <a class="btn" href="https://www.instagram.com/up_comedyhub" target="_blank" rel="noopener">📸 Instagram</a>
       <a class="btn" href="https://www.facebook.com/share/1CiwRbmKbq/" target="_blank" rel="noopener">👍 Facebook</a>
-      <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp</a>
+      <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
     </div>
     <p style="margin-top:20px;text-align:center">📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India</p>
   </section>
 
   <section id="newsletter">
     <div style="text-align:center"><span class="newsletter-badge">🔥 Never Miss an Update</span></div>
-    <h2 class="section-title">📩 Stay Connected</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Stay Connected</h2>
     <div class="card newsletter-card">
       <h3>🔥 UPComedyHub Updates</h3>
       <p style="margin-top:8px">Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.</p>
@@ -1303,7 +1310,7 @@ body.messages-open .bottom-nav{display:none !important}
   </section>
 
   <section id="support">
-    <h2 class="section-title">☕ Support UPComedyHub</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-coffee"></use></svg> Support UPComedyHub</h2>
     <div class="card support-card">
       <span class="support-badge">❤️ Aapka Support, Hamari Taakat</span>
       <h3>Ek Chai Pilao ☕</h3>
@@ -1360,16 +1367,16 @@ body.messages-open .bottom-nav{display:none !important}
 
   <div class="quick-actions" id="quickActions">
     <div class="quick-actions-menu">
-      <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener">💬 WhatsApp</a>
-      <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe</a>
+      <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
+      <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
     </div>
-    <button id="quickActionsToggle" type="button" aria-label="Quick actions">💬</button>
+    <button id="quickActionsToggle" type="button" aria-label="Quick actions"><svg class="ico"><use href="#i-message"></use></svg></button>
   </div>
-  <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website">🔗</a>
+  <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website"><svg class="ico"><use href="#i-link"></use></svg></a>
 </div>
 <div id="tab-reels" class="tab-pane">
   <section>
-    <h2 class="section-title">🎬 Shorts</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Shorts</h2>
     <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Seedha YouTube se — latest Shorts 🔄</p>
     <div class="video-grid reels" id="reelsGrid">
       <div class="card"><p>⏳ Loading Shorts...</p></div>
@@ -1379,7 +1386,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-videos" class="tab-pane">
   <section>
-    <h2 class="section-title">🎥 Videos</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
     <div class="video-grid" id="videosGrid">
       <div class="card"><p>⏳ Loading videos...</p></div>
     </div>
@@ -1388,7 +1395,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-search" class="tab-pane">
   <section>
-    <h2 class="section-title">🔍 Search</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-search"></use></svg> Search</h2>
     <div class="site-search">
       <input type="text" id="tabSearchInput" placeholder="🔍 Search videos, pages ya @username...">
     </div>
@@ -1399,7 +1406,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-profile" class="tab-pane">
   <section class="profile-section-ig">
-    <h2 class="section-title">👤 My Profile</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-user"></use></svg> My Profile</h2>
 
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
       <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
@@ -1554,7 +1561,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-admin" class="tab-pane">
   <section>
-    <h2 class="section-title">⚙️ Admin Panel</h2>
+    <h2 class="section-title"><svg class="ico"><use href="#i-settings"></use></svg> Admin Panel</h2>
     <p class="admin-warning">🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.</p>
 
     <div class="admin-card">
@@ -1848,12 +1855,12 @@ body.messages-open .bottom-nav{display:none !important}
 <button id="backToTop" type="button" aria-label="Back to top">↑</button>
 
 <nav class="bottom-nav" id="bottomNav">
-  <button type="button" data-tab="home" class="active"><span class="icon">🏠</span><span>Home</span></button>
-  <button type="button" data-tab="reels"><span class="icon">🎬</span><span>Reels</span></button>
-  <button type="button" data-tab="videos"><span class="icon">🎥</span><span>Videos</span></button>
-  <button type="button" data-tab="search"><span class="icon">🔍</span><span>Search</span></button>
-  <button type="button" data-tab="profile"><span class="icon">👤</span><span>Profile</span></button>
-  <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon">⚙️</span><span>Admin</span></button>
+  <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use href="#i-home"></use></svg></span><span>Home</span></button>
+  <button type="button" data-tab="reels"><span class="icon"><svg class="ico"><use href="#i-film"></use></svg></span><span>Reels</span></button>
+  <button type="button" data-tab="videos"><span class="icon"><svg class="ico"><use href="#i-video"></use></svg></span><span>Videos</span></button>
+  <button type="button" data-tab="search"><span class="icon"><svg class="ico"><use href="#i-search"></use></svg></span><span>Search</span></button>
+  <button type="button" data-tab="profile"><span class="icon"><svg class="ico"><use href="#i-user"></use></svg></span><span>Profile</span></button>
+  <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
 
 <div id="toastNotification"></div>

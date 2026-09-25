@@ -48,9 +48,12 @@ header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px soli
 .logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
 .header-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
-#messageBtn,#bellBtn{position:relative;border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111;transition:transform .15s}
-#messageBtn:hover,#bellBtn:hover{transform:scale(1.05)}
-.dark-mode #messageBtn,.dark-mode #bellBtn{background:#1c1c1c;color:#fff}
+#messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111;transition:transform .15s}
+#messageBtn:hover,#bellBtn:hover,#headerSearchBtn:hover{transform:scale(1.05)}
+.dark-mode #messageBtn,.dark-mode #bellBtn,.dark-mode #headerSearchBtn{background:#1c1c1c;color:#fff}
+#bellBtn{width:54px;height:54px;font-size:27px}
+#bellBtn .ico{width:27px;height:27px}
+#headerSearchBtn .ico{width:23px;height:23px}
 #bellBadge{position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
 #menuToggle{display:none;border:none;background:#f1f1f1;font-size:24px;width:46px;height:46px;border-radius:12px;cursor:pointer;color:#111}
 .dark-mode #menuToggle{background:#1c1c1c;color:#fff}
@@ -362,7 +365,13 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .admin-likes-user-chip{background:#333;border-color:#555;color:#fff}
 
 /* Instagram Profile */
-.profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px}
+.profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px;position:relative}
+#profileMenuBtn{position:absolute;top:2px;right:16px;width:46px;height:46px;border-radius:50%;border:none;background:#f1f1f1;color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:transform .15s,background .15s}
+#profileMenuBtn:hover{transform:scale(1.06)}
+#profileMenuBtn:active{transform:scale(.94)}
+#profileMenuBtn .ico{width:24px;height:24px}
+.dark-mode #profileMenuBtn{background:#1c1c1c;color:#fff}
+@media(max-width:520px){#profileMenuBtn{top:0;right:10px;width:42px;height:42px}}
 #profileLoggedOut{text-align:center;padding:60px 20px}
 #profileLoggedOut p{color:#888;margin-bottom:20px;font-size:15px}
 #profileLoggedIn.profile-ig{padding:24px 0 40px}
@@ -404,6 +413,8 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .ig-tab.active{color:#fff;border-bottom-color:#fff}
 .ig-posts-grid{min-height:220px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:20px;padding-top:4px}
 .ig-posts-grid.grid-empty{display:block;text-align:center}
+.ig-posts-grid.ig-video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding:6px 0 10px}
+@media(max-width:520px){.ig-posts-grid.ig-video-grid{grid-template-columns:1fr}}
 .ig-empty{color:#888;font-size:14px;padding:60px 20px}
 .ig-empty-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
 .ig-post-tile{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;cursor:pointer}
@@ -465,6 +476,27 @@ body.messages-open .bottom-nav{display:none !important}
 .settings-launch-copy p{margin:0;color:#888;font-size:13px}
 .settings-open-btn{border:none;background:#111;color:#fff;padding:10px 15px;border-radius:18px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
 .dark-mode .settings-open-btn{background:#fff;color:#111}
+.settings-modal{max-height:92vh;max-height:92dvh;display:flex;flex-direction:column}
+.settings-modal .settings-modal-body{overflow-y:auto;flex:1;min-height:0}
+.settings-nav-row{display:flex;align-items:center;gap:14px;padding:15px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.settings-nav-row:last-child{border-bottom:none}
+.settings-nav-row:hover,.settings-nav-row:active{background:#fafafa}
+.dark-mode .settings-nav-row{border-bottom-color:#262626}
+.dark-mode .settings-nav-row:hover,.dark-mode .settings-nav-row:active{background:#202020}
+.settings-nav-row .snr-ico{width:24px;height:24px;color:#111;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dark-mode .settings-nav-row .snr-ico{color:#fff}
+.settings-nav-row .snr-label{flex:1;font-size:15px;font-weight:600}
+.settings-nav-row .snr-chev{width:20px;height:20px;color:#bbb;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dark-mode .settings-nav-row .snr-chev{color:#555}
+.settings-subpage p{font-size:14px;line-height:1.6;color:#444;margin-bottom:14px}
+.dark-mode .settings-subpage p{color:#ccc}
+.settings-subpage a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
+.settings-help-btn{display:flex;align-items:center;gap:12px;padding:15px 18px;border-radius:14px;text-decoration:none;font-weight:700;font-size:15px;margin-bottom:12px;transition:transform .12s,opacity .15s}
+.settings-help-btn:active{transform:scale(.98)}
+.settings-help-btn .ico{width:22px;height:22px}
+.settings-help-btn.wa{background:#25D366;color:#fff}
+.settings-help-btn.gm{background:#e63946;color:#fff}
+.dark-mode .settings-help-btn.wa,.dark-mode .settings-help-btn.gm{color:#fff}
 
 /* Notifications */
 .notifications-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10020;align-items:center;justify-content:center;padding:14px}
@@ -576,7 +608,10 @@ body.messages-open .bottom-nav{display:none !important}
   header{padding:10px 15px}
   .logo{font-size:20px}
   .logo-profile{width:36px;height:36px}
-  #messageBtn,#bellBtn{width:38px;height:38px;font-size:18px}
+  #messageBtn,#headerSearchBtn{width:40px;height:40px;font-size:19px}
+  #bellBtn{width:46px;height:46px;font-size:23px}
+  #bellBtn .ico{width:23px;height:23px}
+  #headerSearchBtn .ico{width:20px;height:20px}
   #menuToggle{display:block;width:38px;height:38px;font-size:20px}
   nav.top-nav{display:none;position:fixed;top:60px;right:15px;width:250px;max-height:calc(100vh - 80px);overflow-y:auto;background:#fff;padding:12px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.15);flex-direction:column;align-items:stretch;gap:5px;z-index:1100}
   nav.top-nav.show-menu{display:flex}
@@ -610,9 +645,9 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .icon-btn:hover{background:rgba(255,255,255,.08)}
 
 /* Messages Overlay */
-.messages-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:100000;align-items:center;justify-content:center;padding:14px}
+.messages-overlay{position:fixed;inset:0;background:#000;display:none;z-index:100000;align-items:stretch;justify-content:stretch;padding:0}
 .messages-overlay.show{display:flex}
-.messages-box{width:min(980px,100%);height:min(84vh,780px);max-height:100dvh;background:#fff;border-radius:22px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.messages-box{width:100%;height:100vh;height:100dvh;max-height:100vh;max-height:100dvh;background:#fff;border-radius:0;display:flex;flex-direction:column;overflow:hidden;box-shadow:none}
 .dark-mode .messages-box{background:#000;color:#fff}
 
 /* Messages Header */
@@ -822,10 +857,10 @@ body.messages-open .bottom-nav{display:none !important}
 .chat-composer textarea{flex:1;min-height:44px;max-height:120px;resize:none;border:1px solid #efefef;border-radius:22px;padding:12px 18px;font:inherit;background:#f5f5f5;color:#111;font-size:15px;outline:none;font-family:inherit;line-height:1.35}
 .chat-composer textarea:focus{background:#fff;border-color:#dbdbdb}
 .dark-mode .chat-composer textarea{background:#1c1c1c;color:#fff;border-color:#262626}
-.chat-send{border:none;background:none;width:40px;height:40px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0;color:#4285f4;transition:transform .1s,opacity .15s}
+.chat-send{border:none;background:#4285f4;width:40px;height:40px;border-radius:50%;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:transform .1s,opacity .15s;box-shadow:0 2px 8px rgba(66,133,244,.35)}
 .chat-send:active{transform:scale(.9)}
 .chat-send:disabled{opacity:.4;cursor:default}
-.chat-send .svg-icon{fill:#4285f4;stroke:#4285f4}
+.chat-send .svg-icon{fill:#fff;stroke:#fff;width:20px;height:20px}
 
 /* Recording Bar */
 .recording-bar{display:none;flex:1;align-items:center;gap:8px;padding:8px 14px;border-radius:22px;background:#fff0f0;border:1px solid #ffcdd2}
@@ -1019,6 +1054,9 @@ body.messages-open .bottom-nav{display:none !important}
     <button id="bellBtn" type="button" aria-label="Notifications">
       <svg class="ico"><use href="#i-bell"></use></svg><span id="bellBadge"></span>
     </button>
+    <button id="headerSearchBtn" type="button" aria-label="Search" onclick="switchTab('search')">
+      <svg class="ico"><use href="#i-search"></use></svg>
+    </button>
     <button id="messageBtn" type="button" onclick="openDirectMessages()" aria-label="Messages">
       <svg class="ico"><use href="#i-send"></use></svg><span id="messageBadge" style="position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px">0</span>
     </button>
@@ -1046,6 +1084,15 @@ body.messages-open .bottom-nav{display:none !important}
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
 <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
 <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></symbol>
+<symbol id="i-gamepad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="11" x2="10" y2="11"/><line x1="8" y1="9" x2="8" y2="13"/><line x1="15" y1="12" x2="15.01" y2="12"/><line x1="18" y1="10" x2="18.01" y2="10"/><rect x="2" y="6" width="20" height="12" rx="6"/></symbol>
+<symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+<symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
+<symbol id="i-coffee2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
 <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
 <symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
 <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></symbol>
@@ -1410,6 +1457,7 @@ body.messages-open .bottom-nav{display:none !important}
 <div id="tab-profile" class="tab-pane">
   <section class="profile-section-ig">
     <h2 class="section-title"><svg class="ico"><use href="#i-user"></use></svg> My Profile</h2>
+    <button type="button" id="profileMenuBtn" aria-label="Menu" title="Menu"><svg class="ico"><use href="#i-dots"></use></svg></button>
 
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
       <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
@@ -1668,11 +1716,80 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
-    <div class="social-header"><h3>⚙️ Settings</h3><button type="button" class="social-close" id="settingsClose" aria-label="Close">✕</button></div>
-    <div class="settings-modal-body">
+    <div class="social-header">
+      <button type="button" class="icon-btn" id="settingsBack" aria-label="Back" style="display:none"><svg class="svg-icon"><use href="#i-back"></use></svg></button>
+      <h3 id="settingsTitle">⚙️ Settings</h3>
+      <button type="button" class="social-close" id="settingsClose" aria-label="Close">✕</button>
+    </div>
+
+    <!-- MAIN SETTINGS VIEW -->
+    <div class="settings-modal-body" id="settingsMainView">
       <div class="settings-row"><div class="settings-label"><span>Language</span><small>Choose your preferred language</small></div><select class="settings-select" id="languageSelect"><option value="hi">Hinglish</option><option value="simple-hi">हिंदी</option><option value="en">English</option></select></div>
       <div class="settings-row"><div class="settings-label"><span>Appearance</span><small>System / Light / Dark mode</small></div><select class="settings-select" id="themeSelect" aria-label="Appearance"><option value="system">📱 System</option><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option></select></div>
       <div class="settings-row settings-community-row"><div class="settings-label"><span>Community &amp; Messages</span><small>Friends, requests, followers and private messages</small></div><button type="button" class="settings-open-btn" id="communityBtn">👥 Open Community</button></div>
+
+      <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="terms"><svg class="snr-ico"><use href="#i-file"></use></svg><span class="snr-label">Terms &amp; Conditions</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="help"><svg class="snr-ico"><use href="#i-help"></use></svg><span class="snr-label">Help</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="donate"><svg class="snr-ico"><use href="#i-coffee2"></use></svg><span class="snr-label">Support &amp; Donate</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="about"><svg class="snr-ico"><use href="#i-info"></use></svg><span class="snr-label">About UPComedyHub</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+    </div>
+
+    <!-- SUB VIEWS -->
+    <div class="settings-modal-body" id="settingsSubView" style="display:none">
+      <div class="settings-subpage" id="subPrivacy" style="display:none">
+        <p>UPComedyHub आपके privacy का सम्मान करता है। यह website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
+        <p>UPComedyHub website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
+        <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
+        <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
+        <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
+        <p>Stats4U Privacy Policy: <a href="https://www.stats4u.net/privacy" target="_blank" rel="noopener">https://www.stats4u.net/privacy</a></p>
+        <p>किसी भी सवाल के लिए आप हमसे <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> पर contact कर सकते हैं।</p>
+      </div>
+
+      <div class="settings-subpage" id="subTerms" style="display:none">
+        <p>UPComedyHub website par available content का purpose entertainment aur information provide करना है।</p>
+        <p>Website par diye gaye videos, images aur other content को बिना permission के commercial purpose के लिए use या redistribute न करें।</p>
+        <p>Website use करते वक़्त applicable laws और दूसरों के rights का respect करना ज़रूरी है।</p>
+        <p>किसी भी question के लिए contact करें: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
+      </div>
+
+      <div class="settings-subpage" id="subHelp" style="display:none">
+        <p style="color:#888;font-size:14px;margin-bottom:16px">Kisi bhi help ya sawaal ke liye humse seedha contact karein:</p>
+        <a class="settings-help-btn wa" href="https://wa.me/919236994154?text=Hello%20UPComedyHub%2C%20mujhe%20help%20chahiye" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp Support</a>
+        <a class="settings-help-btn gm" href="mailto:upcomedyhub@gmail.com?subject=UPComedyHub%20Help"><svg class="ico"><use href="#i-mail"></use></svg> Gmail Support</a>
+      </div>
+
+      <div class="settings-subpage" id="subReport" style="display:none">
+        <p style="color:#888;font-size:14px;margin-bottom:14px">Koi problem, galat content ya suggestion? Humein batayein — aapki report seedha humari Gmail par jayegi.</p>
+        <label for="reportText" style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Aapki Report</label>
+        <textarea id="reportText" rows="5" placeholder="Yahan apni report ya problem likhein..." style="width:100%;border:1px solid #ddd;border-radius:12px;padding:12px;font-family:inherit;font-size:14px;resize:vertical;background:#f7f7f7;color:#111;outline:none"></textarea>
+        <button type="button" id="reportSendBtn" class="settings-open-btn" style="width:100%;margin-top:14px">📧 Send Report via Gmail</button>
+      </div>
+
+      <div class="settings-subpage" id="subDonate" style="display:none">
+        <div style="text-align:center">
+          <span class="support-badge">❤️ Aapka Support, Hamari Taakat</span>
+          <h3 style="font-size:22px;margin:12px 0 8px">Ek Chai Pilao ☕</h3>
+          <p style="color:#666;font-size:14px;margin-bottom:18px">Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️</p>
+        </div>
+        <div class="support-amounts">
+          <button type="button" class="amount-btn" data-amount="50">₹50</button>
+          <button type="button" class="amount-btn active" data-amount="100">₹100</button>
+          <button type="button" class="amount-btn" data-amount="200">₹200</button>
+          <button type="button" class="amount-btn" data-amount="500">₹500</button>
+        </div>
+        <button type="button" id="settingsUpiPayBtn" class="support-main-btn">💳 Pay ₹100 via UPI</button>
+        <div class="support-divider"><span>OR</span></div>
+        <div class="support-upi-row">
+          <div class="upi-info"><small>UPI ID</small><strong>9236994154@axl</strong></div>
+          <button type="button" class="copy-btn" data-copy-text="9236994154@axl">📋 Copy</button>
+        </div>
+        <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:240px;height:240px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
+        <p style="font-size:13px;color:#777;margin:0 0 16px;text-align:center">📱 Scan this QR with any UPI app</p>
+        <p class="support-note" style="text-align:center">🔒 100% secure. Payment directly humare UPI par aata hai.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1861,7 +1978,7 @@ body.messages-open .bottom-nav{display:none !important}
   <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use href="#i-home"></use></svg></span><span>Home</span></button>
   <button type="button" data-tab="reels"><span class="icon"><svg class="ico"><use href="#i-film"></use></svg></span><span>Reels</span></button>
   <button type="button" id="createUploadBtn"><span class="icon"><svg class="ico"><use href="#i-plus-square"></use></svg></span><span>Create</span></button>
-  <button type="button" data-tab="search"><span class="icon"><svg class="ico"><use href="#i-search"></use></svg></span><span>Search</span></button>
+  <button type="button" id="funZoneNavBtn"><span class="icon"><svg class="ico"><use href="#i-gamepad"></use></svg></span><span>Fun Zone</span></button>
   <button type="button" data-tab="profile"><span class="icon"><svg class="ico"><use href="#i-user"></use></svg></span><span>Profile</span></button>
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
@@ -1982,6 +2099,13 @@ window.switchTab = switchTab;
 navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
 const createUploadBtn = document.getElementById("createUploadBtn");
 if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>showToast("🚀 Upload feature jaldi aa raha hai! Tab tak bas comedy dekho 😄"));
+const funZoneNavBtn = document.getElementById("funZoneNavBtn");
+if(funZoneNavBtn) funZoneNavBtn.addEventListener("click", ()=>{
+  switchTab("profile");
+  const fz = document.getElementById("profileFunZone");
+  const ft = document.getElementById("funZoneToggle");
+  if(fz){ fz.classList.add("open"); if(ft) ft.textContent = "✕ Close Fun Zone"; setTimeout(()=>fz.scrollIntoView({behavior:"smooth",block:"start"}), 350); }
+});
 
 /* ---------- THEME ---------- */
 function getSystemTheme(){ return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark":"light"; }
@@ -2379,15 +2503,35 @@ function shareUserProfile(){
   if(navigator.share) navigator.share({title:"UPComedyHub Profile",text:txt,url}).catch(()=>{});
   else navigator.clipboard.writeText(url).then(()=>showToast("🔗 Link copied!"));
 }
+function buildIgVideoCard(vid){
+  const info = allVideos[vid] || {};
+  const title = info.title || "UPComedyHub Video";
+  const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
+  const card = document.createElement("div");
+  card.className = "video-card";
+  card.setAttribute("data-video-id", vid);
+  card.setAttribute("data-category", info.category || "long");
+  card.innerHTML = '<div class="video-thumb" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(title)+'</h3><div class="video-date">🎬 Video</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
+  return card;
+}
+function renderIgVideoGrid(vids, emptyMsg){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid) return;
+  if(!vids || !vids.length){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty">'+emptyMsg+'</div>'; return; }
+  grid.className = "ig-posts-grid ig-video-grid";
+  grid.innerHTML = "";
+  vids.forEach(vid=>grid.appendChild(buildIgVideoCard(vid)));
+  refreshAllVideoActions(); refreshLikesLinks();
+}
 function switchIgTab(t){
   document.querySelectorAll(".ig-tab").forEach(x=>x.classList.toggle("active", x.getAttribute("data-ig-tab")===t));
   const grid = document.getElementById("igPostsGrid");
   if(!grid) return;
-  grid.className = "ig-posts-grid grid-empty";
-  if(t==="posts") grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi.</div>';
-  else if(t==="liked") grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">❤️</span>Liked videos jald.</div>';
-  else if(t==="saved") grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🔖</span>Saved videos jald.</div>';
+  if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi.</div>'; }
+  else if(t==="liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon">❤️</span>Abhi tak koi video like nahi kiya.'); }
+  else if(t==="saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video save nahi kiya.'); }
 }
+window.switchIgTab = switchIgTab;
 
 /* ---------- YOUTUBE REELS + VIDEOS ---------- */
 (function fetchReels(){
@@ -2568,7 +2712,7 @@ async function toggleLike(vid){
       showToast("❤️ Liked!");
       await createNotification(ADMIN_UID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked.",{videoId:vid});
     }
-    refreshAllVideoActions(); updateProfileUI();
+    refreshAllVideoActions(); updateProfileUI(); refreshActiveIgTab();
   }catch(e){ showToast("❌"); console.error(e); }
 }
 
@@ -2578,8 +2722,14 @@ async function toggleSave(vid){
     const d = await ref.get();
     if(d.exists){ await ref.delete(); userSavedVideos.delete(vid); showToast("📑 Removed"); }
     else{ await ref.set({userId:currentUser.uid,videoId:vid,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); userSavedVideos.add(vid); showToast("🔖 Saved!"); }
-    refreshAllVideoActions(); updateProfileUI();
+    refreshAllVideoActions(); updateProfileUI(); refreshActiveIgTab();
   }catch(e){ showToast("❌"); }
+}
+function refreshActiveIgTab(){
+  const activeIg = document.querySelector(".ig-tab.active");
+  if(!activeIg) return;
+  const t = activeIg.getAttribute("data-ig-tab");
+  if(t === "saved" || t === "liked") switchIgTab(t);
 }
 
 /* ---------- COMMENTS ---------- */
@@ -3145,6 +3295,7 @@ async function openChat(friend){
   const mb = document.getElementById("messagesBox"); if(mb && isMobileViewport()) mb.classList.add("chat-open");
   document.getElementById("chatActive").style.display = "flex";
   const cp = document.getElementById("chatPanel"); if(cp) cp.style.display = "flex";
+  setTimeout(updateComposerButtons, 0);
   document.getElementById("chatFriendPhoto").src = avatarFor(friend);
   document.getElementById("chatFriendName").textContent = friend.displayName || "User";
   document.getElementById("chatFriendUsername").textContent = "@"+(friend.username||"user");
@@ -3221,6 +3372,17 @@ async function renderChatMessages(docs){
   box.scrollTop = box.scrollHeight;
 }
 
+function updateComposerButtons(){
+  const ci = document.getElementById("chatInput");
+  const mic = document.getElementById("micBtn");
+  const send = document.getElementById("sendMessageBtn");
+  if(!ci) return;
+  const has = ci.value.trim().length > 0;
+  if(mic) mic.style.display = has ? "none" : "";
+  if(send) send.style.display = has ? "" : "none";
+}
+window.updateComposerButtons = updateComposerButtons;
+
 async function sendMessage(){
   if(!currentUser || !currentConversationId || !currentChatFriend) return;
   const input = document.getElementById("chatInput");
@@ -3232,7 +3394,7 @@ async function sendMessage(){
     await convRef.collection("messages").add(payload);
     await convRef.set({members:[currentUser.uid,currentChatFriend.uid].sort(),lastMessage:text.slice(0,120),lastMessageType:"text",lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),lastSenderId:currentUser.uid},{merge:true});
     await createNotification(currentChatFriend.uid,"message","💬 New message",(currentUser.displayName||"Someone")+": "+text.slice(0,80),{conversationId:currentConversationId});
-    input.value = ""; input.style.height = "auto";
+    input.value = ""; input.style.height = "auto"; updateComposerButtons();
     cancelReply(); updateMessageBadge();
   }catch(e){ console.error(e); showToast("❌ Send failed"); }
 }
@@ -3382,6 +3544,7 @@ async function stopRecording(send=true){
   if(emojiBtn) emojiBtn.style.display = "";
   if(micBtn) micBtn.style.display = "";
   if(sendBtn) sendBtn.style.display = "";
+  updateComposerButtons();
   const duration = Math.round((Date.now() - recordingStart)/1000);
   if(!send){ audioChunks = []; mediaRecorder = null; return; }
   if(!audioChunks.length || duration < 1){ showToast("⚠️ Recording too short"); audioChunks = []; mediaRecorder = null; return; }
@@ -3604,6 +3767,7 @@ function initCommunityUI(){
     ci.addEventListener("input",()=>{
       ci.style.height = "auto";
       ci.style.height = Math.min(ci.scrollHeight, 110)+"px";
+      updateComposerButtons();
       if(currentConversationId){ clearTimeout(typingTimer); trackUserTyping(currentConversationId); typingTimer = setTimeout(()=>{},1000); }
     });
     ci.addEventListener("keydown",e=>{ if(e.key === "Enter" && !e.shiftKey && !isMobileViewport()){ e.preventDefault(); sendMessage(); } });
@@ -3871,10 +4035,50 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(lsel){ lsel.value = savedLang; lsel.addEventListener("change", e=>setLanguage(e.target.value)); }
 
   const o = document.getElementById("settingsOpenBtn"), c = document.getElementById("settingsClose"), ov = document.getElementById("settingsOverlay"), cm = document.getElementById("communityBtn");
-  if(o) o.addEventListener("click", ()=>ov?.classList.add("show"));
+  function settingsGoHome(){
+    const main = document.getElementById("settingsMainView"), sub = document.getElementById("settingsSubView"), back = document.getElementById("settingsBack"), title = document.getElementById("settingsTitle");
+    if(main) main.style.display = "block";
+    if(sub) sub.style.display = "none";
+    if(back) back.style.display = "none";
+    if(title) title.textContent = "⚙️ Settings";
+  }
+  function openSettings(){ if(!ov) return; settingsGoHome(); ov.classList.add("show"); }
+  window.openSettings = openSettings;
+  if(o) o.addEventListener("click", openSettings);
   if(c) c.addEventListener("click", ()=>ov?.classList.remove("show"));
   if(ov) ov.addEventListener("click", e=>{ if(e.target === ov) ov.classList.remove("show"); });
   if(cm) cm.addEventListener("click", ()=>{ ov?.classList.remove("show"); openCommunity(); });
+
+  const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
+  const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
+
+  const subTitles = {privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
+    const view = row.getAttribute("data-settings-view");
+    if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
+    const main = document.getElementById("settingsMainView"), sub = document.getElementById("settingsSubView"), back = document.getElementById("settingsBack"), title = document.getElementById("settingsTitle");
+    if(main) main.style.display = "none";
+    if(sub) sub.style.display = "block";
+    if(back) back.style.display = "";
+    if(title) title.textContent = subTitles[view] || "Settings";
+    document.querySelectorAll(".settings-subpage").forEach(p=>p.style.display = "none");
+    const el = document.getElementById("sub"+view.charAt(0).toUpperCase()+view.slice(1));
+    if(el) el.style.display = "block";
+  }));
+
+  const rsb = document.getElementById("reportSendBtn");
+  if(rsb) rsb.addEventListener("click", ()=>{
+    const t = (document.getElementById("reportText")?.value || "").trim();
+    const body = encodeURIComponent(t || "(No details provided)");
+    window.location.href = "mailto:upcomedyhub@gmail.com?subject="+encodeURIComponent("UPComedyHub Report")+"&body="+body;
+  });
+
+  const supb = document.getElementById("settingsUpiPayBtn");
+  if(supb) supb.addEventListener("click", ()=>{
+    let link = "upi://pay?pa="+encodeURIComponent(UPI_ID)+"&pn="+encodeURIComponent(UPI_NAME)+"&cu=INR";
+    if(selectedAmount !== "") link += "&am="+selectedAmount;
+    window.location.href = link;
+  });
 
   const ab = document.getElementById("announcementBar"), ca = document.getElementById("closeAnnouncement");
   if(ab && localStorage.getItem("announcementClosed") === "true") ab.style.display = "none";
@@ -3936,6 +4140,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     selectedAmount = btn.getAttribute("data-amount");
     const p = document.getElementById("upiPayBtn");
     if(p) p.textContent = selectedAmount === "" ? "💳 Pay Custom Amount" : "💳 Pay ₹"+selectedAmount+" via UPI";
+    const sp = document.getElementById("settingsUpiPayBtn");
+    if(sp) sp.textContent = selectedAmount === "" ? "💳 Pay Custom Amount" : "💳 Pay ₹"+selectedAmount+" via UPI";
   }));
   const ub = document.getElementById("upiPayBtn");
   if(ub) ub.addEventListener("click", ()=>{

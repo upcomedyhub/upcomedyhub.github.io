@@ -44,6 +44,7 @@ button{font-family:inherit}
 
 /* Header */
 header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #eee;padding:12px 6%;display:flex;justify-content:space-between;align-items:center}
+body:not(.on-home) header{display:none}
 .dark-mode header{background:#000;border-bottom-color:#262626}
 .logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
@@ -263,6 +264,16 @@ body.messages-open .bottom-nav{display:none !important}
 .video-thumb.reel{aspect-ratio:9/16;max-height:75vh;border-radius:0}
 .video-grid.reels .video-info{padding:14px 16px}
 .video-grid.reels .video-info h3{font-size:15px;font-weight:800}
+/* Home Shorts row (Instagram-style horizontal carousel) */
+.home-shorts-row{display:flex;gap:14px;overflow-x:auto;padding:4px 6% 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.home-shorts-row::-webkit-scrollbar{display:none}
+.home-shorts-row .video-card{flex:0 0 150px;min-width:150px;max-width:150px;scroll-snap-align:start;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.home-shorts-row .video-thumb{aspect-ratio:9/16;border-radius:16px 16px 0 0}
+.home-shorts-row .video-info{padding:8px 10px;gap:4px}
+.home-shorts-row .video-info h3{font-size:12px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.home-shorts-row .video-date{font-size:10px}
+.home-shorts-row .video-actions,.home-shorts-row .video-likes-link{display:none}
+.home-shorts-row .home-shorts-empty{color:#888;font-size:14px;padding:20px 4px}
 .video-actions{display:flex;justify-content:space-around;align-items:center;padding:10px 6px;border-top:1px solid #f0f0f0;margin-top:auto}
 .dark-mode .video-actions{border-top-color:#262626}
 .action-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#666;cursor:pointer;padding:6px 8px;font-weight:700;font-family:inherit;min-width:50px;transition:.15s}
@@ -488,6 +499,17 @@ body.messages-open .bottom-nav{display:none !important}
 .settings-nav-row .snr-label{flex:1;font-size:15px;font-weight:600}
 .settings-nav-row .snr-chev{width:20px;height:20px;color:#bbb;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .dark-mode .settings-nav-row .snr-chev{color:#555}
+.settings-nav-row .snr-value{font-size:13px;color:#888;font-weight:600;flex-shrink:0}
+.dark-mode .settings-nav-row .snr-value{color:#999}
+.settings-opt-list{display:flex;flex-direction:column;gap:10px}
+.settings-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border:1.5px solid #e5e5e5;border-radius:14px;background:#fff;color:#111;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent}
+.settings-opt:hover{border-color:#e63946;background:#fff5f6}
+.settings-opt.active{border-color:#e63946;background:#fff0f1}
+.settings-opt .opt-check{width:20px;height:20px;color:#e63946;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:.15s}
+.settings-opt.active .opt-check{opacity:1}
+.dark-mode .settings-opt{background:#1c1c1c;color:#fff;border-color:#333}
+.dark-mode .settings-opt:hover{border-color:#e63946;background:#241417}
+.dark-mode .settings-opt.active{border-color:#e63946;background:#2a1416}
 .settings-subpage p{font-size:14px;line-height:1.6;color:#444;margin-bottom:14px}
 .dark-mode .settings-subpage p{color:#ccc}
 .settings-subpage a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
@@ -1025,7 +1047,7 @@ body.messages-open .bottom-nav{display:none !important}
 .ico{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
 </style>
 </head>
-<body>
+<body class="on-home">
    <div class="menu-backdrop" id="menuBackdrop"></div>
 
 <div id="pageLoader">
@@ -1112,6 +1134,8 @@ body.messages-open .bottom-nav{display:none !important}
 <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
 <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></symbol>
 <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
 <symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 3c-.5 1 .5 1.3 0 2.5M11 3c-.5 1 .5 1.3 0 2.5"/></symbol>
 <symbol id="i-heart-fill" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.2 2.2 4.8 5.7 4.2 8 3.8 10 5 12 7.3 14 5 16 3.8 18.3 4.2c3.5.6 5.3 4 3.7 7.5C19.5 16.4 12 21 12 21z"/></symbol>
 <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></symbol>
@@ -1128,6 +1152,13 @@ body.messages-open .bottom-nav{display:none !important}
     <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
     <div class="video-grid" id="videosGrid">
       <div class="card"><p>⏳ Loading videos...</p></div>
+    </div>
+  </section>
+
+  <section id="home-shorts">
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Shorts</h2>
+    <div class="home-shorts-row" id="homeShortsGrid">
+      <div class="card"><p>⏳ Loading Shorts...</p></div>
     </div>
   </section>
 
@@ -1538,8 +1569,6 @@ body.messages-open .bottom-nav{display:none !important}
           Abhi koi post nahi. Jald aa raha hai! 🚀
         </div>
       </div>
-
-      <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
     </div>
 
   </section>
@@ -1724,8 +1753,8 @@ body.messages-open .bottom-nav{display:none !important}
 
     <!-- MAIN SETTINGS VIEW -->
     <div class="settings-modal-body" id="settingsMainView">
-      <div class="settings-row"><div class="settings-label"><span>Language</span><small>Choose your preferred language</small></div><select class="settings-select" id="languageSelect"><option value="hi">Hinglish</option><option value="simple-hi">हिंदी</option><option value="en">English</option></select></div>
-      <div class="settings-row"><div class="settings-label"><span>Appearance</span><small>System / Light / Dark mode</small></div><select class="settings-select" id="themeSelect" aria-label="Appearance"><option value="system">📱 System</option><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option></select></div>
+      <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><span class="snr-value" id="languageValue">Hinglish</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><span class="snr-value" id="appearanceValue">📱 System</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-row settings-community-row"><div class="settings-label"><span>Community &amp; Messages</span><small>Friends, requests, followers and private messages</small></div><button type="button" class="settings-open-btn" id="communityBtn">👥 Open Community</button></div>
 
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -1734,10 +1763,30 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="donate"><svg class="snr-ico"><use href="#i-coffee2"></use></svg><span class="snr-label">Support &amp; Donate</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="about"><svg class="snr-ico"><use href="#i-info"></use></svg><span class="snr-label">About UPComedyHub</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+
+      <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
     </div>
 
     <!-- SUB VIEWS -->
     <div class="settings-modal-body" id="settingsSubView" style="display:none">
+      <div class="settings-subpage" id="subLanguage" style="display:none">
+        <p style="color:#888;font-size:14px;margin-bottom:14px">Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.</p>
+        <div class="settings-opt-list" id="languageOptList">
+          <button type="button" class="settings-opt" data-lang="hi"><span>Hinglish</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+          <button type="button" class="settings-opt" data-lang="simple-hi"><span>हिंदी</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+          <button type="button" class="settings-opt" data-lang="en"><span>English</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+        </div>
+      </div>
+
+      <div class="settings-subpage" id="subAppearance" style="display:none">
+        <p style="color:#888;font-size:14px;margin-bottom:14px">App ka look chunein — System, Light ya Dark mode.</p>
+        <div class="settings-opt-list" id="appearanceOptList">
+          <button type="button" class="settings-opt" data-theme="system"><span>📱 System</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+          <button type="button" class="settings-opt" data-theme="light"><span>☀️ Light</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+          <button type="button" class="settings-opt" data-theme="dark"><span>🌙 Dark</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
+        </div>
+      </div>
+
       <div class="settings-subpage" id="subPrivacy" style="display:none">
         <p>UPComedyHub आपके privacy का सम्मान करता है। यह website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
         <p>UPComedyHub website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
@@ -2090,6 +2139,7 @@ function switchTab(name){
   const pane = document.getElementById("tab-"+name);
   if(pane) pane.classList.add("active");
   navButtons.forEach(b=>b.classList.toggle("active", b.getAttribute("data-tab")===name));
+  document.body.classList.toggle("on-home", name==="home");
   window.scrollTo({top:0, behavior:"smooth"});
   if(name==="profile") updateProfileUI();
   else if(document.getElementById("messagesOverlay")?.classList.contains("show")) closeMessages();
@@ -2561,8 +2611,9 @@ window.switchIgTab = switchIgTab;
       });
       refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
       appendManualShortsToReels();
+      syncHomeShorts();
     })
-    .catch(err=>{ console.error(err); grid.innerHTML=""; appendManualShortsToReels(); });
+    .catch(err=>{ console.error(err); grid.innerHTML=""; appendManualShortsToReels(); syncHomeShorts(); });
 })();
 
 async function appendManualShortsToReels(){
@@ -2583,6 +2634,7 @@ async function appendManualShortsToReels(){
       grid.appendChild(card);
     });
     refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
+    syncHomeShorts();
   }catch(e){ console.error(e); }
 }
 
@@ -2591,6 +2643,20 @@ async function refreshManualShorts(){
   Object.keys(allVideos).forEach(k=>{ if(allVideos[k]?. _manual) delete allVideos[k]; });
   await appendManualShortsToReels();
 }
+
+/* Mirror the Reels/Shorts into the Home feed (Point D) */
+function syncHomeShorts(){
+  const src = document.getElementById("reelsGrid");
+  const dst = document.getElementById("homeShortsGrid");
+  if(!src || !dst) return;
+  dst.innerHTML = "";
+  const cards = src.querySelectorAll(".video-card");
+  if(!cards.length){ dst.innerHTML = '<div class="home-shorts-empty">Abhi koi Short nahi. Jald aa rahe hain! 🎬</div>'; return; }
+  cards.forEach(c=>{ dst.appendChild(c.cloneNode(true)); });
+  if(window.refreshAllVideoActions) refreshAllVideoActions();
+  if(window.refreshLikesLinks) refreshLikesLinks();
+}
+window.syncHomeShorts = syncHomeShorts;
 
 async function loadManualVideos(){
   const grid = document.getElementById("videosGrid"); if(!grid) return;
@@ -4018,6 +4084,24 @@ window.addEventListener("DOMContentLoaded",()=>{
   applyTheme(savedTheme, false);
   const tsel = document.getElementById("themeSelect");
   if(tsel) tsel.addEventListener("change", e=>applyTheme(e.target.value, true));
+
+  /* --- Language & Appearance sub-page option buttons (Point A) --- */
+  const THEME_LABELS = {system:"📱 System", light:"☀️ Light", dark:"🌙 Dark"};
+  const LANG_LABELS = {hi:"Hinglish", "simple-hi":"हिंदी", en:"English"};
+  function syncThemeUI(){
+    const cur = localStorage.getItem("theme") || "system";
+    const tv = document.getElementById("appearanceValue"); if(tv) tv.textContent = THEME_LABELS[cur] || "📱 System";
+    document.querySelectorAll("#appearanceOptList [data-theme]").forEach(b=>b.classList.toggle("active", b.getAttribute("data-theme")===cur));
+  }
+  function syncLangUI(){
+    const cur = localStorage.getItem("siteLanguage") || "hi";
+    const lv = document.getElementById("languageValue"); if(lv) lv.textContent = LANG_LABELS[cur] || "Hinglish";
+    document.querySelectorAll("#languageOptList [data-lang]").forEach(b=>b.classList.toggle("active", b.getAttribute("data-lang")===cur));
+  }
+  window.syncThemeUI = syncThemeUI; window.syncLangUI = syncLangUI;
+  document.querySelectorAll("#appearanceOptList [data-theme]").forEach(b=>b.addEventListener("click", ()=>{ applyTheme(b.getAttribute("data-theme"), true); syncThemeUI(); showToast("🎨 Appearance updated"); }));
+  document.querySelectorAll("#languageOptList [data-lang]").forEach(b=>b.addEventListener("click", ()=>{ setLanguage(b.getAttribute("data-lang")); syncLangUI(); }));
+  syncThemeUI();
   if(window.matchMedia){
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const sync = ()=>{ if((localStorage.getItem("theme")||"system")==="system") applyTheme("system", false); };
@@ -4025,8 +4109,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   }
 
   const savedLang = localStorage.getItem("siteLanguage") || "hi";
-  const lsel = document.getElementById("languageSelect");
-  if(lsel){ lsel.value = savedLang; lsel.addEventListener("change", e=>setLanguage(e.target.value)); }
+  syncLangUI();
 
   const o = document.getElementById("settingsOpenBtn"), c = document.getElementById("settingsClose"), ov = document.getElementById("settingsOverlay"), cm = document.getElementById("communityBtn");
   function settingsGoHome(){
@@ -4046,7 +4129,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
@@ -4085,6 +4168,12 @@ window.addEventListener("DOMContentLoaded",()=>{
   const bb = document.getElementById("bellBtn"); if(bb) bb.addEventListener("click", e=>{ e.stopPropagation(); openNotifications(); });
   const nc = document.getElementById("notificationsClose"), no = document.getElementById("notificationsOverlay");
   if(nc) nc.addEventListener("click", ()=>no.classList.remove("show"));
+
+  /* --- Comments & Likes close (✕) buttons (Point C) --- */
+  const ccl = document.getElementById("commentsClose"); if(ccl) ccl.addEventListener("click", ()=>closeComments());
+  const lcl = document.getElementById("likesClose"); if(lcl) lcl.addEventListener("click", ()=>{ const lo = document.getElementById("likesOverlay"); if(lo) lo.classList.remove("show"); });
+  const co = document.getElementById("commentsOverlay"); if(co) co.addEventListener("click", e=>{ if(e.target === co) closeComments(); });
+  const lo2 = document.getElementById("likesOverlay"); if(lo2) lo2.addEventListener("click", e=>{ if(e.target === lo2) lo2.classList.remove("show"); });
   if(no) no.addEventListener("click", e=>{ if(e.target.id === "notificationsOverlay") no.classList.remove("show"); });
   const mab = document.getElementById("markAllNotifBtn"); if(mab) mab.addEventListener("click", markAllNotificationsRead);
   const cob = document.getElementById("clearOldNotifBtn"); if(cob) cob.addEventListener("click", clearOldNotifications);
@@ -4151,7 +4240,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const glb = document.getElementById("googleLoginBtn");
   if(glb) glb.addEventListener("click", async ()=>{ try{ await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); showToast("✅ Login!"); }catch(e){ console.error(e); showToast("❌ "+(e.code||"Login failed")); } });
   const lob = document.getElementById("logoutBtn");
-  if(lob) lob.addEventListener("click", async ()=>{ await auth.signOut(); showToast("👋 Logged out"); });
+  if(lob) lob.addEventListener("click", async ()=>{ const sov = document.getElementById("settingsOverlay"); if(sov) sov.classList.remove("show"); await auth.signOut(); showToast("👋 Logged out"); });
 
   const eb = document.getElementById("editProfileBtn"), ce = document.getElementById("cancelProfileEdit"), sp2 = document.getElementById("saveProfileBtn");
   if(eb) eb.addEventListener("click", async ()=>{ await loadProfileIdentity(); document.getElementById("profileEditCard").hidden = false; });

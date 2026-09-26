@@ -274,6 +274,30 @@ body.messages-open .bottom-nav{display:none !important}
 .home-shorts-row .video-date{font-size:10px}
 .home-shorts-row .video-actions,.home-shorts-row .video-likes-link{display:none}
 .home-shorts-row .home-shorts-empty{color:#888;font-size:14px;padding:20px 4px}
+/* Point 2: Instagram-style Home feed */
+.home-feed{display:flex;flex-direction:column;gap:22px;max-width:520px;margin:0 auto;padding:0 12px}
+.home-feed .video-card{border-radius:18px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.08)}
+.home-feed .video-thumb{aspect-ratio:4/5}
+.ig-post-head{display:flex;align-items:center;gap:10px;padding:10px 12px 8px}
+.ig-post-avatar{width:36px;height:36px;border-radius:50%;flex:0 0 36px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:15px;background:linear-gradient(135deg,#e63946,#ff9a5a);object-fit:cover}
+.ig-post-name{font-weight:700;font-size:13.5px;color:inherit;display:flex;flex-direction:column;line-height:1.25}
+.ig-post-name small{font-weight:400;font-size:11px;color:#8e8e8e}
+.ig-post-follow{margin-left:auto;color:#0095f6;font-weight:700;font-size:13px;background:none;border:none;cursor:pointer;font-family:inherit;padding:4px 2px}
+.dark-mode .ig-post-follow{color:#4aa9ff}
+.home-feed .video-info{padding:10px 14px 4px}
+.home-feed .video-actions{border-top:none;padding:6px 6px 10px;justify-content:flex-start;gap:4px}
+.home-feed .action-btn{flex-direction:row;gap:6px;font-size:13px;min-width:auto;padding:8px 12px;border-radius:10px}
+/* Instagram-style reels tray at top of home feed */
+.ig-reels-tray{display:flex;gap:14px;overflow-x:auto;padding:6px 12px 14px;max-width:520px;margin:0 auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.ig-reels-tray::-webkit-scrollbar{display:none}
+.ig-reel-thumb{flex:0 0 96px;width:96px;scroll-snap-align:start;cursor:pointer;text-align:center}
+.ig-reel-thumb .ig-reel-ring{width:88px;height:88px;border-radius:50%;padding:3px;background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);margin:0 auto}
+.ig-reel-thumb .ig-reel-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid #fff;background:#000}
+.dark-mode .ig-reel-thumb .ig-reel-inner{border-color:#1b1b1b}
+.ig-reel-thumb .ig-reel-inner img{width:100%;height:100%;object-fit:cover;display:block}
+.ig-reel-thumb .ig-reel-label{font-size:11px;margin-top:6px;color:#666;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dark-mode .ig-reel-thumb .ig-reel-label{color:#bbb}
+.ig-reels-empty{color:#888;font-size:13px;padding:16px 12px;text-align:center}
 .video-actions{display:flex;justify-content:space-around;align-items:center;padding:10px 6px;border-top:1px solid #f0f0f0;margin-top:auto}
 .dark-mode .video-actions{border-top-color:#262626}
 .action-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#666;cursor:pointer;padding:6px 8px;font-weight:700;font-family:inherit;min-width:50px;transition:.15s}
@@ -327,6 +351,28 @@ body.messages-open .bottom-nav{display:none !important}
 .likes-user-name{font-weight:700;font-size:14px;color:inherit}
 .likes-empty{padding:30px;text-align:center;color:#888;font-size:14px}
 
+/* Share sheet (Point 9) */
+.share-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:10001;align-items:flex-end;justify-content:center}
+.share-sheet-overlay.show{display:flex}
+.share-sheet{background:#fff;width:100%;max-width:460px;max-height:72vh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:slideUp .3s ease}
+.dark-mode .share-sheet{background:#1b1b1b;color:#fff}
+.share-sheet-head{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #eee}
+.dark-mode .share-sheet-head{border-color:#262626}
+.share-sheet-head h3{font-size:16px}
+.share-sheet-close{background:none;border:none;font-size:24px;cursor:pointer;color:#666}
+.dark-mode .share-sheet-close{color:#bbb}
+.share-sheet-body{flex:1;overflow-y:auto;padding:10px 14px 20px}
+.share-opt{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:12px;cursor:pointer;font-weight:700;font-size:15px}
+.share-opt:hover{background:rgba(0,0,0,.05)}
+.dark-mode .share-opt:hover{background:rgba(255,255,255,.08)}
+.share-opt .so-ico{font-size:22px}
+.share-friend{display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:12px;cursor:pointer}
+.share-friend:hover{background:rgba(0,0,0,.05)}
+.dark-mode .share-friend:hover{background:rgba(255,255,255,.08)}
+.share-friend img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee}
+.share-friend .sf-name{font-weight:700;font-size:14px}
+.share-friend .sf-user{font-size:12px;color:#888}
+
 /* Toast */
 #toastNotification{position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(20px);background:#111;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;z-index:100001;transition:.3s;max-width:90vw;text-align:center}
 #toastNotification.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -377,6 +423,11 @@ body.messages-open .bottom-nav{display:none !important}
 
 /* Instagram Profile */
 .profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px;position:relative}
+.ig-profile-header{display:flex;align-items:center;gap:6px;padding:6px 0 18px;padding-right:60px}
+.ig-profile-username{font-size:20px;font-weight:800;color:#111}
+.dark-mode .ig-profile-username{color:#fff}
+.ig-profile-chev{width:18px;height:18px;color:#111;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.dark-mode .ig-profile-chev{color:#fff}
 #profileMenuBtn{position:absolute;top:2px;right:16px;width:46px;height:46px;border-radius:50%;border:none;background:#f1f1f1;color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:transform .15s,background .15s}
 #profileMenuBtn:hover{transform:scale(1.06)}
 #profileMenuBtn:active{transform:scale(.94)}
@@ -1044,6 +1095,19 @@ body.messages-open .bottom-nav{display:none !important}
 .channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
 .dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
 .channel-profile-body{padding-bottom:40px}
+.channel-profile-search{padding:10px 14px;background:#fff;border-bottom:1px solid #efefef;position:relative;z-index:15}
+.dark-mode .channel-profile-search{background:#0a0a0a;border-bottom-color:#262626}
+.channel-profile-search input{width:100%;padding:10px 16px;border:1px solid #eee;border-radius:22px;font-size:14px;font-family:inherit;background:#fafafa;box-sizing:border-box}
+.dark-mode .channel-profile-search input{background:#141414;border-color:#262626;color:#fff}
+.channel-search-results{position:absolute;left:14px;right:14px;top:100%;background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,.15);z-index:30;max-height:52vh;overflow:auto;display:none}
+.dark-mode .channel-search-results{background:#1b1b1b;border-color:#262626}
+.channel-search-results.show{display:block}
+.channel-search-item{padding:12px 15px;cursor:pointer;font-size:14px;font-weight:600;border-bottom:1px solid #f5f5f5}
+.dark-mode .channel-search-item{border-color:#262626}
+.channel-search-item:last-child{border-bottom:none}
+.channel-search-item:hover{background:rgba(0,0,0,.04)}
+.dark-mode .channel-search-item:hover{background:rgba(255,255,255,.06)}
+.channel-footer{text-align:center;padding:30px 20px 40px;background:#111;color:#fff;border-radius:16px;margin:24px 16px 10px}
 .ico{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
 </style>
 </head>
@@ -1148,17 +1212,17 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-home" class="tab-pane active">
 
-  <section>
-    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
-    <div class="video-grid" id="videosGrid">
-      <div class="card"><p>⏳ Loading videos...</p></div>
+  <section id="home-shorts">
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
+    <div class="ig-reels-tray" id="homeShortsGrid">
+      <div class="ig-reels-empty">⏳ Loading Reels...</div>
     </div>
   </section>
 
-  <section id="home-shorts">
-    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Shorts</h2>
-    <div class="home-shorts-row" id="homeShortsGrid">
-      <div class="card"><p>⏳ Loading Shorts...</p></div>
+  <section>
+    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Feed</h2>
+    <div class="video-grid home-feed" id="videosGrid">
+      <div class="card"><p>⏳ Loading videos...</p></div>
     </div>
   </section>
 
@@ -1201,6 +1265,10 @@ body.messages-open .bottom-nav{display:none !important}
     <button type="button" class="channel-profile-back" id="channelProfileClose" aria-label="Back">‹</button>
     <span>Channel Profile</span>
     <span style="width:36px"></span>
+  </div>
+  <div class="channel-profile-search">
+    <input type="text" id="channelSearchInput" placeholder="🔍 Channel profile me dhundho (Team, Gallery, FAQ...)">
+    <div class="channel-search-results" id="channelSearchResults"></div>
   </div>
   <nav class="channel-profile-nav" id="channelProfileNav">
     <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
@@ -1458,6 +1526,13 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
   </section>
 
+  <footer class="channel-footer">
+    <p>© 2026 UPComedyHub. All Rights Reserved.</p>
+    <p style="margin-top:8px">Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥</p>
+    <p style="margin-top:8px">Made with ❤️ by UPComedyHub</p>
+    <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
+  </footer>
+
   </div>
 
   <div class="quick-actions" id="quickActions">
@@ -1492,7 +1567,10 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-profile" class="tab-pane">
   <section class="profile-section-ig">
-    <h2 class="section-title"><svg class="ico"><use href="#i-user"></use></svg> My Profile</h2>
+    <div class="ig-profile-header">
+      <span class="ig-profile-username" id="profileHeaderUsername">username</span>
+      <svg class="ico ig-profile-chev"><use href="#i-chevron"></use></svg>
+    </div>
     <button type="button" id="profileMenuBtn" aria-label="Menu" title="Menu"><svg class="ico"><use href="#i-dots"></use></svg></button>
 
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
@@ -1552,15 +1630,10 @@ body.messages-open .bottom-nav{display:none !important}
         </div>
       </div>
 
-      <div class="ig-meta-stats">
-        <span><svg class="ico"><use href="#i-heart-fill"></use></svg> <b id="statLikes">0</b> Videos Liked</span>
-        <span><svg class="ico"><use href="#i-bookmark-fill"></use></svg> <b id="statSaves">0</b> Videos Saved</span>
-      </div>
-
       <div class="ig-posts-tabs">
         <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-camera"></use></svg> Posts</button>
-        <button type="button" class="ig-tab" data-ig-tab="liked"><svg class="ico"><use href="#i-heart"></use></svg> Liked</button>
-        <button type="button" class="ig-tab" data-ig-tab="saved"><svg class="ico"><use href="#i-bookmark"></use></svg> Saved</button>
+        <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</button>
+        <button type="button" class="ig-tab" data-ig-tab="tagged"><svg class="ico"><use href="#i-user"></use></svg> Tagged</button>
       </div>
 
       <div id="igPostsGrid" class="ig-posts-grid grid-empty">
@@ -1588,12 +1661,18 @@ body.messages-open .bottom-nav{display:none !important}
           <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span>Guess the Dialogue<small>Guess karo</small></button>
           <button type="button" class="fun-game-btn" data-fun="reaction"><span class="fun-icon">⚡</span>Reaction Test<small>Kitni fast ho?</small></button>
           <button type="button" class="fun-game-btn" data-fun="spin"><span class="fun-icon">🎡</span>Comedy Spin Wheel<small>Spin &amp; fun</small></button>
+          <button type="button" class="fun-game-btn" data-fun="riddle"><span class="fun-icon">🤔</span>Emoji Riddle<small>Emoji se pehchano</small></button>
+          <button type="button" class="fun-game-btn" data-fun="scramble"><span class="fun-icon">🔤</span>Word Scramble<small>Shabd jodo</small></button>
+          <button type="button" class="fun-game-btn" data-fun="memory"><span class="fun-icon">🎴</span>Memory Match<small>Jodi milao</small></button>
         </div>
 
         <div class="fun-panel" id="funQuizPanel"></div>
         <div class="fun-panel" id="funGuessPanel"></div>
         <div class="fun-panel" id="funReactionPanel"></div>
         <div class="fun-panel" id="funSpinPanel"></div>
+        <div class="fun-panel" id="funRiddlePanel"></div>
+        <div class="fun-panel" id="funScramblePanel"></div>
+        <div class="fun-panel" id="funMemoryPanel"></div>
 
         <div class="fun-player-card">
           <div class="fun-player-row">
@@ -1743,6 +1822,13 @@ body.messages-open .bottom-nav{display:none !important}
   </div>
 </div>
 
+<div class="share-sheet-overlay" id="shareSheetOverlay">
+  <div class="share-sheet">
+    <div class="share-sheet-head"><h3 id="shareSheetTitle">Share</h3><button type="button" class="share-sheet-close" id="shareSheetClose" aria-label="Close">✕</button></div>
+    <div class="share-sheet-body" id="shareSheetBody"></div>
+  </div>
+</div>
+
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
     <div class="social-header">
@@ -1753,9 +1839,11 @@ body.messages-open .bottom-nav{display:none !important}
 
     <!-- MAIN SETTINGS VIEW -->
     <div class="settings-modal-body" id="settingsMainView">
-      <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><span class="snr-value" id="languageValue">Hinglish</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-      <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><span class="snr-value" id="appearanceValue">📱 System</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-      <div class="settings-row settings-community-row"><div class="settings-label"><span>Community &amp; Messages</span><small>Friends, requests, followers and private messages</small></div><button type="button" class="settings-open-btn" id="communityBtn">👥 Open Community</button></div>
+      <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="saved"><svg class="snr-ico"><use href="#i-bookmark"></use></svg><span class="snr-label">Saved Videos</span><span class="snr-value" id="statSaves">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="terms"><svg class="snr-ico"><use href="#i-file"></use></svg><span class="snr-label">Terms &amp; Conditions</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -1785,6 +1873,14 @@ body.messages-open .bottom-nav{display:none !important}
           <button type="button" class="settings-opt" data-theme="light"><span>☀️ Light</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
           <button type="button" class="settings-opt" data-theme="dark"><span>🌙 Dark</span><svg class="opt-check"><use href="#i-check"></use></svg></button>
         </div>
+      </div>
+
+      <div class="settings-subpage" id="subLiked" style="display:none">
+        <div class="ig-posts-grid ig-video-grid" id="settingsLikedGrid"></div>
+      </div>
+
+      <div class="settings-subpage" id="subSaved" style="display:none">
+        <div class="ig-posts-grid ig-video-grid" id="settingsSavedGrid"></div>
       </div>
 
       <div class="settings-subpage" id="subPrivacy" style="display:none">
@@ -1878,10 +1974,6 @@ body.messages-open .bottom-nav{display:none !important}
         <div class="community-pane active" id="community-primary"><div id="inboxList"></div></div>
         <div class="community-pane" id="community-requests"><div id="requestsList"></div></div>
         <div class="community-pane" id="community-general">
-          <div class="community-search">
-            <input id="peopleSearchInput" type="text" placeholder="Search people...">
-            <button type="button" id="peopleSearchBtn">Search</button>
-          </div>
           <div id="peopleSearchResults"></div>
         </div>
       </aside>
@@ -2013,12 +2105,7 @@ body.messages-open .bottom-nav{display:none !important}
   <button type="button" data-reaction="👍">👍</button>
 </div>
 
-<footer>
-  <p>© 2026 UPComedyHub. All Rights Reserved.</p>
-  <p style="margin-top:8px">Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥</p>
-  <p style="margin-top:8px">Made with ❤️ by UPComedyHub</p>
-  <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
-</footer>
+<!-- Global footer moved inside Channel Profile (Point 4) -->
 
 
 <button id="backToTop" type="button" aria-label="Back to top">↑</button>
@@ -2338,6 +2425,7 @@ async function loadProfileIdentity(){
     const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
     currentProfilePhotoURL = data.photoURL || currentUser.photoURL || "";
     const un = document.getElementById("profileUsername"); if(un) un.textContent = "@"+(data.username||"user");
+    const uh = document.getElementById("profileHeaderUsername"); if(uh) uh.textContent = (data.username||"user");
     const pb = document.getElementById("profileBio"); if(pb) pb.textContent = data.bio || "No bio yet.";
     const ph = document.getElementById("userPhoto"); if(ph) ph.src = currentProfilePhotoURL;
     const ui = document.getElementById("usernameInput"); if(ui) ui.value = data.username || "";
@@ -2460,6 +2548,8 @@ async function loadUserLikesAndSaves(uid){
     const s = await db.collection("saves").where("userId","==",uid).get();
     s.forEach(d=>userSavedVideos.add(d.data().videoId));
   }catch(e){}
+  /* Point 8: local fallback saves bhi merge karo */
+  readLocalSaves().forEach(v=>userSavedVideos.add(v));
 }
 
 /* ---------- IG PROFILE MODAL ---------- */
@@ -2558,8 +2648,8 @@ function buildIgVideoCard(vid){
   card.innerHTML = '<div class="video-thumb" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(title)+'</h3><div class="video-date">🎬 Video</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
   return card;
 }
-function renderIgVideoGrid(vids, emptyMsg){
-  const grid = document.getElementById("igPostsGrid");
+function renderIgVideoGrid(vids, emptyMsg, gridId){
+  const grid = document.getElementById(gridId || "igPostsGrid");
   if(!grid) return;
   if(!vids || !vids.length){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty">'+emptyMsg+'</div>'; return; }
   grid.className = "ig-posts-grid ig-video-grid";
@@ -2572,8 +2662,8 @@ function switchIgTab(t){
   const grid = document.getElementById("igPostsGrid");
   if(!grid) return;
   if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi.</div>'; }
-  else if(t==="liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon">❤️</span>Abhi tak koi video like nahi kiya.'); }
-  else if(t==="saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video save nahi kiya.'); }
+  else if(t==="reels"){ renderIgVideoGrid(Array.from(new Set([...userSavedVideos, ...userLikedVideos])), '<span class="ig-empty-icon">🎬</span>Abhi tak koi reel nahi.'); }
+  else if(t==="tagged"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">👤</span>Abhi koi mention/collaboration nahi.</div>'; }
 }
 window.switchIgTab = switchIgTab;
 
@@ -2651,13 +2741,31 @@ function syncHomeShorts(){
   if(!src || !dst) return;
   dst.innerHTML = "";
   const cards = src.querySelectorAll(".video-card");
-  if(!cards.length){ dst.innerHTML = '<div class="home-shorts-empty">Abhi koi Short nahi. Jald aa rahe hain! 🎬</div>'; return; }
-  cards.forEach(c=>{ dst.appendChild(c.cloneNode(true)); });
+  if(!cards.length){ dst.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>'; return; }
+  cards.forEach(c=>{
+    const vid = c.getAttribute("data-video-id") || "";
+    const img = c.querySelector(".video-thumb img");
+    const thumb = img ? (img.getAttribute("data-original-img") || img.src || "") : "";
+    const title = (c.querySelector(".video-info h3")?.textContent || "Reel").trim();
+    const el = document.createElement("div");
+    el.className = "ig-reel-thumb";
+    el.setAttribute("data-video-id", vid);
+    el.innerHTML = '<div class="ig-reel-ring"><div class="ig-reel-inner">'+(thumb?'<img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy">':'')+'</div></div><div class="ig-reel-label">'+escapeHtml(title)+'</div>';
+    dst.appendChild(el);
+  });
   if(window.refreshAllVideoActions) refreshAllVideoActions();
   if(window.refreshLikesLinks) refreshLikesLinks();
 }
 window.syncHomeShorts = syncHomeShorts;
 
+/* Point 2: build an Instagram-style home-feed post card */
+function buildHomeFeedCard(vid, title, thumb){
+  const card = document.createElement("div");
+  card.className = "video-card"; card.setAttribute("data-video-id",vid); card.setAttribute("data-category","long");
+  const initial = (title||"U").trim().charAt(0).toUpperCase() || "U";
+  card.innerHTML = '<div class="ig-post-head"><div class="ig-post-avatar">'+escapeHtml(initial)+'</div><div class="ig-post-name">UPComedyHub<small>@up_comedyhub · Long Video</small></div><button class="ig-post-follow" type="button">Follow</button></div><div class="video-thumb" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(title)+'</h3><div class="video-date">🎬 Long Video</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
+  return card;
+}
 async function loadManualVideos(){
   const grid = document.getElementById("videosGrid"); if(!grid) return;
   grid.innerHTML = "";
@@ -2666,10 +2774,7 @@ async function loadManualVideos(){
     const vid = d.videoId;
     allVideos[vid] = {title:d.title,category:d.category};
     const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-    const card = document.createElement("div");
-    card.className = "video-card"; card.setAttribute("data-video-id",vid); card.setAttribute("data-category","long");
-    card.innerHTML = '<div class="video-thumb" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(d.title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(d.title)+'</h3><div class="video-date">🎬 Long Video</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
-    grid.appendChild(card);
+    grid.appendChild(buildHomeFeedCard(vid, d.title, thumb));
   });
   try{
     const snap = await db.collection("manualVideos").where("category","==","long").get();
@@ -2679,10 +2784,7 @@ async function loadManualVideos(){
         const d = doc.data(); const vid = d.videoId; if(!vid) return;
         allVideos[vid] = {title:d.title,category:d.category};
         const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-        const card = document.createElement("div");
-        card.className = "video-card"; card.setAttribute("data-video-id",vid); card.setAttribute("data-category","long");
-        card.innerHTML = '<div class="video-thumb" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(d.title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(d.title)+'</h3><div class="video-date">🎬 Long Video</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
-        grid.appendChild(card);
+        grid.appendChild(buildHomeFeedCard(vid, d.title, thumb));
       });
     }
   }catch(e){ console.warn(e); }
@@ -2727,6 +2829,25 @@ document.addEventListener("click",(e)=>{
   thumb.appendChild(fs); thumb.style.cursor="default";
 });
 
+/* Point 2: reels tray thumb click -> open Reels tab at that reel */
+document.addEventListener("click",(e)=>{
+  const rt = e.target.closest(".ig-reel-thumb");
+  if(!rt) return;
+  const vid = rt.getAttribute("data-video-id");
+  switchTab("reels");
+  if(vid){ setTimeout(()=>{ const el = document.querySelector('#reelsGrid .video-card[data-video-id="'+vid+'"]'); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); }, 350); }
+});
+
+/* Point 2: Follow button on home feed posts */
+document.addEventListener("click",(e)=>{
+  const fb = e.target.closest(".ig-post-follow");
+  if(!fb) return;
+  e.stopPropagation();
+  if(!currentUser){ showToast("🔒 Follow karne ke liye login karein"); switchTab("profile"); return; }
+  fb.textContent = "Following"; fb.style.color = "#8e8e8e";
+  showToast("✅ UPComedyHub ko follow kiya!");
+});
+
 /* ---------- ACTION BUTTONS ---------- */
 function refreshAllVideoActions(){
   document.querySelectorAll(".video-card").forEach(card=>{
@@ -2747,12 +2868,7 @@ window.refreshAllVideoActions = refreshAllVideoActions;
 document.addEventListener("click", async (e)=>{
   const btn = e.target.closest(".action-btn"); if(!btn) return;
   const action = btn.getAttribute("data-action"), vid = btn.getAttribute("data-vid");
-  if(action==="share"){
-    const url = "https://www.youtube.com/watch?v="+vid;
-    if(navigator.share) navigator.share({title:"UPComedyHub",text:"Dekho!",url}).catch(()=>{});
-    else navigator.clipboard.writeText(url).then(()=>showToast("🔗 Link copied!"));
-    return;
-  }
+  if(action==="share"){ openShareSheet(vid); return; }
   if(!currentUser){ showToast("🔒 Login first"); switchTab("profile"); return; }
   if(action==="like") await toggleLike(vid);
   else if(action==="save") await toggleSave(vid);
@@ -2776,20 +2892,101 @@ async function toggleLike(vid){
   }catch(e){ showToast("❌"); console.error(e); }
 }
 
+/* Point 8: Save ko robust banaya — instant feedback + Firestore sync + local fallback */
+const LOCAL_SAVES_KEY = "upch_local_saved_videos";
+function readLocalSaves(){ try{ return new Set(JSON.parse(localStorage.getItem(LOCAL_SAVES_KEY)||"[]")); }catch(e){ return new Set(); } }
+function writeLocalSaves(set){ try{ localStorage.setItem(LOCAL_SAVES_KEY, JSON.stringify(Array.from(set))); }catch(e){} }
+
 async function toggleSave(vid){
-  const ref = db.collection("saves").doc(currentUser.uid+"_"+vid);
+  if(!vid) return;
+  if(!currentUser){ showToast("🔒 Login first"); switchTab("profile"); return; }
+  const wasSaved = userSavedVideos.has(vid);
+  /* Optimistic UI — button turant update ho (kuch na hone wala bug fix) */
+  if(wasSaved) userSavedVideos.delete(vid); else userSavedVideos.add(vid);
+  refreshAllVideoActions(); updateProfileUI(); refreshActiveIgTab();
+  showToast(wasSaved ? "📑 Removed" : "🔖 Saved!");
+  /* Firestore me sync karo; agar rules/permission block kare to local me rakho */
+  const ls = readLocalSaves();
   try{
+    const ref = db.collection("saves").doc(currentUser.uid+"_"+vid);
     const d = await ref.get();
-    if(d.exists){ await ref.delete(); userSavedVideos.delete(vid); showToast("📑 Removed"); }
-    else{ await ref.set({userId:currentUser.uid,videoId:vid,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); userSavedVideos.add(vid); showToast("🔖 Saved!"); }
-    refreshAllVideoActions(); updateProfileUI(); refreshActiveIgTab();
-  }catch(e){ showToast("❌"); }
+    if(wasSaved){ if(d.exists) await ref.delete(); ls.delete(vid); }
+    else{ if(!d.exists) await ref.set({userId:currentUser.uid,videoId:vid,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); ls.add(vid); }
+    writeLocalSaves(ls);
+  }catch(e){
+    console.warn("Save: Firestore unavailable, local fallback use kiya", e);
+    if(wasSaved) ls.delete(vid); else ls.add(vid);
+    writeLocalSaves(ls);
+  }
 }
 function refreshActiveIgTab(){
   const activeIg = document.querySelector(".ig-tab.active");
   if(!activeIg) return;
   const t = activeIg.getAttribute("data-ig-tab");
-  if(t === "saved" || t === "liked") switchIgTab(t);
+  if(t === "saved" || t === "liked" || t === "reels") switchIgTab(t);
+}
+
+/* ---------- SHARE SHEET (Point 9: reel ko chat me bhejo) ---------- */
+let shareSheetVid = null;
+function openShareSheet(vid){
+  shareSheetVid = vid;
+  const ov = document.getElementById("shareSheetOverlay"), body = document.getElementById("shareSheetBody"), title = document.getElementById("shareSheetTitle");
+  if(!ov || !body) return;
+  if(title) title.textContent = "Share";
+  const url = "https://www.youtube.com/watch?v="+vid;
+  body.innerHTML = "";
+  const o1 = document.createElement("div"); o1.className = "share-opt";
+  o1.innerHTML = '<span class="so-ico">📤</span><span>Share / Copy link</span>';
+  o1.addEventListener("click", async ()=>{
+    if(navigator.share){ try{ await navigator.share({title:"UPComedyHub",text:"Dekho ye reel! 😂",url}); }catch(e){} }
+    else { try{ await navigator.clipboard.writeText(url); showToast("🔗 Link copied!"); }catch(e){ showToast("❌"); } }
+    closeShareSheet();
+  });
+  body.appendChild(o1);
+  const o2 = document.createElement("div"); o2.className = "share-opt";
+  o2.innerHTML = '<span class="so-ico">💬</span><span>Chat me bhejo</span>';
+  o2.addEventListener("click", ()=>renderShareFriendPicker(vid));
+  body.appendChild(o2);
+  ov.classList.add("show");
+}
+function closeShareSheet(){ const ov = document.getElementById("shareSheetOverlay"); if(ov) ov.classList.remove("show"); shareSheetVid = null; }
+window.openShareSheet = openShareSheet;
+
+async function renderShareFriendPicker(vid){
+  const body = document.getElementById("shareSheetBody"), title = document.getElementById("shareSheetTitle");
+  if(!body) return;
+  if(title) title.textContent = "Chat me bhejo";
+  if(!currentUser){ body.innerHTML = '<p class="inbox-empty" style="padding:20px">Pehle login karo.</p>'; return; }
+  body.innerHTML = '<p class="inbox-empty" style="padding:20px">Loading...</p>';
+  try{
+    const snap = await db.collection("conversations").where("members","array-contains",currentUser.uid).limit(50).get();
+    if(snap.empty){ body.innerHTML = '<p class="inbox-empty" style="padding:20px">Koi chat nahi. Pehle kisi se chat karo.</p>'; return; }
+    const convs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastMessageAt?.seconds||0)-(a.lastMessageAt?.seconds||0));
+    body.innerHTML = "";
+    for(const c of convs){
+      const oid = (c.members||[]).find(x=>x !== currentUser.uid); if(!oid) continue;
+      let p = {displayName:"User",username:"user"};
+      try{ const ps = await db.collection("publicProfiles").doc(oid).get(); if(ps.exists) p = ps.data(); }catch(e){}
+      const row = document.createElement("div"); row.className = "share-friend";
+      row.innerHTML = '<img src="'+escapeAttr(avatarFor(p))+'"><div><div class="sf-name">'+escapeHtml(p.displayName||"User")+'</div><div class="sf-user">@'+escapeHtml(p.username||"user")+'</div></div>';
+      row.addEventListener("click", ()=>sendReelToChat(oid, vid));
+      body.appendChild(row);
+    }
+  }catch(e){ console.error(e); body.innerHTML = '<p class="inbox-empty" style="color:#e63946;padding:20px">Chats load nahi hui.</p>'; }
+}
+
+async function sendReelToChat(oid, vid){
+  if(!currentUser) return;
+  const cid = pairId(currentUser.uid, oid);
+  const text = "🎬 Dekho ye reel! https://www.youtube.com/watch?v="+vid;
+  try{
+    const convRef = db.collection("conversations").doc(cid);
+    await convRef.collection("messages").add({senderId:currentUser.uid,text:text,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+    await convRef.set({members:[currentUser.uid,oid].sort(),lastMessage:text.slice(0,120),lastMessageType:"text",lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),lastSenderId:currentUser.uid},{merge:true});
+    await createNotification(oid,"message","💬 New message",(currentUser.displayName||"Someone")+" ne ek reel bheji",{conversationId:cid});
+    showToast("✅ Reel chat me bhej di!");
+    closeShareSheet();
+  }catch(e){ console.error(e); showToast("❌ Bhej nahi paye"); }
 }
 
 /* ---------- COMMENTS ---------- */
@@ -2882,20 +3079,26 @@ if(tsi){
     if(peopleSearchTimer) clearTimeout(peopleSearchTimer);
     tr.innerHTML = ""; pr.innerHTML = "";
     if(q.length < 2) return;
+    /* Point 6: username (people) search */
     peopleSearchTimer = setTimeout(()=>searchUsersAnywhere(q,pr),280);
-    const matches = [];
-    document.querySelectorAll("#tab-home section, #channelProfileOverlay section").forEach(sec=>{
-      const h = sec.querySelector("h1,h2,h3"); if(!h) return;
-      if(sec.textContent.toLowerCase().includes(q)) matches.push({title:h.textContent.trim(),el:sec});
+    /* Point 6: sirf videos + Shorts search karo (channel profile sections NAHI) */
+    const vids = [];
+    Object.keys(allVideos).forEach(vid=>{
+      const info = allVideos[vid] || {};
+      const t = (info.title||"").toLowerCase();
+      if(t.includes(q)) vids.push({vid, title: info.title||"Video", cat: info.category||"long"});
     });
-    if(!matches.length){ tr.innerHTML = "<p style='text-align:center;color:#888;padding:8px'>📺 Kuch nahi mila</p>"; return; }
-    matches.slice(0,10).forEach(m=>{
+    if(!vids.length){ tr.innerHTML = "<p style='text-align:center;color:#888;padding:8px'>🎬 Koi video/short nahi mila</p>"; return; }
+    const vhead = document.createElement("p"); vhead.style.cssText = "color:#888;font-size:12px;padding:6px 4px;margin:0"; vhead.textContent = "🎬 Videos & Shorts";
+    tr.appendChild(vhead);
+    vids.slice(0,12).forEach(v=>{
       const d = document.createElement("div");
       d.className = "search-result-item";
-      d.innerHTML = "<strong>"+escapeHtml(m.title)+"</strong>";
+      d.innerHTML = '<img src="https://i.ytimg.com/vi/'+escapeAttr(v.vid)+'/default.jpg" alt="" style="width:60px;height:42px;object-fit:cover;border-radius:6px;margin-right:10px;vertical-align:middle"><strong>'+escapeHtml(v.title)+'</strong>';
       d.addEventListener("click",()=>{
-        if(document.getElementById("channelProfileOverlay")?.contains(m.el)){ openChannelProfile(); setTimeout(()=>m.el.scrollIntoView({behavior:"smooth",block:"start"}),300); }
-        else { switchTab("home"); setTimeout(()=>m.el.scrollIntoView({behavior:"smooth",block:"start"}),300); }
+        const targetTab = v.cat === "shorts" ? "reels" : "home";
+        switchTab(targetTab);
+        setTimeout(()=>{ const el = document.querySelector('.video-card[data-video-id="'+v.vid+'"]'); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); }, 400);
       });
       tr.appendChild(d);
     });
@@ -3246,24 +3449,14 @@ async function loadRequests(){
 /* ---------- GENERAL TAB ---------- */
 async function loadGeneral(){
   const out = document.getElementById("peopleSearchResults"); if(!out) return;
-  out.innerHTML = '<p class="inbox-empty" style="padding:20px">Search karne ke liye upar likho</p>';
-}
-async function searchPeople(){
-  if(!currentUser) return;
-  const input = document.getElementById("peopleSearchInput");
-  const q = normalizeUsername(input.value);
-  const out = document.getElementById("peopleSearchResults");
-  if(!q){ out.innerHTML = '<p class="inbox-empty" style="padding:20px">Username enter karo.</p>'; return; }
-  out.innerHTML = '<p class="inbox-empty" style="padding:20px">Searching...</p>';
-  try{
-    const us = await db.collection("usernames").doc(q).get();
-    if(!us.exists || us.data().uid === currentUser.uid){ out.innerHTML = '<p class="inbox-empty" style="padding:20px">User nahi mila.</p>'; return; }
-    const uid = us.data().uid;
-    const ps = await db.collection("publicProfiles").doc(uid).get();
-    if(!ps.exists){ out.innerHTML = '<p class="inbox-empty" style="padding:20px">Profile nahi mila.</p>'; return; }
-    out.innerHTML = "";
-    await buildPersonSearchResult(uid, ps.data(), out);
-  }catch(e){ console.error(e); out.innerHTML = '<p class="inbox-empty" style="color:#e63946;padding:20px">Search failed.</p>'; }
+  /* Point 7: General tab ka apna search hata diya gaya. People search ab main Search tab me hai. */
+  out.innerHTML = '<div style="padding:24px 18px;text-align:center">'
+    + '<div style="font-size:40px;margin-bottom:8px">🔍</div>'
+    + '<p class="inbox-empty" style="padding:0 0 14px">Naye logon ko dhundhne ke liye Search tab use karo.</p>'
+    + '<button type="button" id="generalGoSearchBtn" style="border:0;background:#e63946;color:#fff;font-weight:700;padding:11px 20px;border-radius:22px;cursor:pointer">Search kholo</button>'
+    + '</div>';
+  const gb = document.getElementById("generalGoSearchBtn");
+  if(gb) gb.addEventListener("click", ()=>switchTab("search"));
 }
 
 /* ---------- SEARCH RESULT (clean row, tap to open profile) ---------- */
@@ -3796,8 +3989,6 @@ function initCommunityUI(){
     loadInbox();
   });
 
-  const psb = document.getElementById("peopleSearchBtn"); if(psb) psb.addEventListener("click", searchPeople);
-  const psi = document.getElementById("peopleSearchInput"); if(psi) psi.addEventListener("keydown",e=>{ if(e.key === "Enter") searchPeople(); });
 
   const msr = document.getElementById("msgSearchInput");
   if(msr) msr.addEventListener("input",()=>{
@@ -4000,12 +4191,110 @@ window.openCommunity = openCommunity;
     let rot = 0;
     $('spinBtn').onclick = ()=>{ const w = $('spinWheel'); const i = Math.floor(Math.random()*r.length); rot += 720 + i*(360/r.length); w.style.transform = 'rotate('+rot+'deg)'; setTimeout(()=>$('spinResult').textContent = r[i], 1200); };
   }
+  /* ---- Point 1: Naya game — Emoji Riddle ---- */
+  const riddleData = [
+    {q:'🤣🎬🇮🇳', o:['Desi comedy video','Weather report','Cooking show','News'], a:0},
+    {q:'😴⏰📱', o:['Snooze alarm','Bank app','Recipe','Map'], a:0},
+    {q:'🍿🎥😂', o:['Movie time fun','Exam study','Gym','Shopping'], a:0},
+    {q:'📱💬❤️', o:['Chat pe like','Download','Print','Drive'], a:0},
+    {q:'🚌🏃💨', o:['Bus pakdi','Sleep','Cook','Read'], a:0},
+    {q:'🎤😂👏', o:['Standup comedy','Bank','Maths','Map'], a:0}
+  ];
+  function renderRiddle(){
+    const p = $('funRiddlePanel'); if(!p) return;
+    const idx = Number(p.dataset.idx||0);
+    const item = riddleData[idx];
+    if(!item){
+      if(window.upchAddXP) window.upchAddXP(20);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(riddleData.length, 'Riddle');
+      p.innerHTML = '<div class="fun-question">🤔 Riddle Complete!</div><p class="fun-result">Sab solve ho gaya 🔥</p><button type="button" class="fun-small-btn" id="riddleAgain">🔄 Play Again</button>';
+      p.querySelector('#riddleAgain').onclick = ()=>{ p.dataset.idx = 0; renderRiddle(); };
+      return;
+    }
+    p.innerHTML = '<div class="fun-question">'+(idx+1)+'/'+riddleData.length+' — Ye kya hai?<br><span style="font-size:34px;display:inline-block;margin-top:6px">'+item.q+'</span></div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="riddleResult"></div>';
+    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick = ()=>{
+      p.querySelectorAll('.fun-option').forEach(b=>b.disabled = true);
+      const i = Number(btn.dataset.i);
+      if(i === item.a){ btn.classList.add('correct'); $('riddleResult').textContent = '✅ Sahi!'; if(window.upchAddXP) window.upchAddXP(5); }
+      else { btn.classList.add('wrong'); p.querySelectorAll('.fun-option')[item.a].classList.add('correct'); $('riddleResult').textContent = '😅 Try again'; }
+      setTimeout(()=>{ p.dataset.idx = idx+1; renderRiddle(); }, 700);
+    });
+  }
+  /* ---- Point 1: Naya game — Word Scramble ---- */
+  const scrambleData = [
+    {scram:'YDEMOC', o:['Comedy','Drama','Action','News'], a:0},
+    {scram:'HGUALS', o:['Silence','Laughs','Anger','Sleep'], a:1},
+    {scram:'EKOJ', o:['Joke','Book','Cook','Look'], a:0},
+    {scram:'YNNUF', o:['Sad','Funny','Angry','Boring'], a:1},
+    {scram:'EMEM', o:['Meme','Game','Name','Time'], a:0},
+    {scram:'EROPPUL', o:['Popular','Proper','Paper','Paddle'], a:0}
+  ];
+  function renderScramble(){
+    const p = $('funScramblePanel'); if(!p) return;
+    const idx = Number(p.dataset.idx||0);
+    const item = scrambleData[idx];
+    if(!item){
+      if(window.upchAddXP) window.upchAddXP(20);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(scrambleData.length, 'Scramble');
+      p.innerHTML = '<div class="fun-question">🔤 Scramble Complete!</div><p class="fun-result">Word master ho tum 😎</p><button type="button" class="fun-small-btn" id="scrambleAgain">🔄 Play Again</button>';
+      p.querySelector('#scrambleAgain').onclick = ()=>{ p.dataset.idx = 0; renderScramble(); };
+      return;
+    }
+    p.innerHTML = '<div class="fun-question">'+(idx+1)+'/'+scrambleData.length+' — Ye shabd kya hai?<br><span style="letter-spacing:6px;font-size:26px;display:inline-block;margin-top:6px">'+item.scram+'</span></div><div class="fun-options">'+item.o.map((x,i)=>'<button type="button" class="fun-option" data-i="'+i+'">'+x+'</button>').join('')+'</div><div class="fun-result" id="scrambleResult"></div>';
+    p.querySelectorAll('.fun-option').forEach(btn=>btn.onclick = ()=>{
+      p.querySelectorAll('.fun-option').forEach(b=>b.disabled = true);
+      const i = Number(btn.dataset.i);
+      if(i === item.a){ btn.classList.add('correct'); $('scrambleResult').textContent = '✅ Sahi!'; if(window.upchAddXP) window.upchAddXP(5); }
+      else { btn.classList.add('wrong'); p.querySelectorAll('.fun-option')[item.a].classList.add('correct'); $('scrambleResult').textContent = '😅 Try again'; }
+      setTimeout(()=>{ p.dataset.idx = idx+1; renderScramble(); }, 700);
+    });
+  }
+  /* ---- Point 1: Naya game — Memory Match ---- */
+  function setupMemory(){
+    const p = $('funMemoryPanel'); if(!p) return;
+    const emojis = ['😂','🎬','🍿','🎤','🤣','😎'];
+    let deck = emojis.concat(emojis).map(e=>({e, id:Math.random()})).sort(()=>Math.random()-0.5);
+    let flipped = [], matched = 0, moves = 0, lock = false;
+    p.innerHTML = '<div class="fun-question">🎴 Memory Match</div><p class="fun-result" id="memStatus" style="margin-bottom:8px">Jodi milao — '+moves+' moves</p><div id="memGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:0 auto"></div>';
+    const grid = p.querySelector('#memGrid'), status = p.querySelector('#memStatus');
+    deck.forEach((card,i)=>{
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'fun-option'; b.style.cssText = 'font-size:26px;height:60px;padding:0;display:flex;align-items:center;justify-content:center';
+      b.textContent = '❓'; b.dataset.i = i;
+      b.onclick = ()=>{
+        if(lock || b.dataset.done === '1' || flipped.includes(i)) return;
+        b.textContent = card.e; flipped.push(i);
+        if(flipped.length === 2){
+          moves++; status.textContent = 'Jodi milao — '+moves+' moves';
+          const [a,c] = flipped;
+          if(deck[a].e === deck[c].e){
+            grid.children[a].dataset.done = '1'; grid.children[c].dataset.done = '1';
+            grid.children[a].style.background = '#d4f8d4'; grid.children[c].style.background = '#d4f8d4';
+            matched++; flipped = [];
+            if(matched === emojis.length){
+              const score = Math.max(10, 100 - moves*5);
+              if(window.upchAddXP) window.upchAddXP(score);
+              if(window.upchSaveLocalScore) window.upchSaveLocalScore(score, 'Memory');
+              status.textContent = '🎉 Complete! '+moves+' moves — Score '+score;
+            }
+          } else {
+            lock = true;
+            setTimeout(()=>{ grid.children[a].textContent = '❓'; grid.children[c].textContent = '❓'; flipped = []; lock = false; }, 700);
+          }
+        }
+      };
+      grid.appendChild(b);
+    });
+  }
   document.querySelectorAll('.fun-game-btn').forEach(btn=>btn.addEventListener('click',()=>{
     const type = btn.dataset.fun;
     if(type === 'quiz'){ qi = 0; qs = 0; renderQuiz(); openPanel('funQuizPanel'); }
     if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel'); }
     if(type === 'reaction'){ setupReaction(); openPanel('funReactionPanel'); }
     if(type === 'spin'){ setupSpin(); openPanel('funSpinPanel'); }
+    if(type === 'riddle'){ const p = $('funRiddlePanel'); if(p) p.dataset.idx = 0; renderRiddle(); openPanel('funRiddlePanel'); }
+    if(type === 'scramble'){ const p = $('funScramblePanel'); if(p) p.dataset.idx = 0; renderScramble(); openPanel('funScramblePanel'); }
+    if(type === 'memory'){ setupMemory(); openPanel('funMemoryPanel'); }
   }));
   const fq = $('funBestQuiz'); if(fq) fq.textContent = Number(localStorage.getItem('upchBestQuiz')||0);
   const fr = $('funBestReaction'); if(fr) fr.textContent = Number(localStorage.getItem('upchBestReaction')||0);
@@ -4129,10 +4418,13 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
+    if(view === "community"){ ov?.classList.remove("show"); openCommunity(); return; }
+    if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon">❤️</span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }
+    if(view === "saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video save nahi kiya.', "settingsSavedGrid"); }
     const main = document.getElementById("settingsMainView"), sub = document.getElementById("settingsSubView"), back = document.getElementById("settingsBack"), title = document.getElementById("settingsTitle");
     if(main) main.style.display = "none";
     if(sub) sub.style.display = "block";
@@ -4174,6 +4466,8 @@ window.addEventListener("DOMContentLoaded",()=>{
   const lcl = document.getElementById("likesClose"); if(lcl) lcl.addEventListener("click", ()=>{ const lo = document.getElementById("likesOverlay"); if(lo) lo.classList.remove("show"); });
   const co = document.getElementById("commentsOverlay"); if(co) co.addEventListener("click", e=>{ if(e.target === co) closeComments(); });
   const lo2 = document.getElementById("likesOverlay"); if(lo2) lo2.addEventListener("click", e=>{ if(e.target === lo2) lo2.classList.remove("show"); });
+  const ssc = document.getElementById("shareSheetClose"); if(ssc) ssc.addEventListener("click", ()=>closeShareSheet());
+  const sso = document.getElementById("shareSheetOverlay"); if(sso) sso.addEventListener("click", e=>{ if(e.target === sso) closeShareSheet(); });
   if(no) no.addEventListener("click", e=>{ if(e.target.id === "notificationsOverlay") no.classList.remove("show"); });
   const mab = document.getElementById("markAllNotifBtn"); if(mab) mab.addEventListener("click", markAllNotificationsRead);
   const cob = document.getElementById("clearOldNotifBtn"); if(cob) cob.addEventListener("click", clearOldNotifications);
@@ -4187,6 +4481,36 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(cpc) cpc.addEventListener("click", closeChannelProfile);
   const cpn = document.getElementById("channelProfileNav");
   if(cpn) cpn.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); const id = a.getAttribute("href").slice(1); const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }));
+
+  /* Point 5: Channel Profile ka apna search — sirf isi ke sections dhundhta hai */
+  const csi = document.getElementById("channelSearchInput");
+  if(csi){
+    const csr = document.getElementById("channelSearchResults");
+    csi.addEventListener("input", ()=>{
+      const q = csi.value.toLowerCase().trim();
+      if(!csr) return;
+      if(q.length < 1){ csr.classList.remove("show"); csr.innerHTML = ""; return; }
+      const matches = [];
+      document.querySelectorAll("#channelProfileOverlay .channel-profile-body section").forEach(sec=>{
+        const h = sec.querySelector("h1,h2,h3"); if(!h) return;
+        if(sec.textContent.toLowerCase().includes(q)) matches.push({title: h.textContent.trim(), el: sec});
+      });
+      csr.innerHTML = "";
+      if(!matches.length){ csr.innerHTML = '<div class="channel-search-item" style="color:#888">Kuch nahi mila</div>'; csr.classList.add("show"); return; }
+      matches.slice(0,12).forEach(m=>{
+        const d = document.createElement("div");
+        d.className = "channel-search-item";
+        d.textContent = m.title;
+        d.addEventListener("click", ()=>{
+          m.el.scrollIntoView({behavior:"smooth", block:"start"});
+          csr.classList.remove("show"); csi.value = "";
+        });
+        csr.appendChild(d);
+      });
+      csr.classList.add("show");
+    });
+    csi.addEventListener("keydown", e=>{ if(e.key === "Escape"){ csr?.classList.remove("show"); } });
+  }
 
   const annLink = document.getElementById("announcementLink");
   if(annLink) annLink.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("home"); });

@@ -2137,10 +2137,7 @@ body.messages-open .bottom-nav{display:none !important}
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-/* Admin access is resolved at runtime from the private "admins" collection.
-   No admin UID is hardcoded here, so it can never be read from the page source. */
-const ADMIN_NOTIFY_ID = "admin";
-let isAdminUser = false;
+const ADMIN_UID = "r0RaLtN45wgsTt5CDFkkXeiW43c2";
 
 let currentUser = null;
 let currentProfilePhotoURL = "";
@@ -2155,7 +2152,6 @@ let chatUnsubscribe = null;
 let currentReplyTo = null;
 let notificationsCache = [];
 let notificationsUnsubscribe = null;
-let notificationsUnsubscribeAdmin = null;
 let typingUnsubscribe = null;
 let typingTimer = null;
 let userStatusInterval = null;
@@ -2224,7 +2220,7 @@ function stopAllVideos(){
 }
 
 function switchTab(name){
-  if(name === "admin" && !isAdminUser){ showToast("🔒 Admin only"); return; }
+  if(name === "admin" && (!currentUser || currentUser.uid !== ADMIN_UID)){ showToast("🔒 Admin only"); return; }
   stopAllVideos();
   tabPanes.forEach(p=>p.classList.remove("active"));
   const pane = document.getElementById("tab-"+name);
@@ -2266,22 +2262,13 @@ async function loadNotifications(){
   const list = document.getElementById("notifList");
   if(!list) return;
   if(notificationsUnsubscribe){ notificationsUnsubscribe(); notificationsUnsubscribe = null; }
-  if(notificationsUnsubscribeAdmin){ notificationsUnsubscribeAdmin(); notificationsUnsubscribeAdmin = null; }
-  let ownNotifs = [], adminNotifs = [];
-  const rebuild = ()=>{
-    notificationsCache = [...ownNotifs, ...adminNotifs]
-      .sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-    renderNotifications(); updateNotificationBadge();
-  };
-  const onErr = e=>{ console.error(e); list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui.</p>'; };
   notificationsUnsubscribe = db.collection("notifications")
     .where("recipientId","==",currentUser.uid).limit(50)
-    .onSnapshot(snap=>{ ownNotifs = snap.docs.map(d=>({id:d.id,...d.data()})); rebuild(); }, onErr);
-  if(isAdminUser){
-    notificationsUnsubscribeAdmin = db.collection("notifications")
-      .where("recipientId","==",ADMIN_NOTIFY_ID).limit(50)
-      .onSnapshot(snap=>{ adminNotifs = snap.docs.map(d=>({id:d.id,...d.data()})); rebuild(); }, onErr);
-  }
+    .onSnapshot(snap=>{
+      notificationsCache = snap.docs.map(d=>({id:d.id,...d.data()}))
+        .sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+      renderNotifications(); updateNotificationBadge();
+    },e=>{ console.error(e); list.innerHTML='<p style="color:#e63946;padding:18px">Notifications load nahi hui.</p>'; });
 }
 
 function renderNotifications(){
@@ -2899,7 +2886,7 @@ async function toggleLike(vid){
       if(!likesByVideo[vid]) likesByVideo[vid] = [];
       likesByVideo[vid].push({userId:currentUser.uid,userName:currentUser.displayName||"User"});
       showToast("❤️ Liked!");
-      await createNotification(ADMIN_NOTIFY_ID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked.",{videoId:vid});
+      await createNotification(ADMIN_UID,"like","❤️ New like",(currentUser.displayName||"Someone")+" liked.",{videoId:vid});
     }
     refreshAllVideoActions(); updateProfileUI(); refreshActiveIgTab();
   }catch(e){ showToast("❌"); console.error(e); }
@@ -3031,7 +3018,7 @@ async function loadComments(vid){
     list.innerHTML = "";
     docs.forEach(doc=>{
       const d = doc.data();
-      const canDel = currentUser && (currentUser.uid === d.userId || isAdminUser);
+      const canDel = currentUser && (currentUser.uid === d.userId || currentUser.uid === ADMIN_UID);
       const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
       const el = document.createElement("div");
       el.className = "comment-item";
@@ -3054,7 +3041,7 @@ async function postComment(){
     let mc = 0; us.forEach(d=>{ if(d.data().userId===currentUser.uid) mc++; });
     if(mc >= 5){ showToast("⚠️ Max 5"); return; }
     await db.collection("comments").add({videoId:currentCommentsVideoId,userId:currentUser.uid,userName:currentUser.displayName||"User",userPhoto:currentProfilePhotoURL||currentUser.photoURL||"",text:txt,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-    await createNotification(ADMIN_NOTIFY_ID,"comment","💬 New comment",(currentUser.displayName||"Someone")+" commented.",{videoId:currentCommentsVideoId});
+    await createNotification(ADMIN_UID,"comment","💬 New comment",(currentUser.displayName||"Someone")+" commented.",{videoId:currentCommentsVideoId});
     inp.value=""; showToast("💬 Posted!"); loadComments(currentCommentsVideoId);
   }catch(e){ showToast("❌"); console.error(e); }
 }
@@ -3215,13 +3202,13 @@ async function loadAdminConfig(){
 }
 
 async function broadcastAdminNotification(type,title,text,extra={}){
-  if(!currentUser || !isAdminUser) return;
+  if(!currentUser || currentUser.uid !== ADMIN_UID) return;
   try{
     const snap = await db.collection("users").get();
     let b = db.batch(), c = 0;
     for(const doc of snap.docs){
       const ref = db.collection("notifications").doc();
-      b.set(ref,{recipientId:doc.id,type,title,text,read:false,senderId:currentUser.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp(),...extra});
+      b.set(ref,{recipientId:doc.id,type,title,text,read:false,senderId:ADMIN_UID,createdAt:firebase.firestore.FieldValue.serverTimestamp(),...extra});
       c++;
       if(c === 450){ await b.commit(); b = db.batch(); c = 0; }
     }
@@ -4697,8 +4684,6 @@ auth.onAuthStateChanged(async (user)=>{
   currentUser = user;
   currentProfilePhotoURL = user ? (user.photoURL||"") : "";
   if(user){
-    // Resolve admin status first — independent of profile setup, from the private "admins" collection
-    try{ const adminDoc = await db.collection("admins").doc(user.uid).get(); isAdminUser = adminDoc.exists; }catch(e){ isAdminUser = false; }
     try{
       await db.collection("users").doc(user.uid).set({name:user.displayName||"User",email:user.email,photo:user.photoURL||"",lastSeen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
       await ensurePublicProfile(user);
@@ -4709,11 +4694,9 @@ auth.onAuthStateChanged(async (user)=>{
       startUserStatusHeartbeat();
       setTimeout(createNewVideoNotifications, 1200);
     }catch(e){ console.error(e); }
-    const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = isAdminUser ? "flex" : "none";
+    const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = user.uid === ADMIN_UID ? "flex" : "none";
   } else {
-    isAdminUser = false;
     if(notificationsUnsubscribe){ notificationsUnsubscribe(); notificationsUnsubscribe = null; }
-    if(notificationsUnsubscribeAdmin){ notificationsUnsubscribeAdmin(); notificationsUnsubscribeAdmin = null; }
     notificationsCache = []; updateNotificationBadge();
     const mb = document.getElementById("messageBadge"); if(mb) mb.style.display = "none";
     userLikedVideos.clear(); userSavedVideos.clear();

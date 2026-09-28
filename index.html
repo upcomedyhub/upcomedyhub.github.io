@@ -582,6 +582,8 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .settings-opt.active{border-color:#e63946;background:#2a1416}
 .settings-subpage p{font-size:14px;line-height:1.6;color:#444;margin-bottom:14px}
 .dark-mode .settings-subpage p{color:#ccc}
+.settings-subpage h3{font-size:15px;font-weight:800;color:#111;margin:18px 0 8px}
+.dark-mode .settings-subpage h3{color:#fff}
 .settings-subpage a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
 .settings-help-btn{display:flex;align-items:center;gap:12px;padding:15px 18px;border-radius:14px;text-decoration:none;font-weight:700;font-size:15px;margin-bottom:12px;transition:transform .12s,opacity .15s}
 .settings-help-btn:active{transform:scale(.98)}
@@ -1143,6 +1145,17 @@ body.fun-panel-open{overflow:hidden}
 .channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
 .dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
 .channel-profile-body{padding-bottom:40px}
+.channel-reels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;max-width:900px;margin:0 auto;padding:0 14px}
+.channel-reel-item{border-radius:12px;overflow:hidden;background:#000}
+.channel-reel-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden;cursor:pointer;border-radius:12px}
+.channel-reel-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.channel-reel-item .video-play span{width:40px;height:40px;font-size:16px}
+.channel-guidelines-wrap{max-width:760px;margin:0 auto;padding:0 16px}
+.channel-guidelines-wrap p{font-size:14px;line-height:1.7;color:#444;margin-bottom:14px}
+.dark-mode .channel-guidelines-wrap p{color:#ccc}
+.channel-guidelines-wrap h3{font-size:16px;font-weight:800;color:#111;margin:20px 0 8px}
+.dark-mode .channel-guidelines-wrap h3{color:#fff}
+.channel-guidelines-wrap a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
 .channel-profile-search{padding:10px 14px;background:#fff;border-bottom:1px solid #efefef;position:relative;z-index:15}
 .dark-mode .channel-profile-search{background:#0a0a0a;border-bottom-color:#262626}
 .channel-profile-search input{width:100%;padding:10px 16px;border:1px solid #eee;border-radius:22px;font-size:14px;font-family:inherit;background:#fafafa;box-sizing:border-box}
@@ -1400,20 +1413,6 @@ body.fun-panel-open{overflow:hidden}
 
 <div id="tab-home" class="tab-pane active">
 
-  <section id="home-shorts">
-    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
-    <div class="video-grid reels" id="homeShortsGrid">
-      <div class="ig-reels-empty">⏳ Loading Reels...</div>
-    </div>
-  </section>
-
-  <section>
-    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Feed</h2>
-    <div class="video-grid home-feed" id="videosGrid">
-      <div class="card"><p>⏳ Loading videos...</p></div>
-    </div>
-  </section>
-
   <section id="fan-of-week">
     <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
     <div class="card fan-card">
@@ -1428,7 +1427,7 @@ body.fun-panel-open{overflow:hidden}
 
   <section class="home-coming-soon">
     <div class="container" style="text-align:center;padding:20px 20px 40px">
-      <p style="font-size:14px;color:#888">🎬 Jaldi hi yahan Stories aur pura reels feed aayega. Tab tak Reels tab explore karein! 🔥</p>
+      <p style="font-size:14px;color:#888">🎬 Naye videos aur reels ab <strong>Channel Profile</strong> me dekhein! Upar wale logo par tap karein. 🔥</p>
     </div>
   </section>
 
@@ -1445,6 +1444,9 @@ body.fun-panel-open{overflow:hidden}
   </div>
   <nav class="channel-profile-nav" id="channelProfileNav">
     <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
+    <a href="#channel-reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</a>
+    <a href="#channel-videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</a>
+    <a href="#channel-guidelines"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</a>
     <a href="#team"><svg class="ico"><use href="#i-users"></use></svg> Team</a>
     <a href="#gallery"><svg class="ico"><use href="#i-image"></use></svg> Gallery</a>
     <a href="#website-enquiry"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</a>
@@ -1466,6 +1468,52 @@ body.fun-panel-open{overflow:hidden}
         <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
         <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
       </div>
+    </div>
+  </section>
+
+  <section id="channel-reels">
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
+    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Latest Shorts &amp; Reels 🔥</p>
+    <div class="channel-reels-grid" id="channelReelsGrid">
+      <div class="ig-reels-empty">⏳ Loading Reels...</div>
+    </div>
+  </section>
+
+  <section id="channel-videos">
+    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
+    <div class="video-grid home-feed" id="videosGrid">
+      <div class="card"><p>⏳ Loading videos...</p></div>
+    </div>
+  </section>
+
+  <section id="channel-guidelines">
+    <h2 class="section-title"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</h2>
+    <div class="channel-guidelines-wrap">
+      <p><strong>UPComedyHub ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.</strong></p>
+      <h3>Hamara Maqsad</h3>
+      <p>UPComedyHub ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.</p>
+      <h3>Hum Kya Zyada Aage Badhate Hain</h3>
+      <p>Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.</p>
+      <h3>Feed Kaise Kaam Karta Hai</h3>
+      <p>Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.</p>
+      <h3>Sexual Content Allowed Nahi</h3>
+      <p>Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.</p>
+      <h3>Hinsa aur Nuksaan Pahunchana</h3>
+      <p>Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.</p>
+      <h3>Khud ko Nuksaan Pahunchana (Self-Harm)</h3>
+      <p>Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).</p>
+      <h3>Bachchon ki Suraksha (Zero Tolerance)</h3>
+      <p>18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.</p>
+      <h3>Pareshan Karna aur Nafrat</h3>
+      <p>Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.</p>
+      <h3>Jhooth, Fraud aur Spam</h3>
+      <p>Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.</p>
+      <h3>Report Kaise Karein</h3>
+      <p>Kisi bhi galat content ko report karne ke liye Settings mein "Report" use karein ya <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.</p>
+      <h3>Rules Todne par Kya Hoga</h3>
+      <p>Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.</p>
+      <h3>Madad ke Liye</h3>
+      <p>Agar aap ya koi aur takleef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.</p>
     </div>
   </section>
 
@@ -2045,6 +2093,7 @@ body.fun-panel-open{overflow:hidden}
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="guidelines"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community Guidelines</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="terms"><svg class="snr-ico"><use href="#i-file"></use></svg><span class="snr-label">Terms &amp; Conditions</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="help"><svg class="snr-ico"><use href="#i-help"></use></svg><span class="snr-label">Help</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -2148,6 +2197,34 @@ body.fun-panel-open{overflow:hidden}
         <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
         <p>Stats4U Privacy Policy: <a href="https://www.stats4u.net/privacy" target="_blank" rel="noopener">https://www.stats4u.net/privacy</a></p>
         <p>किसी भी सवाल के लिए आप हमसे <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> पर contact कर सकते हैं।</p>
+      </div>
+
+      <div class="settings-subpage" id="subGuidelines" style="display:none">
+        <p><strong>UPComedyHub ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.</strong></p>
+        <h3>Hamara Maqsad</h3>
+        <p>UPComedyHub ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.</p>
+        <h3>Hum Kya Zyada Aage Badhate Hain</h3>
+        <p>Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.</p>
+        <h3>Feed Kaise Kaam Karta Hai</h3>
+        <p>Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.</p>
+        <h3>Sexual Content Allowed Nahi</h3>
+        <p>Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.</p>
+        <h3>Hinsa aur Nuksaan Pahunchana</h3>
+        <p>Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.</p>
+        <h3>Khud ko Nuksaan Pahunchana (Self-Harm)</h3>
+        <p>Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).</p>
+        <h3>Bachchon ki Suraksha (Zero Tolerance)</h3>
+        <p>18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.</p>
+        <h3>Pareshan Karna aur Nafrat</h3>
+        <p>Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.</p>
+        <h3>Jhooth, Fraud aur Spam</h3>
+        <p>Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.</p>
+        <h3>Report Kaise Karein</h3>
+        <p>Kisi bhi galat content ko report karne ke liye Settings mein "Report" use karein ya <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.</p>
+        <h3>Rules Todne par Kya Hoga</h3>
+        <p>Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.</p>
+        <h3>Madad ke Liye</h3>
+        <p>Agar aap ya koi aur takleef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.</p>
       </div>
 
       <div class="settings-subpage" id="subTerms" style="display:none">
@@ -3002,9 +3079,9 @@ async function refreshManualShorts(){
 }
 
 /* Mirror the Reels/Shorts into the Home feed (Point D) */
-function syncHomeShorts(){
+function syncChannelReels(){
   const src = document.getElementById("reelsGrid");
-  const dst = document.getElementById("homeShortsGrid");
+  const dst = document.getElementById("channelReelsGrid");
   if(!src || !dst) return;
   dst.innerHTML = "";
   const cards = src.querySelectorAll(".video-card");
@@ -3015,15 +3092,16 @@ function syncHomeShorts(){
     const thumb = img ? (img.getAttribute("data-original-img") || img.src || "") : "";
     const title = (c.querySelector(".video-info h3")?.textContent || "Reel").trim();
     const el = document.createElement("div");
-    el.className = "ig-reel-thumb";
+    el.className = "channel-reel-item";
     el.setAttribute("data-video-id", vid);
-    el.innerHTML = '<div class="ig-reel-ring"><div class="ig-reel-inner">'+(thumb?'<img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy">':'')+'</div></div><div class="ig-reel-label">'+escapeHtml(title)+'</div>';
+    el.innerHTML = '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
     dst.appendChild(el);
   });
   if(window.refreshAllVideoActions) refreshAllVideoActions();
   if(window.refreshLikesLinks) refreshLikesLinks();
 }
-window.syncHomeShorts = syncHomeShorts;
+window.syncChannelReels = syncChannelReels;
+window.syncHomeShorts = syncChannelReels;
 
 /* Point 2: build an Instagram-style home-feed post card */
 function buildHomeFeedCard(vid, title, thumb){
@@ -3117,6 +3195,13 @@ document.addEventListener("click",(e)=>{
       const img = t.querySelector("img");
       list.push({vid:vid, title:label, thumb:img?img.src:""});
     });
+    document.querySelectorAll(".channel-reel-item").forEach(t=>{
+      const vid = t.getAttribute("data-video-id");
+      if(!vid) return;
+      const img = t.querySelector("img");
+      const label = (img?.getAttribute("alt") || "Reel").trim();
+      list.push({vid:vid, title:label, thumb:img?img.src:""});
+    });
     return list;
   }
 
@@ -3168,7 +3253,7 @@ document.addEventListener("click",(e)=>{
 })();
 
 document.addEventListener("click",(e)=>{
-  const rt = e.target.closest(".ig-reel-thumb");
+  const rt = e.target.closest(".ig-reel-thumb, .channel-reel-thumb, .channel-reel-item");
   if(!rt) return;
   const vid = rt.getAttribute("data-video-id");
   if(typeof window.openReelViewer === "function"){ window.openReelViewer(vid); }
@@ -4891,7 +4976,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }

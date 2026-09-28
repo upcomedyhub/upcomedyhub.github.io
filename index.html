@@ -34,7 +34,11 @@ button{font-family:inherit}
 .loader-ring{position:absolute;inset:-10px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:#ffd166;animation:loaderSpin .9s linear infinite}
 @keyframes loaderSpin{to{transform:rotate(360deg)}}
 .loader-text{font-family:'Anton',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff}
-.loader-subtext{color:rgba(255,255,255,.75);font-size:13px}
+.loader-powered{position:relative;display:inline-block;overflow:hidden;font-size:15px;font-weight:800;letter-spacing:.6px;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.55);animation:powerPulse 2.4s ease-in-out infinite}
+.loader-powered span{color:#fff;font-weight:900}
+.loader-powered::after{content:"";position:absolute;top:-20%;left:-130%;width:55%;height:140%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.95),transparent);transform:skewX(-20deg);animation:powerSweep 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes powerPulse{0%,100%{text-shadow:0 0 8px rgba(255,255,255,.45),0 0 16px rgba(255,255,255,.25)}50%{text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(255,255,255,.6)}}
+@keyframes powerSweep{0%{left:-130%}55%{left:130%}100%{left:130%}}
 
 /* Cookie */
 .cookie-notice{position:fixed;left:20px;right:20px;bottom:90px;max-width:650px;margin:auto;padding:15px 18px;background:#111;color:#fff;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.25);display:none;align-items:center;justify-content:space-between;gap:15px;z-index:9997}
@@ -240,6 +244,19 @@ body.messages-open .bottom-nav{display:none !important}
 .video-thumb.video-fs{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;max-width:none!important;max-height:none!important;aspect-ratio:auto!important;background:#000!important;z-index:100000!important;border-radius:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
 .video-thumb.video-fs iframe{width:100vw!important;height:56.25vw!important;max-height:100vh!important;max-width:177.78vh!important;aspect-ratio:16/9!important;background:#000!important}
 .video-thumb.video-fs .video-fullscreen-btn{right:12px;bottom:12px}
+/* Instagram-style full-screen reel viewer (home reels circles) */
+.reel-viewer{position:fixed;inset:0;z-index:100001;background:#000;display:none;align-items:center;justify-content:center;overflow:hidden;touch-action:pan-y}
+.reel-viewer.show{display:flex}
+.reel-viewer-stage{position:relative;width:100%;height:100%;max-width:520px;margin:0 auto;display:flex;align-items:center;justify-content:center;background:#000}
+.reel-viewer-frame{position:relative;width:100%;height:100%;max-width:calc(100vh * 9 / 16);aspect-ratio:9/16;background:#000;overflow:hidden}
+.reel-viewer-frame iframe{width:100%;height:100%;border:none;display:block}
+.reel-viewer-top{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(180deg,rgba(0,0,0,.7),transparent)}
+.reel-viewer-title{flex:1;color:#fff;font-size:15px;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reel-viewer-close{border:none;background:rgba(255,255,255,.16);color:#fff;width:38px;height:38px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.reel-viewer-nav{position:absolute;right:14px;top:50%;transform:translateY(-50%);z-index:5;display:flex;flex-direction:column;gap:12px}
+.reel-viewer-nav button{border:none;background:rgba(255,255,255,.16);color:#fff;width:44px;height:44px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.reel-viewer-nav button:disabled{opacity:.28;cursor:default}
+.reel-viewer-count{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:5;color:#fff;font-size:12px;font-weight:700;background:rgba(0,0,0,.55);padding:5px 14px;border-radius:20px}
 .video-info{padding:12px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
 .video-info h3{font-size:14px;line-height:1.35;font-weight:700;color:inherit}
 .video-date{font-size:11px;color:#888}
@@ -542,6 +559,18 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .settings-nav-row .snr-chev{color:#555}
 .settings-nav-row .snr-value{font-size:13px;color:#888;font-weight:600;flex-shrink:0}
 .dark-mode .settings-nav-row .snr-value{color:#999}
+/* Mobile verification */
+.mobile-input-row{display:flex;align-items:center;border:1px solid #ddd;border-radius:12px;overflow:hidden;background:#f7f7f7}
+.dark-mode .mobile-input-row{background:#262626;border-color:#444}
+.mobile-cc{padding:12px 14px;font-weight:800;font-size:15px;color:#111;background:#ececec;border-right:1px solid #ddd}
+.dark-mode .mobile-cc{color:#fff;background:#333;border-color:#444}
+.mobile-input-row input{flex:1;border:none;background:transparent;padding:12px;font-family:inherit;font-size:15px;color:#111;outline:none;min-width:0}
+.dark-mode .mobile-input-row input{color:#fff}
+.mobile-otp-input{width:100%;border:1px solid #ddd;border-radius:12px;padding:12px;font-family:inherit;font-size:18px;letter-spacing:6px;text-align:center;background:#f7f7f7;color:#111;outline:none}
+.dark-mode .mobile-otp-input{background:#262626;border-color:#444;color:#fff}
+.mobile-link-btn{display:block;margin:12px auto 0;border:none;background:transparent;color:#e63946;font-weight:700;font-size:13px;cursor:pointer;padding:6px}
+.mobile-verified-badge{width:64px;height:64px;border-radius:50%;background:#e8f8ee;color:#1a9e56;font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.dark-mode .mobile-verified-badge{background:#123322}
 .settings-opt-list{display:flex;flex-direction:column;gap:10px}
 .settings-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border:1.5px solid #e5e5e5;border-radius:14px;background:#fff;color:#111;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent}
 .settings-opt:hover{border-color:#e63946;background:#fff5f6}
@@ -1172,10 +1201,12 @@ body.fun-panel-open{overflow:hidden}
 .afc-row:last-child{border-bottom:none}
 .afc-row:hover,.afc-row:active{background:#fafafa}
 .dark-mode .afc-row:hover,.dark-mode .afc-row:active{background:#1f1f1f}
-.afc-ico{width:24px;height:24px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;background:transparent;border-radius:0;line-height:1}
+.afc-ico{width:24px;height:24px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:19px;background:transparent;border-radius:0;line-height:1}
 .afc-meta{flex:1;min-width:0}
 .afc-name{font-size:15px;font-weight:600}
 .afc-desc{display:none}
+.afc-row .snr-chev{width:20px;height:20px;color:#bbb;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dark-mode .afc-row .snr-chev{color:#555}
 
 /* ============================================================
    POINT 2 — REAL USER PROFILE (full screen)
@@ -1247,7 +1278,6 @@ body.fun-panel-open{overflow:hidden}
     <img src="IMG_20260917_172912.jpg" alt="Loading">
   </div>
   <div class="loader-text">UPComedyHub</div>
-  <div class="loader-subtext">Loading laughter... 🔥</div>
   <div class="loader-powered">Powered by <span>Cobra</span></div>
 </div>
 
@@ -1357,6 +1387,7 @@ body.fun-panel-open{overflow:hidden}
 <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
 <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><line x1="10.5" y1="18.5" x2="13.5" y2="18.5"/></symbol>
 <symbol id="i-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M7 3c-.5 1 .5 1.3 0 2.5M11 3c-.5 1 .5 1.3 0 2.5"/></symbol>
 <symbol id="i-heart-fill" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.2 2.2 4.8 5.7 4.2 8 3.8 10 5 12 7.3 14 5 16 3.8 18.3 4.2c3.5.6 5.3 4 3.7 7.5C19.5 16.4 12 21 12 21z"/></symbol>
 <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></symbol>
@@ -1981,6 +2012,21 @@ body.fun-panel-open{overflow:hidden}
   </div>
 </div>
 
+<div class="reel-viewer" id="reelViewer">
+  <div class="reel-viewer-stage">
+    <div class="reel-viewer-frame" id="reelViewerFrame"></div>
+    <div class="reel-viewer-top">
+      <div class="reel-viewer-title" id="reelViewerTitle">Reel</div>
+      <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close">✕</button>
+    </div>
+    <div class="reel-viewer-nav">
+      <button type="button" id="reelViewerPrev" aria-label="Previous reel">▲</button>
+      <button type="button" id="reelViewerNext" aria-label="Next reel">▼</button>
+    </div>
+    <div class="reel-viewer-count" id="reelViewerCount">1 / 1</div>
+  </div>
+</div>
+
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
     <div class="social-header">
@@ -1996,6 +2042,7 @@ body.fun-panel-open{overflow:hidden}
       <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="saved"><svg class="snr-ico"><use href="#i-bookmark"></use></svg><span class="snr-label">Saved Videos</span><span class="snr-value" id="statSaves">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="terms"><svg class="snr-ico"><use href="#i-file"></use></svg><span class="snr-label">Terms &amp; Conditions</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -2065,8 +2112,36 @@ body.fun-panel-open{overflow:hidden}
         <div class="ig-posts-grid ig-video-grid" id="settingsSavedGrid"></div>
       </div>
 
+      <div class="settings-subpage" id="subMobile" style="display:none">
+        <p style="color:#888;font-size:14px;margin-bottom:16px">Apna mobile number verify karein. Verified number se account secure rahega aur OTP-based login bhi mil jayega.</p>
+        <div id="mobileFormPart">
+          <label for="mobileNumberInput" style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Mobile Number</label>
+          <div class="mobile-input-row">
+            <span class="mobile-cc">+91</span>
+            <input id="mobileNumberInput" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel">
+          </div>
+          <button type="button" id="mobileSendOtpBtn" class="settings-open-btn" style="width:100%;margin-top:14px">📲 Send OTP</button>
+
+          <div id="mobileOtpWrap" style="display:none;margin-top:18px">
+            <label for="mobileOtpInput" style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Enter OTP</label>
+            <input id="mobileOtpInput" type="tel" inputmode="numeric" maxlength="6" placeholder="6-digit OTP" autocomplete="one-time-code" class="mobile-otp-input">
+            <p id="mobileOtpHint" style="font-size:12px;color:#888;margin:8px 0 0"></p>
+            <button type="button" id="mobileVerifyBtn" class="settings-open-btn" style="width:100%;margin-top:12px">✅ Verify &amp; Save</button>
+            <button type="button" id="mobileResendBtn" class="mobile-link-btn">Resend OTP</button>
+          </div>
+        </div>
+
+        <div id="mobileVerifiedBox" style="display:none;margin-top:8px;text-align:center">
+          <div class="mobile-verified-badge">✅</div>
+          <p style="font-weight:800;font-size:16px;margin:8px 0 4px">Number Verified</p>
+          <p id="mobileVerifiedNumber" style="color:#666;font-size:14px;margin:0 0 16px"></p>
+          <button type="button" id="mobileChangeBtn" class="settings-open-btn" style="width:100%">Change Number</button>
+        </div>
+      </div>
+
       <div class="settings-subpage" id="subPrivacy" style="display:none">
         <p>UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
+        <p>Aapke dwara upload ki gayi photo, video aur reel third-party storage service (jaise Cloudinary ya Firebase Storage) par store ho sakti hain, taaki wo app mein dikhai ja sakein.</p>
         <p>UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
         <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
         <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
@@ -2076,10 +2151,19 @@ body.fun-panel-open{overflow:hidden}
       </div>
 
       <div class="settings-subpage" id="subTerms" style="display:none">
-        <p>UPComedyHub app/website par available content का purpose entertainment aur information provide करना है।</p>
-        <p>App/website par diye gaye videos, images aur other content को बिना permission के commercial purpose के लिए use या redistribute न करें।</p>
-        <p>App/website use करते वक़्त applicable laws और दूसरों के rights का respect करना ज़रूरी है।</p>
-        <p>किसी भी question के लिए contact करें: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
+        <p><strong>Aapka Content, Aapka Ownership:</strong> Jo bhi video, reel, story, photo, comment ya audio aap UPComedyHub par upload karte hain, uska ownership aapka hi rehta hai. Aap confirm karte hain ki wo content aapka original hai, ya aapke paas use upload karne ka poora adhikar hai.</p>
+        <p><strong>Hamein Aap Kya License Dete Hain:</strong> Upload karke aap UPComedyHub ko ye limited, non-exclusive right dete hain ki wo aapke content ko app aur website par store kare, dikhaye, stream kare aur share kare. Ye right sirf app chalane ke liye hai. Aap jab chahein apna content delete kar sakte hain.</p>
+        <p><strong>Content Kahan Store Hota Hai:</strong> App se upload kiye gaye videos, reels aur photos third-party storage/hosting service par store ho sakte hain. UPComedyHub kuch videos YouTube ke link/embed se bhi dikhata hai. Aise videos YouTube par hi host rehte hain aur unpar YouTube ki apni terms lagti hain.</p>
+        <p><strong>Review aur Approval:</strong> Upload kiya gaya content turant public nahi hota. UPComedyHub use pehle check kar sakta hai aur approve ya reject kar sakta hai. Approve hone ke baad bhi rules todne par use kabhi bhi hataya ja sakta hai.</p>
+        <p><strong>Copyright aur Music:</strong> Kisi aur ka copyrighted gaana, film clip, video ya photo bina permission upload na karein. Sirf apna original content ya wahi content daalein jiska use karne ka aapke paas legal adhikar hai (jaise khud banaya hua ya royalty-free music).</p>
+        <p><strong>Copyright Complaint aur Takedown:</strong> Agar aapko lagta hai ki koi content aapke copyright ka ulanghan karta hai, to <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par apna naam, content ka link aur ownership ka proof bhejein. Hum jaanch karke use jaldi hata denge. Report kiya gaya content jaanch ke dauran bhi hataya ja sakta hai.</p>
+        <p><strong>Stories:</strong> Stories 24 ghante ke liye dikhti hain, uske baad automatically hat jaati hain. Story ke screenshot ya copy par hamara koi control nahi hai.</p>
+        <p><strong>Ye Sab Allowed Nahi Hai:</strong> Hinsa ya nafrat phailane wala content, nudity ya sexual content, bachchon ke liye nuksaandeh content, kisi ko dhamki ya pareshan karna, jhoothi ya gumrah karne wali jaankari, spam, kisi ki permission ke bina uski personal photo/video, aur koi bhi illegal content.</p>
+        <p><strong>Umar:</strong> UPComedyHub use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam umar ke users apne parents/guardian ki permission se app use karein.</p>
+        <p><strong>Account aur Content par Action:</strong> Rules todne par UPComedyHub bina pehle bataye aapka content hata sakta hai, upload ki suvidha rok sakta hai ya account band kar sakta hai.</p>
+        <p><strong>Content Delete Karna:</strong> Aap apna content delete karne ki request <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par bhej sakte hain. Delete hone mein kuch samay lag sakta hai, aur backup/cache se poori tarah hatne mein thoda zyada.</p>
+        <p><strong>Zimmedari ki Seema:</strong> UPComedyHub users ke content ka creator nahi hai, isliye uski sachchai ya legality ki poori guarantee nahi de sakta. Hum problem ki report milte hi action lene ki koshish karte hain. App "jaisa hai" wahi milta hai, aur service beech mein rukne ya data ke kho jaane ki koi guarantee nahi hai.</p>
+        <p><strong>Badlav:</strong> Ye terms samay-samay par update ho sakte hain. Update ke baad app use karte rehne ka matlab hai ki aap naye terms maante hain.</p>
       </div>
 
       <div class="settings-subpage" id="subHelp" style="display:none">
@@ -3012,13 +3096,82 @@ document.addEventListener("click",(e)=>{
   thumb.appendChild(fs); thumb.style.cursor="default";
 });
 
-/* Point 2: reels tray thumb click -> open Reels tab at that reel */
+/* Point 2: reels tray thumb click -> open Instagram-style full-screen viewer */
+(function(){
+  const viewer = document.getElementById("reelViewer");
+  const frame = document.getElementById("reelViewerFrame");
+  const titleEl = document.getElementById("reelViewerTitle");
+  const countEl = document.getElementById("reelViewerCount");
+  const btnClose = document.getElementById("reelViewerClose");
+  const btnPrev = document.getElementById("reelViewerPrev");
+  const btnNext = document.getElementById("reelViewerNext");
+  if(!viewer || !frame) return;
+  let reels = [], index = 0;
+
+  function collectReels(){
+    const list = [];
+    document.querySelectorAll(".ig-reel-thumb").forEach(t=>{
+      const vid = t.getAttribute("data-video-id");
+      if(!vid) return;
+      const label = (t.querySelector(".ig-reel-label")?.textContent || "Reel").trim();
+      const img = t.querySelector("img");
+      list.push({vid:vid, title:label, thumb:img?img.src:""});
+    });
+    return list;
+  }
+
+  function render(){
+    const r = reels[index]; if(!r) return;
+    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/'+r.vid+'?autoplay=1&rel=0&playsinline=1&loop=1&playlist='+r.vid+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen" allowfullscreen></iframe>';
+    titleEl.textContent = r.title || "Reel";
+    countEl.textContent = (index+1)+" / "+reels.length;
+    btnPrev.disabled = index<=0;
+    btnNext.disabled = index>=reels.length-1;
+  }
+
+  function open(vid){
+    reels = collectReels();
+    if(!reels.length) return;
+    index = reels.findIndex(r=>r.vid===vid);
+    if(index<0) index=0;
+    viewer.classList.add("show");
+    document.body.style.overflow="hidden";
+    render();
+  }
+  function close(){ viewer.classList.remove("show"); frame.innerHTML=""; document.body.style.overflow=""; }
+  function next(){ if(index<reels.length-1){ index++; render(); } }
+  function prev(){ if(index>0){ index--; render(); } }
+  window.openReelViewer = open;
+
+  if(btnClose) btnClose.addEventListener("click", close);
+  if(btnNext) btnNext.addEventListener("click", next);
+  if(btnPrev) btnPrev.addEventListener("click", prev);
+  viewer.addEventListener("click", e=>{ if(e.target===viewer || e.target.classList.contains("reel-viewer-stage")) close(); });
+
+  let startY=0;
+  viewer.addEventListener("touchstart", e=>{ startY = e.touches[0].clientY; }, {passive:true});
+  viewer.addEventListener("touchend", e=>{
+    const dy = e.changedTouches[0].clientY - startY;
+    if(dy < -60) next(); else if(dy > 60) prev();
+  }, {passive:true});
+  let wheelLock=false;
+  viewer.addEventListener("wheel", e=>{
+    if(wheelLock) return; wheelLock=true; setTimeout(()=>{ wheelLock=false; }, 700);
+    if(e.deltaY>0) next(); else prev();
+  }, {passive:true});
+  document.addEventListener("keydown", e=>{
+    if(!viewer.classList.contains("show")) return;
+    if(e.key==="Escape") close();
+    else if(e.key==="ArrowDown") next();
+    else if(e.key==="ArrowUp") prev();
+  });
+})();
+
 document.addEventListener("click",(e)=>{
   const rt = e.target.closest(".ig-reel-thumb");
   if(!rt) return;
   const vid = rt.getAttribute("data-video-id");
-  switchTab("reels");
-  if(vid){ setTimeout(()=>{ const el = document.querySelector('#reelsGrid .video-card[data-video-id="'+vid+'"]'); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); }, 350); }
+  if(typeof window.openReelViewer === "function"){ window.openReelViewer(vid); }
 });
 
 /* Point 2: Follow button on home feed posts */
@@ -4738,7 +4891,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacy:"🔒 Privacy Policy", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
@@ -4761,6 +4914,71 @@ window.addEventListener("DOMContentLoaded",()=>{
     const body = encodeURIComponent(t || "(No details provided)");
     window.location.href = "mailto:upcomedyhub@gmail.com?subject="+encodeURIComponent("UPComedyHub Report")+"&body="+body;
   });
+
+  /* ---------- Mobile Number Verification ---------- */
+  (function(){
+    const STORE = "upchVerifiedMobile";
+    const statusEl = document.getElementById("mobileVerifyStatus");
+    const numInput = document.getElementById("mobileNumberInput");
+    const sendBtn = document.getElementById("mobileSendOtpBtn");
+    const otpWrap = document.getElementById("mobileOtpWrap");
+    const otpInput = document.getElementById("mobileOtpInput");
+    const otpHint = document.getElementById("mobileOtpHint");
+    const verifyBtn = document.getElementById("mobileVerifyBtn");
+    const resendBtn = document.getElementById("mobileResendBtn");
+    const formPart = document.getElementById("mobileFormPart");
+    const verifiedBox = document.getElementById("mobileVerifiedBox");
+    const verifiedNumber = document.getElementById("mobileVerifiedNumber");
+    const changeBtn = document.getElementById("mobileChangeBtn");
+    if(!sendBtn) return;
+    let demoOtp = null, pendingNumber = "";
+
+    function getSaved(){ try{ return JSON.parse(localStorage.getItem(STORE)||"null"); }catch(e){ return null; } }
+    function refresh(){
+      const s = getSaved();
+      if(statusEl) statusEl.textContent = (s && s.number) ? "Verified" : "Not verified";
+      if(s && s.number){
+        if(verifiedNumber) verifiedNumber.textContent = "+91 "+s.number;
+        if(formPart) formPart.style.display = "none";
+        if(verifiedBox) verifiedBox.style.display = "block";
+      } else {
+        if(formPart) formPart.style.display = "block";
+        if(verifiedBox) verifiedBox.style.display = "none";
+        if(otpWrap) otpWrap.style.display = "none";
+      }
+    }
+    function sendOtp(){
+      const num = (numInput.value||"").replace(/\D/g,"");
+      if(num.length !== 10){ showToast("⚠️ Sahi 10-digit mobile number daalein"); return; }
+      pendingNumber = num;
+      demoOtp = String(Math.floor(100000 + Math.random()*900000));
+      if(otpWrap) otpWrap.style.display = "block";
+      if(otpInput) otpInput.value = "";
+      if(otpHint) otpHint.textContent = "OTP bhej diya gaya +91 "+num+" par (Demo OTP: "+demoOtp+")";
+      if(otpInput) otpInput.focus();
+      showToast("📲 OTP bhej diya gaya");
+    }
+    sendBtn.addEventListener("click", sendOtp);
+    if(resendBtn) resendBtn.addEventListener("click", sendOtp);
+    if(verifyBtn) verifyBtn.addEventListener("click", ()=>{
+      const code = (otpInput.value||"").replace(/\D/g,"");
+      if(!demoOtp){ showToast("⚠️ Pehle OTP bhejein"); return; }
+      if(code.length !== 6){ showToast("⚠️ 6-digit OTP daalein"); return; }
+      if(code !== demoOtp){ showToast("❌ Galat OTP, dobara try karein"); return; }
+      localStorage.setItem(STORE, JSON.stringify({number:pendingNumber, verifiedAt:Date.now()}));
+      showToast("✅ Mobile number verify ho gaya!");
+      refresh();
+    });
+    if(changeBtn) changeBtn.addEventListener("click", ()=>{
+      localStorage.removeItem(STORE);
+      if(numInput) numInput.value = "";
+      if(otpInput) otpInput.value = "";
+      demoOtp = null;
+      refresh();
+    });
+    window.upchRefreshMobile = refresh;
+    refresh();
+  })();
 
   const supb = document.getElementById("settingsUpiPayBtn");
   if(supb) supb.addEventListener("click", ()=>{
@@ -5118,13 +5336,6 @@ function hideLoader(){
   setTimeout(()=>{ if(l.parentNode) l.remove(); }, 600);
 }
 window.addEventListener("load", ()=>setTimeout(hideLoader, 400));
-setTimeout(hideLoader, 4000);
-
-console.log("✅ UPComedyHub — All loaded with fixes");
-</script>
-</body>
-</html>
-eout(hideLoader, 400));
 setTimeout(hideLoader, 4000);
 
 console.log("✅ UPComedyHub — All loaded with fixes");

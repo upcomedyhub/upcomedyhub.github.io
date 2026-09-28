@@ -97,18 +97,7 @@ section{padding:70px 6%;max-width:1200px;margin:auto}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
 .dark-mode .card{background:#1b1b1b;color:#fff;border-color:#262626}
 
-/* Featured Video */
-#featured-video{max-width:1100px}
-.featured-video-card{display:flex;flex-wrap:wrap;background:#fff;border:1px solid #eee;border-radius:22px;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,.08)}
-.dark-mode .featured-video-card{background:#1b1b1b;border-color:#262626;color:#fff}
-.featured-video-embed{flex:1 1 340px;min-width:280px;aspect-ratio:9/16;max-height:480px}
-.featured-video-embed iframe{width:100%;height:100%;border:none;display:block}
-.featured-video-info{flex:1 1 280px;padding:30px;display:flex;flex-direction:column;justify-content:center;gap:12px}
-.featured-badge{display:inline-flex;align-items:center;gap:6px;width:fit-content;background:rgba(230,57,70,.1);color:#e63946;padding:6px 14px;border-radius:30px;font-size:13px;font-weight:800}
-.featured-video-info h3{font-size:26px;color:inherit}
-.featured-video-info p{color:#666}
-.dark-mode .featured-video-info p{color:#ccc}
-@media(max-width:700px){.featured-video-embed{max-height:420px}.featured-video-info{padding:22px}.featured-video-info h3{font-size:22px}}
+/* Featured Video removed (Point 1) */
 
 /* Team + About */
 .team-group{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:35px}
@@ -538,6 +527,7 @@ body.messages-open .bottom-nav{display:none !important}
 .settings-launch-copy p{margin:0;color:#888;font-size:13px}
 .settings-open-btn{border:none;background:#111;color:#fff;padding:10px 15px;border-radius:18px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
 .dark-mode .settings-open-btn{background:#fff;color:#111}
+#reportSendBtn{white-space:normal;line-height:1.35;padding:13px 16px;font-size:15px;display:block;text-align:center;box-sizing:border-box}
 .settings-modal{max-height:92vh;max-height:92dvh;display:flex;flex-direction:column}
 .settings-modal .settings-modal-body{overflow-y:auto;flex:1;min-height:0}
 .settings-nav-row{display:flex;align-items:center;gap:14px;padding:15px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
@@ -611,16 +601,45 @@ body.messages-open .bottom-nav{display:none !important}
 .fun-zone-body{display:none}
 .fun-zone.open .fun-zone-body{display:block}
 .dark-mode .fun-zone-head p{color:#bbb}
-.fun-game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.fun-game-btn{border:1px solid #eee;background:#fff;border-radius:16px;padding:16px 10px;cursor:pointer;font-family:inherit;text-align:center;font-weight:800;color:#222;transition:.2s}
-.fun-game-btn:hover{transform:translateY(-2px);border-color:#e63946;box-shadow:0 7px 18px rgba(0,0,0,.08)}
-.fun-game-btn .fun-icon{display:block;font-size:30px;margin-bottom:5px}
-.fun-game-btn small{display:block;color:#888;font-weight:600;margin-top:3px}
-.dark-mode .fun-game-btn{background:#1c1c1c;border-color:#333;color:#fff}
-.dark-mode .fun-game-btn small{color:#bbb}
-.fun-panel{display:none;margin-top:16px;padding:18px;border:1px solid #eee;border-radius:16px;background:#fff}
+.fun-game-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 10px;padding:6px 2px}
+.fun-game-btn{border:none;background:transparent;padding:0;cursor:pointer;font-family:inherit;text-align:center;font-weight:700;color:#333;transition:transform .15s;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;align-items:center;gap:7px}
+.fun-game-btn:hover,.fun-game-btn:active{transform:translateY(-2px)}
+.fun-game-btn .fun-icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;font-size:28px;border-radius:18px;background:linear-gradient(135deg,#fff0f1,#ffe1e4);border:1px solid #ffe1e4;box-shadow:0 6px 14px rgba(230,57,70,.16)}
+.fun-game-btn .fun-label{font-size:11px;line-height:1.2;font-weight:700;color:#444;max-width:76px}
+.fun-game-btn small{display:none}
+.dark-mode .fun-game-btn{color:#fff}
+.dark-mode .fun-game-btn .fun-icon{background:linear-gradient(135deg,#2a1416,#1f1f1f);border-color:#3a2224;box-shadow:0 6px 14px rgba(0,0,0,.45)}
+.dark-mode .fun-game-btn .fun-label{color:#ddd}
+.fun-panel-overlay{display:none;position:fixed;inset:0;z-index:100050;background:rgba(0,0,0,.55);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.fun-panel-overlay.show{display:block}
+.fun-panel-modal{background:#fff;min-height:100%;max-width:560px;margin:0 auto;padding:14px 16px 40px;box-sizing:border-box}
+.dark-mode .fun-panel-modal{background:#111;color:#fff}
+.fun-panel-head{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:inherit;padding:6px 0 12px;margin-bottom:10px;border-bottom:1px solid #eee;z-index:2}
+.dark-mode .fun-panel-head{border-color:#262626}
+.fun-panel-head span{font-weight:800;font-size:17px}
+.fun-panel-close{width:36px;height:36px;border-radius:50%;border:none;background:#f2f2f2;font-size:16px;cursor:pointer;font-family:inherit;color:#111;flex:0 0 auto}
+.dark-mode .fun-panel-close{background:#262626;color:#fff}
+.fun-panel{display:none}
 .fun-panel.active{display:block}
-.dark-mode .fun-panel{background:#1c1c1c;border-color:#333}
+body.fun-panel-open{overflow:hidden}
+/* Snake & Ladder */
+.snake-wrap{max-width:430px;margin:0 auto;text-align:center}
+.snake-board{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;background:#f0f0f0;border:3px solid #e63946;border-radius:12px;padding:3px;margin:0 auto 12px}
+.dark-mode .snake-board{background:#333}
+.snake-cell{position:relative;aspect-ratio:1;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.snake-cell.ladder{background:#e6f7e9}
+.snake-cell.snake{background:#fdeaea}
+.dark-mode .snake-cell{background:#1c1c1c}
+.dark-mode .snake-cell.ladder{background:#14301a}
+.dark-mode .snake-cell.snake{background:#331414}
+.snake-num{position:absolute;top:1px;left:2px;font-size:7px;color:#b5b5b5;line-height:1}
+.snake-mark{font-size:11px;opacity:.85}
+.snake-tok{position:absolute;bottom:0;font-size:11px;line-height:1}
+.snake-tok.you{right:1px}
+.snake-tok.cpu{left:1px}
+.snake-msg{font-weight:700;font-size:14px;margin-bottom:10px;min-height:20px}
+.snake-score{font-size:13px;color:#666;margin-top:10px}
+.dark-mode .snake-score{color:#bbb}
 .fun-question{font-size:18px;font-weight:800;margin-bottom:12px}
 .fun-options{display:grid;gap:9px}
 .fun-option{border:1px solid #ddd;background:#fafafa;color:#222;border-radius:12px;padding:11px 12px;text-align:left;cursor:pointer;font-family:inherit;font-weight:700}
@@ -671,7 +690,7 @@ body.messages-open .bottom-nav{display:none !important}
 .fun-leaderboard{margin-top:12px;text-align:left}
 .fun-leader-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;border-bottom:1px solid #eee;font-size:13px}
 .dark-mode .fun-leader-row{border-color:#262626}
-@media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}.fun-game-grid{grid-template-columns:1fr}.fun-zone{padding:16px}.fun-zone-head h3{font-size:23px}}
+@media(max-width:520px){.fun-extra-grid{grid-template-columns:1fr}.fun-player-row{align-items:flex-start}.fun-game-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px 8px}.fun-game-btn .fun-icon{width:52px;height:52px;font-size:26px}.fun-zone{padding:16px}.fun-zone-head h3{font-size:23px}}
 .settings-modal .settings-row{padding:16px 0}
 .settings-modal .settings-label span{font-size:15px}
 .settings-modal .settings-label small{font-size:12px}
@@ -1148,16 +1167,15 @@ body.messages-open .bottom-nav{display:none !important}
    ============================================================ */
 .also-from-cobra{margin-top:18px;padding-top:6px}
 .afc-title{font-size:13px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.8px;padding:8px 4px 10px}
-.afc-row{display:flex;align-items:center;gap:14px;padding:13px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.afc-row{display:flex;align-items:center;gap:14px;padding:15px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
 .dark-mode .afc-row{border-color:#262626}
 .afc-row:last-child{border-bottom:none}
 .afc-row:hover,.afc-row:active{background:#fafafa}
 .dark-mode .afc-row:hover,.dark-mode .afc-row:active{background:#1f1f1f}
-.afc-ico{width:42px;height:42px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;background:#f3f3f3;border-radius:12px}
-.dark-mode .afc-ico{background:#262626}
+.afc-ico{width:24px;height:24px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;background:transparent;border-radius:0;line-height:1}
 .afc-meta{flex:1;min-width:0}
-.afc-name{font-size:15px;font-weight:700}
-.afc-desc{font-size:12px;color:#888;margin-top:2px}
+.afc-name{font-size:15px;font-weight:600}
+.afc-desc{display:none}
 
 /* ============================================================
    POINT 2 — REAL USER PROFILE (full screen)
@@ -1181,6 +1199,43 @@ body.messages-open .bottom-nav{display:none !important}
 .rp-grid{padding-top:16px;min-height:200px}
 .rp-empty{text-align:center;color:#888;font-size:14px;padding:50px 20px;display:flex;flex-direction:column;gap:10px;align-items:center}
 .rp-empty span{font-size:40px;opacity:.6}
+/* Instagram-style login screen (Point: login system) */
+.login-screen{position:fixed;inset:0;z-index:99990;background:#fff;display:none;flex-direction:column;align-items:center;overflow-y:auto;padding:26px 16px 46px;-webkit-overflow-scrolling:touch}
+.dark-mode .login-screen{background:#000;color:#fff}
+.login-screen.show{display:flex}
+.login-lang-row{width:100%;max-width:360px;display:flex;justify-content:center;margin-bottom:20px}
+.login-lang{background:none;border:none;color:#8e8e8e;font-family:inherit;font-size:13px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.login-logo{text-align:center;margin-bottom:22px}
+.login-logo img{width:66px;height:66px;display:block;margin:0 auto 14px}
+.login-brand{font-size:22px;font-weight:800;letter-spacing:.3px}
+.login-brand small{display:block;font-size:13px;font-weight:600;color:#8e8e8e;margin-top:4px}
+.login-card{width:100%;max-width:360px;background:#fff;border:1px solid #dbdbdb;border-radius:12px;padding:22px 20px;box-sizing:border-box}
+.dark-mode .login-card{background:#000;border-color:#262626}
+.login-google-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border:1px solid #dbdbdb;border-radius:8px;padding:11px;font-family:inherit;font-weight:700;font-size:14px;color:#262626;cursor:pointer}
+.dark-mode .login-google-btn{background:#000;border-color:#363636;color:#fff}
+.login-google-btn img{width:20px;height:20px}
+.login-divider{display:flex;align-items:center;gap:14px;margin:16px 0;color:#8e8e8e;font-size:12px;font-weight:700}
+.login-divider::before,.login-divider::after{content:"";flex:1;height:1px;background:#dbdbdb}
+.dark-mode .login-divider::before,.dark-mode .login-divider::after{background:#363636}
+.login-form{display:flex;flex-direction:column;gap:9px}
+.login-form input{width:100%;box-sizing:border-box;background:#fafafa;border:1px solid #dbdbdb;border-radius:6px;padding:12px;font-family:inherit;font-size:14px;color:#111;outline:none}
+.dark-mode .login-form input{background:#121212;border-color:#363636;color:#fff}
+.login-form input:focus{border-color:#a8a8a8}
+.login-submit{width:100%;background:#0095f6;color:#fff;border:none;border-radius:8px;padding:11px;font-family:inherit;font-weight:800;font-size:14px;cursor:pointer;margin-top:5px}
+.login-submit:disabled{opacity:.6;cursor:default}
+.login-forgot{display:block;text-align:center;margin-top:14px;color:#00376b;font-size:13px;font-weight:600;background:none;border:none;font-family:inherit;cursor:pointer;width:100%}
+.dark-mode .login-forgot{color:#5aa9e6}
+.login-signup-card{margin-top:14px;text-align:center;font-size:14px;color:#262626;padding:20px}
+.dark-mode .login-signup-card{color:#fff}
+.login-create{background:none;border:none;color:#0095f6;font-weight:800;font-family:inherit;font-size:14px;cursor:pointer}
+.login-cobra{margin-top:28px;color:#8e8e8e;font-size:13px;letter-spacing:.5px}
+.login-cobra b{font-weight:800;color:#e63946}
+.login-guest{margin-top:16px;background:none;border:none;color:#8e8e8e;font-family:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
+.login-msg{font-size:13px;color:#e63946;text-align:center;margin-top:10px;min-height:16px}
+.login-msg.ok{color:#2e7d32}
+.login-name-field{display:none}
+.login-screen.signup .login-name-field{display:block}
+.login-screen.signup .login-forgot{display:none}
 </style>
 </head>
 <body class="on-home">
@@ -1193,6 +1248,36 @@ body.messages-open .bottom-nav{display:none !important}
   </div>
   <div class="loader-text">UPComedyHub</div>
   <div class="loader-subtext">Loading laughter... 🔥</div>
+  <div class="loader-powered">Powered by <span>Cobra</span></div>
+</div>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-lang-row">
+    <button type="button" class="login-lang" id="loginLangBtn">English (UK) ▾</button>
+  </div>
+  <div class="login-logo">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+    <div class="login-brand">Login with Google<small>UPComedyHub</small></div>
+  </div>
+  <div class="login-card">
+    <button type="button" class="login-google-btn" id="loginGoogleBtn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt=""> Continue with Google
+    </button>
+    <div class="login-divider"><span>OR</span></div>
+    <form class="login-form" id="loginForm">
+      <input type="text" class="login-name-field" id="loginName" placeholder="Full name" autocomplete="name">
+      <input type="text" id="loginIdentifier" placeholder="Username, email address or mobile number" autocomplete="username">
+      <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+      <button type="submit" class="login-submit" id="loginSubmitBtn">Log in</button>
+    </form>
+    <button type="button" class="login-forgot" id="loginForgotBtn">Forgotten password?</button>
+    <div class="login-msg" id="loginMsg"></div>
+  </div>
+  <div class="login-card login-signup-card">
+    <span class="login-signup-text">New here? </span><button type="button" class="login-create" id="loginCreateBtn">Create account</button>
+  </div>
+  <div class="login-cobra">from <b>Cobra</b></div>
+  <button type="button" class="login-guest" id="loginGuestBtn">Explore without login →</button>
 </div>
 
 <div id="scrollProgress"></div>
@@ -1286,7 +1371,7 @@ body.messages-open .bottom-nav{display:none !important}
 
   <section id="home-shorts">
     <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
-    <div class="ig-reels-tray" id="homeShortsGrid">
+    <div class="video-grid reels" id="homeShortsGrid">
       <div class="ig-reels-empty">⏳ Loading Reels...</div>
     </div>
   </section>
@@ -1295,21 +1380,6 @@ body.messages-open .bottom-nav{display:none !important}
     <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Feed</h2>
     <div class="video-grid home-feed" id="videosGrid">
       <div class="card"><p>⏳ Loading videos...</p></div>
-    </div>
-  </section>
-
-  <section id="featured-video">
-    <h2 class="section-title"><svg class="ico"><use href="#i-star"></use></svg> Featured Video</h2>
-    <div class="featured-video-card">
-      <div class="featured-video-embed">
-        <iframe src="https://www.youtube.com/embed/BM9td5ALOkw" title="Featured" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe>
-      </div>
-      <div class="featured-video-info">
-        <span class="featured-badge">🎬 Featured Video</span>
-        <h3>Funny Desi Comedy 😂</h3>
-        <p>UPComedyHub ka sabse pasandida video — desi andaaz mein comedy jo aapko haste rehne par majboor kar degi.</p>
-        <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">👀 Watch on YouTube</a>
-      </div>
     </div>
   </section>
 
@@ -1578,8 +1648,8 @@ body.messages-open .bottom-nav{display:none !important}
   <section id="privacy">
     <div class="container">
       <h2>🔒 Privacy Policy</h2>
-      <p>UPComedyHub आपके privacy का सम्मान करता है। यह website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
-      <p>UPComedyHub website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
+      <p>UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
+      <p>UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
       <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
       <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
       <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
@@ -1591,9 +1661,9 @@ body.messages-open .bottom-nav{display:none !important}
   <section id="terms">
     <div class="container">
       <h2>📋 Terms &amp; Conditions</h2>
-      <p>UPComedyHub website par available content ka purpose entertainment aur information provide karna hai.</p>
-      <p>Website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.</p>
-      <p>Website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.</p>
+      <p>UPComedyHub app/website par available content ka purpose entertainment aur information provide karna hai.</p>
+      <p>App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.</p>
+      <p>App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.</p>
       <p>Kisi bhi question ke liye contact karein: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
     </div>
   </section>
@@ -1646,9 +1716,9 @@ body.messages-open .bottom-nav{display:none !important}
     <button type="button" id="profileMenuBtn" aria-label="Menu" title="Menu"><svg class="ico"><use href="#i-dots"></use></svg></button>
 
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
-      <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login with Google to like, comment, save videos and message friends.</p>
-      <button type="button" id="googleLoginBtn" class="login-google">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:20px"> Continue with Google
+      <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login karke like, comment, save videos aur message friends.</p>
+      <button type="button" class="login-google" onclick="if(typeof window.openLoginScreen==='function')window.openLoginScreen()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:20px"> Log in
       </button>
     </div>
 
@@ -1729,22 +1799,32 @@ body.messages-open .bottom-nav{display:none !important}
       </div>
       <div class="fun-zone-body">
         <div class="fun-game-grid">
-          <button type="button" class="fun-game-btn" data-fun="quiz"><span class="fun-icon">🧠</span>Comedy Quiz<small>10 questions</small></button>
-          <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span>Guess the Dialogue<small>Guess karo</small></button>
-          <button type="button" class="fun-game-btn" data-fun="reaction"><span class="fun-icon">⚡</span>Reaction Test<small>Kitni fast ho?</small></button>
-          <button type="button" class="fun-game-btn" data-fun="spin"><span class="fun-icon">🎡</span>Comedy Spin Wheel<small>Spin &amp; fun</small></button>
-          <button type="button" class="fun-game-btn" data-fun="riddle"><span class="fun-icon">🤔</span>Emoji Riddle<small>Emoji se pehchano</small></button>
-          <button type="button" class="fun-game-btn" data-fun="scramble"><span class="fun-icon">🔤</span>Word Scramble<small>Shabd jodo</small></button>
-          <button type="button" class="fun-game-btn" data-fun="memory"><span class="fun-icon">🎴</span>Memory Match<small>Jodi milao</small></button>
+          <button type="button" class="fun-game-btn" data-fun="quiz"><span class="fun-icon">🧠</span><span class="fun-label">Comedy Quiz</span></button>
+          <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span><span class="fun-label">Guess the Dialogue</span></button>
+          <button type="button" class="fun-game-btn" data-fun="reaction"><span class="fun-icon">⚡</span><span class="fun-label">Reaction Test</span></button>
+          <button type="button" class="fun-game-btn" data-fun="spin"><span class="fun-icon">🎡</span><span class="fun-label">Spin Wheel</span></button>
+          <button type="button" class="fun-game-btn" data-fun="riddle"><span class="fun-icon">🤔</span><span class="fun-label">Emoji Riddle</span></button>
+          <button type="button" class="fun-game-btn" data-fun="scramble"><span class="fun-icon">🔤</span><span class="fun-label">Word Scramble</span></button>
+          <button type="button" class="fun-game-btn" data-fun="memory"><span class="fun-icon">🎴</span><span class="fun-label">Memory Match</span></button>
+          <button type="button" class="fun-game-btn" data-fun="snake"><span class="fun-icon">🐍</span><span class="fun-label">Snake &amp; Ladder</span></button>
         </div>
 
-        <div class="fun-panel" id="funQuizPanel"></div>
-        <div class="fun-panel" id="funGuessPanel"></div>
-        <div class="fun-panel" id="funReactionPanel"></div>
-        <div class="fun-panel" id="funSpinPanel"></div>
-        <div class="fun-panel" id="funRiddlePanel"></div>
-        <div class="fun-panel" id="funScramblePanel"></div>
-        <div class="fun-panel" id="funMemoryPanel"></div>
+        <div class="fun-panel-overlay" id="funPanelOverlay">
+          <div class="fun-panel-modal">
+            <div class="fun-panel-head">
+              <span id="funPanelTitle">🎮 Game</span>
+              <button type="button" class="fun-panel-close" id="funPanelClose" aria-label="Close">✕</button>
+            </div>
+            <div class="fun-panel" id="funQuizPanel"></div>
+            <div class="fun-panel" id="funGuessPanel"></div>
+            <div class="fun-panel" id="funReactionPanel"></div>
+            <div class="fun-panel" id="funSpinPanel"></div>
+            <div class="fun-panel" id="funRiddlePanel"></div>
+            <div class="fun-panel" id="funScramblePanel"></div>
+            <div class="fun-panel" id="funMemoryPanel"></div>
+            <div class="fun-panel" id="funSnakePanel"></div>
+          </div>
+        </div>
 
         <div class="fun-player-card">
           <div class="fun-player-row">
@@ -1986,8 +2066,8 @@ body.messages-open .bottom-nav{display:none !important}
       </div>
 
       <div class="settings-subpage" id="subPrivacy" style="display:none">
-        <p>UPComedyHub आपके privacy का सम्मान करता है। यह website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
-        <p>UPComedyHub website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
+        <p>UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
+        <p>UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
         <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
         <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
         <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
@@ -1996,9 +2076,9 @@ body.messages-open .bottom-nav{display:none !important}
       </div>
 
       <div class="settings-subpage" id="subTerms" style="display:none">
-        <p>UPComedyHub website par available content का purpose entertainment aur information provide करना है।</p>
-        <p>Website par diye gaye videos, images aur other content को बिना permission के commercial purpose के लिए use या redistribute न करें।</p>
-        <p>Website use करते वक़्त applicable laws और दूसरों के rights का respect करना ज़रूरी है।</p>
+        <p>UPComedyHub app/website par available content का purpose entertainment aur information provide करना है।</p>
+        <p>App/website par diye gaye videos, images aur other content को बिना permission के commercial purpose के लिए use या redistribute न करें।</p>
+        <p>App/website use करते वक़्त applicable laws और दूसरों के rights का respect करना ज़रूरी है।</p>
         <p>किसी भी question के लिए contact करें: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
       </div>
 
@@ -2425,7 +2505,7 @@ function updateNotificationBadge(){
 }
 function openNotifications(){
   const o = document.getElementById("notificationsOverlay"); if(!o) return;
-  if(!currentUser){ showToast("🔐 Login karein"); switchTab("profile"); return; }
+  if(!currentUser){ showToast("🔐 Login karein"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return; }
   o.classList.add("show"); loadNotifications();
 }
 async function createNotification(recipientId,type,title,text,extra={}){
@@ -2946,7 +3026,7 @@ document.addEventListener("click",(e)=>{
   const fb = e.target.closest(".ig-post-follow");
   if(!fb) return;
   e.stopPropagation();
-  if(!currentUser){ showToast("🔒 Follow karne ke liye login karein"); switchTab("profile"); return; }
+  if(!currentUser){ showToast("🔒 Follow karne ke liye login karein"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return; }
   fb.textContent = "Following"; fb.style.color = "#8e8e8e";
   showToast("✅ UPComedyHub ko follow kiya!");
 });
@@ -2972,7 +3052,7 @@ document.addEventListener("click", async (e)=>{
   const btn = e.target.closest(".action-btn"); if(!btn) return;
   const action = btn.getAttribute("data-action"), vid = btn.getAttribute("data-vid");
   if(action==="share"){ openShareSheet(vid); return; }
-  if(!currentUser){ showToast("🔒 Login first"); switchTab("profile"); return; }
+  if(!currentUser){ showToast("🔒 Login first"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return; }
   if(action==="like") await toggleLike(vid);
   else if(action==="save") await toggleSave(vid);
   else if(action==="comment") openComments(vid);
@@ -3002,7 +3082,7 @@ function writeLocalSaves(set){ try{ localStorage.setItem(LOCAL_SAVES_KEY, JSON.s
 
 async function toggleSave(vid){
   if(!vid) return;
-  if(!currentUser){ showToast("🔒 Login first"); switchTab("profile"); return; }
+  if(!currentUser){ showToast("🔒 Login first"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return; }
   const wasSaved = userSavedVideos.has(vid);
   /* Optimistic UI — button turant update ho (kuch na hone wala bug fix) */
   if(wasSaved) userSavedVideos.delete(vid); else userSavedVideos.add(vid);
@@ -3415,7 +3495,7 @@ function closeMessages(){
 window.closeMessages = closeMessages;
 
 function showMessagesOverlay(){
-  if(!currentUser){ showToast("🔐 Login karein"); switchTab("profile"); return null; }
+  if(!currentUser){ showToast("🔐 Login karein"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return null; }
   const o = document.getElementById("messagesOverlay"); if(!o) return null;
   o.classList.add("show");
   document.body.classList.add("messages-open");
@@ -3766,6 +3846,18 @@ async function deleteMessageForEveryone(mid){
   }catch(e){ console.error(e); showToast("❌"); }
 }
 function cancelReply(){ currentReplyTo = null; const el = document.getElementById("chatReplying"); if(el) el.style.display = "none"; }
+async function refreshReactionSummary(mid){
+  if(!currentConversationId || !mid) return;
+  try{
+    const snap = await db.collection("conversations").doc(currentConversationId).collection("messages").doc(mid).collection("reactions").get();
+    const counts = {};
+    snap.forEach(r=>{ const em = r.data().emoji; if(em) counts[em] = (counts[em]||0)+1; });
+    const html = Object.entries(counts).map(([em,c])=>'<span>'+em+(c>1?" "+c:"")+'</span>').join("");
+    document.querySelectorAll('[data-reaction-summary="'+CSS.escape(mid)+'"]').forEach(el=>{ el.innerHTML = html; });
+  }catch(e){}
+}
+window.refreshReactionSummary = refreshReactionSummary;
+
 async function toggleReaction(mid, emoji){
   if(!currentConversationId || !currentUser) return;
   try{
@@ -3773,7 +3865,8 @@ async function toggleReaction(mid, emoji){
     const snap = await r.get();
     if(snap.exists && snap.data().emoji === emoji) await r.delete();
     else await r.set({emoji,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
-  }catch(e){ console.error(e); showToast("❌"); }
+    await refreshReactionSummary(mid);
+  }catch(e){ console.error(e); showToast("❌ Reaction failed"); }
 }
 
 /* ---------- EMOJI PICKER ---------- */
@@ -4283,7 +4376,19 @@ window.openCommunity = openCommunity;
   ];
   let qi = 0, qs = 0;
   function hidePanels(){ panels.forEach(p=>p.classList.remove('active')); }
-  function openPanel(id){ hidePanels(); const el = $(id); if(el) el.classList.add('active'); }
+  function closeFunPanels(){ hidePanels(); const ov=$('funPanelOverlay'); if(ov) ov.classList.remove('show'); document.body.classList.remove('fun-panel-open'); }
+  function openPanel(id, title){
+    hidePanels();
+    const el = $(id); if(!el) return;
+    el.classList.add('active');
+    const ov = $('funPanelOverlay'); if(ov) ov.classList.add('show');
+    const t = $('funPanelTitle'); if(t) t.textContent = title || '🎮 Game';
+    document.body.classList.add('fun-panel-open');
+  }
+  window.closeFunPanels = closeFunPanels;
+  const funCloseBtn = $('funPanelClose'); if(funCloseBtn) funCloseBtn.addEventListener('click', closeFunPanels);
+  const funOvEl = $('funPanelOverlay'); if(funOvEl) funOvEl.addEventListener('click', e=>{ if(e.target === funOvEl) closeFunPanels(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeFunPanels(); });
   function renderQuiz(){
     const p = $('funQuizPanel'); if(!p) return;
     const item = quizData[qi];
@@ -4435,14 +4540,82 @@ window.openCommunity = openCommunity;
   }
   document.querySelectorAll('.fun-game-btn').forEach(btn=>btn.addEventListener('click',()=>{
     const type = btn.dataset.fun;
-    if(type === 'quiz'){ qi = 0; qs = 0; renderQuiz(); openPanel('funQuizPanel'); }
-    if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel'); }
-    if(type === 'reaction'){ setupReaction(); openPanel('funReactionPanel'); }
-    if(type === 'spin'){ setupSpin(); openPanel('funSpinPanel'); }
-    if(type === 'riddle'){ const p = $('funRiddlePanel'); if(p) p.dataset.idx = 0; renderRiddle(); openPanel('funRiddlePanel'); }
-    if(type === 'scramble'){ const p = $('funScramblePanel'); if(p) p.dataset.idx = 0; renderScramble(); openPanel('funScramblePanel'); }
-    if(type === 'memory'){ setupMemory(); openPanel('funMemoryPanel'); }
+    if(type === 'quiz'){ qi = 0; qs = 0; renderQuiz(); openPanel('funQuizPanel','🧠 Comedy Quiz'); }
+    if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel','🎬 Guess the Dialogue'); }
+    if(type === 'reaction'){ setupReaction(); openPanel('funReactionPanel','⚡ Reaction Test'); }
+    if(type === 'spin'){ setupSpin(); openPanel('funSpinPanel','🎡 Comedy Spin Wheel'); }
+    if(type === 'riddle'){ const p = $('funRiddlePanel'); if(p) p.dataset.idx = 0; renderRiddle(); openPanel('funRiddlePanel','🤔 Emoji Riddle'); }
+    if(type === 'scramble'){ const p = $('funScramblePanel'); if(p) p.dataset.idx = 0; renderScramble(); openPanel('funScramblePanel','🔤 Word Scramble'); }
+    if(type === 'memory'){ setupMemory(); openPanel('funMemoryPanel','🎴 Memory Match'); }
+    if(type === 'snake'){ snakeState = null; renderSnake(); openPanel('funSnakePanel','🐍 Snake & Ladder'); }
   }));
+
+  /* ---------- SNAKE & LADDER ---------- */
+  const SNK_LADDERS = {2:38,7:14,8:31,15:26,21:42,28:84,36:44,51:67,71:91,78:98};
+  const SNK_SNAKES = {16:6,46:25,49:11,62:19,64:60,74:53,89:68,92:88,95:75,99:80};
+  let snakeState = null;
+  function renderSnake(){
+    const p = $('funSnakePanel'); if(!p) return;
+    if(!snakeState) snakeState = {you:0, cpu:0, rolling:false, winner:null, msg:'Dice roll karo aur aage badho! 🎲'};
+    const st = snakeState;
+    let cells = '';
+    for(let r=0;r<10;r++){
+      const L = 9-r;
+      const nums = [];
+      if(L%2===0){ for(let i=1;i<=10;i++) nums.push(L*10+i); }
+      else { for(let i=10;i>=1;i--) nums.push(L*10+i); }
+      nums.forEach(n=>{
+        let cls = 'snake-cell';
+        const isLad = SNK_LADDERS[n], isSnk = SNK_SNAKES[n];
+        if(isLad) cls += ' ladder';
+        if(isSnk) cls += ' snake';
+        let tok = '';
+        if(st.you===n) tok += '<span class="snake-tok you">🔴</span>';
+        if(st.cpu===n) tok += '<span class="snake-tok cpu">🔵</span>';
+        cells += '<div class="'+cls+'"><span class="snake-num">'+n+'</span>'+(isLad?'<span class="snake-mark">🪜</span>':'')+(isSnk?'<span class="snake-mark">🐍</span>':'')+tok+'</div>';
+      });
+    }
+    p.innerHTML = '<div class="snake-wrap">'
+      + '<div class="snake-board">'+cells+'</div>'
+      + '<div class="snake-msg">'+st.msg+'</div>'
+      + '<div class="snake-controls">'
+      + '<button type="button" class="fun-small-btn" id="snakeRoll"'+(st.rolling||st.winner?' disabled style="opacity:.5"':'')+'>🎲 Roll Dice</button> '
+      + '<button type="button" class="fun-small-btn" id="snakeReset">🔄 Restart</button>'
+      + '</div>'
+      + '<div class="snake-score">🔴 You: <b>'+st.you+'</b> &nbsp;·&nbsp; 🔵 CPU: <b>'+st.cpu+'</b></div>'
+      + '</div>';
+    const rb = p.querySelector('#snakeRoll'); if(rb) rb.addEventListener('click', snakeRoll);
+    const rsb = p.querySelector('#snakeReset'); if(rsb) rsb.addEventListener('click', ()=>{ snakeState=null; renderSnake(); });
+  }
+  function snakeRoll(){
+    const st = snakeState; if(!st || st.rolling || st.winner) return;
+    st.rolling = true;
+    const d = 1 + Math.floor(Math.random()*6);
+    let pos = st.you + d;
+    if(pos > 100) pos = st.you;
+    st.you = pos;
+    let extra = '';
+    if(SNK_LADDERS[pos]){ st.you = SNK_LADDERS[pos]; extra = ' 🪜 Ladder! '+pos+' → '+st.you; }
+    else if(SNK_SNAKES[pos]){ st.you = SNK_SNAKES[pos]; extra = ' 🐍 Snake! '+pos+' → '+st.you; }
+    st.msg = '🎲 You rolled '+d+'!'+extra;
+    if(st.you >= 100){ st.winner='you'; st.msg='🏆 You won! 🎉'; st.rolling=false; renderSnake(); if(window.upchAddXP) window.upchAddXP(30); return; }
+    renderSnake();
+    setTimeout(cpuTurn, 800);
+  }
+  function cpuTurn(){
+    const st = snakeState; if(!st || st.winner){ if(st) st.rolling=false; return; }
+    const d = 1 + Math.floor(Math.random()*6);
+    let pos = st.cpu + d;
+    if(pos > 100) pos = st.cpu;
+    st.cpu = pos;
+    let extra = '';
+    if(SNK_LADDERS[pos]){ st.cpu = SNK_LADDERS[pos]; extra = ' 🪜 Ladder! '+pos+' → '+st.cpu; }
+    else if(SNK_SNAKES[pos]){ st.cpu = SNK_SNAKES[pos]; extra = ' 🐍 Snake! '+pos+' → '+st.cpu; }
+    st.msg = '🤖 CPU rolled '+d+'!'+extra;
+    if(st.cpu >= 100){ st.winner='cpu'; st.msg='😅 CPU won! Restart karke try karo.'; }
+    st.rolling = false;
+    renderSnake();
+  }
   const fq = $('funBestQuiz'); if(fq) fq.textContent = Number(localStorage.getItem('upchBestQuiz')||0);
   const fr = $('funBestReaction'); if(fr) fr.textContent = Number(localStorage.getItem('upchBestReaction')||0);
 
@@ -4848,6 +5021,7 @@ auth.onAuthStateChanged(async (user)=>{
       setTimeout(createNewVideoNotifications, 1200);
     }catch(e){ console.error(e); }
     const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = user.uid === ADMIN_UID ? "flex" : "none";
+    const ls = document.getElementById("loginScreen"); if(ls) ls.classList.remove("show");
   } else {
     if(notificationsUnsubscribe){ notificationsUnsubscribe(); notificationsUnsubscribe = null; }
     notificationsCache = []; updateNotificationBadge();
@@ -4855,10 +5029,88 @@ auth.onAuthStateChanged(async (user)=>{
     userLikedVideos.clear(); userSavedVideos.clear();
     const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = "none";
     const ap = document.getElementById("tab-admin"); if(ap && ap.classList.contains("active")) switchTab("home");
+    if(!window.__loginScreenAutoShown){ window.__loginScreenAutoShown = true; if(typeof window.openLoginScreen === "function") window.openLoginScreen(); }
   }
   updateProfileUI();
   refreshAllVideoActions();
 });
+
+/* ---------- INSTAGRAM-STYLE LOGIN SCREEN ---------- */
+(function(){
+  const screen = document.getElementById('loginScreen');
+  if(!screen) return;
+  const googleBtn = document.getElementById('loginGoogleBtn');
+  const form = document.getElementById('loginForm');
+  const idField = document.getElementById('loginIdentifier');
+  const pwField = document.getElementById('loginPassword');
+  const nameField = document.getElementById('loginName');
+  const submitBtn = document.getElementById('loginSubmitBtn');
+  const forgotBtn = document.getElementById('loginForgotBtn');
+  const createBtn = document.getElementById('loginCreateBtn');
+  const guestBtn = document.getElementById('loginGuestBtn');
+  const msg = document.getElementById('loginMsg');
+  const signupText = document.querySelector('.login-signup-text');
+  let signupMode = false;
+  function setMsg(t, ok){ if(!msg) return; msg.textContent = t||''; msg.classList.toggle('ok', !!ok); }
+  function setMode(signup){
+    signupMode = signup;
+    screen.classList.toggle('signup', signup);
+    if(submitBtn) submitBtn.textContent = signup ? 'Sign up' : 'Log in';
+    if(createBtn) createBtn.textContent = signup ? 'Log in' : 'Create account';
+    if(signupText) signupText.textContent = signup ? 'Already have an account? ' : 'New here? ';
+    setMsg('');
+  }
+  window.openLoginScreen = function(){ screen.classList.add('show'); setMode(false); };
+  window.closeLoginScreen = function(){ screen.classList.remove('show'); };
+  if(createBtn) createBtn.addEventListener('click', ()=> setMode(!signupMode));
+  if(guestBtn) guestBtn.addEventListener('click', ()=> screen.classList.remove('show'));
+  if(googleBtn) googleBtn.addEventListener('click', async ()=>{
+    try{ setMsg('Google se login ho raha hai...', true); await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); screen.classList.remove('show'); showToast('✅ Login!'); }
+    catch(e){ console.error(e); setMsg('❌ '+(e.code||'Login failed')); }
+  });
+  async function resolveEmail(idv){
+    if(idv.indexOf('@') >= 0) return idv;
+    try{
+      const u = await db.collection('usernames').doc(idv.toLowerCase()).get();
+      if(u.exists && u.data().uid){
+        const ud = await db.collection('users').doc(u.data().uid).get();
+        if(ud.exists && ud.data().email) return ud.data().email;
+      }
+    }catch(e){}
+    return idv;
+  }
+  if(forgotBtn) forgotBtn.addEventListener('click', async ()=>{
+    let em = (idField && idField.value || '').trim();
+    if(!em){ setMsg('Pehle apna email daalein.'); return; }
+    em = await resolveEmail(em);
+    if(em.indexOf('@') < 0){ setMsg('Sahi email address daalein.'); return; }
+    try{ await auth.sendPasswordResetEmail(em); setMsg('✅ Reset link email par bhej diya!', true); }
+    catch(e){ console.error(e); setMsg('❌ '+(e.code||'Failed')); }
+  });
+  if(form) form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const idv = (idField && idField.value || '').trim();
+    const pw = (pwField && pwField.value) || '';
+    if(!idv || !pw){ setMsg('Email/username aur password dono chahiye.'); return; }
+    if(submitBtn) submitBtn.disabled = true;
+    try{
+      if(signupMode){
+        const email = idv.indexOf('@') >= 0 ? idv : '';
+        if(!email){ setMsg('Sign up ke liye email address chahiye.'); if(submitBtn) submitBtn.disabled = false; return; }
+        const nm = ((nameField && nameField.value) || '').trim() || email.split('@')[0];
+        const cred = await auth.createUserWithEmailAndPassword(email, pw);
+        if(cred.user){ try{ await cred.user.updateProfile({displayName:nm}); }catch(_){} }
+        setMsg('✅ Account ban gaya!', true);
+      } else {
+        const email = await resolveEmail(idv);
+        await auth.signInWithEmailAndPassword(email, pw);
+        setMsg('✅ Login!', true);
+      }
+      screen.classList.remove('show');
+    }catch(e){ console.error(e); setMsg('❌ '+(e.code||'Failed')); }
+    if(submitBtn) submitBtn.disabled = false;
+  });
+})();
 
 function hideLoader(){
   const l = document.getElementById("pageLoader"); if(!l) return;
@@ -4866,6 +5118,13 @@ function hideLoader(){
   setTimeout(()=>{ if(l.parentNode) l.remove(); }, 600);
 }
 window.addEventListener("load", ()=>setTimeout(hideLoader, 400));
+setTimeout(hideLoader, 4000);
+
+console.log("✅ UPComedyHub — All loaded with fixes");
+</script>
+</body>
+</html>
+eout(hideLoader, 400));
 setTimeout(hideLoader, 4000);
 
 console.log("✅ UPComedyHub — All loaded with fixes");

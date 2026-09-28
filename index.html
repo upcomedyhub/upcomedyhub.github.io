@@ -1109,6 +1109,78 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .channel-search-item:hover{background:rgba(255,255,255,.06)}
 .channel-footer{text-align:center;padding:30px 20px 40px;background:#111;color:#fff;border-radius:16px;margin:24px 16px 10px}
 .ico{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
+
+/* ============================================================
+   POINT 1 — SAARE OVERLAYS / MODALS FULL SCREEN
+   ============================================================ */
+.settings-overlay,.notifications-overlay,.ig-list-overlay,
+.comments-overlay,.likes-overlay,.share-sheet-overlay,
+.notes-modal-overlay,.msg-search-overlay{
+  align-items:stretch !important;
+  justify-content:stretch !important;
+  padding:0 !important;
+}
+.settings-modal,.notifications-box,.ig-list-box,
+.comments-box,.likes-box,.share-sheet,
+.notes-modal,.msg-search-modal{
+  width:100% !important;
+  max-width:100% !important;
+  height:100% !important;
+  max-height:100% !important;
+  border-radius:0 !important;
+  margin:0 !important;
+  box-shadow:none !important;
+}
+.settings-modal-body,.ig-list-content,.notifications-body,
+.msg-search-results,.comments-list,.likes-list{
+  max-height:none !important;
+}
+/* Full-screen overlay boxes ke andar content ko comfortable width do */
+.settings-modal-body,.ig-list-content,.notifications-body,
+.msg-search-results,.comments-list,.likes-list{
+  padding-left:max(16px, calc((100% - 720px)/2)) !important;
+  padding-right:max(16px, calc((100% - 720px)/2)) !important;
+}
+.notes-modal{padding:20px !important;overflow-y:auto !important}
+
+/* ============================================================
+   POINT 4 — "ALSO FROM COBRA" SETTINGS SECTION
+   ============================================================ */
+.also-from-cobra{margin-top:18px;padding-top:6px}
+.afc-title{font-size:13px;font-weight:800;color:#888;text-transform:uppercase;letter-spacing:.8px;padding:8px 4px 10px}
+.afc-row{display:flex;align-items:center;gap:14px;padding:13px 4px;border-bottom:1px solid #f0f0f0;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.dark-mode .afc-row{border-color:#262626}
+.afc-row:last-child{border-bottom:none}
+.afc-row:hover,.afc-row:active{background:#fafafa}
+.dark-mode .afc-row:hover,.dark-mode .afc-row:active{background:#1f1f1f}
+.afc-ico{width:42px;height:42px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:22px;background:#f3f3f3;border-radius:12px}
+.dark-mode .afc-ico{background:#262626}
+.afc-meta{flex:1;min-width:0}
+.afc-name{font-size:15px;font-weight:700}
+.afc-desc{font-size:12px;color:#888;margin-top:2px}
+
+/* ============================================================
+   POINT 2 — REAL USER PROFILE (full screen)
+   ============================================================ */
+.real-profile{max-width:600px;margin:0 auto;padding:8px 0 40px}
+.rp-top{display:flex;align-items:center;gap:22px;padding:6px 4px 14px}
+.rp-avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;flex:0 0 auto;box-shadow:0 0 0 3px #e63946;background:#eee}
+.rp-stats{display:flex;gap:26px;flex:1;justify-content:space-around}
+.rp-stat{text-align:center}
+.rp-stat b{display:block;font-size:19px;font-weight:800;line-height:1.2}
+.rp-stat span{font-size:12px;color:#888}
+.rp-name{font-size:18px;font-weight:800;padding:0 4px}
+.rp-username{font-size:14px;color:#e63946;font-weight:600;padding:2px 4px 0}
+.rp-bio{font-size:14px;color:#555;padding:8px 4px 0;line-height:1.5}
+.dark-mode .rp-bio{color:#bbb}
+.rp-tabs{display:flex;border-top:1px solid #eee;border-bottom:1px solid #eee;margin-top:16px}
+.dark-mode .rp-tabs{border-color:#262626}
+.rp-tab{flex:1;padding:13px 4px;background:none;border:none;border-bottom:2px solid transparent;font-size:12px;font-weight:800;color:#888;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.6px;transition:.15s}
+.rp-tab.active{color:#111;border-bottom-color:#e63946}
+.dark-mode .rp-tab.active{color:#fff}
+.rp-grid{padding-top:16px;min-height:200px}
+.rp-empty{text-align:center;color:#888;font-size:14px;padding:50px 20px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.rp-empty span{font-size:40px;opacity:.6}
 </style>
 </head>
 <body class="on-home">
@@ -1614,7 +1686,6 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="ig-actions">
         <button type="button" id="editProfileBtn" class="ig-btn">✏️ Edit Profile</button>
         <button type="button" id="shareProfileBtn" class="ig-btn"><svg class="ico"><use href="#i-send"></use></svg> Share Profile</button>
-        <button type="button" id="removeProfilePhotoBtn" class="ig-btn">🗑️ Remove Photo</button>
       </div>
 
       <div id="profileEditCard" class="card profile-edit-card" hidden>
@@ -1633,7 +1704,8 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="ig-posts-tabs">
         <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-camera"></use></svg> Posts</button>
         <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</button>
-        <button type="button" class="ig-tab" data-ig-tab="tagged"><svg class="ico"><use href="#i-user"></use></svg> Tagged</button>
+        <button type="button" class="ig-tab" data-ig-tab="videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</button>
+        <button type="button" class="ig-tab" data-ig-tab="playlist"><svg class="ico"><use href="#i-bookmark"></use></svg> Playlist</button>
       </div>
 
       <div id="igPostsGrid" class="ig-posts-grid grid-empty">
@@ -1851,6 +1923,36 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="donate"><svg class="snr-ico"><use href="#i-coffee2"></use></svg><span class="snr-label">Support &amp; Donate</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="about"><svg class="snr-ico"><use href="#i-info"></use></svg><span class="snr-label">About UPComedyHub</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+
+      <!-- Also from Cobra -->
+      <div class="also-from-cobra">
+        <div class="afc-title">Also from Cobra</div>
+        <div class="afc-row" data-cobra-app="C Chat">
+          <span class="afc-ico">💬</span>
+          <div class="afc-meta"><div class="afc-name">C Chat</div><div class="afc-desc">Chat aur baat-cheet karein</div></div>
+          <svg class="snr-chev"><use href="#i-chevron"></use></svg>
+        </div>
+        <div class="afc-row" data-cobra-app="Cobra AI">
+          <span class="afc-ico">🤖</span>
+          <div class="afc-meta"><div class="afc-name">Cobra AI</div><div class="afc-desc">Smart AI assistant</div></div>
+          <svg class="snr-chev"><use href="#i-chevron"></use></svg>
+        </div>
+        <div class="afc-row" data-cobra-app="C Mail">
+          <span class="afc-ico">📧</span>
+          <div class="afc-meta"><div class="afc-name">C Mail</div><div class="afc-desc">Email bhejein aur paayein</div></div>
+          <svg class="snr-chev"><use href="#i-chevron"></use></svg>
+        </div>
+        <div class="afc-row" data-cobra-app="C Browser">
+          <span class="afc-ico">🌐</span>
+          <div class="afc-meta"><div class="afc-name">C Browser</div><div class="afc-desc">Tez aur safe browsing</div></div>
+          <svg class="snr-chev"><use href="#i-chevron"></use></svg>
+        </div>
+        <div class="afc-row" data-cobra-app="Cobra">
+          <span class="afc-ico">🔍</span>
+          <div class="afc-meta"><div class="afc-name">Cobra</div><div class="afc-desc">Search engine</div></div>
+          <svg class="snr-chev"><use href="#i-chevron"></use></svg>
+        </div>
+      </div>
 
       <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
     </div>
@@ -2663,7 +2765,8 @@ function switchIgTab(t){
   if(!grid) return;
   if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi.</div>'; }
   else if(t==="reels"){ renderIgVideoGrid(Array.from(new Set([...userSavedVideos, ...userLikedVideos])), '<span class="ig-empty-icon">🎬</span>Abhi tak koi reel nahi.'); }
-  else if(t==="tagged"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">👤</span>Abhi koi mention/collaboration nahi.</div>'; }
+  else if(t==="videos"){ renderIgVideoGrid(Object.keys(allVideos), '<span class="ig-empty-icon">📹</span>Abhi koi video nahi.'); }
+  else if(t==="playlist"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video playlist me nahi.'); }
 }
 window.switchIgTab = switchIgTab;
 
@@ -3449,14 +3552,11 @@ async function loadRequests(){
 /* ---------- GENERAL TAB ---------- */
 async function loadGeneral(){
   const out = document.getElementById("peopleSearchResults"); if(!out) return;
-  /* Point 7: General tab ka apna search hata diya gaya. People search ab main Search tab me hai. */
-  out.innerHTML = '<div style="padding:24px 18px;text-align:center">'
-    + '<div style="font-size:40px;margin-bottom:8px">🔍</div>'
-    + '<p class="inbox-empty" style="padding:0 0 14px">Naye logon ko dhundhne ke liye Search tab use karo.</p>'
-    + '<button type="button" id="generalGoSearchBtn" style="border:0;background:#e63946;color:#fff;font-weight:700;padding:11px 20px;border-radius:22px;cursor:pointer">Search kholo</button>'
+  /* Point 5: General tab ka search button hata diya gaya. */
+  out.innerHTML = '<div style="padding:40px 18px;text-align:center">'
+    + '<div style="font-size:40px;margin-bottom:8px">💬</div>'
+    + '<p class="inbox-empty" style="padding:0">Abhi koi general message nahi.</p>'
     + '</div>';
-  const gb = document.getElementById("generalGoSearchBtn");
-  if(gb) gb.addEventListener("click", ()=>switchTab("search"));
 }
 
 /* ---------- SEARCH RESULT (clean row, tap to open profile) ---------- */
@@ -3903,8 +4003,55 @@ async function showUserProfileModal(user){
   t.textContent = "Profile";
   const uid = user.uid;
   const isSelf = currentUser && uid === currentUser.uid;
-  c.innerHTML = '<div style="text-align:center;padding:20px 10px"><img src="'+escapeAttr(avatarFor(user))+'" style="width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 12px;display:block;box-shadow:0 0 0 3px #e63946"><div style="font-size:18px;font-weight:800;margin-bottom:2px">'+escapeHtml(user.displayName||"User")+'</div><div style="font-size:13px;color:#e63946;font-weight:600;margin-bottom:12px">@'+escapeHtml(user.username||"user")+'</div>'+(user.bio?'<div style="font-size:14px;color:#666;padding:0 20px;margin-bottom:16px">'+escapeHtml(user.bio)+'</div>':'')+'<div class="profile-modal-actions" id="profileModalActions">'+(isSelf||!currentUser?'':'<span style="font-size:12px;color:#888">Loading…</span>')+'</div><button type="button" id="closeProfileModal" style="margin-top:6px;padding:10px 20px;border-radius:10px;border:none;background:#efefef;color:#111;font-weight:700;cursor:pointer;font-family:inherit">Close</button></div>';
-  document.getElementById("closeProfileModal").addEventListener("click",()=>ov.classList.remove("show"));
+  c.innerHTML = '<div class="real-profile">'
+    + '<div class="rp-top">'
+    +   '<img class="rp-avatar" src="'+escapeAttr(avatarFor(user))+'">'
+    +   '<div class="rp-stats">'
+    +     '<div class="rp-stat"><b id="rpFollowers">0</b><span>Followers</span></div>'
+    +     '<div class="rp-stat"><b id="rpFollowing">0</b><span>Following</span></div>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="rp-name">'+escapeHtml(user.displayName||"User")+'</div>'
+    + '<div class="rp-username">@'+escapeHtml(user.username||"user")+'</div>'
+    + (user.bio?'<div class="rp-bio">'+escapeHtml(user.bio)+'</div>':'')
+    + '<div class="profile-modal-actions" id="profileModalActions">'+(isSelf||!currentUser?'':'<span style="font-size:12px;color:#888">Loading...</span>')+'</div>'
+    + '<div class="rp-tabs">'
+    +   '<button type="button" class="rp-tab active" data-rp-tab="posts">Posts</button>'
+    +   '<button type="button" class="rp-tab" data-rp-tab="reels">Reels</button>'
+    +   '<button type="button" class="rp-tab" data-rp-tab="videos">Videos</button>'
+    +   '<button type="button" class="rp-tab" data-rp-tab="playlist">Playlist</button>'
+    + '</div>'
+    + '<div class="rp-grid" id="profileModalGrid"><div class="rp-empty"><span>\ud83d\udcf7</span>Abhi koi post nahi.</div></div>'
+    + '</div>';
+
+  // Real profile tabs
+  c.querySelectorAll(".rp-tab").forEach(tab=>tab.addEventListener("click", ()=>{
+    c.querySelectorAll(".rp-tab").forEach(x=>x.classList.remove("active"));
+    tab.classList.add("active");
+    const k = tab.getAttribute("data-rp-tab");
+    const grid = document.getElementById("profileModalGrid");
+    if(!grid) return;
+    const map = {
+      posts:'<span>\ud83d\udcf7</span>Abhi koi post nahi.',
+      reels:'<span>\ud83c\udfac</span>Abhi koi reel nahi.',
+      videos:'<span>\ud83d\udcf9</span>Abhi koi video nahi.',
+      playlist:'<span>\ud83d\udd16</span>Abhi koi playlist nahi.'
+    };
+    grid.innerHTML = '<div class="rp-empty">'+(map[k]||map.posts)+'</div>';
+  }));
+
+  // Followers / Following counts (agar available ho)
+  if(uid){
+    try{
+      const [fSnap, gSnap] = await Promise.all([
+        db.collection("follows").where("to","==",uid).get(),
+        db.collection("follows").where("from","==",uid).get()
+      ]);
+      const rf = document.getElementById("rpFollowers"); if(rf) rf.textContent = fSnap.size;
+      const rg = document.getElementById("rpFollowing"); if(rg) rg.textContent = gSnap.size;
+    }catch(e){ /* ignore */ }
+  }
+
 
   if(isSelf || !currentUser || !uid) return;
   const actions = document.getElementById("profileModalActions");
@@ -4583,6 +4730,12 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(iov) iov.addEventListener("click", e=>{ if(e.target === iov) closeIgList(); });
   const shb = document.getElementById("shareProfileBtn"); if(shb) shb.addEventListener("click", shareUserProfile);
   document.querySelectorAll(".ig-tab").forEach(tab=>tab.addEventListener("click", ()=>switchIgTab(tab.getAttribute("data-ig-tab"))));
+
+  // Also from Cobra — click par "Coming soon"
+  document.querySelectorAll(".afc-row").forEach(row=>row.addEventListener("click", ()=>{
+    const name = row.getAttribute("data-cobra-app") || "App";
+    showToast("🚧 " + name + " — Coming soon!");
+  }));
 
   const ntb = document.getElementById("noteTextInput"); if(ntb) ntb.addEventListener("input", updateNoteCharCount);
   const nep = document.getElementById("noteEmojiPicker");

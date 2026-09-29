@@ -5625,7 +5625,22 @@ console.log("✅ UPComedyHub — All loaded with fixes");
 /* ============================================================
    UPCOMEDYHUB AI ENGINE (CHATBOT + DAILY 2 IMAGE LIMIT)
    ============================================================ */
-const GEMINI_API_KEY = "AQ.Ab8RN6LSMVFtzC7zU4DRD6CR0A_RIz2voHH412rEAW6cy9LqEQ";
+// Global variable (index.html me koi secret key nahi rahegi)
+let GEMINI_API_KEY = "";
+
+// Firebase Firestore se key mangwana
+async function loadAIKey() {
+  try {
+    const doc = await db.collection("admin_config").doc("ai_keys").get();
+    if (doc.exists) {
+      GEMINI_API_KEY = doc.data().key;
+    }
+  } catch (err) {
+    console.error("Key load nahi hui:", err);
+  }
+}
+loadAIKey();
+
 
 const UPCH_AI_BOT = {
   uid: "upch_ai_bot",

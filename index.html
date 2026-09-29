@@ -1145,6 +1145,14 @@ body.fun-panel-open{overflow:hidden}
 .channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
 .dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
 .channel-profile-body{padding-bottom:40px}
+.reels-moved-note{max-width:420px;margin:0 auto;text-align:center;padding:34px 24px;background:#fff;border:1px solid #eee;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.dark-mode .reels-moved-note{background:#141414;border-color:#262626}
+.reels-moved-note .rmn-icon{font-size:44px;margin-bottom:10px}
+.reels-moved-note .rmn-title{font-size:18px;font-weight:900;color:#111;margin:0 0 8px}
+.dark-mode .reels-moved-note .rmn-title{color:#fff}
+.reels-moved-note .rmn-text{font-size:14px;line-height:1.6;color:#666;margin:0 0 18px}
+.dark-mode .reels-moved-note .rmn-text{color:#bbb}
+.reels-moved-note .rmn-btn{background:#e63946;color:#fff;border:none;padding:12px 22px;border-radius:24px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
 .channel-reels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;max-width:900px;margin:0 auto;padding:0 14px}
 .channel-reel-item{border-radius:12px;overflow:hidden;background:#000}
 .channel-reel-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden;cursor:pointer;border-radius:12px}
@@ -1413,18 +1421,6 @@ body.fun-panel-open{overflow:hidden}
 
 <div id="tab-home" class="tab-pane active">
 
-  <section id="fan-of-week">
-    <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
-    <div class="card fan-card">
-      <span class="fan-badge">⭐ STAR FAN</span>
-      <img src="IMG_20260917_172912.jpg" alt="Fan of the Week" class="fan-photo">
-      <div class="fan-name">Aapka Naam Yahan</div>
-      <div class="fan-date">📅 Week of 21 Sept 2026</div>
-      <p class="fan-message">UPComedyHub ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂</p>
-      <div class="fan-selected">— Selected by UPComedyHub Team</div>
-    </div>
-  </section>
-
   <section class="home-coming-soon">
     <div class="container" style="text-align:center;padding:20px 20px 40px">
       <p style="font-size:14px;color:#888">🎬 Naye videos aur reels ab <strong>Channel Profile</strong> me dekhein! Upar wale logo par tap karein. 🔥</p>
@@ -1444,6 +1440,7 @@ body.fun-panel-open{overflow:hidden}
   </div>
   <nav class="channel-profile-nav" id="channelProfileNav">
     <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
+    <a href="#fan-of-week"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</a>
     <a href="#channel-reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</a>
     <a href="#channel-videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</a>
     <a href="#channel-guidelines"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</a>
@@ -1468,6 +1465,18 @@ body.fun-panel-open{overflow:hidden}
         <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
         <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
       </div>
+    </div>
+  </section>
+
+  <section id="fan-of-week">
+    <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
+    <div class="card fan-card">
+      <span class="fan-badge">⭐ STAR FAN</span>
+      <img src="IMG_20260917_172912.jpg" alt="Fan of the Week" class="fan-photo">
+      <div class="fan-name">Aapka Naam Yahan</div>
+      <div class="fan-date">📅 Week of 21 Sept 2026</div>
+      <p class="fan-message">UPComedyHub ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂</p>
+      <div class="fan-selected">— Selected by UPComedyHub Team</div>
     </div>
   </section>
 
@@ -1767,10 +1776,13 @@ body.fun-panel-open{overflow:hidden}
 </div>
 <div id="tab-reels" class="tab-pane">
   <section>
-    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Shorts</h2>
-    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Seedha YouTube se — latest Shorts 🔄</p>
-    <div class="video-grid reels" id="reelsGrid">
-      <div class="card"><p>⏳ Loading Shorts...</p></div>
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
+    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Saare Shorts &amp; Reels ab <strong>Channel Profile</strong> me 🔥</p>
+    <div class="reels-moved-note">
+      <div class="rmn-icon">🎬</div>
+      <p class="rmn-title">Reels ab Channel Profile me hain</p>
+      <p class="rmn-text">Upar wale logo par tap karein aur <strong>Reels</strong> section me saare Shorts &amp; Reels dekhein.</p>
+      <button type="button" class="rmn-btn" onclick="openChannelProfile('channel-reels')">Channel Profile kholein →</button>
     </div>
   </section>
 </div>
@@ -2592,10 +2604,183 @@ function applyTheme(theme, persist=true){
   if(t) t.value = sel;
 }
 
+/* ---------- LANGUAGE / I18N ---------- */
+/* Source text = Hinglish. Keys = exact Hinglish strings. */
+const I18N = {
+en: {
+"Home":"Home","Reels":"Reels","Create":"Create","Fun Zone":"Fun Zone","Profile":"Profile","Admin":"Admin","Search":"Search","Notifications":"Notifications","Settings":"Settings",
+"🔔 Notifications":"🔔 Notifications","✓ Mark all read":"✓ Mark all read","🗑️ Clear old":"🗑️ Clear old",
+"🔥 New Comedy Video Coming Soon!":"🔥 New Comedy Video Coming Soon!","Watch Shorts":"Watch Shorts",
+"🍪 Ye website basic cookies ka use kar sakti hai.":"🍪 This website may use basic cookies.","Got It 👍":"Got It 👍",
+"🎬 Naye videos aur reels ab":"🎬 New videos and reels are now in","Channel Profile":"Channel Profile","me dekhein! Upar wale logo par tap karein. 🔥":"! Tap the logo above. 🔥",
+"Intro":"Intro","Fan of the Week":"Fan of the Week","Videos":"Videos","Community Guidelines":"Community Guidelines","Team":"Team","Gallery":"Gallery","Website Banwani Hai?":"Need a Website?","FAQ":"FAQ","Visitors":"Visitors","Contact":"Contact","Newsletter":"Newsletter","Support":"Support",
+"By Cobra The God":"By Cobra The God","Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥":"Your Laughter, Our Identity — UPComedyHub 🔥","Desi comedy, funny Shorts aur entertainment ka ek hi adda.":"Desi comedy, funny Shorts and entertainment — all in one place.","▶ Watch Shorts":"▶ Watch Shorts","Subscribe":"Subscribe","💬 WhatsApp Channel":"💬 WhatsApp Channel",
+"⭐ STAR FAN":"⭐ STAR FAN","Aapka Naam Yahan":"Your Name Here","📅 Week of 21 Sept 2026":"📅 Week of 21 Sept 2026","UPComedyHub ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂":"UPComedyHub's content is the best! I watch every video and share it with my family. ❤️😂","— Selected by UPComedyHub Team":"— Selected by UPComedyHub Team",
+"Latest Shorts & Reels 🔥":"Latest Shorts & Reels 🔥","⏳ Loading Reels...":"⏳ Loading Reels...","⏳ Loading videos...":"⏳ Loading videos...","Abhi koi Reel nahi. Jald aa rahe hain! 🎬":"No Reels yet. Coming soon! 🎬",
+"Hamara Maqsad":"Our Goal","UPComedyHub ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.":"UPComedyHub is a safe, fun and open platform for everyone. Content that harms or makes anyone feel unsafe is not allowed here.",
+"Hum Kya Zyada Aage Badhate Hain":"What We Promote","Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.":"We give more priority to clean comedy, educational and informative videos, and original, hard-worked content. Such content may be featured or shown higher on Home.",
+"Feed Kaise Kaam Karta Hai":"How the Feed Works","Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.":"Right now the Home feed mostly shows newer content first, and we feature some videos ourselves. We may move any video up or down at our discretion. If we add ranking or recommendations in future, these signals may be used: likes, comments, saves, watch time, and number of reports. This page will be updated when that happens.",
+"Sexual Content Allowed Nahi":"Sexual Content Not Allowed","Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.":"Nudity, sexual or obscene content, and anyone's private/intimate photo or video shared without permission (revenge porn) is strictly not allowed. Such content will be removed immediately and the account may be banned.",
+"Hinsa aur Nuksaan Pahunchana":"Violence and Harm","Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.":"Content showing or promoting violence, threats to beat someone up, dangerous challenges, promotion of weapons or drugs, and cruelty to animals is not allowed.",
+"Khud ko Nuksaan Pahunchana (Self-Harm)":"Self-Harm","Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).":"Content that encourages, shows or teaches suicide or self-harm is not allowed. If you or someone you know is struggling, talk to a trusted person or get help (see the helplines below).",
+"Bachchon ki Suraksha (Zero Tolerance)":"Child Safety (Zero Tolerance)","18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.":"Any content that sexualises or harms children under 18 is strictly not allowed. Such content will be removed as soon as it is found, the account will be banned, and if needed it may be reported to law-enforcement agencies. Do not post children's photos/videos without their parents' permission.",
+"Pareshan Karna aur Nafrat":"Harassment and Hate","Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.":"Threatening, bullying, abusive language, or spreading hate based on religion, caste, gender, region or any identity is not allowed. No one can be targeted even in the name of comedy.",
+"Jhooth, Fraud aur Spam":"Falsehood, Fraud and Spam","Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.":"Fake news, deceptive links, fake giveaways, spam and creating fake accounts using someone's name/photo are not allowed.",
+"Report Kaise Karein":"How to Report","Kisi bhi galat content ko report karne ke liye Settings mein \"Report\" use karein ya":"To report any wrong content, use \"Report\" in Settings or","par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.":"send it to. We look at child-safety or danger reports first.",
+"Rules Todne par Kya Hoga":"What Happens on Breaking Rules","Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.":"Depending on the mistake, we may remove content, give a warning, disable uploading or permanently ban the account. In serious cases action may be taken without warning. If you feel an action was wrong, email us and we will review it again.",
+"Madad ke Liye":"For Help","Agar aap ya koi aur taklelef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.":"If you or anyone else is in distress or danger, contact Tele-MANAS (14416), Childline (1098) or the police (112). For online fraud or cybercrime, complain at cybercrime.gov.in or on 1930.",
+"UPComedyHub ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.":"UPComedyHub's direct aim is to improve your experience — these rules exist so that no user has to face any problem.",
+"Our Team":"Our Team","🎬 Director & Editor":"🎬 Director & Editor","🎭 Actor":"🎭 Actor",
+"UPComedyHub के कुछ खास moments और यादें ❤️😂":"Some special moments and memories of UPComedyHub ❤️😂","UPComedyHub Team ❤️":"UPComedyHub Team ❤️","Comedy Moments 😂":"Comedy Moments 😂","Team Memories ❤️":"Team Memories ❤️",
+"About UPComedyHub":"About UPComedyHub","UPComedyHub ek desi comedy aur entertainment platform hai, jahan hum funny Shorts, comedy videos aur entertaining moments ke through aapke face par smile lane ki koshish karte hain.":"UPComedyHub is a desi comedy and entertainment platform, where we try to bring a smile to your face through funny Shorts, comedy videos and entertaining moments.",
+"📖 Our Story":"📖 Our Story","UPComedyHub ki shuruaat ek simple idea ke saath hui — desi style mein clean, relatable aur entertaining comedy banana jo har kisi ko enjoy ho.":"UPComedyHub started with a simple idea — to make clean, relatable and entertaining comedy in a desi style that everyone can enjoy.",
+"😂 Why UPComedyHub?":"😂 Why UPComedyHub?","Kyunki hansi sabke liye hai! Hamara goal simple hai: relatable situations, desi characters aur funny moments ko entertaining videos mein convert karna.":"Because laughter is for everyone! Our goal is simple: to turn relatable situations, desi characters and funny moments into entertaining videos.",
+"🎯 Our Mission":"🎯 Our Mission","Hamara mission hai ki UPComedyHub ko ek aisa entertainment platform banaya jaye jahan log apna stress bhoolkar kuch moments ke liye enjoy aur smile kar saken.":"Our mission is to make UPComedyHub an entertainment platform where people can forget their stress and enjoy and smile for a few moments.",
+"Frequently Asked Questions":"Frequently Asked Questions","😂 UPComedyHub क्या है?":"😂 What is UPComedyHub?","UPComedyHub एक desi comedy और entertainment platform है, जहाँ आपको funny videos और Shorts देखने को मिलते हैं।":"UPComedyHub is a desi comedy and entertainment platform where you get to watch funny videos and Shorts.",
+"🎬 नए videos कहाँ मिलेंगे?":"🎬 Where will I find new videos?","हमारे latest Shorts और videos देखने के लिए Shorts और Videos sections पर जाएँ।":"Go to the Shorts and Videos sections to watch our latest Shorts and videos.",
+"📱 UPComedyHub को कहाँ follow करें?":"📱 Where can I follow UPComedyHub?","आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।":"You can follow us on YouTube, Instagram and Facebook.",
+"🤝 Collaboration के लिए कैसे contact करें?":"🤝 How do I contact for collaboration?","Collaboration या किसी भी business enquiry के लिए हमें email करें।":"For collaboration or any business enquiry, email us.",
+"📧 UPComedyHub का email क्या है?":"📧 What is UPComedyHub's email?",
+"Contact Us":"Contact Us","📧 Email":"📧 Email","📋 Copy":"📋 Copy","📍":"📍","Location:":"Location:","Uttar Pradesh, India":"Uttar Pradesh, India","✉️ Send Email":"✉️ Send Email","💬 WhatsApp":"💬 WhatsApp","Directly humse WhatsApp par contact karein.":"Contact us directly on WhatsApp.","📋 Copy Number":"📋 Copy Number","🤝 Collaboration":"🤝 Collaboration","Collaboration ya business enquiry ke liye humein email karein.":"For collaboration or business enquiry, email us.","🤝 Collaborate":"🤝 Collaborate","🔗 Website Link":"🔗 Website Link","Ye link kisi ko bhi share karne ke liye copy karein.":"Copy this link to share it with anyone.","🔗 Copy Website Link":"🔗 Copy Website Link",
+"🌐 Professional Website Development":"🌐 Professional Website Development","Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.":"Send an enquiry to get a professional website built for your business, brand, creator profile or project.","💰":"💰","Price:":"Price:","₹10,000 – ₹2,00,000+":"₹10,000 – ₹2,00,000+","Final price website ki requirements aur features ke according decide hoga.":"The final price will be decided according to the website's requirements and features.","👤 Name":"👤 Name","📱 Mobile Number":"📱 Mobile Number","🌐 Website Type":"🌐 Website Type","Select Website Type":"Select Website Type","Business Website":"Business Website","Portfolio Website":"Portfolio Website","Creator / YouTuber Website":"Creator / YouTuber Website","E-commerce Website":"E-commerce Website","Other":"Other","💬 Requirements / Message":"💬 Requirements / Message","🚀 Send Enquiry":"🚀 Send Enquiry","🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.":"🔒 Your contact details will be used only for the enquiry and reply.",
+"Website Visitors":"Website Visitors","🔥 UPComedyHub Family":"🔥 UPComedyHub Family","Ab tak UPComedyHub website par":"So far on the UPComedyHub website","visits record ho chuke hain ❤️":"visits have been recorded ❤️","Aap bhi UPComedyHub family ka hissa hain! 😎":"You are part of the UPComedyHub family too! 😎","YouTube Stats":"YouTube Stats","🔔 UPComedyHub Subscribers":"🔔 UPComedyHub Subscribers","Hamari YouTube Family ❤️":"Our YouTube Family ❤️","Follow UPComedyHub":"Follow UPComedyHub","▶ YouTube":"▶ YouTube","📸 Instagram":"📸 Instagram","👍 Facebook":"👍 Facebook","📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India":"📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India",
+"🔥 Never Miss an Update":"🔥 Never Miss an Update","Stay Connected":"Stay Connected","🔥 UPComedyHub Updates":"🔥 UPComedyHub Updates","Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.":"Subscribe to get email updates about new comedy videos, Shorts and important updates.","📧 Email Address":"📧 Email Address","🚀 Subscribe to Updates":"🚀 Subscribe to Updates","🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose ke liye use kiya jayega.":"🔒 Your email will be used only for UPComedyHub updates and replies.","Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡":"Or join the WhatsApp Channel — the fastest updates! ⚡","💬 Join WhatsApp Channel":"💬 Join WhatsApp Channel",
+"Support UPComedyHub":"Support UPComedyHub","❤️ Aapka Support, Hamari Taakat":"❤️ Your Support, Our Strength","Ek Chai Pilao ☕":"Buy Us a Tea ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"If you like our comedy, support us by buying a small tea. Every contribution helps make new videos! ❤️","Custom":"Custom","💳 Pay ₹100 via UPI":"💳 Pay ₹100 via UPI","UPI ID":"UPI ID","📱 Scan this QR with any UPI app":"📱 Scan this QR with any UPI app","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% secure. Payment comes directly to our UPI.","😂 Haste Raho, Connected Raho!":"😂 Keep Laughing, Keep Connected!","UPComedyHub ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"Support UPComedyHub and subscribe on YouTube for new comedy videos.","🔔 Subscribe Now":"🔔 Subscribe Now",
+"🔒 Privacy Policy":"🔒 Privacy Policy","UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"UPComedyHub respects your privacy. This app/website does not sell or share any personal information without your permission.","UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"UPComedyHub uses the Stats4U visitor counter for visitor count and basic audience measurement. When a page opens, the browser technically sends the IP address, browser identification and viewed page address to Stats4U.","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"According to Stats4U, the IP address is not stored in statistics. It is used to create a salted daily hash for approximate country/city and daily visitor counting. The counter does not set cookies.","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"According to Stats4U, daily statistics are kept for 400 days and processing happens in Poland.","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"Screen information measurement is enabled in this counter. So the counter script can also read three values such as screen resolution, browser window width and pixel ratio.","Stats4U Privacy Policy:":"Stats4U Privacy Policy:","किसी भी सवाल के लिए आप हमसे":"For any question, you can","पर contact कर सकते हैं।":"contact us at.",
+"Aapke dwara upload ki gayi photo, video aur reel third-party storage service (jaise Cloudinary ya Firebase Storage) par store ho sakti hain, taaki wo app mein dikhai ja sakein.":"Photos, videos and reels uploaded by you may be stored on a third-party storage service (such as Cloudinary or Firebase Storage) so that they can be shown in the app.",
+"📋 Terms & Conditions":"📋 Terms & Conditions","UPComedyHub app/website par available content ka purpose entertainment aur information provide karna hai.":"The purpose of content available on the UPComedyHub app/website is to provide entertainment and information.","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"Do not use or redistribute videos, images and other content provided on the app/website for commercial purposes without permission.","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"While using the app/website, it is necessary to respect applicable laws and the rights of others.","Kisi bhi question ke liye contact karein:":"For any question, contact:","© 2026 UPComedyHub. All Rights Reserved.":"© 2026 UPComedyHub. All Rights Reserved.","Made with ❤️ by UPComedyHub":"Made with ❤️ by UPComedyHub","Privacy Policy":"Privacy Policy","Terms & Conditions":"Terms & Conditions",
+"Saare Shorts & Reels ab":"All Shorts & Reels are now in","me 🔥":"🔥","🎬":"🎬","Reels ab Channel Profile me hain":"Reels are now in Channel Profile","Upar wale logo par tap karein aur":"Tap the logo above and open the","section me saare Shorts & Reels dekhein.":"section to see all Shorts & Reels.","Channel Profile kholein →":"Open Channel Profile →",
+"username":"username","🔐 Login karke like, comment, save videos aur message friends.":"🔐 Log in to like, comment, save videos and message friends.","📷":"📷","Posts":"Posts","Followers":"Followers","Following":"Following","@username":"@username","No bio yet.":"No bio yet.","✏️ Edit Profile":"✏️ Edit Profile","Share Profile":"Share Profile","Username":"Username","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 characters. Letters, numbers, underscore (_) and dot (.) only.","Bio":"Bio","Cancel":"Cancel","Save Profile":"Save Profile","Playlist":"Playlist","Abhi koi post nahi. Jald aa raha hai! 🚀":"No posts yet. Coming soon! 🚀","Abhi koi post nahi.":"No posts yet.","Abhi tak koi reel nahi.":"No reels yet.","Abhi koi video nahi.":"No videos yet.","Abhi tak koi video playlist me nahi.":"No videos in playlist yet.",
+"Saare mini games ek hi jagah. Open karke play karo! 🔥":"All mini games in one place. Open and play! 🔥","🎮 Open Fun Zone":"🎮 Open Fun Zone","🧠":"🧠","Comedy Quiz":"Comedy Quiz","Guess the Dialogue":"Guess the Dialogue","⚡":"⚡","Reaction Test":"Reaction Test","🎡":"🎡","Spin Wheel":"Spin Wheel","🤔":"🤔","Emoji Riddle":"Emoji Riddle","🔤":"🔤","Word Scramble":"Word Scramble","🎴":"🎴","Memory Match":"Memory Match","🐍":"🐍","Snake & Ladder":"Snake & Ladder","🎮 Game":"🎮 Game","📷 Change Photo":"📷 Change Photo","Player 😎":"Player 😎","Level 1 • 0 XP":"Level 1 • 0 XP","🔥 Daily Challenge":"🔥 Daily Challenge","Aaj ka challenge load ho raha hai...":"Today's challenge is loading...","🎯 Aaj ka challenge":"🎯 Today's challenge","🏆 Local Leaderboard":"🏆 Local Leaderboard","Is device par top players.":"Top players on this device.","📤 Share My Score":"📤 Share My Score","🏆 Best Quiz:":"🏆 Best Quiz:","⚡ Best Reaction:":"⚡ Best Reaction:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 Game scores are saved on this device.",
+"Admin Panel":"Admin Panel","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 This panel is only for admin. You are authorized.","📊 Live Stats":"📊 Live Stats","Total Users":"Total Users","Comments":"Comments","Likes":"Likes","Saves":"Saves","🔄 Refresh Stats":"🔄 Refresh Stats","❤️ Likes Management (Per Video)":"❤️ Likes Management (Per Video)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"How many and who liked each video — full breakdown.","🔄 Load Likes":"🔄 Load Likes","Fan Name":"Fan Name","Photo URL":"Photo URL","Message":"Message","Date":"Date","💾 Save Fan of Week":"💾 Save Fan of Week","📢 Announcement Bar":"📢 Announcement Bar","Announcement Text":"Announcement Text","Button Text (optional)":"Button Text (optional)","💾 Save Announcement":"💾 Save Announcement","📌 Notice Board (Popup)":"📌 Notice Board (Popup)","Notice Title":"Notice Title","Notice Message":"Notice Message","Show Notice?":"Show Notice?","❌ Hidden":"❌ Hidden","✅ Visible to all users":"✅ Visible to all users","💾 Save Notice":"💾 Save Notice","🎥 Manual Videos Management":"🎥 Manual Videos Management","Video Title":"Video Title","YouTube Video ID":"YouTube Video ID","Category":"Category","🎥 Long Video (Videos tab mein jayegi)":"🎥 Long Video (goes in Videos tab)","🎬 Short (Reels tab mein jayegi)":"🎬 Short (goes in Reels tab)","➕ Add Video":"➕ Add Video","👥 Users List":"👥 Users List","🔄 Load Users":"🔄 Load Users","💬 Recent Comments":"💬 Recent Comments","🔄 Load Comments":"🔄 Load Comments","💬 Comments":"💬 Comments","❤️ Liked by":"❤️ Liked by","Share":"Share","Reel":"Reel","▲":"▲","▼":"▼","1 / 1":"1 / 1",
+"⚙️ Settings":"⚙️ Settings","Language":"Language","Appearance":"Appearance","Community & Messages":"Community & Messages","Liked Videos":"Liked Videos","Saved Videos":"Saved Videos","Mobile Verification":"Mobile Verification","Not verified":"Not verified","Help":"Help","Report":"Report","Support & Donate":"Support & Donate","Also from Cobra":"Also from Cobra","💬":"💬","C Chat":"C Chat","Chat aur baat-cheet karein":"Chat and talk","🤖":"🤖","Cobra AI":"Cobra AI","Smart AI assistant":"Smart AI assistant","📧":"📧","C Mail":"C Mail","Email bhejein aur paayein":"Send and receive email","🌐":"🌐","C Browser":"C Browser","Tez aur safe browsing":"Fast and safe browsing","🔍":"🔍","Search engine":"Search engine","👋 Logout":"👋 Logout",
+"Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.":"Choose your preferred language. The whole app will be shown in this language.","Hinglish":"Hinglish","हिंदी":"हिंदी","English":"English",
+"App ka look chunein — System, Light ya Dark mode.":"Choose the app's look — System, Light or Dark mode.","📱 System":"📱 System","☀️ Light":"☀️ Light","🌙 Dark":"🌙 Dark",
+"Apna mobile number verify karein. Verified number se account secure rahega aur OTP-based login bhi mil jayega.":"Verify your mobile number. A verified number keeps your account secure and also enables OTP-based login.","Mobile Number":"Mobile Number","+91":"+91","📲 Send OTP":"📲 Send OTP","Enter OTP":"Enter OTP","✅ Verify & Save":"✅ Verify & Save","Resend OTP":"Resend OTP","✅":"✅","Number Verified":"Number Verified","Change Number":"Change Number",
+"Kisi bhi help ya sawaal ke liye humse seedha contact karein:":"For any help or question, contact us directly:","WhatsApp Support":"WhatsApp Support","Gmail Support":"Gmail Support",
+"Koi problem, galat content ya suggestion? Humein batayein — aapki report seedha humari Gmail par jayegi.":"Any problem, wrong content or suggestion? Tell us — your report goes straight to our Gmail.","Aapki Report":"Your Report","📧 Send Report via Gmail":"📧 Send Report via Gmail",
+"Messages":"Messages","Primary":"Primary","Requests":"Requests","General":"General","Friend":"Friend","0:00":"0:00","➤":"➤","📝 Set Your Note":"📝 Set Your Note","✨":"✨","😮":"😮","😢":"😢","👍":"👍","↑":"↑","/60":"/60","Share Note":"Share Note",
+"Aapka Content, Aapka Ownership:":"Your Content, Your Ownership:","Jo bhi video, reel, story, photo, comment ya audio aap UPComedyHub par upload karte hain, uska ownership aapka hi rehta hai. Aap confirm karte hain ki wo content aapka original hai, ya aapke paas use upload karne ka poora adhikar hai.":"Whatever video, reel, story, photo, comment or audio you upload on UPComedyHub, its ownership stays yours. You confirm that the content is your original, or that you have full rights to upload it.","Hamein Aap Kya License Dete Hain:":"What License You Give Us:","Upload karke aap UPComedyHub ko ye limited, non-exclusive right dete hain ki wo aapke content ko app aur website par store kare, dikhaye, stream kare aur share kare. Ye right sirf app chalane ke liye hai. Aap jab chahein apna content delete kar sakte hain.":"By uploading, you give UPComedyHub a limited, non-exclusive right to store, display, stream and share your content on the app and website. This right is only to run the app. You can delete your content whenever you want.","Content Kahan Store Hota Hai:":"Where Content Is Stored:","App se upload kiye gaye videos, reels aur photos third-party storage/hosting service par store ho sakte hain. UPComedyHub kuch videos YouTube ke link/embed se bhi dikhata hai. Aise videos YouTube par hi host rehte hain aur unpar YouTube ki apni terms lagti hain.":"Videos, reels and photos uploaded from the app may be stored on a third-party storage/hosting service. UPComedyHub also shows some videos via YouTube link/embed. Such videos are hosted on YouTube and YouTube's own terms apply to them.","Review aur Approval:":"Review and Approval:","Upload kiya gaya content turant public nahi hota. UPComedyHub use pehle check kar sakta hai aur approve ya reject kar sakta hai. Approve hone ke baad bhi rules todne par use kabhi bhi hataya ja sakta hai.":"Uploaded content does not become public instantly. UPComedyHub may check it first and approve or reject it. Even after approval, it may be removed at any time if rules are broken.","Copyright aur Music:":"Copyright and Music:","Kisi aur ka copyrighted gaana, film clip, video ya photo bina permission upload na karein. Sirf apna original content ya wahi content daalein jiska use karne ka aapke paas legal adhikar hai (jaise khud banaya hua ya royalty-free music).":"Do not upload anyone else's copyrighted song, film clip, video or photo without permission. Only upload your own original content or content you have the legal right to use (such as self-made or royalty-free music).","Copyright Complaint aur Takedown:":"Copyright Complaint and Takedown:","Agar aapko lagta hai ki koi content aapke copyright ka ulanghan karta hai, to":"If you feel some content infringes your copyright, then","par apna naam, content ka link aur ownership ka proof bhejein. Hum jaanch karke use jaldi hata denge. Report kiya gaya content jaanch ke dauran bhi hataya ja sakta hai.":"send your name, the content link and proof of ownership to. We will check and remove it quickly. Reported content may be removed even during the review.","Stories:":"Stories:","Stories 24 ghante ke liye dikhti hain, uske baad automatically hat jaati hain. Story ke screenshot ya copy par hamara koi control nahi hai.":"Stories are shown for 24 hours, after which they are removed automatically. We have no control over screenshots or copies of a story.","Ye Sab Allowed Nahi Hai:":"All This Is Not Allowed:","Hinsa ya nafrat phailane wala content, nudity ya sexual content, bachchon ke liye nuksaandeh content, kisi ko dhamki ya pareshan karna, jhoothi ya gumrah karne wali jaankari, spam, kisi ki permission ke bina uski personal photo/video, aur koi bhi illegal content.":"Content spreading violence or hate, nudity or sexual content, content harmful to children, threatening or harassing anyone, false or misleading information, spam, anyone's personal photo/video without permission, and any illegal content.","Umar:":"Age:","UPComedyHub use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam umar ke users apne parents/guardian ki permission se app use karein.":"You must be at least 13 years old to use UPComedyHub. Users under 18 should use the app with their parents'/guardian's permission.","Account aur Content par Action:":"Action on Account and Content:","Rules todne par UPComedyHub bina pehle bataye aapka content hata sakta hai, upload ki suvidha rok sakta hai ya account band kar sakta hai.":"On breaking rules, UPComedyHub may remove your content, disable uploading or ban your account without prior notice.","Content Delete Karna:":"Deleting Content:","Aap apna content delete karne ki request":"You can send a request to delete your content","par bhej sakte hain. Delete hone mein kuch samay lag sakta hai, aur backup/cache se poori tarah hatne mein thoda zyada.":"to. Deletion may take some time, and a bit longer to be fully removed from backup/cache.","Zimmedari ki Seema:":"Limitation of Responsibility:","UPComedyHub users ke content ka creator nahi hai, isliye uski sachchai ya legality ki poori guarantee nahi de sakta. Hum problem ki report milte hi action lene ki koshish karte hain. App \"jaisa hai\" wahi milta hai, aur service beech mein rukne ya data ke kho jaane ki koi guarantee nahi hai.":"UPComedyHub is not the creator of users' content, so it cannot fully guarantee its truthfulness or legality. We try to take action as soon as a problem is reported. The app is provided \"as is\", and there is no guarantee against the service stopping midway or data being lost.","Badlav:":"Changes:","Ye terms samay-samay par update ho sakte hain. Update ke baad app use karte rehne ka matlab hai ki aap naye terms maante hain.":"These terms may be updated from time to time. Continuing to use the app after an update means you accept the new terms."
+},
+hi: {
+"Home":"होम","Reels":"रील्स","Create":"बनाएँ","Fun Zone":"फन ज़ोन","Profile":"प्रोफ़ाइल","Admin":"एडमिन","Search":"खोजें","Notifications":"सूचनाएँ","Settings":"सेटिंग्स",
+"🔔 Notifications":"🔔 सूचनाएँ","✓ Mark all read":"✓ सभी पढ़ी हुई","🗑️ Clear old":"🗑️ पुरानी हटाएँ",
+"🔥 New Comedy Video Coming Soon!":"🔥 नया कॉमेडी वीडियो जल्द आ रहा है!","Watch Shorts":"शॉर्ट्स देखें",
+"🍪 Ye website basic cookies ka use kar sakti hai.":"🍪 यह वेबसाइट बेसिक कुकीज़ का उपयोग कर सकती है।","Got It 👍":"समझ गया 👍",
+"🎬 Naye videos aur reels ab":"🎬 नए वीडियो और रील्स अब","Channel Profile":"चैनल प्रोफ़ाइल","me dekhein! Upar wale logo par tap karein. 🔥":"में देखें! ऊपर वाले लोगो पर टैप करें। 🔥",
+"Intro":"परिचय","Fan of the Week":"सप्ताह का फैन","Videos":"वीडियो","Community Guidelines":"कम्युनिटी गाइडलाइंस","Team":"टीम","Gallery":"गैलरी","Website Banwani Hai?":"वेबसाइट बनवानी है?","FAQ":"सामान्य प्रश्न","Visitors":"विज़िटर","Contact":"संपर्क","Newsletter":"न्यूज़लेटर","Support":"सपोर्ट",
+"By Cobra The God":"By Cobra The God","Aapki Hansi, Hamari Pehchaan — UPComedyHub 🔥":"आपकी हंसी, हमारी पहचान — UPComedyHub 🔥","Desi comedy, funny Shorts aur entertainment ka ek hi adda.":"देसी कॉमेडी, फनी शॉर्ट्स और मनोरंजन का एक ही अड्डा।","▶ Watch Shorts":"▶ शॉर्ट्स देखें","Subscribe":"सब्सक्राइब","💬 WhatsApp Channel":"💬 व्हाट्सएप चैनल",
+"⭐ STAR FAN":"⭐ स्टार फैन","Aapka Naam Yahan":"आपका नाम यहाँ","📅 Week of 21 Sept 2026":"📅 21 सितंबर 2026 का सप्ताह","UPComedyHub ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂":"UPComedyHub का कंटेंट सबसे बेस्ट है! हर वीडियो देखता हूँ और परिवार के साथ शेयर करता हूँ। ❤️😂","— Selected by UPComedyHub Team":"— UPComedyHub टीम द्वारा चुना गया",
+"Latest Shorts & Reels 🔥":"नवीनतम शॉर्ट्स और रील्स 🔥","⏳ Loading Reels...":"⏳ रील्स लोड हो रही हैं...","⏳ Loading videos...":"⏳ वीडियो लोड हो रहे हैं...","Abhi koi Reel nahi. Jald aa rahe hain! 🎬":"अभी कोई रील नहीं। जल्द आ रही हैं! 🎬",
+"Hamara Maqsad":"हमारा मकसद","UPComedyHub ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.":"UPComedyHub एक सुरक्षित, मज़ेदार और सबके लिए खुला प्लेटफ़ॉर्म है। यहाँ ऐसा कंटेंट नहीं चलेगा जो किसी को नुकसान पहुँचाए या असुरक्षित महसूस कराए।",
+"Hum Kya Zyada Aage Badhate Hain":"हम क्या ज़्यादा आगे बढ़ाते हैं","Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.":"हम साफ़-सुथरी कॉमेडी, शैक्षिक और जानकारी देने वाले वीडियो, और ओरिजिनल, मेहनत से बने कंटेंट को ज़्यादा प्राथमिकता देते हैं। ऐसे कंटेंट को फ़ीचर्ड जगह या होम में ऊपर दिखाया जा सकता है।",
+"Feed Kaise Kaam Karta Hai":"फ़ीड कैसे काम करता है","Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.":"अभी होम फ़ीड में ज़्यादातर नया कंटेंट पहले दिखता है, और कुछ वीडियो हम खुद चुनकर (फ़ीचर्ड) दिखाते हैं। हम अपनी मर्ज़ी से किसी वीडियो को ऊपर या नीचे कर सकते हैं। भविष्य में अगर हम रैंकिंग या सिफ़ारिश लगाते हैं, तो ये संकेत इस्तेमाल हो सकते हैं: लाइक्स, कमेंट्स, सेव, देखने का समय, और रिपोर्ट की संख्या। जब ऐसा होगा, यह पेज अपडेट होगा।",
+"Sexual Content Allowed Nahi":"यौन कंटेंट की अनुमति नहीं","Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.":"न्यूडिटी, यौन या अश्लील कंटेंट, और किसी की बिना अनुमति की निजी/अंतरंग फ़ोटो या वीडियो (रिवेंज पोर्न) बिल्कुल मान्य नहीं है। ऐसे कंटेंट को तुरंत हटा दिया जाएगा और अकाउंट बंद हो सकता है।",
+"Hinsa aur Nuksaan Pahunchana":"हिंसा और नुकसान पहुँचाना","Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.":"हिंसा दिखाने या बढ़ावा देने वाला कंटेंट, किसी को मारने-पीटने की धमकी, खतरनाक चैलेंज, हथियार या नशे का बढ़ावा, और जानवरों के साथ क्रूरता मान्य नहीं है।",
+"Khud ko Nuksaan Pahunchana (Self-Harm)":"खुद को नुकसान पहुँचाना","Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).":"आत्महत्या या खुद को चोट पहुँचाने को बढ़ावा देने, दिखाने या सिखाने वाला कंटेंट मान्य नहीं है। अगर आप या आपका कोई जानने वाला तकलीफ़ में है, तो किसी भरोसेमंद इंसान से बात करें या मदद लें (नीचे दिए हेल्पलाइन देखें)।",
+"Bachchon ki Suraksha (Zero Tolerance)":"बच्चों की सुरक्षा (ज़ीरो टॉलरेंस)","18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.":"18 साल से कम उम्र के बच्चों को यौन रूप में दिखाने वाला या उन्हें नुकसान पहुँचाने वाला कोई भी कंटेंट बिल्कुल मान्य नहीं है। ऐसा कंटेंट मिलते ही हटा दिया जाएगा, अकाउंट बंद होगा, और ज़रूरत पड़ने पर इसे कानूनी एजेंसियों को रिपोर्ट किया जा सकता है। बच्चों की फ़ोटो/वीडियो उनके माता-पिता की अनुमति के बिना न डालें।",
+"Pareshan Karna aur Nafrat":"परेशान करना और नफ़रत","Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.":"किसी को धमकाना, बुलिंग, गाली-गलौज, या धर्म, जाति, लिंग, क्षेत्र या किसी भी पहचान के आधार पर नफ़रत फैलाना मान्य नहीं है। कॉमेडी के नाम पर भी किसी को निशाना नहीं बनाया जा सकता।",
+"Jhooth, Fraud aur Spam":"झूठ, धोखा और स्पैम","Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.":"झूठी खबर, धोखा देने वाले लिंक, फ़ेक गिवअवे, स्पैम और किसी का नाम/फ़ोटो इस्तेमाल करके फ़ेक अकाउंट बनाना मान्य नहीं है।",
+"Report Kaise Karein":"रिपोर्ट कैसे करें","Kisi bhi galat content ko report karne ke liye Settings mein \"Report\" use karein ya":"किसी भी गलत कंटेंट को रिपोर्ट करने के लिए सेटिंग्स में \"Report\" इस्तेमाल करें या","par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.":"पर भेजें। बच्चों की सुरक्षा या खतरे वाली रिपोर्ट को हम सबसे पहले देखते हैं।",
+"Rules Todne par Kya Hoga":"नियम तोड़ने पर क्या होगा","Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.":"गलती के हिसाब से हम कंटेंट हटा सकते हैं, चेतावनी दे सकते हैं, अपलोड बंद कर सकते हैं या अकाउंट हमेशा के लिए बंद कर सकते हैं। गंभीर मामलों में बिना चेतावनी के भी कार्रवाई हो सकती है। अगर आपको लगता है कि कार्रवाई गलत हुई, तो ईमेल पर अपनी बात भेजें, हम उसे दोबारा देखेंगे।",
+"Madad ke Liye":"मदद के लिए","Agar aap ya koi aur taklelef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.":"अगर आप या कोई और तकलीफ़ या खतरे में है, तो टेली-मानस (14416), चाइल्डलाइन (1098) या पुलिस (112) से संपर्क करें। ऑनलाइन धोखा या साइबर अपराध के लिए cybercrime.gov.in या 1930 पर शिकायत करें।",
+"UPComedyHub ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.":"UPComedyHub का सीधा मकसद आपकी सुविधा को बेहतर बनाना है — ये नियम इसलिए हैं कि किसी भी यूज़र को किसी भी समस्या का सामना न करना पड़े।",
+"Our Team":"हमारी टीम","🎬 Director & Editor":"🎬 निर्देशक और एडिटर","🎭 Actor":"🎭 अभिनेता",
+"UPComedyHub के कुछ खास moments और यादें ❤️😂":"UPComedyHub के कुछ ख़ास पल और यादें ❤️😂","UPComedyHub Team ❤️":"UPComedyHub टीम ❤️","Comedy Moments 😂":"कॉमेडी के पल 😂","Team Memories ❤️":"टीम की यादें ❤️",
+"About UPComedyHub":"UPComedyHub के बारे में","UPComedyHub ek desi comedy aur entertainment platform hai, jahan hum funny Shorts, comedy videos aur entertaining moments ke through aapke face par smile lane ki koshish karte hain.":"UPComedyHub एक देसी कॉमेडी और मनोरंजन प्लेटफ़ॉर्म है, जहाँ हम फनी शॉर्ट्स, कॉमेडी वीडियो और मनोरंजक पलों के ज़रिए आपके चेहरे पर मुस्कान लाने की कोशिश करते हैं।",
+"📖 Our Story":"📖 हमारी कहानी","UPComedyHub ki shuruaat ek simple idea ke saath hui — desi style mein clean, relatable aur entertaining comedy banana jo har kisi ko enjoy ho.":"UPComedyHub की शुरुआत एक साधारण विचार के साथ हुई — देसी अंदाज़ में साफ़, रिलेटेबल और मनोरंजक कॉमेडी बनाना जो हर किसी को पसंद आए।",
+"😂 Why UPComedyHub?":"😂 UPComedyHub क्यों?","Kyunki hansi sabke liye hai! Hamara goal simple hai: relatable situations, desi characters aur funny moments ko entertaining videos mein convert karna.":"क्योंकि हँसी सबके लिए है! हमारा लक्ष्य सरल है: रिलेटेबल सिचुएशन, देसी किरदार और फनी पलों को मनोरंजक वीडियो में बदलना।",
+"🎯 Our Mission":"🎯 हमारा मिशन","Hamara mission hai ki UPComedyHub ko ek aisa entertainment platform banaya jaye jahan log apna stress bhoolkar kuch moments ke liye enjoy aur smile kar saken.":"हमारा मिशन है कि UPComedyHub को एक ऐसा मनोरंजन प्लेटफ़ॉर्म बनाया जाए जहाँ लोग अपना तनाव भूलकर कुछ पलों के लिए एन्जॉय और मुस्कुरा सकें।",
+"Frequently Asked Questions":"अक्सर पूछे जाने वाले प्रश्न","😂 UPComedyHub क्या है?":"😂 UPComedyHub क्या है?","UPComedyHub एक desi comedy और entertainment platform है, जहाँ आपको funny videos और Shorts देखने को मिलते हैं।":"UPComedyHub एक देसी कॉमेडी और मनोरंजन प्लेटफ़ॉर्म है, जहाँ आपको फनी वीडियो और शॉर्ट्स देखने को मिलते हैं।",
+"🎬 नए videos कहाँ मिलेंगे?":"🎬 नए वीडियो कहाँ मिलेंगे?","हमारे latest Shorts और videos देखने के लिए Shorts और Videos sections पर जाएँ।":"हमारे नवीनतम शॉर्ट्स और वीडियो देखने के लिए शॉर्ट्स और वीडियो सेक्शन पर जाएँ।",
+"📱 UPComedyHub को कहाँ follow करें?":"📱 UPComedyHub को कहाँ फ़ॉलो करें?","आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।":"आप हमें YouTube, Instagram और Facebook पर फ़ॉलो कर सकते हैं।",
+"🤝 Collaboration के लिए कैसे contact करें?":"🤝 कोलैबोरेशन के लिए कैसे संपर्क करें?","Collaboration या किसी भी business enquiry के लिए हमें email करें।":"कोलैबोरेशन या किसी भी बिज़नेस पूछताछ के लिए हमें ईमेल करें।",
+"📧 UPComedyHub का email क्या है?":"📧 UPComedyHub का ईमेल क्या है?",
+"Contact Us":"हमसे संपर्क करें","📧 Email":"📧 ईमेल","📋 Copy":"📋 कॉपी","📍":"📍","Location:":"स्थान:","Uttar Pradesh, India":"उत्तर प्रदेश, भारत","✉️ Send Email":"✉️ ईमेल भेजें","💬 WhatsApp":"💬 व्हाट्सएप","Directly humse WhatsApp par contact karein.":"सीधे हमसे व्हाट्सएप पर संपर्क करें।","📋 Copy Number":"📋 नंबर कॉपी करें","🤝 Collaboration":"🤝 कोलैबोरेशन","Collaboration ya business enquiry ke liye humein email karein.":"कोलैबोरेशन या बिज़नेस पूछताछ के लिए हमें ईमेल करें।","🤝 Collaborate":"🤝 कोलैबोरेट करें","🔗 Website Link":"🔗 वेबसाइट लिंक","Ye link kisi ko bhi share karne ke liye copy karein.":"यह लिंक किसी को भी शेयर करने के लिए कॉपी करें।","🔗 Copy Website Link":"🔗 वेबसाइट लिंक कॉपी करें",
+"🌐 Professional Website Development":"🌐 प्रोफ़ेशनल वेबसाइट डेवलपमेंट","Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.":"अपने बिज़नेस, ब्रांड, क्रिएटर प्रोफ़ाइल या प्रोजेक्ट के लिए प्रोफ़ेशनल वेबसाइट बनवाने के लिए पूछताछ भेजें।","💰":"💰","Price:":"कीमत:","₹10,000 – ₹2,00,000+":"₹10,000 – ₹2,00,000+","Final price website ki requirements aur features ke according decide hoga.":"अंतिम कीमत वेबसाइट की ज़रूरतों और फ़ीचर्स के अनुसार तय होगी।","👤 Name":"👤 नाम","📱 Mobile Number":"📱 मोबाइल नंबर","🌐 Website Type":"🌐 वेबसाइट का प्रकार","Select Website Type":"वेबसाइट का प्रकार चुनें","Business Website":"बिज़नेस वेबसाइट","Portfolio Website":"पोर्टफ़ोलियो वेबसाइट","Creator / YouTuber Website":"क्रिएटर / यूट्यूबर वेबसाइट","E-commerce Website":"ई-कॉमर्स वेबसाइट","Other":"अन्य","💬 Requirements / Message":"💬 ज़रूरतें / संदेश","🚀 Send Enquiry":"🚀 पूछताछ भेजें","🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.":"🔒 आपकी संपर्क जानकारी सिर्फ़ पूछताछ और जवाब के लिए इस्तेमाल की जाएगी।",
+"Website Visitors":"वेबसाइट विज़िटर","🔥 UPComedyHub Family":"🔥 UPComedyHub परिवार","Ab tak UPComedyHub website par":"अब तक UPComedyHub वेबसाइट पर","visits record ho chuke hain ❤️":"विज़िट दर्ज हो चुकी हैं ❤️","Aap bhi UPComedyHub family ka hissa hain! 😎":"आप भी UPComedyHub परिवार का हिस्सा हैं! 😎","YouTube Stats":"YouTube आँकड़े","🔔 UPComedyHub Subscribers":"🔔 UPComedyHub सब्सक्राइबर","Hamari YouTube Family ❤️":"हमारा YouTube परिवार ❤️","Follow UPComedyHub":"UPComedyHub को फ़ॉलो करें","▶ YouTube":"▶ YouTube","📸 Instagram":"📸 Instagram","👍 Facebook":"👍 Facebook","📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India":"📍जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश, भारत",
+"🔥 Never Miss an Update":"🔥 कोई अपडेट न छूटे","Stay Connected":"जुड़े रहें","🔥 UPComedyHub Updates":"🔥 UPComedyHub अपडेट","Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.":"नए कॉमेडी वीडियो, शॉर्ट्स और ज़रूरी अपडेट के बारे में ईमेल पर जानकारी पाने के लिए सब्सक्राइब करें।","📧 Email Address":"📧 ईमेल पता","🚀 Subscribe to Updates":"🚀 अपडेट के लिए सब्सक्राइब करें","🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose ke liye use kiya jayega.":"🔒 आपका ईमेल सिर्फ़ UPComedyHub अपडेट और जवाब के लिए इस्तेमाल किया जाएगा।","Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡":"या फिर व्हाट्सएप चैनल जॉइन करें — सबसे तेज़ अपडेट! ⚡","💬 Join WhatsApp Channel":"💬 व्हाट्सएप चैनल जॉइन करें",
+"Support UPComedyHub":"UPComedyHub को सपोर्ट करें","❤️ Aapka Support, Hamari Taakat":"❤️ आपका सपोर्ट, हमारी ताकत","Ek Chai Pilao ☕":"एक चाय पिलाओ ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"अगर आपको हमारी कॉमेडी पसंद है, तो एक छोटी सी चाय पिलाकर सपोर्ट करें। आपका हर योगदान नए वीडियो बनाने में मदद करता है! ❤️","Custom":"कस्टम","💳 Pay ₹100 via UPI":"💳 UPI से ₹100 भुगतान करें","UPI ID":"UPI आईडी","📱 Scan this QR with any UPI app":"📱 किसी भी UPI ऐप से यह QR स्कैन करें","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% सुरक्षित। भुगतान सीधे हमारे UPI पर आता है।","😂 Haste Raho, Connected Raho!":"😂 हँसते रहो, जुड़े रहो!","UPComedyHub ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"UPComedyHub को सपोर्ट करें और नए कॉमेडी वीडियो के लिए YouTube पर सब्सक्राइब करें।","🔔 Subscribe Now":"🔔 अभी सब्सक्राइब करें",
+"🔒 Privacy Policy":"🔒 प्राइवेसी पॉलिसी","UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"UPComedyHub आपकी प्राइवेसी का सम्मान करता है। यह ऐप/वेबसाइट किसी भी निजी जानकारी को बिना आपकी अनुमति के बेचती या शेयर नहीं करती।","UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"UPComedyHub विज़िटर काउंट और बेसिक ऑडियंस माप के लिए Stats4U विज़िटर काउंटर का उपयोग करती है। पेज खुलने पर ब्राउज़र तकनीकी रूप से IP पता, ब्राउज़र पहचान और देखे गए पेज का पता Stats4U को भेजता है।","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"Stats4U के अनुसार IP पता आँकड़ों में सेव नहीं होता। इसका उपयोग अनुमानित देश/शहर और दैनिक विज़िटर गिनती के लिए salted daily hash बनाने में होता है। काउंटर कुकीज़ सेट नहीं करता।","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"Stats4U के अनुसार दैनिक आँकड़े 400 दिनों तक रखे जाते हैं और प्रोसेसिंग पोलैंड में होती है।","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"इस काउंटर में स्क्रीन जानकारी माप सक्रिय है। इसलिए काउंटर स्क्रिप्ट स्क्रीन रेज़ोल्यूशन, ब्राउज़र विंडो चौड़ाई और पिक्सल अनुपात जैसी तीन वैल्यू भी पढ़ सकती है।","Stats4U Privacy Policy:":"Stats4U प्राइवेसी पॉलिसी:","किसी भी सवाल के लिए आप हमसे":"किसी भी सवाल के लिए आप हमसे","पर contact कर सकते हैं।":"पर संपर्क कर सकते हैं।",
+"Aapke dwara upload ki gayi photo, video aur reel third-party storage service (jaise Cloudinary ya Firebase Storage) par store ho sakti hain, taaki wo app mein dikhai ja sakein.":"आपके द्वारा अपलोड की गई फ़ोटो, वीडियो और रील किसी थर्ड-पार्टी स्टोरेज सेवा (जैसे Cloudinary या Firebase Storage) पर सेव हो सकती हैं, ताकि वे ऐप में दिखाई जा सकें।",
+"📋 Terms & Conditions":"📋 नियम और शर्तें","UPComedyHub app/website par available content ka purpose entertainment aur information provide karna hai.":"UPComedyHub ऐप/वेबसाइट पर उपलब्ध कंटेंट का उद्देश्य मनोरंजन और जानकारी देना है।","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"ऐप/वेबसाइट पर दिए गए वीडियो, इमेज और अन्य कंटेंट को बिना अनुमति के व्यावसायिक उद्देश्य के लिए उपयोग या रीडिस्ट्रीब्यूट न करें।","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"ऐप/वेबसाइट उपयोग करते समय लागू कानूनों और दूसरों के अधिकारों का सम्मान करना ज़रूरी है।","Kisi bhi question ke liye contact karein:":"किसी भी सवाल के लिए संपर्क करें:","© 2026 UPComedyHub. All Rights Reserved.":"© 2026 UPComedyHub. सर्वाधिकार सुरक्षित।","Made with ❤️ by UPComedyHub":"UPComedyHub द्वारा ❤️ से बनाया गया","Privacy Policy":"प्राइवेसी पॉलिसी","Terms & Conditions":"नियम और शर्तें",
+"Saare Shorts & Reels ab":"सारे शॉर्ट्स और रील्स अब","me 🔥":"में 🔥","🎬":"🎬","Reels ab Channel Profile me hain":"रील्स अब चैनल प्रोफ़ाइल में हैं","Upar wale logo par tap karein aur":"ऊपर वाले लोगो पर टैप करें और","section me saare Shorts & Reels dekhein.":"सेक्शन में सारे शॉर्ट्स और रील्स देखें।","Channel Profile kholein →":"चैनल प्रोफ़ाइल खोलें →",
+"username":"उपयोगकर्ता नाम","🔐 Login karke like, comment, save videos aur message friends.":"🔐 लाइक, कमेंट, वीडियो सेव और दोस्तों को मैसेज करने के लिए लॉगिन करें।","📷":"📷","Posts":"पोस्ट","Followers":"फ़ॉलोअर","Following":"फ़ॉलोइंग","@username":"@उपयोगकर्ता","No bio yet.":"अभी कोई बायो नहीं।","✏️ Edit Profile":"✏️ प्रोफ़ाइल एडिट करें","Share Profile":"प्रोफ़ाइल शेयर करें","Username":"उपयोगकर्ता नाम","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 अक्षर। सिर्फ़ अक्षर, अंक, अंडरस्कोर (_) और डॉट (.)।","Bio":"बायो","Cancel":"रद्द करें","Save Profile":"प्रोफ़ाइल सेव करें","Playlist":"प्लेलिस्ट","Abhi koi post nahi. Jald aa raha hai! 🚀":"अभी कोई पोस्ट नहीं। जल्द आ रहा है! 🚀","Abhi koi post nahi.":"अभी कोई पोस्ट नहीं।","Abhi tak koi reel nahi.":"अभी तक कोई रील नहीं।","Abhi koi video nahi.":"अभी कोई वीडियो नहीं।","Abhi tak koi video playlist me nahi.":"अभी तक कोई वीडियो प्लेलिस्ट में नहीं।",
+"Saare mini games ek hi jagah. Open karke play karo! 🔥":"सारे मिनी गेम एक ही जगह। खोलकर खेलो! 🔥","🎮 Open Fun Zone":"🎮 फन ज़ोन खोलें","🧠":"🧠","Comedy Quiz":"कॉमेडी क्विज़","Guess the Dialogue":"डायलॉग पहचानो","⚡":"⚡","Reaction Test":"रिएक्शन टेस्ट","🎡":"🎡","Spin Wheel":"स्पिन व्हील","🤔":"🤔","Emoji Riddle":"इमोजी पहेली","🔤":"🔤","Word Scramble":"वर्ड स्क्रैम्बल","🎴":"🎴","Memory Match":"मेमोरी मैच","🐍":"🐍","Snake & Ladder":"साँप और सीढ़ी","🎮 Game":"🎮 गेम","📷 Change Photo":"📷 फ़ोटो बदलें","Player 😎":"प्लेयर 😎","Level 1 • 0 XP":"लेवल 1 • 0 XP","🔥 Daily Challenge":"🔥 डेली चैलेंज","Aaj ka challenge load ho raha hai...":"आज का चैलेंज लोड हो रहा है...","🎯 Aaj ka challenge":"🎯 आज का चैलेंज","🏆 Local Leaderboard":"🏆 लोकल लीडरबोर्ड","Is device par top players.":"इस डिवाइस पर टॉप प्लेयर।","📤 Share My Score":"📤 मेरा स्कोर शेयर करें","🏆 Best Quiz:":"🏆 बेस्ट क्विज़:","⚡ Best Reaction:":"⚡ बेस्ट रिएक्शन:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 गेम स्कोर इस डिवाइस पर सेव होते हैं।",
+"Admin Panel":"एडमिन पैनल","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 यह पैनल सिर्फ़ एडमिन के लिए है। आप अधिकृत हैं।","📊 Live Stats":"📊 लाइव आँकड़े","Total Users":"कुल यूज़र","Comments":"कमेंट","Likes":"लाइक","Saves":"सेव","🔄 Refresh Stats":"🔄 आँकड़े रीफ़्रेश करें","❤️ Likes Management (Per Video)":"❤️ लाइक मैनेजमेंट (प्रति वीडियो)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"हर वीडियो के लिए कितने और कौन लोगों ने लाइक किया — पूरा ब्यौरा।","🔄 Load Likes":"🔄 लाइक लोड करें","Fan Name":"फैन का नाम","Photo URL":"फ़ोटो URL","Message":"संदेश","Date":"तारीख़","💾 Save Fan of Week":"💾 सप्ताह का फैन सेव करें","📢 Announcement Bar":"📢 अनाउंसमेंट बार","Announcement Text":"अनाउंसमेंट टेक्स्ट","Button Text (optional)":"बटन टेक्स्ट (वैकल्पिक)","💾 Save Announcement":"💾 अनाउंसमेंट सेव करें","📌 Notice Board (Popup)":"📌 नोटिस बोर्ड (पॉपअप)","Notice Title":"नोटिस शीर्षक","Notice Message":"नोटिस संदेश","Show Notice?":"नोटिस दिखाएँ?","❌ Hidden":"❌ छिपा हुआ","✅ Visible to all users":"✅ सभी यूज़र को दिखे","💾 Save Notice":"💾 नोटिस सेव करें","🎥 Manual Videos Management":"🎥 मैनुअल वीडियो मैनेजमेंट","Video Title":"वीडियो शीर्षक","YouTube Video ID":"YouTube वीडियो ID","Category":"श्रेणी","🎥 Long Video (Videos tab mein jayegi)":"🎥 लॉन्ग वीडियो (वीडियो टैब में जाएगी)","🎬 Short (Reels tab mein jayegi)":"🎬 शॉर्ट (रील्स टैब में जाएगी)","➕ Add Video":"➕ वीडियो जोड़ें","👥 Users List":"👥 यूज़र लिस्ट","🔄 Load Users":"🔄 यूज़र लोड करें","💬 Recent Comments":"💬 हाल के कमेंट","🔄 Load Comments":"🔄 कमेंट लोड करें","💬 Comments":"💬 कमेंट","❤️ Liked by":"❤️ लाइक किया","Share":"शेयर","Reel":"रील","▲":"▲","▼":"▼","1 / 1":"1 / 1",
+"⚙️ Settings":"⚙️ सेटिंग्स","Language":"भाषा","Appearance":"रूप","Community & Messages":"कम्युनिटी और मैसेज","Liked Videos":"लाइक किए वीडियो","Saved Videos":"सेव किए वीडियो","Mobile Verification":"मोबाइल वेरिफ़िकेशन","Not verified":"वेरिफ़ाई नहीं","Help":"मदद","Report":"रिपोर्ट","Support & Donate":"सपोर्ट और डोनेट","Also from Cobra":"Cobra की ओर से भी","💬":"💬","C Chat":"C Chat","Chat aur baat-cheet karein":"चैट और बातचीत करें","🤖":"🤖","Cobra AI":"Cobra AI","Smart AI assistant":"स्मार्ट AI सहायक","📧":"📧","C Mail":"C Mail","Email bhejein aur paayein":"ईमेल भेजें और पाएँ","🌐":"🌐","C Browser":"C Browser","Tez aur safe browsing":"तेज़ और सुरक्षित ब्राउज़िंग","🔍":"🔍","Search engine":"सर्च इंजन","👋 Logout":"👋 लॉगआउट",
+"Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.":"अपनी पसंद की भाषा चुनें। पूरी ऐप इसी भाषा में दिखेगी।","Hinglish":"Hinglish","हिंदी":"हिंदी","English":"English",
+"App ka look chunein — System, Light ya Dark mode.":"ऐप का रूप चुनें — सिस्टम, लाइट या डार्क मोड।","📱 System":"📱 सिस्टम","☀️ Light":"☀️ लाइट","🌙 Dark":"🌙 डार्क",
+"Apna mobile number verify karein. Verified number se account secure rahega aur OTP-based login bhi mil jayega.":"अपना मोबाइल नंबर वेरिफ़ाई करें। वेरिफ़ाइड नंबर से अकाउंट सुरक्षित रहेगा और OTP-आधारित लॉगिन भी मिल जाएगा।","Mobile Number":"मोबाइल नंबर","+91":"+91","📲 Send OTP":"📲 OTP भेजें","Enter OTP":"OTP दर्ज करें","✅ Verify & Save":"✅ वेरिफ़ाई और सेव करें","Resend OTP":"OTP दोबारा भेजें","✅":"✅","Number Verified":"नंबर वेरिफ़ाइड","Change Number":"नंबर बदलें",
+"Kisi bhi help ya sawaal ke liye humse seedha contact karein:":"किसी भी मदद या सवाल के लिए हमसे सीधे संपर्क करें:","WhatsApp Support":"व्हाट्सएप सपोर्ट","Gmail Support":"जीमेल सपोर्ट",
+"Koi problem, galat content ya suggestion? Humein batayein — aapki report seedha humari Gmail par jayegi.":"कोई समस्या, गलत कंटेंट या सुझाव? हमें बताएँ — आपकी रिपोर्ट सीधे हमारे जीमेल पर जाएगी।","Aapki Report":"आपकी रिपोर्ट","📧 Send Report via Gmail":"📧 जीमेल से रिपोर्ट भेजें",
+"Messages":"मैसेज","Primary":"प्राइमरी","Requests":"रिक्वेस्ट","General":"जनरल","Friend":"फ्रेंड","0:00":"0:00","➤":"➤","📝 Set Your Note":"📝 अपना नोट सेट करें","✨":"✨","😮":"😮","😢":"😢","👍":"👍","↑":"↑","/60":"/60","Share Note":"नोट शेयर करें",
+"Aapka Content, Aapka Ownership:":"आपका कंटेंट, आपकी ओनरशिप:","Jo bhi video, reel, story, photo, comment ya audio aap UPComedyHub par upload karte hain, uska ownership aapka hi rehta hai. Aap confirm karte hain ki wo content aapka original hai, ya aapke paas use upload karne ka poora adhikar hai.":"आप UPComedyHub पर जो भी वीडियो, रील, स्टोरी, फ़ोटो, कमेंट या ऑडियो अपलोड करते हैं, उसकी ओनरशिप आपकी ही रहती है। आप पुष्टि करते हैं कि वह कंटेंट आपका ओरिजिनल है, या आपके पास उसे अपलोड करने का पूरा अधिकार है।","Hamein Aap Kya License Dete Hain:":"आप हमें क्या लाइसेंस देते हैं:","Upload karke aap UPComedyHub ko ye limited, non-exclusive right dete hain ki wo aapke content ko app aur website par store kare, dikhaye, stream kare aur share kare. Ye right sirf app chalane ke liye hai. Aap jab chahein apna content delete kar sakte hain.":"अपलोड करके आप UPComedyHub को यह सीमित, नॉन-एक्सक्लूसिव अधिकार देते हैं कि वह आपके कंटेंट को ऐप और वेबसाइट पर सेव करे, दिखाए, स्ट्रीम करे और शेयर करे। यह अधिकार सिर्फ़ ऐप चलाने के लिए है। आप जब चाहें अपना कंटेंट डिलीट कर सकते हैं।","Content Kahan Store Hota Hai:":"कंटेंट कहाँ सेव होता है:","App se upload kiye gaye videos, reels aur photos third-party storage/hosting service par store ho sakte hain. UPComedyHub kuch videos YouTube ke link/embed se bhi dikhata hai. Aise videos YouTube par hi host rehte hain aur unpar YouTube ki apni terms lagti hain.":"ऐप से अपलोड किए गए वीडियो, रील और फ़ोटो थर्ड-पार्टी स्टोरेज/होस्टिंग सेवा पर सेव हो सकते हैं। UPComedyHub कुछ वीडियो YouTube लिंक/एम्बेड से भी दिखाता है। ऐसे वीडियो YouTube पर ही होस्ट रहते हैं और उन पर YouTube की अपनी शर्तें लागू होती हैं।","Review aur Approval:":"समीक्षा और स्वीकृति:","Upload kiya gaya content turant public nahi hota. UPComedyHub use pehle check kar sakta hai aur approve ya reject kar sakta hai. Approve hone ke baad bhi rules todne par use kabhi bhi hataya ja sakta hai.":"अपलोड किया गया कंटेंट तुरंत पब्लिक नहीं होता। UPComedyHub उसे पहले जाँच सकता है और स्वीकृत या अस्वीकृत कर सकता है। स्वीकृति के बाद भी नियम तोड़ने पर उसे कभी भी हटाया जा सकता है।","Copyright aur Music:":"कॉपीराइट और म्यूज़िक:","Kisi aur ka copyrighted gaana, film clip, video ya photo bina permission upload na karein. Sirf apna original content ya wahi content daalein jiska use karne ka aapke paas legal adhikar hai (jaise khud banaya hua ya royalty-free music).":"किसी और का कॉपीराइटेड गाना, फ़िल्म क्लिप, वीडियो या फ़ोटो बिना अनुमति अपलोड न करें। सिर्फ़ अपना ओरिजिनल कंटेंट या वही कंटेंट डालें जिसके उपयोग का आपके पास कानूनी अधिकार है (जैसे खुद बनाया हुआ या रॉयल्टी-फ़्री म्यूज़िक)।","Copyright Complaint aur Takedown:":"कॉपीराइट शिकायत और टेकडाउन:","Agar aapko lagta hai ki koi content aapke copyright ka ulanghan karta hai, to":"अगर आपको लगता है कि कोई कंटेंट आपके कॉपीराइट का उल्लंघन करता है, तो","par apna naam, content ka link aur ownership ka proof bhejein. Hum jaanch karke use jaldi hata denge. Report kiya gaya content jaanch ke dauran bhi hataya ja sakta hai.":"पर अपना नाम, कंटेंट का लिंक और ओनरशिप का सबूत भेजें। हम जाँच करके उसे जल्दी हटा देंगे। रिपोर्ट किया गया कंटेंट जाँच के दौरान भी हटाया जा सकता है।","Stories:":"स्टोरीज़:","Stories 24 ghante ke liye dikhti hain, uske baad automatically hat jaati hain. Story ke screenshot ya copy par hamara koi control nahi hai.":"स्टोरीज़ 24 घंटे के लिए दिखती हैं, उसके बाद अपने आप हट जाती हैं। स्टोरी के स्क्रीनशॉट या कॉपी पर हमारा कोई नियंत्रण नहीं है।","Ye Sab Allowed Nahi Hai:":"ये सब मान्य नहीं है:","Hinsa ya nafrat phailane wala content, nudity ya sexual content, bachchon ke liye nuksaandeh content, kisi ko dhamki ya pareshan karna, jhoothi ya gumrah karne wali jaankari, spam, kisi ki permission ke bina uski personal photo/video, aur koi bhi illegal content.":"हिंसा या नफ़रत फैलाने वाला कंटेंट, न्यूडिटी या यौन कंटेंट, बच्चों के लिए नुकसानदेह कंटेंट, किसी को धमकी या परेशान करना, झूठी या भ्रमित करने वाली जानकारी, स्पैम, किसी की अनुमति के बिना उसकी निजी फ़ोटो/वीडियो, और कोई भी अवैध कंटेंट।","Umar:":"उम्र:","UPComedyHub use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam umar ke users apne parents/guardian ki permission se app use karein.":"UPComedyHub उपयोग करने के लिए आपकी उम्र कम से कम 13 साल होनी चाहिए। 18 साल से कम उम्र के यूज़र अपने माता-पिता/अभिभावक की अनुमति से ऐप उपयोग करें।","Account aur Content par Action:":"अकाउंट और कंटेंट पर कार्रवाई:","Rules todne par UPComedyHub bina pehle bataye aapka content hata sakta hai, upload ki suvidha rok sakta hai ya account band kar sakta hai.":"नियम तोड़ने पर UPComedyHub बिना पहले बताए आपका कंटेंट हटा सकता है, अपलोड की सुविधा रोक सकता है या अकाउंट बंद कर सकता है।","Content Delete Karna:":"कंटेंट डिलीट करना:","Aap apna content delete karne ki request":"आप अपना कंटेंट डिलीट करने की रिक्वेस्ट","par bhej sakte hain. Delete hone mein kuch samay lag sakta hai, aur backup/cache se poori tarah hatne mein thoda zyada.":"पर भेज सकते हैं। डिलीट होने में कुछ समय लग सकता है, और बैकअप/कैश से पूरी तरह हटने में थोड़ा ज़्यादा।","Zimmedari ki Seema:":"ज़िम्मेदारी की सीमा:","UPComedyHub users ke content ka creator nahi hai, isliye uski sachchai ya legality ki poori guarantee nahi de sakta. Hum problem ki report milte hi action lene ki koshish karte hain. App \"jaisa hai\" wahi milta hai, aur service beech mein rukne ya data ke kho jaane ki koi guarantee nahi hai.":"UPComedyHub यूज़र के कंटेंट का निर्माता नहीं है, इसलिए उसकी सच्चाई या वैधता की पूरी गारंटी नहीं दे सकता। हम समस्या की रिपोर्ट मिलते ही कार्रवाई करने की कोशिश करते हैं। ऐप \"जैसा है\" वैसा मिलता है, और सेवा बीच में रुकने या डेटा खो जाने की कोई गारंटी नहीं है।","Badlav:":"बदलाव:","Ye terms samay-samay par update ho sakte hain. Update ke baad app use karte rehne ka matlab hai ki aap naye terms maante hain.":"ये शर्तें समय-समय पर अपडेट हो सकती हैं। अपडेट के बाद ऐप उपयोग करते रहने का मतलब है कि आप नई शर्तें मानते हैं।"
+}
+};
+
+const __i18nOrig = new WeakMap();
+const __i18nNodes = new Set();
+function __i18nDict(){
+  const lang = localStorage.getItem("siteLanguage") || "en";
+  if(lang === "hi") return {};              /* Hinglish = source text, no translation */
+  if(lang === "simple-hi") return I18N.hi;  /* Hindi (Devanagari) */
+  return I18N.en;                           /* English (default) */
+}
+function applyI18n(){
+  const dict = __i18nDict();
+  /* restore previously translated text nodes */
+  __i18nNodes.forEach(n=>{ if(__i18nOrig.has(n)) n.nodeValue = __i18nOrig.get(n); });
+  __i18nNodes.clear();
+  if(!Object.keys(dict).length) return;
+  /* translate text nodes */
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  let node;
+  while((node = walker.nextNode())){
+    const raw = node.nodeValue;
+    if(!raw) continue;
+    const key = raw.trim();
+    if(!key) continue;
+    if(dict[key] !== undefined){
+      __i18nOrig.set(node, raw);
+      __i18nNodes.add(node);
+      node.nodeValue = raw.replace(key, dict[key]);
+    }
+  }
+  /* translate attributes */
+  document.querySelectorAll("[placeholder]").forEach(el=>{
+    if(!el.hasAttribute("data-i18n-ph")) el.setAttribute("data-i18n-ph", el.getAttribute("placeholder")||"");
+    const src = el.getAttribute("data-i18n-ph");
+    const k = (src||"").trim();
+    el.setAttribute("placeholder", dict[k]!==undefined ? dict[k] : src);
+  });
+  document.querySelectorAll("[title]").forEach(el=>{
+    if(!el.hasAttribute("data-i18n-tt")) el.setAttribute("data-i18n-tt", el.getAttribute("title")||"");
+    const src = el.getAttribute("data-i18n-tt");
+    const k = (src||"").trim();
+    el.setAttribute("title", dict[k]!==undefined ? dict[k] : src);
+  });
+  /* page title */
+  const __lang = localStorage.getItem("siteLanguage") || "en";
+  const __TITLES = {en:"UPComedyHub \u2014 Your Laughter, Our Identity \ud83d\udd25", "simple-hi":"UPComedyHub \u2014 \u0906\u092a\u0915\u0940 \u0939\u0901\u0938\u0940, \u0939\u092e\u093e\u0930\u0940 \u092a\u0939\u091a\u093e\u0928 \ud83d\udd25", hi:"UPComedyHub \u2014 Aapki Hansi, Hamari Pehchaan \ud83d\udd25"};
+  document.title = __TITLES[__lang] || __TITLES.en;
+}
+window.applyI18n = applyI18n;
+
+/* Translate a single dynamic string (Hinglish source key) by current language. */
+function __t(s){
+  const lang = localStorage.getItem("siteLanguage") || "en";
+  if(lang === "hi") return s;                       /* Hinglish = source */
+  const d = (lang === "simple-hi") ? I18N.hi : I18N.en;
+  return (d && d[s] !== undefined) ? d[s] : s;
+}
+window.__t = __t;
+
 /* ---------- LANGUAGE ---------- */
 function setLanguage(lang){
   localStorage.setItem("siteLanguage", lang);
   document.documentElement.lang = (lang==="en") ? "en" : "hi";
+  applyI18n();
   showToast(lang==="en"?"✅ Language: English":(lang==="simple-hi"?"✅ भाषा: हिंदी":"✅ Language: Hinglish"));
 }
 
@@ -3004,20 +3189,29 @@ function switchIgTab(t){
   document.querySelectorAll(".ig-tab").forEach(x=>x.classList.toggle("active", x.getAttribute("data-ig-tab")===t));
   const grid = document.getElementById("igPostsGrid");
   if(!grid) return;
-  if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>Abhi koi post nahi.</div>'; }
-  else if(t==="reels"){ renderIgVideoGrid(Array.from(new Set([...userSavedVideos, ...userLikedVideos])), '<span class="ig-empty-icon">🎬</span>Abhi tak koi reel nahi.'); }
-  else if(t==="videos"){ renderIgVideoGrid(Object.keys(allVideos), '<span class="ig-empty-icon">📹</span>Abhi koi video nahi.'); }
-  else if(t==="playlist"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video playlist me nahi.'); }
+  /* User profile me sirf apna content dikhta hai — channel ke fetched videos nahi. */
+  if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>'+__t("Abhi koi post nahi.")+'</div>'; }
+  else if(t==="reels"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🎬</span>'+__t("Abhi tak koi reel nahi.")+'</div>'; }
+  else if(t==="videos"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📹</span>'+__t("Abhi koi video nahi.")+'</div>'; }
+  else if(t==="playlist"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🔖</span>'+__t("Abhi tak koi video playlist me nahi.")+'</div>'; }
 }
 window.switchIgTab = switchIgTab;
 
 /* ---------- YOUTUBE REELS + VIDEOS ---------- */
+/* Reels/Shorts ab sirf Channel Profile me dikhte hain (Reels tab me nahi) */
+function buildChannelReelItem(vid, title, thumb){
+  const el = document.createElement("div");
+  el.className = "channel-reel-item";
+  el.setAttribute("data-video-id", vid);
+  el.innerHTML = '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
+  return el;
+}
 (function fetchReels(){
   const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
-  const grid = document.getElementById("reelsGrid");
+  const grid = document.getElementById("channelReelsGrid");
   if(!grid) return;
-  grid.innerHTML = '<div class="card"><p>⏳ Loading Shorts...</p></div>';
+  grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
   fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="+CHANNEL_ID+"&key="+API_KEY)
     .then(r=>r.json())
     .then(data=>{
@@ -3032,74 +3226,44 @@ window.switchIgTab = switchIgTab;
       data.items.forEach(item=>{
         const vid = item.snippet.resourceId.videoId;
         const title = item.snippet.title;
-        const pub = item.snippet.publishedAt;
         allVideos[vid] = {title, category:"shorts"};
         const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
-        const dateStr = pub ? new Date(pub).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"}) : "";
-        const card = document.createElement("div");
-        card.className = "video-card";
-        card.setAttribute("data-video-id", vid);
-        card.setAttribute("data-category","shorts");
-        card.innerHTML = '<div class="video-thumb reel" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(title)+'</h3><div class="video-date">📅 '+escapeHtml(dateStr)+'</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
-        grid.appendChild(card);
+        grid.appendChild(buildChannelReelItem(vid, title, thumb));
       });
       refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
       appendManualShortsToReels();
-      syncHomeShorts();
     })
-    .catch(err=>{ console.error(err); grid.innerHTML=""; appendManualShortsToReels(); syncHomeShorts(); });
+    .catch(err=>{ console.error(err); grid.innerHTML=""; appendManualShortsToReels(); });
 })();
 
 async function appendManualShortsToReels(){
   try{
-    const grid = document.getElementById("reelsGrid"); if(!grid) return;
+    const grid = document.getElementById("channelReelsGrid"); if(!grid) return;
     const snap = await db.collection("manualVideos").where("category","==","shorts").get();
-    if(snap.empty) return;
+    if(snap.empty){ if(!grid.querySelector(".channel-reel-item")) grid.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>'; return; }
     const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0));
-    const rendered = new Set(Array.from(grid.querySelectorAll('.video-card[data-manual="1"]')).map(c=>c.getAttribute("data-video-id")));
+    const rendered = new Set(Array.from(grid.querySelectorAll('.channel-reel-item')).map(c=>c.getAttribute("data-video-id")));
+    const empty = grid.querySelector(".ig-reels-empty"); if(empty) empty.remove();
     docs.forEach(doc=>{
       const d = doc.data(); const vid = d.videoId;
       if(!vid || rendered.has(vid)) return;
       allVideos[vid] = {title:d.title, category:"shorts", _manual:true};
       const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-      const card = document.createElement("div");
-      card.className = "video-card"; card.setAttribute("data-video-id",vid); card.setAttribute("data-category","shorts"); card.setAttribute("data-manual","1");
-      card.innerHTML = '<div class="video-thumb reel" data-video-id="'+vid+'" data-original-img="'+escapeAttr(thumb)+'"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(d.title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div><div class="video-info"><h3>'+escapeHtml(d.title)+'</h3><div class="video-date">🎬 Short</div><div class="video-likes-link" data-vid="'+vid+'"></div><div class="video-actions"></div></div>';
-      grid.appendChild(card);
+      grid.appendChild(buildChannelReelItem(vid, d.title, thumb));
     });
     refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
-    syncHomeShorts();
   }catch(e){ console.error(e); }
 }
 
 async function refreshManualShorts(){
-  document.querySelectorAll('#reelsGrid .video-card[data-manual="1"]').forEach(c=>c.remove());
+  document.querySelectorAll('#channelReelsGrid .channel-reel-item').forEach(c=>c.remove());
   Object.keys(allVideos).forEach(k=>{ if(allVideos[k]?. _manual) delete allVideos[k]; });
   await appendManualShortsToReels();
 }
 
-/* Mirror the Reels/Shorts into the Home feed (Point D) */
-function syncChannelReels(){
-  const src = document.getElementById("reelsGrid");
-  const dst = document.getElementById("channelReelsGrid");
-  if(!src || !dst) return;
-  dst.innerHTML = "";
-  const cards = src.querySelectorAll(".video-card");
-  if(!cards.length){ dst.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>'; return; }
-  cards.forEach(c=>{
-    const vid = c.getAttribute("data-video-id") || "";
-    const img = c.querySelector(".video-thumb img");
-    const thumb = img ? (img.getAttribute("data-original-img") || img.src || "") : "";
-    const title = (c.querySelector(".video-info h3")?.textContent || "Reel").trim();
-    const el = document.createElement("div");
-    el.className = "channel-reel-item";
-    el.setAttribute("data-video-id", vid);
-    el.innerHTML = '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
-    dst.appendChild(el);
-  });
-  if(window.refreshAllVideoActions) refreshAllVideoActions();
-  if(window.refreshLikesLinks) refreshLikesLinks();
-}
+/* Reels/Shorts ab seedha Channel Profile (#channelReelsGrid) me render hote hain.
+   Ye alias backward-compat ke liye rakha gaya hai. */
+function syncChannelReels(){ /* no-op: reels already render into channelReelsGrid */ }
 window.syncChannelReels = syncChannelReels;
 window.syncHomeShorts = syncChannelReels;
 
@@ -4941,8 +5105,8 @@ window.addEventListener("DOMContentLoaded",()=>{
     document.querySelectorAll("#appearanceOptList [data-theme]").forEach(b=>b.classList.toggle("active", b.getAttribute("data-theme")===cur));
   }
   function syncLangUI(){
-    const cur = localStorage.getItem("siteLanguage") || "hi";
-    const lv = document.getElementById("languageValue"); if(lv) lv.textContent = LANG_LABELS[cur] || "Hinglish";
+    const cur = localStorage.getItem("siteLanguage") || "en";
+    const lv = document.getElementById("languageValue"); if(lv) lv.textContent = LANG_LABELS[cur] || "English";
     document.querySelectorAll("#languageOptList [data-lang]").forEach(b=>b.classList.toggle("active", b.getAttribute("data-lang")===cur));
   }
   window.syncThemeUI = syncThemeUI; window.syncLangUI = syncLangUI;
@@ -4955,8 +5119,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(mq.addEventListener) mq.addEventListener("change", sync); else if(mq.addListener) mq.addListener(sync);
   }
 
-  const savedLang = localStorage.getItem("siteLanguage") || "hi";
+  const savedLang = localStorage.getItem("siteLanguage") || "en";
   syncLangUI();
+  if(window.applyI18n) applyI18n();
 
   const o = document.getElementById("settingsOpenBtn"), c = document.getElementById("settingsClose"), ov = document.getElementById("settingsOverlay"), cm = document.getElementById("communityBtn");
   function settingsGoHome(){

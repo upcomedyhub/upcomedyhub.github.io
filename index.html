@@ -2062,6 +2062,18 @@ body.fun-panel-open{overflow:hidden}
     </div>
 
     <div class="admin-card">
+      <h3>🤖 AI Settings (Gemini Key)</h3>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Yahan apni Gemini API key save karo. Yeh <b>Firebase Firestore</b> (<code>admin_config/ai_keys</code>) me securely store hoti hai — code me kabhi hardcode nahi hoti. Key <b>Google AI Studio</b> se banao (jo <b>AIza</b> se shuru hoti hai).</p>
+      <label class="admin-label">Gemini API Key</label>
+      <input type="text" class="admin-input" id="adminAIKey" placeholder="AIza..." autocomplete="off" spellcheck="false">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
+        <button type="button" class="admin-btn green" id="saveAIKeyBtn">💾 Save AI Key</button>
+        <button type="button" class="admin-btn" id="testAIKeyBtn">🔍 Test AI</button>
+      </div>
+      <div id="adminAIKeyStatus" style="margin-top:12px;font-size:13px;color:#888"></div>
+    </div>
+
+    <div class="admin-card">
       <h3>👥 Users List</h3>
       <button type="button" class="admin-btn" id="loadUsersBtn">🔄 Load Users</button>
       <div id="adminUsersList" style="margin-top:16px"></div>
@@ -4169,6 +4181,17 @@ async function openChat(friend){
   document.getElementById("chatFriendUsername").textContent = "@"+(friend.username||"user");
   const st = document.getElementById("chatUserStatus"); if(st) st.textContent = "";
   if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
+
+  // ---- AI Assistant: local history (no Firestore listener, messages wipe na ho) ----
+  if(friend.uid === "upch_ai_bot"){
+    const aiBox = document.getElementById("chatMessages");
+    if(aiBox) aiBox.innerHTML = "";
+    if(typeof renderAIHistory === "function") renderAIHistory();
+    if(typeof loadAIKey === "function") loadAIKey();
+    updateComposerButtons();
+    return;
+  }
+
   const convRef = db.collection("conversations").doc(currentConversationId);
   try{
     await convRef.set({members:[currentUser.uid,friend.uid].sort(),lastRead:{[currentUser.uid]:firebase.firestore.FieldValue.serverTimestamp()}},{merge:true});
@@ -5502,6 +5525,32 @@ window.addEventListener("DOMContentLoaded",()=>{
   });
   const rsBtn = document.getElementById("refreshStats"); if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
 
+  // ---- AI Key admin controls (key Firebase Firestore me store hoti hai, code me nahi) ----
+  const sakBtn = document.getElementById("saveAIKeyBtn");
+  if(sakBtn) sakBtn.addEventListener("click", async ()=>{
+    const inp = document.getElementById("adminAIKey");
+    const st = document.getElementById("adminAIKeyStatus");
+    const k = ((inp && inp.value) || "").trim();
+    if(!/^AIza/.test(k)){ if(st) st.textContent = "❌ Key 'AIza' se shuru honi chahiye (Google AI Studio se banao)."; return; }
+    if(st) st.textContent = "⏳ Saving...";
+    try{
+      await db.collection("admin_config").doc("ai_keys").set({ key: k, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+      if(st) st.textContent = "✅ Key Firebase me save ho gayi! Ab AI assistant kaam karega.";
+      if(inp) inp.value = "";
+      if(typeof loadAIKey === "function") await loadAIKey(true);
+      showToast("✅ AI key saved");
+    }catch(e){ console.error(e); if(st) st.textContent = "❌ Save fail: " + (e.code || e.message) + " (Firestore rules check karo)"; }
+  });
+  const takBtn = document.getElementById("testAIKeyBtn");
+  if(takBtn) takBtn.addEventListener("click", async ()=>{
+    const st = document.getElementById("adminAIKeyStatus");
+    if(st) st.textContent = "⏳ Testing AI...";
+    try{
+      const reply = await callGeminiText("Say hi in one short friendly line.");
+      if(st) st.textContent = "🤖 " + reply;
+    }catch(e){ if(st) st.textContent = "❌ " + (e.message || e); }
+  });
+
   initCommunityUI();
 
   setTimeout(()=>{ loadFanOfWeek(); loadAnnouncement(); loadNotice(); loadManualVideos(); loadAllLikes(); }, 1500);
@@ -5623,34 +5672,19 @@ setTimeout(hideLoader, 4000);
 
 console.log("✅ UPComedyHub — All loaded with fixes");
 /* ============================================================
-   UPCOMEDYHUB AI ENGINE (CHATBOT + DAILY 2 IMAGE LIMIT)
+   UPCOMEDYHUB AI ENGINE  (v2 — Fixed)
+   ------------------------------------------------------------
+   ✔ API key code me HARDCODE nahi — sirf Firebase Firestore
+     (admin_config/ai_keys) se load hoti hai.
+   ✔ Gemini model list dynamically detect hoti hai (future-proof).
+   ✔ AI chat history localStorage me persist hoti hai.
+   ✔ Roz 2 free image quota (Firestore + localStorage fallback).
+   ✔ Image: AI Horde (free, no signup, no key) — reliable image gen.
    ============================================================ */
-// Gemini API key (Google AI Studio se). Default key yahan set hai.
-const DEFAULT_GEMINI_KEY = "AQ.Ab8RN6IoRzq95naVKUTBNQUKdBwyAe1IuELLNOe6_9sja5eEvQ";
-let GEMINI_API_KEY = DEFAULT_GEMINI_KEY;
 
-// (Optional) Firebase Firestore se key override.
-// NOTE: Firestore me abhi purani (broken) key padi hai, isliye default key use hoti hai.
-// Nayi valid key Firestore (admin_config/ai_keys) me daalne par yeh automatically override kar lega.
-const STALE_GEMINI_KEY = "AQ.Ab8RN6LSMVFtzC7zU4DRD6CR0A_RIz2voHH412rEAW6cy9LqEQ";
-async function loadAIKey() {
-  try {
-    const doc = await db.collection("admin_config").doc("ai_keys").get();
-    if (doc.exists) {
-      const k = String(doc.data().key || "").trim();
-      if (k && k !== STALE_GEMINI_KEY && /^(AIza|AQ\.)/.test(k) && k.length >= 30) {
-        GEMINI_API_KEY = k;
-      }
-    }
-  } catch (err) {
-    console.error("Key load nahi hui:", err);
-  }
-}
-loadAIKey();
-
-
+const AI_BOT_UID = "upch_ai_bot";
 const UPCH_AI_BOT = {
-  uid: "upch_ai_bot",
+  uid: AI_BOT_UID,
   displayName: "UPComedyHub AI Assistant 🤖",
   username: "ai_assistant",
   photoURL: "1000059751.png"
@@ -5680,15 +5714,154 @@ const UPCH_SYSTEM_PROMPT = `
 - हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।
 `;
 
-// Aaj ki date nikalne ka helper
-function getTodayDateStr() {
-  return new Date().toISOString().slice(0, 10);
+// ---------- KEY MANAGEMENT (Firestore only — koi hardcoded key nahi) ----------
+let GEMINI_API_KEY = "";
+let aiKeyState = "loading"; // loading | ok | missing | invalid | blocked
+let aiKeyLoadedOnce = false;
+
+async function loadAIKey(force){
+  if(!force && aiKeyLoadedOnce && aiKeyState === "ok" && GEMINI_API_KEY) return GEMINI_API_KEY;
+  aiKeyLoadedOnce = true;
+  try{
+    const doc = await db.collection("admin_config").doc("ai_keys").get();
+    if(!doc.exists){ aiKeyState = "missing"; GEMINI_API_KEY = ""; return ""; }
+    const data = doc.data() || {};
+    let k = "";
+    if(Array.isArray(data.keys)){
+      k = String(data.keys.find(x => x && /^AIza/.test(String(x).trim())) || "").trim();
+    }
+    if(!k && data.key) k = String(data.key).trim();
+    if(!k){ aiKeyState = "missing"; GEMINI_API_KEY = ""; return ""; }
+    if(!/^AIza/.test(k)){ aiKeyState = "invalid"; GEMINI_API_KEY = ""; return ""; }
+    GEMINI_API_KEY = k;
+    aiKeyState = "ok";
+    return k;
+  }catch(err){
+    console.error("AI key load nahi hui:", err);
+    aiKeyState = "blocked";
+    GEMINI_API_KEY = "";
+    return "";
+  }
 }
 
-// Daily Photo Quota Checker (Firestore + localStorage fallback)
+function aiKeyHelpMessage(){
+  if(aiKeyState === "blocked")
+    return "⚠️ अरे भाई, AI key Firebase se load नहीं हो पाई। Firestore rules में <code>admin_config/ai_keys</code> को read allow करो, फिर Admin Panel → 🤖 AI Settings से key save करो।";
+  if(aiKeyState === "invalid")
+    return "⚠️ भाई, Firebase में जो AI key saved है वो valid नहीं लगती। Google AI Studio से नई key (जो <b>AIza</b> से शुरू होती है) बनाकर Admin Panel → 🤖 AI Settings में save करो।";
+  return "⚠️ भाई, AI key अभी set नहीं हुई है। Admin Panel → 🤖 AI Settings में अपनी Gemini API key save करो (ये Firebase में store होगी, code में नहीं)।";
+}
+
+// ---------- GEMINI MODEL DISCOVERY (future-proof) ----------
+const UPCH_GEMINI_PREFERRED = [
+  "gemini-2.5-flash",
+  "gemini-2.0-flash",
+  "gemini-2.0-flash-lite",
+  "gemini-flash-latest",
+  "gemini-flash-lite-latest",
+  "gemini-2.5-flash-lite"
+];
+let geminiModelsCache = null;
+
+async function discoverGeminiModels(){
+  if(geminiModelsCache && geminiModelsCache.length) return geminiModelsCache;
+  try{
+    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
+      headers: { "x-goog-api-key": GEMINI_API_KEY }
+    });
+    if(!res.ok) return [];
+    const data = await res.json();
+    const list = (data.models || [])
+      .filter(m => (m.supportedGenerationMethods || []).includes("generateContent"))
+      .map(m => String(m.name || "").replace(/^models\//, ""))
+      .filter(n => n && !/embedding|aqa|imagen|image|vision|veo/i.test(n));
+    list.sort((a, b) => (b.includes("flash") ? 1 : 0) - (a.includes("flash") ? 1 : 0));
+    geminiModelsCache = list;
+    return list;
+  }catch(e){ return []; }
+}
+
+// ---------- GEMINI TEXT CALL ----------
+async function callGeminiText(text){
+  await loadAIKey();
+  if(!GEMINI_API_KEY) return aiKeyHelpMessage();
+
+  const discovered = await discoverGeminiModels();
+  const models = [...new Set([...UPCH_GEMINI_PREFERRED, ...discovered])];
+  let lastErr = "";
+
+  for(const model of models){
+    try{
+      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_API_KEY },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: UPCH_SYSTEM_PROMPT }] },
+          contents: [{ role: "user", parts: [{ text: text }] }],
+          generationConfig: { temperature: 0.9, topP: 0.95, maxOutputTokens: 1024 }
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if(!res.ok){
+        lastErr = (data && data.error && data.error.message) || ("HTTP " + res.status);
+        if(res.status === 400 && /API key not valid|API_KEY_INVALID/i.test(lastErr)){
+          aiKeyState = "invalid"; GEMINI_API_KEY = "";
+          return aiKeyHelpMessage();
+        }
+        continue;
+      }
+      const out = ((data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [])
+        .map(p => p.text).filter(Boolean).join("").trim();
+      if(out) return out;
+      lastErr = "empty response";
+    }catch(e){ lastErr = e.message; }
+  }
+  console.warn("Gemini fail:", lastErr);
+  return "अरे भाई, अभी AI से जवाब नहीं आ पाया 🙏 थोड़ी देर बाद फिर से पूछो!";
+}
+
+// ---------- IMAGE GENERATION ----------
+// Primary: Pollinations (free, no key). Fallback: AI Horde (free, no key).
+async function generateImageWithHorde(prompt){
+  const HORDE = "https://aihorde.net/api/v2";
+  const headers = { "apikey": "0000000000", "Client-Agent": "upcomedyhub:1.0:app", "Content-Type": "application/json" };
+  const submit = await fetch(HORDE + "/generate/async", {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      prompt: prompt + " , cinematic, high quality, detailed",
+      params: { width: 512, height: 512, steps: 25 },
+      nsfw: false,
+      censor_nsfw: true
+    })
+  });
+  const job = await submit.json();
+  if(!job || !job.id) throw new Error((job && job.message) || "Job submit fail");
+  const id = job.id;
+  for(let i = 0; i < 40; i++){
+    await new Promise(r => setTimeout(r, 3000));
+    const chk = await (await fetch(HORDE + "/generate/check/" + id, { headers })).json();
+    if(chk && chk.faulted) throw new Error("Generation faulted");
+    if(chk && chk.done) break;
+    if(i === 39) throw new Error("Timeout");
+  }
+  const status = await (await fetch(HORDE + "/generate/status/" + id, { headers })).json();
+  const img = status && status.generations && status.generations[0] && status.generations[0].img;
+  if(!img) throw new Error("No image returned");
+  return img;
+}
+
+async function generateImage(prompt){
+  const clean = (prompt || "").trim() || "funny desi comedy stage";
+  return await generateImageWithHorde(clean);
+}
+
+// ---------- DAILY PHOTO QUOTA (2 free per day) ----------
+function getTodayDateStr(){ return new Date().toISOString().slice(0, 10); }
+
 function updateQuotaBadge(remaining){
   const badge = document.getElementById("aiQuotaText");
-  if(badge) badge.textContent = `${remaining} Left Today`;
+  if(badge) badge.textContent = remaining + " Left Today";
 }
 function localQuotaGet(userId){
   try{
@@ -5707,142 +5880,99 @@ function localQuotaSet(userId, count){
     localStorage.setItem("upch_ai_quota", JSON.stringify(raw));
   }catch(e){}
 }
-async function checkAndIncrementPhotoQuota(userId) {
-  if (!userId) return { allowed: false, count: 2, remaining: 0 };
+async function getPhotoCount(userId){
+  if(!userId) return 0;
   const today = getTodayDateStr();
-  const quotaRef = db.collection("aiUsage").doc(userId).collection("dates").doc(today);
-
-  let count = 0, usedFirestore = false;
-  try {
-    const snap = await quotaRef.get();
-    count = snap.exists ? (snap.data().photoCount || 0) : 0;
-    usedFirestore = true;
-  } catch(e) {
-    // Firestore rules block kar sakte hain -> localStorage fallback
-    count = localQuotaGet(userId);
-  }
-
-  if (count >= 2) { updateQuotaBadge(0); return { allowed: false, count: count, remaining: 0 }; }
-
-  const newCount = count + 1;
-  try {
-    if(usedFirestore){
-      await quotaRef.set({
-        photoCount: newCount,
-        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true });
-    } else {
-      localQuotaSet(userId, newCount);
-    }
-  } catch(e) {
-    // Agar write fail ho to localStorage me save karo
-    localQuotaSet(userId, newCount);
-  }
-
-  updateQuotaBadge(2 - newCount);
-  return { allowed: true, count: newCount, remaining: 2 - newCount };
+  try{
+    const snap = await db.collection("aiUsage").doc(userId).collection("dates").doc(today).get();
+    return snap.exists ? (snap.data().photoCount || 0) : 0;
+  }catch(e){ return localQuotaGet(userId); }
 }
-
-// Badge ko refresh karo (current user ke hisaab se)
+async function incrementPhotoCount(userId){
+  if(!userId) return 1;
+  const today = getTodayDateStr();
+  const ref = db.collection("aiUsage").doc(userId).collection("dates").doc(today);
+  const cur = await getPhotoCount(userId);
+  const n = cur + 1;
+  try{
+    await ref.set({ photoCount: n, lastUpdated: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+  }catch(e){ localQuotaSet(userId, n); }
+  updateQuotaBadge(Math.max(0, 2 - n));
+  return n;
+}
 async function refreshQuotaBadge(){
   if(!currentUser) return;
-  try{
-    const today = getTodayDateStr();
-    const snap = await db.collection("aiUsage").doc(currentUser.uid).collection("dates").doc(today).get();
-    const c = snap.exists ? (snap.data().photoCount||0) : 0;
-    updateQuotaBadge(Math.max(0, 2 - c));
-  }catch(e){ updateQuotaBadge(Math.max(0, 2 - localQuotaGet(currentUser.uid))); }
+  const c = await getPhotoCount(currentUser.uid);
+  updateQuotaBadge(Math.max(0, 2 - c));
 }
 
-// AI Chat Open Function (Settings & Floating Button)
-function openAIChat() {
-  const settingsModal = document.getElementById("settingsOverlay");
-  if (settingsModal) settingsModal.classList.remove("show");
+// ---------- AI CHAT HISTORY (localStorage — persist) ----------
+function aiHistoryKey(){ return "upch_ai_history_" + (currentUser ? currentUser.uid : "guest"); }
+function loadAIHistory(){ try{ return JSON.parse(localStorage.getItem(aiHistoryKey()) || "[]"); }catch(e){ return []; } }
+function saveAIHistory(h){ try{ localStorage.setItem(aiHistoryKey(), JSON.stringify(h.slice(-80))); }catch(e){} }
 
+function renderAIHistory(){
+  const box = document.getElementById("chatMessages");
+  if(!box) return;
+  const h = loadAIHistory();
+  if(!h.length){
+    box.innerHTML =
+      '<div class="chat-bubble-row"><div class="chat-bubble"><div class="chat-message-text">' +
+      'अरे भाई! राम-राम 🙏<br>मैं <b>UPComedyHub AI Assistant</b> हूँ। कुछ भी पूछो, या फोटो बनवाने के लिए लिखो: ' +
+      '<b>Create Image: funny desi comedy stage</b> 🎨</div></div></div>';
+    return;
+  }
+  box.innerHTML = h.map(m => {
+    const mine = m.role === "user";
+    let inner;
+    if(m.image){
+      inner = '<img class="chat-image-msg" src="' + escapeAttr(m.image) + '" alt="AI image" ' +
+        'style="border-radius:12px;display:block;max-width:240px;margin-bottom:6px;cursor:pointer" ' +
+        'onclick="window.open(this.src,\'_blank\')">' +
+        (m.text ? '<div class="chat-message-text">' + escapeHtml(m.text) + '</div>' : '');
+    }else{
+      inner = '<div class="chat-message-text">' + escapeHtml(m.text || "") + '</div>';
+    }
+    return '<div class="chat-bubble-row ' + (mine ? "mine" : "") + '"><div class="chat-bubble">' + inner + '</div></div>';
+  }).join("");
+  box.scrollTop = box.scrollHeight;
+}
+
+function pushAIHistory(role, text, image){
+  const h = loadAIHistory();
+  h.push({ role: role, text: text || "", image: image || "", t: Date.now() });
+  saveAIHistory(h);
+  renderAIHistory();
+}
+
+// ---------- OPEN AI CHAT ----------
+function openAIChat(){
+  const settingsModal = document.getElementById("settingsOverlay");
+  if(settingsModal) settingsModal.classList.remove("show");
   showMessagesOverlay();
   openChat(UPCH_AI_BOT);
   refreshQuotaBadge();
+  loadAIKey();
 }
-
-// Image Generator Mode Trigger
-function openAIImageGenerator() {
+function openAIImageGenerator(){
   openAIChat();
   setTimeout(() => {
     const ci = document.getElementById("chatInput");
-    if (ci) {
-      ci.value = "Create Image: ";
-      ci.focus();
-      updateComposerButtons();
-    }
+    if(ci){ ci.value = "Create Image: "; ci.focus(); updateComposerButtons(); }
   }, 300);
 }
 
-// ---- Gemini text model fallback chain (purane models deprecated ho gaye hain) ----
-const UPCH_GEMINI_MODELS = ["gemini-3.5-flash", "gemini-3.1-flash-lite", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-flash-latest"];
-async function callGeminiText(text){
-  let lastErr = "";
-  for(const model of UPCH_GEMINI_MODELS){
-    try{
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-goog-api-key": (GEMINI_API_KEY||"").trim() },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: UPCH_SYSTEM_PROMPT }] },
-          contents: [{ parts: [{ text: text }] }]
-        })
-      });
-      const data = await res.json();
-      const out = (data.candidates?.[0]?.content?.parts || []).map(p=>p.text).filter(Boolean).join("").trim();
-      if(out) return out;
-      lastErr = (data.error && data.error.message) || ("HTTP " + res.status);
-    }catch(e){ lastErr = e.message; }
-  }
-  console.warn("Gemini fail:", lastErr);
-  return "अरे भाई, अभी नेटवर्क में थोड़ी दिक्कत आ रही है। एक बार फिर से पूछो! 🙏";
-}
-
-// ---- AI Horde image generation (free, no signup, browser-friendly) ----
-async function generateImageWithHorde(prompt){
-  const HORDE = "https://aihorde.net/api/v2";
-  const headers = { "apikey": "0000000000", "Client-Agent": "upcomedyhub:1.0:app", "Content-Type": "application/json" };
-  const submit = await fetch(`${HORDE}/generate/async`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      prompt: prompt + " , cinematic, high quality, detailed",
-      params: { width: 512, height: 512, steps: 25 },
-      nsfw: false,
-      censor_nsfw: true
-    })
-  });
-  const job = await submit.json();
-  if(!job || !job.id) throw new Error((job && job.message) || "Job submit fail");
-  const id = job.id;
-  // Poll for completion (max ~90s)
-  for(let i=0;i<30;i++){
-    await new Promise(r=>setTimeout(r, 3000));
-    const chk = await (await fetch(`${HORDE}/generate/check/${id}`, { headers })).json();
-    if(chk && chk.faulted) throw new Error("Generation faulted");
-    if(chk && chk.done) break;
-    if(i === 29) throw new Error("Timeout");
-  }
-  const status = await (await fetch(`${HORDE}/generate/status/${id}`, { headers })).json();
-  const img = status && status.generations && status.generations[0] && status.generations[0].img;
-  if(!img) throw new Error("No image returned");
-  return img;
-}
-
-// Intercept Chat Messages for AI
+// ---------- SEND MESSAGE INTERCEPT (AI Assistant) ----------
 const defaultChatSendMessage = sendMessage;
-sendMessage = async function() {
-  if (currentChatFriend && currentChatFriend.uid === "upch_ai_bot") {
+sendMessage = async function(){
+  if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
     const input = document.getElementById("chatInput");
     const text = input.value.trim();
-    if (!text) return;
+    if(!text) return;
 
-    if (!currentUser) {
+    if(!currentUser){
       showToast("🔒 AI से बात करने के लिए पहले लॉगिन करें!");
-      if (typeof window.openLoginScreen === "function") window.openLoginScreen();
+      if(typeof window.openLoginScreen === "function") window.openLoginScreen();
       return;
     }
 
@@ -5850,109 +5980,55 @@ sendMessage = async function() {
     input.style.height = "auto";
     updateComposerButtons();
 
-    const chatBox = document.getElementById("chatMessages");
+    const box = document.getElementById("chatMessages");
+    pushAIHistory("user", text);
 
-    // Display user message
-    const userMsgHtml = `
-      <div class="chat-bubble-row mine">
-        <div class="chat-bubble">
-          <div class="chat-message-text">${escapeHtml(text)}</div>
-        </div>
-      </div>`;
-    chatBox.insertAdjacentHTML("beforeend", userMsgHtml);
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Detect Image prompt
-    const isImageRequest = text.toLowerCase().startsWith("create image:") || 
-                           text.toLowerCase().includes("photo banao") || 
+    const isImageRequest = text.toLowerCase().startsWith("create image:") ||
+                           text.toLowerCase().includes("photo banao") ||
                            text.toLowerCase().includes("image generate") ||
                            text.toLowerCase().includes("tasveer banao");
 
     const typingId = "ai-loading-" + Date.now();
     const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "UPComedyHub AI सोच रहा है... 🤖";
-    
-    chatBox.insertAdjacentHTML("beforeend", `
-      <div class="chat-bubble-row" id="${typingId}">
-        <div class="chat-bubble">
-          <div class="chat-message-text" style="font-style:italic;opacity:0.8">${loadingMsg}</div>
-        </div>
-      </div>`);
-    chatBox.scrollTop = chatBox.scrollHeight;
+    box.insertAdjacentHTML("beforeend",
+      '<div class="chat-bubble-row" id="' + typingId + '"><div class="chat-bubble">' +
+      '<div class="chat-message-text" style="font-style:italic;opacity:.8">' + loadingMsg + '</div></div></div>');
+    box.scrollTop = box.scrollHeight;
 
-    if (isImageRequest) {
-      // Quota check via Firebase
-      const quota = await checkAndIncrementPhotoQuota(currentUser.uid);
-      if (!quota.allowed) {
+    if(isImageRequest){
+      const used = await getPhotoCount(currentUser.uid);
+      if(used >= 2){
         document.getElementById(typingId)?.remove();
-        chatBox.insertAdjacentHTML("beforeend", `
-          <div class="chat-bubble-row">
-            <div class="chat-bubble" style="background:#fff3cd;color:#856404;border:1px solid #ffeeba;">
-              <div class="chat-message-text">
-                ⚠️ <strong>अरे भाई!</strong> आपका आज का 2 फ्री फोटो का कोटा पूरा हो चुका है।<br>
-                नया कोटा कल सुबह रीसेट होगा! तब तक कॉमेडी वीडियो देखो और मस्त रहो! 😂
-              </div>
-            </div>
-          </div>`);
-        chatBox.scrollTop = chatBox.scrollHeight;
+        pushAIHistory("bot", "⚠️ अरे भाई! आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा! 😄");
         return;
       }
-
-      // Generate Image (AI Horde - free, no signup)
-      const promptClean = text.replace(/create image:/i, "").replace(/photo banao|image generate|tasveer banao/gi, "").trim() || "funny comedy stage";
-      let imageUrl = "";
+      const promptClean = text.replace(/create image:/i, "")
+        .replace(/photo banao|image generate|tasveer banao/gi, "").trim() || "funny comedy stage";
       try{
-        imageUrl = await generateImageWithHorde(promptClean);
+        const imageUrl = await generateImage(promptClean);
+        const n = await incrementPhotoCount(currentUser.uid);
+        document.getElementById(typingId)?.remove();
+        pushAIHistory("bot", "लो भाई, आपकी फोटो तैयार है! ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
       }catch(imgErr){
         console.warn("Image gen fail:", imgErr);
         document.getElementById(typingId)?.remove();
-        chatBox.insertAdjacentHTML("beforeend", `
-          <div class="chat-bubble-row">
-            <div class="chat-bubble" style="background:#fff3cd;color:#856404;border:1px solid #ffeeba;">
-              <div class="chat-message-text">😅 अरे भाई, फोटो बनाने में दिक्कत आ गई। थोड़ी देर बाद दोबारा try करो!</div>
-            </div>
-          </div>`);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return;
+        pushAIHistory("bot", "😅 अरे भाई, फोटो बनाने में दिक्कत आ गई। थोड़ी देर बाद दोबारा try करो!");
       }
-
-      document.getElementById(typingId)?.remove();
-      chatBox.insertAdjacentHTML("beforeend", `
-        <div class="chat-bubble-row">
-          <div class="chat-bubble">
-            <img src="${imageUrl}" class="chat-image-msg" alt="Generated by AI" style="border-radius:12px;display:block;max-width:240px;margin-bottom:6px;" onclick="window.open('${imageUrl}', '_blank')">
-            <div class="chat-message-text">लो भाई, आपकी फोटो तैयार है! ✨<br><small style="opacity:0.8;">(आज आपके पास <strong>${quota.remaining}</strong> फ्री फोटो बाकी है)</small></div>
-          </div>
-        </div>`);
-      chatBox.scrollTop = chatBox.scrollHeight;
       return;
     }
 
-    // Text Response from Gemini API
-    try {
+    try{
       const reply = await callGeminiText(text);
-
       document.getElementById(typingId)?.remove();
-      chatBox.insertAdjacentHTML("beforeend", `
-        <div class="chat-bubble-row">
-          <div class="chat-bubble">
-            <div class="chat-message-text">${escapeHtml(reply)}</div>
-          </div>
-        </div>`);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    } catch (err) {
+      pushAIHistory("bot", reply);
+    }catch(err){
       document.getElementById(typingId)?.remove();
-      chatBox.insertAdjacentHTML("beforeend", `
-        <div class="chat-bubble-row">
-          <div class="chat-bubble">
-            <div class="chat-message-text" style="color:#e63946">सर्वर से जुड़ने में समस्या हुई। कृपया दोबारा कोशिश करें!</div>
-          </div>
-        </div>`);
-      chatBox.scrollTop = chatBox.scrollHeight;
+      pushAIHistory("bot", "सर्वर से जुड़ने में समस्या हुई। कृपया दोबारा कोशिश करें!");
     }
     return;
   }
 
-  // Normal Chat with friends
+  // Normal chat with friends
   return defaultChatSendMessage();
 };
 

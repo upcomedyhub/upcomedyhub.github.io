@@ -7417,29 +7417,15 @@ const UPCH_SYSTEM_PROMPT = `
 - हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।
 `;
 
-// ---------- KEY MANAGEMENT (Firebase + LocalStorage + Default Working Key) ----------
-const UPCH_BACKUP_GEMINI_KEY = "AQ.Ab8RN6KRbH10bGPFyWONfxbt6pQaepK4dmmv8XfL6WPvCJ1qyg";
+// Gemini key browser mein nahi rakhi jayegi.
+// Gemini requests secure backend /api/ai/chat ke through jayengi.
+let GEMINI_API_KEY = "";
+let aiKeyState = "backend";
+let aiKeyLoadedOnce = true;
 
-let GEMINI_API_KEY = localStorage.getItem("upch_gemini_key") || UPCH_BACKUP_GEMINI_KEY;
-let aiKeyState = "ok";
-let aiKeyLoadedOnce = false;
-
-function isValidClientGeminiKey(k){
-  if(!k || typeof k !== "string") return false;
-  const s = k.trim();
-  return (s.startsWith("AIza") || s.startsWith("AQ.")) && s.length > 20;
-}
-
-async function loadAIKey(force){
-  if(!force && aiKeyLoadedOnce && isValidClientGeminiKey(GEMINI_API_KEY)) return GEMINI_API_KEY;
-  aiKeyLoadedOnce = true;
-
-  const localSaved = localStorage.getItem("upch_gemini_key");
-  if(isValidClientGeminiKey(localSaved)){
-    GEMINI_API_KEY = localSaved.trim();
-    aiKeyState = "ok";
-    return GEMINI_API_KEY;
-  }
+async function loadAIKey() {
+  return "";
+   }
 
   try{
     const doc = await db.collection("admin_config").doc("ai_keys").get();

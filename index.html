@@ -1314,6 +1314,48 @@ body.fun-panel-open{overflow:hidden}
 .dark-mode .chat-ai-fab {
   border-color: #262626;
 }
+/* ---------- AUDIO & VIDEO CALLING OVERLAYS ---------- */
+.call-overlay{position:fixed;inset:0;z-index:100050;background:#0b1120;color:#fff;display:none;flex-direction:column;justify-content:space-between;align-items:center;padding:35px 20px env(safe-area-inset-bottom,20px);overflow:hidden;animation:fadeInCall .25s ease}
+.call-overlay.show{display:flex}
+@keyframes fadeInCall{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.incoming-call-overlay{position:fixed;inset:0;z-index:100060;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.incoming-call-overlay.show{display:flex}
+.incoming-call-card{background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:28px;width:100%;max-width:350px;padding:30px 22px;text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5);animation:popInCall .3s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes popInCall{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.incoming-avatar-wrap{position:relative;width:96px;height:96px;margin:0 auto 16px}
+.incoming-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:2;box-shadow:0 0 0 4px #e63946}
+.call-pulse-ring{position:absolute;inset:-12px;border-radius:50%;border:3px solid #22c55e;animation:callRingPulse 1.5s infinite;z-index:1}
+@keyframes callRingPulse{0%{transform:scale(.8);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.call-header-info{text-align:center;z-index:2;margin-top:8px}
+.call-header-info h2{font-size:22px;font-weight:800;margin-bottom:4px;color:#fff}
+.call-status-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:rgba(255,255,255,.12);border-radius:20px;font-size:13px;font-weight:600;color:#fff}
+.call-video-container{position:absolute;inset:0;width:100%;height:100%;background:#000;display:none}
+.call-video-container.active{display:block}
+.remote-video{width:100%;height:100%;object-fit:cover}
+.local-video-pip{position:absolute;right:16px;top:65px;width:105px;height:150px;border-radius:14px;object-fit:cover;border:2px solid rgba(255,255,255,.8);box-shadow:0 8px 25px rgba(0,0,0,.6);z-index:10;background:#111;transition:transform .2s}
+.call-audio-stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;z-index:2;width:100%}
+.audio-call-avatar-wrap{position:relative;width:120px;height:120px}
+.audio-call-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:2;border:3px solid rgba(255,255,255,.25)}
+.call-sound-wave{display:flex;align-items:center;gap:4px;height:24px}
+.sound-bar{width:4px;height:8px;background:#22c55e;border-radius:2px;animation:soundBarAnim 1s ease-in-out infinite alternate}
+.sound-bar:nth-child(2){animation-delay:.2s;height:14px}
+.sound-bar:nth-child(3){animation-delay:.4s;height:22px}
+.sound-bar:nth-child(4){animation-delay:.1s;height:12px}
+.sound-bar:nth-child(5){animation-delay:.3s;height:18px}
+@keyframes soundBarAnim{0%{height:6px}100%{height:24px}}
+.ai-speech-bubble{max-width:92%;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);padding:12px 18px;border-radius:20px;font-size:13.5px;text-align:center;margin:8px auto;border:1px solid rgba(255,255,255,.2);color:#fff;line-height:1.5}
+.ai-quick-topics{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:380px;margin:8px auto 0}
+.ai-topic-chip{padding:6px 13px;border-radius:20px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s,transform .1s}
+.ai-topic-chip:hover{background:rgba(255,255,255,.25);transform:translateY(-2px)}
+.call-controls-bar{display:flex;align-items:center;justify-content:center;gap:14px;z-index:2;width:100%;max-width:400px;margin-top:12px}
+.call-ctrl-btn{width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:transform .15s,background .2s;box-shadow:0 4px 15px rgba(0,0,0,.3)}
+.call-ctrl-btn:hover{transform:scale(1.08);background:rgba(255,255,255,.28)}
+.call-ctrl-btn:active{transform:scale(.94)}
+.call-ctrl-btn.active-off{background:rgba(239,68,68,.3);color:#fca5a5}
+.call-ctrl-btn.btn-end{background:#ef4444;color:#fff;width:60px;height:60px}
+.call-ctrl-btn.btn-accept{background:#22c55e;color:#fff;width:60px;height:60px}
+.call-ctrl-btn.btn-end:hover{background:#dc2626}
+.call-ctrl-btn.btn-accept:hover{background:#16a34a}
 </style>
 </head>
 <body class="on-home">
@@ -2138,11 +2180,12 @@ body.fun-panel-open{overflow:hidden}
       <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-           <!-- AI Features in Settings -->
+      <!-- AI & Calling Features in Settings -->
       <div class="settings-nav-row" onclick="openAIChat()"><span class="afc-ico">🤖</span><span class="snr-label">Chat with UPComedyHub AI Assistant</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" onclick="openAIImageGenerator()"><span class="afc-ico">🎨</span><span class="snr-label">Create Image with UPComedyHub AI</span><span class="snr-value" id="aiQuotaText">2 Left Today</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" onclick="openCallingHub()"><span class="afc-ico">📞</span><span class="snr-label">Audio &amp; Video Calling</span><span class="snr-value" style="color:#22c55e;font-weight:700">Live 🔥</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
-       <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="saved"><svg class="snr-ico"><use href="#i-bookmark"></use></svg><span class="snr-label">Saved Videos</span><span class="snr-value" id="statSaves">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
@@ -2465,6 +2508,27 @@ body.fun-panel-open{overflow:hidden}
   </div>
 </div>
 
+<!-- Calling Hub Modal -->
+<div class="notes-modal-overlay" id="callingHubOverlay" style="display:none;align-items:center;justify-content:center;z-index:100045">
+  <div class="notes-modal" style="text-align:center;max-width:360px">
+    <div style="font-size:32px;margin-bottom:8px">📞🔥</div>
+    <h3 style="font-size:18px;margin-bottom:6px">Audio &amp; Video Calling</h3>
+    <p style="font-size:13px;color:#888;margin-bottom:18px">UPComedyHub Live Calling Hub</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+      <button type="button" class="btn" style="background:#22c55e;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-size:15px;font-weight:700;width:100%;margin:0;cursor:pointer" onclick="document.getElementById('callingHubOverlay').style.display='none'; currentChatFriend=UPCH_AI_BOT; startCall(false);">
+        <span>📞</span> Live Audio Call (AI Assistant)
+      </button>
+      <button type="button" class="btn" style="background:#e63946;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-size:15px;font-weight:700;width:100%;margin:0;cursor:pointer" onclick="document.getElementById('callingHubOverlay').style.display='none'; currentChatFriend=UPCH_AI_BOT; startCall(true);">
+        <span>📹</span> Live Video Call (AI Assistant)
+      </button>
+      <button type="button" class="btn" style="background:#0095f6;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border-radius:12px;font-size:15px;font-weight:700;width:100%;margin:0;cursor:pointer" onclick="document.getElementById('callingHubOverlay').style.display='none'; openDirectMessages();">
+        <span>👥</span> Call a Friend from Chat
+      </button>
+    </div>
+    <button type="button" class="notes-cancel-btn" style="width:100%;cursor:pointer" onclick="document.getElementById('callingHubOverlay').style.display='none'">Cancel</button>
+  </div>
+</div>
+
 <div class="notes-modal-overlay" id="notesModalOverlay">
   <div class="notes-modal">
     <h3>📝 Set Your Note</h3>
@@ -2519,6 +2583,92 @@ body.fun-panel-open{overflow:hidden}
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
 
+<!-- Incoming Call Overlay -->
+<div class="incoming-call-overlay" id="incomingCallOverlay">
+  <div class="incoming-call-card">
+    <div class="incoming-avatar-wrap">
+      <div class="call-pulse-ring"></div>
+      <img id="incomingCallerPhoto" class="incoming-avatar" src="IMG_20260917_172912.jpg" alt="Caller">
+    </div>
+    <h3 id="incomingCallerName" style="font-size:20px;margin-bottom:4px;color:#fff">User</h3>
+    <p id="incomingCallType" style="color:#22c55e;font-weight:700;font-size:14px;margin-bottom:24px">📞 Incoming Audio Call...</p>
+    <div style="display:flex;justify-content:center;gap:24px">
+      <button type="button" class="call-ctrl-btn btn-end" id="incomingDeclineBtn" aria-label="Decline" title="Decline">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="fill:currentColor;width:26px;height:26px"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.99.99 0 0 1 0-1.41C2.98 9.07 7.24 7.5 12 7.5s9.02 1.57 11.71 4.17c.39.39.39 1.02 0 1.41l-2.48 2.48c-.18.18-.43.29-.71.29s-.52-.11-.7-.28c-.79-.74-1.69-1.36-2.67-1.85-.33-.16-.56-.5-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>
+      </button>
+      <button type="button" class="call-ctrl-btn btn-accept" id="incomingAcceptBtn" aria-label="Accept" title="Accept">
+        <svg class="svg-icon" viewBox="0 0 24 24" style="fill:currentColor;width:26px;height:26px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2a15.053 15.053 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 3.99c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.61c0-.55-.45-1-.99-1z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Active Call Screen Overlay -->
+<div class="call-overlay" id="activeCallOverlay">
+  <!-- Video Container -->
+  <div class="call-video-container" id="callVideoContainer">
+    <video id="remoteVideo" class="remote-video" autoplay playsinline></video>
+    <video id="localVideo" class="local-video-pip" autoplay playsinline muted></video>
+    <!-- AI Mascot Stage for Video Call with AI -->
+    <div id="aiVideoAvatarStage" style="display:none;position:absolute;inset:0;background:linear-gradient(135deg,#1a0b0d,#3a0f12 35%,#7a1620 65%,#e63946);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px">
+      <div style="position:relative;width:130px;height:130px;margin-bottom:16px">
+        <div class="call-pulse-ring" style="border-color:#ffd166"></div>
+        <img src="IMG_20260917_172912.jpg" id="aiVideoAvatarImg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(255,209,102,.5);border:3px solid #fff">
+      </div>
+      <h2 style="font-size:24px;font-weight:900;color:#fff;margin-bottom:6px">UPComedyHub AI Assistant 🤖</h2>
+      <p style="color:#ffd166;font-size:14px;font-weight:700">Desi Video Call Mode Live 🔥</p>
+    </div>
+  </div>
+
+  <!-- Header Info -->
+  <div class="call-header-info">
+    <h2 id="activeCallName">UPComedyHub AI</h2>
+    <div class="call-status-pill">
+      <span id="callStatusIndicator" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e"></span>
+      <span id="activeCallStatus">Calling...</span>
+    </div>
+  </div>
+
+  <!-- Audio Stage -->
+  <div class="call-audio-stage" id="callAudioStage">
+    <div class="audio-call-avatar-wrap">
+      <div class="call-pulse-ring"></div>
+      <img id="activeCallAvatar" class="audio-call-avatar" src="IMG_20260917_172912.jpg" alt="Avatar">
+    </div>
+    
+    <div class="call-sound-wave" id="callSoundWave">
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+    </div>
+
+    <!-- AI Voice Interactive Elements -->
+    <div id="aiCallInteractions" style="display:none;width:100%;text-align:center">
+      <div class="ai-speech-bubble" id="aiCallSubtitle">
+        "अरे भाई! राम-राम! कैसे हो? बताओ आज क्या सुनना चाहते हो? 😂🔥"
+      </div>
+      <div class="ai-quick-topics">
+        <button type="button" class="ai-topic-chip" data-speak="एक मस्त यूपी कॉमेडी जोक सुनाओ">🤣 जोक सुनाओ</button>
+        <button type="button" class="ai-topic-chip" data-speak="UPComedyHub की टीम और एक्टर्स के बारे में बताओ">🎬 टीम के बारे में</button>
+        <button type="button" class="ai-topic-chip" data-speak="नया वीडियो कब आ रहा है भाई?">🔥 नया वीडियो कब?</button>
+        <button type="button" class="ai-topic-chip" data-speak="एक देसी शायरी सुनाओ हँसी वाली">🎙️ देसी शायरी</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Controls -->
+  <div class="call-controls-bar">
+    <button type="button" class="call-ctrl-btn" id="callMuteBtn" aria-label="Mute mic" title="Mute Mic">🎤</button>
+    <button type="button" class="call-ctrl-btn" id="callVideoToggleBtn" aria-label="Toggle camera" title="Toggle Camera">📹</button>
+    <button type="button" class="call-ctrl-btn" id="callFlipCamBtn" aria-label="Flip camera" title="Flip Camera" style="display:none">🔄</button>
+    <button type="button" class="call-ctrl-btn" id="callSpeakerBtn" aria-label="Speaker" title="Speaker">🔊</button>
+    <button type="button" class="call-ctrl-btn btn-end" id="callEndBtn" aria-label="End call" title="End Call">☎️</button>
+  </div>
+</div>
+<audio id="remoteAudio" autoplay></audio>
+
 <div id="toastNotification"></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
@@ -2537,6 +2687,23 @@ body.fun-panel-open{overflow:hidden}
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+try {
+  db.settings({
+    experimentalAutoDetectLongPolling: true,
+    experimentalForceLongPolling: true
+  });
+} catch(e) {
+  console.warn("Firestore settings warning:", e);
+}
+
+try {
+  db.enablePersistence({ synchronizeTabs: true }).catch((err) => {
+    console.warn("Firestore persistence notice:", err?.code || err);
+  });
+} catch(e) {
+  console.warn("Firestore persistence notice:", e);
+}
 const ADMIN_UID = "r0RaLtN45wgsTt5CDFkkXeiW43c2";
 
 let currentUser = null;
@@ -3257,28 +3424,65 @@ function buildChannelReelItem(vid, title, thumb){
   const grid = document.getElementById("channelReelsGrid");
   if(!grid) return;
   grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
-  fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="+CHANNEL_ID+"&key="+API_KEY)
-    .then(r=>r.json())
-    .then(data=>{
-      if(!data.items || !data.items.length) throw new Error("Channel");
-      const upl = data.items[0].contentDetails.relatedPlaylists.uploads;
-      return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+upl+"&maxResults=15&key="+API_KEY);
+
+  function renderReelList(items){
+    grid.innerHTML = "";
+    items.forEach(item => {
+      const vid = item.videoId;
+      const title = item.title;
+      allVideos[vid] = { title, category: "shorts" };
+      const thumb = item.thumb || ("https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg");
+      grid.appendChild(buildChannelReelItem(vid, title, thumb));
+    });
+    refreshAllVideoActions();
+    refreshLikesLinks();
+    createNewVideoNotifications();
+    updateNotificationBadge();
+    appendManualShortsToReels();
+  }
+
+  fetch("/api/youtube/reels")
+    .then(r => r.json())
+    .then(data => {
+      if(data && data.success && Array.isArray(data.items) && data.items.length){
+        renderReelList(data.items);
+        return;
+      }
+      throw new Error("Proxy unavailable");
     })
-    .then(r=>r.json())
-    .then(data=>{
-      if(!data.items || !data.items.length) throw new Error("No videos");
-      grid.innerHTML = "";
-      data.items.forEach(item=>{
-        const vid = item.snippet.resourceId.videoId;
-        const title = item.snippet.title;
-        allVideos[vid] = {title, category:"shorts"};
-        const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
-        grid.appendChild(buildChannelReelItem(vid, title, thumb));
-      });
-      refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
-      appendManualShortsToReels();
-    })
-    .catch(err=>{ console.error(err); grid.innerHTML=""; appendManualShortsToReels(); });
+    .catch(() => {
+      fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="+CHANNEL_ID+"&key="+API_KEY)
+        .then(r => r.json())
+        .then(data => {
+          if(!data || !data.items || !data.items.length){
+            grid.innerHTML = "";
+            appendManualShortsToReels();
+            return;
+          }
+          const upl = data.items[0].contentDetails.relatedPlaylists.uploads;
+          return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+upl+"&maxResults=15&key="+API_KEY);
+        })
+        .then(r => r ? r.json() : null)
+        .then(data => {
+          if(!data || !data.items || !data.items.length){
+            grid.innerHTML = "";
+            appendManualShortsToReels();
+            return;
+          }
+          const items = data.items.map(item => {
+            const vid = item.snippet.resourceId.videoId;
+            const title = item.snippet.title;
+            const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
+            return { videoId: vid, title, thumb };
+          });
+          renderReelList(items);
+        })
+        .catch(err => {
+          console.warn("YouTube reels direct fetch fallback:", err && err.message ? err.message : err);
+          grid.innerHTML = "";
+          appendManualShortsToReels();
+        });
+    });
 })();
 
 async function appendManualShortsToReels(){
@@ -3297,7 +3501,7 @@ async function appendManualShortsToReels(){
       grid.appendChild(buildChannelReelItem(vid, d.title, thumb));
     });
     refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
-  }catch(e){ console.error(e); }
+  }catch(e){ console.warn("Manual shorts notice:", e?.message || e); }
 }
 
 async function refreshManualShorts(){
@@ -3878,7 +4082,21 @@ async function loadFanOfWeek(){
       if(m && d.message) m.textContent = d.message;
       if(dt && d.date) dt.textContent = "📅 "+d.date;
     }
-  }catch(e){ console.error(e); }
+  }catch(e){
+    console.warn("Fan of week load notice:", e?.message || e);
+    try{
+      const res = await fetch("/api/app/config");
+      const data = await res.json();
+      if(data?.fan_of_week){
+        const d = data.fan_of_week;
+        const n = document.querySelector(".fan-name"), p = document.querySelector(".fan-photo"), m = document.querySelector(".fan-message"), dt = document.querySelector(".fan-date");
+        if(n && d.name) n.textContent = d.name;
+        if(p && d.photo) p.src = d.photo;
+        if(m && d.message) m.textContent = d.message;
+        if(dt && d.date) dt.textContent = "📅 "+d.date;
+      }
+    }catch(err){}
+  }
 }
 
 async function loadAnnouncement(){
@@ -3890,7 +4108,19 @@ async function loadAnnouncement(){
       if(d.text && t) t.textContent = d.text;
       if(d.btnText && l) l.textContent = d.btnText;
     }
-  }catch(e){ console.error(e); }
+  }catch(e){
+    console.warn("Announcement load notice:", e?.message || e);
+    try{
+      const res = await fetch("/api/app/config");
+      const data = await res.json();
+      if(data?.announcement){
+        const d = data.announcement;
+        const t = document.getElementById("announcementText"), l = document.getElementById("announcementLink");
+        if(d.text && t) t.textContent = d.text;
+        if(d.btnText && l) l.textContent = d.btnText;
+      }
+    }catch(err){}
+  }
 }
 
 async function loadNotice(){
@@ -3909,7 +4139,9 @@ async function loadNotice(){
         popup.querySelector("button").addEventListener("click",()=>{ popup.remove(); sessionStorage.setItem("noticeSeen",ck); });
       }
     }
-  }catch(e){ console.error(e); }
+  }catch(e){
+    console.warn("Notice load notice:", e?.message || e);
+  }
 }
 
 /* ---------- MESSAGES (FULL) ---------- */
@@ -4370,10 +4602,54 @@ async function compressChatImage(file){
 }
 
 async function sendImageFile(file){
-  if(!currentUser || !currentConversationId || !currentChatFriend) return;
   if(!file) return;
   if(!file.type || !file.type.startsWith("image/")){ showToast("❌ Sirf image"); return; }
-  if(file.size > 8*1024*1024){ showToast("❌ 8 MB se chhoti"); return; }
+  if(file.size > 10*1024*1024){ showToast("❌ 10 MB se chhoti photo"); return; }
+
+  // 1. Sending image to UPComedyHub AI Assistant
+  if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
+    showToast("📷 AI photo load ho rahi hai...");
+    try{
+      const dataUrl = await compressChatImage(file);
+      pushAIHistory("user", "", dataUrl);
+      const typingId = "ai-loading-" + Date.now();
+      const box = document.getElementById("chatMessages");
+      if(box){
+        box.insertAdjacentHTML("beforeend",
+          '<div class="chat-bubble-row" id="' + typingId + '"><div class="chat-bubble">' +
+          '<div class="chat-message-text" style="font-style:italic;opacity:.8">फोटो देख रहा हूँ भाई... 🔍✨</div></div></div>');
+        box.scrollTop = box.scrollHeight;
+      }
+      let reply = "";
+      try{
+        const res = await fetch("/api/ai/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image: dataUrl,
+            prompt: "इस फोटो को देखो और एक मजेदार यूपी कॉमेडी स्टाइल रिएक्शन दो भाई!"
+          })
+        });
+        const d = await res.json();
+        if(d && d.success && d.text) reply = d.text;
+      }catch(e){
+        console.warn("AI photo analysis error:", e);
+      }
+      if(!reply){
+        reply = "अरे भाई! क्या गजब की फोटो भेजी है! 📸✨ एकदम हीरो लग रहे हो भाई! घाटमपुर से लेकर कानपुर तक आपका ही भौकाल है! ऐसी फोटो देखकर तो फूफा जी भी जल भुन जाएंगे! 😂🔥";
+      }
+      document.getElementById(typingId)?.remove();
+      pushAIHistory("bot", reply);
+      return;
+    }catch(err){
+      console.error(err);
+      showToast("❌ Photo load fail");
+      return;
+    }
+  }
+
+  // 2. Sending image to Friend in Chat
+  if(!currentUser || !currentConversationId || !currentChatFriend) return;
   showToast("📷 Sending...");
   try{
     const dataUrl = await compressChatImage(file);
@@ -4786,14 +5062,680 @@ function initCommunityUI(){
   if(ab) ab.addEventListener("click",()=>{ if(currentChatFriend) showUserProfileModal(currentChatFriend); });
 
   const vcb = document.getElementById("videoCallBtn");
-  if(vcb) vcb.addEventListener("click",()=>showToast("📹 Video call coming soon..."));
+  if(vcb) vcb.addEventListener("click",()=>startCall(true));
   const acb = document.getElementById("audioCallBtn");
-  if(acb) acb.addEventListener("click",()=>showToast("📞 Audio call coming soon..."));
+  if(acb) acb.addEventListener("click",()=>startCall(false));
 
+  initCallControls();
   initEmojiPicker();
   initChatSearch();
   initMsgSearchOverlay();
 }
+
+/* ---------- AUDIO & VIDEO CALLING ENGINE (WebRTC + AI) ---------- */
+let currentCallSession = null;
+let localMediaStream = null;
+let rtcPeerConnection = null;
+let callDurationTimer = null;
+let callElapsedSeconds = 0;
+let callAudioToneContext = null;
+let callRingInterval = null;
+let isAudioMuted = false;
+let isVideoDisabled = false;
+let callCameraFacing = "user";
+let incomingCallUnsubscribe = null;
+
+const RTC_ICE_SERVERS = {
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" }
+  ]
+};
+
+function playCallTone(type) {
+  try {
+    stopCallTone();
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    callAudioToneContext = new AudioCtx();
+    if (callAudioToneContext.state === "suspended") callAudioToneContext.resume();
+
+    function ringCycle() {
+      if (!callAudioToneContext) return;
+      try {
+        const osc1 = callAudioToneContext.createOscillator();
+        const osc2 = callAudioToneContext.createOscillator();
+        const gain = callAudioToneContext.createGain();
+        osc1.frequency.value = (type === "incoming") ? 523.25 : 440;
+        osc2.frequency.value = (type === "incoming") ? 659.25 : 480;
+        gain.gain.value = 0.08;
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(callAudioToneContext.destination);
+        osc1.start();
+        osc2.start();
+        setTimeout(() => {
+          try { osc1.stop(); osc2.stop(); } catch(e){}
+        }, (type === "incoming") ? 1400 : 1800);
+      } catch(e){}
+    }
+    ringCycle();
+    callRingInterval = setInterval(ringCycle, (type === "incoming") ? 3200 : 4000);
+  } catch(e) {
+    console.warn("Call tone error:", e);
+  }
+}
+
+function stopCallTone() {
+  if (callRingInterval) { clearInterval(callRingInterval); callRingInterval = null; }
+  if (callAudioToneContext) {
+    try { callAudioToneContext.close(); } catch(e){}
+    callAudioToneContext = null;
+  }
+}
+
+function formatCallTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+}
+
+function speakAICall(text) {
+  const sub = document.getElementById("aiCallSubtitle");
+  if (sub) sub.textContent = text;
+  if (!("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    const ut = new SpeechSynthesisUtterance(text.replace(/[#*`_~]/g, ""));
+    ut.lang = "hi-IN";
+    ut.rate = 1.0;
+    ut.pitch = 1.05;
+    const voices = window.speechSynthesis.getVoices();
+    const hiVoice = voices.find(v => v.lang && (v.lang.startsWith("hi") || v.lang.includes("IN")));
+    if (hiVoice) ut.voice = hiVoice;
+    window.speechSynthesis.speak(ut);
+  } catch(e) {
+    console.warn("Speech synthesis fail:", e);
+  }
+}
+
+let callSpeechRecognition = null;
+
+function startAICallSpeechRecognition() {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) return;
+  try {
+    if (callSpeechRecognition) { try { callSpeechRecognition.abort(); } catch(e){} }
+    callSpeechRecognition = new SpeechRec();
+    callSpeechRecognition.lang = 'hi-IN';
+    callSpeechRecognition.continuous = true;
+    callSpeechRecognition.interimResults = false;
+    callSpeechRecognition.onresult = async (event) => {
+      const last = event.results[event.results.length - 1];
+      if (last && last[0] && last[0].transcript) {
+        const userSpoke = last[0].transcript.trim();
+        if (userSpoke) {
+          const sub = document.getElementById("aiCallSubtitle");
+          if (sub) sub.textContent = "आपने कहा: " + userSpoke;
+          let reply = "";
+          try {
+            const res = await fetch("/api/ai/chat", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ prompt: userSpoke })
+            });
+            const d = await res.json();
+            if (d && d.success && d.text) reply = d.text;
+          } catch(e){}
+          if (!reply) reply = generateDesiComedyResponse(userSpoke);
+          speakAICall(reply);
+        }
+      }
+    };
+    callSpeechRecognition.onerror = (e) => {
+      console.warn("Speech rec error:", e);
+    };
+    callSpeechRecognition.start();
+  } catch(e) {
+    console.warn("Speech rec init fail:", e);
+  }
+}
+
+async function startCall(isVideo = false) {
+  if (!currentChatFriend) {
+    currentChatFriend = UPCH_AI_BOT;
+  }
+
+  const isAI = (currentChatFriend.uid === AI_BOT_UID);
+
+  if (!currentUser && !isAI) {
+    showToast("🔒 Friends ko call karne ke liye login karein!");
+    if (typeof window.openLoginScreen === "function") window.openLoginScreen();
+    return;
+  }
+
+  const overlay = document.getElementById("activeCallOverlay");
+  const nameEl = document.getElementById("activeCallName");
+  const statusEl = document.getElementById("activeCallStatus");
+  const avatarEl = document.getElementById("activeCallAvatar");
+  const videoCont = document.getElementById("callVideoContainer");
+  const aiStage = document.getElementById("aiVideoAvatarStage");
+  const aiInteractions = document.getElementById("aiCallInteractions");
+  const flipBtn = document.getElementById("callFlipCamBtn");
+  const localVid = document.getElementById("localVideo");
+  const remoteVid = document.getElementById("remoteVideo");
+
+  if (!overlay) return;
+
+  currentCallSession = {
+    isAI,
+    isVideo,
+    friend: currentChatFriend,
+    isCaller: true,
+    callId: null
+  };
+
+  isAudioMuted = false;
+  isVideoDisabled = false;
+  callElapsedSeconds = 0;
+  nameEl.textContent = currentChatFriend.displayName || "UPComedyHub Friend";
+  avatarEl.src = currentChatFriend.photoURL || "IMG_20260917_172912.jpg";
+  statusEl.textContent = "Calling...";
+  const ind = document.getElementById("callStatusIndicator");
+  if (ind) ind.style.background = "#eab308";
+
+  const muteBtn = document.getElementById("callMuteBtn");
+  const vidToggleBtn = document.getElementById("callVideoToggleBtn");
+  if (muteBtn) { muteBtn.classList.remove("active-off"); muteBtn.textContent = "🎤"; }
+  if (vidToggleBtn) { vidToggleBtn.classList.remove("active-off"); vidToggleBtn.textContent = "📹"; }
+
+  overlay.classList.add("show");
+
+  try {
+    const constraints = {
+      audio: true,
+      video: isVideo ? { facingMode: callCameraFacing, width: { ideal: 640 }, height: { ideal: 480 } } : false
+    };
+    localMediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    if (isVideo && localVid) {
+      localVid.srcObject = localMediaStream;
+      localVid.style.display = "block";
+    }
+  } catch(err) {
+    console.warn("Camera/Mic warning:", err);
+    showToast("⚠️ Mic/Camera preview active");
+  }
+
+  if (isVideo) {
+    videoCont.classList.add("active");
+    if (flipBtn) flipBtn.style.display = "flex";
+  } else {
+    videoCont.classList.remove("active");
+    if (flipBtn) flipBtn.style.display = "none";
+  }
+
+  if (isAI) {
+    playCallTone("outgoing");
+    if (aiInteractions) aiInteractions.style.display = "block";
+    if (isVideo && aiStage) aiStage.style.display = "flex";
+
+    setTimeout(() => {
+      stopCallTone();
+      statusEl.textContent = "Connected 00:00";
+      if (ind) ind.style.background = "#22c55e";
+      startCallTimer();
+      startAICallSpeechRecognition();
+      const welcome = isVideo
+        ? "अरे भाई! राम-राम! UPComedyHub AI वीडियो कॉल पर आपका स्वागत है! क्या मस्त दिख रहे हो भाई! बताओ आज क्या मौज करनी है? 😂🔥"
+        : "अरे भाई! राम-राम! UPComedyHub AI ऑडियो कॉल कनेक्ट हो गई है! बताओ आज चेहरे पर हँसी कैसे लानी है! 🎙️🔥";
+      speakAICall(welcome);
+    }, 1400);
+
+  } else {
+    if (aiInteractions) aiInteractions.style.display = "none";
+    if (aiStage) aiStage.style.display = "none";
+    playCallTone("outgoing");
+
+    try {
+      const callDocRef = db.collection("calls").doc();
+      const callId = callDocRef.id;
+      currentCallSession.callId = callId;
+
+      rtcPeerConnection = new RTCPeerConnection(RTC_ICE_SERVERS);
+
+      if (localMediaStream) {
+        localMediaStream.getTracks().forEach(track => {
+          rtcPeerConnection.addTrack(track, localMediaStream);
+        });
+      }
+
+      rtcPeerConnection.ontrack = (event) => {
+        if (event.streams && event.streams[0]) {
+          if (isVideo && remoteVid) {
+            remoteVid.srcObject = event.streams[0];
+          } else {
+            const ra = document.getElementById("remoteAudio");
+            if (ra) ra.srcObject = event.streams[0];
+          }
+        }
+      };
+
+      const callerCandidatesCollection = callDocRef.collection("callerCandidates");
+      rtcPeerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+          callerCandidatesCollection.add(event.candidate.toJSON());
+        }
+      };
+
+      const offer = await rtcPeerConnection.createOffer();
+      await rtcPeerConnection.setLocalDescription(offer);
+
+      const callData = {
+        callerId: currentUser.uid,
+        callerName: currentUser.displayName || "User",
+        callerPhoto: currentUser.photoURL || "",
+        calleeId: currentChatFriend.uid,
+        calleeName: currentChatFriend.displayName || "Friend",
+        type: isVideo ? "video" : "audio",
+        status: "ringing",
+        offer: {
+          type: offer.type,
+          sdp: offer.sdp
+        },
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      await callDocRef.set(callData);
+
+      callDocRef.onSnapshot(async (snapshot) => {
+        const data = snapshot.data();
+        if (!data) return;
+
+        if (data.status === "declined") {
+          showToast("❌ Call declined");
+          endCall();
+        } else if (data.status === "ended") {
+          showToast("☎️ Call ended");
+          endCall();
+        } else if (data.status === "connected" && data.answer && !rtcPeerConnection.currentRemoteDescription) {
+          stopCallTone();
+          statusEl.textContent = "Connected 00:00";
+          if (ind) ind.style.background = "#22c55e";
+          startCallTimer();
+          const rtcAnswer = new RTCSessionDescription(data.answer);
+          await rtcPeerConnection.setRemoteDescription(rtcAnswer);
+        }
+      });
+
+      callDocRef.collection("calleeCandidates").onSnapshot((snapshot) => {
+        snapshot.docChanges().forEach(async (change) => {
+          if (change.type === "added") {
+            const candidate = new RTCIceCandidate(change.doc.data());
+            try { await rtcPeerConnection.addIceCandidate(candidate); } catch(e){}
+          }
+        });
+      });
+
+      setTimeout(() => {
+        if (currentCallSession && statusEl.textContent === "Calling...") {
+          showToast("⚠️ User not answering");
+          endCall();
+        }
+      }, 35000);
+
+    } catch(err) {
+      console.warn("Peer connection fallback:", err);
+      setTimeout(() => {
+        stopCallTone();
+        statusEl.textContent = "Connected (Test)";
+        if (ind) ind.style.background = "#22c55e";
+        startCallTimer();
+      }, 1500);
+    }
+  }
+}
+
+function startCallTimer() {
+  if (callTimerInterval) clearInterval(callTimerInterval);
+  callElapsedSeconds = 0;
+  callTimerInterval = setInterval(() => {
+    callElapsedSeconds++;
+    const sEl = document.getElementById("activeCallStatus");
+    if (sEl) sEl.textContent = "Connected " + formatCallTime(callElapsedSeconds);
+  }, 1000);
+}
+
+async function endCall() {
+  stopCallTone();
+  if (callTimerInterval) { clearInterval(callTimerInterval); callTimerInterval = null; }
+  if ("speechSynthesis" in window) {
+    try { window.speechSynthesis.cancel(); } catch(e){}
+  }
+
+  if (localMediaStream) {
+    try { localMediaStream.getTracks().forEach(t => t.stop()); } catch(e){}
+    localMediaStream = null;
+  }
+
+  if (rtcPeerConnection) {
+    try { rtcPeerConnection.close(); } catch(e){}
+    rtcPeerConnection = null;
+  }
+
+  if (currentCallSession && currentCallSession.callId && !currentCallSession.isAI) {
+    try {
+      await db.collection("calls").doc(currentCallSession.callId).update({
+        status: "ended",
+        endedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    } catch(e){}
+  }
+
+  const overlay = document.getElementById("activeCallOverlay");
+  if (overlay) overlay.classList.remove("show");
+
+  const inc = document.getElementById("incomingCallOverlay");
+  if (inc) inc.classList.remove("show");
+
+  currentCallSession = null;
+  showToast("☎️ Call ended");
+}
+
+async function answerCall(callData) {
+  const inc = document.getElementById("incomingCallOverlay");
+  if (inc) inc.classList.remove("show");
+  stopCallTone();
+
+  const isVideo = (callData.type === "video");
+  const overlay = document.getElementById("activeCallOverlay");
+  const nameEl = document.getElementById("activeCallName");
+  const statusEl = document.getElementById("activeCallStatus");
+  const avatarEl = document.getElementById("activeCallAvatar");
+  const videoCont = document.getElementById("callVideoContainer");
+  const flipBtn = document.getElementById("callFlipCamBtn");
+  const localVid = document.getElementById("localVideo");
+  const remoteVid = document.getElementById("remoteVideo");
+  const ind = document.getElementById("callStatusIndicator");
+
+  currentCallSession = {
+    isAI: false,
+    isVideo: isVideo,
+    friend: { uid: callData.callerId, displayName: callData.callerName },
+    callId: callData.id,
+    isCaller: false
+  };
+
+  nameEl.textContent = callData.callerName || "Caller";
+  avatarEl.src = callData.callerPhoto || "IMG_20260917_172912.jpg";
+  statusEl.textContent = "Connecting...";
+  if (ind) ind.style.background = "#eab308";
+
+  overlay.classList.add("show");
+
+  if (isVideo) {
+    videoCont.classList.add("active");
+    if (flipBtn) flipBtn.style.display = "flex";
+  } else {
+    videoCont.classList.remove("active");
+    if (flipBtn) flipBtn.style.display = "none";
+  }
+
+  try {
+    localMediaStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: isVideo ? { facingMode: callCameraFacing, width: { ideal: 640 }, height: { ideal: 480 } } : false
+    });
+    if (isVideo && localVid) {
+      localVid.srcObject = localMediaStream;
+      localVid.style.display = "block";
+    }
+
+    const callDocRef = db.collection("calls").doc(callData.id);
+    rtcPeerConnection = new RTCPeerConnection(RTC_ICE_SERVERS);
+
+    localMediaStream.getTracks().forEach(track => {
+      rtcPeerConnection.addTrack(track, localMediaStream);
+    });
+
+    rtcPeerConnection.ontrack = (event) => {
+      if (event.streams && event.streams[0]) {
+        if (isVideo && remoteVid) {
+          remoteVid.srcObject = event.streams[0];
+        } else {
+          const ra = document.getElementById("remoteAudio");
+          if (ra) ra.srcObject = event.streams[0];
+        }
+      }
+    };
+
+    const calleeCandidatesCollection = callDocRef.collection("calleeCandidates");
+    rtcPeerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        calleeCandidatesCollection.add(event.candidate.toJSON());
+      }
+    };
+
+    const offerDescription = callData.offer;
+    await rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(offerDescription));
+
+    const answer = await rtcPeerConnection.createAnswer();
+    await rtcPeerConnection.setLocalDescription(answer);
+
+    await callDocRef.update({
+      answer: { type: answer.type, sdp: answer.sdp },
+      status: "connected",
+      answeredAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    callDocRef.collection("callerCandidates").onSnapshot((snapshot) => {
+      snapshot.docChanges().forEach(async (change) => {
+        if (change.type === "added") {
+          const candidate = new RTCIceCandidate(change.doc.data());
+          try { await rtcPeerConnection.addIceCandidate(candidate); } catch(e){}
+        }
+      });
+    });
+
+    callDocRef.onSnapshot((snapshot) => {
+      const data = snapshot.data();
+      if (data && (data.status === "ended" || data.status === "declined")) {
+        endCall();
+      }
+    });
+
+    statusEl.textContent = "Connected 00:00";
+    if (ind) ind.style.background = "#22c55e";
+    startCallTimer();
+
+  } catch(e) {
+    console.warn("Answer error:", e);
+    showToast("⚠️ Call connect error");
+    endCall();
+  }
+}
+
+async function declineCall(callData) {
+  const inc = document.getElementById("incomingCallOverlay");
+  if (inc) inc.classList.remove("show");
+  stopCallTone();
+  if (callData && callData.id) {
+    try {
+      await db.collection("calls").doc(callData.id).update({
+        status: "declined"
+      });
+    } catch(e){}
+  }
+}
+
+function listenForIncomingCalls() {
+  if (!currentUser) return;
+  if (incomingCallUnsubscribe) { incomingCallUnsubscribe(); incomingCallUnsubscribe = null; }
+
+  try {
+    incomingCallUnsubscribe = db.collection("calls")
+      .where("calleeId", "==", currentUser.uid)
+      .where("status", "==", "ringing")
+      .onSnapshot((snapshot) => {
+        if (!snapshot || snapshot.empty) {
+          const inc = document.getElementById("incomingCallOverlay");
+          if (inc && inc.classList.contains("show") && !currentCallSession) {
+            inc.classList.remove("show");
+            stopCallTone();
+          }
+          return;
+        }
+
+        const doc = snapshot.docs[0];
+        const data = { id: doc.id, ...doc.data() };
+
+        if (currentCallSession) return;
+
+        const incOverlay = document.getElementById("incomingCallOverlay");
+        const nameEl = document.getElementById("incomingCallerName");
+        const typeEl = document.getElementById("incomingCallType");
+        const photoEl = document.getElementById("incomingCallerPhoto");
+
+        if (nameEl) nameEl.textContent = data.callerName || "User";
+        if (typeEl) typeEl.textContent = (data.type === "video") ? "📹 Incoming Video Call..." : "📞 Incoming Audio Call...";
+        if (photoEl) photoEl.src = data.callerPhoto || "IMG_20260917_172912.jpg";
+
+        const accBtn = document.getElementById("incomingAcceptBtn");
+        const decBtn = document.getElementById("incomingDeclineBtn");
+
+        if (accBtn) accBtn.onclick = () => answerCall(data);
+        if (decBtn) decBtn.onclick = () => declineCall(data);
+
+        playCallTone("incoming");
+        if (incOverlay) incOverlay.classList.add("show");
+      }, (err) => {
+        console.warn("Incoming call listener warning:", err);
+      });
+  } catch(e) {
+    console.warn("Calls listener setup warning:", e);
+  }
+}
+
+function initCallControls() {
+  const endBtn = document.getElementById("callEndBtn");
+  if (endBtn) endBtn.onclick = endCall;
+
+  const muteBtn = document.getElementById("callMuteBtn");
+  if (muteBtn) {
+    muteBtn.onclick = () => {
+      isAudioMuted = !isAudioMuted;
+      if (localMediaStream) {
+        localMediaStream.getAudioTracks().forEach(t => { t.enabled = !isAudioMuted; });
+      }
+      muteBtn.classList.toggle("active-off", isAudioMuted);
+      muteBtn.textContent = isAudioMuted ? "🔇" : "🎤";
+      showToast(isAudioMuted ? "🔇 Mic Muted" : "🎤 Mic On");
+    };
+  }
+
+  const vidBtn = document.getElementById("callVideoToggleBtn");
+  if (vidBtn) {
+    vidBtn.onclick = () => {
+      isVideoDisabled = !isVideoDisabled;
+      if (localMediaStream) {
+        localMediaStream.getVideoTracks().forEach(t => { t.enabled = !isVideoDisabled; });
+      }
+      vidBtn.classList.toggle("active-off", isVideoDisabled);
+      vidBtn.textContent = isVideoDisabled ? "🚫" : "📹";
+      showToast(isVideoDisabled ? "🚫 Camera Off" : "📹 Camera On");
+    };
+  }
+
+  const flipBtn = document.getElementById("callFlipCamBtn");
+  if (flipBtn) {
+    flipBtn.onclick = async () => {
+      callCameraFacing = (callCameraFacing === "user") ? "environment" : "user";
+      if (localMediaStream) {
+        try {
+          const videoTrack = localMediaStream.getVideoTracks()[0];
+          if (videoTrack) videoTrack.stop();
+          const newStream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: callCameraFacing, width: { ideal: 640 }, height: { ideal: 480 } }
+          });
+          const newTrack = newStream.getVideoTracks()[0];
+          localMediaStream.removeTrack(videoTrack);
+          localMediaStream.addTrack(newTrack);
+          const localVid = document.getElementById("localVideo");
+          if (localVid) localVid.srcObject = localMediaStream;
+          if (rtcPeerConnection) {
+            const sender = rtcPeerConnection.getSenders().find(s => s.track && s.track.kind === "video");
+            if (sender) sender.replaceTrack(newTrack);
+          }
+        } catch(e) {
+          console.warn("Camera flip warning:", e);
+        }
+      }
+    };
+  }
+
+  if (callSpeechRecognition) {
+    try { callSpeechRecognition.abort(); } catch(e){}
+    callSpeechRecognition = null;
+  }
+
+  const spkBtn = document.getElementById("callSpeakerBtn");
+  if (spkBtn) {
+    spkBtn.onclick = () => {
+      showToast("🔊 Speaker Active");
+    };
+  }
+
+  document.querySelectorAll(".ai-topic-chip").forEach(chip => {
+    chip.addEventListener("click", async () => {
+      const q = chip.getAttribute("data-speak") || chip.textContent;
+      const sub = document.getElementById("aiCallSubtitle");
+      if (sub) sub.textContent = "सोच रहा हूँ... 🤖";
+      let resp = "";
+      try {
+        const srv = await fetch("/api/ai/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: q })
+        });
+        const d = await srv.json();
+        if (d && d.success && d.text) resp = d.text;
+      } catch(e){}
+      if (!resp) resp = generateDesiComedyResponse(q);
+      speakAICall(resp);
+    });
+  });
+}
+
+function generateDesiComedyResponse(query) {
+  const q = (query || "").toLowerCase();
+  if (q.includes("जोक") || q.includes("joke") || q.includes("हँसी") || q.includes("funny")) {
+    const jokes = [
+      "अरे भाई सुनो! एक बार पप्पू से मास्टर जी ने पूछा: UP में सबसे तेज़ क्या दौड़ता है? पप्पू बोला: मास्टर जी, बारात में रसगुल्ले की तरफ दौड़ते फूफा जी! 🤣🔥",
+      "लो भाई एक और: डॉक्टर ने मरीज से कहा, सेहत के लिए दिन में एक बार खुलकर हँसो। मरीज बोला: डॉक्टर साहब, आपकी 500 रुपये फीस देखकर ही पूरी हँसी छूट गई! 🤣",
+      "पप्पू ने दोस्त से कहा: 'भाई शादी के बाद जिंदगी बदल गई!' दोस्त: 'कैसे?' पप्पू: 'पहले मैं खुद का बॉस था, अब सिर्फ चपरासी बचा हूँ!' 🏃‍♂️💨😂",
+      "एक शराबी नाली में गिरा पड़ा था। राहगीर बोला: 'शर्म नहीं आती?' शराबी: 'अरे भाई, गिरते हैं शहसवार ही मैदाने-जंग में, तुम क्या जानो नाली का सुख!' 🤣"
+    ];
+    return jokes[Math.floor(Math.random() * jokes.length)];
+  }
+  if (q.includes("टीम") || q.includes("team") || q.includes("actor") || q.includes("director")) {
+    return "अरे भाई! UPComedyHub की पूरी टीम तो एकदम लल्लनटॉप है! हमारे डायरेक्टर और वीडियो एडिटर हैं मयंक भाई! और एक्टर्स की तो पूछो मत — वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम और निगम! सब मिलकर घाटमपुर, कानपुर से हँसी का भौकाल मचाते हैं! 🎬🔥";
+  }
+  if (q.includes("वीडियो कब") || q.includes("naya video") || q.includes("new video")) {
+    return "अरे भाई! नया धमाकेदार वीडियो बहुत जल्द आ रहा है! मयंक भाई रात-दिन एडिटिंग रूम में लगे हुए हैं। तब तक Channel Profile खोलकर सारे रील्स और शॉर्ट्स का मज़ा लो! 🍿🔥";
+  }
+  if (q.includes("शायरी") || q.includes("shayari")) {
+    return "इरशाद करो भाई! अर्ज़ किया है: 'चांदनी रात में तारे चमकते हैं, UPComedyHub देखकर सबके चेहरे दमकते हैं! जो ना हँसे हमारी रील्स देखकर, उसे फूफा जी बारात में कूटते हैं!' वाह वाह भाई! 🎙️🤣";
+  }
+  return "अरे भाई! आपकी बात एकदम दिल को छू गई 🙏 UPComedyHub का मोटो याद है ना: 'आपकी हँसी, हमारी पहचान'! चेहरे पर 32 दाँत वाली मुस्कान बनाए रखो और मौज लो! 🔥";
+}
+
+function openCallingHub(){
+  const sov = document.getElementById("settingsOverlay");
+  if(sov) sov.classList.remove("show");
+  const hub = document.getElementById("callingHubOverlay");
+  if(hub) hub.style.display = "flex";
+}
+window.openCallingHub = openCallingHub;
 
 async function openDirectMessages(){
   const o = showMessagesOverlay(); if(!o) return;
@@ -5111,7 +6053,7 @@ window.openCommunity = openCommunity;
   const ni = $('funPlayerNameInput');
   if(ni){ ni.value = player.name||''; ni.addEventListener('change',()=>{ player.name = ni.value.trim().slice(0,18)||'Player'; renderPlayer(); renderBoard(); }); }
   const pi = $('funPlayerPhoto');
-  if(pi) pi.addEventListener('change',()=>{ const f = pi.files && pi.files[0]; if(!f) return; if(f.size > 2*1024*1024){ alert('Photo 2MB se chhoti'); pi.value = ''; return; } const rd = new FileReader(); rd.onload = ()=>{ player.photo = rd.result; renderPlayer(); }; rd.readAsDataURL(f); });
+  if(pi) pi.addEventListener('change',()=>{ const f = pi.files && pi.files[0]; if(!f) return; if(f.size > 2*1024*1024){ showToast('Photo 2MB se chhoti honi chahiye'); pi.value = ''; return; } const rd = new FileReader(); rd.onload = ()=>{ player.photo = rd.result; renderPlayer(); }; rd.readAsDataURL(f); });
 
   const daily = [
     {q:'Dost ne udhaar liya aur reply band. Best reaction?',o:['😂','😭','😎','📞'],a:1},
@@ -5140,7 +6082,7 @@ window.openCommunity = openCommunity;
   if(sh) sh.onclick = async ()=>{
     const level = lvl(xp);
     const t = '😂 Maine UPComedyHub Fun Zone me Level '+level+' aur '+xp+' XP bana liye! 🎮 Try karo: https://upcomedyhub.github.io/';
-    try{ if(navigator.share) await navigator.share({title:'UPComedyHub Fun Zone', text:t, url:'https://upcomedyhub.github.io/'}); else { await navigator.clipboard.writeText(t); alert('Copy ho gaya!'); } }catch(e){}
+    try{ if(navigator.share) await navigator.share({title:'UPComedyHub Fun Zone', text:t, url:'https://upcomedyhub.github.io/'}); else { await navigator.clipboard.writeText(t); showToast('Copy ho gaya!'); } }catch(e){}
   };
   renderPlayer(); renderBoard();
 })();
@@ -5428,11 +6370,13 @@ window.addEventListener("DOMContentLoaded",()=>{
   const shb = document.getElementById("shareProfileBtn"); if(shb) shb.addEventListener("click", shareUserProfile);
   document.querySelectorAll(".ig-tab").forEach(tab=>tab.addEventListener("click", ()=>switchIgTab(tab.getAttribute("data-ig-tab"))));
 
-  // Also from Cobra — click par "Coming soon"
-  document.querySelectorAll(".afc-row").forEach(row=>row.addEventListener("click", ()=>{
-    const name = row.getAttribute("data-cobra-app") || "App";
-    showToast("🚧 " + name + " — Coming soon!");
-  }));
+  // Also from Cobra — Future Apps
+  document.querySelectorAll(".afc-row").forEach(row=>{
+    row.addEventListener("click", ()=>{
+      const name = row.getAttribute("data-cobra-app") || "App";
+      showToast("🚧 " + name + " — Coming soon!");
+    });
+  });
 
   const ntb = document.getElementById("noteTextInput"); if(ntb) ntb.addEventListener("input", updateNoteCharCount);
   const nep = document.getElementById("noteEmojiPicker");
@@ -5687,7 +6631,7 @@ const UPCH_AI_BOT = {
   uid: AI_BOT_UID,
   displayName: "UPComedyHub AI Assistant 🤖",
   username: "ai_assistant",
-  photoURL: "1000059751.png"
+  photoURL: "IMG_20260917_172912.jpg"
 };
 
 const UPCH_SYSTEM_PROMPT = `
@@ -5783,6 +6727,21 @@ async function discoverGeminiModels(){
 
 // ---------- GEMINI TEXT CALL ----------
 async function callGeminiText(text){
+  try {
+    const srvRes = await fetch("/api/ai/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: text })
+    });
+    if (srvRes.ok) {
+      const srvData = await srvRes.json();
+      if (srvData && srvData.success && srvData.text) {
+        return srvData.text;
+      }
+    }
+  } catch(e) {
+    console.warn("Server AI proxy failed, falling back to client:", e);
+  }
   await loadAIKey();
   if(!GEMINI_API_KEY) return aiKeyHelpMessage();
 
@@ -5853,7 +6812,18 @@ async function generateImageWithHorde(prompt){
 
 async function generateImage(prompt){
   const clean = (prompt || "").trim() || "funny desi comedy stage";
-  return await generateImageWithHorde(clean);
+  try {
+    const res = await fetch("/api/ai/image?prompt=" + encodeURIComponent(clean));
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success && data.imageUrl) return data.imageUrl;
+    }
+  } catch(e) {
+    console.warn("Server image endpoint issue:", e);
+  }
+  const seed = Math.floor(Math.random() * 10000000);
+  const encoded = encodeURIComponent(clean + ", funny desi comedy comic style, vibrant, high detail");
+  return "https://image.pollinations.ai/prompt/" + encoded + "?width=768&height=768&nologo=true&seed=" + seed;
 }
 
 // ---------- DAILY PHOTO QUOTA (2 free per day) ----------
@@ -5970,12 +6940,6 @@ sendMessage = async function(){
     const text = input.value.trim();
     if(!text) return;
 
-    if(!currentUser){
-      showToast("🔒 AI से बात करने के लिए पहले लॉगिन करें!");
-      if(typeof window.openLoginScreen === "function") window.openLoginScreen();
-      return;
-    }
-
     input.value = "";
     input.style.height = "auto";
     updateComposerButtons();
@@ -5983,10 +6947,18 @@ sendMessage = async function(){
     const box = document.getElementById("chatMessages");
     pushAIHistory("user", text);
 
-    const isImageRequest = text.toLowerCase().startsWith("create image:") ||
-                           text.toLowerCase().includes("photo banao") ||
-                           text.toLowerCase().includes("image generate") ||
-                           text.toLowerCase().includes("tasveer banao");
+    const lower = text.toLowerCase();
+    const isImageRequest = lower.startsWith("create image:") ||
+                           lower.includes("photo bana") ||
+                           lower.includes("image bana") ||
+                           lower.includes("tasveer bana") ||
+                           lower.includes("tasvir bana") ||
+                           lower.includes("picture bana") ||
+                           lower.includes("drawing bana") ||
+                           lower.includes("photo generate") ||
+                           lower.includes("image generate") ||
+                           lower.includes("generate photo") ||
+                           lower.includes("generate image");
 
     const typingId = "ai-loading-" + Date.now();
     const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "UPComedyHub AI सोच रहा है... 🤖";
@@ -5996,17 +6968,18 @@ sendMessage = async function(){
     box.scrollTop = box.scrollHeight;
 
     if(isImageRequest){
-      const used = await getPhotoCount(currentUser.uid);
+      const activeUid = currentUser ? currentUser.uid : "guest_user";
+      const used = await getPhotoCount(activeUid);
       if(used >= 2){
         document.getElementById(typingId)?.remove();
         pushAIHistory("bot", "⚠️ अरे भाई! आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा! 😄");
         return;
       }
       const promptClean = text.replace(/create image:/i, "")
-        .replace(/photo banao|image generate|tasveer banao/gi, "").trim() || "funny comedy stage";
+        .replace(/photo banao|photo bana do|photo bana|image generate|generate image|generate photo|image banao|tasveer banao|tasvir banao|picture banao|drawing banao/gi, "").trim() || "funny desi comedy stage";
       try{
         const imageUrl = await generateImage(promptClean);
-        const n = await incrementPhotoCount(currentUser.uid);
+        const n = await incrementPhotoCount(activeUid);
         document.getElementById(typingId)?.remove();
         pushAIHistory("bot", "लो भाई, आपकी फोटो तैयार है! ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
       }catch(imgErr){

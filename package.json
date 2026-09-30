@@ -1,0 +1,16 @@
+{
+  "name": "upcomedyhub",
+  "version": "1.0.0",
+  "description": "UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'Build completed'",
+    "lint": "node -c server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "express": "^4.21.2"
+  }
+}

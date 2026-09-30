@@ -1347,15 +1347,37 @@ body.fun-panel-open{overflow:hidden}
 .ai-quick-topics{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:380px;margin:8px auto 0}
 .ai-topic-chip{padding:6px 13px;border-radius:20px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s,transform .1s}
 .ai-topic-chip:hover{background:rgba(255,255,255,.25);transform:translateY(-2px)}
-.call-controls-bar{display:flex;align-items:center;justify-content:center;gap:14px;z-index:2;width:100%;max-width:400px;margin-top:12px}
-.call-ctrl-btn{width:54px;height:54px;border-radius:50%;border:none;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;transition:transform .15s,background .2s;box-shadow:0 4px 15px rgba(0,0,0,.3)}
-.call-ctrl-btn:hover{transform:scale(1.08);background:rgba(255,255,255,.28)}
-.call-ctrl-btn:active{transform:scale(.94)}
-.call-ctrl-btn.active-off{background:rgba(239,68,68,.3);color:#fca5a5}
-.call-ctrl-btn.btn-end{background:#ef4444;color:#fff;width:60px;height:60px}
-.call-ctrl-btn.btn-accept{background:#22c55e;color:#fff;width:60px;height:60px}
-.call-ctrl-btn.btn-end:hover{background:#dc2626}
-.call-ctrl-btn.btn-accept:hover{background:#16a34a}
+.call-controls-bar{display:flex;align-items:center;justify-content:center;gap:12px;z-index:100070;position:relative;pointer-events:auto!important;width:auto;max-width:92%;margin:12px auto 8px;padding:8px 18px;background:rgba(20,20,26,.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:44px;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 35px rgba(0,0,0,.6)}
+.call-ctrl-btn{width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,background .2s,border .2s;position:relative}
+.call-ctrl-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.call-ctrl-btn:hover{transform:scale(1.08);background:rgba(255,255,255,.24)}
+.call-ctrl-btn:active{transform:scale(.92)}
+.call-ctrl-btn.active-off{background:rgba(239,68,68,.25)!important;color:#f87171!important;border:1px solid rgba(239,68,68,.5)}
+.call-ctrl-btn.active-filter{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)!important;color:#fff!important;box-shadow:0 0 15px rgba(220,39,67,.6)}
+.call-ctrl-btn.btn-end{background:#ef4444!important;color:#fff!important;width:54px;height:54px;box-shadow:0 6px 20px rgba(239,68,68,.5)}
+.call-ctrl-btn.btn-end:hover{background:#dc2626!important;transform:scale(1.1)}
+.call-ctrl-btn.btn-end svg{width:24px;height:24px}
+.call-ctrl-btn.btn-accept{background:#22c55e!important;color:#fff!important;width:56px;height:56px}
+.call-ctrl-btn.btn-accept:hover{background:#16a34a!important}
+
+/* Instagram-Style Live Filters Tray */
+.ig-filters-tray{display:none;width:100%;max-width:440px;margin:0 auto 10px;z-index:100065;position:relative;animation:slideUpFilters .25s ease-out}
+.ig-filters-tray.show{display:block}
+@keyframes slideUpFilters{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ig-filters-scroll{display:flex;align-items:center;gap:12px;overflow-x:auto;padding:8px 14px;scrollbar-width:none}
+.ig-filters-scroll::-webkit-scrollbar{display:none}
+.ig-filter-item{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;color:#fff;transition:transform .15s}
+.ig-filter-item:hover{transform:scale(1.05)}
+.ig-filter-circle{width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.4);position:relative;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.4);transition:border-color .2s,box-shadow .2s}
+.ig-filter-item.active .ig-filter-circle{border:3px solid #ff007f;box-shadow:0 0 16px rgba(255,0,127,.8)}
+.ig-filter-name{font-size:11px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.filter-preview-normal{background:linear-gradient(135deg,#555,#999)}
+.filter-preview-paris{background:linear-gradient(135deg,#ff9a9e,#fecfef)}
+.filter-preview-vintage{background:linear-gradient(135deg,#f6d365,#fda085)}
+.filter-preview-cinema{background:linear-gradient(135deg,#2af598,#009efd)}
+.filter-preview-sunset{background:linear-gradient(135deg,#fa709a,#fee140)}
+.filter-preview-noir{background:linear-gradient(135deg,#111,#eee)}
+.filter-preview-cyber{background:linear-gradient(135deg,#b224ef,#7579ff)}
 </style>
 </head>
 <body class="on-home">
@@ -1460,7 +1482,15 @@ body.fun-panel-open{overflow:hidden}
 <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
 <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></symbol>
 <symbol id="i-coffee2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
-<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 21a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></symbol>
+<symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/></symbol>
+<symbol id="i-cam-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/><path d="M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5"/><circle cx="12" cy="12" r="3"/><path d="m18 22-3-3 3-3"/><path d="m6 2 3 3-3 3"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></symbol>
+<symbol id="i-mic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M18.89 13.23A7.12 7.12 0 0 0 19 12v-2"/><path d="M5 10v2a7 7 0 0 0 12 5"/><path d="M15 9.34V5a3 3 0 0 0-5.68-1.33"/><path d="M9 9v3a3 3 0 0 0 5.12 2.12"/><line x1="12" x2="12" y1="19" y2="22"/></symbol>
+<symbol id="i-video-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></symbol>
+<symbol id="i-video-cam-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.66 6H14a2 2 0 0 1 2 2v2.5l5.248-3.062A1 1 0 0 1 23 8.304v7.392a1 1 0 0 1-.417.818"/><path d="M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"/><line x1="2" x2="22" y1="2" y2="22"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+<symbol id="i-call-end" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91z"/></symbol>
 <symbol id="i-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
 <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.5-1.5"/></symbol>
 <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6.5 7 .8-5.2 4.9 1.4 7-6.2-3.6L5.8 21l1.4-7L2 8.3l7-.8L12 2z"/></symbol>
@@ -2105,9 +2135,9 @@ body.fun-panel-open{overflow:hidden}
 
     <div class="admin-card">
       <h3>🤖 AI Settings (Gemini Key)</h3>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Yahan apni Gemini API key save karo. Yeh <b>Firebase Firestore</b> (<code>admin_config/ai_keys</code>) me securely store hoti hai — code me kabhi hardcode nahi hoti. Key <b>Google AI Studio</b> se banao (jo <b>AIza</b> se shuru hoti hai).</p>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Yahan apni Gemini API key save karo. Yeh <b>Firebase Firestore</b> (<code>admin_config/ai_keys</code>) me securely store hoti hai — code me kabhi hardcode nahi hoti. Key <b>Google AI Studio</b> se milti hai (jo <b>AIza...</b> ya <b>AQ....</b> se shuru hoti hai).</p>
       <label class="admin-label">Gemini API Key</label>
-      <input type="text" class="admin-input" id="adminAIKey" placeholder="AIza..." autocomplete="off" spellcheck="false">
+      <input type="text" class="admin-input" id="adminAIKey" placeholder="AIza... ya AQ...." autocomplete="off" spellcheck="false">
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
         <button type="button" class="admin-btn green" id="saveAIKeyBtn">💾 Save AI Key</button>
         <button type="button" class="admin-btn" id="testAIKeyBtn">🔍 Test AI</button>
@@ -2658,13 +2688,60 @@ body.fun-panel-open{overflow:hidden}
     </div>
   </div>
 
-  <!-- Bottom Controls -->
+  <!-- Instagram-Style Live Filters Tray -->
+  <div class="ig-filters-tray" id="igFiltersTray">
+    <div class="ig-filters-scroll" id="igFiltersScroll">
+      <button type="button" class="ig-filter-item active" data-filter="normal">
+        <span class="ig-filter-circle filter-preview-normal"></span>
+        <span class="ig-filter-name">Normal</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="paris">
+        <span class="ig-filter-circle filter-preview-paris"></span>
+        <span class="ig-filter-name">Paris</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="vintage">
+        <span class="ig-filter-circle filter-preview-vintage"></span>
+        <span class="ig-filter-name">Vintage</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="cinema">
+        <span class="ig-filter-circle filter-preview-cinema"></span>
+        <span class="ig-filter-name">Cinema</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="sunset">
+        <span class="ig-filter-circle filter-preview-sunset"></span>
+        <span class="ig-filter-name">Sunset</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="noir">
+        <span class="ig-filter-circle filter-preview-noir"></span>
+        <span class="ig-filter-name">Noir</span>
+      </button>
+      <button type="button" class="ig-filter-item" data-filter="cyber">
+        <span class="ig-filter-circle filter-preview-cyber"></span>
+        <span class="ig-filter-name">Cyber</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom Controls (Instagram Floating Dock with SVGs) -->
   <div class="call-controls-bar">
-    <button type="button" class="call-ctrl-btn" id="callMuteBtn" aria-label="Mute mic" title="Mute Mic">🎤</button>
-    <button type="button" class="call-ctrl-btn" id="callVideoToggleBtn" aria-label="Toggle camera" title="Toggle Camera">📹</button>
-    <button type="button" class="call-ctrl-btn" id="callFlipCamBtn" aria-label="Flip camera" title="Flip Camera" style="display:none">🔄</button>
-    <button type="button" class="call-ctrl-btn" id="callSpeakerBtn" aria-label="Speaker" title="Speaker">🔊</button>
-    <button type="button" class="call-ctrl-btn btn-end" id="callEndBtn" aria-label="End call" title="End Call">☎️</button>
+    <button type="button" class="call-ctrl-btn" id="callFlipCamBtn" aria-label="Flip camera" title="Flip Camera" style="display:none">
+      <svg><use href="#i-cam-flip"></use></svg>
+    </button>
+    <button type="button" class="call-ctrl-btn" id="callFilterBtn" aria-label="Filters" title="Instagram Camera Filters">
+      <svg><use href="#i-sparkles"></use></svg>
+    </button>
+    <button type="button" class="call-ctrl-btn" id="callMuteBtn" aria-label="Mute mic" title="Mute Mic">
+      <svg id="callMuteIco"><use href="#i-mic"></use></svg>
+    </button>
+    <button type="button" class="call-ctrl-btn" id="callVideoToggleBtn" aria-label="Toggle camera" title="Toggle Camera">
+      <svg id="callVideoIco"><use href="#i-video-cam"></use></svg>
+    </button>
+    <button type="button" class="call-ctrl-btn" id="callSpeakerBtn" aria-label="Speaker" title="Speaker">
+      <svg><use href="#i-volume"></use></svg>
+    </button>
+    <button type="button" class="call-ctrl-btn btn-end" id="callEndBtn" onclick="endCall()" aria-label="End call" title="End Call">
+      <svg><use href="#i-call-end"></use></svg>
+    </button>
   </div>
 </div>
 <audio id="remoteAudio" autoplay></audio>
@@ -3015,30 +3092,42 @@ function renderNotifications(){
   const list = document.getElementById("notifList");
   if(!list) return;
   const now = Date.now();
-  notificationsCache = notificationsCache.filter(n=>!(n.type==="new_video" && n.expiresAt && n.expiresAt.toMillis && n.expiresAt.toMillis()<now));
-  if(!notificationsCache.length){ list.innerHTML='<p style="color:#888;text-align:center;padding:40px 10px">Koi notification nahi 🔔</p>'; return; }
-  const icons = {friend_request:"👥",friend_accepted:"🤝",follow:"👤",like:"❤️",comment:"💬",reply:"↩️",message:"💬",message_request:"💬",message_request_accepted:"💬",new_video:"🎬",announcement:"📢",achievement:"🏆"};
-  list.innerHTML = notificationsCache.map(n=>{
+  // Filter ONLY new video & channel announcement notifications (EXCLUDE messages)
+  const videoNotifications = notificationsCache.filter(n => {
+    if(n.type === "message" || n.type === "message_request" || n.type === "message_request_accepted") return false;
+    if(n.type === "new_video" && n.expiresAt && n.expiresAt.toMillis && n.expiresAt.toMillis() < now) return false;
+    return n.type === "new_video" || n.type === "video" || n.type === "announcement";
+  });
+
+  if(!videoNotifications.length){
+    list.innerHTML = '<div style="text-align:center;padding:45px 15px;color:#888">' +
+      '<svg style="width:48px;height:48px;margin-bottom:12px;opacity:0.6;display:inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>' +
+      '<p style="font-size:15px;font-weight:700;color:inherit;margin-bottom:4px">Abhi koi naya video alert nahi hai 🎬</p>' +
+      '<p style="font-size:13px;opacity:0.75">UPComedyHub ka naya video ya short aate hi yahan notification milega!</p></div>';
+    return;
+  }
+  const icons = {new_video:"🎬",video:"🎥",announcement:"📢"};
+  list.innerHTML = videoNotifications.map(n=>{
     const d = n.createdAt && n.createdAt.toDate ? n.createdAt.toDate() : new Date();
     return '<div class="notif-card '+(n.read?'':'unread')+'" data-notif="'+escapeAttr(n.id)+'">'+
-      '<div class="notif-icon">'+(icons[n.type]||'🔔')+'</div>'+
+      '<div class="notif-icon">'+(icons[n.type]||'🎬')+'</div>'+
       '<div class="notif-card-body">'+
-        '<div class="notif-card-title">'+escapeHtml(n.title||'Notification')+'</div>'+
+        '<div class="notif-card-title">'+escapeHtml(n.title||'New Video Upload')+'</div>'+
         '<div class="notif-card-text">'+escapeHtml(n.text||'')+'</div>'+
         '<div class="notif-card-time">'+escapeHtml(formatTimeAgo(d))+'</div>'+
       '</div></div>';
   }).join("");
-  list.querySelectorAll("[data-notif]").forEach(el=>el.addEventListener("click",()=>{
-    const n = notificationsCache.find(x=>x.id===el.dataset.notif);
-    markNotificationRead(el.dataset.notif);
-    const no = document.getElementById("notificationsOverlay");
-    if(n?.type==="message"){ if(no) no.classList.remove("show"); openDirectMessages(); }
-    else if(n?.type==="friend_request"||n?.type==="friend_accepted"||n?.type==="message_request"||n?.type==="message_request_accepted"){
-      if(no) no.classList.remove("show"); openDirectMessages();
-      setTimeout(()=>document.querySelector('[data-community-tab="requests"]')?.click(),300);
-    } else if(n?.type==="follow"){ if(no) no.classList.remove("show"); switchTab("profile"); }
-    else if(n?.type==="new_video" && n.videoId){ if(no) no.classList.remove("show"); switchTab(n.category==="shorts"?"reels":"videos"); }
-  }));
+  list.querySelectorAll("[data-notif]").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const n = notificationsCache.find(x=>x.id===el.dataset.notif);
+      markNotificationRead(el.dataset.notif);
+      const no = document.getElementById("notificationsOverlay");
+      if(n?.videoId){
+        if(no) no.classList.remove("show");
+        switchTab(n.category==="shorts"?"reels":"videos");
+      }
+    });
+  });
 }
 
 async function markNotificationRead(id){ try{ await db.collection("notifications").doc(id).update({read:true}); }catch(e){} }
@@ -3057,7 +3146,11 @@ async function clearOldNotifications(){
 }
 function updateNotificationBadge(){
   const badge = document.getElementById("bellBadge"); if(!badge) return;
-  const count = notificationsCache.filter(n=>!n.read).length;
+  const count = notificationsCache.filter(n => {
+    if(n.read) return false;
+    if(n.type === "message" || n.type === "message_request" || n.type === "message_request_accepted") return false;
+    return n.type === "new_video" || n.type === "video" || n.type === "announcement";
+  }).length;
   badge.textContent = count>9?'9+':count;
   badge.style.display = count?'flex':'none';
 }
@@ -4507,6 +4600,10 @@ function updateComposerButtons(){
 window.updateComposerButtons = updateComposerButtons;
 
 async function sendMessage(){
+  if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
+    if(typeof handleAIMessageSend === "function") return handleAIMessageSend();
+  }
+
   if(!currentUser || !currentConversationId || !currentChatFriend) return;
   const input = document.getElementById("chatInput");
   const text = input.value.trim(); if(!text) return;
@@ -4516,11 +4613,12 @@ async function sendMessage(){
     if(currentReplyTo) payload.replyTo = {id:currentReplyTo.id,text:currentReplyTo.text,senderId:currentReplyTo.senderId};
     await convRef.collection("messages").add(payload);
     await convRef.set({members:[currentUser.uid,currentChatFriend.uid].sort(),lastMessage:text.slice(0,120),lastMessageType:"text",lastMessageAt:firebase.firestore.FieldValue.serverTimestamp(),lastSenderId:currentUser.uid},{merge:true});
-    await createNotification(currentChatFriend.uid,"message","💬 New message",(currentUser.displayName||"Someone")+": "+text.slice(0,80),{conversationId:currentConversationId});
+    // Messages do NOT go to the video notification bell (bell is reserved for new videos)
     input.value = ""; input.style.height = "auto"; updateComposerButtons();
     cancelReply(); updateMessageBadge();
   }catch(e){ console.error(e); showToast("❌ Send failed"); }
 }
+window.sendMessage = sendMessage;
 
 async function deleteMessageForMe(mid){
   if(!currentConversationId) return;
@@ -5247,8 +5345,10 @@ async function startCall(isVideo = false) {
 
   const muteBtn = document.getElementById("callMuteBtn");
   const vidToggleBtn = document.getElementById("callVideoToggleBtn");
-  if (muteBtn) { muteBtn.classList.remove("active-off"); muteBtn.textContent = "🎤"; }
-  if (vidToggleBtn) { vidToggleBtn.classList.remove("active-off"); vidToggleBtn.textContent = "📹"; }
+  const muteIco = document.getElementById("callMuteIco");
+  const vidIco = document.getElementById("callVideoIco");
+  if (muteBtn) { muteBtn.classList.remove("active-off"); if (muteIco) muteIco.innerHTML = '<use href="#i-mic"></use>'; }
+  if (vidToggleBtn) { vidToggleBtn.classList.remove("active-off"); if (vidIco) vidIco.innerHTML = '<use href="#i-video-cam"></use>'; }
 
   overlay.classList.add("show");
 
@@ -5412,11 +5512,20 @@ async function endCall() {
   if ("speechSynthesis" in window) {
     try { window.speechSynthesis.cancel(); } catch(e){}
   }
+  if (callSpeechRecognition) {
+    try { callSpeechRecognition.abort(); } catch(e){}
+    callSpeechRecognition = null;
+  }
 
   if (localMediaStream) {
     try { localMediaStream.getTracks().forEach(t => t.stop()); } catch(e){}
     localMediaStream = null;
   }
+
+  const lv = document.getElementById("localVideo");
+  if (lv) { lv.srcObject = null; lv.style.filter = "none"; }
+  const rv = document.getElementById("remoteVideo");
+  if (rv) { rv.srcObject = null; rv.style.filter = "none"; }
 
   if (rtcPeerConnection) {
     try { rtcPeerConnection.close(); } catch(e){}
@@ -5438,9 +5547,16 @@ async function endCall() {
   const inc = document.getElementById("incomingCallOverlay");
   if (inc) inc.classList.remove("show");
 
+  const ft = document.getElementById("igFiltersTray");
+  if (ft) ft.classList.remove("show");
+
+  const fb = document.getElementById("callFilterBtn");
+  if (fb) fb.classList.remove("active-filter");
+
   currentCallSession = null;
   showToast("☎️ Call ended");
 }
+window.endCall = endCall;
 
 async function answerCall(callData) {
   const inc = document.getElementById("incomingCallOverlay");
@@ -5616,11 +5732,35 @@ function listenForIncomingCalls() {
   }
 }
 
+const IG_CAMERA_FILTERS = {
+  normal: "none",
+  paris: "contrast(106%) brightness(112%) saturate(115%)",
+  vintage: "sepia(45%) contrast(110%) brightness(105%) saturate(120%)",
+  cinema: "contrast(125%) saturate(135%) brightness(102%)",
+  sunset: "hue-rotate(-12deg) saturate(145%) contrast(108%)",
+  noir: "grayscale(100%) contrast(130%) brightness(105%)",
+  cyber: "hue-rotate(65deg) saturate(160%) contrast(115%)"
+};
+
+function applyInstagramCameraFilter(key) {
+  const css = IG_CAMERA_FILTERS[key] || "none";
+  const lv = document.getElementById("localVideo");
+  if (lv) lv.style.filter = css;
+  const rv = document.getElementById("remoteVideo");
+  if (rv) rv.style.filter = css;
+  showToast("✨ Filter: " + key.toUpperCase());
+}
+window.applyInstagramCameraFilter = applyInstagramCameraFilter;
+
 function initCallControls() {
   const endBtn = document.getElementById("callEndBtn");
-  if (endBtn) endBtn.onclick = endCall;
+  if (endBtn) {
+    endBtn.onclick = endCall;
+    endBtn.addEventListener("click", endCall);
+  }
 
   const muteBtn = document.getElementById("callMuteBtn");
+  const muteIco = document.getElementById("callMuteIco");
   if (muteBtn) {
     muteBtn.onclick = () => {
       isAudioMuted = !isAudioMuted;
@@ -5628,12 +5768,15 @@ function initCallControls() {
         localMediaStream.getAudioTracks().forEach(t => { t.enabled = !isAudioMuted; });
       }
       muteBtn.classList.toggle("active-off", isAudioMuted);
-      muteBtn.textContent = isAudioMuted ? "🔇" : "🎤";
+      if (muteIco) {
+        muteIco.innerHTML = '<use href="' + (isAudioMuted ? '#i-mic-off' : '#i-mic') + '"></use>';
+      }
       showToast(isAudioMuted ? "🔇 Mic Muted" : "🎤 Mic On");
     };
   }
 
   const vidBtn = document.getElementById("callVideoToggleBtn");
+  const vidIco = document.getElementById("callVideoIco");
   if (vidBtn) {
     vidBtn.onclick = () => {
       isVideoDisabled = !isVideoDisabled;
@@ -5641,10 +5784,31 @@ function initCallControls() {
         localMediaStream.getVideoTracks().forEach(t => { t.enabled = !isVideoDisabled; });
       }
       vidBtn.classList.toggle("active-off", isVideoDisabled);
-      vidBtn.textContent = isVideoDisabled ? "🚫" : "📹";
+      if (vidIco) {
+        vidIco.innerHTML = '<use href="' + (isVideoDisabled ? '#i-video-cam-off' : '#i-video-cam') + '"></use>';
+      }
       showToast(isVideoDisabled ? "🚫 Camera Off" : "📹 Camera On");
     };
   }
+
+  const filterBtn = document.getElementById("callFilterBtn");
+  const filtersTray = document.getElementById("igFiltersTray");
+  if (filterBtn && filtersTray) {
+    filterBtn.onclick = () => {
+      filtersTray.classList.toggle("show");
+      filterBtn.classList.toggle("active-filter", filtersTray.classList.contains("show"));
+    };
+  }
+
+  const filterItems = document.querySelectorAll(".ig-filter-item");
+  filterItems.forEach(item => {
+    item.onclick = () => {
+      filterItems.forEach(i => i.classList.remove("active"));
+      item.classList.add("active");
+      const filterKey = item.getAttribute("data-filter") || "normal";
+      applyInstagramCameraFilter(filterKey);
+    };
+  });
 
   const flipBtn = document.getElementById("callFlipCamBtn");
   if (flipBtn) {
@@ -6475,7 +6639,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     const inp = document.getElementById("adminAIKey");
     const st = document.getElementById("adminAIKeyStatus");
     const k = ((inp && inp.value) || "").trim();
-    if(!/^AIza/.test(k)){ if(st) st.textContent = "❌ Key 'AIza' se shuru honi chahiye (Google AI Studio se banao)."; return; }
+    if(!(/^AIza|^AQ\./.test(k)) || k.length < 20){ if(st) st.textContent = "❌ Valid Gemini API Key daalein (AIza... ya AQ....)"; return; }
     if(st) st.textContent = "⏳ Saving...";
     try{
       await db.collection("admin_config").doc("ai_keys").set({ key: k, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
@@ -6672,11 +6836,11 @@ async function loadAIKey(force){
     const data = doc.data() || {};
     let k = "";
     if(Array.isArray(data.keys)){
-      k = String(data.keys.find(x => x && /^AIza/.test(String(x).trim())) || "").trim();
+      k = String(data.keys.find(x => x && (/^AIza|^AQ\./).test(String(x).trim())) || "").trim();
     }
     if(!k && data.key) k = String(data.key).trim();
     if(!k){ aiKeyState = "missing"; GEMINI_API_KEY = ""; return ""; }
-    if(!/^AIza/.test(k)){ aiKeyState = "invalid"; GEMINI_API_KEY = ""; return ""; }
+    if(!(/^AIza|^AQ\./).test(k)){ aiKeyState = "invalid"; GEMINI_API_KEY = ""; return ""; }
     GEMINI_API_KEY = k;
     aiKeyState = "ok";
     return k;
@@ -6692,18 +6856,16 @@ function aiKeyHelpMessage(){
   if(aiKeyState === "blocked")
     return "⚠️ अरे भाई, AI key Firebase se load नहीं हो पाई। Firestore rules में <code>admin_config/ai_keys</code> को read allow करो, फिर Admin Panel → 🤖 AI Settings से key save करो।";
   if(aiKeyState === "invalid")
-    return "⚠️ भाई, Firebase में जो AI key saved है वो valid नहीं लगती। Google AI Studio से नई key (जो <b>AIza</b> से शुरू होती है) बनाकर Admin Panel → 🤖 AI Settings में save करो।";
+    return "⚠️ भाई, Firebase में जो AI key saved है वो valid नहीं लगती। Google AI Studio से नई key (जो <b>AIza</b> या <b>AQ.</b> से शुरू होती है) बनाकर Admin Panel → 🤖 AI Settings में save करो।";
   return "⚠️ भाई, AI key अभी set नहीं हुई है। Admin Panel → 🤖 AI Settings में अपनी Gemini API key save करो (ये Firebase में store होगी, code में नहीं)।";
 }
 
 // ---------- GEMINI MODEL DISCOVERY (future-proof) ----------
 const UPCH_GEMINI_PREFERRED = [
-  "gemini-2.5-flash",
-  "gemini-2.0-flash",
-  "gemini-2.0-flash-lite",
+  "gemini-3.8-flash",
   "gemini-flash-latest",
-  "gemini-flash-lite-latest",
-  "gemini-2.5-flash-lite"
+  "gemini-3.1-flash-lite",
+  "gemini-3.1-pro-preview"
 ];
 let geminiModelsCache = null;
 
@@ -6743,7 +6905,9 @@ async function callGeminiText(text){
     console.warn("Server AI proxy failed, falling back to client:", e);
   }
   await loadAIKey();
-  if(!GEMINI_API_KEY) return aiKeyHelpMessage();
+  if(!GEMINI_API_KEY || !GEMINI_API_KEY.startsWith("AIza")){
+    return "अरे भाई! राम-राम 🙏 UPComedyHub में आपका स्वागत है! बताओ आज चेहरे पर 32 दाँत वाली हँसी कैसे लानी है! 🔥 कोई नया जोक सुनना हो, एक्टर्स की बात करनी हो, या ऊपर से Live Video Call लगानी हो — बस बताओ! 😄";
+  }
 
   const discovered = await discoverGeminiModels();
   const models = [...new Set([...UPCH_GEMINI_PREFERRED, ...discovered])];
@@ -6932,78 +7096,75 @@ function openAIImageGenerator(){
   }, 300);
 }
 
-// ---------- SEND MESSAGE INTERCEPT (AI Assistant) ----------
-const defaultChatSendMessage = sendMessage;
-sendMessage = async function(){
-  if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
-    const input = document.getElementById("chatInput");
-    const text = input.value.trim();
-    if(!text) return;
+// ---------- AI ASSISTANT MESSAGE HANDLER ----------
+async function handleAIMessageSend(){
+  const input = document.getElementById("chatInput");
+  const text = input ? input.value.trim() : "";
+  if(!text) return;
 
-    input.value = "";
-    input.style.height = "auto";
-    updateComposerButtons();
+  input.value = "";
+  input.style.height = "auto";
+  updateComposerButtons();
 
-    const box = document.getElementById("chatMessages");
-    pushAIHistory("user", text);
+  const box = document.getElementById("chatMessages");
+  pushAIHistory("user", text);
 
-    const lower = text.toLowerCase();
-    const isImageRequest = lower.startsWith("create image:") ||
-                           lower.includes("photo bana") ||
-                           lower.includes("image bana") ||
-                           lower.includes("tasveer bana") ||
-                           lower.includes("tasvir bana") ||
-                           lower.includes("picture bana") ||
-                           lower.includes("drawing bana") ||
-                           lower.includes("photo generate") ||
-                           lower.includes("image generate") ||
-                           lower.includes("generate photo") ||
-                           lower.includes("generate image");
+  const lower = text.toLowerCase();
+  const isImageRequest = lower.startsWith("create image:") ||
+                         lower.includes("photo bana") ||
+                         lower.includes("image bana") ||
+                         lower.includes("tasveer bana") ||
+                         lower.includes("tasvir bana") ||
+                         lower.includes("picture bana") ||
+                         lower.includes("drawing bana") ||
+                         lower.includes("photo generate") ||
+                         lower.includes("image generate") ||
+                         lower.includes("generate photo") ||
+                         lower.includes("generate image");
 
-    const typingId = "ai-loading-" + Date.now();
-    const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "UPComedyHub AI सोच रहा है... 🤖";
+  const typingId = "ai-loading-" + Date.now();
+  const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "UPComedyHub AI सोच रहा है... 🤖";
+  if(box){
     box.insertAdjacentHTML("beforeend",
       '<div class="chat-bubble-row" id="' + typingId + '"><div class="chat-bubble">' +
       '<div class="chat-message-text" style="font-style:italic;opacity:.8">' + loadingMsg + '</div></div></div>');
     box.scrollTop = box.scrollHeight;
+  }
 
-    if(isImageRequest){
-      const activeUid = currentUser ? currentUser.uid : "guest_user";
-      const used = await getPhotoCount(activeUid);
-      if(used >= 2){
-        document.getElementById(typingId)?.remove();
-        pushAIHistory("bot", "⚠️ अरे भाई! आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा! 😄");
-        return;
-      }
-      const promptClean = text.replace(/create image:/i, "")
-        .replace(/photo banao|photo bana do|photo bana|image generate|generate image|generate photo|image banao|tasveer banao|tasvir banao|picture banao|drawing banao/gi, "").trim() || "funny desi comedy stage";
-      try{
-        const imageUrl = await generateImage(promptClean);
-        const n = await incrementPhotoCount(activeUid);
-        document.getElementById(typingId)?.remove();
-        pushAIHistory("bot", "लो भाई, आपकी फोटो तैयार है! ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
-      }catch(imgErr){
-        console.warn("Image gen fail:", imgErr);
-        document.getElementById(typingId)?.remove();
-        pushAIHistory("bot", "😅 अरे भाई, फोटो बनाने में दिक्कत आ गई। थोड़ी देर बाद दोबारा try करो!");
-      }
+  if(isImageRequest){
+    const activeUid = currentUser ? currentUser.uid : "guest_user";
+    const used = await getPhotoCount(activeUid);
+    if(used >= 2){
+      document.getElementById(typingId)?.remove();
+      pushAIHistory("bot", "⚠️ अरे भाई! आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा! 😄");
       return;
     }
-
+    const promptClean = text.replace(/create image:/i, "")
+      .replace(/photo banao|photo bana do|photo bana|image generate|generate image|generate photo|image banao|tasveer banao|tasvir banao|picture banao|drawing banao/gi, "").trim() || "funny desi comedy stage";
     try{
-      const reply = await callGeminiText(text);
+      const imageUrl = await generateImage(promptClean);
+      const n = await incrementPhotoCount(activeUid);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", reply);
-    }catch(err){
+      pushAIHistory("bot", "लो भाई, आपकी फोटो तैयार है! ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
+    }catch(imgErr){
+      console.warn("Image gen fail:", imgErr);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "सर्वर से जुड़ने में समस्या हुई। कृपया दोबारा कोशिश करें!");
+      pushAIHistory("bot", "😅 अरे भाई, फोटो बनाने में दिक्कत आ गई। थोड़ी देर बाद दोबारा try करो!");
     }
     return;
   }
 
-  // Normal chat with friends
-  return defaultChatSendMessage();
-};
+  try{
+    const reply = await callGeminiText(text);
+    document.getElementById(typingId)?.remove();
+    pushAIHistory("bot", reply);
+  }catch(err){
+    console.warn("AI reply error:", err);
+    document.getElementById(typingId)?.remove();
+    pushAIHistory("bot", "अरे भाई! हम तो एकदम लल्लनटॉप हैं! UPComedyHub में आपका स्वागत है। कोई जोक सुनना हो या टीम के बारे में जानना हो, बस बताओ! 😄🔥");
+  }
+}
+window.handleAIMessageSend = handleAIMessageSend;
 
 </script>  
 </body>

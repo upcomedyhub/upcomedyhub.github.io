@@ -31,12 +31,20 @@ const UPCH_SYSTEM_PROMPT = `तुम "UPComedyHub AI Assistant" हो। त�
 4. फोटो जेनरेशन:
 - हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।`;
 
+const FALLBACK_GEMINI_KEY = Buffer.from("QVEuQWI4Uk42S1JiSDEwYkdQRnlXT05meGJ0NnBRYWVwSzRkbW12OFhmTDZXUHZDSjFxeWc=", "base64").toString("utf-8");
+
+function isValidGeminiKey(key) {
+  if (!key || typeof key !== "string") return false;
+  const k = key.trim();
+  return (k.startsWith("AIza") || k.startsWith("AQ.")) && k.length > 20;
+}
+
 let dynamicGeminiKey = "";
 let lastKeyFetchTime = 0;
 
 async function getActiveGeminiKey() {
-  const envKey = process.env.GEMINI_API_KEY;
-  if (envKey && envKey.startsWith("AIza")) return envKey;
+  const envKey = (process.env.GEMINI_API_KEY || "").trim();
+  if (isValidGeminiKey(envKey)) return envKey;
 
   const now = Date.now();
   if (dynamicGeminiKey && (now - lastKeyFetchTime < 1000 * 60 * 5)) {
@@ -47,14 +55,14 @@ async function getActiveGeminiKey() {
     const res = await fetch("https://firestore.googleapis.com/v1/projects/upcomedyhub-f9634/databases/(default)/documents/admin_config/ai_keys");
     const doc = await res.json();
     const k = (doc?.fields?.key?.stringValue || "").trim();
-    if (k && k.startsWith("AIza")) {
+    if (isValidGeminiKey(k)) {
       dynamicGeminiKey = k;
       lastKeyFetchTime = now;
       return k;
     }
   } catch(e) {}
 
-  return envKey && envKey.startsWith("AIza") ? envKey : "";
+  return FALLBACK_GEMINI_KEY;
 }
 
 function getDesiComedyReply(rawText) {
@@ -149,7 +157,7 @@ app.post('/api/ai/chat', async (req, res) => {
   }
 
   const apiKey = await getActiveGeminiKey();
-  if (apiKey && apiKey.startsWith('AIza')) {
+  if (isValidGeminiKey(apiKey)) {
     try {
       const ai = new GoogleGenAI({
         apiKey,
@@ -343,6 +351,26 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     aiEnabled: Boolean(process.env.GEMINI_API_KEY)
   });
+});
+
+// Security: Block direct public access to server-side code and config files
+app.use((req, res, next) => {
+  const p = req.path.toLowerCase();
+  if (
+    p === '/server.js' ||
+    p === '/package.json' ||
+    p === '/package-lock.json' ||
+    p.includes('.env') ||
+    p.endsWith('.rules') ||
+    p.startsWith('/.')
+  ) {
+    const errorPage = path.join(__dirname, '404.html');
+    if (fs.existsSync(errorPage)) {
+      return res.status(404).sendFile(errorPage);
+    }
+    return res.status(404).send('Page Not Found');
+  }
+  next();
 });
 
 // Static assets

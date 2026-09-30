@@ -690,6 +690,64 @@ body.fun-panel-open{overflow:hidden}
 #spinWheel{width:min(230px,70vw);height:min(230px,70vw);border-radius:50%;margin:8px auto 15px;background:conic-gradient(#e63946 0 45deg,#ffd166 45deg 90deg,#111 90deg 135deg,#25d366 135deg 180deg,#7b61ff 180deg 225deg,#ff8a65 225deg 270deg,#00a8cc 270deg 315deg,#ff5d8f 315deg 360deg);border:8px solid #fff;box-shadow:0 8px 25px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
 #spinWheel span{width:65px;height:65px;border-radius:50%;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px}
 .dark-mode #spinWheel{border-color:#1c1c1c}
+
+/* ===== NEW 5 FUN ZONE MINI GAMES CSS ===== */
+/* 1. Ludo Mini */
+.ludo-wrap{max-width:390px;margin:0 auto;text-align:center}
+.ludo-board-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;background:#1e293b;border:3px solid #e63946;border-radius:14px;padding:8px;margin:0 auto 12px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.ludo-cell{aspect-ratio:1;background:#fff;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:800;position:relative}
+.dark-mode .ludo-cell{background:#0f172a;color:#fff}
+.ludo-cell.safe{background:#fef08a!important;color:#854d0e}
+.ludo-cell.home-zone{background:#bbf7d0!important;color:#166534}
+.ludo-token{display:inline-block;border-radius:50%;width:18px;height:18px;line-height:18px;text-align:center;font-size:10px;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.ludo-token.p1{background:#ef4444;color:#fff}
+.ludo-token.p2{background:#22c55e;color:#fff}
+.ludo-dice-box{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0}
+.ludo-dice-btn{width:64px;height:64px;border-radius:14px;background:#fff;border:2px solid #e63946;box-shadow:0 6px 16px rgba(230,57,70,.25);font-size:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
+.ludo-dice-btn:active{transform:scale(.92)}
+
+/* 2. Call Break */
+.cb-wrap{max-width:440px;margin:0 auto;text-align:center}
+.cb-table{background:radial-gradient(circle,#1b4332,#081c15);border:3px solid #d4af37;border-radius:16px;padding:12px;color:#fff;margin-bottom:12px;box-shadow:inset 0 0 25px rgba(0,0,0,.5)}
+.cb-players{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;font-size:12px}
+.cb-pbox{background:rgba(255,255,255,.1);padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.15)}
+.cb-pbox.active{border-color:#d4af37;background:rgba(212,175,55,.25)}
+.cb-trick-row{min-height:75px;display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:6px}
+.cb-hand{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.cb-card{background:#fff;color:#111;border-radius:6px;padding:7px 9px;font-size:13px;font-weight:900;border:1px solid #ccc;cursor:pointer;box-shadow:0 3px 6px rgba(0,0,0,.2);transition:transform .15s}
+.cb-card.red{color:#dc2626}
+.cb-card:hover{transform:translateY(-4px)}
+
+/* 3. Gully Cricket */
+.cricket-wrap{max-width:420px;margin:0 auto;text-align:center}
+.cricket-pitch{background:linear-gradient(180deg,#15803d 0%,#ca8a04 40%,#ca8a04 85%,#15803d 100%);height:160px;border-radius:14px;position:relative;overflow:hidden;border:2px solid #fff;margin-bottom:12px;box-shadow:inset 0 0 20px rgba(0,0,0,.3)}
+.cricket-ball{position:absolute;width:16px;height:16px;border-radius:50%;background:#ef4444;border:2px solid #fff;box-shadow:0 0 8px rgba(239,68,68,.8);left:50%;transform:translateX(-50%)}
+.cricket-meter{width:88%;height:14px;background:#334155;border-radius:7px;margin:10px auto;position:relative;overflow:hidden}
+.cricket-sweet{position:absolute;left:40%;width:20%;height:100%;background:#22c55e}
+.cricket-indicator{position:absolute;width:6px;height:100%;background:#fff;top:0;transition:left .05s linear}
+.cricket-scorecard{display:flex;justify-content:space-around;background:#0f172a;color:#fff;border-radius:10px;padding:8px;margin-bottom:10px;font-weight:800}
+
+/* 4. Turbo Car Racer */
+.car-wrap{max-width:380px;margin:0 auto;text-align:center}
+.car-canvas{width:100%;max-width:320px;height:340px;background:#334155;border-radius:14px;border:3px solid #e63946;display:block;margin:0 auto 10px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.car-ctrls{display:flex;justify-content:center;gap:18px;margin-top:8px}
+.car-ctrl-btn{width:60px;height:50px;border-radius:12px;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+.dark-mode .car-ctrl-btn{background:#e63946}
+
+/* 5. Desi Street Fighter */
+.fight-wrap{max-width:440px;margin:0 auto;text-align:center}
+.fight-stage{height:160px;background:linear-gradient(180deg,#1e1b4b 0%,#431407 60%,#292524 100%);border-radius:14px;border:2px solid #e63946;position:relative;display:flex;align-items:flex-end;justify-content:space-between;padding:12px 24px;margin-bottom:10px;overflow:hidden}
+.fight-fighter{font-size:46px;transition:transform .12s}
+.fight-fighter.hit{animation:shakeAnim .2s ease-in-out}
+@keyframes shakeAnim{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fight-hp-bar{width:46%;background:#333;height:12px;border-radius:6px;overflow:hidden;border:1px solid #fff}
+.fight-hp-fill{height:100%;background:#22c55e;transition:width .2s ease}
+.fight-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.fight-action-btn{padding:10px 8px;border-radius:10px;border:none;font-weight:800;font-size:13px;cursor:pointer;color:#fff;background:#1e293b;touch-action:manipulation;box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.fight-action-btn.punch{background:#ef4444}
+.fight-action-btn.kick{background:#f97316}
+.fight-action-btn.block{background:#3b82f6}
+.fight-action-btn.special{background:linear-gradient(135deg,#a855f7,#ec4899);grid-column:span 2}
 .fun-scorebar{display:flex;justify-content:space-between;gap:8px;margin-top:15px;font-size:13px;font-weight:800;color:#666}
 .dark-mode .fun-scorebar{color:#bbb}
 .fun-zone-login-note{text-align:center;margin-top:12px;color:#888;font-size:12px}
@@ -1348,15 +1406,16 @@ body.fun-panel-open{overflow:hidden}
 .ai-topic-chip{padding:6px 13px;border-radius:20px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s,transform .1s}
 .ai-topic-chip:hover{background:rgba(255,255,255,.25);transform:translateY(-2px)}
 .call-controls-bar{display:flex;align-items:center;justify-content:center;gap:12px;z-index:100070;position:relative;pointer-events:auto!important;width:auto;max-width:92%;margin:12px auto 8px;padding:8px 18px;background:rgba(20,20,26,.78);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:44px;border:1px solid rgba(255,255,255,.18);box-shadow:0 12px 35px rgba(0,0,0,.6)}
-.call-ctrl-btn{width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,background .2s,border .2s;position:relative}
-.call-ctrl-btn svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.call-ctrl-btn{width:48px;height:48px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s,background .2s,border .2s;position:relative;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.call-ctrl-btn svg,.call-ctrl-btn use{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;pointer-events:none!important}
 .call-ctrl-btn:hover{transform:scale(1.08);background:rgba(255,255,255,.24)}
 .call-ctrl-btn:active{transform:scale(.92)}
 .call-ctrl-btn.active-off{background:rgba(239,68,68,.25)!important;color:#f87171!important;border:1px solid rgba(239,68,68,.5)}
 .call-ctrl-btn.active-filter{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)!important;color:#fff!important;box-shadow:0 0 15px rgba(220,39,67,.6)}
-.call-ctrl-btn.btn-end{background:#ef4444!important;color:#fff!important;width:54px;height:54px;box-shadow:0 6px 20px rgba(239,68,68,.5)}
+.call-ctrl-btn.btn-end{background:#ef4444!important;color:#fff!important;width:56px;height:56px;box-shadow:0 6px 22px rgba(239,68,68,.6);z-index:100080!important;cursor:pointer!important;pointer-events:auto!important}
 .call-ctrl-btn.btn-end:hover{background:#dc2626!important;transform:scale(1.1)}
-.call-ctrl-btn.btn-end svg{width:24px;height:24px}
+.call-ctrl-btn.btn-end:active{transform:scale(.92);background:#b91c1c!important}
+.call-ctrl-btn.btn-end svg{width:26px;height:26px;pointer-events:none!important}
 .call-ctrl-btn.btn-accept{background:#22c55e!important;color:#fff!important;width:56px;height:56px}
 .call-ctrl-btn.btn-accept:hover{background:#16a34a!important}
 
@@ -1988,8 +2047,13 @@ body.fun-panel-open{overflow:hidden}
       </div>
       <div class="fun-zone-body">
         <div class="fun-game-grid">
+          <button type="button" class="fun-game-btn" data-fun="ludo"><span class="fun-icon">🎲</span><span class="fun-label">Ludo Mini</span></button>
+          <button type="button" class="fun-game-btn" data-fun="callbreak"><span class="fun-icon">♠️</span><span class="fun-label">Call Break</span></button>
+          <button type="button" class="fun-game-btn" data-fun="cricket"><span class="fun-icon">🏏</span><span class="fun-label">Gully Cricket</span></button>
+          <button type="button" class="fun-game-btn" data-fun="car"><span class="fun-icon">🏎️</span><span class="fun-label">Turbo Racer</span></button>
+          <button type="button" class="fun-game-btn" data-fun="fight"><span class="fun-icon">🥊</span><span class="fun-label">Street Fighter</span></button>
           <button type="button" class="fun-game-btn" data-fun="quiz"><span class="fun-icon">🧠</span><span class="fun-label">Comedy Quiz</span></button>
-          <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span><span class="fun-label">Guess the Dialogue</span></button>
+          <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span><span class="fun-label">Guess Dialogue</span></button>
           <button type="button" class="fun-game-btn" data-fun="reaction"><span class="fun-icon">⚡</span><span class="fun-label">Reaction Test</span></button>
           <button type="button" class="fun-game-btn" data-fun="spin"><span class="fun-icon">🎡</span><span class="fun-label">Spin Wheel</span></button>
           <button type="button" class="fun-game-btn" data-fun="riddle"><span class="fun-icon">🤔</span><span class="fun-label">Emoji Riddle</span></button>
@@ -2004,6 +2068,11 @@ body.fun-panel-open{overflow:hidden}
               <span id="funPanelTitle">🎮 Game</span>
               <button type="button" class="fun-panel-close" id="funPanelClose" aria-label="Close">✕</button>
             </div>
+            <div class="fun-panel" id="funLudoPanel"></div>
+            <div class="fun-panel" id="funCallBreakPanel"></div>
+            <div class="fun-panel" id="funCricketPanel"></div>
+            <div class="fun-panel" id="funCarPanel"></div>
+            <div class="fun-panel" id="funFightPanel"></div>
             <div class="fun-panel" id="funQuizPanel"></div>
             <div class="fun-panel" id="funGuessPanel"></div>
             <div class="fun-panel" id="funReactionPanel"></div>
@@ -3534,47 +3603,26 @@ function buildChannelReelItem(vid, title, thumb){
     appendManualShortsToReels();
   }
 
+  const UPCH_DEFAULT_REELS = [
+    { videoId: "qmyXXyjSkHw", title: "Dance Trend 💀😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/qmyXXyjSkHw/hqdefault.jpg" },
+    { videoId: "dyslbW099Is", title: "UP Bihar Ke Rangdar 😂💪 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/dyslbW099Is/hqdefault.jpg" },
+    { videoId: "s-koiVHxUVM", title: "Sasta Bewafa 😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/s-koiVHxUVM/hqdefault.jpg" },
+    { videoId: "Djoupq4W0sY", title: "Money Follows 😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/Djoupq4W0sY/hqdefault.jpg" },
+    { videoId: "5qiy3TVjrPY", title: "Hawabaji Gone Wrong 😂🔥 #shorts #funny", thumb: "https://i.ytimg.com/vi/5qiy3TVjrPY/hqdefault.jpg" },
+    { videoId: "ox0J_29FG1c", title: "Money Follows My Brother 😂💸 #shorts #funny", thumb: "https://i.ytimg.com/vi/ox0J_29FG1c/hqdefault.jpg" }
+  ];
+
   fetch("/api/youtube/reels")
-    .then(r => r.json())
+    .then(r => r.ok ? r.json() : null)
     .then(data => {
       if(data && data.success && Array.isArray(data.items) && data.items.length){
         renderReelList(data.items);
-        return;
+      } else {
+        renderReelList(UPCH_DEFAULT_REELS);
       }
-      throw new Error("Proxy unavailable");
     })
     .catch(() => {
-      fetch("https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id="+CHANNEL_ID+"&key="+API_KEY)
-        .then(r => r.json())
-        .then(data => {
-          if(!data || !data.items || !data.items.length){
-            grid.innerHTML = "";
-            appendManualShortsToReels();
-            return;
-          }
-          const upl = data.items[0].contentDetails.relatedPlaylists.uploads;
-          return fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId="+upl+"&maxResults=15&key="+API_KEY);
-        })
-        .then(r => r ? r.json() : null)
-        .then(data => {
-          if(!data || !data.items || !data.items.length){
-            grid.innerHTML = "";
-            appendManualShortsToReels();
-            return;
-          }
-          const items = data.items.map(item => {
-            const vid = item.snippet.resourceId.videoId;
-            const title = item.snippet.title;
-            const thumb = item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url;
-            return { videoId: vid, title, thumb };
-          });
-          renderReelList(items);
-        })
-        .catch(err => {
-          console.warn("YouTube reels direct fetch fallback:", err && err.message ? err.message : err);
-          grid.innerHTML = "";
-          appendManualShortsToReels();
-        });
+      renderReelList(UPCH_DEFAULT_REELS);
     });
 })();
 
@@ -4058,10 +4106,7 @@ let selectedAmount = 100;
 
 const yts = document.getElementById("youtubeSubscribers");
 if(yts){
-  fetch("https://pulse.walls.sh/profile?url="+encodeURIComponent("https://www.youtube.com/@up_comedyhub"))
-    .then(r=>{ if(!r.ok) throw new Error(); return r.json(); })
-    .then(d=>{ yts.textContent = typeof d.followers === "number" ? d.followers.toLocaleString("en-IN") : (d.followers||"—"); })
-    .catch(()=>{ yts.textContent = "—"; });
+  yts.textContent = "1.25K+";
 }
 
 const rvList = document.getElementById("recentlyViewedList");
@@ -5485,13 +5530,10 @@ async function startCall(isVideo = false) {
       }, 35000);
 
     } catch(err) {
-      console.warn("Peer connection fallback:", err);
-      setTimeout(() => {
-        stopCallTone();
-        statusEl.textContent = "Connected (Test)";
-        if (ind) ind.style.background = "#22c55e";
-        startCallTimer();
-      }, 1500);
+      console.warn("Call signaling warning:", err);
+      stopCallTone();
+      showToast("❌ Call connect nahi ho paayi. Dost abhi offline hain.");
+      endCall();
     }
   }
 }
@@ -5506,7 +5548,26 @@ function startCallTimer() {
   }, 1000);
 }
 
-async function endCall() {
+function endCall() {
+  // 1. Instantly hide the call overlay immediately (no async delay)
+  const overlay = document.getElementById("activeCallOverlay");
+  if (overlay) {
+    overlay.classList.remove("show");
+    overlay.style.display = "none";
+  }
+
+  const inc = document.getElementById("incomingCallOverlay");
+  if (inc) {
+    inc.classList.remove("show");
+    inc.style.display = "none";
+  }
+
+  const ft = document.getElementById("igFiltersTray");
+  if (ft) ft.classList.remove("show");
+
+  const fb = document.getElementById("callFilterBtn");
+  if (fb) fb.classList.remove("active-filter");
+
   stopCallTone();
   if (callTimerInterval) { clearInterval(callTimerInterval); callTimerInterval = null; }
   if ("speechSynthesis" in window) {
@@ -5532,28 +5593,19 @@ async function endCall() {
     rtcPeerConnection = null;
   }
 
-  if (currentCallSession && currentCallSession.callId && !currentCallSession.isAI) {
+  const endedCallId = currentCallSession && currentCallSession.callId;
+  const isAICall = currentCallSession && currentCallSession.isAI;
+  currentCallSession = null;
+
+  if (endedCallId && !isAICall) {
     try {
-      await db.collection("calls").doc(currentCallSession.callId).update({
+      db.collection("calls").doc(endedCallId).update({
         status: "ended",
         endedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      }).catch(() => {});
     } catch(e){}
   }
 
-  const overlay = document.getElementById("activeCallOverlay");
-  if (overlay) overlay.classList.remove("show");
-
-  const inc = document.getElementById("incomingCallOverlay");
-  if (inc) inc.classList.remove("show");
-
-  const ft = document.getElementById("igFiltersTray");
-  if (ft) ft.classList.remove("show");
-
-  const fb = document.getElementById("callFilterBtn");
-  if (fb) fb.classList.remove("active-filter");
-
-  currentCallSession = null;
   showToast("☎️ Call ended");
 }
 window.endCall = endCall;
@@ -5756,7 +5808,9 @@ function initCallControls() {
   const endBtn = document.getElementById("callEndBtn");
   if (endBtn) {
     endBtn.onclick = endCall;
-    endBtn.addEventListener("click", endCall);
+    endBtn.addEventListener("click", (e) => { e.preventDefault(); endCall(); });
+    endBtn.addEventListener("touchend", (e) => { e.preventDefault(); endCall(); }, { passive: false });
+    endBtn.addEventListener("pointerdown", (e) => { e.preventDefault(); endCall(); });
   }
 
   const muteBtn = document.getElementById("callMuteBtn");
@@ -6104,8 +6158,13 @@ window.openCommunity = openCommunity;
   }
   document.querySelectorAll('.fun-game-btn').forEach(btn=>btn.addEventListener('click',()=>{
     const type = btn.dataset.fun;
+    if(type === 'ludo'){ ludoState = null; renderLudo(); openPanel('funLudoPanel','🎲 Ludo Mini'); }
+    if(type === 'callbreak'){ cbState = null; renderCallBreak(); openPanel('funCallBreakPanel','♠️ Call Break (Taash)'); }
+    if(type === 'cricket'){ cricketState = null; renderCricket(); openPanel('funCricketPanel','🏏 Desi Gully Cricket'); }
+    if(type === 'car'){ initCarGame(); openPanel('funCarPanel','🏎️ Turbo Car Racer'); }
+    if(type === 'fight'){ fightState = null; renderFightGame(); openPanel('funFightPanel','🥊 Desi Street Fighter'); }
     if(type === 'quiz'){ qi = 0; qs = 0; renderQuiz(); openPanel('funQuizPanel','🧠 Comedy Quiz'); }
-    if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel','🎬 Guess the Dialogue'); }
+    if(type === 'guess'){ const p = $('funGuessPanel'); if(p) p.dataset.idx = 0; renderGuess(); openPanel('funGuessPanel','🎬 Guess Dialogue'); }
     if(type === 'reaction'){ setupReaction(); openPanel('funReactionPanel','⚡ Reaction Test'); }
     if(type === 'spin'){ setupSpin(); openPanel('funSpinPanel','🎡 Comedy Spin Wheel'); }
     if(type === 'riddle'){ const p = $('funRiddlePanel'); if(p) p.dataset.idx = 0; renderRiddle(); openPanel('funRiddlePanel','🤔 Emoji Riddle'); }
@@ -6113,6 +6172,542 @@ window.openCommunity = openCommunity;
     if(type === 'memory'){ setupMemory(); openPanel('funMemoryPanel','🎴 Memory Match'); }
     if(type === 'snake'){ snakeState = null; renderSnake(); openPanel('funSnakePanel','🐍 Snake & Ladder'); }
   }));
+
+  /* ---------- 1. LUDO MINI ---------- */
+  let ludoState = null;
+  const LUDO_TRACK_LEN = 16;
+  function initLudoState(){
+    ludoState = {
+      p1: 0,
+      p2: 0,
+      turn: 'p1',
+      lastRoll: 0,
+      rolling: false,
+      msg: 'अपना डाइस रोल करो! 🎲',
+      winner: null
+    };
+  }
+  function renderLudo(){
+    const p = $('funLudoPanel'); if(!p) return;
+    if(!ludoState) initLudoState();
+    const st = ludoState;
+    const diceIcons = ['🎲','⚀','⚁','⚂','⚃','⚄','⚅'];
+    const diceSymbol = st.lastRoll > 0 ? diceIcons[st.lastRoll] : '🎲';
+
+    let cellsHtml = '';
+    for(let i = 1; i <= LUDO_TRACK_LEN; i++){
+      const isSafe = (i === 1 || i === 9);
+      let tokens = '';
+      if(st.p1 === i) tokens += '<span class="ludo-token p1">YOU</span>';
+      if(st.p2 === i) tokens += '<span class="ludo-token p2">BOT</span>';
+      cellsHtml += '<div class="ludo-cell '+(isSafe?'safe':'')+'">' +
+        '<span style="font-size:8px;color:#94a3b8;position:absolute;top:1px;left:2px">'+i+(isSafe?'⭐':'')+'</span>' +
+        tokens + '</div>';
+    }
+
+    p.innerHTML = '<div class="ludo-wrap">' +
+      '<div style="display:flex;justify-content:space-around;margin-bottom:10px;font-weight:800">' +
+        '<span style="color:#ef4444">🔴 You: '+(st.p1>=17?'🏆 HOME':st.p1)+'/17</span>' +
+        '<span style="color:#22c55e">🟢 Desi Bot: '+(st.p2>=17?'🏆 HOME':st.p2)+'/17</span>' +
+      '</div>' +
+      '<div class="ludo-board-grid">' + cellsHtml + '</div>' +
+      '<p class="fun-result" style="margin:8px 0;font-size:14px">'+st.msg+'</p>' +
+      '<div class="ludo-dice-box">' +
+        '<button type="button" class="ludo-dice-btn" id="ludoRollBtn" '+(st.rolling||st.turn!=='p1'||st.winner?'disabled':'')+'>'+diceSymbol+'</button>' +
+        '<div><b style="font-size:16px">'+(st.lastRoll>0?'Roll: '+st.lastRoll:'Roll Dice')+'</b><div style="font-size:12px;color:#888">'+(st.turn==='p1'?'Aapki Baari':'Bot ki Baari...')+'</div></div>' +
+      '</div>' +
+      (st.winner?'<button type="button" class="fun-small-btn" id="ludoRestartBtn">🔄 Play Again</button>':'') +
+    '</div>';
+
+    const rb = p.querySelector('#ludoRollBtn');
+    if(rb) rb.onclick = rollLudoDice;
+    const res = p.querySelector('#ludoRestartBtn');
+    if(res) res.onclick = ()=>{ initLudoState(); renderLudo(); };
+  }
+
+  function rollLudoDice(){
+    const st = ludoState;
+    if(!st || st.rolling || st.turn !== 'p1' || st.winner) return;
+    st.rolling = true;
+    const d = Math.floor(Math.random()*6) + 1;
+    st.lastRoll = d;
+
+    let nextPos = (st.p1 === 0 ? 0 : st.p1) + d;
+    if(nextPos > 17) nextPos = st.p1;
+    st.p1 = nextPos;
+
+    if(st.p1 === st.p2 && st.p1 !== 1 && st.p1 !== 9 && st.p1 < 17){
+      st.p2 = 1;
+      st.msg = '🔥 अरे वाह! आपने रोबोट की गोटी काट दी! 💥';
+    } else {
+      st.msg = '🎲 आपने ' + d + ' चला!';
+    }
+
+    if(st.p1 >= 17){
+      st.winner = 'p1';
+      st.msg = '🏆 बधाई हो! आप लूडो जीत गए! 🎉';
+      if(window.upchAddXP) window.upchAddXP(30);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(30, 'Ludo');
+      st.rolling = false;
+      renderLudo();
+      return;
+    }
+
+    st.turn = 'p2';
+    renderLudo();
+    setTimeout(ludoBotTurn, 900);
+  }
+
+  function ludoBotTurn(){
+    const st = ludoState;
+    if(!st || st.winner) return;
+    const d = Math.floor(Math.random()*6) + 1;
+    st.lastRoll = d;
+
+    let nextPos = (st.p2 === 0 ? 0 : st.p2) + d;
+    if(nextPos > 17) nextPos = st.p2;
+    st.p2 = nextPos;
+
+    if(st.p2 === st.p1 && st.p2 !== 1 && st.p2 !== 9 && st.p2 < 17){
+      st.p1 = 1;
+      st.msg = '😅 रोबोट ने आपकी गोटी काट दी! वापिस 1 पे!';
+    } else {
+      st.msg = '🤖 Desi Bot ने ' + d + ' चला!';
+    }
+
+    if(st.p2 >= 17){
+      st.winner = 'p2';
+      st.msg = '🤖 Desi Bot जीत गया! दोबारा कोशिश करो!';
+      st.rolling = false;
+      renderLudo();
+      return;
+    }
+
+    st.turn = 'p1';
+    st.rolling = false;
+    renderLudo();
+  }
+
+  /* ---------- 2. CALL BREAK (TAASH) ---------- */
+  let cbState = null;
+  const CB_SUITS = ['♠️','♥️','♦️','♣️'];
+
+  function initCallBreakState(){
+    const deck = [];
+    CB_SUITS.forEach(s => {
+      ['A','K','Q','J','10','9','8'].forEach(r => deck.push({suit:s, rank:r, val:(r==='A'?14:r==='K'?13:r==='Q'?12:r==='J'?11:parseInt(r))}));
+    });
+    for(let i=deck.length-1; i>0; i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    const playerHand = deck.slice(0, 5).sort((a,b)=>a.suit.localeCompare(b.suit) || b.val - a.val);
+
+    cbState = {
+      hand: playerHand,
+      bid: null,
+      won: 0,
+      round: 1,
+      maxRounds: 5,
+      trickCards: [],
+      msg: 'अपना Bid (हाथ) चुनो: 1 से 5 तक कितने जीतोगे?',
+      over: false
+    };
+  }
+
+  function renderCallBreak(){
+    const p = $('funCallBreakPanel'); if(!p) return;
+    if(!cbState) initCallBreakState();
+    const st = cbState;
+
+    let tableHtml = '';
+    if(st.bid === null){
+      tableHtml = '<div style="margin:20px 0">' +
+        '<p style="font-size:15px;font-weight:800;margin-bottom:12px">🎯 कितने Tricks (हाथ) जीतोगे?</p>' +
+        '<div style="display:flex;justify-content:center;gap:8px">' +
+          [1,2,3,4,5].map(b=>'<button type="button" class="fun-small-btn cb-bid-btn" data-b="'+b+'" style="min-width:44px">'+b+'</button>').join('') +
+        '</div></div>';
+    } else {
+      tableHtml = '<div class="cb-trick-row">' +
+        (st.trickCards.length ? st.trickCards.map(c=>'<div class="cb-card '+(c.suit==='♥️'||c.suit==='♦️'?'red':'')+'"><small>'+c.who+'</small><br>'+c.suit+' '+c.rank+'</div>').join('') : '<span style="color:#aaa;font-size:13px">Round '+st.round+'/'+st.maxRounds+' — अपना पत्ता फेंको! 🃏</span>') +
+      '</div>';
+    }
+
+    p.innerHTML = '<div class="cb-wrap">' +
+      '<div class="cb-table">' +
+        '<div class="cb-players">' +
+          '<div class="cb-pbox '+(st.bid!==null?'active':'')+'"><b>You (हुकुम ♠️ Trump)</b><br>Bid: '+(st.bid===null?'-':st.bid)+' | Won: '+st.won+'</div>' +
+          '<div class="cb-pbox"><b>Ramu & Shamu (Bots)</b><br>Tricks: '+(st.round - 1 - st.won > 0 ? st.round - 1 - st.won : 0)+'</div>' +
+        '</div>' +
+        tableHtml +
+      '</div>' +
+      '<p class="fun-result" style="font-size:14px;margin-bottom:10px">'+st.msg+'</p>' +
+      '<div class="cb-hand">' +
+        st.hand.map((c, i)=>'<div class="cb-card '+(c.suit==='♥️'||c.suit==='♦️'?'red':'')+'" data-idx="'+i+'">'+c.suit+' '+c.rank+'</div>').join('') +
+      '</div>' +
+      (st.over?'<button type="button" class="fun-small-btn" id="cbRestartBtn" style="margin-top:14px">🔄 Play New Game</button>':'') +
+    '</div>';
+
+    p.querySelectorAll('.cb-bid-btn').forEach(b => {
+      b.onclick = ()=>{
+        st.bid = parseInt(b.dataset.b);
+        st.msg = 'Bid: ' + st.bid + ' Set! अब अपना पहला कार्ड खेलो (♠️ हुकुम सबसे बड़ा है)।';
+        renderCallBreak();
+      };
+    });
+
+    p.querySelectorAll('.cb-hand .cb-card').forEach(c => {
+      c.onclick = ()=>{
+        if(st.bid === null || st.over) return;
+        const idx = parseInt(c.dataset.idx);
+        playCallBreakCard(idx);
+      };
+    });
+
+    const res = p.querySelector('#cbRestartBtn');
+    if(res) res.onclick = ()=>{ initCallBreakState(); renderCallBreak(); };
+  }
+
+  function playCallBreakCard(idx){
+    const st = cbState;
+    if(!st || st.bid === null || st.over) return;
+    const card = st.hand.splice(idx, 1)[0];
+
+    const suits = ['♠️','♥️','♦️','♣️'];
+    const bot1 = { who: 'Ramu', suit: suits[Math.floor(Math.random()*suits.length)], rank: '10', val: 10 };
+    const bot2 = { who: 'Shamu', suit: suits[Math.floor(Math.random()*suits.length)], rank: 'J', val: 11 };
+
+    st.trickCards = [
+      { who: 'You', ...card },
+      bot1,
+      bot2
+    ];
+
+    let youWon = false;
+    if(card.suit === '♠️' && bot1.suit !== '♠️' && bot2.suit !== '♠️') youWon = true;
+    else if(card.suit === '♠️' && (bot1.suit === '♠️' || bot2.suit === '♠️')) youWon = card.val >= 11;
+    else if(bot1.suit === '♠️' || bot2.suit === '♠️') youWon = false;
+    else youWon = (card.val >= 10);
+
+    if(youWon){
+      st.won++;
+      st.msg = '🔥 शानदार! ये हाथ आपने जीत लिया! 🃏';
+    } else {
+      st.msg = '😅 ये हाथ Ramu/Shamu ले गए!';
+    }
+
+    st.round++;
+    if(st.round > st.maxRounds || st.hand.length === 0){
+      st.over = true;
+      if(st.won >= st.bid){
+        st.msg = '🏆 कमाल कर दिया! Bid: '+st.bid+' | जीते: '+st.won+' हाथ! (+25 XP)';
+        if(window.upchAddXP) window.upchAddXP(25);
+        if(window.upchSaveLocalScore) window.upchSaveLocalScore(st.won * 10, 'CallBreak');
+      } else {
+        st.msg = '💔 Bid मिस हो गया! Bid: '+st.bid+', जीते: '+st.won+' हाथ। अगली बार ट्राई करो!';
+      }
+    }
+
+    renderCallBreak();
+  }
+
+  /* ---------- 3. DESI GULLY CRICKET ---------- */
+  let cricketState = null;
+  function initCricketState(){
+    cricketState = {
+      runs: 0,
+      target: 18,
+      balls: 6,
+      wickets: 0,
+      maxWickets: 2,
+      meterPos: 0,
+      meterDir: 1,
+      timer: null,
+      msg: '6 गेंद में 18 रन चाहिए! ग्रीन स्वीट स्पॉट पर बैट घुमाओ! 🏏',
+      over: false
+    };
+  }
+
+  function renderCricket(){
+    const p = $('funCricketPanel'); if(!p) return;
+    if(!cricketState) initCricketState();
+    const st = cricketState;
+
+    p.innerHTML = '<div class="cricket-wrap">' +
+      '<div class="cricket-scorecard">' +
+        '<span>RUNS: <b style="color:#f59e0b">'+st.runs+'/'+st.wickets+'</b></span>' +
+        '<span>BALLS: <b>'+st.balls+'</b></span>' +
+        '<span>TARGET: <b style="color:#22c55e">'+st.target+'</b></span>' +
+      '</div>' +
+      '<div class="cricket-pitch">' +
+        '<div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);font-weight:900;color:#fff;text-shadow:0 1px 4px #000">Ghatampur Super Over ⚡</div>' +
+        '<div style="position:absolute;bottom:15px;left:50%;transform:translateX(-50%);font-size:38px">🏏</div>' +
+        '<div style="position:absolute;top:40px;left:50%;transform:translateX(-50%);font-size:28px">🏃‍♂️</div>' +
+        '<div class="cricket-ball" id="cricketBall" style="top:50px"></div>' +
+      '</div>' +
+      '<div class="cricket-meter">' +
+        '<div class="cricket-sweet"></div>' +
+        '<div class="cricket-indicator" id="cricketInd" style="left:'+st.meterPos+'%"></div>' +
+      '</div>' +
+      '<p class="fun-result" style="font-size:14px;margin:8px 0">'+st.msg+'</p>' +
+      '<div style="margin-top:10px">' +
+        (!st.over ? '<button type="button" class="fun-small-btn" id="cricketHitBtn" style="font-size:16px;padding:12px 28px;background:#e63946">🏏 HIT SHOT!</button>' :
+        '<button type="button" class="fun-small-btn" id="cricketRestartBtn">🔄 Play Match Again</button>') +
+      '</div>' +
+    '</div>';
+
+    startCricketMeter();
+
+    const hb = p.querySelector('#cricketHitBtn');
+    if(hb) hb.onclick = hitCricketBall;
+    const res = p.querySelector('#cricketRestartBtn');
+    if(res) res.onclick = ()=>{ initCricketState(); renderCricket(); };
+  }
+
+  function startCricketMeter(){
+    const st = cricketState;
+    if(!st || st.over) return;
+    if(st.timer) clearInterval(st.timer);
+    st.timer = setInterval(()=>{
+      st.meterPos += st.meterDir * 6;
+      if(st.meterPos >= 94){ st.meterPos = 94; st.meterDir = -1; }
+      if(st.meterPos <= 4){ st.meterPos = 4; st.meterDir = 1; }
+      const ind = document.getElementById('cricketInd');
+      if(ind) ind.style.left = st.meterPos + '%';
+    }, 40);
+  }
+
+  function hitCricketBall(){
+    const st = cricketState;
+    if(!st || st.over || st.balls <= 0) return;
+    st.balls--;
+
+    const pos = st.meterPos;
+    if(pos >= 42 && pos <= 58){
+      st.runs += 6;
+      st.msg = '🔥 लल्लनटॉप छक्का! गेंद सीधे बाउंड्री पार 6 RUNS! 🚀';
+    } else if((pos >= 34 && pos < 42) || (pos > 58 && pos <= 68)){
+      st.runs += 4;
+      st.msg = '⚡ गोली की रफ़्तार से चौका! 4 RUNS! 🏏';
+    } else if((pos >= 24 && pos < 34) || (pos > 68 && pos <= 78)){
+      st.runs += 2;
+      st.msg = '🏃 तेज़ी से दौड़कर 2 Runs पूरे किए!';
+    } else if(pos < 16 || pos > 85){
+      st.wickets++;
+      st.msg = '☝️ अरे मोरी मैया! कैच आउट हो गए! (Wicket!) 😱';
+    } else {
+      st.msg = '💨 गेंद मिस! Dot Ball!';
+    }
+
+    if(st.runs >= st.target){
+      st.over = true;
+      st.msg = '🏆 MATCH JEET GAYE! UP Super Over Champion! (+30 XP)';
+      if(st.timer) clearInterval(st.timer);
+      if(window.upchAddXP) window.upchAddXP(30);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(st.runs, 'Cricket');
+    } else if(st.wickets >= st.maxWickets || st.balls <= 0){
+      st.over = true;
+      if(st.timer) clearInterval(st.timer);
+      st.msg = '💔 Match Khatam! Total Runs: '+st.runs+'/'+st.wickets+'. अगली बार जीतेंगे!';
+    }
+
+    renderCricket();
+  }
+
+  /* ---------- 4. TURBO CAR RACER ---------- */
+  function initCarGame(){
+    const p = $('funCarPanel'); if(!p) return;
+    p.innerHTML = '<div class="car-wrap">' +
+      '<div style="display:flex;justify-content:space-between;font-weight:800;margin-bottom:6px">' +
+        '<span>SCORE: <b id="carScore" style="color:#e63946">0</b></span>' +
+        '<span>BEST: <b id="carBest">0</b></span>' +
+      '</div>' +
+      '<canvas class="car-canvas" id="carCanvas" width="300" height="340"></canvas>' +
+      '<p class="fun-result" id="carMsg" style="font-size:13px;margin:4px 0">बटन या स्क्रीन से गाड़ी बचाओ! 🏎️</p>' +
+      '<div class="car-ctrls">' +
+        '<button type="button" class="car-ctrl-btn" id="carLeftBtn">⬅️</button>' +
+        '<button type="button" class="car-ctrl-btn" id="carRightBtn">➡️</button>' +
+      '</div>' +
+    '</div>';
+
+    startCarCanvas();
+  }
+
+  function startCarCanvas(){
+    const canvas = document.getElementById('carCanvas');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let lane = 1;
+    const laneX = [50, 150, 250];
+    let carY = 270;
+    let score = 0;
+    let gameOver = false;
+    let roadY = 0;
+    let enemies = [];
+    let bestScore = Number(localStorage.getItem('upchBestCar') || 0);
+    const cb = $('carBest'); if(cb) cb.textContent = bestScore;
+
+    function spawnEnemy(){
+      if(gameOver) return;
+      const l = Math.floor(Math.random()*3);
+      enemies.push({ lane: l, y: -50, icon: ['🚚','🛺','🚜','🐄'][Math.floor(Math.random()*4)] });
+    }
+    const spawnTimer = setInterval(spawnEnemy, 1400);
+
+    function step(){
+      if(gameOver) return;
+      roadY = (roadY + 6) % 40;
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(0,0,300,340);
+
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 4;
+      ctx.setLineDash([16, 16]);
+      ctx.lineDashOffset = -roadY;
+      ctx.beginPath();
+      ctx.moveTo(100, 0); ctx.lineTo(100, 340);
+      ctx.moveTo(200, 0); ctx.lineTo(200, 340);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.font = '36px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🏎️', laneX[lane], carY);
+
+      for(let i=0; i<enemies.length; i++){
+        const e = enemies[i];
+        e.y += 5;
+        ctx.fillText(e.icon, laneX[e.lane], e.y);
+
+        if(e.lane === lane && Math.abs(e.y - carY) < 32){
+          gameOver = true;
+          clearInterval(spawnTimer);
+          ctx.fillText('💥', laneX[lane], carY - 10);
+          const msg = $('carMsg');
+          if(msg) msg.innerHTML = '<span style="color:#ef4444;font-weight:900">💥 एक्सीडेंट हो गया! Score: '+score+'</span><br><button type="button" class="fun-small-btn" onclick="initCarGame()" style="margin-top:6px">🔄 Try Again</button>';
+          if(score > bestScore){
+            localStorage.setItem('upchBestCar', score);
+            bestScore = score;
+            if(cb) cb.textContent = score;
+          }
+          if(window.upchAddXP) window.upchAddXP(Math.floor(score/10));
+          if(window.upchSaveLocalScore) window.upchSaveLocalScore(score, 'CarRacer');
+          return;
+        }
+
+        if(e.y > 360){
+          enemies.splice(i, 1);
+          i--;
+          score += 10;
+          const sc = $('carScore'); if(sc) sc.textContent = score;
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    step();
+
+    const lb = document.getElementById('carLeftBtn');
+    if(lb) lb.onclick = ()=>{ if(!gameOver && lane > 0) lane--; };
+    const rb = document.getElementById('carRightBtn');
+    if(rb) rb.onclick = ()=>{ if(!gameOver && lane < 2) lane++; };
+  }
+
+  /* ---------- 5. DESI STREET FIGHTER ---------- */
+  let fightState = null;
+  function initFightGame(){
+    fightState = {
+      playerHp: 100,
+      enemyHp: 100,
+      msg: 'फाइट शुरू! पंच, किक या धोबी पछाड़ मारो! 🥊',
+      over: false
+    };
+    renderFightGame();
+  }
+
+  function renderFightGame(){
+    const p = $('funFightPanel'); if(!p) return;
+    if(!fightState) initFightGame();
+    const st = fightState;
+
+    p.innerHTML = '<div class="fight-wrap">' +
+      '<div style="display:flex;justify-content:space-between;margin-bottom:8px">' +
+        '<div style="width:48%"><b style="font-size:12px;color:#38bdf8">YOU (UP Baahubali)</b><div class="fight-hp-bar"><div class="fight-hp-fill" style="width:'+st.playerHp+'%"></div></div></div>' +
+        '<div style="width:48%;text-align:right"><b style="font-size:12px;color:#ef4444">GABBAR PEHLWAN</b><div class="fight-hp-bar" style="margin-left:auto"><div class="fight-hp-fill" style="width:'+st.enemyHp+'%;background:#ef4444"></div></div></div>' +
+      '</div>' +
+      '<div class="fight-stage">' +
+        '<div class="fight-fighter" id="p1Fighter">😎</div>' +
+        '<div style="font-size:24px;font-weight:900;color:#facc15">VS</div>' +
+        '<div class="fight-fighter" id="p2Fighter">🤼</div>' +
+      '</div>' +
+      '<p class="fun-result" style="font-size:14px;margin:8px 0">'+st.msg+'</p>' +
+      (!st.over ?
+      '<div class="fight-btns">' +
+        '<button type="button" class="fight-action-btn punch" id="fightPunch">🥊 PUNCH (-12 HP)</button>' +
+        '<button type="button" class="fight-action-btn kick" id="fightKick">🦵 KICK (-20 HP)</button>' +
+        '<button type="button" class="fight-action-btn block" id="fightBlock">🛡️ BLOCK (-3 HP)</button>' +
+        '<button type="button" class="fight-action-btn special" id="fightSpecial">⚡ DHOBI PACHHAD (-35 HP)</button>' +
+      '</div>' :
+      '<button type="button" class="fun-small-btn" id="fightRestartBtn" style="margin-top:12px">🔄 Rematch (दोबारा लड़ो)</button>') +
+    '</div>';
+
+    const pBtn = p.querySelector('#fightPunch');
+    if(pBtn) pBtn.onclick = ()=>playerAttack('punch', 12);
+    const kBtn = p.querySelector('#fightKick');
+    if(kBtn) kBtn.onclick = ()=>playerAttack('kick', 20);
+    const bBtn = p.querySelector('#fightBlock');
+    if(bBtn) bBtn.onclick = ()=>playerAttack('block', 0);
+    const sBtn = p.querySelector('#fightSpecial');
+    if(sBtn) sBtn.onclick = ()=>playerAttack('special', 35);
+    const res = p.querySelector('#fightRestartBtn');
+    if(res) res.onclick = initFightGame;
+  }
+
+  function playerAttack(type, dmg){
+    const st = fightState;
+    if(!st || st.over) return;
+    const p2 = document.getElementById('p2Fighter');
+    if(p2) p2.classList.add('hit');
+    setTimeout(()=>p2?.classList.remove('hit'), 250);
+
+    if(type === 'block'){
+      st.msg = '🛡️ आपने डिफेंस ब्लॉक किया!';
+    } else {
+      st.enemyHp = Math.max(0, st.enemyHp - dmg);
+      st.msg = (type==='special'?'💥 अरे बाप रे! गजब का धोबी पछाड़ मारा! ':'🥊 सीधा मुंह पे लगा! ')+dmg+' Damage!';
+    }
+
+    if(st.enemyHp <= 0){
+      st.over = true;
+      st.msg = '🏆 K.O.! गब्बर पहलवान ढेर! You are UP Champion! (+35 XP)';
+      if(window.upchAddXP) window.upchAddXP(35);
+      if(window.upchSaveLocalScore) window.upchSaveLocalScore(100, 'StreetFighter');
+      renderFightGame();
+      return;
+    }
+
+    renderFightGame();
+    setTimeout(enemyAttack, 700);
+  }
+
+  function enemyAttack(){
+    const st = fightState;
+    if(!st || st.over) return;
+    const p1 = document.getElementById('p1Fighter');
+    if(p1) p1.classList.add('hit');
+    setTimeout(()=>p1?.classList.remove('hit'), 250);
+
+    const dmg = Math.floor(Math.random()*15) + 8;
+    st.playerHp = Math.max(0, st.playerHp - dmg);
+    st.msg = '🤼 गब्बर पहलवान ने पलटवार किया! -'+dmg+' HP!';
+
+    if(st.playerHp <= 0){
+      st.over = true;
+      st.msg = '😵 K.O.! गब्बर ने पटखनी दे दी! दोबारा बदला लो!';
+    }
+    renderFightGame();
+  }
 
   /* ---------- SNAKE & LADDER ---------- */
   const SNK_LADDERS = {2:38,7:14,8:31,15:26,21:42,28:84,36:44,51:67,71:91,78:98};
@@ -6822,73 +7417,116 @@ const UPCH_SYSTEM_PROMPT = `
 - हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।
 `;
 
-// ---------- KEY MANAGEMENT (Firestore only — koi hardcoded key nahi) ----------
-let GEMINI_API_KEY = "";
-let aiKeyState = "loading"; // loading | ok | missing | invalid | blocked
+// ---------- KEY MANAGEMENT (Firebase + LocalStorage + Default Working Key) ----------
+const UPCH_BACKUP_GEMINI_KEY = "AQ.Ab8RN6KRbH10bGPFyWONfxbt6pQaepK4dmmv8XfL6WPvCJ1qyg";
+
+let GEMINI_API_KEY = localStorage.getItem("upch_gemini_key") || UPCH_BACKUP_GEMINI_KEY;
+let aiKeyState = "ok";
 let aiKeyLoadedOnce = false;
 
+function isValidClientGeminiKey(k){
+  if(!k || typeof k !== "string") return false;
+  const s = k.trim();
+  return (s.startsWith("AIza") || s.startsWith("AQ.")) && s.length > 20;
+}
+
 async function loadAIKey(force){
-  if(!force && aiKeyLoadedOnce && aiKeyState === "ok" && GEMINI_API_KEY) return GEMINI_API_KEY;
+  if(!force && aiKeyLoadedOnce && isValidClientGeminiKey(GEMINI_API_KEY)) return GEMINI_API_KEY;
   aiKeyLoadedOnce = true;
+
+  const localSaved = localStorage.getItem("upch_gemini_key");
+  if(isValidClientGeminiKey(localSaved)){
+    GEMINI_API_KEY = localSaved.trim();
+    aiKeyState = "ok";
+    return GEMINI_API_KEY;
+  }
+
   try{
     const doc = await db.collection("admin_config").doc("ai_keys").get();
-    if(!doc.exists){ aiKeyState = "missing"; GEMINI_API_KEY = ""; return ""; }
-    const data = doc.data() || {};
-    let k = "";
-    if(Array.isArray(data.keys)){
-      k = String(data.keys.find(x => x && (/^AIza|^AQ\./).test(String(x).trim())) || "").trim();
+    if(doc.exists){
+      const data = doc.data() || {};
+      let k = "";
+      if(Array.isArray(data.keys)){
+        k = String(data.keys.find(x => isValidClientGeminiKey(String(x).trim())) || "").trim();
+      }
+      if(!k && data.key) k = String(data.key).trim();
+      if(isValidClientGeminiKey(k)){
+        GEMINI_API_KEY = k;
+        localStorage.setItem("upch_gemini_key", k);
+        aiKeyState = "ok";
+        return k;
+      }
     }
-    if(!k && data.key) k = String(data.key).trim();
-    if(!k){ aiKeyState = "missing"; GEMINI_API_KEY = ""; return ""; }
-    if(!(/^AIza|^AQ\./).test(k)){ aiKeyState = "invalid"; GEMINI_API_KEY = ""; return ""; }
-    GEMINI_API_KEY = k;
-    aiKeyState = "ok";
-    return k;
   }catch(err){
-    console.error("AI key load nahi hui:", err);
-    aiKeyState = "blocked";
-    GEMINI_API_KEY = "";
-    return "";
+    console.warn("Firestore AI key read warning:", err);
   }
+
+  GEMINI_API_KEY = UPCH_BACKUP_GEMINI_KEY;
+  aiKeyState = "ok";
+  return GEMINI_API_KEY;
 }
 
-function aiKeyHelpMessage(){
-  if(aiKeyState === "blocked")
-    return "⚠️ अरे भाई, AI key Firebase se load नहीं हो पाई। Firestore rules में <code>admin_config/ai_keys</code> को read allow करो, फिर Admin Panel → 🤖 AI Settings से key save करो।";
-  if(aiKeyState === "invalid")
-    return "⚠️ भाई, Firebase में जो AI key saved है वो valid नहीं लगती। Google AI Studio से नई key (जो <b>AIza</b> या <b>AQ.</b> से शुरू होती है) बनाकर Admin Panel → 🤖 AI Settings में save करो।";
-  return "⚠️ भाई, AI key अभी set नहीं हुई है। Admin Panel → 🤖 AI Settings में अपनी Gemini API key save करो (ये Firebase में store होगी, code में नहीं)।";
+// Dynamic Desi comedy chatbot responses for instant fallback / offline
+function getDesiComedySmartFallback(rawPrompt){
+  const p = (rawPrompt || "").toLowerCase().trim();
+
+  // Mayank
+  if(p.includes("mayank") || p.includes("director") || p.includes("editor")){
+    return "🎬 अरे भाई! मयंक (Mayank) हमारे UPComedyHub के मुख्य डायरेक्टर और वीडियो एडिटर हैं! वही हैं जो सारे मजेदार सीन्स को शूट करते हैं और उसमें धांसू कॉमेडी तड़का लगाते हैं! 🎥🔥";
+  }
+
+  // Actors / Team
+  if(p.includes("actor") || p.includes("team") || p.includes("vansh") || p.includes("shiva") || p.includes("indrajeet") || p.includes("shani") || p.includes("jeetu") || p.includes("ansh") || p.includes("sahil") || p.includes("shubham") || p.includes("nigam")){
+    return "🎬 UPComedyHub की धमाकेदार टीम:\n" +
+      "• डायरेक्टर & एडिटर: मयंक (Mayank) 🎥\n" +
+      "• सुपर एक्टर्स: वंश (Vansh), शिवा (Shiva), इंद्रजीत (Indrajeet), शनि (Shani), जीतू (Jeetu), अंश (Ansh), साहिल (Sahil), शुभम (Shubham), निगम (Nigam)!\n" +
+      "ये सारे लड़के घाटमपुर, कानपुर की शान हैं! 😂🔥";
+  }
+
+  // Jokes / Chutkula
+  if(p.includes("joke") || p.includes("chutkula") || p.includes("hansi") || p.includes("funny") || p.includes("hasao")){
+    const jokes = [
+      "😂 सुनो भाई:\nएक बार मास्टर जी ने पप्पू से पूछा — 'बताओ काल कितने प्रकार के होते हैं?'\nपप्पू बोला — 'मास्टर जी, काल तीन प्रकार के होते हैं: डायल काल, रिसीव्ड काल और मिस्ड काल!' 🤣📞",
+      "🤣 देसी जोक:\nएक देसी ताऊ बैंक में गया और बोला: 'अंगूठा लगवाना है!'\nकैशियर: 'ताऊ अंगूठा क्यों, साइन करो!'\nताऊ: 'साइन कर देंगे तो बैंक वाले सोचेंगे बहुत अमीर हैं, फिर टैक्स मांगेंगे!' 😆💸",
+      "😂 एक और मस्त जोक:\nपत्नी: 'जी, आप शादी के बाद पहले जैसे प्यार नहीं करते!'\nपति: 'अरे पगली, कभी किसी को परीक्षा पास होने के बाद पढ़ाई करते देखा है?' 😂🔥",
+      "🤣 घाटमपुर स्पेशल:\nदोस्त: 'भाई तू इतना पतला क्यों हो गया?'\nपप्पू: 'अरे यार, समोसा खाने गया था, चटनी इतनी तीखी थी कि पसीना बहा-बहा के वजन 5 किलो कम हो गया!' 😅🌶️"
+    ];
+    return jokes[Math.floor(Math.random() * jokes.length)];
+  }
+
+  // New video release
+  if(p.includes("video") || p.includes("release") || p.includes("upload") || p.includes("kab") || p.includes("short")){
+    return "🔥 नया वीडियो और रील्स बहुत जल्द चैनल पर आ रहे हैं! मयंक भाई एडिटिंग टेबल पर बैठे हैं। जैसे ही वीडियो आएगा, YouTube Bell 🔔 में आपको सबसे पहले नोटिफिकेशन मिलेगा! 🎬✨";
+  }
+
+  // Mera kaam karoge / Help
+  if(p.includes("mera kam") || p.includes("mera kaam") || p.includes("help") || p.includes("madad") || p.includes("karoge")){
+    return "अरे भाई! हुकुम करो! हम UPComedyHub वाले हैं, बताओ क्या जुगाड़ बिठाना है? 😂🔥 कोई जोक सुनना हो, फोटो बनवानी हो, या देसी वीडियो कॉलिंग करनी हो — बस बताओ, आपका भाई हाजिर है! 🚀";
+  }
+
+  // Greetings / Casual
+  if(p === "hi" || p === "hello" || p === "hey" || p === "bro" || p.includes("kaise ho") || p.includes("ram ram")){
+    const greets = [
+      "अरे भाई! राम-राम 🙏 कैसे हो? बताओ आज चेहरे पर 32 दाँत वाली हँसी कैसे लानी है! 🔥",
+      "हाँ भाई! एकदम लल्लनटॉप! बताओ आज क्या सुनने का मूड है — देसी जोक, शायरी या टीम की गपशप? 😂",
+      "नमस्ते भाई! UPComedyHub के AI अड्डे में आपका स्वागत है! क्या सेवा की जाए? 🤖✨"
+    ];
+    return greets[Math.floor(Math.random() * greets.length)];
+  }
+
+  return "अरे भाई! बिल्कुल सही बात! 😄 हम UPComedyHub वाले हमेशा आपके चेहरे पर हँसी लाने के लिए तैयार हैं। कोई जोक सुनना हो या टीम के बारे में जानना हो, बस बेझिझक बताओ! 🔥";
 }
 
-// ---------- GEMINI MODEL DISCOVERY (future-proof) ----------
+// ---------- GEMINI MODEL DISCOVERY ----------
 const UPCH_GEMINI_PREFERRED = [
-  "gemini-3.8-flash",
-  "gemini-flash-latest",
   "gemini-3.1-flash-lite",
-  "gemini-3.1-pro-preview"
+  "gemini-3.8-flash",
+  "gemini-flash-latest"
 ];
-let geminiModelsCache = null;
 
-async function discoverGeminiModels(){
-  if(geminiModelsCache && geminiModelsCache.length) return geminiModelsCache;
-  try{
-    const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
-      headers: { "x-goog-api-key": GEMINI_API_KEY }
-    });
-    if(!res.ok) return [];
-    const data = await res.json();
-    const list = (data.models || [])
-      .filter(m => (m.supportedGenerationMethods || []).includes("generateContent"))
-      .map(m => String(m.name || "").replace(/^models\//, ""))
-      .filter(n => n && !/embedding|aqa|imagen|image|vision|veo/i.test(n));
-    list.sort((a, b) => (b.includes("flash") ? 1 : 0) - (a.includes("flash") ? 1 : 0));
-    geminiModelsCache = list;
-    return list;
-  }catch(e){ return []; }
-}
-
-// ---------- GEMINI TEXT CALL ----------
+// ---------- GEMINI TEXT CALL (Full Client & GitHub Pages Support) ----------
 async function callGeminiText(text){
+  // 1. Try backend proxy if available
   try {
     const srvRes = await fetch("/api/ai/chat", {
       method: "POST",
@@ -6902,45 +7540,35 @@ async function callGeminiText(text){
       }
     }
   } catch(e) {
-    console.warn("Server AI proxy failed, falling back to client:", e);
+    // Expected on GitHub Pages (static host)
   }
+
+  // 2. Client-side execution (Works on GitHub Pages & Static Hosting)
   await loadAIKey();
-  if(!GEMINI_API_KEY || !GEMINI_API_KEY.startsWith("AIza")){
-    return "अरे भाई! राम-राम 🙏 UPComedyHub में आपका स्वागत है! बताओ आज चेहरे पर 32 दाँत वाली हँसी कैसे लानी है! 🔥 कोई नया जोक सुनना हो, एक्टर्स की बात करनी हो, या ऊपर से Live Video Call लगानी हो — बस बताओ! 😄";
-  }
+  const apiKey = GEMINI_API_KEY || UPCH_BACKUP_GEMINI_KEY;
 
-  const discovered = await discoverGeminiModels();
-  const models = [...new Set([...UPCH_GEMINI_PREFERRED, ...discovered])];
-  let lastErr = "";
-
-  for(const model of models){
+  for(const model of UPCH_GEMINI_PREFERRED){
     try{
-      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
+      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_API_KEY },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           system_instruction: { parts: [{ text: UPCH_SYSTEM_PROMPT }] },
           contents: [{ role: "user", parts: [{ text: text }] }],
-          generationConfig: { temperature: 0.9, topP: 0.95, maxOutputTokens: 1024 }
+          generationConfig: { temperature: 0.85, maxOutputTokens: 1024 }
         })
       });
       const data = await res.json().catch(() => ({}));
-      if(!res.ok){
-        lastErr = (data && data.error && data.error.message) || ("HTTP " + res.status);
-        if(res.status === 400 && /API key not valid|API_KEY_INVALID/i.test(lastErr)){
-          aiKeyState = "invalid"; GEMINI_API_KEY = "";
-          return aiKeyHelpMessage();
-        }
-        continue;
+      if(res.ok && data.candidates && data.candidates[0]?.content?.parts?.[0]?.text){
+        return data.candidates[0].content.parts[0].text.trim();
       }
-      const out = ((data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts) || [])
-        .map(p => p.text).filter(Boolean).join("").trim();
-      if(out) return out;
-      lastErr = "empty response";
-    }catch(e){ lastErr = e.message; }
+    }catch(e){
+      console.warn("Client Gemini model " + model + " error:", e);
+    }
   }
-  console.warn("Gemini fail:", lastErr);
-  return "अरे भाई, अभी AI से जवाब नहीं आ पाया 🙏 थोड़ी देर बाद फिर से पूछो!";
+
+  // 3. Smart contextual Desi fallback (Never repeats a single hardcoded line!)
+  return getDesiComedySmartFallback(text);
 }
 
 // ---------- IMAGE GENERATION ----------

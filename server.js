@@ -186,19 +186,25 @@ app.post('/api/ai/chat', async (req, res) => {
         contents = queryText;
       }
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents,
-        config: {
-          systemInstruction: UPCH_SYSTEM_PROMPT,
-          temperature: 0.85,
-          topP: 0.95
+      const modelsToTry = ['gemini-3.1-flash-lite', 'gemini-3.8-flash'];
+      for (const m of modelsToTry) {
+        try {
+          const response = await ai.models.generateContent({
+            model: m,
+            contents,
+            config: {
+              systemInstruction: UPCH_SYSTEM_PROMPT,
+              temperature: 0.85,
+              topP: 0.95
+            }
+          });
+          const text = response?.text?.trim() || '';
+          if (text) {
+            return res.json({ success: true, text });
+          }
+        } catch (innerErr) {
+          console.warn(`Model ${m} call error:`, innerErr?.message || innerErr);
         }
-      });
-
-      const text = response?.text?.trim() || '';
-      if (text) {
-        return res.json({ success: true, text });
       }
     } catch (err) {
       console.warn('Gemini call error:', err?.message || err);

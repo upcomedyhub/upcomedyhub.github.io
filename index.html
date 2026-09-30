@@ -2203,12 +2203,9 @@ body.fun-panel-open{overflow:hidden}
     </div>
 
     <div class="admin-card">
-      <h3>🤖 AI Settings (Gemini Key)</h3>
-      <p style="font-size:13px;color:#888;margin-bottom:12px">Yahan apni Gemini API key save karo. Yeh <b>Firebase Firestore</b> (<code>admin_config/ai_keys</code>) me securely store hoti hai — code me kabhi hardcode nahi hoti. Key <b>Google AI Studio</b> se milti hai (jo <b>AIza...</b> ya <b>AQ....</b> se shuru hoti hai).</p>
-      <label class="admin-label">Gemini API Key</label>
-      <input type="text" class="admin-input" id="adminAIKey" placeholder="AIza... ya AQ...." autocomplete="off" spellcheck="false">
+      <h3>🤖 AI Settings</h3>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Gemini API key browser ya Firebase Firestore me nahi rakhi jaati. AI key sirf server ke environment/secret settings me rahegi.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-        <button type="button" class="admin-btn green" id="saveAIKeyBtn">💾 Save AI Key</button>
         <button type="button" class="admin-btn" id="testAIKeyBtn">🔍 Test AI</button>
       </div>
       <div id="adminAIKeyStatus" style="margin-top:12px;font-size:13px;color:#888"></div>
@@ -3581,7 +3578,6 @@ function buildChannelReelItem(vid, title, thumb){
   return el;
 }
 (function fetchReels(){
-  const API_KEY = "AIzaSyCRVUDRSWKXFKNTF7099DYDgI0CviNyKx0";
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
   const grid = document.getElementById("channelReelsGrid");
   if(!grid) return;
@@ -4557,8 +4553,7 @@ async function openChat(friend){
     const aiBox = document.getElementById("chatMessages");
     if(aiBox) aiBox.innerHTML = "";
     if(typeof renderAIHistory === "function") renderAIHistory();
-    if(typeof loadAIKey === "function") loadAIKey();
-    updateComposerButtons();
+      updateComposerButtons();
     return;
   }
 
@@ -7228,30 +7223,23 @@ window.addEventListener("DOMContentLoaded",()=>{
   });
   const rsBtn = document.getElementById("refreshStats"); if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
 
-  // ---- AI Key admin controls (key Firebase Firestore me store hoti hai, code me nahi) ----
-  const sakBtn = document.getElementById("saveAIKeyBtn");
-  if(sakBtn) sakBtn.addEventListener("click", async ()=>{
-    const inp = document.getElementById("adminAIKey");
-    const st = document.getElementById("adminAIKeyStatus");
-    const k = ((inp && inp.value) || "").trim();
-    if(!(/^AIza|^AQ\./.test(k)) || k.length < 20){ if(st) st.textContent = "❌ Valid Gemini API Key daalein (AIza... ya AQ....)"; return; }
-    if(st) st.textContent = "⏳ Saving...";
-    try{
-      await db.collection("admin_config").doc("ai_keys").set({ key: k, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
-      if(st) st.textContent = "✅ Key Firebase me save ho gayi! Ab AI assistant kaam karega.";
-      if(inp) inp.value = "";
-      if(typeof loadAIKey === "function") await loadAIKey(true);
-      showToast("✅ AI key saved");
-    }catch(e){ console.error(e); if(st) st.textContent = "❌ Save fail: " + (e.code || e.message) + " (Firestore rules check karo)"; }
-  });
+  // ---- AI admin control: backend-only Gemini test ----
   const takBtn = document.getElementById("testAIKeyBtn");
   if(takBtn) takBtn.addEventListener("click", async ()=>{
     const st = document.getElementById("adminAIKeyStatus");
-    if(st) st.textContent = "⏳ Testing AI...";
+    if(st) st.textContent = "⏳ Testing secure AI backend...";
     try{
+      const health = await fetch("/api/health", { cache: "no-store" });
+      const hd = await health.json().catch(()=>({}));
+      if(!health.ok || !hd.aiEnabled){
+        if(st) st.textContent = "❌ Server par GEMINI_API_KEY configured nahi hai.";
+        return;
+      }
       const reply = await callGeminiText("Say hi in one short friendly line.");
       if(st) st.textContent = "🤖 " + reply;
-    }catch(e){ if(st) st.textContent = "❌ " + (e.message || e); }
+    }catch(e){
+      if(st) st.textContent = "❌ Secure AI test failed: " + (e.message || e);
+    }
   });
 
   initCommunityUI();
@@ -7375,11 +7363,10 @@ setTimeout(hideLoader, 4000);
 
 console.log("✅ UPComedyHub — All loaded with fixes");
 /* ============================================================
-   UPCOMEDYHUB AI ENGINE  (v2 — Fixed)
+   UPCOMEDYHUB AI ENGINE  (v3 — Secure Backend)
    ------------------------------------------------------------
-   ✔ API key code me HARDCODE nahi — sirf Firebase Firestore
-     (admin_config/ai_keys) se load hoti hai.
-   ✔ Gemini model list dynamically detect hoti hai (future-proof).
+   ✔ Gemini secret browser/Firestore me nahi rakhi jaati.
+   ✔ Gemini requests sirf secure /api/ai/chat backend se jaati hain.
    ✔ AI chat history localStorage me persist hoti hai.
    ✔ Roz 2 free image quota (Firestore + localStorage fallback).
    ✔ Image: AI Horde (free, no signup, no key) — reliable image gen.
@@ -7417,40 +7404,9 @@ const UPCH_SYSTEM_PROMPT = `
 - हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।
 `;
 
-// Gemini key browser mein nahi rakhi jayegi.
-// Gemini requests secure backend /api/ai/chat ke through jayengi.
-let GEMINI_API_KEY = "";
-let aiKeyState = "backend";
-let aiKeyLoadedOnce = true;
-
-async function loadAIKey() {
-  return "";
-   }
-
-  try{
-    const doc = await db.collection("admin_config").doc("ai_keys").get();
-    if(doc.exists){
-      const data = doc.data() || {};
-      let k = "";
-      if(Array.isArray(data.keys)){
-        k = String(data.keys.find(x => isValidClientGeminiKey(String(x).trim())) || "").trim();
-      }
-      if(!k && data.key) k = String(data.key).trim();
-      if(isValidClientGeminiKey(k)){
-        GEMINI_API_KEY = k;
-        localStorage.setItem("upch_gemini_key", k);
-        aiKeyState = "ok";
-        return k;
-      }
-    }
-  }catch(err){
-    console.warn("Firestore AI key read warning:", err);
-  }
-
-  GEMINI_API_KEY = UPCH_BACKUP_GEMINI_KEY;
-  aiKeyState = "ok";
-  return GEMINI_API_KEY;
-}
+// Gemini secret is intentionally unavailable to browser JavaScript.
+// Kept as a no-op only for older call sites in this file.
+async function loadAIKey(){ return ""; }
 
 // Dynamic Desi comedy chatbot responses for instant fallback / offline
 function getDesiComedySmartFallback(rawPrompt){
@@ -7503,58 +7459,27 @@ function getDesiComedySmartFallback(rawPrompt){
   return "अरे भाई! बिल्कुल सही बात! 😄 हम UPComedyHub वाले हमेशा आपके चेहरे पर हँसी लाने के लिए तैयार हैं। कोई जोक सुनना हो या टीम के बारे में जानना हो, बस बेझिझक बताओ! 🔥";
 }
 
-// ---------- GEMINI MODEL DISCOVERY ----------
-const UPCH_GEMINI_PREFERRED = [
-  "gemini-3.1-flash-lite",
-  "gemini-3.8-flash",
-  "gemini-flash-latest"
-];
-
-// ---------- GEMINI TEXT CALL (Full Client & GitHub Pages Support) ----------
+// ---------- GEMINI TEXT CALL (Backend only) ----------
 async function callGeminiText(text){
-  // 1. Try backend proxy if available
+  const prompt = (text || "").toString().trim();
+  if(!prompt) return getDesiComedySmartFallback("");
+
   try {
     const srvRes = await fetch("/api/ai/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text })
+      body: JSON.stringify({ prompt })
     });
-    if (srvRes.ok) {
-      const srvData = await srvRes.json();
-      if (srvData && srvData.success && srvData.text) {
-        return srvData.text;
-      }
+    const srvData = await srvRes.json().catch(() => ({}));
+    if (srvRes.ok && srvData && srvData.success && srvData.text) {
+      return srvData.text;
     }
+    console.warn("Backend AI unavailable:", srvData?.error || srvRes.status);
   } catch(e) {
-    // Expected on GitHub Pages (static host)
+    console.warn("Backend AI request failed:", e);
   }
 
-  // 2. Client-side execution (Works on GitHub Pages & Static Hosting)
-  await loadAIKey();
-  const apiKey = GEMINI_API_KEY || UPCH_BACKUP_GEMINI_KEY;
-
-  for(const model of UPCH_GEMINI_PREFERRED){
-    try{
-      const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: UPCH_SYSTEM_PROMPT }] },
-          contents: [{ role: "user", parts: [{ text: text }] }],
-          generationConfig: { temperature: 0.85, maxOutputTokens: 1024 }
-        })
-      });
-      const data = await res.json().catch(() => ({}));
-      if(res.ok && data.candidates && data.candidates[0]?.content?.parts?.[0]?.text){
-        return data.candidates[0].content.parts[0].text.trim();
-      }
-    }catch(e){
-      console.warn("Client Gemini model " + model + " error:", e);
-    }
-  }
-
-  // 3. Smart contextual Desi fallback (Never repeats a single hardcoded line!)
-  return getDesiComedySmartFallback(text);
+  return getDesiComedySmartFallback(prompt);
 }
 
 // ---------- IMAGE GENERATION ----------
@@ -7700,7 +7625,6 @@ function openAIChat(){
   showMessagesOverlay();
   openChat(UPCH_AI_BOT);
   refreshQuotaBadge();
-  loadAIKey();
 }
 function openAIImageGenerator(){
   openAIChat();

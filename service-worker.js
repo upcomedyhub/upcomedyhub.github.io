@@ -63,7 +63,9 @@ self.addEventListener("fetch", function (event) {
   // these don't change often and this keeps the site fast/offline-ready.
   event.respondWith(
     caches.match(request).then(function (cachedResponse) {
-      return cachedResponse || fetch(request);
+      return cachedResponse || fetch(request).catch(function () {
+        return new Response("", { status: 408, headers: { "Content-Type": "text/plain" } });
+      });
     })
   );
 });

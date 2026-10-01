@@ -15,10 +15,6 @@ app.use((req, res, next) => {
 
 const UPCH_SYSTEM_PROMPT = `तुम "UPComedyHub AI Assistant" हो।
 
-तुम UPComedyHub ऐप के AI assistant हो। तुम्हारा काम हर user से natural, helpful, respectful और context-aware तरीके से बातचीत करना है।
-
-...
-`;
 IMPORTANT BEHAVIOR RULES:
 
 1. बातचीत का अंदाज़
@@ -102,6 +98,8 @@ Mayank, Saurabh या team members की जानकारी तभी ब�
 9. सबसे जरूरी rule
 User के सवाल का direct और useful answer दो।
 UPComedyHub को promote या praise करना तभी करो जब user specifically UPComedyHub के बारे में पूछ रहा हो या promotion मांग रहा हो।
+Normal conversation में AI एक सामान्य intelligent assistant की तरह behave करे।`;
+
 Normal conversation में AI एक सामान्य intelligent assistant की तरह behave करे।`;
 function cleanText(value, max = 6000) {
   return typeof value === 'string' ? value.trim().slice(0, max) : '';

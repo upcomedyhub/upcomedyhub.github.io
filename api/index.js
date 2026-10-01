@@ -120,16 +120,31 @@ async function askGemini({ prompt, image }) {
 
   const { GoogleGenAI } = await import('@google/genai');
   const ai = new GoogleGenAI({ apiKey: key });
+
   const imagePart = extractImage(image);
+
   const contents = imagePart
-    ? [{ role: 'user', parts: [
-        { inlineData: imagePart },
-        { text: prompt || 'इस फोटो को देखो और एक मजेदार यूपी कॉमेडी स्टाइल रिएक्शन दो भाई!' }
-      ] }]
+    ? [{
+        role: 'user',
+        parts: [
+          { inlineData: imagePart },
+          {
+            text:
+              prompt ||
+              'इस फोटो को देखो और एक मजेदार यूपी कॉमेडी स्टाइल रिएक्शन दो भाई!'
+          }
+        ]
+      }]
     : prompt;
 
-  const modelsToTry = ['gemini-2.5-flash', 'gemini-2.5-flash-lite'];
+  const modelsToTry = [
+    'gemini-3.8-flash',
+    'gemini-3.1-flash-lite',
+    'gemini-2.5-flash',
+    'gemini-2.5-flash-lite'
+  ];
 
+  let lastError = null;
 
   for (const model of modelsToTry) {
     try {
@@ -142,11 +157,16 @@ async function askGemini({ prompt, image }) {
           topP: 0.95
         }
       });
+
       const text = cleanText(response?.text, 12000);
+
       if (text) return text;
     } catch (err) {
       lastError = err;
-      console.warn(`Gemini model ${model} failed:`, err?.message || err);
+      console.warn(
+        `Gemini model ${model} failed:`,
+        err?.message || err
+      );
     }
   }
 

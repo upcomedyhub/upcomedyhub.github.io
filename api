@@ -128,8 +128,7 @@ async function askGemini({ prompt, image }) {
       ] }]
     : prompt;
 
-  const modelsToTry = ['gemini-3.8-flash', 'gemini-3.1-flash-lite'];
-  let lastError = null;
+  const modelsToTry = ['gemini-2.0-flash', 'gemini-1.5-flash-8b', 'gemini-1.5-flash'];
 
   for (const model of modelsToTry) {
     try {

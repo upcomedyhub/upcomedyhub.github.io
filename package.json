@@ -1,18 +1,17 @@
 {
-  "name": "upcomedyhub-functions",
+  "name": "upcomedyhub",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "main": "updated.server.js",
   "engines": {
     "node": "20"
   },
   "scripts": {
-    "lint": "node --check updated.server.js"
+    "start": "node api/index.js",
+    "lint": "node --check api/index.js"
   },
   "dependencies": {
     "@google/genai": "^2.24.0",
-    "express": "^4.21.2",
-    "firebase-functions": "^6.4.0"
+    "express": "^4.21.2"
   }
 }

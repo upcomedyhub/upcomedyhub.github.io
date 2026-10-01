@@ -2849,6 +2849,50 @@ try {
 }
 const ADMIN_UID = "r0RaLtN45wgsTt5CDFkkXeiW43c2";
 
+const VERCEL_API_BASE = "https://upcomedyhub.vercel.app";
+
+function getApiUrl(path) {
+  if (typeof window !== "undefined" && window.location && window.location.hostname && window.location.hostname.endsWith("github.io")) {
+    return VERCEL_API_BASE + path;
+  }
+  return path;
+}
+
+async function callApiChat(payload) {
+  const primaryUrl = getApiUrl("/api/ai/chat");
+  const fallbackUrl = VERCEL_API_BASE + "/api/ai/chat";
+
+  try {
+    const res = await fetch(primaryUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (data && data.success) return data;
+    }
+  } catch(e) {
+    console.warn("Primary AI endpoint failed, trying fallback:", e?.message || e);
+  }
+
+  try {
+    const res2 = await fetch(fallbackUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    if (res2.ok) {
+      const data2 = await res2.json().catch(() => ({}));
+      if (data2 && data2.success) return data2;
+    }
+  } catch(e2) {
+    console.warn("Fallback AI endpoint failed:", e2?.message || e2);
+  }
+
+  return null;
+}
+
 let currentUser = null;
 let currentProfilePhotoURL = "";
 let userLikedVideos = new Set();
@@ -3608,7 +3652,7 @@ function buildChannelReelItem(vid, title, thumb){
     { videoId: "ox0J_29FG1c", title: "Money Follows My Brother 😂💸 #shorts #funny", thumb: "https://i.ytimg.com/vi/ox0J_29FG1c/hqdefault.jpg" }
   ];
 
-  fetch("/api/youtube/reels")
+  fetch(getApiUrl("/api/youtube/reels"))
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       if(data && data.success && Array.isArray(data.items) && data.items.length){
@@ -4219,7 +4263,7 @@ async function loadFanOfWeek(){
   }catch(e){
     console.warn("Fan of week load notice:", e?.message || e);
     try{
-      const res = await fetch("/api/app/config");
+      const res = await fetch(getApiUrl("/api/app/config"));
       const data = await res.json();
       if(data?.fan_of_week){
         const d = data.fan_of_week;
@@ -4245,7 +4289,7 @@ async function loadAnnouncement(){
   }catch(e){
     console.warn("Announcement load notice:", e?.message || e);
     try{
-      const res = await fetch("/api/app/config");
+      const res = await fetch(getApiUrl("/api/app/config"));
       const data = await res.json();
       if(data?.announcement){
         const d = data.announcement;
@@ -4760,15 +4804,10 @@ async function sendImageFile(file){
       }
       let reply = "";
       try{
-        const res = await fetch("/api/ai/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            image: dataUrl,
-            prompt: "इस फोटो को देखो और एक मजेदार यूपी कॉमेडी स्टाइल रिएक्शन दो भाई!"
-          })
+        const d = await callApiChat({
+          image: dataUrl,
+          prompt: "इस फोटो को देखो और एक मजेदार यूपी कॉमेडी स्टाइल रिएक्शन दो भाई!"
         });
-        const d = await res.json();
         if(d && d.success && d.text) reply = d.text;
       }catch(e){
         console.warn("AI photo analysis error:", e);
@@ -5318,12 +5357,7 @@ function startAICallSpeechRecognition() {
           if (sub) sub.textContent = "आपने कहा: " + userSpoke;
           let reply = "";
           try {
-            const res = await fetch("/api/ai/chat", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ prompt: userSpoke })
-            });
-            const d = await res.json();
+            const d = await callApiChat({ prompt: userSpoke });
             if (d && d.success && d.text) reply = d.text;
           } catch(e){}
           if (!reply) reply = generateDesiComedyResponse(userSpoke);
@@ -5905,12 +5939,7 @@ function initCallControls() {
       if (sub) sub.textContent = "सोच रहा हूँ... 🤖";
       let resp = "";
       try {
-        const srv = await fetch("/api/ai/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: q })
-        });
-        const d = await srv.json();
+        const d = await callApiChat({ prompt: q });
         if (d && d.success && d.text) resp = d.text;
       } catch(e){}
       if (!resp) resp = generateDesiComedyResponse(q);
@@ -7229,9 +7258,14 @@ window.addEventListener("DOMContentLoaded",()=>{
     const st = document.getElementById("adminAIKeyStatus");
     if(st) st.textContent = "⏳ Testing secure AI backend...";
     try{
-      const health = await fetch("/api/health", { cache: "no-store" });
-      const hd = await health.json().catch(()=>({}));
-      if(!health.ok || !hd.aiEnabled){
+      let health = null;
+      try {
+        health = await fetch(getApiUrl("/api/health"), { cache: "no-store" });
+      } catch(e) {
+        health = await fetch(getApiUrl("/api/health"), { cache: "no-store" }).catch(()=>null);
+      }
+      const hd = (health && health.ok) ? await health.json().catch(()=>({})) : {};
+      if(!health || !health.ok || !hd.aiEnabled){
         if(st) st.textContent = "❌ Server par GEMINI_API_KEY configured nahi hai.";
         return;
       }
@@ -7465,16 +7499,11 @@ async function callGeminiText(text){
   if(!prompt) return getDesiComedySmartFallback("");
 
   try {
-    const srvRes = await fetch("/api/ai/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt })
-    });
-    const srvData = await srvRes.json().catch(() => ({}));
-    if (srvRes.ok && srvData && srvData.success && srvData.text) {
+    const srvData = await callApiChat({ prompt });
+    if (srvData && srvData.success && srvData.text) {
       return srvData.text;
     }
-    console.warn("Backend AI unavailable:", srvData?.error || srvRes.status);
+    console.warn("Backend AI unavailable:", srvData?.error || "no response");
   } catch(e) {
     console.warn("Backend AI request failed:", e);
   }
@@ -7515,14 +7544,26 @@ async function generateImageWithHorde(prompt){
 
 async function generateImage(prompt){
   const clean = (prompt || "").trim() || "funny desi comedy stage";
+  const primaryUrl = getApiUrl("/api/ai/image?prompt=" + encodeURIComponent(clean));
+  const fallbackUrl = primaryUrl.startsWith("http")
+    ? ("/api/ai/image?prompt=" + encodeURIComponent(clean))
+    : (VERCEL_API_BASE + "/api/ai/image?prompt=" + encodeURIComponent(clean));
+
   try {
-    const res = await fetch("/api/ai/image?prompt=" + encodeURIComponent(clean));
+    const res = await fetch(primaryUrl);
     if (res.ok) {
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
       if (data && data.success && data.imageUrl) return data.imageUrl;
     }
   } catch(e) {
-    console.warn("Server image endpoint issue:", e);
+    console.warn("Primary image endpoint issue:", e);
+    try {
+      const res2 = await fetch(fallbackUrl);
+      if (res2.ok) {
+        const data2 = await res2.json().catch(() => ({}));
+        if (data2 && data2.success && data2.imageUrl) return data2.imageUrl;
+      }
+    } catch(e2) {}
   }
   const seed = Math.floor(Math.random() * 10000000);
   const encoded = encodeURIComponent(clean + ", funny desi comedy comic style, vibrant, high detail");

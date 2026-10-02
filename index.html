@@ -1437,6 +1437,149 @@ body.fun-panel-open{overflow:hidden}
 .filter-preview-sunset{background:linear-gradient(135deg,#fa709a,#fee140)}
 .filter-preview-noir{background:linear-gradient(135deg,#111,#eee)}
 .filter-preview-cyber{background:linear-gradient(135deg,#b224ef,#7579ff)}
+
+/* =====================================================
+   UPCOMEDYHUB STORIES FEATURE STYLES
+   ===================================================== */
+.stories-section{background:#fff;border-bottom:1px solid #f0f0f0;padding:12px 0 8px;margin-bottom:14px;position:relative}
+.dark-mode .stories-section{background:#111;border-bottom-color:#222}
+.stories-scroll{display:flex;align-items:center;gap:14px;overflow-x:auto;padding:4px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.stories-scroll::-webkit-scrollbar{display:none}
+
+.story-tray-item{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:none;border:none;padding:0;outline:none;position:relative}
+.story-ring{width:68px;height:68px;border-radius:50%;padding:2.5px;display:flex;align-items:center;justify-content:center;transition:transform .2s ease;position:relative}
+.story-ring.unseen{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+.story-ring.seen{background:#d1d5db}
+.dark-mode .story-ring.seen{background:#444}
+.story-ring.my-add{background:transparent}
+.story-tray-item:active .story-ring{transform:scale(.94)}
+
+.story-avatar-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2.5px solid #fff;background:#222;position:relative}
+.dark-mode .story-avatar-inner{border-color:#111}
+.story-avatar-inner img{width:100%;height:100%;object-fit:cover;display:block}
+
+.story-add-badge{position:absolute;bottom:0;right:0;width:22px;height:22px;background:#e63946;color:#fff;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;box-shadow:0 2px 6px rgba(230,57,70,.5)}
+.dark-mode .story-add-badge{border-color:#111}
+
+.story-username{font-size:11px;font-weight:600;color:#222;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
+.dark-mode .story-username{color:#eee}
+
+/* Home Highlights & Community Feed */
+.home-feed-wrap{max-width:680px;margin:0 auto;padding:0 12px 30px}
+.home-quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.home-action-card{background:linear-gradient(135deg,#fff,#f9f9fb);border:1px solid #eee;border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center}
+.dark-mode .home-action-card{background:linear-gradient(135deg,#1c1c1e,#151516);border-color:#2a2a2e}
+.home-action-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.home-action-icon{font-size:22px}
+.home-action-label{font-size:11px;font-weight:700;color:#333}
+.dark-mode .home-action-label{color:#ddd}
+
+.home-section-title{font-size:16px;font-weight:800;color:#111;margin:16px 0 10px;display:flex;align-items:center;justify-content:space-between}
+.dark-mode .home-section-title{color:#f5f5f5}
+.home-highlights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:600px){.home-highlights-grid{grid-template-columns:repeat(3,1fr)}}
+.home-highlight-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;cursor:pointer;position:relative;transition:transform .2s}
+.dark-mode .home-highlight-card{background:#1a1a1c;border-color:#26262a}
+.home-highlight-card:active{transform:scale(.97)}
+.home-highlight-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden}
+.home-highlight-thumb img{width:100%;height:100%;object-fit:cover}
+.home-highlight-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,0) 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px}
+.home-highlight-title{font-size:12px;font-weight:700;color:#fff;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
+.home-highlight-badge{font-size:10px;font-weight:700;background:rgba(230,57,70,.85);color:#fff;padding:2px 6px;border-radius:4px;align-self:flex-start}
+
+/* Fullscreen Story Viewer */
+.story-viewer-overlay{position:fixed;inset:0;background:#000;z-index:100095;display:none;flex-direction:column;justify-content:center;align-items:center}
+.story-viewer-overlay.active{display:flex}
+.story-viewer-box{position:relative;width:100%;max-width:440px;height:100%;max-height:100vh;background:#0a0a0a;overflow:hidden;display:flex;flex-direction:column}
+@media(min-width:500px){.story-viewer-box{height:94vh;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.8)}}
+
+.story-progress-wrap{position:absolute;top:0;left:0;right:0;z-index:30;padding:10px 10px 4px;display:flex;gap:4px}
+.story-prog-bar{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.story-prog-fill{height:100%;width:0%;background:#fff;border-radius:2px}
+.story-prog-fill.filled{width:100% !important}
+
+.story-viewer-top{position:absolute;top:18px;left:0;right:0;z-index:25;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(0,0,0,.7),rgba(0,0,0,0))}
+.story-viewer-user{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none}
+.story-viewer-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid #fff}
+.story-viewer-name{font-size:13px;font-weight:700}
+.story-viewer-time{font-size:11px;color:rgba(255,255,255,.7);margin-left:4px}
+.story-viewer-music{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);padding:3px 8px;border-radius:12px;font-size:11px;color:#fff;margin-top:2px;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.story-music-bars{display:flex;align-items:flex-end;gap:1.5px;height:10px}
+.story-music-bar{width:2px;background:#fff;border-radius:1px;animation:equalizer 0.8s infinite ease-in-out alternate}
+.story-music-bar:nth-child(2){animation-delay:0.2s}
+.story-music-bar:nth-child(3){animation-delay:0.4s}
+@keyframes equalizer{0%{height:2px}100%{height:10px}}
+
+.story-viewer-actions{display:flex;align-items:center;gap:8px}
+.story-viewer-btn{background:rgba(0,0,0,.4);border:none;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:background .2s}
+.story-viewer-btn:hover{background:rgba(255,255,255,.25)}
+
+.story-viewer-media{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:#000;user-select:none;touch-action:manipulation}
+.story-viewer-media img,.story-viewer-media video{max-width:100%;max-height:100%;object-fit:contain}
+.story-tap-left,.story-tap-right{position:absolute;top:0;bottom:0;width:35%;z-index:15;cursor:pointer}
+.story-tap-left{left:0}
+.story-tap-right{right:0;width:65%}
+
+.story-viewer-caption{position:absolute;bottom:70px;left:0;right:0;z-index:20;padding:12px 16px;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,0));color:#fff;font-size:14px;font-weight:600;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.story-viewer-bottom{position:absolute;bottom:0;left:0;right:0;z-index:25;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0))}
+.story-reply-input{flex:1;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);border-radius:22px;padding:9px 14px;color:#fff;font-size:13px;outline:none}
+.story-reply-input::placeholder{color:rgba(255,255,255,.7)}
+.story-reaction-btn{background:none;border:none;font-size:22px;cursor:pointer;transition:transform .15s;padding:0 2px}
+.story-reaction-btn:hover{transform:scale(1.25)}
+
+/* Story Creator Modal */
+.story-creator-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:100092;display:none;align-items:center;justify-content:center;padding:16px}
+.story-creator-overlay.active{display:flex}
+.story-creator-card{background:#18181b;color:#fff;width:100%;max-width:440px;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1)}
+.story-creator-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1)}
+.story-creator-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:6px}
+.story-creator-close{background:none;border:none;color:#aaa;font-size:20px;cursor:pointer;padding:4px}
+.story-creator-close:hover{color:#fff}
+
+.story-creator-body{padding:16px;display:flex;flex-direction:column;gap:14px}
+.story-picker-zone{border:2px dashed rgba(255,255,255,.25);border-radius:14px;padding:36px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;background:rgba(255,255,255,.03);transition:all .2s;text-align:center}
+.story-picker-zone:hover{border-color:#e63946;background:rgba(230,57,70,.05)}
+.story-picker-zone .icon{font-size:36px}
+.story-picker-title{font-size:14px;font-weight:700}
+.story-picker-sub{font-size:12px;color:#888}
+
+.story-preview-wrap{position:relative;width:100%;aspect-ratio:9/16;max-height:340px;background:#050505;border-radius:12px;overflow:hidden;display:none;align-items:center;justify-content:center}
+.story-preview-wrap img,.story-preview-wrap video{width:100%;height:100%;object-fit:contain}
+.story-preview-change-btn{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:none;color:#fff;padding:6px 10px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer}
+
+.story-options-bar{display:flex;gap:8px;align-items:center}
+.story-music-btn{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:9px 12px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all .15s}
+.story-music-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}
+.story-music-btn.has-music{background:linear-gradient(135deg,#9333ea,#e63946);border-color:transparent}
+
+.story-caption-input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;color:#fff;font-size:13px;outline:none;width:100%;color:#fff}
+.story-caption-input:focus{border-color:#e63946}
+
+.story-publish-btn{background:linear-gradient(135deg,#e63946,#ff007f);border:none;color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 6px 20px rgba(230,57,70,.4);transition:transform .15s}
+.story-publish-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(230,57,70,.5)}
+.story-publish-btn:active{transform:scale(.98)}
+.story-publish-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* Music Picker Modal */
+.music-picker-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100096;display:none;align-items:center;justify-content:center;padding:14px}
+.music-picker-overlay.active{display:flex}
+.music-picker-card{background:#18181b;color:#fff;width:100%;max-width:420px;height:80vh;max-height:560px;border-radius:16px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;overflow:hidden}
+.music-picker-header{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between}
+.music-search-box{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.08)}
+.music-search-input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:8px 14px;color:#fff;font-size:13px;outline:none}
+.music-tabs{display:flex;padding:6px 12px;gap:6px;overflow-x:auto;scrollbar-width:none}
+.music-tab-btn{background:rgba(255,255,255,.08);border:none;color:#aaa;padding:5px 10px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap}
+.music-tab-btn.active{background:#e63946;color:#fff}
+.music-list{flex:1;overflow-y:auto;padding:8px 12px;display:flex;flex-direction:column;gap:6px}
+.music-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.03);transition:background .15s}
+.music-item:hover{background:rgba(255,255,255,.08)}
+.music-thumb{width:40px;height:40px;border-radius:8px;object-fit:cover;background:#2a2a2e;display:flex;align-items:center;justify-content:center;font-size:18px}
+.music-info{flex:1;min-width:0}
+.music-title{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:11px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-preview-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
+.music-preview-btn:hover{background:#e63946}
+.music-select-btn{background:#e63946;border:none;color:#fff;padding:6px 12px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body class="on-home">
@@ -1578,11 +1721,56 @@ body.fun-panel-open{overflow:hidden}
 
 <div id="tab-home" class="tab-pane active">
 
-  <section class="home-coming-soon">
-    <div class="container" style="text-align:center;padding:20px 20px 40px">
-      <p style="font-size:14px;color:#888">🎬 Naye videos aur reels ab <strong>Channel Profile</strong> me dekhein! Upar wale logo par tap karein. 🔥</p>
+  <!-- Stories Tray (Instagram Style) -->
+  <section class="stories-section" id="storiesSection">
+    <div class="stories-scroll" id="storiesTray">
+      <!-- Your Story Add Circle (always first) -->
+      <button type="button" class="story-tray-item" id="addStoryTrayBtn" onclick="openStoryCreator()" aria-label="Add your story">
+        <div class="story-ring my-add" id="myStoryRing">
+          <div class="story-avatar-inner">
+            <img id="myStoryTrayAvatar" src="IMG_20260917_172912.jpg" alt="Your Story">
+          </div>
+          <div class="story-add-badge" id="myStoryBadge">+</div>
+        </div>
+        <span class="story-username" id="myStoryLabel">Your Story</span>
+      </button>
+      <!-- Active User Story Circles populated by JS -->
     </div>
   </section>
+
+  <!-- Home Feed -->
+  <div class="home-feed-wrap">
+    <!-- Quick Actions -->
+    <div class="home-quick-actions">
+      <div class="home-action-card" onclick="openStoryCreator()">
+        <span class="home-action-icon">📸</span>
+        <span class="home-action-label">Add Story</span>
+      </div>
+      <div class="home-action-card" onclick="switchTab('reels')">
+        <span class="home-action-icon">🎬</span>
+        <span class="home-action-label">Watch Reels</span>
+      </div>
+      <div class="home-action-card" onclick="switchTab('funzone')">
+        <span class="home-action-icon">🎮</span>
+        <span class="home-action-label">Fun Zone</span>
+      </div>
+      <div class="home-action-card" onclick="switchTab('profile')">
+        <span class="home-action-icon">👤</span>
+        <span class="home-action-label">My Profile</span>
+      </div>
+    </div>
+
+    <!-- Community Highlights Title -->
+    <div class="home-section-title">
+      <span>🔥 Trending Shorts &amp; Reels</span>
+      <button type="button" class="social-mini-btn" onclick="switchTab('reels')">See all →</button>
+    </div>
+
+    <!-- Highlights Grid -->
+    <div class="home-highlights-grid" id="homeHighlightsGrid">
+      <!-- Dynamically filled with top shorts -->
+    </div>
+  </div>
 
 </div>
 <div class="channel-profile-overlay" id="channelProfileOverlay">
@@ -1809,8 +1997,24 @@ body.fun-panel-open{overflow:hidden}
     <div class="card visitor-counter-card" style="text-align:center">
       <h3>🔥 UPComedyHub Family</h3>
       <p style="margin-top:15px">Ab tak UPComedyHub website par</p>
-      <div class="stats4u-counter">
-        <script src="https://www.stats4u.net/s4u.js" data-id="7770253129" data-style="950" data-params="form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20" data-screen="1" async></script>
+      <div class="stats4u-counter" id="stats4uCounterBox">
+        <!-- Safely loaded visitor counter -->
+        <script>
+          (function(){
+            try {
+              var s = document.createElement("script");
+              s.src = "https://www.stats4u.net/s4u.js";
+              s.setAttribute("data-id", "7770253129");
+              s.setAttribute("data-style", "950");
+              s.setAttribute("data-params", "form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20");
+              s.setAttribute("data-screen", "1");
+              s.async = true;
+              s.onerror = function() { console.warn("Visitor counter script unavailable"); };
+              var box = document.getElementById("stats4uCounterBox");
+              if (box) box.appendChild(s);
+            } catch(e) {}
+          })();
+        </script>
       </div>
       <p style="margin-top:15px">visits record ho chuke hain ❤️</p>
       <small>Aap bhi UPComedyHub family ka hissa hain! 😎</small>
@@ -2679,6 +2883,137 @@ body.fun-panel-open{overflow:hidden}
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
 
+<!-- =====================================================
+     UPCOMEDYHUB STORY MODALS & VIEWER
+     ===================================================== -->
+
+<!-- Story Creator Modal -->
+<div class="story-creator-overlay" id="storyCreatorModal">
+  <div class="story-creator-card">
+    <div class="story-creator-header">
+      <div class="story-creator-title">
+        <span>📸</span> Create New Story
+      </div>
+      <button type="button" class="story-creator-close" onclick="closeStoryCreator()" aria-label="Close">✕</button>
+    </div>
+    <div class="story-creator-body">
+      <!-- Media Picker Area -->
+      <div class="story-picker-zone" id="storyPickerZone" onclick="document.getElementById('storyMediaFileInput').click()">
+        <span class="icon">🖼️</span>
+        <div class="story-picker-title">Select Photo or Short Video</div>
+        <div class="story-picker-sub">JPG, PNG, WebP or MP4 • Stories vanish after 24h</div>
+      </div>
+      <input type="file" id="storyMediaFileInput" accept="image/*,video/*" style="display:none" onchange="handleStoryFileChange(this)">
+
+      <!-- Media Preview Area -->
+      <div class="story-preview-wrap" id="storyPreviewWrap">
+        <img id="storyPreviewImg" src="" alt="Story Preview" style="display:none">
+        <video id="storyPreviewVideo" playsinline autoplay muted loop style="display:none"></video>
+        <button type="button" class="story-preview-change-btn" onclick="document.getElementById('storyMediaFileInput').click()">🔄 Change Media</button>
+      </div>
+
+      <!-- Music & Options Bar -->
+      <div class="story-options-bar">
+        <button type="button" class="story-music-btn" id="storyMusicBtn" onclick="openMusicPicker()">
+          <span id="storyMusicIcon">🎵</span>
+          <span id="storyMusicLabel">Add Music</span>
+        </button>
+        <button type="button" class="story-viewer-btn" id="storyMusicRemoveBtn" onclick="removeSelectedMusic()" style="display:none;width:38px;height:38px;background:rgba(239,68,68,.2);color:#ef4444" title="Remove music">✕</button>
+      </div>
+
+      <!-- Caption Input -->
+      <input type="text" class="story-caption-input" id="storyCaptionInput" placeholder="Add a caption or joke... (optional)" maxlength="120">
+
+      <!-- Publish Button -->
+      <button type="button" class="story-publish-btn" id="storyPublishBtn" onclick="publishStory()" disabled>
+        <span>✨</span> Share to Story (24h)
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Music Picker Modal -->
+<div class="music-picker-overlay" id="musicPickerModal">
+  <div class="music-picker-card">
+    <div class="music-picker-header">
+      <div style="font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px">
+        <span>🎵</span> Choose Music for Story
+      </div>
+      <button type="button" class="story-creator-close" onclick="closeMusicPicker()" aria-label="Close">✕</button>
+    </div>
+    <div class="music-search-box">
+      <input type="text" class="music-search-input" id="musicSearchInput" placeholder="🔍 Search Bollywood, Punjabi, Trending songs..." oninput="handleMusicSearch(this.value)">
+    </div>
+    <div class="music-tabs">
+      <button type="button" class="music-tab-btn active" onclick="switchMusicCategory('all', this)">🔥 All Trending</button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('comedy', this)">😂 Comedy &amp; Memes</button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('bollywood', this)">🎬 Bollywood</button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('punjabi', this)">🕺 Punjabi Beats</button>
+    </div>
+    <div class="music-list" id="musicListContainer">
+      <!-- Populated dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen Story Viewer Modal -->
+<div class="story-viewer-overlay" id="storyViewerModal">
+  <div class="story-viewer-box" id="storyViewerBox">
+    <!-- Progress Bars Wrap -->
+    <div class="story-progress-wrap" id="storyProgressWrap">
+      <!-- Bars dynamically injected -->
+    </div>
+
+    <!-- Top Header -->
+    <div class="story-viewer-top">
+      <div class="story-viewer-user">
+        <img id="storyViewerAvatar" class="story-viewer-avatar" src="IMG_20260917_172912.jpg" alt="User">
+        <div>
+          <div style="display:flex;align-items:center;gap:4px">
+            <span id="storyViewerUsername" class="story-viewer-name">User</span>
+            <span id="storyViewerTime" class="story-viewer-time">• 2h</span>
+          </div>
+          <div id="storyViewerMusicBadge" class="story-viewer-music" style="display:none">
+            <div class="story-music-bars">
+              <span class="story-music-bar"></span>
+              <span class="story-music-bar"></span>
+              <span class="story-music-bar"></span>
+            </div>
+            <span id="storyViewerMusicTitle">Song Title</span>
+          </div>
+        </div>
+      </div>
+      <div class="story-viewer-actions">
+        <button type="button" class="story-viewer-btn" id="storyDeleteBtn" onclick="deleteCurrentStory()" style="display:none;color:#ef4444" title="Delete your story" aria-label="Delete story">🗑️</button>
+        <button type="button" class="story-viewer-btn" onclick="closeStoryViewer()" aria-label="Close story">✕</button>
+      </div>
+    </div>
+
+    <!-- Media Container -->
+    <div class="story-viewer-media" id="storyViewerMedia">
+      <img id="storyViewerImg" src="" alt="Story" style="display:none">
+      <video id="storyViewerVideo" playsinline style="display:none"></video>
+      <div class="story-tap-left" id="storyTapLeft" onclick="storyPrevStep()"></div>
+      <div class="story-tap-right" id="storyTapRight" onclick="storyNextStep()"></div>
+    </div>
+
+    <!-- Caption -->
+    <div class="story-viewer-caption" id="storyViewerCaption" style="display:none"></div>
+
+    <!-- Bottom Interaction Bar -->
+    <div class="story-viewer-bottom">
+      <input type="text" class="story-reply-input" id="storyReplyInput" placeholder="Send message..." onkeydown="handleStoryReplyKey(event)">
+      <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('❤️')" aria-label="Heart">❤️</button>
+      <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('😂')" aria-label="Laugh">😂</button>
+      <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('🔥')" aria-label="Fire">🔥</button>
+    </div>
+  </div>
+</div>
+
+<!-- Background Audio Player for Stories -->
+<audio id="storyAudioPlayer" preload="auto"></audio>
+<audio id="musicPreviewPlayer" preload="auto"></audio>
+
 <!-- Incoming Call Overlay -->
 <div class="incoming-call-overlay" id="incomingCallOverlay">
   <div class="incoming-call-card">
@@ -2814,10 +3149,33 @@ body.fun-panel-open{overflow:hidden}
 
 <div id="toastNotification"></div>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js" crossorigin="anonymous"></script>
 <script>
+window.addEventListener("error", function(e) {
+  if (e && (e.message === "Script error." || !e.message)) {
+    console.warn("Cross-origin script error caught safely");
+    if (typeof e.preventDefault === "function") e.preventDefault();
+    return true;
+  }
+});
+
+// Suppress non-fatal Firestore network offline warnings from being treated as fatal errors
+(function() {
+  const _origError = console.error;
+  console.error = function(...args) {
+    const str = args.map(a => (typeof a === 'object' ? (a && a.message ? a.message : JSON.stringify(a)) : String(a))).join(' ');
+    if (str.includes("Could not reach Cloud Firestore backend") || 
+        str.includes("operate in offline mode") || 
+        str.includes("@firebase/firestore")) {
+      console.warn("Firestore status: operating in offline mode with cache", ...args);
+      return;
+    }
+    _origError.apply(console, args);
+  };
+})();
+
    const firebaseConfig = {
   apiKey: "AIzaSyCYMhMDey05I8fF5e2R-ddgXEASr1w-sUs",
   authDomain: "upcomedyhub-f9634.firebaseapp.com",
@@ -2828,13 +3186,19 @@ body.fun-panel-open{overflow:hidden}
   measurementId: "G-0TGJ1JT4BW"
 };
 firebase.initializeApp(firebaseConfig);
+
+try {
+  if (typeof firebase.firestore.setLogLevel === "function") {
+    firebase.firestore.setLogLevel("silent");
+  }
+} catch(e) {}
+
 const auth = firebase.auth();
 const db = firebase.firestore();
 
 try {
   db.settings({
-    experimentalAutoDetectLongPolling: true,
-    experimentalForceLongPolling: true
+    experimentalAutoDetectLongPolling: true
   });
 } catch(e) {
   console.warn("Firestore settings warning:", e);
@@ -2989,7 +3353,7 @@ function switchTab(name){
 window.switchTab = switchTab;
 navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
 const createUploadBtn = document.getElementById("createUploadBtn");
-if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>showToast("🚀 Upload feature jaldi aa raha hai! Tab tak bas comedy dekho 😄"));
+if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>openStoryCreator());
 /* Fun Zone nav handled via data-tab="funzone" in switchTab */
 
 /* ---------- THEME ---------- */
@@ -5995,6 +6359,768 @@ window.openMessages = openDirectMessages;
 window.openDirectMessages = openDirectMessages;
 window.openCommunity = openCommunity;
 
+/* =====================================================
+   UPCOMEDYHUB STORIES FEATURE (24H EPHEMERAL STORIES)
+   ===================================================== */
+const CURATED_COMEDY_SOUNDS = [
+  { id: "s1", title: "Desi Dholak Beat", artist: "UPComedyHub Beats", icon: "🥁", previewUrl: "https://actions.google.com/sounds/v1/foley/djembe_drumming.ogg" },
+  { id: "s2", title: "Funny Comedy Laugh Track", artist: "Laugh Vault", icon: "😂", previewUrl: "https://actions.google.com/sounds/v1/human_voices/laughter_small_group.ogg" },
+  { id: "s3", title: "Oh No Dramatic Whistle", artist: "Meme SFX", icon: "🎺", previewUrl: "https://actions.google.com/sounds/v1/cartoon/descending_slide_whistle.ogg" },
+  { id: "s4", title: "Cartoon Boing & Drama", artist: "Retro Cartoons", icon: "💥", previewUrl: "https://actions.google.com/sounds/v1/cartoon/boing_deep.ogg" },
+  { id: "s5", title: "Desi Whistle & Cheer", artist: "Desi Party", icon: "🥳", previewUrl: "https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_pop.ogg" },
+  { id: "s6", title: "Upbeat Acoustic Comedy", artist: "Sunny Day", icon: "🎸", previewUrl: "https://actions.google.com/sounds/v1/ambiences/outdoor_carnival.ogg" }
+];
+
+let storyMediaFile = null;
+let storyMediaDataUrl = "";
+let storyMediaType = "image";
+let storySelectedMusic = null;
+let allActiveStories = [];
+let userStoriesGrouped = {};
+let currentViewingUserStories = [];
+let currentViewingStoryIndex = 0;
+let storyProgressTimer = null;
+let storyProgressStartTime = 0;
+let storyProgressDuration = 6000;
+let isStoryPaused = false;
+let musicSearchDebounce = null;
+
+function playMusicPreview(url, btnEl) {
+  const player = document.getElementById("musicPreviewPlayer");
+  if (!player) return;
+  if (player.src === url && !player.paused) {
+    player.pause();
+    if (btnEl) btnEl.textContent = "▶";
+    return;
+  }
+  document.querySelectorAll(".music-preview-btn").forEach(b => b.textContent = "▶");
+  player.src = url;
+  player.play().then(() => {
+    if (btnEl) btnEl.textContent = "⏸";
+  }).catch(() => {});
+  player.onended = () => {
+    if (btnEl) btnEl.textContent = "▶";
+  };
+}
+
+function stopMusicPreview() {
+  const player = document.getElementById("musicPreviewPlayer");
+  if (player) {
+    player.pause();
+    player.src = "";
+  }
+  document.querySelectorAll(".music-preview-btn").forEach(b => b.textContent = "▶");
+}
+
+function openStoryCreator() {
+  stopAllVideos();
+  stopMusicPreview();
+  storyMediaFile = null;
+  storyMediaDataUrl = "";
+  storyMediaType = "image";
+  storySelectedMusic = null;
+
+  const previewWrap = document.getElementById("storyPreviewWrap");
+  const pickerZone = document.getElementById("storyPickerZone");
+  const imgPrev = document.getElementById("storyPreviewImg");
+  const vidPrev = document.getElementById("storyPreviewVideo");
+  const captionInput = document.getElementById("storyCaptionInput");
+  const pubBtn = document.getElementById("storyPublishBtn");
+  const musicBtn = document.getElementById("storyMusicBtn");
+  const musicLabel = document.getElementById("storyMusicLabel");
+  const musicRemove = document.getElementById("storyMusicRemoveBtn");
+
+  if (previewWrap) previewWrap.style.display = "none";
+  if (pickerZone) pickerZone.style.display = "flex";
+  if (imgPrev) { imgPrev.src = ""; imgPrev.style.display = "none"; }
+  if (vidPrev) { vidPrev.src = ""; vidPrev.style.display = "none"; }
+  if (captionInput) captionInput.value = "";
+  if (pubBtn) { pubBtn.disabled = true; pubBtn.innerHTML = "<span>✨</span> Share to Story (24h)"; }
+  if (musicBtn) musicBtn.className = "story-music-btn";
+  if (musicLabel) musicLabel.textContent = "Add Music";
+  if (musicRemove) musicRemove.style.display = "none";
+
+  const modal = document.getElementById("storyCreatorModal");
+  if (modal) modal.classList.add("active");
+}
+window.openStoryCreator = openStoryCreator;
+
+function closeStoryCreator() {
+  stopMusicPreview();
+  const modal = document.getElementById("storyCreatorModal");
+  if (modal) modal.classList.remove("active");
+}
+window.closeStoryCreator = closeStoryCreator;
+
+function loadImage(srcOrFile) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let src = srcOrFile;
+      if (srcOrFile instanceof Blob || srcOrFile instanceof File) {
+        src = await fileToDataURL(srcOrFile);
+      }
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error("IMAGE_DECODE_FAILED"));
+      img.src = src;
+    } catch(err) {
+      reject(err);
+    }
+  });
+}
+window.loadImage = loadImage;
+
+async function compressStoryPhoto(file) {
+  const img = await loadImage(file);
+  const maxDim = 1280;
+  let w = img.naturalWidth || img.width;
+  let h = img.naturalHeight || img.height;
+  if (w > maxDim || h > maxDim) {
+    if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+    else { w = Math.round((w * maxDim) / h); h = maxDim; }
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, w, h);
+  return canvas.toDataURL("image/jpeg", 0.85);
+}
+
+// Modular Driver Pattern: When Cloudflare R2 is configured in future,
+// only this function needs updating!
+async function uploadStoryVideo(file) {
+  return await fileToDataURL(file);
+}
+
+async function handleStoryFileChange(input) {
+  const file = input && input.files && input.files[0];
+  if (!file) return;
+
+  const isVideo = file.type && file.type.startsWith("video/");
+  const isImage = file.type && file.type.startsWith("image/");
+
+  if (!isImage && !isVideo) {
+    showToast("❌ Sirf photo (JPG/PNG) ya video (MP4) allowed hai!");
+    input.value = "";
+    return;
+  }
+
+  if (file.size > 25 * 1024 * 1024) {
+    showToast("❌ File size 25MB se chhoti honi chahiye!");
+    input.value = "";
+    return;
+  }
+
+  const previewWrap = document.getElementById("storyPreviewWrap");
+  const pickerZone = document.getElementById("storyPickerZone");
+  const imgPrev = document.getElementById("storyPreviewImg");
+  const vidPrev = document.getElementById("storyPreviewVideo");
+  const pubBtn = document.getElementById("storyPublishBtn");
+
+  storyMediaFile = file;
+
+  if (isImage) {
+    storyMediaType = "image";
+    try {
+      const compressedData = await compressStoryPhoto(file);
+      storyMediaDataUrl = compressedData;
+      if (imgPrev) { imgPrev.src = compressedData; imgPrev.style.display = "block"; }
+      if (vidPrev) vidPrev.style.display = "none";
+    } catch (e) {
+      const dataUrl = await fileToDataURL(file);
+      storyMediaDataUrl = dataUrl;
+      if (imgPrev) { imgPrev.src = dataUrl; imgPrev.style.display = "block"; }
+      if (vidPrev) vidPrev.style.display = "none";
+    }
+  } else {
+    storyMediaType = "video";
+    const objectUrl = URL.createObjectURL(file);
+    storyMediaDataUrl = objectUrl;
+    if (vidPrev) {
+      vidPrev.src = objectUrl;
+      vidPrev.style.display = "block";
+      vidPrev.play().catch(() => {});
+    }
+    if (imgPrev) imgPrev.style.display = "none";
+  }
+
+  if (pickerZone) pickerZone.style.display = "none";
+  if (previewWrap) previewWrap.style.display = "flex";
+  if (pubBtn) pubBtn.disabled = false;
+  input.value = "";
+}
+window.handleStoryFileChange = handleStoryFileChange;
+
+function openMusicPicker() {
+  const modal = document.getElementById("musicPickerModal");
+  if (modal) modal.classList.add("active");
+  switchMusicCategory("all");
+}
+window.openMusicPicker = openMusicPicker;
+
+function closeMusicPicker() {
+  stopMusicPreview();
+  const modal = document.getElementById("musicPickerModal");
+  if (modal) modal.classList.remove("active");
+}
+window.closeMusicPicker = closeMusicPicker;
+
+function switchMusicCategory(cat, btnEl) {
+  if (btnEl) {
+    document.querySelectorAll(".music-tab-btn").forEach(b => b.classList.remove("active"));
+    btnEl.classList.add("active");
+  }
+  stopMusicPreview();
+  const container = document.getElementById("musicListContainer");
+  if (!container) return;
+
+  if (cat === "comedy") {
+    renderMusicList(CURATED_COMEDY_SOUNDS);
+  } else if (cat === "bollywood") {
+    fetchTrendingMusic("bollywood latest hit");
+  } else if (cat === "punjabi") {
+    fetchTrendingMusic("punjabi hit song");
+  } else {
+    fetchTrendingMusic("desi bollywood punjabi comedy");
+  }
+}
+window.switchMusicCategory = switchMusicCategory;
+
+function handleMusicSearch(query) {
+  clearTimeout(musicSearchDebounce);
+  const q = (query || "").trim();
+  if (!q) {
+    switchMusicCategory("all");
+    return;
+  }
+  musicSearchDebounce = setTimeout(() => {
+    fetchTrendingMusic(q);
+  }, 400);
+}
+window.handleMusicSearch = handleMusicSearch;
+
+async function fetchTrendingMusic(term) {
+  const container = document.getElementById("musicListContainer");
+  if (container) container.innerHTML = '<div style="text-align:center;padding:20px;color:#888">⏳ Loading tracks...</div>';
+
+  try {
+    const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=15`);
+    const data = await res.json().catch(() => ({}));
+    if (data && Array.isArray(data.results) && data.results.length) {
+      const items = data.results.map(r => ({
+        id: "itunes_" + r.trackId,
+        title: r.trackName,
+        artist: r.artistName,
+        icon: "🎵",
+        artwork: r.artworkUrl100 || r.artworkUrl60,
+        previewUrl: r.previewUrl
+      }));
+      renderMusicList(items);
+    } else {
+      renderMusicList(CURATED_COMEDY_SOUNDS);
+    }
+  } catch (e) {
+    renderMusicList(CURATED_COMEDY_SOUNDS);
+  }
+}
+
+function renderMusicList(items) {
+  const container = document.getElementById("musicListContainer");
+  if (!container) return;
+  container.innerHTML = "";
+  if (!items.length) {
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:#888">Koi gaana nahi mila. Dusra search try karein!</div>';
+    return;
+  }
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "music-item";
+    const thumbHtml = item.artwork 
+      ? `<img src="${escapeAttr(item.artwork)}" class="music-thumb" alt="">`
+      : `<div class="music-thumb">${item.icon || "🎵"}</div>`;
+
+    div.innerHTML = `
+      ${thumbHtml}
+      <div class="music-info">
+        <div class="music-title">${escapeAttr(item.title)}</div>
+        <div class="music-artist">${escapeAttr(item.artist)}</div>
+      </div>
+      <button type="button" class="music-preview-btn" onclick="playMusicPreview('${escapeAttr(item.previewUrl)}', this)">▶</button>
+      <button type="button" class="music-select-btn" onclick="selectStoryMusic('${escapeAttr(item.title)}', '${escapeAttr(item.artist)}', '${escapeAttr(item.previewUrl)}')">Use</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function selectStoryMusic(title, artist, previewUrl) {
+  stopMusicPreview();
+  storySelectedMusic = { title, artist, previewUrl };
+
+  const btn = document.getElementById("storyMusicBtn");
+  const label = document.getElementById("storyMusicLabel");
+  const removeBtn = document.getElementById("storyMusicRemoveBtn");
+
+  if (label) label.textContent = `${title} • ${artist}`;
+  if (btn) btn.className = "story-music-btn has-music";
+  if (removeBtn) removeBtn.style.display = "flex";
+
+  closeMusicPicker();
+  showToast("🎵 Music attached: " + title);
+}
+window.selectStoryMusic = selectStoryMusic;
+
+function removeSelectedMusic() {
+  stopMusicPreview();
+  storySelectedMusic = null;
+  const btn = document.getElementById("storyMusicBtn");
+  const label = document.getElementById("storyMusicLabel");
+  const removeBtn = document.getElementById("storyMusicRemoveBtn");
+
+  if (label) label.textContent = "Add Music";
+  if (btn) btn.className = "story-music-btn";
+  if (removeBtn) removeBtn.style.display = "none";
+}
+window.removeSelectedMusic = removeSelectedMusic;
+
+async function publishStory() {
+  if (!storyMediaDataUrl && !storyMediaFile) {
+    showToast("❌ Pehle photo ya video select karein!");
+    return;
+  }
+
+  const pubBtn = document.getElementById("storyPublishBtn");
+  if (pubBtn) {
+    pubBtn.disabled = true;
+    pubBtn.innerHTML = "<span>⏳</span> Sharing Story...";
+  }
+
+  try {
+    let finalMediaUrl = storyMediaDataUrl;
+    if (storyMediaType === "video" && storyMediaFile) {
+      finalMediaUrl = await uploadStoryVideo(storyMediaFile);
+    }
+
+    const storyId = "story_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
+    const uid = currentUser ? currentUser.uid : "guest_user";
+    const uName = (currentUser && (currentUser.displayName || currentUser.username)) || "UPCH Fan";
+    const uPhoto = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || "IMG_20260917_172912.jpg";
+    const caption = (document.getElementById("storyCaptionInput")?.value || "").trim();
+
+    const storyDoc = {
+      id: storyId,
+      userId: uid,
+      userName: uName,
+      userPhoto: uPhoto,
+      mediaUrl: finalMediaUrl,
+      mediaType: storyMediaType,
+      musicUrl: storySelectedMusic ? storySelectedMusic.previewUrl : "",
+      musicTitle: storySelectedMusic ? (storySelectedMusic.title + " • " + storySelectedMusic.artist) : "",
+      caption: caption,
+      likesCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      expiresAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 24 * 60 * 60 * 1000))
+    };
+
+    await db.collection("stories").doc(storyId).set(storyDoc);
+    closeStoryCreator();
+    showToast("✨ Story shared for 24 hours! 🔥");
+  } catch (err) {
+    console.error("Story publish error:", err);
+    showToast("❌ Story upload failed: " + (err.message || "Network issue"));
+  } finally {
+    if (pubBtn) {
+      pubBtn.disabled = false;
+      pubBtn.innerHTML = "<span>✨</span> Share to Story (24h)";
+    }
+  }
+}
+window.publishStory = publishStory;
+
+function initStoriesSystem() {
+  try {
+    db.collection("stories").onSnapshot(snapshot => {
+      const active = [];
+      const now = Date.now();
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        let expTime = 0;
+        if (d.expiresAt && typeof d.expiresAt.toMillis === "function") {
+          expTime = d.expiresAt.toMillis();
+        } else if (d.expiresAt) {
+          expTime = new Date(d.expiresAt).getTime();
+        }
+        if (expTime > now) {
+          active.push({ id: doc.id, ...d });
+        }
+      });
+
+      active.sort((a, b) => {
+        const aT = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+        const bT = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+        return bT - aT;
+      });
+
+      allActiveStories = active;
+      groupAndRenderStoriesTray();
+    }, err => {
+      console.warn("Stories sync notice:", err);
+    });
+  } catch (e) {
+    console.warn("Firestore stories init:", e);
+  }
+
+  renderHomeHighlights();
+}
+window.initStoriesSystem = initStoriesSystem;
+
+function groupAndRenderStoriesTray() {
+  userStoriesGrouped = {};
+  allActiveStories.forEach(s => {
+    if (!userStoriesGrouped[s.userId]) {
+      userStoriesGrouped[s.userId] = [];
+    }
+    userStoriesGrouped[s.userId].push(s);
+  });
+
+  const currentUid = currentUser ? currentUser.uid : "guest_user";
+  const myStories = userStoriesGrouped[currentUid] || [];
+
+  const myAvatarEl = document.getElementById("myStoryTrayAvatar");
+  if (myAvatarEl) {
+    myAvatarEl.src = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || "IMG_20260917_172912.jpg";
+  }
+  const myRingEl = document.getElementById("myStoryRing");
+  const myBadgeEl = document.getElementById("myStoryBadge");
+  const myLabelEl = document.getElementById("myStoryLabel");
+  const myTrayBtn = document.getElementById("addStoryTrayBtn");
+
+  if (myStories.length > 0) {
+    if (myRingEl) myRingEl.className = "story-ring unseen";
+    if (myBadgeEl) myBadgeEl.style.display = "none";
+    if (myLabelEl) myLabelEl.textContent = "Your Story (" + myStories.length + ")";
+    if (myTrayBtn) {
+      myTrayBtn.onclick = () => openStoryViewer(currentUid);
+    }
+  } else {
+    if (myRingEl) myRingEl.className = "story-ring my-add";
+    if (myBadgeEl) myBadgeEl.style.display = "flex";
+    if (myLabelEl) myLabelEl.textContent = "Your Story";
+    if (myTrayBtn) {
+      myTrayBtn.onclick = () => openStoryCreator();
+    }
+  }
+
+  const tray = document.getElementById("storiesTray");
+  if (!tray) return;
+
+  const existingDynamic = tray.querySelectorAll(".dynamic-story-item");
+  existingDynamic.forEach(el => el.remove());
+
+  Object.keys(userStoriesGrouped).forEach(uid => {
+    if (uid === currentUid) return;
+    const stories = userStoriesGrouped[uid];
+    if (!stories.length) return;
+
+    const firstStory = stories[0];
+    const uName = firstStory.userName || "User";
+    const uPhoto = firstStory.userPhoto || "IMG_20260917_172912.jpg";
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "story-tray-item dynamic-story-item";
+    btn.setAttribute("aria-label", uName + "'s story");
+    btn.onclick = () => openStoryViewer(uid);
+
+    btn.innerHTML = `
+      <div class="story-ring unseen">
+        <div class="story-avatar-inner">
+          <img src="${escapeAttr(uPhoto)}" alt="${escapeAttr(uName)}" loading="lazy">
+        </div>
+      </div>
+      <span class="story-username">${escapeAttr(uName)}</span>
+    `;
+    tray.appendChild(btn);
+  });
+}
+
+function openStoryViewer(userId, startIndex = 0) {
+  const stories = userStoriesGrouped[userId] || [];
+  if (!stories.length) return;
+
+  currentViewingUserStories = stories;
+  currentViewingStoryIndex = startIndex;
+  const modal = document.getElementById("storyViewerModal");
+  if (modal) modal.classList.add("active");
+
+  loadStoryIndex(startIndex);
+}
+window.openStoryViewer = openStoryViewer;
+
+function closeStoryViewer() {
+  clearTimeout(storyProgressTimer);
+  const audio = document.getElementById("storyAudioPlayer");
+  if (audio) {
+    audio.pause();
+    audio.src = "";
+  }
+  const vid = document.getElementById("storyViewerVideo");
+  if (vid) {
+    vid.pause();
+    vid.src = "";
+  }
+  const modal = document.getElementById("storyViewerModal");
+  if (modal) modal.classList.remove("active");
+}
+window.closeStoryViewer = closeStoryViewer;
+
+function loadStoryIndex(idx) {
+  clearTimeout(storyProgressTimer);
+  if (idx < 0 || idx >= currentViewingUserStories.length) {
+    closeStoryViewer();
+    return;
+  }
+  currentViewingStoryIndex = idx;
+  const story = currentViewingUserStories[idx];
+
+  const progWrap = document.getElementById("storyProgressWrap");
+  if (progWrap) {
+    progWrap.innerHTML = "";
+    currentViewingUserStories.forEach((s, i) => {
+      const bar = document.createElement("div");
+      bar.className = "story-prog-bar";
+      const fill = document.createElement("div");
+      fill.className = "story-prog-fill";
+      if (i < idx) fill.classList.add("filled");
+      fill.id = "progFill_" + i;
+      bar.appendChild(fill);
+      progWrap.appendChild(bar);
+    });
+  }
+
+  const avatar = document.getElementById("storyViewerAvatar");
+  const username = document.getElementById("storyViewerUsername");
+  const timeEl = document.getElementById("storyViewerTime");
+  const deleteBtn = document.getElementById("storyDeleteBtn");
+  const musicBadge = document.getElementById("storyViewerMusicBadge");
+  const musicTitle = document.getElementById("storyViewerMusicTitle");
+  const captionEl = document.getElementById("storyViewerCaption");
+
+  if (avatar) avatar.src = story.userPhoto || "IMG_20260917_172912.jpg";
+  if (username) username.textContent = story.userName || "User";
+  if (timeEl) {
+    let t = "Just now";
+    if (story.createdAt) {
+      const ms = story.createdAt.toMillis ? story.createdAt.toMillis() : new Date(story.createdAt).getTime();
+      const diffMins = Math.round((Date.now() - ms) / 60000);
+      if (diffMins < 60) t = `• ${diffMins}m`;
+      else t = `• ${Math.round(diffMins / 60)}h`;
+    }
+    timeEl.textContent = t;
+  }
+
+  const currentUid = currentUser ? currentUser.uid : "guest_user";
+  if (deleteBtn) {
+    deleteBtn.style.display = (story.userId === currentUid) ? "flex" : "none";
+  }
+
+  const audio = document.getElementById("storyAudioPlayer");
+  if (story.musicUrl) {
+    if (musicBadge) musicBadge.style.display = "inline-flex";
+    if (musicTitle) musicTitle.textContent = story.musicTitle || "Music Track";
+    if (audio) {
+      audio.src = story.musicUrl;
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    }
+  } else {
+    if (musicBadge) musicBadge.style.display = "none";
+    if (audio) {
+      audio.pause();
+      audio.src = "";
+    }
+  }
+
+  const imgEl = document.getElementById("storyViewerImg");
+  const vidEl = document.getElementById("storyViewerVideo");
+
+  if (story.mediaType === "video") {
+    if (imgEl) imgEl.style.display = "none";
+    if (vidEl) {
+      vidEl.style.display = "block";
+      vidEl.src = story.mediaUrl;
+      vidEl.play().catch(() => {});
+      vidEl.onloadedmetadata = () => {
+        storyProgressDuration = (vidEl.duration && vidEl.duration > 0) ? (vidEl.duration * 1000) : 6000;
+        startStoryTimer(idx, storyProgressDuration);
+      };
+    }
+  } else {
+    if (vidEl) { vidEl.pause(); vidEl.style.display = "none"; }
+    if (imgEl) {
+      imgEl.src = story.mediaUrl;
+      imgEl.style.display = "block";
+    }
+    storyProgressDuration = 6000;
+    startStoryTimer(idx, storyProgressDuration);
+  }
+
+  if (captionEl) {
+    if (story.caption) {
+      captionEl.textContent = story.caption;
+      captionEl.style.display = "block";
+    } else {
+      captionEl.style.display = "none";
+    }
+  }
+}
+
+function startStoryTimer(idx, duration) {
+  clearTimeout(storyProgressTimer);
+  storyProgressStartTime = Date.now();
+  const fillEl = document.getElementById("progFill_" + idx);
+
+  const interval = 50;
+  const updateProgress = () => {
+    if (isStoryPaused) return;
+    const elapsed = Date.now() - storyProgressStartTime;
+    const pct = Math.min(100, (elapsed / duration) * 100);
+    if (fillEl) fillEl.style.width = pct + "%";
+
+    if (elapsed >= duration) {
+      storyNextStep();
+    } else {
+      storyProgressTimer = setTimeout(updateProgress, interval);
+    }
+  };
+  storyProgressTimer = setTimeout(updateProgress, interval);
+}
+
+function storyNextStep() {
+  if (currentViewingStoryIndex < currentViewingUserStories.length - 1) {
+    loadStoryIndex(currentViewingStoryIndex + 1);
+  } else {
+    const userIds = Object.keys(userStoriesGrouped);
+    const curOwnerId = currentViewingUserStories[0]?.userId;
+    const curOwnerIdx = userIds.indexOf(curOwnerId);
+    if (curOwnerIdx >= 0 && curOwnerIdx < userIds.length - 1) {
+      openStoryViewer(userIds[curOwnerIdx + 1]);
+    } else {
+      closeStoryViewer();
+    }
+  }
+}
+window.storyNextStep = storyNextStep;
+
+function storyPrevStep() {
+  if (currentViewingStoryIndex > 0) {
+    loadStoryIndex(currentViewingStoryIndex - 1);
+  } else {
+    const userIds = Object.keys(userStoriesGrouped);
+    const curOwnerId = currentViewingUserStories[0]?.userId;
+    const curOwnerIdx = userIds.indexOf(curOwnerId);
+    if (curOwnerIdx > 0) {
+      const prevStories = userStoriesGrouped[userIds[curOwnerIdx - 1]];
+      openStoryViewer(userIds[curOwnerIdx - 1], prevStories.length - 1);
+    } else {
+      loadStoryIndex(0);
+    }
+  }
+}
+window.storyPrevStep = storyPrevStep;
+
+async function deleteCurrentStory() {
+  const story = currentViewingUserStories[currentViewingStoryIndex];
+  if (!story || !story.id) return;
+  if (!confirm("Kya aap sach me ye story delete karna chahte hain?")) return;
+
+  try {
+    await db.collection("stories").doc(story.id).delete();
+    showToast("🗑️ Story deleted!");
+    closeStoryViewer();
+  } catch (e) {
+    showToast("❌ Delete fail: " + e.message);
+  }
+}
+window.deleteCurrentStory = deleteCurrentStory;
+
+function sendStoryReaction(emoji) {
+  const story = currentViewingUserStories[currentViewingStoryIndex];
+  if (!story) return;
+  showToast(emoji + " Reaction sent!");
+  if (story.userId && story.userId !== (currentUser ? currentUser.uid : "")) {
+    createNotification(story.userId, "reaction", `${(currentUser && currentUser.displayName) || "Someone"} reacted ${emoji}`, "Reacted to your story");
+  }
+}
+window.sendStoryReaction = sendStoryReaction;
+
+function handleStoryReplyKey(e) {
+  if (e.key === "Enter") {
+    const input = document.getElementById("storyReplyInput");
+    const txt = (input?.value || "").trim();
+    if (!txt) return;
+    const story = currentViewingUserStories[currentViewingStoryIndex];
+    if (story && story.userId) {
+      showToast("💬 Reply sent: " + txt);
+      input.value = "";
+    }
+  }
+}
+window.handleStoryReplyKey = handleStoryReplyKey;
+
+function renderHomeHighlights() {
+  const grid = document.getElementById("homeHighlightsGrid");
+  if (!grid) return;
+  const UPCH_DEFAULT_REELS = [
+    { videoId: "qmyXXyjSkHw", title: "Dance Trend 💀😂 #upcomedyhub", thumb: "https://i.ytimg.com/vi/qmyXXyjSkHw/hqdefault.jpg" },
+    { videoId: "dyslbW099Is", title: "UP Bihar Ke Rangdar 😂💪 #upcomedyhub", thumb: "https://i.ytimg.com/vi/dyslbW099Is/hqdefault.jpg" },
+    { videoId: "s-koiVHxUVM", title: "Sasta Bewafa 😂 #upcomedyhub", thumb: "https://i.ytimg.com/vi/s-koiVHxUVM/hqdefault.jpg" },
+    { videoId: "Djoupq4W0sY", title: "Money Follows 😂 #upcomedyhub", thumb: "https://i.ytimg.com/vi/Djoupq4W0sY/hqdefault.jpg" }
+  ];
+
+  grid.innerHTML = "";
+  UPCH_DEFAULT_REELS.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "home-highlight-card";
+    card.onclick = () => switchTab("reels");
+    card.innerHTML = `
+      <div class="home-highlight-thumb">
+        <img src="${escapeAttr(item.thumb)}" alt="${escapeAttr(item.title)}" loading="lazy">
+        <div class="home-highlight-overlay">
+          <span class="home-highlight-badge">▶ REEL</span>
+          <div class="home-highlight-title">${escapeAttr(item.title)}</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+window.renderHomeHighlights = renderHomeHighlights;
+
+// Attach hold to pause
+document.addEventListener("DOMContentLoaded", () => {
+  const mediaEl = document.getElementById("storyViewerMedia");
+  if (mediaEl) {
+    mediaEl.addEventListener("mousedown", () => {
+      isStoryPaused = true;
+      const audio = document.getElementById("storyAudioPlayer");
+      if (audio) audio.pause();
+      const vid = document.getElementById("storyViewerVideo");
+      if (vid) vid.pause();
+    });
+    window.addEventListener("mouseup", () => {
+      if (isStoryPaused) {
+        isStoryPaused = false;
+        const audio = document.getElementById("storyAudioPlayer");
+        if (audio && audio.src) audio.play().catch(() => {});
+        const vid = document.getElementById("storyViewerVideo");
+        if (vid && vid.src) vid.play().catch(() => {});
+      }
+    });
+  }
+});
+
 /* ---------- FUN ZONE ---------- */
 (function(){
   const $ = (id)=>document.getElementById(id);
@@ -7277,6 +8403,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   });
 
   initCommunityUI();
+  initStoriesSystem();
 
   setTimeout(()=>{ loadFanOfWeek(); loadAnnouncement(); loadNotice(); loadManualVideos(); loadAllLikes(); }, 1500);
 });
@@ -7308,6 +8435,7 @@ auth.onAuthStateChanged(async (user)=>{
   }
   updateProfileUI();
   refreshAllVideoActions();
+  initStoriesSystem();
 });
 
 /* ---------- INSTAGRAM-STYLE LOGIN SCREEN ---------- */

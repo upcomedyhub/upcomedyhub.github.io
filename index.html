@@ -620,134 +620,132 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .notif-card-text{color:#bbb}
 .notif-card-time{font-size:10px;color:#999;margin-top:5px}
 
-/* Fun Zone */
-.fun-zone-section{max-width:935px;margin:0 auto;padding:0 16px}
-.fun-zone{margin-top:24px;padding:22px;border:1px solid #eee;border-radius:20px;background:linear-gradient(135deg,#fff8f8,#fff);box-shadow:0 10px 30px rgba(230,57,70,.08)}
-.dark-mode .fun-zone{background:linear-gradient(135deg,#1a0e10,#1b1b1b);border-color:#262626}
-.fun-zone-head{text-align:center;margin-bottom:18px}
-.fun-zone-head h3{font-size:26px;margin-bottom:4px}
-.fun-zone-head p{color:#777;font-size:14px}
-.fun-zone-toggle{border:none;background:#111;color:#fff;padding:9px 15px;border-radius:20px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:10px}
-.dark-mode .fun-zone-toggle{background:#fff;color:#111}
-.fun-zone-body{display:none}
-.fun-zone.open .fun-zone-body{display:block}
-.dark-mode .fun-zone-head p{color:#bbb}
-.fun-game-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 10px;padding:6px 2px}
-.fun-game-btn{border:none;background:transparent;padding:0;cursor:pointer;font-family:inherit;text-align:center;font-weight:700;color:#333;transition:transform .15s;-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;align-items:center;gap:7px}
-.fun-game-btn:hover,.fun-game-btn:active{transform:translateY(-2px)}
-.fun-game-btn .fun-icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;font-size:28px;border-radius:18px;background:linear-gradient(135deg,#fff0f1,#ffe1e4);border:1px solid #ffe1e4;box-shadow:0 6px 14px rgba(230,57,70,.16)}
-.fun-game-btn .fun-label{font-size:11px;line-height:1.2;font-weight:700;color:#444;max-width:76px}
-.fun-game-btn small{display:none}
-.dark-mode .fun-game-btn{color:#fff}
-.dark-mode .fun-game-btn .fun-icon{background:linear-gradient(135deg,#2a1416,#1f1f1f);border-color:#3a2224;box-shadow:0 6px 14px rgba(0,0,0,.45)}
-.dark-mode .fun-game-btn .fun-label{color:#ddd}
-.fun-panel-overlay{display:none;position:fixed;inset:0;z-index:100050;background:rgba(0,0,0,.55);overflow-y:auto;-webkit-overflow-scrolling:touch}
-.fun-panel-overlay.show{display:block}
-.fun-panel-modal{background:#fff;min-height:100%;max-width:560px;margin:0 auto;padding:14px 16px 40px;box-sizing:border-box}
-.dark-mode .fun-panel-modal{background:#111;color:#fff}
-.fun-panel-head{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:inherit;padding:6px 0 12px;margin-bottom:10px;border-bottom:1px solid #eee;z-index:2}
-.dark-mode .fun-panel-head{border-color:#262626}
-.fun-panel-head span{font-weight:800;font-size:17px}
-.fun-panel-close{width:36px;height:36px;border-radius:50%;border:none;background:#f2f2f2;font-size:16px;cursor:pointer;font-family:inherit;color:#111;flex:0 0 auto}
-.dark-mode .fun-panel-close{background:#262626;color:#fff}
-.fun-panel{display:none}
-.fun-panel.active{display:block}
-body.fun-panel-open{overflow:hidden}
-/* Snake & Ladder */
-.snake-wrap{max-width:430px;margin:0 auto;text-align:center}
-.snake-board{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;background:#f0f0f0;border:3px solid #e63946;border-radius:12px;padding:3px;margin:0 auto 12px}
-.dark-mode .snake-board{background:#333}
-.snake-cell{position:relative;aspect-ratio:1;background:#fff;border-radius:3px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.snake-cell.ladder{background:#e6f7e9}
-.snake-cell.snake{background:#fdeaea}
-.dark-mode .snake-cell{background:#1c1c1c}
-.dark-mode .snake-cell.ladder{background:#14301a}
-.dark-mode .snake-cell.snake{background:#331414}
-.snake-num{position:absolute;top:1px;left:2px;font-size:7px;color:#b5b5b5;line-height:1}
-.snake-mark{font-size:11px;opacity:.85}
-.snake-tok{position:absolute;bottom:0;font-size:11px;line-height:1}
-.snake-tok.you{right:1px}
-.snake-tok.cpu{left:1px}
-.snake-msg{font-weight:700;font-size:14px;margin-bottom:10px;min-height:20px}
-.snake-score{font-size:13px;color:#666;margin-top:10px}
-.dark-mode .snake-score{color:#bbb}
-.fun-question{font-size:18px;font-weight:800;margin-bottom:12px}
-.fun-options{display:grid;gap:9px}
-.fun-option{border:1px solid #ddd;background:#fafafa;color:#222;border-radius:12px;padding:11px 12px;text-align:left;cursor:pointer;font-family:inherit;font-weight:700}
-.fun-option:hover{border-color:#e63946}
-.fun-option.correct{background:#dff7e7;border-color:#32a852;color:#176b2d}
-.fun-option.wrong{background:#ffe4e4;border-color:#e63946;color:#9b1c1c}
-.dark-mode .fun-option{background:#262626;border-color:#333;color:#fff}
-.fun-result{text-align:center;font-weight:800;margin-top:13px}
-.fun-small-btn{border:none;background:#111;color:#fff;padding:9px 15px;border-radius:22px;cursor:pointer;font-family:inherit;font-weight:800;margin-top:12px}
-.dark-mode .fun-small-btn{background:#fff;color:#111}
-.reaction-box{padding:28px 15px;text-align:center;border-radius:15px;background:#f7f7f7}
-.dark-mode .reaction-box{background:#262626}
-#reactionBtn{width:100%;min-height:90px;border:none;border-radius:16px;background:#e63946;color:#fff;font-size:22px;font-weight:900;cursor:pointer;font-family:inherit}
-#reactionBtn.ready{background:#111}
-#reactionBtn.go{background:#22a447;transform:scale(1.02)}
-.spin-wrap{text-align:center}
-#spinWheel{width:min(230px,70vw);height:min(230px,70vw);border-radius:50%;margin:8px auto 15px;background:conic-gradient(#e63946 0 45deg,#ffd166 45deg 90deg,#111 90deg 135deg,#25d366 135deg 180deg,#7b61ff 180deg 225deg,#ff8a65 225deg 270deg,#00a8cc 270deg 315deg,#ff5d8f 315deg 360deg);border:8px solid #fff;box-shadow:0 8px 25px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-#spinWheel span{width:65px;height:65px;border-radius:50%;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:12px}
-.dark-mode #spinWheel{border-color:#1c1c1c}
+/* ==================== PLAYIT ARCADE FUN ZONE ==================== */
+.fun-zone-section{max-width:960px;margin:0 auto;padding:0 14px 40px}
+.arcade-header{text-align:center;padding:16px 0 14px}
+.arcade-title-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.arcade-title{font-size:24px;font-weight:900;letter-spacing:-0.5px}
+.arcade-sound-toggle{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 12px;border-radius:18px;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.arcade-sound-toggle:hover{background:rgba(255,255,255,.2)}
+.arcade-sub{font-size:13px;color:#888;margin-top:4px}
 
-/* ===== NEW 5 FUN ZONE MINI GAMES CSS ===== */
-/* 1. Ludo Mini */
-.ludo-wrap{max-width:390px;margin:0 auto;text-align:center}
-.ludo-board-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;background:#1e293b;border:3px solid #e63946;border-radius:14px;padding:8px;margin:0 auto 12px;box-shadow:0 6px 18px rgba(0,0,0,.25)}
-.ludo-cell{aspect-ratio:1;background:#fff;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:800;position:relative}
-.dark-mode .ludo-cell{background:#0f172a;color:#fff}
-.ludo-cell.safe{background:#fef08a!important;color:#854d0e}
-.ludo-cell.home-zone{background:#bbf7d0!important;color:#166534}
-.ludo-token{display:inline-block;border-radius:50%;width:18px;height:18px;line-height:18px;text-align:center;font-size:10px;font-weight:900;box-shadow:0 2px 6px rgba(0,0,0,.3)}
-.ludo-token.p1{background:#ef4444;color:#fff}
-.ludo-token.p2{background:#22c55e;color:#fff}
-.ludo-dice-box{display:flex;align-items:center;justify-content:center;gap:14px;margin:12px 0}
-.ludo-dice-btn{width:64px;height:64px;border-radius:14px;background:#fff;border:2px solid #e63946;box-shadow:0 6px 16px rgba(230,57,70,.25);font-size:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s}
-.ludo-dice-btn:active{transform:scale(.92)}
+/* Category Filter Bar */
+.arcade-cat-bar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:8px 0 16px}
+.arcade-cat-pill{background:#1e1e24;border:1px solid rgba(255,255,255,.1);color:#aaa;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700;white-space:nowrap;cursor:pointer;transition:all .15s}
+.arcade-cat-pill:hover{color:#fff;background:#2a2a32}
+.arcade-cat-pill.active{background:linear-gradient(135deg,#e63946,#ff007f);color:#fff;border-color:transparent;box-shadow:0 4px 14px rgba(230,57,70,.4)}
 
-/* 2. Call Break */
-.cb-wrap{max-width:440px;margin:0 auto;text-align:center}
-.cb-table{background:radial-gradient(circle,#1b4332,#081c15);border:3px solid #d4af37;border-radius:16px;padding:12px;color:#fff;margin-bottom:12px;box-shadow:inset 0 0 25px rgba(0,0,0,.5)}
-.cb-players{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;font-size:12px}
-.cb-pbox{background:rgba(255,255,255,.1);padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.15)}
-.cb-pbox.active{border-color:#d4af37;background:rgba(212,175,55,.25)}
-.cb-trick-row{min-height:75px;display:flex;align-items:center;justify-content:center;gap:8px;margin:10px 0;background:rgba(0,0,0,.3);border-radius:10px;padding:6px}
-.cb-hand{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
-.cb-card{background:#fff;color:#111;border-radius:6px;padding:7px 9px;font-size:13px;font-weight:900;border:1px solid #ccc;cursor:pointer;box-shadow:0 3px 6px rgba(0,0,0,.2);transition:transform .15s}
-.cb-card.red{color:#dc2626}
-.cb-card:hover{transform:translateY(-4px)}
+/* Hero Featured Game (Coin Merge Rush) */
+.arcade-hero-card{background:linear-gradient(135deg,#1e1b4b,#431407);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:20px;position:relative;overflow:hidden;box-shadow:0 12px 35px rgba(0,0,0,.4);margin-bottom:20px;display:flex;flex-direction:column;gap:12px}
+.arcade-hero-badge{position:absolute;top:14px;right:14px;background:#e63946;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:12px;letter-spacing:0.5px}
+.arcade-hero-title{font-size:22px;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px}
+.arcade-hero-desc{font-size:13px;color:rgba(255,255,255,.8);max-width:440px;line-height:1.4}
+.arcade-hero-play-btn{background:linear-gradient(135deg,#f59e0b,#e63946);border:none;color:#fff;padding:12px 24px;border-radius:25px;font-size:14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 20px rgba(245,158,11,.4);transition:transform .15s;align-self:flex-start}
+.arcade-hero-play-btn:hover{transform:translateY(-2px)}
+.arcade-hero-play-btn:active{transform:scale(.97)}
 
-/* 3. Gully Cricket */
-.cricket-wrap{max-width:420px;margin:0 auto;text-align:center}
-.cricket-pitch{background:linear-gradient(180deg,#15803d 0%,#ca8a04 40%,#ca8a04 85%,#15803d 100%);height:160px;border-radius:14px;position:relative;overflow:hidden;border:2px solid #fff;margin-bottom:12px;box-shadow:inset 0 0 20px rgba(0,0,0,.3)}
-.cricket-ball{position:absolute;width:16px;height:16px;border-radius:50%;background:#ef4444;border:2px solid #fff;box-shadow:0 0 8px rgba(239,68,68,.8);left:50%;transform:translateX(-50%)}
-.cricket-meter{width:88%;height:14px;background:#334155;border-radius:7px;margin:10px auto;position:relative;overflow:hidden}
-.cricket-sweet{position:absolute;left:40%;width:20%;height:100%;background:#22c55e}
-.cricket-indicator{position:absolute;width:6px;height:100%;background:#fff;top:0;transition:left .05s linear}
-.cricket-scorecard{display:flex;justify-content:space-around;background:#0f172a;color:#fff;border-radius:10px;padding:8px;margin-bottom:10px;font-weight:800}
+/* Arcade Games Grid */
+.arcade-games-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:640px){.arcade-games-grid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.arcade-games-grid{grid-template-columns:repeat(4,1fr)}}
 
-/* 4. Turbo Car Racer */
-.car-wrap{max-width:380px;margin:0 auto;text-align:center}
-.car-canvas{width:100%;max-width:320px;height:340px;background:#334155;border-radius:14px;border:3px solid #e63946;display:block;margin:0 auto 10px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
-.car-ctrls{display:flex;justify-content:center;gap:18px;margin-top:8px}
-.car-ctrl-btn{width:60px;height:50px;border-radius:12px;background:#111;color:#fff;border:none;font-size:22px;cursor:pointer;touch-action:manipulation;box-shadow:0 4px 10px rgba(0,0,0,.25)}
-.dark-mode .car-ctrl-btn{background:#e63946}
+.arcade-game-card{background:#18181b;border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;position:relative}
+.arcade-game-card:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,.4);border-color:rgba(255,255,255,.25)}
+.arcade-game-card:active{transform:scale(.98)}
+.arcade-game-thumb{height:120px;position:relative;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#27272a,#18181b)}
+.arcade-game-badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px}
+.arcade-game-sound-badge{position:absolute;top:8px;right:8px;background:rgba(34,197,94,.2);color:#22c55e;font-size:10px;font-weight:800;padding:2px 6px;border-radius:8px}
+.arcade-game-body{padding:12px 14px 16px;display:flex;flex-direction:column;flex:1}
+.arcade-game-name{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px}
+.arcade-game-tag{font-size:11px;color:#888;margin-bottom:12px}
+.arcade-game-play{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;padding:8px 12px;border-radius:14px;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;margin-top:auto}
+.arcade-game-card:hover .arcade-game-play{background:#e63946;border-color:transparent}
 
-/* 5. Desi Street Fighter */
-.fight-wrap{max-width:440px;margin:0 auto;text-align:center}
-.fight-stage{height:160px;background:linear-gradient(180deg,#1e1b4b 0%,#431407 60%,#292524 100%);border-radius:14px;border:2px solid #e63946;position:relative;display:flex;align-items:flex-end;justify-content:space-between;padding:12px 24px;margin-bottom:10px;overflow:hidden}
-.fight-fighter{font-size:46px;transition:transform .12s}
-.fight-fighter.hit{animation:shakeAnim .2s ease-in-out}
-@keyframes shakeAnim{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.fight-hp-bar{width:46%;background:#333;height:12px;border-radius:6px;overflow:hidden;border:1px solid #fff}
-.fight-hp-fill{height:100%;background:#22c55e;transition:width .2s ease}
-.fight-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.fight-action-btn{padding:10px 8px;border-radius:10px;border:none;font-weight:800;font-size:13px;cursor:pointer;color:#fff;background:#1e293b;touch-action:manipulation;box-shadow:0 4px 10px rgba(0,0,0,.2)}
-.fight-action-btn.punch{background:#ef4444}
-.fight-action-btn.kick{background:#f97316}
-.fight-action-btn.block{background:#3b82f6}
-.fight-action-btn.special{background:linear-gradient(135deg,#a855f7,#ec4899);grid-column:span 2}
+/* Fullscreen Game Stage Console */
+.fun-stage-overlay{position:fixed;inset:0;background:#050507;z-index:100095;display:none;flex-direction:column;color:#fff}
+.fun-stage-overlay.active{display:flex}
+.fun-stage-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.1);background:#121215;z-index:10}
+.fun-stage-back{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%}
+.fun-stage-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:6px}
+.fun-stage-scores{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:800}
+.fun-score-pill{background:rgba(255,255,255,.08);padding:4px 10px;border-radius:12px}
+.fun-score-pill b{color:#e63946}
+.fun-stage-controls{display:flex;align-items:center;gap:8px}
+
+.fun-stage-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;position:relative;overflow:hidden;background:#09090b}
+.game-canvas-wrap{position:relative;max-width:440px;width:100%;height:100%;max-height:680px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.game-canvas{background:#111;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,.7);border:2px solid rgba(255,255,255,.15);display:block;touch-action:none}
+
+.game-touch-bar{display:flex;gap:14px;width:100%;max-width:380px;justify-content:center;margin-top:10px}
+.game-touch-btn{flex:1;height:52px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:14px;font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;touch-action:manipulation;transition:all .1s}
+.game-touch-btn:active{background:#e63946;transform:scale(.95)}
+
+/* Arcade Overlay & In-Game Styles */
+.game-over-overlay{position:absolute;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;z-index:20;animation:fadeInGame .2s ease-out}
+@keyframes fadeInGame{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.game-over-title{font-size:28px;font-weight:900;color:#e63946;letter-spacing:-0.5px;margin-bottom:6px}
+.game-over-subtitle{font-size:14px;color:#aaa;margin-bottom:18px}
+.game-over-stats{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 24px;text-align:center;margin-bottom:20px;min-width:180px}
+.game-over-score{font-size:36px;font-weight:900;color:#fff}
+.game-over-best{font-size:12px;color:#f59e0b;font-weight:700;margin-top:2px}
+.game-over-actions{display:flex;gap:10px;width:100%;max-width:240px}
+.game-btn-replay{flex:1;background:linear-gradient(135deg,#e63946,#ff007f);border:none;color:#fff;padding:12px;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 4px 15px rgba(230,57,70,.4);transition:transform .1s}
+.game-btn-replay:active{transform:scale(.96)}
+.game-btn-exit{background:rgba(255,255,255,.15);border:none;color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer}
+
+/* Call Break Card Game Styles */
+.cb-container{width:100%;max-width:440px;height:560px;background:radial-gradient(ellipse at center, #0f5132 0%, #06351e 70%, #031c10 100%);border-radius:18px;border:3px solid #22543d;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.6);overflow:hidden;user-select:none}
+.cb-player-slot{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:800;color:#fff}
+.cb-slot-north{position:absolute;top:10px;left:50%;transform:translateX(-50%)}
+.cb-slot-west{position:absolute;left:10px;top:40%;transform:translateY(-50%)}
+.cb-slot-east{position:absolute;right:10px;top:40%;transform:translateY(-50%)}
+.cb-slot-south{position:absolute;bottom:130px;left:50%;transform:translateX(-50%)}
+.cb-trick-table{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:180px;height:140px;display:flex;align-items:center;justify-content:center}
+.cb-played-card{width:46px;height:66px;border-radius:6px;background:#fff;border:1px solid #ccc;color:#111;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.4);position:absolute;transition:all .25s ease}
+.cb-hand-row{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;overflow-x:auto;padding:8px 6px;gap:3px;scrollbar-width:none}
+.cb-hand-card{width:42px;height:62px;border-radius:6px;background:#fff;border:1px solid #bbb;box-shadow:0 2px 8px rgba(0,0,0,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:900;cursor:pointer;flex-shrink:0;transition:transform .15s}
+.cb-hand-card:hover,.cb-hand-card:active{transform:translateY(-12px);border-color:#e63946}
+.cb-card-red{color:#e63946}
+.cb-card-black{color:#111}
+.cb-bid-overlay{position:absolute;inset:0;background:rgba(0,0,0,.8);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;z-index:15}
+.cb-bid-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.cb-bid-btn{width:46px;height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:#1e1e24;color:#fff;font-size:16px;font-weight:900;cursor:pointer;transition:all .15s}
+.cb-bid-btn:active{background:#e63946;transform:scale(.92)}
+
+/* AI Roast & Lie Detector Styles */
+.ld-container{width:100%;max-width:440px;height:580px;background:#0d0d12;border-radius:18px;border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;padding:16px;overflow-y:auto}
+.ld-header{text-align:center;margin-bottom:12px}
+.ld-header h3{font-size:20px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}
+.ld-screen{background:#050508;border:2px solid #334155;border-radius:14px;padding:14px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;margin-bottom:14px;box-shadow:inset 0 0 20px rgba(0,0,0,.8)}
+.ld-pulse-line{width:100%;height:32px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.ld-verdict{font-size:20px;font-weight:900;letter-spacing:1px;padding:6px 14px;border-radius:10px;margin-bottom:8px;text-transform:uppercase}
+.ld-verdict.lie{background:rgba(239,68,68,.2);border:2px solid #ef4444;color:#ef4444;animation:blinkLie .5s infinite alternate}
+.ld-verdict.truth{background:rgba(34,197,94,.2);border:2px solid #22c55e;color:#22c55e}
+@keyframes blinkLie{from{box-shadow:0 0 8px #ef4444}to{box-shadow:0 0 25px #ef4444}}
+.ld-roast-box{font-size:14px;color:#e2e8f0;line-height:1.45;background:rgba(255,255,255,.05);padding:10px 12px;border-radius:10px;margin-top:8px;max-width:100%}
+.ld-scanner-btn{width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#38bdf8 0%,#0369a1 70%,#082f49 100%);border:4px solid #7dd3fc;display:flex;align-items:center;justify-content:center;font-size:38px;cursor:pointer;margin:12px auto;box-shadow:0 0 25px rgba(56,189,248,.5);touch-action:none;transition:transform .15s}
+.ld-scanner-btn.scanning{box-shadow:0 0 40px #ef4444;border-color:#f87171;transform:scale(1.08);background:radial-gradient(circle,#f87171 0%,#b91c1c 70%,#450a0a 100%)}
+.ld-input-row{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.ld-input{background:#18181b;border:1px solid #3f3f46;border-radius:10px;padding:10px 12px;color:#fff;font-size:13px}
+.ld-quick-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.ld-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:14px;color:#cbd5e1;padding:5px 10px;font-size:11px;font-weight:700;white-space:nowrap;cursor:pointer}
+
+/* AI Quiz Styles */
+.quiz-container{width:100%;max-width:440px;height:560px;background:#0f172a;border-radius:18px;border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;padding:16px}
+.quiz-progress-bar{height:6px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.quiz-progress-fill{height:100%;width:100%;background:linear-gradient(90deg,#22c55e,#eab308,#ef4444);transition:width 1s linear}
+.quiz-card{background:#1e293b;border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px;margin-bottom:16px;min-height:90px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:16px;font-weight:800;color:#fff;line-height:1.4}
+.quiz-options{display:grid;grid-template-columns:1fr;gap:10px}
+.quiz-opt-btn{background:#334155;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 14px;color:#fff;font-size:14px;font-weight:700;text-align:left;cursor:pointer;transition:all .15s}
+.quiz-opt-btn:hover{background:#475569}
+.quiz-opt-btn.correct{background:#16a34a!important;border-color:#22c55e!important;color:#fff}
+.quiz-opt-btn.wrong{background:#dc2626!important;border-color:#ef4444!important;color:#fff}
+
+/* Gully Cricket Styles */
+.cricket-wrap{position:relative;width:100%;max-width:440px;height:560px;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+.cricket-hud{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);padding:8px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.15);font-size:13px;font-weight:800}
+.cricket-banner{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:32px;font-weight:900;text-align:center;text-shadow:0 4px 15px rgba(0,0,0,.8);display:none;z-index:10;animation:popText .3s cubic-bezier(0.175,0.885,0.32,1.275)}
+@keyframes popText{0%{transform:translate(-50%,-50%) scale(.4)}100%{transform:translate(-50%,-50%) scale(1)}}
 .fun-scorebar{display:flex;justify-content:space-between;gap:8px;margin-top:15px;font-size:13px;font-weight:800;color:#666}
 .dark-mode .fun-scorebar{color:#bbb}
 .fun-zone-login-note{text-align:center;margin-top:12px;color:#888;font-size:12px}
@@ -1464,28 +1462,8 @@ body.fun-panel-open{overflow:hidden}
 .story-username{font-size:11px;font-weight:600;color:#222;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
 .dark-mode .story-username{color:#eee}
 
-/* Home Highlights & Community Feed */
-.home-feed-wrap{max-width:680px;margin:0 auto;padding:0 12px 30px}
-.home-quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.home-action-card{background:linear-gradient(135deg,#fff,#f9f9fb);border:1px solid #eee;border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;transition:transform .15s,box-shadow .15s;text-align:center}
-.dark-mode .home-action-card{background:linear-gradient(135deg,#1c1c1e,#151516);border-color:#2a2a2e}
-.home-action-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
-.home-action-icon{font-size:22px}
-.home-action-label{font-size:11px;font-weight:700;color:#333}
-.dark-mode .home-action-label{color:#ddd}
-
-.home-section-title{font-size:16px;font-weight:800;color:#111;margin:16px 0 10px;display:flex;align-items:center;justify-content:space-between}
-.dark-mode .home-section-title{color:#f5f5f5}
-.home-highlights-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(min-width:600px){.home-highlights-grid{grid-template-columns:repeat(3,1fr)}}
-.home-highlight-card{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #eee;cursor:pointer;position:relative;transition:transform .2s}
-.dark-mode .home-highlight-card{background:#1a1a1c;border-color:#26262a}
-.home-highlight-card:active{transform:scale(.97)}
-.home-highlight-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden}
-.home-highlight-thumb img{width:100%;height:100%;object-fit:cover}
-.home-highlight-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,0) 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px}
-.home-highlight-title{font-size:12px;font-weight:700;color:#fff;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:4px}
-.home-highlight-badge{font-size:10px;font-weight:700;background:rgba(230,57,70,.85);color:#fff;padding:2px 6px;border-radius:4px;align-self:flex-start}
+/* Clean Home Surface */
+.home-surface-clean{padding:20px 14px 40px;text-align:center;min-height:50vh}
 
 /* Fullscreen Story Viewer */
 .story-viewer-overlay{position:fixed;inset:0;background:#000;z-index:100095;display:none;flex-direction:column;justify-content:center;align-items:center}
@@ -1527,41 +1505,95 @@ body.fun-panel-open{overflow:hidden}
 .story-reaction-btn{background:none;border:none;font-size:22px;cursor:pointer;transition:transform .15s;padding:0 2px}
 .story-reaction-btn:hover{transform:scale(1.25)}
 
-/* Story Creator Modal */
-.story-creator-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:100092;display:none;align-items:center;justify-content:center;padding:16px}
+/* Instagram Add to Story Gallery Picker (Image 3) */
+.story-creator-overlay{position:fixed;inset:0;background:#000;z-index:100092;display:none;flex-direction:column;color:#fff}
 .story-creator-overlay.active{display:flex}
-.story-creator-card{background:#18181b;color:#fff;width:100%;max-width:440px;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.1)}
-.story-creator-header{padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1)}
-.story-creator-title{font-size:16px;font-weight:800;display:flex;align-items:center;gap:6px}
-.story-creator-close{background:none;border:none;color:#aaa;font-size:20px;cursor:pointer;padding:4px}
-.story-creator-close:hover{color:#fff}
+.ig-story-gallery-wrap{position:relative;width:100%;height:100%;display:flex;flex-direction:column;background:#000;overflow:hidden}
+.ig-story-top-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;z-index:10}
+.ig-icon-btn{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%}
+.ig-story-title{font-size:16px;font-weight:700}
 
-.story-creator-body{padding:16px;display:flex;flex-direction:column;gap:14px}
-.story-picker-zone{border:2px dashed rgba(255,255,255,.25);border-radius:14px;padding:36px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;background:rgba(255,255,255,.03);transition:all .2s;text-align:center}
-.story-picker-zone:hover{border-color:#e63946;background:rgba(230,57,70,.05)}
-.story-picker-zone .icon{font-size:36px}
-.story-picker-title{font-size:14px;font-weight:700}
-.story-picker-sub{font-size:12px;color:#888}
+.ig-story-pills-row{display:flex;gap:10px;padding:4px 14px 12px;overflow-x:auto;scrollbar-width:none}
+.ig-story-pill-card{flex:0 0 92px;height:72px;background:#18181b;border:1px solid rgba(255,255,255,.1);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;transition:transform .15s}
+.ig-story-pill-card:active{transform:scale(.95)}
+.ig-story-pill-icon{font-size:22px}
+.ig-story-pill-text{font-size:11px;font-weight:600;color:#ddd}
 
-.story-preview-wrap{position:relative;width:100%;aspect-ratio:9/16;max-height:340px;background:#050505;border-radius:12px;overflow:hidden;display:none;align-items:center;justify-content:center}
-.story-preview-wrap img,.story-preview-wrap video{width:100%;height:100%;object-fit:contain}
-.story-preview-change-btn{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);border:none;color:#fff;padding:6px 10px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer}
+.ig-recents-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px 10px}
+.ig-recents-dropdown{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;cursor:pointer}
+.ig-select-btn{background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 14px;border-radius:18px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer}
 
-.story-options-bar{display:flex;gap:8px;align-items:center}
-.story-music-btn{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:9px 12px;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all .15s}
-.story-music-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}
-.story-music-btn.has-music{background:linear-gradient(135deg,#9333ea,#e63946);border-color:transparent}
+.ig-gallery-grid{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
+.ig-camera-tile{background:#18181c;aspect-ratio:9/16;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;border:1px solid rgba(255,255,255,.08);transition:background .2s}
+.ig-camera-tile:active{background:#27272a}
+.ig-camera-tile-icon{font-size:32px;background:rgba(255,255,255,.1);width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ig-camera-tile-text{font-size:12px;font-weight:700;color:#fff}
+.ig-media-tile{position:relative;aspect-ratio:9/16;background:#111;overflow:hidden;cursor:pointer}
+.ig-media-tile img,.ig-media-tile video{width:100%;height:100%;object-fit:cover}
+.ig-media-tile-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;font-weight:700;padding:2px 5px;border-radius:4px}
 
-.story-caption-input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:10px 14px;color:#fff;font-size:13px;outline:none;width:100%;color:#fff}
-.story-caption-input:focus{border-color:#e63946}
+/* Instagram Live Camera View (Image 4) */
+.story-camera-overlay{position:fixed;inset:0;background:#000;z-index:100094;display:none;flex-direction:column;overflow:hidden}
+.story-camera-overlay.active{display:flex}
+.camera-feed-container{position:absolute;inset:0;width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center}
+#storyCameraFeed{width:100%;height:100%;object-fit:cover}
 
-.story-publish-btn{background:linear-gradient(135deg,#e63946,#ff007f);border:none;color:#fff;border-radius:12px;padding:12px 18px;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 6px 20px rgba(230,57,70,.4);transition:transform .15s}
-.story-publish-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(230,57,70,.5)}
-.story-publish-btn:active{transform:scale(.98)}
-.story-publish-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.camera-top-bar{position:absolute;top:10px;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:8px 16px}
+.camera-tool-btn{background:rgba(0,0,0,.45);backdrop-filter:blur(8px);border:none;color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+
+.camera-left-bar{position:absolute;top:66px;left:14px;z-index:20;display:flex;flex-direction:column;gap:16px;align-items:center}
+.camera-left-btn{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;text-shadow:0 1px 4px rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;width:36px;height:36px}
+.camera-left-btn span{font-family:sans-serif;font-weight:700}
+
+.camera-bottom-controls{position:absolute;bottom:0;left:0;right:0;z-index:20;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:12px;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,0))}
+.camera-recording-indicator{background:#e63946;color:#fff;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:700;display:none;align-items:center;gap:6px}
+.camera-recording-dot{width:8px;height:8px;border-radius:50%;background:#fff;animation:pulseDot .8s infinite alternate}
+@keyframes pulseDot{0%{opacity:1}100%{opacity:.3}}
+
+.camera-filters-carousel{display:flex;align-items:center;gap:12px;overflow-x:auto;scrollbar-width:none;width:100%;padding:4px calc(50% - 28px)}
+.camera-filter-bubble{flex:0 0 54px;height:54px;border-radius:50%;border:2px solid rgba(255,255,255,.45);overflow:hidden;cursor:pointer;position:relative;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(255,255,255,.1);backdrop-filter:blur(6px);transition:all .18s}
+.camera-filter-bubble.active{border-color:#fff;transform:scale(1.15);box-shadow:0 0 14px rgba(255,255,255,.6);background:rgba(255,255,255,.25)}
+.camera-filter-label{position:absolute;bottom:2px;font-size:8px;font-weight:700;color:#fff;background:rgba(0,0,0,.6);padding:1px 3px;border-radius:3px}
+
+.camera-shutter-wrap{position:relative;width:78px;height:78px;display:flex;align-items:center;justify-content:center}
+.camera-shutter-ring{width:76px;height:76px;border-radius:50%;border:4px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent;transition:transform .15s}
+.camera-shutter-inner{width:60px;height:60px;border-radius:50%;background:#fff;transition:all .15s}
+.camera-shutter-ring:active .camera-shutter-inner,.camera-shutter-ring.recording .camera-shutter-inner{background:#e63946;transform:scale(.65);border-radius:8px}
+
+.camera-bottom-row{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 24px}
+.camera-gallery-thumb-btn{width:38px;height:38px;border-radius:8px;border:2px solid #fff;overflow:hidden;background:#222;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.camera-mode-selector{display:flex;align-items:center;gap:18px;font-size:13px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:1px}
+.camera-mode-selector span.active{color:#fff}
+.camera-flip-btn{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;width:40px;height:40px}
+
+/* Story Editor / Review Screen */
+.story-editor-screen{position:fixed;inset:0;background:#000;z-index:100096;display:none;flex-direction:column;overflow:hidden}
+.story-editor-screen.active{display:flex}
+.story-editor-view{position:relative;flex:1;display:flex;align-items:center;justify-content:center;background:#050505}
+.story-editor-view img,.story-editor-view video{max-width:100%;max-height:100%;object-fit:contain}
+.story-editor-top-tools{position:absolute;top:14px;left:0;right:0;z-index:25;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+.story-editor-tools-group{display:flex;align-items:center;gap:8px}
+.story-tool-pill{background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);color:#fff;padding:6px 12px;border-radius:18px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;cursor:pointer}
+.story-tool-pill:hover{background:rgba(255,255,255,.2)}
+.story-tool-pill.has-music{background:linear-gradient(135deg,#9333ea,#e63946);border-color:transparent}
+
+.story-ai-badge{background:linear-gradient(135deg,#6366f1,#a855f7);border:none;color:#fff;padding:6px 12px;border-radius:18px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;cursor:pointer;box-shadow:0 2px 10px rgba(99,102,241,.4)}
+.story-ai-badge:hover{opacity:.9}
+
+.story-editor-bottom-bar{position:absolute;bottom:0;left:0;right:0;z-index:25;padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,0))}
+.story-share-user-btn{flex:1;background:linear-gradient(135deg,#e63946,#ff007f);border:none;color:#fff;border-radius:24px;padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 4px 18px rgba(230,57,70,.5)}
+.story-share-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1.5px solid #fff}
+
+.story-caption-input{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:10px 16px;color:#fff;font-size:13px;outline:none;width:100%}
+.story-caption-input::placeholder{color:rgba(255,255,255,.7)}
+
+/* Chat Speech TTS button & Mic */
+.chat-speech-btn{background:none;border:none;cursor:pointer;font-size:15px;padding:3px 6px;margin-left:6px;opacity:.75;transition:all .15s;vertical-align:middle}
+.chat-speech-btn:hover{opacity:1;transform:scale(1.15)}
+.composer-mic-active{color:#e63946 !important;animation:pulseDot .8s infinite alternate}
 
 /* Music Picker Modal */
-.music-picker-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100096;display:none;align-items:center;justify-content:center;padding:14px}
+.music-picker-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100098;display:none;align-items:center;justify-content:center;padding:14px}
 .music-picker-overlay.active{display:flex}
 .music-picker-card{background:#18181b;color:#fff;width:100%;max-width:420px;height:80vh;max-height:560px;border-radius:16px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;overflow:hidden}
 .music-picker-header{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between}
@@ -1728,7 +1760,7 @@ body.fun-panel-open{overflow:hidden}
       <button type="button" class="story-tray-item" id="addStoryTrayBtn" onclick="openStoryCreator()" aria-label="Add your story">
         <div class="story-ring my-add" id="myStoryRing">
           <div class="story-avatar-inner">
-            <img id="myStoryTrayAvatar" src="IMG_20260917_172912.jpg" alt="Your Story">
+            <img id="myStoryTrayAvatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>" alt="Your Story">
           </div>
           <div class="story-add-badge" id="myStoryBadge">+</div>
         </div>
@@ -1738,39 +1770,8 @@ body.fun-panel-open{overflow:hidden}
     </div>
   </section>
 
-  <!-- Home Feed -->
-  <div class="home-feed-wrap">
-    <!-- Quick Actions -->
-    <div class="home-quick-actions">
-      <div class="home-action-card" onclick="openStoryCreator()">
-        <span class="home-action-icon">📸</span>
-        <span class="home-action-label">Add Story</span>
-      </div>
-      <div class="home-action-card" onclick="switchTab('reels')">
-        <span class="home-action-icon">🎬</span>
-        <span class="home-action-label">Watch Reels</span>
-      </div>
-      <div class="home-action-card" onclick="switchTab('funzone')">
-        <span class="home-action-icon">🎮</span>
-        <span class="home-action-label">Fun Zone</span>
-      </div>
-      <div class="home-action-card" onclick="switchTab('profile')">
-        <span class="home-action-icon">👤</span>
-        <span class="home-action-label">My Profile</span>
-      </div>
-    </div>
-
-    <!-- Community Highlights Title -->
-    <div class="home-section-title">
-      <span>🔥 Trending Shorts &amp; Reels</span>
-      <button type="button" class="social-mini-btn" onclick="switchTab('reels')">See all →</button>
-    </div>
-
-    <!-- Highlights Grid -->
-    <div class="home-highlights-grid" id="homeHighlightsGrid">
-      <!-- Dynamically filled with top shorts -->
-    </div>
-  </div>
+  <!-- Clean surface ready for user posts upload -->
+  <div class="home-surface-clean" id="homeCleanSurface"></div>
 
 </div>
 <div class="channel-profile-overlay" id="channelProfileOverlay">
@@ -2243,90 +2244,173 @@ body.fun-panel-open{overflow:hidden}
 
 <div id="tab-funzone" class="tab-pane">
   <section class="fun-zone-section">
-    <h2 class="section-title"><svg class="ico"><use href="#i-gamepad"></use></svg> Fun Zone</h2>
-    <div class="fun-zone open" id="profileFunZone">
-      <div class="fun-zone-head">
-        <p>Saare mini games ek hi jagah. Open karke play karo! 🔥</p>
-        <button type="button" class="fun-zone-toggle" id="funZoneToggle" style="display:none">🎮 Open Fun Zone</button>
+    <!-- Arcade Header -->
+    <div class="arcade-header">
+      <div class="arcade-title-row">
+        <span style="font-size:26px">🎮</span>
+        <h2 class="arcade-title">Fun Zone Arcade</h2>
+        <button type="button" class="arcade-sound-toggle" id="arcadeGlobalSoundBtn" onclick="toggleArcadeSound()" title="Toggle Sound FX">
+          <span id="arcadeSoundIcon">🔊</span> <span id="arcadeSoundLabel">Sound ON</span>
+        </button>
       </div>
-      <div class="fun-zone-body">
-        <div class="fun-game-grid">
-          <button type="button" class="fun-game-btn" data-fun="ludo"><span class="fun-icon">🎲</span><span class="fun-label">Ludo Mini</span></button>
-          <button type="button" class="fun-game-btn" data-fun="callbreak"><span class="fun-icon">♠️</span><span class="fun-label">Call Break</span></button>
-          <button type="button" class="fun-game-btn" data-fun="cricket"><span class="fun-icon">🏏</span><span class="fun-label">Gully Cricket</span></button>
-          <button type="button" class="fun-game-btn" data-fun="car"><span class="fun-icon">🏎️</span><span class="fun-label">Turbo Racer</span></button>
-          <button type="button" class="fun-game-btn" data-fun="fight"><span class="fun-icon">🥊</span><span class="fun-label">Street Fighter</span></button>
-          <button type="button" class="fun-game-btn" data-fun="quiz"><span class="fun-icon">🧠</span><span class="fun-label">Comedy Quiz</span></button>
-          <button type="button" class="fun-game-btn" data-fun="guess"><span class="fun-icon">🎬</span><span class="fun-label">Guess Dialogue</span></button>
-          <button type="button" class="fun-game-btn" data-fun="reaction"><span class="fun-icon">⚡</span><span class="fun-label">Reaction Test</span></button>
-          <button type="button" class="fun-game-btn" data-fun="spin"><span class="fun-icon">🎡</span><span class="fun-label">Spin Wheel</span></button>
-          <button type="button" class="fun-game-btn" data-fun="riddle"><span class="fun-icon">🤔</span><span class="fun-label">Emoji Riddle</span></button>
-          <button type="button" class="fun-game-btn" data-fun="scramble"><span class="fun-icon">🔤</span><span class="fun-label">Word Scramble</span></button>
-          <button type="button" class="fun-game-btn" data-fun="memory"><span class="fun-icon">🎴</span><span class="fun-label">Memory Match</span></button>
-          <button type="button" class="fun-game-btn" data-fun="snake"><span class="fun-icon">🐍</span><span class="fun-label">Snake &amp; Ladder</span></button>
-        </div>
+      <p class="arcade-sub">Best mini games with realistic audio effects &amp; AI comedy games! 🔥</p>
+    </div>
 
-        <div class="fun-panel-overlay" id="funPanelOverlay">
-          <div class="fun-panel-modal">
-            <div class="fun-panel-head">
-              <span id="funPanelTitle">🎮 Game</span>
-              <button type="button" class="fun-panel-close" id="funPanelClose" aria-label="Close">✕</button>
-            </div>
-            <div class="fun-panel" id="funLudoPanel"></div>
-            <div class="fun-panel" id="funCallBreakPanel"></div>
-            <div class="fun-panel" id="funCricketPanel"></div>
-            <div class="fun-panel" id="funCarPanel"></div>
-            <div class="fun-panel" id="funFightPanel"></div>
-            <div class="fun-panel" id="funQuizPanel"></div>
-            <div class="fun-panel" id="funGuessPanel"></div>
-            <div class="fun-panel" id="funReactionPanel"></div>
-            <div class="fun-panel" id="funSpinPanel"></div>
-            <div class="fun-panel" id="funRiddlePanel"></div>
-            <div class="fun-panel" id="funScramblePanel"></div>
-            <div class="fun-panel" id="funMemoryPanel"></div>
-            <div class="fun-panel" id="funSnakePanel"></div>
-          </div>
-        </div>
+    <!-- Category Filter Bar -->
+    <div class="arcade-cat-bar" id="arcadeCatBar">
+      <button type="button" class="arcade-cat-pill active" onclick="filterArcadeCategory('all', this)">🌟 All Games (7)</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('top', this)">🔥 Trending</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('ai', this)">🤖 AI Games</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('cards', this)">♠️ Cards &amp; Board</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('action', this)">🏎️ Action &amp; Rush</button>
+    </div>
 
-        <div class="fun-player-card">
-          <div class="fun-player-row">
-            <div class="fun-avatar-wrap">
-              <img id="funPlayerAvatar" class="fun-avatar" src="IMG_20260917_172912.jpg" alt="Player photo">
-              <label class="fun-photo-btn" for="funPlayerPhoto">📷 Change Photo</label>
-              <input class="fun-photo-input" id="funPlayerPhoto" type="file" accept="image/*">
-            </div>
-            <div class="fun-player-info">
-              <div class="fun-player-name" id="funPlayerName">Player 😎</div>
-              <div class="fun-player-meta" id="funPlayerMeta">Level 1 • 0 XP</div>
-              <div class="fun-xp-bar"><div class="fun-xp-fill" id="funXpFill"></div></div>
-              <input class="fun-player-input" id="funPlayerNameInput" type="text" maxlength="18" placeholder="Apna nickname likho">
-            </div>
-          </div>
-        </div>
+    <!-- Featured Hero Game Banner: Coin Merge Rush -->
+    <div class="arcade-hero-card" onclick="launchArcadeGame('coin_merge')">
+      <span class="arcade-hero-badge">🌟 #1 TRENDING GAME</span>
+      <div class="arcade-hero-title">🪙 Coin Merge Rush</div>
+      <p class="arcade-hero-desc">Drop coins with physics! Merge ₹1, ₹10, ₹100 into ₹2000 and the legendary Kohinoor Diamond. Pop sounds, combos &amp; haptic thrills!</p>
+      <button type="button" class="arcade-hero-play-btn">
+        <span>▶ PLAY NOW</span> <span>🔊 Sound On</span>
+      </button>
+    </div>
 
-        <div class="fun-extra-grid">
-          <div class="fun-extra-card">
-            <h4>🔥 Daily Challenge</h4>
-            <p id="dailyChallengeText">Aaj ka challenge load ho raha hai...</p>
-            <div id="dailyChallengeOptions"></div>
-            <div class="fun-streak" id="dailyChallengeStatus">🎯 Aaj ka challenge</div>
-          </div>
-          <div class="fun-extra-card">
-            <h4>🏆 Local Leaderboard</h4>
-            <p>Is device par top players.</p>
-            <div class="fun-leaderboard" id="funLeaderboard"></div>
-          </div>
+    <!-- Arcade Games Grid -->
+    <div class="arcade-games-grid" id="arcadeGamesGrid">
+      <!-- 1. Coin Merge Rush -->
+      <div class="arcade-game-card" data-cat="top action" onclick="launchArcadeGame('coin_merge')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#78350f,#451a03)">
+          <span>🪙</span>
+          <span class="arcade-game-badge">MOST POPULAR</span>
+          <span class="arcade-game-sound-badge">🔊 SFX</span>
         </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Coin Merge Rush</div>
+          <div class="arcade-game-tag">Physics Coin Drop &amp; Merge</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
 
-        <div style="text-align:center;margin-top:14px">
-          <button type="button" class="fun-share-btn" id="funShareScore">📤 Share My Score</button>
+      <!-- 2. Turbo Highway Racer -->
+      <div class="arcade-game-card" data-cat="top action" onclick="launchArcadeGame('turbo_racer')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#1e293b,#0f172a)">
+          <span>🏎️</span>
+          <span class="arcade-game-badge">PLAYIT STYLE</span>
+          <span class="arcade-game-sound-badge">🔊 SFX</span>
         </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Turbo Highway Racer</div>
+          <div class="arcade-game-tag">Dodge Trucks, Horn &amp; Nitro!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
 
-        <div class="fun-scorebar">
-          <span>🏆 Best Quiz: <b id="funBestQuiz">0</b></span>
-          <span>⚡ Best Reaction: <b id="funBestReaction">0</b> ms</span>
+      <!-- 3. Flappy Desi Comedy -->
+      <div class="arcade-game-card" data-cat="action" onclick="launchArcadeGame('flappy_desi')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#065f46,#022c22)">
+          <span>🐦</span>
+          <span class="arcade-game-badge">ADDICTIVE</span>
+          <span class="arcade-game-sound-badge">🔊 SFX</span>
         </div>
-        <div class="fun-zone-login-note">💡 Game scores is device par save hote hain.</div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Flappy Desi Comedy</div>
+          <div class="arcade-game-tag">Tap to Flap &amp; Dodge Pipes</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 4. Call Break Master -->
+      <div class="arcade-game-card" data-cat="cards" onclick="launchArcadeGame('call_break')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#14532d,#052e16)">
+          <span>♠️</span>
+          <span class="arcade-game-badge">AUTHENTIC TAASH</span>
+          <span class="arcade-game-sound-badge">🔊 SFX</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Call Break Master</div>
+          <div class="arcade-game-tag">4 Players • Bidding • Spades Trump</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 5. AI Comedy Roast & Lie Detector -->
+      <div class="arcade-game-card" data-cat="ai top" onclick="launchArcadeGame('ai_roast')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#581c87,#3b0764)">
+          <span>🤖</span>
+          <span class="arcade-game-badge">AI POWERED</span>
+          <span class="arcade-game-sound-badge">🔊 Voice</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">AI Roast &amp; Lie Detector</div>
+          <div class="arcade-game-tag">Personalized Gemini AI Comedy</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 6. AI Infinite Comedy Quiz -->
+      <div class="arcade-game-card" data-cat="ai" onclick="launchArcadeGame('ai_quiz')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#1e3a8a,#172554)">
+          <span>🧠</span>
+          <span class="arcade-game-badge">AI TRIVIA</span>
+          <span class="arcade-game-sound-badge">🔊 Timer</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">AI Comedy &amp; Movie Quiz</div>
+          <div class="arcade-game-tag">Infinite Bollywood &amp; Meme Quiz</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 7. Desi Gully Cricket -->
+      <div class="arcade-game-card" data-cat="top action" onclick="launchArcadeGame('cricket')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#831843,#500724)">
+          <span>🏏</span>
+          <span class="arcade-game-badge">SIXER KING</span>
+          <span class="arcade-game-sound-badge">🔊 Crowd</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Desi Gully Cricket</div>
+          <div class="arcade-game-tag">Timing Bat Swing • Hit Stadium 6s!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Arcade Game Stage Console -->
+    <div class="fun-stage-overlay" id="funStageModal">
+      <div class="fun-stage-head">
+        <button type="button" class="fun-stage-back" onclick="exitArcadeGame()" aria-label="Exit Game">‹</button>
+        <div class="fun-stage-title" id="funStageTitle">🎮 Game</div>
+        <div class="fun-stage-scores">
+          <span class="fun-score-pill">Score: <b id="funStageScore">0</b></span>
+          <span class="fun-score-pill">Best: <b id="funStageBest">0</b></span>
+        </div>
+        <div class="fun-stage-controls">
+          <button type="button" class="arcade-sound-toggle" onclick="toggleArcadeSound()" title="Sound">
+            <span id="funStageSoundIcon">🔊</span>
+          </button>
+          <button type="button" class="arcade-sound-toggle" onclick="restartCurrentGame()" title="Restart">
+            <span>🔄</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="fun-stage-body" id="funStageBody">
+        <!-- Injected dynamically by active game runner -->
+      </div>
+    </div>
+
+    <!-- Player Profile Card & Local Leaderboard -->
+    <div class="fun-player-card" style="margin-top:24px">
+      <div class="fun-player-row">
+        <div class="fun-avatar-wrap">
+          <img id="funPlayerAvatar" class="fun-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>" alt="Player photo">
+        </div>
+        <div class="fun-player-info">
+          <div class="fun-player-name" id="funPlayerName">Arcade Champion 😎</div>
+          <div class="fun-player-meta" id="funPlayerMeta">Level 1 • 0 XP</div>
+          <div class="fun-xp-bar"><div class="fun-xp-fill" id="funXpFill" style="width:15%"></div></div>
+        </div>
       </div>
     </div>
   </section>
@@ -2887,46 +2971,177 @@ body.fun-panel-open{overflow:hidden}
      UPCOMEDYHUB STORY MODALS & VIEWER
      ===================================================== -->
 
-<!-- Story Creator Modal -->
+<!-- Instagram-Style "Add to Story" Gallery Picker Modal (Image 3) -->
 <div class="story-creator-overlay" id="storyCreatorModal">
-  <div class="story-creator-card">
-    <div class="story-creator-header">
-      <div class="story-creator-title">
-        <span>📸</span> Create New Story
-      </div>
-      <button type="button" class="story-creator-close" onclick="closeStoryCreator()" aria-label="Close">✕</button>
+  <div class="ig-story-gallery-wrap">
+    <!-- Top Bar -->
+    <div class="ig-story-top-header">
+      <button type="button" class="ig-icon-btn" onclick="closeStoryCreator()" aria-label="Close">✕</button>
+      <div class="ig-story-title">Add to story</div>
+      <button type="button" class="ig-icon-btn" onclick="showToast('Story tips: 24h me auto expire hogi 🔥')" aria-label="Settings">⚙️</button>
     </div>
-    <div class="story-creator-body">
-      <!-- Media Picker Area -->
-      <div class="story-picker-zone" id="storyPickerZone" onclick="document.getElementById('storyMediaFileInput').click()">
-        <span class="icon">🖼️</span>
-        <div class="story-picker-title">Select Photo or Short Video</div>
-        <div class="story-picker-sub">JPG, PNG, WebP or MP4 • Stories vanish after 24h</div>
-      </div>
-      <input type="file" id="storyMediaFileInput" accept="image/*,video/*" style="display:none" onchange="handleStoryFileChange(this)">
 
-      <!-- Media Preview Area -->
-      <div class="story-preview-wrap" id="storyPreviewWrap">
-        <img id="storyPreviewImg" src="" alt="Story Preview" style="display:none">
-        <video id="storyPreviewVideo" playsinline autoplay muted loop style="display:none"></video>
-        <button type="button" class="story-preview-change-btn" onclick="document.getElementById('storyMediaFileInput').click()">🔄 Change Media</button>
+    <!-- Quick Pills Row (Image 3) -->
+    <div class="ig-story-pills-row">
+      <div class="ig-story-pill-card" onclick="openStoryTextCreator()">
+        <span class="ig-story-pill-icon">🎨</span>
+        <span class="ig-story-pill-text">Templates</span>
       </div>
+      <div class="ig-story-pill-card" onclick="openMusicPicker()">
+        <span class="ig-story-pill-icon">🎵</span>
+        <span class="ig-story-pill-text">Music</span>
+      </div>
+      <div class="ig-story-pill-card" onclick="document.getElementById('storyMediaFileInput').click()">
+        <span class="ig-story-pill-icon">🖼️</span>
+        <span class="ig-story-pill-text">Collage</span>
+      </div>
+      <div class="ig-story-pill-card" onclick="triggerStoryAICaptionSuggestion()">
+        <span class="ig-story-pill-icon">✨</span>
+        <span class="ig-story-pill-text">AI Magic</span>
+      </div>
+    </div>
 
-      <!-- Music & Options Bar -->
-      <div class="story-options-bar">
-        <button type="button" class="story-music-btn" id="storyMusicBtn" onclick="openMusicPicker()">
-          <span id="storyMusicIcon">🎵</span>
-          <span id="storyMusicLabel">Add Music</span>
+    <!-- Recents Sub-header (Image 3) -->
+    <div class="ig-recents-bar">
+      <div class="ig-recents-dropdown" onclick="document.getElementById('storyMediaFileInput').click()">
+        <span>Recents</span> <span>⌵</span>
+      </div>
+      <button type="button" class="ig-select-btn" onclick="document.getElementById('storyMediaFileInput').click()">
+        <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg> Select
+      </button>
+    </div>
+
+    <!-- Hidden Native File Picker -->
+    <input type="file" id="storyMediaFileInput" accept="image/*,video/*" style="display:none" onchange="handleStoryFileChange(this)">
+
+    <!-- Visual Media Grid (Image 3) -->
+    <div class="ig-gallery-grid" id="storyGalleryGrid">
+      <!-- 1st Card: Camera Tile (Opens Live Camera) -->
+      <div class="ig-camera-tile" onclick="openLiveStoryCamera()">
+        <div class="ig-camera-tile-icon">📷</div>
+        <div class="ig-camera-tile-text">Camera</div>
+      </div>
+      <!-- Additional gallery cards dynamically generated -->
+    </div>
+  </div>
+</div>
+
+<!-- Instagram-Style Live Camera & Filters Screen (Image 4) -->
+<div class="story-camera-overlay" id="storyCameraModal">
+  <div class="camera-feed-container">
+    <video id="storyCameraFeed" autoplay playsinline muted></video>
+  </div>
+
+  <!-- Camera Top Bar (Image 4) -->
+  <div class="camera-top-bar">
+    <button type="button" class="camera-tool-btn" onclick="closeLiveStoryCamera()" aria-label="Close Camera">✕</button>
+    <button type="button" class="camera-tool-btn" id="cameraFlashBtn" onclick="toggleCameraFlash()" aria-label="Flash">⚡</button>
+    <button type="button" class="camera-tool-btn" onclick="showToast('Camera Ready • Tap for photo, Hold for video!')" aria-label="Settings">⚙️</button>
+  </div>
+
+  <!-- Left Vertical Action Bar (Image 4) -->
+  <div class="camera-left-bar">
+    <button type="button" class="camera-left-btn" onclick="openStoryTextCreator()" title="Create Text"><span>Aa</span></button>
+    <button type="button" class="camera-left-btn" onclick="toggleBoomerangMode()" id="cameraBoomerangBtn" title="Boomerang"><span>∞</span></button>
+    <button type="button" class="camera-left-btn" onclick="toggleLayoutMode()" title="Layout"><span>⊞</span></button>
+    <button type="button" class="camera-left-btn" onclick="toggleCameraTimer()" id="cameraTimerBtn" title="Timer"><span>⌵</span></button>
+  </div>
+
+  <!-- Bottom Controls: Filter Carousel + Shutter + Modes (Image 4) -->
+  <div class="camera-bottom-controls">
+    <!-- Recording Indicator -->
+    <div class="camera-recording-indicator" id="cameraRecIndicator">
+      <div class="camera-recording-dot"></div>
+      <span id="cameraRecTimer">0:00</span>
+    </div>
+
+    <!-- Filter Bubbles Carousel (Image 4) -->
+    <div class="camera-filters-carousel" id="cameraFilterCarousel">
+      <div class="camera-filter-bubble active" data-filter="none" onclick="applyCameraFilter('none', this)">
+        <span>✨</span>
+        <span class="camera-filter-label">Normal</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="glow" onclick="applyCameraFilter('glow', this)">
+        <span>🌟</span>
+        <span class="camera-filter-label">Glow</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="vintage" onclick="applyCameraFilter('vintage', this)">
+        <span>🎞️</span>
+        <span class="camera-filter-label">Vintage</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="bw" onclick="applyCameraFilter('bw', this)">
+        <span>🖤</span>
+        <span class="camera-filter-label">Noir</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="warm" onclick="applyCameraFilter('warm', this)">
+        <span>🌅</span>
+        <span class="camera-filter-label">Sunset</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="cyber" onclick="applyCameraFilter('cyber', this)">
+        <span>🎭</span>
+        <span class="camera-filter-label">Cyber</span>
+      </div>
+      <div class="camera-filter-bubble" data-filter="desi" onclick="applyCameraFilter('desi', this)">
+        <span>🍿</span>
+        <span class="camera-filter-label">Desi Pop</span>
+      </div>
+    </div>
+
+    <!-- Central Shutter Button (Tap photo / Hold video) -->
+    <div class="camera-shutter-wrap">
+      <button type="button" class="camera-shutter-ring" id="cameraShutterBtn" aria-label="Shutter">
+        <div class="camera-shutter-inner"></div>
+      </button>
+    </div>
+
+    <!-- Bottom Row: Gallery thumbnail, Mode, Flip camera (Image 4) -->
+    <div class="camera-bottom-row">
+      <div class="camera-gallery-thumb-btn" onclick="document.getElementById('storyMediaFileInput').click()" title="Choose from gallery">
+        <span style="font-size:16px">🖼️</span>
+      </div>
+      <div class="camera-mode-selector">
+        <span onclick="showToast('Reels tab se post upload karein!')">POST</span>
+        <span class="active">STORY</span>
+        <span onclick="closeLiveStoryCamera(); switchTab('reels');">REEL</span>
+      </div>
+      <button type="button" class="camera-flip-btn" onclick="flipStoryCamera()" aria-label="Flip Camera">🔄</button>
+    </div>
+  </div>
+</div>
+
+<!-- Instagram-Style Story Editor Screen (Preview & Publish) -->
+<div class="story-editor-screen" id="storyEditorScreen">
+  <div class="story-editor-view" id="storyEditorView">
+    <img id="storyEditorImg" src="" alt="Story Media" style="display:none">
+    <video id="storyEditorVideo" playsinline autoplay muted loop style="display:none"></video>
+
+    <!-- Top Tools -->
+    <div class="story-editor-top-tools">
+      <button type="button" class="camera-tool-btn" onclick="discardStoryEditor()" aria-label="Back">‹</button>
+      <div class="story-editor-tools-group">
+        <button type="button" class="story-tool-pill" id="storyEditorMusicBtn" onclick="openMusicPicker()">
+          <span id="storyEditorMusicIcon">🎵</span>
+          <span id="storyEditorMusicText">Music</span>
         </button>
-        <button type="button" class="story-viewer-btn" id="storyMusicRemoveBtn" onclick="removeSelectedMusic()" style="display:none;width:38px;height:38px;background:rgba(239,68,68,.2);color:#ef4444" title="Remove music">✕</button>
+        <button type="button" class="story-ai-badge" onclick="generateStoryAICaption()" title="AI Caption Generator">
+          <span>✨</span> AI Caption
+        </button>
+        <button type="button" class="story-tool-pill" onclick="generateStoryAIPunchline()" title="AI Comedy Punchline">
+          <span>🤣</span> Punchline
+        </button>
       </div>
+    </div>
 
-      <!-- Caption Input -->
-      <input type="text" class="story-caption-input" id="storyCaptionInput" placeholder="Add a caption or joke... (optional)" maxlength="120">
+    <!-- Caption Input Floating -->
+    <div style="position:absolute;bottom:80px;left:14px;right:14px;z-index:25">
+      <input type="text" class="story-caption-input" id="storyEditorCaptionInput" placeholder="Add a funny caption or dialogue... (optional)" maxlength="120">
+    </div>
 
-      <!-- Publish Button -->
-      <button type="button" class="story-publish-btn" id="storyPublishBtn" onclick="publishStory()" disabled>
-        <span>✨</span> Share to Story (24h)
+    <!-- Bottom Publish Bar -->
+    <div class="story-editor-bottom-bar">
+      <button type="button" class="story-share-user-btn" id="storyEditorPublishBtn" onclick="publishStoryFromEditor()">
+        <img id="storyShareUserAvatar" class="story-share-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>" alt="">
+        <span>Your Story (24h)</span>
       </button>
     </div>
   </div>
@@ -3154,22 +3369,36 @@ body.fun-panel-open{overflow:hidden}
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js" crossorigin="anonymous"></script>
 <script>
 window.addEventListener("error", function(e) {
-  if (e && (e.message === "Script error." || !e.message)) {
-    console.warn("Cross-origin script error caught safely");
+  const msg = e && (e.message || "");
+  if (msg === "Script error." || !msg || msg.includes("Failed to fetch") || msg.includes("NetworkError") || msg.includes("Load failed")) {
+    console.warn("Cross-origin / network error caught safely:", msg);
     if (typeof e.preventDefault === "function") e.preventDefault();
     return true;
   }
 });
 
-// Suppress non-fatal Firestore network offline warnings from being treated as fatal errors
+window.addEventListener("unhandledrejection", function(e) {
+  const reason = e && (e.reason || e);
+  const msg = reason && (reason.message || String(reason)) || "";
+  if (msg.includes("Failed to fetch") || msg.includes("NetworkError") || msg.includes("Load failed") || msg.includes("Script error") || msg.includes("timeout")) {
+    console.warn("Handled network / unhandled rejection gracefully:", msg);
+    if (typeof e.preventDefault === "function") e.preventDefault();
+    return true;
+  }
+});
+
+// Suppress non-fatal Firestore network offline warnings and fetch errors from being treated as fatal errors
 (function() {
   const _origError = console.error;
   console.error = function(...args) {
     const str = args.map(a => (typeof a === 'object' ? (a && a.message ? a.message : JSON.stringify(a)) : String(a))).join(' ');
     if (str.includes("Could not reach Cloud Firestore backend") || 
         str.includes("operate in offline mode") || 
-        str.includes("@firebase/firestore")) {
-      console.warn("Firestore status: operating in offline mode with cache", ...args);
+        str.includes("@firebase/firestore") ||
+        str.includes("Failed to fetch") ||
+        str.includes("NetworkError") ||
+        str.includes("Load failed")) {
+      console.warn("Handled non-fatal network status notice:", ...args);
       return;
     }
     _origError.apply(console, args);
@@ -3231,8 +3460,8 @@ async function callApiChat(payload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
-    });
-    if (res.ok) {
+    }).catch(() => null);
+    if (res && res.ok) {
       const data = await res.json().catch(() => ({}));
       if (data && data.success) return data;
     }
@@ -3245,8 +3474,8 @@ async function callApiChat(payload) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
-    });
-    if (res2.ok) {
+    }).catch(() => null);
+    if (res2 && res2.ok) {
       const data2 = await res2.json().catch(() => ({}));
       if (data2 && data2.success) return data2;
     }
@@ -4017,7 +4246,8 @@ function buildChannelReelItem(vid, title, thumb){
   ];
 
   fetch(getApiUrl("/api/youtube/reels"))
-    .then(r => r.ok ? r.json() : null)
+    .catch(() => null)
+    .then(r => (r && r.ok) ? r.json().catch(() => null) : null)
     .then(data => {
       if(data && data.success && Array.isArray(data.items) && data.items.length){
         renderReelList(data.items);
@@ -4627,15 +4857,17 @@ async function loadFanOfWeek(){
   }catch(e){
     console.warn("Fan of week load notice:", e?.message || e);
     try{
-      const res = await fetch(getApiUrl("/api/app/config"));
-      const data = await res.json();
-      if(data?.fan_of_week){
-        const d = data.fan_of_week;
-        const n = document.querySelector(".fan-name"), p = document.querySelector(".fan-photo"), m = document.querySelector(".fan-message"), dt = document.querySelector(".fan-date");
-        if(n && d.name) n.textContent = d.name;
-        if(p && d.photo) p.src = d.photo;
-        if(m && d.message) m.textContent = d.message;
-        if(dt && d.date) dt.textContent = "📅 "+d.date;
+      const res = await fetch(getApiUrl("/api/app/config")).catch(() => null);
+      if(res && res.ok){
+        const data = await res.json().catch(() => ({}));
+        if(data?.fan_of_week){
+          const d = data.fan_of_week;
+          const n = document.querySelector(".fan-name"), p = document.querySelector(".fan-photo"), m = document.querySelector(".fan-message"), dt = document.querySelector(".fan-date");
+          if(n && d.name) n.textContent = d.name;
+          if(p && d.photo) p.src = d.photo;
+          if(m && d.message) m.textContent = d.message;
+          if(dt && d.date) dt.textContent = "📅 "+d.date;
+        }
       }
     }catch(err){}
   }
@@ -4653,13 +4885,15 @@ async function loadAnnouncement(){
   }catch(e){
     console.warn("Announcement load notice:", e?.message || e);
     try{
-      const res = await fetch(getApiUrl("/api/app/config"));
-      const data = await res.json();
-      if(data?.announcement){
-        const d = data.announcement;
-        const t = document.getElementById("announcementText"), l = document.getElementById("announcementLink");
-        if(d.text && t) t.textContent = d.text;
-        if(d.btnText && l) l.textContent = d.btnText;
+      const res = await fetch(getApiUrl("/api/app/config")).catch(() => null);
+      if(res && res.ok){
+        const data = await res.json().catch(() => ({}));
+        if(data?.announcement){
+          const d = data.announcement;
+          const t = document.getElementById("announcementText"), l = document.getElementById("announcementLink");
+          if(d.text && t) t.textContent = d.text;
+          if(d.btnText && l) l.textContent = d.btnText;
+        }
       }
     }catch(err){}
   }
@@ -6412,6 +6646,28 @@ function stopMusicPreview() {
   document.querySelectorAll(".music-preview-btn").forEach(b => b.textContent = "▶");
 }
 
+const DEFAULT_USER_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>";
+
+let storyMediaStream = null;
+let storyMediaRecorder = null;
+let storyRecordedChunks = [];
+let storyCameraFacing = "user";
+let storyCurrentFilter = "none";
+let storyRecInterval = null;
+let storyRecSeconds = 0;
+let storyShutterHoldTimer = null;
+let isStoryRecording = false;
+
+const FILTER_CSS_MAP = {
+  none: "none",
+  glow: "brightness(1.15) saturate(1.3) contrast(1.05)",
+  vintage: "sepia(0.4) contrast(1.15) brightness(0.95)",
+  bw: "grayscale(1) contrast(1.25)",
+  warm: "sepia(0.2) saturate(1.4) hue-rotate(-15deg)",
+  cyber: "contrast(1.3) saturate(1.6) hue-rotate(45deg)",
+  desi: "saturate(1.8) contrast(1.1)"
+};
+
 function openStoryCreator() {
   stopAllVideos();
   stopMusicPreview();
@@ -6420,26 +6676,7 @@ function openStoryCreator() {
   storyMediaType = "image";
   storySelectedMusic = null;
 
-  const previewWrap = document.getElementById("storyPreviewWrap");
-  const pickerZone = document.getElementById("storyPickerZone");
-  const imgPrev = document.getElementById("storyPreviewImg");
-  const vidPrev = document.getElementById("storyPreviewVideo");
-  const captionInput = document.getElementById("storyCaptionInput");
-  const pubBtn = document.getElementById("storyPublishBtn");
-  const musicBtn = document.getElementById("storyMusicBtn");
-  const musicLabel = document.getElementById("storyMusicLabel");
-  const musicRemove = document.getElementById("storyMusicRemoveBtn");
-
-  if (previewWrap) previewWrap.style.display = "none";
-  if (pickerZone) pickerZone.style.display = "flex";
-  if (imgPrev) { imgPrev.src = ""; imgPrev.style.display = "none"; }
-  if (vidPrev) { vidPrev.src = ""; vidPrev.style.display = "none"; }
-  if (captionInput) captionInput.value = "";
-  if (pubBtn) { pubBtn.disabled = true; pubBtn.innerHTML = "<span>✨</span> Share to Story (24h)"; }
-  if (musicBtn) musicBtn.className = "story-music-btn";
-  if (musicLabel) musicLabel.textContent = "Add Music";
-  if (musicRemove) musicRemove.style.display = "none";
-
+  populateStoryGallery();
   const modal = document.getElementById("storyCreatorModal");
   if (modal) modal.classList.add("active");
 }
@@ -6452,46 +6689,455 @@ function closeStoryCreator() {
 }
 window.closeStoryCreator = closeStoryCreator;
 
-function loadImage(srcOrFile) {
-  return new Promise(async (resolve, reject) => {
+function populateStoryGallery() {
+  const grid = document.getElementById("storyGalleryGrid");
+  if (!grid) return;
+
+  grid.innerHTML = `
+    <div class="ig-camera-tile" onclick="openLiveStoryCamera()" title="Open Camera">
+      <div class="ig-camera-tile-icon">📷</div>
+      <div class="ig-camera-tile-text">Camera</div>
+    </div>
+    <div class="ig-camera-tile" onclick="document.getElementById('storyMediaFileInput').click()" style="background:#201e2b" title="Pick from device">
+      <div class="ig-camera-tile-icon" style="background:rgba(99,102,241,.2);color:#818cf8">📁</div>
+      <div class="ig-camera-tile-text">Device Gallery</div>
+    </div>
+    <div class="ig-camera-tile" onclick="openStoryTextCreator()" style="background:#2b1e22" title="Text / Templates">
+      <div class="ig-camera-tile-icon" style="background:rgba(230,57,70,.2);color:#f43f5e">Aa</div>
+      <div class="ig-camera-tile-text">Text Quote</div>
+    </div>
+    <div class="ig-media-tile" onclick="selectSampleStoryMedia('dance_trend')">
+      <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400&q=80" alt="Party" loading="lazy">
+      <span class="ig-media-tile-badge">⚡ Party</span>
+    </div>
+    <div class="ig-media-tile" onclick="selectSampleStoryMedia('comedy_laugh')">
+      <img src="https://images.unsplash.com/photo-1543791187-df796fa11835?w=400&q=80" alt="Laugh" loading="lazy">
+      <span class="ig-media-tile-badge">😂 Comedy</span>
+    </div>
+    <div class="ig-media-tile" onclick="selectSampleStoryMedia('desi_desi')">
+      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=400&q=80" alt="Vibe" loading="lazy">
+      <span class="ig-media-tile-badge">🔥 Vibe</span>
+    </div>
+  `;
+}
+
+function selectSampleStoryMedia(type) {
+  const sampleMap = {
+    dance_trend: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=85",
+    comedy_laugh: "https://images.unsplash.com/photo-1543791187-df796fa11835?w=800&q=85",
+    desi_desi: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800&q=85"
+  };
+  const url = sampleMap[type] || sampleMap.dance_trend;
+  storyMediaDataUrl = url;
+  storyMediaType = "image";
+  closeStoryCreator();
+  openStoryEditor(url, "image");
+}
+
+/* LIVE CAMERA MODE (Instagram Image 4) */
+async function openLiveStoryCamera() {
+  closeStoryCreator();
+  const camModal = document.getElementById("storyCameraModal");
+  if (camModal) camModal.classList.add("active");
+
+  await startCameraStream();
+  setupShutterInteractions();
+}
+window.openLiveStoryCamera = openLiveStoryCamera;
+
+function closeLiveStoryCamera() {
+  stopCameraStream();
+  const camModal = document.getElementById("storyCameraModal");
+  if (camModal) camModal.classList.remove("active");
+  openStoryCreator();
+}
+window.closeLiveStoryCamera = closeLiveStoryCamera;
+
+async function startCameraStream() {
+  stopCameraStream();
+  const videoEl = document.getElementById("storyCameraFeed");
+  if (!videoEl) return;
+
+  try {
+    const constraints = {
+      video: {
+        facingMode: storyCameraFacing,
+        width: { ideal: 1280 },
+        height: { ideal: 720 }
+      },
+      audio: true
+    };
+    storyMediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    videoEl.srcObject = storyMediaStream;
+    applyCameraFilter(storyCurrentFilter);
+  } catch (err) {
+    console.warn("Camera access error:", err);
     try {
-      let src = srcOrFile;
-      if (srcOrFile instanceof Blob || srcOrFile instanceof File) {
-        src = await fileToDataURL(srcOrFile);
-      }
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = () => reject(new Error("IMAGE_DECODE_FAILED"));
-      img.src = src;
-    } catch(err) {
-      reject(err);
+      // Fallback: try video only without audio
+      storyMediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: storyCameraFacing }
+      });
+      videoEl.srcObject = storyMediaStream;
+      applyCameraFilter(storyCurrentFilter);
+    } catch (e2) {
+      showToast("❌ Camera permission nahi mili. Gallery se select karein!");
+      closeLiveStoryCamera();
+      document.getElementById("storyMediaFileInput")?.click();
     }
-  });
-}
-window.loadImage = loadImage;
-
-async function compressStoryPhoto(file) {
-  const img = await loadImage(file);
-  const maxDim = 1280;
-  let w = img.naturalWidth || img.width;
-  let h = img.naturalHeight || img.height;
-  if (w > maxDim || h > maxDim) {
-    if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
-    else { w = Math.round((w * maxDim) / h); h = maxDim; }
   }
-  const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, w, h);
-  return canvas.toDataURL("image/jpeg", 0.85);
 }
 
-// Modular Driver Pattern: When Cloudflare R2 is configured in future,
-// only this function needs updating!
-async function uploadStoryVideo(file) {
-  return await fileToDataURL(file);
+function stopCameraStream() {
+  if (storyMediaStream) {
+    storyMediaStream.getTracks().forEach(t => t.stop());
+    storyMediaStream = null;
+  }
+  const videoEl = document.getElementById("storyCameraFeed");
+  if (videoEl) videoEl.srcObject = null;
+  clearInterval(storyRecInterval);
+  isStoryRecording = false;
 }
+
+function flipStoryCamera() {
+  storyCameraFacing = (storyCameraFacing === "user" ? "environment" : "user");
+  startCameraStream();
+  showToast("🔄 Camera flipped: " + (storyCameraFacing === "user" ? "Front" : "Back"));
+}
+window.flipStoryCamera = flipStoryCamera;
+
+function applyCameraFilter(filterName, bubbleEl) {
+  storyCurrentFilter = filterName || "none";
+  const css = FILTER_CSS_MAP[storyCurrentFilter] || "none";
+  const videoEl = document.getElementById("storyCameraFeed");
+  if (videoEl) {
+    videoEl.style.filter = css;
+  }
+
+  if (bubbleEl) {
+    document.querySelectorAll(".camera-filter-bubble").forEach(b => b.classList.remove("active"));
+    bubbleEl.classList.add("active");
+  }
+}
+window.applyCameraFilter = applyCameraFilter;
+
+function toggleCameraFlash() {
+  if (!storyMediaStream) return;
+  const track = storyMediaStream.getVideoTracks()[0];
+  if (track && typeof track.getCapabilities === "function") {
+    const caps = track.getCapabilities();
+    if (caps && caps.torch) {
+      const current = track.getConstraints().advanced?.[0]?.torch || false;
+      track.applyConstraints({ advanced: [{ torch: !current }] })
+        .then(() => showToast(!current ? "⚡ Flash On" : "⚡ Flash Off"))
+        .catch(() => showToast("⚡ Flash toggle failed"));
+      return;
+    }
+  }
+  showToast("⚡ Flash supported nahi hai is device camera par");
+}
+window.toggleCameraFlash = toggleCameraFlash;
+
+function toggleBoomerangMode() {
+  const btn = document.getElementById("cameraBoomerangBtn");
+  if (btn) btn.classList.toggle("active");
+  showToast("∞ Boomerang effect ready! Shutter hold karein.");
+}
+window.toggleBoomerangMode = toggleBoomerangMode;
+
+function toggleLayoutMode() {
+  showToast("⊞ Layout grid active!");
+}
+window.toggleLayoutMode = toggleLayoutMode;
+
+function toggleCameraTimer() {
+  showToast("⏱️ 3-second timer set!");
+}
+window.toggleCameraTimer = toggleCameraTimer;
+
+function setupShutterInteractions() {
+  const shutterBtn = document.getElementById("cameraShutterBtn");
+  if (!shutterBtn || shutterBtn._hasBound) return;
+  shutterBtn._hasBound = true;
+
+  let pressTimer = null;
+  let didHold = false;
+
+  const startHold = (e) => {
+    e.preventDefault();
+    didHold = false;
+    pressTimer = setTimeout(() => {
+      didHold = true;
+      startVideoRecording();
+    }, 400);
+  };
+
+  const endHold = (e) => {
+    e.preventDefault();
+    clearTimeout(pressTimer);
+    if (didHold) {
+      stopVideoRecording();
+    } else {
+      capturePhotoFromCamera();
+    }
+  };
+
+  shutterBtn.addEventListener("mousedown", startHold);
+  shutterBtn.addEventListener("mouseup", endHold);
+  shutterBtn.addEventListener("touchstart", startHold, { passive: false });
+  shutterBtn.addEventListener("touchend", endHold, { passive: false });
+}
+
+function capturePhotoFromCamera() {
+  const videoEl = document.getElementById("storyCameraFeed");
+  if (!videoEl || !videoEl.videoWidth) {
+    showToast("❌ Camera active nahi hai");
+    return;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = videoEl.videoWidth || 1280;
+  canvas.height = videoEl.videoHeight || 720;
+  const ctx = canvas.getContext("2d");
+
+  // Mirror front camera
+  if (storyCameraFacing === "user") {
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+  }
+
+  // Apply filter
+  const css = FILTER_CSS_MAP[storyCurrentFilter] || "none";
+  if (css !== "none" && "filter" in ctx) {
+    ctx.filter = css;
+  }
+  ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.88);
+  stopCameraStream();
+  const camModal = document.getElementById("storyCameraModal");
+  if (camModal) camModal.classList.remove("active");
+
+  openStoryEditor(dataUrl, "image");
+}
+
+function startVideoRecording() {
+  if (!storyMediaStream || isStoryRecording) return;
+  isStoryRecording = true;
+  storyRecordedChunks = [];
+
+  try {
+    const options = { mimeType: "video/webm;codecs=vp8,opus" };
+    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+      storyMediaRecorder = new MediaRecorder(storyMediaStream);
+    } else {
+      storyMediaRecorder = new MediaRecorder(storyMediaStream, options);
+    }
+
+    storyMediaRecorder.ondataavailable = (e) => {
+      if (e.data && e.data.size > 0) storyRecordedChunks.push(e.data);
+    };
+
+    storyMediaRecorder.onstop = () => {
+      const blob = new Blob(storyRecordedChunks, { type: storyMediaRecorder.mimeType || "video/mp4" });
+      const videoUrl = URL.createObjectURL(blob);
+      storyMediaFile = blob;
+      stopCameraStream();
+      const camModal = document.getElementById("storyCameraModal");
+      if (camModal) camModal.classList.remove("active");
+      openStoryEditor(videoUrl, "video");
+    };
+
+    storyMediaRecorder.start();
+    const shutter = document.getElementById("cameraShutterBtn");
+    if (shutter) shutter.classList.add("recording");
+    const indicator = document.getElementById("cameraRecIndicator");
+    const timerText = document.getElementById("cameraRecTimer");
+    if (indicator) indicator.style.display = "inline-flex";
+
+    storyRecSeconds = 0;
+    storyRecInterval = setInterval(() => {
+      storyRecSeconds++;
+      if (timerText) {
+        const m = Math.floor(storyRecSeconds / 60);
+        const s = (storyRecSeconds % 60).toString().padStart(2, "0");
+        timerText.textContent = `${m}:${s}`;
+      }
+      if (storyRecSeconds >= 30) {
+        stopVideoRecording();
+      }
+    }, 1000);
+
+    showToast("🔴 Recording video... (hold karke rakhein)");
+  } catch (err) {
+    console.error("Recording start error:", err);
+    showToast("❌ Video record nahi ho paaya");
+    isStoryRecording = false;
+  }
+}
+
+function stopVideoRecording() {
+  if (!isStoryRecording) return;
+  isStoryRecording = false;
+  clearInterval(storyRecInterval);
+  const shutter = document.getElementById("cameraShutterBtn");
+  if (shutter) shutter.classList.remove("recording");
+  const indicator = document.getElementById("cameraRecIndicator");
+  if (indicator) indicator.style.display = "none";
+
+  if (storyMediaRecorder && storyMediaRecorder.state !== "inactive") {
+    storyMediaRecorder.stop();
+  }
+}
+
+function openStoryTextCreator() {
+  const text = prompt("Apna funny comedy status / quote likhein:", "Haste Raho, Mast Raho! 😂🔥");
+  if (!text || !text.trim()) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = 1080;
+  canvas.height = 1920;
+  const ctx = canvas.getContext("2d");
+
+  // Colorful Instagram gradient
+  const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+  grad.addColorStop(0, "#833ab4");
+  grad.addColorStop(0.5, "#fd1d1d");
+  grad.addColorStop(1, "#fcb045");
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "bold 60px sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  // Wrap text
+  const words = text.trim().split(" ");
+  let line = "";
+  let y = canvas.height / 2 - (words.length * 35);
+  for (let n = 0; n < words.length; n++) {
+    const testLine = line + words[n] + " ";
+    const metrics = ctx.measureText(testLine);
+    if (metrics.width > 900 && n > 0) {
+      ctx.fillText(line, canvas.width / 2, y);
+      line = words[n] + " ";
+      y += 85;
+    } else {
+      line = testLine;
+    }
+  }
+  ctx.fillText(line, canvas.width / 2, y);
+
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+  closeLiveStoryCamera();
+  closeStoryCreator();
+  openStoryEditor(dataUrl, "image");
+}
+window.openStoryTextCreator = openStoryTextCreator;
+
+/* STORY EDITOR SCREEN (Review, Music, AI & Publish) */
+function openStoryEditor(mediaUrl, mediaType) {
+  storyMediaDataUrl = mediaUrl;
+  storyMediaType = mediaType;
+  storySelectedMusic = null;
+
+  const editor = document.getElementById("storyEditorScreen");
+  const imgEl = document.getElementById("storyEditorImg");
+  const vidEl = document.getElementById("storyEditorVideo");
+  const avatarEl = document.getElementById("storyShareUserAvatar");
+  const musicBtn = document.getElementById("storyEditorMusicBtn");
+  const musicText = document.getElementById("storyEditorMusicText");
+  const captionInput = document.getElementById("storyEditorCaptionInput");
+
+  if (captionInput) captionInput.value = "";
+  if (musicBtn) musicBtn.className = "story-tool-pill";
+  if (musicText) musicText.textContent = "Music";
+
+  const userAvatar = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || DEFAULT_USER_AVATAR;
+  if (avatarEl) avatarEl.src = userAvatar;
+
+  if (mediaType === "video") {
+    if (imgEl) imgEl.style.display = "none";
+    if (vidEl) {
+      vidEl.src = mediaUrl;
+      vidEl.style.display = "block";
+      vidEl.play().catch(() => {});
+    }
+  } else {
+    if (vidEl) { vidEl.pause(); vidEl.style.display = "none"; }
+    if (imgEl) {
+      imgEl.src = mediaUrl;
+      imgEl.style.display = "block";
+    }
+  }
+
+  if (editor) editor.classList.add("active");
+}
+window.openStoryEditor = openStoryEditor;
+
+function discardStoryEditor() {
+  const vidEl = document.getElementById("storyEditorVideo");
+  if (vidEl) { vidEl.pause(); vidEl.src = ""; }
+  const editor = document.getElementById("storyEditorScreen");
+  if (editor) editor.classList.remove("active");
+  openStoryCreator();
+}
+window.discardStoryEditor = discardStoryEditor;
+
+/* AI CAPTION & PUNCHLINE (Google AI Studio Gemini) */
+async function generateStoryAICaption() {
+  const captionInput = document.getElementById("storyEditorCaptionInput");
+  if (!captionInput) return;
+  const oldVal = captionInput.value;
+  captionInput.placeholder = "✨ AI सोच रहा है...";
+
+  try {
+    const payload = {
+      message: "UPComedyHub ke liye ek viral comedy reel/story ka 1-line caption aur 3 hashtags likhein Hindi/Hinglish me (maximum 12 words). Sirf caption aur hashtags dein, koi extra text nahi."
+    };
+    const res = await callApiChat(payload);
+    if (res && res.reply) {
+      const clean = res.reply.replace(/^["']|["']$/g, "").trim();
+      captionInput.value = clean;
+      showToast("✨ AI Caption generated!");
+    } else {
+      captionInput.value = "Haste haste pet dard ho gaya 😂🔥 #desi_comedy #upcomedyhub";
+    }
+  } catch (err) {
+    captionInput.value = "Full desi comedy vibe 😂🔥 #upcomedyhub #desi";
+  } finally {
+    captionInput.placeholder = "Add a funny caption or dialogue... (optional)";
+  }
+}
+window.generateStoryAICaption = generateStoryAICaption;
+
+async function generateStoryAIPunchline() {
+  const captionInput = document.getElementById("storyEditorCaptionInput");
+  if (!captionInput) return;
+  captionInput.placeholder = "🤣 AI Desi Punchline dhundh raha hai...";
+
+  try {
+    const payload = {
+      message: "Ek funny aur snappy desi comedy dialogue punchline likhein Hindi/Hinglish me (sirf 1 line, hilarious)."
+    };
+    const res = await callApiChat(payload);
+    if (res && res.reply) {
+      captionInput.value = res.reply.replace(/^["']|["']$/g, "").trim();
+      showToast("🤣 Desi Punchline ready!");
+    } else {
+      captionInput.value = "Arre bhai bhai bhai! Ye kya dekh liya maine 😂";
+    }
+  } catch (e) {
+    captionInput.value = "Jalwa hai humara yahan 😎😂";
+  }
+}
+window.generateStoryAIPunchline = generateStoryAIPunchline;
+
+function triggerStoryAICaptionSuggestion() {
+  document.getElementById("storyMediaFileInput")?.click();
+  showToast("Photo ya video chunein, fir ✨ AI Caption button dabayein!");
+}
+window.triggerStoryAICaptionSuggestion = triggerStoryAICaptionSuggestion;
 
 async function handleStoryFileChange(input) {
   const file = input && input.files && input.files[0];
@@ -6512,45 +7158,81 @@ async function handleStoryFileChange(input) {
     return;
   }
 
-  const previewWrap = document.getElementById("storyPreviewWrap");
-  const pickerZone = document.getElementById("storyPickerZone");
-  const imgPrev = document.getElementById("storyPreviewImg");
-  const vidPrev = document.getElementById("storyPreviewVideo");
-  const pubBtn = document.getElementById("storyPublishBtn");
-
   storyMediaFile = file;
+  closeStoryCreator();
+  closeLiveStoryCamera();
 
   if (isImage) {
-    storyMediaType = "image";
     try {
       const compressedData = await compressStoryPhoto(file);
-      storyMediaDataUrl = compressedData;
-      if (imgPrev) { imgPrev.src = compressedData; imgPrev.style.display = "block"; }
-      if (vidPrev) vidPrev.style.display = "none";
+      openStoryEditor(compressedData, "image");
     } catch (e) {
       const dataUrl = await fileToDataURL(file);
-      storyMediaDataUrl = dataUrl;
-      if (imgPrev) { imgPrev.src = dataUrl; imgPrev.style.display = "block"; }
-      if (vidPrev) vidPrev.style.display = "none";
+      openStoryEditor(dataUrl, "image");
     }
   } else {
-    storyMediaType = "video";
     const objectUrl = URL.createObjectURL(file);
-    storyMediaDataUrl = objectUrl;
-    if (vidPrev) {
-      vidPrev.src = objectUrl;
-      vidPrev.style.display = "block";
-      vidPrev.play().catch(() => {});
-    }
-    if (imgPrev) imgPrev.style.display = "none";
+    openStoryEditor(objectUrl, "video");
   }
-
-  if (pickerZone) pickerZone.style.display = "none";
-  if (previewWrap) previewWrap.style.display = "flex";
-  if (pubBtn) pubBtn.disabled = false;
   input.value = "";
 }
 window.handleStoryFileChange = handleStoryFileChange;
+
+async function publishStoryFromEditor() {
+  if (!storyMediaDataUrl && !storyMediaFile) {
+    showToast("❌ Pehle photo ya video select karein!");
+    return;
+  }
+
+  const pubBtn = document.getElementById("storyEditorPublishBtn");
+  if (pubBtn) {
+    pubBtn.disabled = true;
+    pubBtn.innerHTML = "<span>⏳</span> Sharing Story...";
+  }
+
+  try {
+    let finalMediaUrl = storyMediaDataUrl;
+    if (storyMediaType === "video" && storyMediaFile) {
+      finalMediaUrl = await uploadStoryVideo(storyMediaFile);
+    }
+
+    const storyId = "story_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
+    const uid = currentUser ? currentUser.uid : "guest_user";
+    const uName = (currentUser && (currentUser.displayName || currentUser.username)) || "UPCH Fan";
+    const uPhoto = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || DEFAULT_USER_AVATAR;
+    const caption = (document.getElementById("storyEditorCaptionInput")?.value || "").trim();
+
+    const storyDoc = {
+      id: storyId,
+      userId: uid,
+      userName: uName,
+      userPhoto: uPhoto,
+      mediaUrl: finalMediaUrl,
+      mediaType: storyMediaType,
+      musicUrl: storySelectedMusic ? storySelectedMusic.previewUrl : "",
+      musicTitle: storySelectedMusic ? (storySelectedMusic.title + " • " + storySelectedMusic.artist) : "",
+      caption: caption,
+      likesCount: 0,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      expiresAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 24 * 60 * 60 * 1000))
+    };
+
+    await db.collection("stories").doc(storyId).set(storyDoc);
+    const editor = document.getElementById("storyEditorScreen");
+    if (editor) editor.classList.remove("active");
+    showToast("✨ Story shared for 24 hours! 🔥");
+  } catch (err) {
+    console.error("Story publish error:", err);
+    showToast("❌ Story upload failed: " + (err.message || "Network issue"));
+  } finally {
+    if (pubBtn) {
+      pubBtn.disabled = false;
+      const userAvatar = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || DEFAULT_USER_AVATAR;
+      pubBtn.innerHTML = `<img class="story-share-avatar" src="${userAvatar}" alt=""><span>Your Story (24h)</span>`;
+    }
+  }
+}
+window.publishStoryFromEditor = publishStoryFromEditor;
 
 function openMusicPicker() {
   const modal = document.getElementById("musicPickerModal");
@@ -6605,7 +7287,11 @@ async function fetchTrendingMusic(term) {
   if (container) container.innerHTML = '<div style="text-align:center;padding:20px;color:#888">⏳ Loading tracks...</div>';
 
   try {
-    const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=15`);
+    const res = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=15`).catch(() => null);
+    if (!res || !res.ok) {
+      renderMusicList(CURATED_COMEDY_SOUNDS);
+      return;
+    }
     const data = await res.json().catch(() => ({}));
     if (data && Array.isArray(data.results) && data.results.length) {
       const items = data.results.map(r => ({
@@ -6789,7 +7475,7 @@ function groupAndRenderStoriesTray() {
 
   const myAvatarEl = document.getElementById("myStoryTrayAvatar");
   if (myAvatarEl) {
-    myAvatarEl.src = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || "IMG_20260917_172912.jpg";
+    myAvatarEl.src = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || DEFAULT_USER_AVATAR;
   }
   const myRingEl = document.getElementById("myStoryRing");
   const myBadgeEl = document.getElementById("myStoryBadge");
@@ -6825,7 +7511,7 @@ function groupAndRenderStoriesTray() {
 
     const firstStory = stories[0];
     const uName = firstStory.userName || "User";
-    const uPhoto = firstStory.userPhoto || "IMG_20260917_172912.jpg";
+    const uPhoto = firstStory.userPhoto || DEFAULT_USER_AVATAR;
 
     const btn = document.createElement("button");
     btn.type = "button";
@@ -8405,7 +9091,15 @@ window.addEventListener("DOMContentLoaded",()=>{
   initCommunityUI();
   initStoriesSystem();
 
-  setTimeout(()=>{ loadFanOfWeek(); loadAnnouncement(); loadNotice(); loadManualVideos(); loadAllLikes(); }, 1500);
+  setTimeout(()=>{
+    try {
+      if (typeof loadFanOfWeek === 'function') loadFanOfWeek().catch(() => {});
+      if (typeof loadAnnouncement === 'function') loadAnnouncement().catch(() => {});
+      if (typeof loadNotice === 'function') loadNotice().catch(() => {});
+      if (typeof loadManualVideos === 'function') loadManualVideos().catch(() => {});
+      if (typeof loadAllLikes === 'function') loadAllLikes().catch(() => {});
+    } catch(e) {}
+  }, 1500);
 });
 
 auth.onAuthStateChanged(async (user)=>{
@@ -8421,7 +9115,7 @@ auth.onAuthStateChanged(async (user)=>{
       updateMessageBadge();
       startUserStatusHeartbeat();
       setTimeout(createNewVideoNotifications, 1200);
-    }catch(e){ console.error(e); }
+    }catch(e){ console.warn("Auth state sync notice:", e?.message || e); }
     const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = user.uid === ADMIN_UID ? "flex" : "none";
     const ls = document.getElementById("loginScreen"); if(ls) ls.classList.remove("show");
   } else {
@@ -8653,18 +9347,21 @@ async function generateImageWithHorde(prompt){
       nsfw: false,
       censor_nsfw: true
     })
-  });
-  const job = await submit.json();
+  }).catch(() => null);
+  if(!submit || !submit.ok) throw new Error("Horde unavailable");
+  const job = await submit.json().catch(() => ({}));
   if(!job || !job.id) throw new Error((job && job.message) || "Job submit fail");
   const id = job.id;
   for(let i = 0; i < 40; i++){
     await new Promise(r => setTimeout(r, 3000));
-    const chk = await (await fetch(HORDE + "/generate/check/" + id, { headers })).json();
+    const chkRes = await fetch(HORDE + "/generate/check/" + id, { headers }).catch(() => null);
+    const chk = chkRes ? await chkRes.json().catch(() => ({})) : null;
     if(chk && chk.faulted) throw new Error("Generation faulted");
     if(chk && chk.done) break;
     if(i === 39) throw new Error("Timeout");
   }
-  const status = await (await fetch(HORDE + "/generate/status/" + id, { headers })).json();
+  const statusRes = await fetch(HORDE + "/generate/status/" + id, { headers }).catch(() => null);
+  const status = statusRes ? await statusRes.json().catch(() => ({})) : null;
   const img = status && status.generations && status.generations[0] && status.generations[0].img;
   if(!img) throw new Error("No image returned");
   return img;
@@ -8678,16 +9375,16 @@ async function generateImage(prompt){
     : (VERCEL_API_BASE + "/api/ai/image?prompt=" + encodeURIComponent(clean));
 
   try {
-    const res = await fetch(primaryUrl);
-    if (res.ok) {
+    const res = await fetch(primaryUrl).catch(() => null);
+    if (res && res.ok) {
       const data = await res.json().catch(() => ({}));
       if (data && data.success && data.imageUrl) return data.imageUrl;
     }
   } catch(e) {
     console.warn("Primary image endpoint issue:", e);
     try {
-      const res2 = await fetch(fallbackUrl);
-      if (res2.ok) {
+      const res2 = await fetch(fallbackUrl).catch(() => null);
+      if (res2 && res2.ok) {
         const data2 = await res2.json().catch(() => ({}));
         if (data2 && data2.success && data2.imageUrl) return data2.imageUrl;
       }
@@ -8767,18 +9464,43 @@ function renderAIHistory(){
   box.innerHTML = h.map(m => {
     const mine = m.role === "user";
     let inner;
+    const speakBtn = (!mine && m.text) ? `<button type="button" class="chat-speech-btn" onclick="speakAIText(this)" data-text="${escapeAttr(m.text)}" title="Aawaz me suno 🔊" aria-label="Listen">🔊</button>` : '';
     if(m.image){
       inner = '<img class="chat-image-msg" src="' + escapeAttr(m.image) + '" alt="AI image" ' +
         'style="border-radius:12px;display:block;max-width:240px;margin-bottom:6px;cursor:pointer" ' +
         'onclick="window.open(this.src,\'_blank\')">' +
-        (m.text ? '<div class="chat-message-text">' + escapeHtml(m.text) + '</div>' : '');
+        (m.text ? '<div class="chat-message-text">' + escapeHtml(m.text) + speakBtn + '</div>' : '');
     }else{
-      inner = '<div class="chat-message-text">' + escapeHtml(m.text || "") + '</div>';
+      inner = '<div class="chat-message-text">' + escapeHtml(m.text || "") + speakBtn + '</div>';
     }
     return '<div class="chat-bubble-row ' + (mine ? "mine" : "") + '"><div class="chat-bubble">' + inner + '</div></div>';
   }).join("");
   box.scrollTop = box.scrollHeight;
 }
+
+function speakAIText(btn) {
+  if (!("speechSynthesis" in window)) {
+    showToast("❌ Speech synthesis supported nahi hai");
+    return;
+  }
+  const text = btn.dataset.text || btn.previousElementSibling?.textContent || "";
+  if (!text) return;
+
+  if (window.speechSynthesis.speaking) {
+    window.speechSynthesis.cancel();
+    btn.textContent = "🔊";
+    return;
+  }
+
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "hi-IN";
+  u.rate = 1.0;
+  u.onstart = () => { btn.textContent = "⏸️"; };
+  u.onend = () => { btn.textContent = "🔊"; };
+  u.onerror = () => { btn.textContent = "🔊"; };
+  window.speechSynthesis.speak(u);
+}
+window.speakAIText = speakAIText;
 
 function pushAIHistory(role, text, image){
   const h = loadAIHistory();
@@ -8874,5 +9596,6 @@ async function handleAIMessageSend(){
 window.handleAIMessageSend = handleAIMessageSend;
 
 </script>  
+<script src="/arcade-games.js"></script>
 </body>
 </html>

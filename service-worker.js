@@ -1,10 +1,11 @@
-const CACHE_NAME = "upcomedyhub-v2";
+const CACHE_NAME = "upcomedyhub-v3";
 
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/manifest.json",
-  "/IMG_20260917_172912.jpg"
+  "/IMG_20260917_172912.jpg",
+  "/Screenshot_2026-10-03-13-12-55-63_92460851df6f172a4592fca41cc2d2e6.jpg"
 ];
 
 self.addEventListener("install", function (event) {

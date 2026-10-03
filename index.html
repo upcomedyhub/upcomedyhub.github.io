@@ -17,7 +17,7 @@
             return new Response(JSON.stringify({ success: false, offline: true, error: msg }), {
               status: 200,
               headers: { "Content-Type": "application/json" }
-   ë         });
+            });
           }
           throw err;
         });
@@ -834,6 +834,33 @@ body.messages-open .bottom-nav{display:none !important}
 .ws-actions-row{display:flex;gap:10px;margin-top:auto;width:100%;justify-content:center}
 .ws-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:8px 16px;border-radius:12px;font-size:12px;font-weight:800;cursor:pointer;transition:all .15s}
 .ws-btn:hover{background:#c084fc;color:#111;border-color:transparent}
+
+/* Cricket Premier League Super Over Styles */
+.cricket-wrap{position:relative;width:100%;max-width:440px;height:580px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;background:#051329;border-radius:18px;border:1px solid rgba(255,255,255,.15);box-shadow:0 10px 30px rgba(0,0,0,.7);overflow:hidden;user-select:none;touch-action:none}
+.cricket-top-hud{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;background:rgba(5,19,41,.85);backdrop-filter:blur(8px);padding:8px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.15);z-index:10;font-size:12px;font-weight:800;color:#fff}
+.cricket-target-pill{background:#e63946;color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:900}
+.cricket-commentary-bar{position:absolute;bottom:64px;left:8px;right:8px;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);padding:6px 12px;border-radius:10px;text-align:center;font-size:12px;font-weight:800;color:#fef08a;border:1px solid rgba(255,255,255,.1);z-index:10;pointer-events:none}
+.cricket-shots-bar{position:absolute;bottom:8px;left:8px;right:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;z-index:10}
+.cricket-shot-btn{height:46px;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:12px;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .1s;line-height:1.2}
+.cricket-shot-btn:active{background:#e63946;transform:scale(.94)}
+.cricket-banner{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-size:30px;font-weight:900;text-align:center;text-shadow:0 4px 15px rgba(0,0,0,.9);display:none;z-index:15;animation:popText .3s cubic-bezier(0.175,0.885,0.32,1.275);white-space:nowrap}
+
+/* Snake & Ladder Styles */
+.sl-container{width:100%;max-width:440px;height:580px;background:#0d1829;border-radius:18px;border:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.7);user-select:none;position:relative}
+.sl-hud{display:flex;justify-content:space-between;width:100%;padding:4px 8px;font-size:12px;font-weight:800;color:#fff}
+.sl-dice-tray{display:flex;align-items:center;justify-content:space-between;width:100%;background:rgba(255,255,255,.08);padding:8px 14px;border-radius:14px;margin-top:auto}
+.sl-dice-cube{width:50px;height:50px;background:#fff;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:transform .15s}
+.sl-dice-cube:active{transform:scale(.9) rotate(15deg)}
+.sl-roll-btn{background:linear-gradient(135deg,#e63946,#ff007f);border:none;color:#fff;padding:10px 20px;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer}
+
+/* Ludo Master Styles */
+.ludo-container{width:100%;max-width:440px;height:580px;background:#0b1320;border-radius:18px;border:1px solid rgba(255,255,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.7);user-select:none;position:relative}
+
+/* Desi Street Runner Controls */
+.runner-touch-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:380px;margin-top:8px}
+.runner-touch-btn{height:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:14px;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .1s}
+.runner-touch-btn:active{background:#38bdf8;color:#000;transform:scale(.94)}
+
 
 /* Color Block Blast Styles */
 .cb-blocks-container{width:100%;max-width:440px;height:580px;background:#0a0e1a;border-radius:18px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.6);user-select:none;touch-action:none}
@@ -2358,11 +2385,12 @@ body.messages-open .bottom-nav{display:none !important}
 
     <!-- Category Filter Bar -->
     <div class="arcade-cat-bar" id="arcadeCatBar">
-      <button type="button" class="arcade-cat-pill active" onclick="filterArcadeCategory('all', this)">🌟 All Games (11)</button>
+      <button type="button" class="arcade-cat-pill active" onclick="filterArcadeCategory('all', this)">🌟 All Games (16)</button>
       <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('top', this)">🔥 Trending</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('sports', this)">🏏 Sports &amp; Runner</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('board', this)">🎲 Classic Board &amp; Taash</button>
       <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('antistress', this)">🧘 Antistress &amp; Relax</button>
-      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('action', this)">🍉 Action &amp; Slice</button>
-      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('puzzle', this)">🧩 Puzzles &amp; Board</button>
+      <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('action', this)">🍉 Action &amp; Rush</button>
       <button type="button" class="arcade-cat-pill" onclick="filterArcadeCategory('ai', this)">🤖 AI Games</button>
     </div>
 
@@ -2462,16 +2490,16 @@ body.messages-open .bottom-nav{display:none !important}
         </div>
       </div>
 
-      <!-- 7. Desi Gully Cricket -->
-      <div class="arcade-game-card" data-cat="top action" onclick="launchArcadeGame('cricket')">
-        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#831843,#500724)">
+      <!-- 7. Premier League Super Over Cricket -->
+      <div class="arcade-game-card" data-cat="top sports action" onclick="launchArcadeGame('cricket')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#0369a1,#0c4a6e)">
           <span>🏏</span>
-          <span class="arcade-game-badge">SIXER KING</span>
-          <span class="arcade-game-sound-badge">🔊 Crowd</span>
+          <span class="arcade-game-badge">SUPER OVER CUP</span>
+          <span class="arcade-game-sound-badge">🔊 Real Stadium</span>
         </div>
         <div class="arcade-game-body">
-          <div class="arcade-game-name">Desi Gully Cricket</div>
-          <div class="arcade-game-tag">Timing Bat Swing • Hit Stadium 6s!</div>
+          <div class="arcade-game-name">Premier League Cricket</div>
+          <div class="arcade-game-tag">3D Stadium • Chase 22 in 6 Balls • Lofted 6s &amp; Helicopter Shot!</div>
           <div class="arcade-game-play">▶ Play Now</div>
         </div>
       </div>
@@ -2519,7 +2547,7 @@ body.messages-open .bottom-nav{display:none !important}
       </div>
 
       <!-- 11. Neon Glow Tic Tac Toe (From Uploaded Screenshot) -->
-      <div class="arcade-game-card" data-cat="puzzle antistress" onclick="launchArcadeGame('neon_tictactoe')">
+      <div class="arcade-game-card" data-cat="board puzzle antistress" onclick="launchArcadeGame('neon_tictactoe')">
         <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#06b6d4,#ec4899)">
           <span>⭕</span>
           <span class="arcade-game-badge">NEON GLOW</span>
@@ -2528,6 +2556,76 @@ body.messages-open .bottom-nav{display:none !important}
         <div class="arcade-game-body">
           <div class="arcade-game-name">Neon Tic Tac Toe</div>
           <div class="arcade-game-tag">Cyberpunk X &amp; O • vs AI or 2-Player</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 12. Desi Street Runner -->
+      <div class="arcade-game-card" data-cat="top sports action" onclick="launchArcadeGame('runner_dash')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#e11d48,#881337)">
+          <span>🏃</span>
+          <span class="arcade-game-badge">ENDLESS RUN</span>
+          <span class="arcade-game-sound-badge">🔊 Rush</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Desi Street Runner</div>
+          <div class="arcade-game-tag">3 Lanes • Dodge Rickshaws, Cows &amp; Grab Samosas!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 13. Realistic Snake & Ladder 3D -->
+      <div class="arcade-game-card" data-cat="top board" onclick="launchArcadeGame('snake_ladder')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#ca8a04,#854d0e)">
+          <span>🎲</span>
+          <span class="arcade-game-badge">SAANP SEEDHI</span>
+          <span class="arcade-game-sound-badge">🔊 3D Dice</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Snake &amp; Ladder 3D</div>
+          <div class="arcade-game-tag">100 Squares • Real Dice Roll • Ladders &amp; Snakes!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 14. Ludo Master Classic -->
+      <div class="arcade-game-card" data-cat="top board" onclick="launchArcadeGame('ludo_master')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#16a34a,#15803d)">
+          <span>🔴</span>
+          <span class="arcade-game-badge">4 PLAYERS</span>
+          <span class="arcade-game-sound-badge">🔊 Taash/Board</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Ludo Master Classic</div>
+          <div class="arcade-game-tag">Roll 6 • Cut Opponent Tokens • Race Home!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 15. Tiny Fish Feeding Frenzy -->
+      <div class="arcade-game-card" data-cat="antistress action" onclick="launchArcadeGame('tiny_fish')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#0284c7,#0369a1)">
+          <span>🐟</span>
+          <span class="arcade-game-badge">FEED &amp; GROW</span>
+          <span class="arcade-game-sound-badge">🔊 Gulp</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Tiny Fish Frenzy</div>
+          <div class="arcade-game-tag">Eat Smaller Fish • Evolve into Giant Shark!</div>
+          <div class="arcade-game-play">▶ Play Now</div>
+        </div>
+      </div>
+
+      <!-- 16. Stack All Isometric Tower -->
+      <div class="arcade-game-card" data-cat="antistress puzzle" onclick="launchArcadeGame('stack_all')">
+        <div class="arcade-game-thumb" style="background:linear-gradient(135deg,#9333ea,#6b21a8)">
+          <span>🥞</span>
+          <span class="arcade-game-badge">SATISFYING</span>
+          <span class="arcade-game-sound-badge">🔊 Musical</span>
+        </div>
+        <div class="arcade-game-body">
+          <div class="arcade-game-name">Stack All Tower</div>
+          <div class="arcade-game-tag">Drop Slabs • Slice Overhangs • Melodic Combos!</div>
           <div class="arcade-game-play">▶ Play Now</div>
         </div>
       </div>
@@ -10143,6 +10241,141 @@ window.handleAIMessageSend = handleAIMessageSend;
       } catch (e) {}
     },
 
+    playDiceRoll() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        for (let i = 0; i < 6; i++) {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(200 + Math.random() * 400, now + i * 0.035);
+          gain.gain.setValueAtTime(0.12, now + i * 0.035);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.035 + 0.03);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.035);
+          osc.stop(now + i * 0.035 + 0.035);
+        }
+        this.vibrate(20);
+      } catch (e) {}
+    },
+
+    playSnakeBite() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.35);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.36);
+        this.vibrate(50);
+      } catch (e) {}
+    },
+
+    playLadderClimb() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        [330, 440, 554, 659, 880].forEach((f, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + idx * 0.05);
+          gain.gain.setValueAtTime(0.18, now + idx * 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.05 + 0.12);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.05);
+          osc.stop(now + idx * 0.05 + 0.13);
+        });
+        this.vibrate(30);
+      } catch (e) {}
+    },
+
+    playFishGulp() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.06);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.09);
+        this.vibrate(15);
+      } catch (e) {}
+    },
+
+    playBlockSlice() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(500, now);
+        osc.frequency.exponentialRampToValueAtTime(150, now + 0.06);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.07);
+        this.vibrate(18);
+      } catch (e) {}
+    },
+
+    playMusicalChord(step = 0) {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25];
+        const freq = scale[step % scale.length];
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.36);
+        this.vibrate(20);
+      } catch (e) {}
+    },
+
+    playRunnerJump() {
+      if (!this.enabled || !this.ctx) return;
+      try {
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(540, now + 0.1);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.13);
+      } catch (e) {}
+    },
+
     playDingSuccess() {
       if (!this.enabled || !this.ctx) return;
       try {
@@ -10367,6 +10600,26 @@ window.handleAIMessageSend = handleAIMessageSend;
       case 'neon_tictactoe':
         if (titleEl) titleEl.innerHTML = '⭕ Neon Tic Tac Toe';
         activeGameInstance = new NeonTicTacToeGame(stageBody);
+        break;
+      case 'runner_dash':
+        if (titleEl) titleEl.innerHTML = '🏃 Desi Street Runner';
+        activeGameInstance = new RunnerDashGame(stageBody);
+        break;
+      case 'snake_ladder':
+        if (titleEl) titleEl.innerHTML = '🎲 Snake & Ladder 3D';
+        activeGameInstance = new SnakeLadderGame(stageBody);
+        break;
+      case 'ludo_master':
+        if (titleEl) titleEl.innerHTML = '🔴 Ludo Master Classic';
+        activeGameInstance = new LudoMasterGame(stageBody);
+        break;
+      case 'tiny_fish':
+        if (titleEl) titleEl.innerHTML = '🐟 Tiny Fish Feeding Frenzy';
+        activeGameInstance = new TinyFishGame(stageBody);
+        break;
+      case 'stack_all':
+        if (titleEl) titleEl.innerHTML = '🥞 Stack All Tower';
+        activeGameInstance = new StackAllGame(stageBody);
         break;
       default:
         console.warn('Unknown game id:', gameId);
@@ -11805,29 +12058,62 @@ window.handleAIMessageSend = handleAIMessageSend;
   }
 
   // ==========================================
-  // GAME 7: 🏏 DESI GULLY CRICKET
+  // GAME 7: 🏏 PREMIER LEAGUE SUPER OVER CRICKET (Realistic 3D Stadium & Physics)
   // ==========================================
   class GullyCricketGame {
     constructor(container) {
       this.container = container;
       this.score = 0;
       this.wickets = 0;
-      this.balls = 12; // 2 overs
-      this.ballState = 'idle'; // 'idle', 'bowling', 'hit'
+      this.maxWickets = 2;
+      this.totalBalls = 6; // Super Over
+      this.ballsLeft = 6;
+      this.target = 22; // Need 22 off 6 balls
+      this.ballState = 'idle'; // 'idle', 'bowling', 'hit', 'celebrating'
       this.ballX = 180;
-      this.ballY = 120;
-      this.ballRadius = 7;
-      this.bowlerSpeed = 6.5;
+      this.ballY = 140;
+      this.ballZ = 0; // Simulated height
+      this.pitchTargetX = 180;
+      this.pitchTargetY = 380;
+      this.bowlerSpeed = 7.5;
+      this.deliveryType = 'yorker';
+      this.selectedShot = 'lofted'; // 'lofted', 'pull', 'drive', 'helicopter'
+      this.particles = [];
+      this.timingRing = 0;
+      this.timingActive = false;
+      this.bannerText = '';
+      this.bannerColor = '#22c55e';
+      this.bannerTimer = 0;
+      this.commentary = '🔥 SUPER OVER: Jeetne ke liye 6 balls me 22 runs chahiye!';
+
+      this.BOWLERS = [
+        { name: 'J. Bumrah', type: 'yorker', speedText: '148 km/h • Toe-Crusher Yorker', color: '#38bdf8' },
+        { name: 'M. Starc', type: 'inswinger', speedText: '152 km/h • Lethal Inswing', color: '#f87171' },
+        { name: 'R. Khan', type: 'spin', speedText: '96 km/h • Sharp Mystery Googly', color: '#a855f7' },
+        { name: 'H. Pandya', type: 'bouncer', speedText: '138 km/h • Heavy Bouncer', color: '#fbbf24' },
+        { name: 'D. Bravo', type: 'slower', speedText: '112 km/h • Deceptive Slower Ball', color: '#34d399' }
+      ];
 
       this.initUI();
       this.startLoop();
-      this.bowlBall();
+      setTimeout(() => this.bowlNextBall(), 800);
     }
 
     initUI() {
       this.wrap = document.createElement('div');
       this.wrap.className = 'cricket-wrap';
 
+      // Top Match HUD
+      const topHud = document.createElement('div');
+      topHud.className = 'cricket-top-hud';
+      topHud.innerHTML = `
+        <div>RUNS: <b id="crkScore" style="color:#22c55e;font-size:15px">0</b>/<b id="crkWkts">0</b></div>
+        <div class="cricket-target-pill" id="crkTarget">TARGET: 22</div>
+        <div>BALLS: <b id="crkBalls" style="color:#f59e0b;font-size:15px">6</b></div>
+      `;
+      this.wrap.appendChild(topHud);
+
+      // Canvas 360x540
       this.canvas = document.createElement('canvas');
       this.canvas.className = 'game-canvas';
       this.canvas.width = 360;
@@ -11835,79 +12121,175 @@ window.handleAIMessageSend = handleAIMessageSend;
       this.ctx = this.canvas.getContext('2d');
       this.wrap.appendChild(this.canvas);
 
-      // HUD & Banner
-      const hud = document.createElement('div');
-      hud.className = 'cricket-hud';
-      hud.innerHTML = `
-        <span>RUNS: <b id="cricketRuns" style="color:#22c55e">0</b>/<b id="cricketWkts">0</b></span>
-        <span>BALLS: <b id="cricketBalls">12</b></span>
-      `;
-      this.wrap.appendChild(hud);
+      // Commentary Ticker
+      this.commBox = document.createElement('div');
+      this.commBox.className = 'cricket-commentary-bar';
+      this.commBox.id = 'crkComm';
+      this.commBox.textContent = this.commentary;
+      this.wrap.appendChild(this.commBox);
 
+      // Big Pop Banner
       this.banner = document.createElement('div');
       this.banner.className = 'cricket-banner';
       this.wrap.appendChild(this.banner);
 
-      // Swing Bat Control
-      const swingBar = document.createElement('div');
-      swingBar.className = 'game-touch-bar';
-      swingBar.innerHTML = `<button type="button" class="game-touch-btn" style="background:#e63946;color:#fff;font-size:16px" id="swingBatBtn">🏏 SWING BAT (TAP TO HIT)</button>`;
-      this.wrap.appendChild(swingBar);
+      // 4 Dynamic Batting Shot Buttons
+      const shotsBar = document.createElement('div');
+      shotsBar.className = 'cricket-shots-bar';
+      shotsBar.innerHTML = `
+        <button type="button" class="cricket-shot-btn" id="shotLofted"><span>🚀</span><span>Lofted 6</span></button>
+        <button type="button" class="cricket-shot-btn" id="shotPull"><span>⚡</span><span>Pull Shot</span></button>
+        <button type="button" class="cricket-shot-btn" id="shotDrive"><span>💫</span><span>Cover Drive</span></button>
+        <button type="button" class="cricket-shot-btn" id="shotHeli"><span>🔥</span><span>Helicopter</span></button>
+      `;
+      this.wrap.appendChild(shotsBar);
       this.container.appendChild(this.wrap);
 
-      swingBar.querySelector('#swingBatBtn').onclick = () => this.swingBat();
-      this.canvas.onclick = () => this.swingBat();
+      // Listeners
+      shotsBar.querySelector('#shotLofted').onclick = () => this.hitShot('lofted');
+      shotsBar.querySelector('#shotPull').onclick = () => this.hitShot('pull');
+      shotsBar.querySelector('#shotDrive').onclick = () => this.hitShot('drive');
+      shotsBar.querySelector('#shotHeli').onclick = () => this.hitShot('helicopter');
+
+      // Tapping canvas also swings default shot
+      this.canvas.onclick = () => this.hitShot(this.selectedShot);
     }
 
-    bowlBall() {
-      if (this.balls <= 0 || this.wickets >= 3) {
-        this.triggerGameOver();
+    bowlNextBall() {
+      if (this.ballsLeft <= 0 || this.wickets >= this.maxWickets) {
+        this.evaluateMatchResult();
         return;
       }
+
       this.ballState = 'bowling';
-      this.ballX = 180 + (Math.random() - 0.5) * 40;
-      this.ballY = 120;
-      this.balls--;
-      document.getElementById('cricketBalls').textContent = String(this.balls);
-    }
+      this.ballX = 180;
+      this.ballY = 130;
+      this.ballZ = 0;
+      this.timingRing = 38;
+      this.timingActive = true;
 
-    swingBat() {
-      if (this.ballState !== 'bowling') return;
+      // Pick bowler & delivery
+      const bObj = this.BOWLERS[Math.floor(Math.random() * this.BOWLERS.length)];
+      this.currentBowler = bObj;
+      this.deliveryType = bObj.type;
 
-      // Crease area is y: 440 to 480
-      const dist = Math.abs(this.ballY - 450);
-      ArcadeAudio.playBatHit();
-
-      if (dist < 18) {
-        // Perfect Timing: SIXER!
-        this.ballState = 'hit';
-        this.score += 6;
-        this.showBanner('🚀 SIX OUT OF STADIUM! +6', '#22c55e');
-        ArcadeAudio.playCrowdCheer();
-      } else if (dist < 38) {
-        // Good Timing: FOUR!
-        this.ballState = 'hit';
-        this.score += 4;
-        this.showBanner('🔥 ROCKET FOUR! +4', '#38bdf8');
-        ArcadeAudio.playDingSuccess();
-      } else if (dist < 60) {
-        this.ballState = 'hit';
-        this.score += 1;
-        this.showBanner('🏃 SINGLE +1', '#eab308');
+      // Pitch target coords
+      if (this.deliveryType === 'yorker') {
+        this.pitchTargetX = 176 + (Math.random() - 0.5) * 16;
+        this.pitchTargetY = 440;
+        this.bowlerSpeed = 8.8;
+      } else if (this.deliveryType === 'bouncer') {
+        this.pitchTargetX = 168 + (Math.random() - 0.5) * 20;
+        this.pitchTargetY = 320;
+        this.bowlerSpeed = 7.8;
+      } else if (this.deliveryType === 'spin') {
+        this.pitchTargetX = 195;
+        this.pitchTargetY = 360;
+        this.bowlerSpeed = 6.2;
+      } else if (this.deliveryType === 'inswinger') {
+        this.pitchTargetX = 165;
+        this.pitchTargetY = 370;
+        this.bowlerSpeed = 8.2;
       } else {
-        // Missed: Bowled out!
-        this.ballState = 'out';
-        this.wickets++;
-        this.showBanner('💥 BOWLED OUT!', '#ef4444');
-        ArcadeAudio.playCrash();
+        // Slower
+        this.pitchTargetX = 180;
+        this.pitchTargetY = 360;
+        this.bowlerSpeed = 5.2;
       }
 
-      document.getElementById('cricketRuns').textContent = String(this.score);
-      document.getElementById('cricketWkts').textContent = String(this.wickets);
-      const scoreEl = document.getElementById('funStageScore');
-      if (scoreEl) scoreEl.textContent = String(this.score);
+      this.ballsLeft--;
+      document.getElementById('crkBalls').textContent = String(this.ballsLeft);
+      this.setCommentary(`🎯 ${bObj.name} bowling: ${bObj.speedText}`);
+    }
 
-      setTimeout(() => this.bowlBall(), 1500);
+    hitShot(shotType) {
+      if (this.ballState !== 'bowling') return;
+
+      this.selectedShot = shotType;
+      this.timingActive = false;
+      const distFromCrease = Math.abs(this.ballY - 450);
+
+      ArcadeAudio.playBatHit();
+
+      // Timing accuracy
+      if (distFromCrease < 20) {
+        // PERFECT TIMING!
+        const isSix = shotType === 'lofted' || shotType === 'helicopter' || (Math.random() > 0.35);
+        if (isSix) {
+          const runs = 6;
+          this.score += runs;
+          this.ballState = 'hit';
+          this.addFireworks(this.ballX, 150, '#38bdf8');
+          ArcadeAudio.playCrowdCheer();
+          this.showBanner(shotType === 'helicopter' ? '🚁 MAHA-HELICOPTER SIX! +6' : '🚀 108M MASSIVE SIX! +6', '#38bdf8');
+          this.setCommentary(`💥 Ball gayi stadium ke paar! Bhai ne kya shot maara hai! (+6)`);
+          this.launchBallInAir(shotType, 6);
+        } else {
+          this.score += 4;
+          this.ballState = 'hit';
+          this.showBanner('⚡ ROCKET BOUNDARY FOUR! +4', '#22c55e');
+          this.setCommentary(`🔥 Goli ki tarah nikli ball boundary ke paar! (+4)`);
+          this.launchBallInAir(shotType, 4);
+        }
+      } else if (distFromCrease < 42) {
+        // GOOD TIMING
+        this.score += 4;
+        this.ballState = 'hit';
+        this.showBanner('🔥 CRACKING FOUR! +4', '#eab308');
+        this.setCommentary(`👏 Khubsurat shot! Fielder ke beech se 4 runs!`);
+        this.launchBallInAir(shotType, 4);
+      } else if (distFromCrease < 70) {
+        // EDGED / EARLY / LATE
+        const edgeRuns = Math.random() > 0.5 ? 2 : 1;
+        this.score += edgeRuns;
+        this.ballState = 'hit';
+        this.showBanner(`🏃 QUICK ${edgeRuns} RUNS!`, '#cbd5e1');
+        this.setCommentary(`Balle ka kinara laga par safe! 2 run bhag kar liye.`);
+        this.launchBallInAir(shotType, edgeRuns);
+      } else {
+        // MISSED: OUT OR BOWLED
+        this.ballState = 'out';
+        this.wickets++;
+        ArcadeAudio.playCrash();
+        if (this.ballY > 440) {
+          this.showBanner('💥 CLEAN BOWLED! STUMPS FLYING!', '#ef4444');
+          this.setCommentary(`😱 Dande ukhad gaye! Bowled out!`);
+        } else {
+          this.showBanner('❌ CAUGHT AT DEEP MIDWICKET!', '#ef4444');
+          this.setCommentary(`Hawa me utha diya shot aur fielder ne catch pakad liya!`);
+        }
+      }
+
+      this.updateHUD();
+
+      // Check early chase win
+      if (this.score >= this.target) {
+        setTimeout(() => this.evaluateMatchResult(), 1400);
+        return;
+      }
+
+      setTimeout(() => this.bowlNextBall(), 1800);
+    }
+
+    launchBallInAir(shotType, runs) {
+      this.ballTargetX = shotType === 'pull' ? 40 : shotType === 'drive' ? 320 : 180;
+      this.ballTargetY = runs === 6 ? -60 : 40;
+    }
+
+    addFireworks(x, y, color = '#f59e0b') {
+      for (let i = 0; i < 24; i++) {
+        const a = Math.random() * Math.PI * 2;
+        const spd = 2 + Math.random() * 6;
+        this.particles.push({
+          x,
+          y,
+          vx: Math.cos(a) * spd,
+          vy: Math.sin(a) * spd,
+          life: 30,
+          maxLife: 30,
+          color
+        });
+      }
     }
 
     showBanner(text, color) {
@@ -11916,21 +12298,86 @@ window.handleAIMessageSend = handleAIMessageSend;
       this.banner.style.display = 'block';
       setTimeout(() => {
         this.banner.style.display = 'none';
-      }, 1200);
+      }, 1500);
+    }
+
+    setCommentary(msg) {
+      this.commentary = msg;
+      if (this.commBox) this.commBox.textContent = msg;
+    }
+
+    updateHUD() {
+      const sEl = document.getElementById('crkScore');
+      if (sEl) sEl.textContent = String(this.score);
+      const wEl = document.getElementById('crkWkts');
+      if (wEl) wEl.textContent = String(this.wickets);
+      const scoreEl = document.getElementById('funStageScore');
+      if (scoreEl) scoreEl.textContent = String(this.score);
+
+      const req = Math.max(0, this.target - this.score);
+      const tEl = document.getElementById('crkTarget');
+      if (tEl) tEl.textContent = req === 0 ? '🏆 TARGET CHASED!' : `NEED ${req} IN ${this.ballsLeft}b`;
+    }
+
+    evaluateMatchResult() {
+      this.ballState = 'idle';
+      const isWon = this.score >= this.target;
+
+      if (isWon) {
+        ArcadeAudio.playDingSuccess();
+        this.showBanner('🏆 CHAMPIONS! SUPER OVER WON! 🏆', '#38bdf8');
+        this.setCommentary(`🎉 Balle Balle! Super Over Cup jeet liya!`);
+      } else {
+        ArcadeAudio.playDie();
+        this.showBanner('💔 MATCH DRAW / LOST! AGLE MATCH ME DEKHTE HAIN!', '#ef4444');
+        this.setCommentary(`Khel achha tha bhai! Agli baar trophy apni hogi.`);
+      }
+
+      setTimeout(() => {
+        showGameOverOverlay(this.wrap, this.score, 'cricket', () => {
+          window.launchArcadeGame('cricket');
+        });
+      }, 1800);
     }
 
     startLoop() {
       const loop = () => {
         if (this.destroyed) return;
 
+        // Ball movement in air / on pitch
         if (this.ballState === 'bowling') {
           this.ballY += this.bowlerSpeed;
-          if (this.ballY > 520) {
-            // Ball passed unhit
-            this.ballState = 'idle';
-            this.showBanner('DOT BALL', '#aaa');
-            setTimeout(() => this.bowlBall(), 1200);
+
+          // Curve / Spin physics
+          if (this.deliveryType === 'spin' && this.ballY > this.pitchTargetY) {
+            this.ballX -= 2.2; // sharp turn into batsman
+          } else if (this.deliveryType === 'inswinger') {
+            this.ballX += 0.8;
           }
+
+          // Shrink timing circle towards pitch
+          if (this.timingRing > 4) this.timingRing -= 1.2;
+
+          // Ball reached keeper / unhit
+          if (this.ballY > 520) {
+            this.ballState = 'idle';
+            this.showBanner('DOT BALL ❌', '#94a3b8');
+            this.setCommentary('Dot ball nikal gayi! Batsman timing miss kar gaya.');
+            setTimeout(() => this.bowlNextBall(), 1500);
+          }
+        } else if (this.ballState === 'hit') {
+          // Ball traveling into stands
+          this.ballX += (this.ballTargetX - this.ballX) * 0.12;
+          this.ballY += (this.ballTargetY - this.ballY) * 0.12;
+        }
+
+        // Update particles
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life--;
+          if (p.life <= 0) this.particles.splice(i, 1);
         }
 
         this.render();
@@ -11943,57 +12390,166 @@ window.handleAIMessageSend = handleAIMessageSend;
       const ctx = this.ctx;
       ctx.clearRect(0, 0, 360, 540);
 
-      // Pitch Grass
-      ctx.fillStyle = '#15803d';
-      ctx.fillRect(0, 0, 360, 540);
+      // 1. Stadium Night Sky & Floodlights
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, 180);
+      skyGrad.addColorStop(0, '#030a16');
+      skyGrad.addColorStop(1, '#0c1e38');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, 360, 180);
 
-      // Pitch Turf Strip
-      ctx.fillStyle = '#d97706';
-      ctx.fillRect(120, 0, 120, 540);
-
-      // Bowling & Batting Crease lines
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 3;
+      // Stadium Stands & Cheering Crowd Silhouettes
+      ctx.fillStyle = '#0f2442';
       ctx.beginPath();
-      ctx.moveTo(120, 140);
-      ctx.lineTo(240, 140);
-      ctx.moveTo(120, 460);
-      ctx.lineTo(240, 460);
+      ctx.arc(180, 240, 220, Math.PI, 0);
+      ctx.fill();
+
+      // Floodlight Towers
+      [30, 330].forEach(lx => {
+        ctx.fillStyle = '#f8fafc';
+        ctx.shadowColor = '#38bdf8';
+        ctx.shadowBlur = 20;
+        ctx.beginPath();
+        ctx.arc(lx, 40, 8, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      // 2. Outfield Grass (Lush Green with cut lawn stripes)
+      const grassGrad = ctx.createLinearGradient(0, 140, 0, 540);
+      grassGrad.addColorStop(0, '#15803d');
+      grassGrad.addColorStop(1, '#166534');
+      ctx.fillStyle = grassGrad;
+      ctx.fillRect(0, 140, 360, 400);
+
+      // 3. Perspective Turf Pitch Strip
+      ctx.fillStyle = '#d97706'; // Clay turf
+      ctx.beginPath();
+      ctx.moveTo(150, 140);
+      ctx.lineTo(210, 140);
+      ctx.lineTo(250, 490);
+      ctx.lineTo(110, 490);
+      ctx.closePath();
+      ctx.fill();
+
+      // Crease Chalk Lines
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2.5;
+
+      // Bowler Crease (Top)
+      ctx.beginPath();
+      ctx.moveTo(146, 170);
+      ctx.lineTo(214, 170);
       ctx.stroke();
 
-      // Wickets (Stumps)
-      ctx.fillStyle = '#fef08a';
-      // Bowler stumps
-      ctx.fillRect(174, 110, 12, 16);
-      // Batsman stumps
-      ctx.fillRect(174, 470, 12, 18);
+      // Batting Popping Crease (Bottom)
+      ctx.beginPath();
+      ctx.moveTo(116, 455);
+      ctx.lineTo(244, 455);
+      ctx.stroke();
 
-      // Ball
-      if (this.ballState === 'bowling') {
-        ctx.fillStyle = '#dc2626';
+      // Return Crease marks
+      ctx.beginPath();
+      ctx.moveTo(125, 435);
+      ctx.lineTo(125, 475);
+      ctx.moveTo(235, 435);
+      ctx.lineTo(235, 475);
+      ctx.stroke();
+
+      // 4. Stumps & Bails
+      // Batsman Stumps (Bottom)
+      ctx.fillStyle = '#fef08a';
+      [174, 180, 186].forEach(sx => {
+        ctx.fillRect(sx, 460, 3, 22);
+      });
+      // Bail
+      ctx.fillRect(173, 458, 16, 2.5);
+
+      // 5. Bowler Silhouette (Top)
+      if (this.ballState === 'bowling' && this.ballY < 200) {
+        ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
-        ctx.arc(this.ballX, this.ballY, 8, 0, Math.PI * 2);
+        ctx.arc(180, 120, 8, 0, Math.PI * 2);
         ctx.fill();
-        ctx.strokeStyle = '#fff';
+        ctx.fillRect(177, 128, 6, 14);
+      }
+
+      // 6. Timing Circle Ring on Pitch
+      if (this.timingActive && this.ballState === 'bowling') {
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(this.pitchTargetX, this.pitchTargetY, Math.max(6, this.timingRing), 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(245,158,11,0.2)';
+        ctx.fill();
+      }
+
+      // 7. Batsman Character (Bottom)
+      ctx.save();
+      const batAngle = this.ballState === 'hit' ? -Math.PI / 3 : 0.2;
+      ctx.translate(155, 440);
+
+      // Pads & Legs
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(-6, 12, 6, 18);
+      ctx.fillRect(4, 12, 6, 18);
+
+      // Body (India Blue Jersey)
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-8, -10, 20, 22);
+
+      // Helmet (Dark Navy with Grill)
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(2, -16, 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cricket Bat
+      ctx.rotate(batAngle);
+      ctx.fillStyle = '#b45309';
+      ctx.fillRect(8, -6, 6, 32); // Blade
+      ctx.fillStyle = '#f59e0b';
+      ctx.fillRect(9, -14, 4, 8); // Grip
+      ctx.restore();
+
+      // 8. Cricket Ball (Red leather with white seam & 3D shadow)
+      if (this.ballState === 'bowling' || this.ballState === 'hit') {
+        const ballSize = 6 + (this.ballY / 540) * 4;
+
+        // Ball Shadow
+        ctx.fillStyle = 'rgba(0,0,0,0.3)';
+        ctx.beginPath();
+        ctx.arc(this.ballX, this.ballY + 4, ballSize * 0.9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Leather Ball
+        ctx.fillStyle = '#dc2626';
+        ctx.shadowColor = '#ef4444';
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        ctx.arc(this.ballX, this.ballY, ballSize, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // White Seam
+        ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(this.ballX, this.ballY, ballSize, -0.4, 0.4);
         ctx.stroke();
       }
 
-      // Batsman Silhouette
-      ctx.fillStyle = '#1e293b';
-      ctx.beginPath();
-      ctx.arc(150, 450, 14, 0, Math.PI * 2);
-      ctx.fill();
-      // Bat
-      ctx.fillStyle = '#78350f';
-      ctx.fillRect(162, 442, 6, 26);
-    }
-
-    triggerGameOver() {
-      this.ballState = 'idle';
-      showGameOverOverlay(this.wrap, this.score, 'cricket', () => {
-        window.launchArcadeGame('cricket');
-      });
+      // 9. Particle Celebrations
+      for (const p of this.particles) {
+        ctx.save();
+        ctx.globalAlpha = p.life / p.maxLife;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
     destroy() {
@@ -12400,7 +12956,7 @@ window.handleAIMessageSend = handleAIMessageSend;
   }
 
   // ==========================================
-  // GAME 9: 🧪 WATER SORT COLOR PUZZLE (From Uploaded Screenshot)
+  // GAME 9: 🧪 WATER SORT COLOR PUZZLE (Guaranteed Solvable & Glossy Tubes)
   // ==========================================
   class WaterSortGame {
     constructor(container) {
@@ -12429,7 +12985,7 @@ window.handleAIMessageSend = handleAIMessageSend;
       this.wrap.innerHTML = `
         <div class="ws-header">
           <div class="ws-title">🧪 Water Sort Color Puzzle</div>
-          <div class="ws-subtitle">Sort every test tube to a single color! Level <b id="wsLevelNum">1</b></div>
+          <div class="ws-subtitle">Sort every test tube to a single color! Level <b id="wsLevelNum" style="color:#c084fc">1</b></div>
         </div>
         <div class="ws-tubes-grid" id="wsTubesGrid"></div>
         <div class="ws-actions-row">
@@ -12444,7 +13000,7 @@ window.handleAIMessageSend = handleAIMessageSend;
       this.wrap.querySelector('#wsRestartBtn').onclick = () => this.startLevel();
       this.wrap.querySelector('#wsSolveBtn').onclick = () => {
         ArcadeAudio.playDingSuccess();
-        alert('Hint: Tap a tube with colors on top, then tap an empty tube or a tube with the same color on top!');
+        alert('💡 Hint: Pehle empty tube ka use karke ek color ko alag karo, fir matching colors ko ek tube me bharo!');
       };
     }
 
@@ -12452,30 +13008,36 @@ window.handleAIMessageSend = handleAIMessageSend;
       this.selectedTubeIdx = null;
       this.history = [];
       const numColors = Math.min(6, 2 + this.level);
-      const numTubes = numColors + 2; // 2 extra empty tubes
 
-      // Create pool of 4 units per color
-      let pool = [];
-      for (let c = 0; c < numColors; c++) {
-        for (let i = 0; i < 4; i++) pool.push(this.COLORS[c]);
+      // Start with solved state: each tube full of 1 color, plus 2 empty tubes
+      let initialTubes = [];
+      for (let t = 0; t < numColors; t++) {
+        initialTubes.push([this.COLORS[t], this.COLORS[t], this.COLORS[t], this.COLORS[t]]);
       }
-      // Shuffle pool
-      pool.sort(() => Math.random() - 0.5);
+      initialTubes.push([]);
+      initialTubes.push([]);
 
-      this.tubes = [];
-      for (let t = 0; c = 0, t < numColors; t++) {
-        this.tubes.push(pool.slice(t * 4, t * 4 + 4));
+      // Perform 25 random valid reverse pour moves to ensure 100% mathematically solvable!
+      const totalTubes = initialTubes.length;
+      for (let step = 0; step < 26; step++) {
+        const fromIdx = Math.floor(Math.random() * totalTubes);
+        const toIdx = Math.floor(Math.random() * totalTubes);
+        if (fromIdx !== toIdx && initialTubes[fromIdx].length > 0 && initialTubes[toIdx].length < 4) {
+          initialTubes[toIdx].push(initialTubes[fromIdx].pop());
+        }
       }
-      // Add empty tubes
-      this.tubes.push([]);
-      this.tubes.push([]);
 
-      document.getElementById('wsLevelNum').textContent = String(this.level);
+      this.tubes = initialTubes;
+
+      const lvlEl = document.getElementById('wsLevelNum');
+      if (lvlEl) lvlEl.textContent = String(this.level);
+
       this.renderTubes();
     }
 
     renderTubes() {
       const grid = this.wrap.querySelector('#wsTubesGrid');
+      if (!grid) return;
       grid.innerHTML = '';
 
       this.tubes.forEach((layers, idx) => {
@@ -12527,7 +13089,7 @@ window.handleAIMessageSend = handleAIMessageSend;
         // Save history for undo
         this.history.push(JSON.parse(JSON.stringify(this.tubes)));
 
-        // Pour matching consecutive colors
+        // Pour matching consecutive colors that fit
         while (src.length > 0 && src[src.length - 1] === topSrc && dst.length < 4) {
           dst.push(src.pop());
         }
@@ -12565,10 +13127,10 @@ window.handleAIMessageSend = handleAIMessageSend;
         if (scoreEl) scoreEl.textContent = String(this.score);
 
         setTimeout(() => {
-          alert(`🎉 SHABASH! Level ${this.level} Sorted Perfectly! +${100 * this.level} Score`);
+          alert(`🎉 SHABASH! Level ${this.level} Sorted Perfectly! +${100 * this.level} Points`);
           this.level++;
           this.startLevel();
-        }, 300);
+        }, 320);
       }
     }
 
@@ -12996,6 +13558,1280 @@ window.handleAIMessageSend = handleAIMessageSend;
     }
 
     destroy() {}
+  }
+
+
+  // ==========================================
+  // GAME 12: 🏃 DESI STREET RUNNER (3-Lane Endless Rush)
+  // ==========================================
+  class RunnerDashGame {
+    constructor(container) {
+      this.container = container;
+      this.score = 0;
+      this.distance = 0;
+      this.gameOver = false;
+      this.playerLane = 1; // 0: Left, 1: Middle, 2: Right
+      this.laneX = [80, 180, 280];
+      this.playerX = 180;
+      this.playerY = 440;
+      this.playerZ = 0; // jump height
+      this.isJumping = false;
+      this.isSliding = false;
+      this.jumpVy = 0;
+      this.slideTimer = 0;
+      this.speed = 5.5;
+      this.obstacles = [];
+      this.coins = [];
+      this.spawnTimer = 0;
+      this.magnetActive = false;
+      this.magnetTimer = 0;
+
+      this.initUI();
+      this.startLoop();
+    }
+
+    initUI() {
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'game-canvas-wrap';
+
+      // HUD
+      const hud = document.createElement('div');
+      hud.className = 'cricket-hud';
+      hud.innerHTML = `
+        <div>🏃 Distance: <b id="rnDist" style="color:#38bdf8">0m</b></div>
+        <div>🪙 Samosas: <b id="rnScore" style="color:#f59e0b">0</b></div>
+      `;
+      this.wrap.appendChild(hud);
+
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'game-canvas';
+      this.canvas.width = 360;
+      this.canvas.height = 540;
+      this.ctx = this.canvas.getContext('2d');
+      this.wrap.appendChild(this.canvas);
+
+      // 4 Mobile Touch Buttons: Left, Jump, Slide, Right
+      const touchBar = document.createElement('div');
+      touchBar.className = 'runner-touch-bar';
+      touchBar.innerHTML = `
+        <button type="button" class="runner-touch-btn" id="rnLeftBtn">◀ Left</button>
+        <button type="button" class="runner-touch-btn" id="rnJumpBtn" style="background:#e63946">▲ Jump</button>
+        <button type="button" class="runner-touch-btn" id="rnSlideBtn" style="background:#ca8a04">▼ Slide</button>
+        <button type="button" class="runner-touch-btn" id="rnRightBtn">Right ▶</button>
+      `;
+      this.wrap.appendChild(touchBar);
+      this.container.appendChild(this.wrap);
+
+      touchBar.querySelector('#rnLeftBtn').onclick = () => this.moveLeft();
+      touchBar.querySelector('#rnRightBtn').onclick = () => this.moveRight();
+      touchBar.querySelector('#rnJumpBtn').onclick = () => this.jump();
+      touchBar.querySelector('#rnSlideBtn').onclick = () => this.slide();
+
+      // Keyboard Controls
+      this.keyHandler = (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') this.moveLeft();
+        if (e.key === 'ArrowRight' || e.key === 'd') this.moveRight();
+        if (e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') this.jump();
+        if (e.key === 'ArrowDown' || e.key === 's') this.slide();
+      };
+      window.addEventListener('keydown', this.keyHandler);
+
+      // Swipe Gestures on Canvas
+      let touchStartX = 0;
+      let touchStartY = 0;
+      this.canvas.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      this.canvas.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          if (dx > 30) this.moveRight();
+          else if (dx < -30) this.moveLeft();
+        } else {
+          if (dy < -30) this.jump();
+          else if (dy > 30) this.slide();
+        }
+      }, { passive: true });
+    }
+
+    moveLeft() {
+      if (this.playerLane > 0) {
+        this.playerLane--;
+        ArcadeAudio.playFlap();
+      }
+    }
+
+    moveRight() {
+      if (this.playerLane < 2) {
+        this.playerLane++;
+        ArcadeAudio.playFlap();
+      }
+    }
+
+    jump() {
+      if (!this.isJumping) {
+        this.isJumping = true;
+        this.jumpVy = 13.5;
+        ArcadeAudio.playRunnerJump();
+      }
+    }
+
+    slide() {
+      if (!this.isSliding) {
+        this.isSliding = true;
+        this.slideTimer = 35;
+        ArcadeAudio.playFlap();
+      }
+    }
+
+    spawnObstacle() {
+      const lane = Math.floor(Math.random() * 3);
+      const types = [
+        { type: 'barrier', icon: '🚧', color: '#eab308', w: 50, h: 32, requires: 'jump' },
+        { type: 'rickshaw', icon: '🛺', color: '#16a34a', w: 46, h: 56, requires: 'dodge' },
+        { type: 'cow', icon: '🐄', color: '#f8fafc', w: 52, h: 50, requires: 'dodge' },
+        { type: 'banner', icon: '🎋', color: '#e11d48', w: 60, h: 25, requires: 'slide' }
+      ];
+      const sel = types[Math.floor(Math.random() * types.length)];
+      this.obstacles.push({
+        lane,
+        x: this.laneX[lane],
+        y: -60,
+        ...sel
+      });
+
+      // Spawn coins in other lanes
+      const coinLane = (lane + 1) % 3;
+      for (let i = 0; i < 3; i++) {
+        this.coins.push({
+          lane: coinLane,
+          x: this.laneX[coinLane],
+          y: -80 - i * 40
+        });
+      }
+    }
+
+    startLoop() {
+      const loop = () => {
+        if (this.destroyed) return;
+
+        this.distance += Math.floor(this.speed * 0.2);
+        this.speed = Math.min(12, 5.5 + this.distance * 0.002);
+
+        // Smooth X move towards target lane
+        const targetX = this.laneX[this.playerLane];
+        this.playerX += (targetX - this.playerX) * 0.25;
+
+        // Jump physics
+        if (this.isJumping) {
+          this.playerZ += this.jumpVy;
+          this.jumpVy -= 0.85; // Gravity
+          if (this.playerZ <= 0) {
+            this.playerZ = 0;
+            this.isJumping = false;
+          }
+        }
+
+        // Slide timer
+        if (this.isSliding) {
+          this.slideTimer--;
+          if (this.slideTimer <= 0) this.isSliding = false;
+        }
+
+        // Spawn timer
+        this.spawnTimer += this.speed;
+        if (this.spawnTimer > 160) {
+          this.spawnTimer = 0;
+          this.spawnObstacle();
+        }
+
+        // Update obstacles
+        for (let i = this.obstacles.length - 1; i >= 0; i--) {
+          const obs = this.obstacles[i];
+          obs.y += this.speed;
+
+          // Check Collision with player (player is at playerX, y: 440, playerZ)
+          if (Math.abs(obs.x - this.playerX) < 28 && Math.abs(obs.y - this.playerY) < 36) {
+            if (obs.requires === 'jump' && this.playerZ > 24) {
+              // Safely jumped over!
+            } else if (obs.requires === 'slide' && this.isSliding) {
+              // Safely slid under!
+            } else {
+              // CRASH!
+              this.triggerGameOver();
+              return;
+            }
+          }
+
+          if (obs.y > 580) this.obstacles.splice(i, 1);
+        }
+
+        // Update coins
+        for (let i = this.coins.length - 1; i >= 0; i--) {
+          const c = this.coins[i];
+          c.y += this.speed;
+
+          // Collect coin
+          if (Math.abs(c.x - this.playerX) < 35 && Math.abs(c.y - this.playerY) < 40) {
+            this.score += 10;
+            ArcadeAudio.playCoinDrop();
+            this.coins.splice(i, 1);
+            continue;
+          }
+
+          if (c.y > 580) this.coins.splice(i, 1);
+        }
+
+        this.updateHUD();
+        this.render();
+
+        if (!this.gameOver) {
+          this.raf = requestAnimationFrame(loop);
+        }
+      };
+      this.raf = requestAnimationFrame(loop);
+    }
+
+    updateHUD() {
+      const dEl = document.getElementById('rnDist');
+      if (dEl) dEl.textContent = `${this.distance}m`;
+      const sEl = document.getElementById('rnScore');
+      if (sEl) sEl.textContent = String(this.score);
+      const scoreEl = document.getElementById('funStageScore');
+      if (scoreEl) scoreEl.textContent = String(this.score + Math.floor(this.distance / 2));
+    }
+
+    render() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, 360, 540);
+
+      // Indian City Street Road (Deep Terracotta & Concrete)
+      ctx.fillStyle = '#1c1917';
+      ctx.fillRect(0, 0, 360, 540);
+
+      // Footpath curbs
+      ctx.fillStyle = '#ca8a04';
+      ctx.fillRect(0, 0, 20, 540);
+      ctx.fillRect(340, 0, 20, 540);
+
+      // Lane dividers
+      ctx.strokeStyle = '#fef08a';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([25, 25]);
+      ctx.lineDashOffset = -this.distance * 2;
+      [130, 230].forEach(lx => {
+        ctx.beginPath();
+        ctx.moveTo(lx, 0);
+        ctx.lineTo(lx, 540);
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+
+      // Render Coins / Samosas
+      for (const c of this.coins) {
+        ctx.font = '20px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('🪙', c.x, c.y);
+      }
+
+      // Render Obstacles
+      for (const obs of this.obstacles) {
+        ctx.font = `${obs.h * 0.9}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(obs.icon, obs.x, obs.y);
+      }
+
+      // Render Player Character
+      const px = this.playerX;
+      const py = this.playerY - this.playerZ;
+
+      // Player Shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.35)';
+      ctx.beginPath();
+      ctx.ellipse(px, this.playerY + 20, 18 * (1 - this.playerZ * 0.01), 6, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Running Character
+      ctx.font = this.isSliding ? '32px sans-serif' : '44px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(this.isSliding ? '🧎' : '🏃', px, py);
+    }
+
+    triggerGameOver() {
+      this.gameOver = true;
+      ArcadeAudio.playCrash();
+      const finalScore = this.score + Math.floor(this.distance / 2);
+      showGameOverOverlay(this.wrap, finalScore, 'runner_dash', () => {
+        window.launchArcadeGame('runner_dash');
+      });
+    }
+
+    destroy() {
+      this.destroyed = true;
+      if (this.raf) cancelAnimationFrame(this.raf);
+      if (this.keyHandler) window.removeEventListener('keydown', this.keyHandler);
+    }
+  }
+
+  // ==========================================
+  // GAME 13: 🎲 REALISTIC SNAKE & LADDER 3D (Saanp Seedhi)
+  // ==========================================
+  class SnakeLadderGame {
+    constructor(container) {
+      this.container = container;
+      this.playerPos = 1;
+      this.aiPos = 1;
+      this.turn = 'player'; // 'player' or 'ai'
+      this.diceValue = 1;
+      this.isRolling = false;
+      this.score = 0;
+      this.gameOver = false;
+
+      // 7 Ladders (Climb Up!)
+      this.LADDERS = {
+        4: 25, 13: 46, 33: 69, 42: 74, 50: 91, 62: 81, 74: 95
+      };
+
+      // 7 Snakes (Slide Down!)
+      this.SNAKES = {
+        27: 5, 40: 18, 54: 31, 66: 45, 76: 58, 89: 53, 99: 12
+      };
+
+      this.initUI();
+    }
+
+    initUI() {
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'sl-container';
+
+      // HUD
+      const hud = document.createElement('div');
+      hud.className = 'sl-hud';
+      hud.innerHTML = `
+        <div>🔴 You: <b id="slPosYou" style="color:#ef4444;font-size:15px">1</b>/100</div>
+        <div id="slTurnStatus" style="color:#fef08a">Aapki Baari: Roll Karo!</div>
+        <div>🔵 Munna AI: <b id="slPosAi" style="color:#38bdf8;font-size:15px">1</b>/100</div>
+      `;
+      this.wrap.appendChild(hud);
+
+      // Canvas Board (360x360)
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'game-canvas';
+      this.canvas.width = 340;
+      this.canvas.height = 340;
+      this.ctx = this.canvas.getContext('2d');
+      this.wrap.appendChild(this.canvas);
+
+      // Dice Rolling Bottom Tray
+      const tray = document.createElement('div');
+      tray.className = 'sl-dice-tray';
+      tray.innerHTML = `
+        <div class="sl-dice-cube" id="slDiceCube">🎲 <b>1</b></div>
+        <div id="slCommentary" style="font-size:12px;color:#cbd5e1;max-width:180px;text-align:center">Dice phenko aur 100 par pahuncho!</div>
+        <button type="button" class="sl-roll-btn" id="slRollBtn">🎲 Roll</button>
+      `;
+      this.wrap.appendChild(tray);
+      this.container.appendChild(this.wrap);
+
+      tray.querySelector('#slRollBtn').onclick = () => this.handlePlayerRoll();
+      tray.querySelector('#slDiceCube').onclick = () => this.handlePlayerRoll();
+
+      this.renderBoard();
+    }
+
+    handlePlayerRoll() {
+      if (this.isRolling || this.turn !== 'player' || this.gameOver) return;
+      this.rollDice((val) => {
+        this.moveToken('player', val, () => {
+          if (!this.gameOver) {
+            this.turn = 'ai';
+            document.getElementById('slTurnStatus').textContent = "🤖 Munna AI roll kar raha hai...";
+            setTimeout(() => this.handleAiRoll(), 900);
+          }
+        });
+      });
+    }
+
+    handleAiRoll() {
+      if (this.gameOver) return;
+      this.rollDice((val) => {
+        this.moveToken('ai', val, () => {
+          if (!this.gameOver) {
+            this.turn = 'player';
+            document.getElementById('slTurnStatus').textContent = "Aapki Baari: Roll Karo!";
+          }
+        });
+      });
+    }
+
+    rollDice(callback) {
+      this.isRolling = true;
+      ArcadeAudio.playDiceRoll();
+      let rolls = 0;
+      const cube = document.getElementById('slDiceCube');
+
+      const interval = setInterval(() => {
+        const temp = Math.floor(Math.random() * 6) + 1;
+        if (cube) cube.innerHTML = `🎲 <b>${temp}</b>`;
+        rolls++;
+        if (rolls > 8) {
+          clearInterval(interval);
+          this.diceValue = temp;
+          this.isRolling = false;
+          callback(temp);
+        }
+      }, 50);
+    }
+
+    moveToken(who, steps, callback) {
+      let currentPos = who === 'player' ? this.playerPos : this.aiPos;
+      let targetPos = currentPos + steps;
+
+      if (targetPos > 100) {
+        // Can't move if exceeds 100
+        this.setCommentary(`${who === 'player' ? 'Aapko' : 'Munna ko'} jeetne ke liye exactly ${100 - currentPos} chahiye the!`);
+        callback();
+        return;
+      }
+
+      currentPos = targetPos;
+      if (who === 'player') this.playerPos = currentPos;
+      else this.aiPos = currentPos;
+
+      this.updateHUD();
+      this.renderBoard();
+
+      // Check Ladder or Snake
+      setTimeout(() => {
+        if (this.LADDERS[currentPos]) {
+          const dest = this.LADDERS[currentPos];
+          ArcadeAudio.playLadderClimb();
+          this.setCommentary(`🪜 WAHA! Seedhi mil gayi! ${currentPos} -> ${dest}!`);
+          if (who === 'player') { this.playerPos = dest; this.score += 20; }
+          else this.aiPos = dest;
+        } else if (this.SNAKES[currentPos]) {
+          const dest = this.SNAKES[currentPos];
+          ArcadeAudio.playSnakeBite();
+          this.setCommentary(`🐍 Arey baap re! Saanp ne das liya! ${currentPos} -> ${dest}! 😂`);
+          if (who === 'player') this.playerPos = dest;
+          else this.aiPos = dest;
+        }
+
+        this.updateHUD();
+        this.renderBoard();
+
+        // Check Win
+        if (this.playerPos === 100) {
+          this.gameOver = true;
+          ArcadeAudio.playDingSuccess();
+          this.score += 100;
+          this.setCommentary('🏆 Balle Balle! Aap Saanp Seedhi Champion ban gaye!');
+          setTimeout(() => {
+            showGameOverOverlay(this.wrap, this.score, 'snake_ladder', () => {
+              window.launchArcadeGame('snake_ladder');
+            });
+          }, 1200);
+          return;
+        } else if (this.aiPos === 100) {
+          this.gameOver = true;
+          ArcadeAudio.playDie();
+          this.setCommentary('Munna Bhaiya pehle 100 par pahunch gaya! Agli baar harana!');
+          setTimeout(() => {
+            showGameOverOverlay(this.wrap, this.score, 'snake_ladder', () => {
+              window.launchArcadeGame('snake_ladder');
+            });
+          }, 1200);
+          return;
+        }
+
+        callback();
+      }, 500);
+    }
+
+    setCommentary(msg) {
+      const el = document.getElementById('slCommentary');
+      if (el) el.textContent = msg;
+    }
+
+    updateHUD() {
+      const pEl = document.getElementById('slPosYou');
+      if (pEl) pEl.textContent = String(this.playerPos);
+      const aEl = document.getElementById('slPosAi');
+      if (aEl) aEl.textContent = String(this.aiPos);
+      const scoreEl = document.getElementById('funStageScore');
+      if (scoreEl) scoreEl.textContent = String(this.score);
+    }
+
+    getSquareCoords(num) {
+      // 1 to 100 in snake pattern
+      const row = Math.floor((num - 1) / 10);
+      const colInRow = (num - 1) % 10;
+      const col = (row % 2 === 0) ? colInRow : (9 - colInRow);
+      const cellSize = 34;
+      return {
+        x: col * cellSize + cellSize / 2,
+        y: (9 - row) * cellSize + cellSize / 2
+      };
+    }
+
+    renderBoard() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, 340, 340);
+
+      const cellSize = 34;
+
+      // 10x10 Grid Cells
+      for (let r = 0; r < 10; r++) {
+        for (let c = 0; c < 10; c++) {
+          const isEven = (r + c) % 2 === 0;
+          ctx.fillStyle = isEven ? '#1e293b' : '#0f172a';
+          ctx.fillRect(c * cellSize, r * cellSize, cellSize, cellSize);
+
+          ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+          ctx.strokeRect(c * cellSize, r * cellSize, cellSize, cellSize);
+        }
+      }
+
+      // Draw Cell Numbers
+      for (let n = 1; n <= 100; n++) {
+        const pt = this.getSquareCoords(n);
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.font = '8px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(n), pt.x, pt.y);
+      }
+
+      // Draw Ladders (Golden Rungs)
+      ctx.strokeStyle = '#eab308';
+      ctx.lineWidth = 3.5;
+      for (const [from, to] of Object.entries(this.LADDERS)) {
+        const p1 = this.getSquareCoords(Number(from));
+        const p2 = this.getSquareCoords(Number(to));
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+
+        // Ladder icon
+        ctx.font = '14px sans-serif';
+        ctx.fillText('🪜', (p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+      }
+
+      // Draw Snakes (Red Wavy Lines)
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 3.5;
+      for (const [from, to] of Object.entries(this.SNAKES)) {
+        const p1 = this.getSquareCoords(Number(from));
+        const p2 = this.getSquareCoords(Number(to));
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+
+        ctx.font = '14px sans-serif';
+        ctx.fillText('🐍', p1.x, p1.y);
+      }
+
+      // Draw Player Token 🔴
+      const pPt = this.getSquareCoords(this.playerPos);
+      ctx.fillStyle = '#ef4444';
+      ctx.shadowColor = '#ef4444';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(pPt.x - 4, pPt.y - 4, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 8px sans-serif';
+      ctx.fillText('P', pPt.x - 4, pPt.y - 4);
+
+      // Draw AI Token 🔵
+      const aPt = this.getSquareCoords(this.aiPos);
+      ctx.fillStyle = '#38bdf8';
+      ctx.shadowColor = '#38bdf8';
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(aPt.x + 4, aPt.y + 4, 9, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 8px sans-serif';
+      ctx.fillText('AI', aPt.x + 4, aPt.y + 4);
+    }
+
+    destroy() {}
+  }
+
+  // ==========================================
+  // GAME 14: 🔴🟡 LUDO MASTER CLASSIC
+  // ==========================================
+  class LudoMasterGame {
+    constructor(container) {
+      this.container = container;
+      this.score = 0;
+      this.turn = 'red'; // 'red' (You) or 'green' (CPU)
+      this.redTokens = [0, 0, 0, 0]; // 0: Home yard, 1-51: track, 52-57: finish
+      this.greenTokens = [0, 0, 0, 0];
+      this.diceVal = 1;
+      this.isRolling = false;
+      this.gameOver = false;
+
+      this.initUI();
+    }
+
+    initUI() {
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'ludo-container';
+
+      const hud = document.createElement('div');
+      hud.className = 'sl-hud';
+      hud.innerHTML = `
+        <div style="color:#ef4444">🔴 You (Red)</div>
+        <div id="ludoStatus" style="color:#fef08a">Aapki Baari: Dice phenko!</div>
+        <div style="color:#10b981">🟢 CPU (Green)</div>
+      `;
+      this.wrap.appendChild(hud);
+
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'game-canvas';
+      this.canvas.width = 340;
+      this.canvas.height = 340;
+      this.ctx = this.canvas.getContext('2d');
+      this.wrap.appendChild(this.canvas);
+
+      const tray = document.createElement('div');
+      tray.className = 'sl-dice-tray';
+      tray.innerHTML = `
+        <div class="sl-dice-cube" id="ludoDice">🎲 <b>6</b></div>
+        <div style="font-size:12px;color:#aaa">Roll 6 to open token!</div>
+        <button type="button" class="sl-roll-btn" id="ludoRollBtn">Roll Dice</button>
+      `;
+      this.wrap.appendChild(tray);
+      this.container.appendChild(this.wrap);
+
+      tray.querySelector('#ludoRollBtn').onclick = () => this.rollPlayerDice();
+      tray.querySelector('#ludoDice').onclick = () => this.rollPlayerDice();
+
+      this.render();
+    }
+
+    rollPlayerDice() {
+      if (this.isRolling || this.turn !== 'red' || this.gameOver) return;
+      this.rollDiceAnim((val) => {
+        this.diceVal = val;
+        // Check if red has tokens in yard to unlock
+        let moved = false;
+        if (val === 6) {
+          const lockedIdx = this.redTokens.findIndex(p => p === 0);
+          if (lockedIdx !== -1) {
+            this.redTokens[lockedIdx] = 1; // Unlocked!
+            moved = true;
+            this.score += 25;
+            ArcadeAudio.playDingSuccess();
+          }
+        }
+
+        if (!moved) {
+          // Move the furthest unlocked token
+          const unlocked = this.redTokens.map((p, i) => p > 0 && p + val <= 57 ? i : null).filter(i => i !== null);
+          if (unlocked.length > 0) {
+            const chosen = unlocked[unlocked.length - 1];
+            this.redTokens[chosen] += val;
+            ArcadeAudio.playFlap();
+            this.score += val * 5;
+          }
+        }
+
+        this.render();
+
+        // Switch to CPU
+        if (val !== 6) {
+          this.turn = 'green';
+          document.getElementById('ludoStatus').textContent = "🟢 CPU dice roll kar raha hai...";
+          setTimeout(() => this.cpuTurn(), 800);
+        } else {
+          document.getElementById('ludoStatus').textContent = "🎉 6 AAYA! Ek aur turn!";
+        }
+      });
+    }
+
+    cpuTurn() {
+      if (this.gameOver) return;
+      this.rollDiceAnim((val) => {
+        this.diceVal = val;
+        let moved = false;
+        if (val === 6) {
+          const locked = this.greenTokens.findIndex(p => p === 0);
+          if (locked !== -1) {
+            this.greenTokens[locked] = 1;
+            moved = true;
+          }
+        }
+        if (!moved) {
+          const unlocked = this.greenTokens.map((p, i) => p > 0 && p + val <= 57 ? i : null).filter(i => i !== null);
+          if (unlocked.length > 0) {
+            this.greenTokens[unlocked[0]] += val;
+          }
+        }
+        this.render();
+
+        if (val !== 6) {
+          this.turn = 'red';
+          document.getElementById('ludoStatus').textContent = "🔴 Aapki Baari: Dice phenko!";
+        } else {
+          setTimeout(() => this.cpuTurn(), 700);
+        }
+      });
+    }
+
+    rollDiceAnim(cb) {
+      this.isRolling = true;
+      ArcadeAudio.playDiceRoll();
+      const el = document.getElementById('ludoDice');
+      let count = 0;
+      const timer = setInterval(() => {
+        const v = Math.floor(Math.random() * 6) + 1;
+        if (el) el.innerHTML = `🎲 <b>${v}</b>`;
+        count++;
+        if (count > 7) {
+          clearInterval(timer);
+          this.isRolling = false;
+          cb(v);
+        }
+      }, 50);
+    }
+
+    render() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, 340, 340);
+
+      // Ludo Quadrants
+      // Red Base (Top Left)
+      ctx.fillStyle = '#ef4444';
+      ctx.fillRect(0, 0, 136, 136);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(20, 20, 96, 96);
+
+      // Green Base (Top Right)
+      ctx.fillStyle = '#10b981';
+      ctx.fillRect(204, 0, 136, 136);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(224, 20, 96, 96);
+
+      // Yellow Base (Bottom Left)
+      ctx.fillStyle = '#eab308';
+      ctx.fillRect(0, 204, 136, 136);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(20, 224, 96, 96);
+
+      // Blue Base (Bottom Right)
+      ctx.fillStyle = '#3b82f6';
+      ctx.fillRect(204, 204, 136, 136);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(224, 224, 96, 96);
+
+      // Center Victory Triangle
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath(); ctx.moveTo(136, 136); ctx.lineTo(170, 170); ctx.lineTo(136, 204); ctx.fill();
+      ctx.fillStyle = '#10b981';
+      ctx.beginPath(); ctx.moveTo(136, 136); ctx.lineTo(170, 170); ctx.lineTo(204, 136); ctx.fill();
+      ctx.fillStyle = '#3b82f6';
+      ctx.beginPath(); ctx.moveTo(204, 136); ctx.lineTo(170, 170); ctx.lineTo(204, 204); ctx.fill();
+      ctx.fillStyle = '#eab308';
+      ctx.beginPath(); ctx.moveTo(136, 204); ctx.lineTo(170, 170); ctx.lineTo(204, 204); ctx.fill();
+
+      // Draw Red Tokens
+      this.redTokens.forEach((pos, idx) => {
+        ctx.fillStyle = '#dc2626';
+        ctx.shadowColor = '#000';
+        ctx.shadowBlur = 6;
+        let tx = 40 + (idx % 2) * 44;
+        let ty = 40 + Math.floor(idx / 2) * 44;
+        if (pos > 0) {
+          // On track
+          tx = 150;
+          ty = Math.min(320, 40 + pos * 5);
+        }
+        ctx.beginPath();
+        ctx.arc(tx, ty, 11, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      // Draw Green Tokens
+      this.greenTokens.forEach((pos, idx) => {
+        ctx.fillStyle = '#059669';
+        let tx = 244 + (idx % 2) * 44;
+        let ty = 40 + Math.floor(idx / 2) * 44;
+        if (pos > 0) {
+          tx = 190;
+          ty = Math.min(320, 40 + pos * 5);
+        }
+        ctx.beginPath();
+        ctx.arc(tx, ty, 11, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    destroy() {}
+  }
+
+  // ==========================================
+  // GAME 15: 🐟 TINY FISH FEEDING FRENZY
+  // ==========================================
+  class TinyFishGame {
+    constructor(container) {
+      this.container = container;
+      this.score = 0;
+      this.playerLevel = 1;
+      this.playerR = 14;
+      this.playerX = 180;
+      this.playerY = 270;
+      this.facingRight = true;
+      this.fishes = [];
+      this.bubbles = [];
+      this.spawnTimer = 0;
+      this.gameOver = false;
+
+      this.initUI();
+      this.startLoop();
+    }
+
+    initUI() {
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'game-canvas-wrap';
+
+      const hud = document.createElement('div');
+      hud.className = 'cricket-hud';
+      hud.innerHTML = `
+        <div>🐟 Level: <b id="tfLevel" style="color:#38bdf8">1 (Guppy)</b></div>
+        <div>Score: <b id="tfScore" style="color:#22c55e">0</b></div>
+      `;
+      this.wrap.appendChild(hud);
+
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'game-canvas';
+      this.canvas.width = 360;
+      this.canvas.height = 540;
+      this.ctx = this.canvas.getContext('2d');
+      this.wrap.appendChild(this.canvas);
+      this.container.appendChild(this.wrap);
+
+      // Follow finger / cursor
+      const handleMove = (e) => {
+        const rect = this.canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const targetX = (clientX - rect.left) * (this.canvas.width / rect.width);
+        const targetY = (clientY - rect.top) * (this.canvas.height / rect.height);
+
+        if (targetX > this.playerX) this.facingRight = true;
+        else if (targetX < this.playerX) this.facingRight = false;
+
+        this.playerX = targetX;
+        this.playerY = targetY;
+      };
+
+      this.canvas.addEventListener('mousemove', handleMove);
+      this.canvas.addEventListener('touchmove', handleMove, { passive: false });
+    }
+
+    spawnFish() {
+      const fromLeft = Math.random() > 0.5;
+      const lvl = 1 + Math.floor(Math.random() * (this.playerLevel + 2));
+      const r = 10 + lvl * 7;
+      const speed = (fromLeft ? 1 : -1) * (1.5 + Math.random() * 2);
+
+      this.fishes.push({
+        x: fromLeft ? -40 : 400,
+        y: 40 + Math.random() * 460,
+        r,
+        level: lvl,
+        speed,
+        color: lvl === 1 ? '#4ade80' : lvl === 2 ? '#f59e0b' : lvl === 3 ? '#ec4899' : '#ef4444'
+      });
+    }
+
+    startLoop() {
+      const loop = () => {
+        if (this.destroyed) return;
+
+        this.spawnTimer++;
+        if (this.spawnTimer > 45) {
+          this.spawnTimer = 0;
+          this.spawnFish();
+        }
+
+        // Add ambient water bubbles
+        if (Math.random() < 0.2) {
+          this.bubbles.push({
+            x: Math.random() * 360,
+            y: 540,
+            r: 2 + Math.random() * 4,
+            speed: 1 + Math.random() * 2
+          });
+        }
+
+        // Update bubbles
+        for (let i = this.bubbles.length - 1; i >= 0; i--) {
+          const b = this.bubbles[i];
+          b.y -= b.speed;
+          if (b.y < -10) this.bubbles.splice(i, 1);
+        }
+
+        // Update Fish
+        for (let i = this.fishes.length - 1; i >= 0; i--) {
+          const f = this.fishes[i];
+          f.x += f.speed;
+
+          // Check Collision with player
+          const dist = Math.hypot(f.x - this.playerX, f.y - this.playerY);
+          if (dist < f.r + this.playerR) {
+            if (this.playerR >= f.r) {
+              // EAT IT!
+              ArcadeAudio.playFishGulp();
+              this.score += f.level * 20;
+              this.playerR += 0.8;
+              this.fishes.splice(i, 1);
+
+              if (this.playerR > 20 && this.playerLevel === 1) this.evolve(2, 'Clownfish');
+              else if (this.playerR > 32 && this.playerLevel === 2) this.evolve(3, 'Pufferfish');
+              else if (this.playerR > 44 && this.playerLevel === 3) this.evolve(4, 'Great Shark');
+              continue;
+            } else {
+              // EATEN BY BIGGER FISH!
+              this.triggerGameOver();
+              return;
+            }
+          }
+
+          if (f.x < -60 || f.x > 420) this.fishes.splice(i, 1);
+        }
+
+        this.updateHUD();
+        this.render();
+
+        if (!this.gameOver) {
+          this.raf = requestAnimationFrame(loop);
+        }
+      };
+      this.raf = requestAnimationFrame(loop);
+    }
+
+    evolve(lvl, title) {
+      this.playerLevel = lvl;
+      ArcadeAudio.playDingSuccess();
+      const el = document.getElementById('tfLevel');
+      if (el) el.textContent = `${lvl} (${title})`;
+    }
+
+    updateHUD() {
+      const sEl = document.getElementById('tfScore');
+      if (sEl) sEl.textContent = String(this.score);
+      const scoreEl = document.getElementById('funStageScore');
+      if (scoreEl) scoreEl.textContent = String(this.score);
+    }
+
+    render() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, 360, 540);
+
+      // Deep Ocean Turquoise Gradient
+      const oceanGrad = ctx.createLinearGradient(0, 0, 0, 540);
+      oceanGrad.addColorStop(0, '#0284c7');
+      oceanGrad.addColorStop(0.7, '#075985');
+      oceanGrad.addColorStop(1, '#082f49');
+      ctx.fillStyle = oceanGrad;
+      ctx.fillRect(0, 0, 360, 540);
+
+      // Bubbles
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      for (const b of this.bubbles) {
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Swimming School Fish
+      for (const f of this.fishes) {
+        ctx.save();
+        ctx.translate(f.x, f.y);
+        if (f.speed < 0) ctx.scale(-1, 1);
+
+        ctx.fillStyle = f.color;
+        // Body ellipse
+        ctx.beginPath();
+        ctx.ellipse(0, 0, f.r, f.r * 0.6, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Tail
+        ctx.beginPath();
+        ctx.moveTo(-f.r * 0.8, 0);
+        ctx.lineTo(-f.r * 1.4, -f.r * 0.5);
+        ctx.lineTo(-f.r * 1.4, f.r * 0.5);
+        ctx.closePath();
+        ctx.fill();
+
+        // Eye
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(f.r * 0.4, -f.r * 0.15, f.r * 0.18, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#000';
+        ctx.beginPath();
+        ctx.arc(f.r * 0.45, -f.r * 0.15, f.r * 0.09, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      // Player Fish (Cute Glowing Goldfish)
+      ctx.save();
+      ctx.translate(this.playerX, this.playerY);
+      if (!this.facingRight) ctx.scale(-1, 1);
+
+      ctx.fillStyle = '#f59e0b';
+      ctx.shadowColor = '#fbbf24';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.playerR, this.playerR * 0.65, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Player Tail
+      ctx.beginPath();
+      ctx.moveTo(-this.playerR * 0.8, 0);
+      ctx.lineTo(-this.playerR * 1.5, -this.playerR * 0.6);
+      ctx.lineTo(-this.playerR * 1.5, this.playerR * 0.6);
+      ctx.closePath();
+      ctx.fill();
+
+      // Eye
+      ctx.fillStyle = '#fff';
+      ctx.beginPath();
+      ctx.arc(this.playerR * 0.4, -this.playerR * 0.2, this.playerR * 0.22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#000';
+      ctx.beginPath();
+      ctx.arc(this.playerR * 0.45, -this.playerR * 0.2, this.playerR * 0.1, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    triggerGameOver() {
+      this.gameOver = true;
+      ArcadeAudio.playDie();
+      showGameOverOverlay(this.wrap, this.score, 'tiny_fish', () => {
+        window.launchArcadeGame('tiny_fish');
+      });
+    }
+
+    destroy() {
+      this.destroyed = true;
+      if (this.raf) cancelAnimationFrame(this.raf);
+    }
+  }
+
+  // ==========================================
+  // GAME 16: 🥞 STACK ALL ISOMETRIC TOWER
+  // ==========================================
+  class StackAllGame {
+    constructor(container) {
+      this.container = container;
+      this.score = 0;
+      this.combo = 0;
+      this.gameOver = false;
+      this.stack = [];
+      this.currentWidth = 140;
+      this.currentX = 0;
+      this.direction = 3.5;
+      this.layerHeight = 16;
+      this.colors = [
+        '#f43f5e', '#fb923c', '#facc15', '#4ade80',
+        '#22d3ee', '#818cf8', '#c084fc', '#f472b6'
+      ];
+
+      this.initUI();
+      this.startLoop();
+    }
+
+    initUI() {
+      this.wrap = document.createElement('div');
+      this.wrap.className = 'game-canvas-wrap';
+
+      const hud = document.createElement('div');
+      hud.className = 'cricket-hud';
+      hud.innerHTML = `
+        <div>🥞 Stack Height: <b id="stHeight" style="color:#c084fc">0</b></div>
+        <div>Combo: <b id="stCombo" style="color:#facc15">0x</b></div>
+      `;
+      this.wrap.appendChild(hud);
+
+      this.canvas = document.createElement('canvas');
+      this.canvas.className = 'game-canvas';
+      this.canvas.width = 360;
+      this.canvas.height = 540;
+      this.ctx = this.canvas.getContext('2d');
+      this.wrap.appendChild(this.canvas);
+      this.container.appendChild(this.wrap);
+
+      // Initial Base Slab
+      this.stack.push({
+        x: 180 - this.currentWidth / 2,
+        y: 480,
+        w: this.currentWidth,
+        color: this.colors[0]
+      });
+
+      // Tap to drop
+      const handleTap = () => {
+        if (this.gameOver) return;
+        this.placeSlab();
+      };
+
+      this.canvas.addEventListener('click', handleTap);
+      this.canvas.addEventListener('touchstart', (e) => { e.preventDefault(); handleTap(); }, { passive: false });
+    }
+
+    placeSlab() {
+      const top = this.stack[this.stack.length - 1];
+      const diff = this.currentX - top.x;
+
+      if (Math.abs(diff) < 3.5) {
+        // PERFECT MATCH!
+        this.combo++;
+        this.currentX = top.x;
+        ArcadeAudio.playMusicalChord(this.combo);
+      } else {
+        this.combo = 0;
+        ArcadeAudio.playBlockSlice();
+
+        if (diff > 0) {
+          // Overhang on right
+          this.currentWidth -= diff;
+        } else {
+          // Overhang on left
+          this.currentWidth += diff;
+          this.currentX = top.x;
+        }
+      }
+
+      if (this.currentWidth <= 4) {
+        this.triggerGameOver();
+        return;
+      }
+
+      this.score++;
+      const nextY = top.y - this.layerHeight;
+      const color = this.colors[this.score % this.colors.length];
+
+      this.stack.push({
+        x: this.currentX,
+        y: nextY,
+        w: this.currentWidth,
+        color
+      });
+
+      // Camera shift down if tower gets too tall
+      if (nextY < 200) {
+        this.stack.forEach(s => (s.y += this.layerHeight));
+      }
+
+      this.updateHUD();
+    }
+
+    updateHUD() {
+      const hEl = document.getElementById('stHeight');
+      if (hEl) hEl.textContent = String(this.score);
+      const cEl = document.getElementById('stCombo');
+      if (cEl) cEl.textContent = `${this.combo}x`;
+      const scoreEl = document.getElementById('funStageScore');
+      if (scoreEl) scoreEl.textContent = String(this.score);
+    }
+
+    startLoop() {
+      const loop = () => {
+        if (this.destroyed) return;
+
+        // Move current sliding block
+        this.currentX += this.direction;
+        if (this.currentX + this.currentWidth > 340) {
+          this.currentX = 340 - this.currentWidth;
+          this.direction = -Math.abs(this.direction);
+        } else if (this.currentX < 20) {
+          this.currentX = 20;
+          this.direction = Math.abs(this.direction);
+        }
+
+        this.render();
+
+        if (!this.gameOver) {
+          this.raf = requestAnimationFrame(loop);
+        }
+      };
+      this.raf = requestAnimationFrame(loop);
+    }
+
+    render() {
+      const ctx = this.ctx;
+      ctx.clearRect(0, 0, 360, 540);
+
+      // Dreamy Pastel Sunset Gradient
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, 540);
+      skyGrad.addColorStop(0, '#1e112a');
+      skyGrad.addColorStop(0.5, '#2e1065');
+      skyGrad.addColorStop(1, '#090514');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, 360, 540);
+
+      // Render Stacked Slabs
+      for (const s of this.stack) {
+        ctx.fillStyle = s.color;
+        ctx.beginPath();
+        ctx.roundRect(s.x, s.y, s.w, this.layerHeight, 4);
+        ctx.fill();
+
+        // 3D Top bevel
+        ctx.fillStyle = 'rgba(255,255,255,0.25)';
+        ctx.fillRect(s.x, s.y, s.w, 3);
+      }
+
+      // Render Active Sliding Slab
+      if (!this.gameOver) {
+        const top = this.stack[this.stack.length - 1];
+        const nextColor = this.colors[(this.score + 1) % this.colors.length];
+        const nextY = top.y - this.layerHeight;
+
+        ctx.fillStyle = nextColor;
+        ctx.shadowColor = nextColor;
+        ctx.shadowBlur = 10;
+        ctx.beginPath();
+        ctx.roundRect(this.currentX, nextY, this.currentWidth, this.layerHeight, 4);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    triggerGameOver() {
+      this.gameOver = true;
+      ArcadeAudio.playDie();
+      showGameOverOverlay(this.wrap, this.score, 'stack_all', () => {
+        window.launchArcadeGame('stack_all');
+      });
+    }
+
+    destroy() {
+      this.destroyed = true;
+      if (this.raf) cancelAnimationFrame(this.raf);
+    }
   }
 
 

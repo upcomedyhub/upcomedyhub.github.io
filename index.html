@@ -69,7 +69,7 @@
 <meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 <meta name="theme-color" content="#111111">
 <link rel="manifest" href="/manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -87,19 +87,192 @@ button{font-family:inherit}
 .dark-mode .announcement-bar a,.dark-mode #closeAnnouncement{color:#111}
 .dark-mode #closeAnnouncement{background:rgba(0,0,0,.1)}
 
-/* Loader */
-#pageLoader{position:fixed;inset:0;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:linear-gradient(135deg,#1a0b0d,#3a0f12 35%,#7a1620 65%,#e63946);background-size:200% 200%;animation:heroGradient 10s ease infinite;transition:opacity .5s,visibility .5s}
-#pageLoader.loader-hidden{opacity:0;visibility:hidden;pointer-events:none}
-.loader-logo-wrap{position:relative;width:84px;height:84px}
-.loader-logo-wrap img{width:100%;height:100%;border-radius:50%;object-fit:cover;position:relative;z-index:2;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
-.loader-ring{position:absolute;inset:-10px;border-radius:50%;border:3px solid rgba(255,255,255,.15);border-top-color:#ffd166;animation:loaderSpin .9s linear infinite}
-@keyframes loaderSpin{to{transform:rotate(360deg)}}
-.loader-text{font-family:'Anton',Arial,sans-serif;font-size:26px;font-weight:900;color:#fff}
-.loader-powered{position:relative;display:inline-block;overflow:hidden;font-size:15px;font-weight:800;letter-spacing:.6px;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.55);animation:powerPulse 2.4s ease-in-out infinite}
-.loader-powered span{color:#fff;font-weight:900}
-.loader-powered::after{content:"";position:absolute;top:-20%;left:-130%;width:55%;height:140%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.95),transparent);transform:skewX(-20deg);animation:powerSweep 2.8s ease-in-out infinite;pointer-events:none}
-@keyframes powerPulse{0%,100%{text-shadow:0 0 8px rgba(255,255,255,.45),0 0 16px rgba(255,255,255,.25)}50%{text-shadow:0 0 14px rgba(255,255,255,.95),0 0 30px rgba(255,255,255,.6)}}
-@keyframes powerSweep{0%{left:-130%}55%{left:130%}100%{left:130%}}
+/* ==================== CINEMATIC RED & BLACK SPLASH / LOADING SCREEN ==================== */
+#pageLoader {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  background-image: radial-gradient(circle at 50% 42%, rgba(220, 18, 44, 0.38) 0%, rgba(140, 10, 28, 0.18) 35%, rgba(0, 0, 0, 0) 70%);
+  padding: calc(env(safe-area-inset-top, 24px) + 20px) 24px calc(env(safe-area-inset-bottom, 24px) + 28px);
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s ease;
+}
+
+#pageLoader.loader-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Ambient Red Curved Ribbons Background */
+.loader-bg-ambient {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.loader-bg-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Spacer for vertical balance */
+.loader-spacer-top {
+  flex: 0 0 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Center Branding Block */
+.loader-center-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: -24px;
+}
+
+/* Squircle Icon Wrapper */
+.loader-app-icon-wrap {
+  position: relative;
+  width: 122px;
+  height: 122px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Red backlight aura pulse */
+.loader-aura-glow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 42px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 26, 56, 0.72) 0%, rgba(200, 10, 36, 0.42) 45%, rgba(120, 0, 18, 0) 75%);
+  filter: blur(15px);
+  animation: loaderAuraPulse 3.2s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes loaderAuraPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.75;
+    filter: blur(13px);
+  }
+  100% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: blur(20px);
+  }
+}
+
+/* Squircle Icon Body */
+.loader-app-icon {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 
+    0 18px 40px rgba(0, 0, 0, 0.9),
+    0 0 38px 8px rgba(235, 22, 48, 0.6),
+    0 0 80px 22px rgba(180, 12, 32, 0.32),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.35);
+}
+
+/* Title Typography */
+.loader-title {
+  margin: 26px 0 0;
+  padding: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: #ffffff;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.15);
+  line-height: 1.15;
+}
+
+/* Tagline Typography */
+.loader-tagline {
+  margin-top: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 3.8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Bottom "from Cobra" branding */
+.loader-bottom-brand {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.loader-from-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 7px;
+  text-transform: lowercase;
+}
+
+.loader-cobra-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45));
+}
+
+.loader-cobra-text {
+  margin-top: 6px;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 380px) {
+  .loader-app-icon-wrap { width: 104px; height: 104px; }
+  .loader-title { font-size: 29px; margin-top: 20px; }
+  .loader-tagline { font-size: 9.5px; letter-spacing: 2.8px; }
+}
 
 /* Cookie */
 .cookie-notice{position:fixed;left:20px;right:20px;bottom:90px;max-width:650px;margin:auto;padding:15px 18px;background:#111;color:#fff;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.25);display:none;align-items:center;justify-content:space-between;gap:15px;z-index:9997}
@@ -194,14 +367,160 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .footer-legal{margin-top:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 .footer-legal a{color:inherit;text-decoration:none;font-size:14px;font-weight:600}
 
-/* Site Search + Recently Viewed */
-.site-search{max-width:600px;margin:25px auto;padding:0 20px}
-.site-search input{width:100%;padding:14px 18px;border:1px solid #ddd;border-radius:30px;font-size:16px;outline:none;background:#fff;color:#111;box-sizing:border-box}
-.site-search input:focus{border-color:#e63946;box-shadow:0 0 0 3px rgba(230,57,70,.12)}
-.dark-mode .site-search input{background:#1c1c1c;color:#fff;border-color:#333}
-.search-results{max-width:700px;margin:10px auto 0;padding:0 20px}
-.search-result-item{background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 15px;margin-bottom:8px;cursor:pointer}
-.dark-mode .search-result-item{background:#1c1c1c;border-color:#333;color:#fff}
+/* ============================================================
+   SMART UNIFIED HYBRID SEARCH (INSTAGRAM + YOUTUBE STYLE)
+   ============================================================ */
+.search-page-container{max-width:680px;margin:0 auto;padding:12px 16px 80px}
+.search-bar-wrap{position:sticky;top:0;z-index:20;background:inherit;padding:4px 0 10px}
+.search-input-box{position:relative;display:flex;align-items:center;background:#f2f2f2;border:1.5px solid transparent;border-radius:26px;padding:2px 14px;transition:border-color .2s,box-shadow .2s,background .2s}
+.search-input-box:focus-within{background:#fff;border-color:#e63946;box-shadow:0 0 0 3px rgba(230,57,70,.15)}
+.dark-mode .search-input-box{background:#1a1a1a}
+.dark-mode .search-input-box:focus-within{background:#141414;border-color:#e63946}
+.search-input-ico{width:20px;height:20px;color:#888;flex-shrink:0;margin-right:10px}
+.search-input-box input{flex:1;background:transparent;border:none;outline:none;padding:12px 0;font-size:15px;font-family:inherit;color:inherit}
+.search-clear-btn{border:none;background:#ddd;color:#555;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.search-clear-btn:hover{background:#bbb;color:#111}
+.dark-mode .search-clear-btn{background:#333;color:#bbb}
+.dark-mode .search-clear-btn:hover{background:#555;color:#fff}
+
+/* Category Filter Tabs */
+.search-tabs-bar{display:flex;gap:8px;overflow-x:auto;padding:6px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.search-tabs-bar::-webkit-scrollbar{display:none}
+.search-tab-pill{border:none;background:#f0f0f0;color:#666;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .18s}
+.search-tab-pill.active{background:#e63946;color:#fff;box-shadow:0 3px 10px rgba(230,57,70,.3)}
+.dark-mode .search-tab-pill{background:#222;color:#aaa}
+.dark-mode .search-tab-pill.active{background:#e63946;color:#fff}
+
+/* Section Headers */
+.search-section-header{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px;padding:0 2px}
+.ssh-title{font-size:14px;font-weight:800;color:#333;letter-spacing:.2px}
+.dark-mode .ssh-title{color:#ddd}
+.search-clear-all-btn{border:none;background:none;color:#e63946;font-size:12px;font-weight:700;cursor:pointer;padding:4px}
+
+/* Recent Searches */
+.recent-searches-list{display:flex;flex-wrap:wrap;gap:8px}
+.recent-search-chip{display:inline-flex;align-items:center;gap:7px;background:#f5f5f5;border:1px solid #e8e8e8;padding:7px 12px;border-radius:18px;font-size:13px;font-weight:600;cursor:pointer;color:#333;transition:background .15s}
+.recent-search-chip:hover{background:#eaeaea}
+.dark-mode .recent-search-chip{background:#1e1e1e;border-color:#2a2a2a;color:#ccc}
+.dark-mode .recent-search-chip:hover{background:#292929}
+.recent-search-chip .chip-clock{font-size:12px;opacity:.6}
+.recent-search-chip .chip-del{font-size:12px;opacity:.5;margin-left:2px;padding:0 2px}
+.recent-search-chip .chip-del:hover{opacity:1;color:#e63946}
+
+/* Trending Tags */
+.trending-tags-row{display:flex;flex-wrap:wrap;gap:8px}
+.trending-tag-pill{border:1px solid #e6e6e6;background:#fff;color:#e63946;padding:8px 14px;border-radius:18px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .18s}
+.trending-tag-pill:hover{background:#e63946;color:#fff;border-color:#e63946}
+.dark-mode .trending-tag-pill{background:#1a1a1a;border-color:#333;color:#ff6b77}
+.dark-mode .trending-tag-pill:hover{background:#e63946;color:#fff;border-color:#e63946}
+
+/* Suggested Creators Row/List */
+.suggested-creators-list{display:flex;flex-direction:column;gap:10px}
+.suggested-creator-card{display:flex;align-items:center;gap:12px;padding:10px 14px;background:#fff;border:1px solid #eee;border-radius:14px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.suggested-creator-card:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+.dark-mode .suggested-creator-card{background:#1b1b1b;border-color:#262626}
+.suggested-creator-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #e63946}
+.suggested-creator-meta{flex:1;min-width:0}
+.suggested-creator-name{font-weight:800;font-size:14px;display:flex;align-items:center;gap:4px}
+.suggested-creator-user{font-size:12px;color:#888;margin-top:1px}
+.suggested-creator-stats{font-size:11px;color:#999;margin-top:2px}
+
+/* Creator Spotlight in Top Tab */
+.search-spotlight-card{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,rgba(230,57,70,.08),rgba(255,154,90,.08));border:1.5px solid rgba(230,57,70,.25);border-radius:18px;margin-bottom:16px;cursor:pointer}
+.dark-mode .search-spotlight-card{background:linear-gradient(135deg,rgba(230,57,70,.15),rgba(20,20,20,.8));border-color:rgba(230,57,70,.35)}
+.search-spotlight-avatar{width:64px;height:64px;border-radius:50%;object-fit:cover;border:3px solid #e63946;box-shadow:0 4px 14px rgba(230,57,70,.3);flex-shrink:0}
+.search-spotlight-info{flex:1;min-width:0}
+.search-spotlight-name{font-size:16px;font-weight:900;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.search-spotlight-user{font-size:13px;color:#e63946;font-weight:700;margin-top:2px}
+.search-spotlight-bio{font-size:12px;color:#666;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dark-mode .search-spotlight-bio{color:#aaa}
+.search-spotlight-actions{display:flex;gap:8px;margin-top:8px}
+
+/* Instagram-Style Account Row in Search & Modals */
+.search-account-row{display:flex;align-items:center;gap:12px;padding:11px 12px;background:#fff;border-radius:14px;margin-bottom:8px;border:1px solid #f0f0f0;cursor:pointer;transition:background .15s}
+.search-account-row:hover{background:#fafafa}
+.dark-mode .search-account-row{background:#181818;border-color:#262626}
+.dark-mode .search-account-row:hover{background:#222}
+.search-account-avatar{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid #e63946}
+.search-account-meta{flex:1;min-width:0}
+.search-account-name{font-size:14px;font-weight:800;color:inherit;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.search-account-username{font-size:12px;color:#888;margin-top:2px}
+.search-account-bio{font-size:11.5px;color:#666;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dark-mode .search-account-bio{color:#aaa}
+
+/* Follows You Badge */
+.follows-you-chip{display:inline-block;background:rgba(0,0,0,.06);color:#666;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle}
+.dark-mode .follows-you-chip{background:rgba(255,255,255,.1);color:#ccc}
+.follows-you-badge{display:inline-block;background:rgba(230,57,70,.12);color:#e63946;font-size:11px;font-weight:800;padding:3px 9px;border-radius:12px;margin-left:6px;vertical-align:middle}
+.dark-mode .follows-you-badge{background:rgba(230,57,70,.22);color:#ff7882}
+
+/* Universal Action Buttons (Follow, Following, Follow Back, Message) */
+.btn-action-follow{border:none;border-radius:20px;padding:7px 16px;font-size:13px;font-weight:800;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .15s}
+.btn-action-follow.follow{background:#0095f6;color:#fff}
+.btn-action-follow.follow:hover{background:#0081d6}
+.btn-action-follow.followback{background:#e63946;color:#fff}
+.btn-action-follow.followback:hover{background:#cf2c39}
+.btn-action-follow.following{background:#ebebeb;color:#111}
+.btn-action-follow.following:hover{background:#ddd;color:#c00}
+.dark-mode .btn-action-follow.following{background:#2a2a2a;color:#eee}
+.dark-mode .btn-action-follow.following:hover{background:#383838;color:#ff6b77}
+.btn-action-msg{border:none;background:#f0f0f0;color:#111;border-radius:20px;padding:7px 14px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:background .15s}
+.btn-action-msg:hover{background:#e2e2e2}
+.dark-mode .btn-action-msg{background:#262626;color:#fff}
+.dark-mode .btn-action-msg:hover{background:#333}
+
+/* YouTube-Style Video Cards in Search */
+.search-youtube-list{display:flex;flex-direction:column;gap:14px}
+.search-youtube-card{display:flex;gap:14px;background:#fff;border:1px solid #eee;border-radius:14px;overflow:hidden;padding:10px;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.search-youtube-card:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.dark-mode .search-youtube-card{background:#181818;border-color:#262626}
+.search-yt-thumb-wrap{position:relative;width:140px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;flex-shrink:0}
+.search-yt-thumb{width:100%;height:100%;object-fit:cover;display:block}
+.search-yt-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.82);color:#fff;font-size:10px;font-weight:800;padding:2px 6px;border-radius:5px;letter-spacing:.3px}
+.search-yt-play-overlay{position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;opacity:0;transition:opacity .15s}
+.search-youtube-card:hover .search-yt-play-overlay{opacity:1}
+.search-yt-meta{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.search-yt-title{font-size:14px;font-weight:800;color:inherit;line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.search-yt-channel{font-size:12px;color:#888;display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.search-yt-tags{display:flex;gap:6px;align-items:center}
+.search-yt-tag{background:rgba(230,57,70,.1);color:#e63946;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:8px}
+
+/* Reels Vertical Grid in Search */
+.search-reels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:520px){.search-reels-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
+.search-reel-card{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;background:#000;cursor:pointer}
+.search-reel-card img{width:100%;height:100%;object-fit:cover;display:block}
+.search-reel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 40%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:10px;color:#fff}
+.search-reel-badge{align-self:flex-start;background:#e63946;color:#fff;font-size:9.5px;font-weight:800;padding:2px 6px;border-radius:6px;margin-bottom:4px}
+.search-reel-title{font-size:12px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Search No Results */
+.search-no-results{text-align:center;padding:60px 20px}
+.snr-icon{font-size:48px;margin-bottom:12px;opacity:.6}
+.snr-title{font-size:17px;font-weight:800;color:inherit;margin-bottom:6px}
+.snr-subtitle{font-size:13px;color:#888}
+
+/* Dedicated Instagram-Style User Profile Modal */
+.user-profile-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;z-index:10045;align-items:center;justify-content:center;padding:0}
+.user-profile-overlay.show{display:flex}
+.user-profile-box{width:min(620px,100%);height:100vh;height:100dvh;background:#fff;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.dark-mode .user-profile-box{background:#000;color:#fff}
+@media(min-width:720px){.user-profile-box{height:min(88vh,780px);border-radius:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)}}
+.user-profile-modal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #efefef;flex-shrink:0}
+.dark-mode .user-profile-modal-header{border-bottom-color:#262626}
+.up-back-btn{border:none;background:none;font-size:28px;line-height:1;color:inherit;cursor:pointer;padding:0 8px}
+.up-header-username{font-size:16px;font-weight:800;color:inherit}
+.up-share-btn{border:none;background:none;color:inherit;cursor:pointer;padding:6px;display:flex;align-items:center}
+.up-share-btn .ico{width:20px;height:20px}
+.user-profile-modal-content{flex:1;overflow-y:auto;padding:18px 20px 40px}
+
+/* Inline Search inside Followers/Following Modal */
+.ig-list-search-wrap{padding:10px 16px 6px;border-bottom:1px solid #f0f0f0}
+.dark-mode .ig-list-search-wrap{border-bottom-color:#262626}
+.ig-list-search-input{width:100%;box-sizing:border-box;background:#f5f5f5;border:1px solid #eee;border-radius:20px;padding:8px 14px;font-size:13px;font-family:inherit;color:inherit;outline:none}
+.dark-mode .ig-list-search-input{background:#1a1a1a;border-color:#2a2a2a}
+.ig-list-search-input:focus{border-color:#e63946}
+
 #recently-viewed{text-align:center}
 .recently-viewed-card{max-width:700px;margin:0 auto}
 #recentlyViewedEmpty{color:#777;margin:0}
@@ -818,7 +1137,16 @@ body.messages-open .bottom-nav{display:none !important}
 .fun-photo-btn{display:inline-block;margin-top:7px;font-size:11px;font-weight:800;color:#e63946;cursor:pointer}
 .fun-photo-input{display:none}
 .fun-player-info{flex:1;min-width:190px}
-.fun-player-name{font-size:18px;font-weight:900;margin-bottom:4px}
+.fun-player-name-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.fun-player-name{font-size:18px;font-weight:900;margin-bottom:0}
+.fun-streak-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,rgba(255,87,34,.16),rgba(255,152,0,.26));border:1px solid rgba(255,107,0,.45);color:#ff9800;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:.2px;box-shadow:0 2px 8px rgba(255,107,0,.18);user-select:none;transition:transform .2s,box-shadow .2s;cursor:default}
+.dark-mode .fun-streak-badge{background:linear-gradient(135deg,rgba(255,87,34,.26),rgba(255,152,0,.36));border-color:rgba(255,145,0,.6);color:#ffb74d;box-shadow:0 2px 10px rgba(255,107,0,.35)}
+.fun-streak-badge:hover{transform:scale(1.05);box-shadow:0 3px 12px rgba(255,107,0,.35)}
+.fun-streak-flame{font-size:14px;display:inline-block;animation:flameWiggle 2s ease-in-out infinite;transform-origin:bottom center}
+@keyframes flameWiggle{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-8deg) scale(1.1)}75%{transform:rotate(8deg) scale(1.05)}}
+.fun-streak-num{font-size:12px;font-weight:900;color:#111}
+.dark-mode .fun-streak-num{color:#fff}
+.fun-streak-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;opacity:.85}
 
 /* Water Sort Puzzle Styles */
 .ws-container{width:100%;max-width:440px;height:560px;background:radial-gradient(ellipse at center, #1e1136 0%, #0d0819 100%);border-radius:18px;border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.6);position:relative;user-select:none;touch-action:none}
@@ -1048,6 +1376,9 @@ body.messages-open .bottom-nav{display:none !important}
 .search-people-name{font-size:14px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .search-people-username{font-size:12px;color:#e63946;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .search-people-chevron{flex:0 0 auto;font-size:20px;color:#bbb;font-weight:400}
+.search-follow-btn{background:#0095f6;color:#fff;border:none;padding:6px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;flex-shrink:0;margin-left:auto}
+.search-follow-btn.following{background:#efefef;color:#111}
+.dark-mode .search-follow-btn.following{background:#2a2a2a;color:#eee}
 .dark-mode .search-people-chevron{color:#555}
 
 /* Profile modal Follow/Message actions */
@@ -1111,9 +1442,47 @@ body.messages-open .bottom-nav{display:none !important}
 /* Chat Meta */
 .chat-meta{font-size:10px;opacity:.75;margin-top:4px;display:flex;align-items:center;gap:4px;justify-content:flex-end}
 .chat-bubble-row:not(.mine) .chat-meta{justify-content:flex-start;color:#888}
-.chat-msg-status{font-size:11px;margin-left:2px;display:inline-flex;align-items:center;opacity:.9}
-.chat-msg-status.read{color:#60a5fa}
-.dark-mode .chat-msg-status.read{color:#93c5fd}
+.chat-msg-status{font-size:11px;margin-left:4px;display:inline-flex;align-items:center;opacity:.8;letter-spacing:-1.5px;font-weight:800}
+.chat-msg-status.read{color:#0095f6;opacity:1}
+.dark-mode .chat-msg-status.read{color:#38bdf8;opacity:1}
+
+/* Typing Indicator Animation */
+.typing-indicator-wrap{display:inline-flex;align-items:center;gap:3px;font-size:12px;color:#22c55e;font-weight:700}
+.typing-dot{width:4px;height:4px;background:#22c55e;border-radius:50%;display:inline-block;animation:typingBounce 1.2s infinite ease-in-out}
+.typing-dot:nth-child(1){animation-delay:0s}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes typingBounce{0%,80%,100%{transform:scale(.5);opacity:.4}40%{transform:scale(1.3);opacity:1}}
+
+/* Chat Image Viewer Lightbox */
+.chat-lightbox-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100200;display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(8px)}
+.chat-lightbox-overlay.show{display:flex}
+.chat-lightbox-box{max-width:920px;max-height:92vh;display:flex;flex-direction:column;align-items:center;position:relative;width:100%}
+.chat-lightbox-header{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:600px;color:#fff;padding:8px 4px 14px}
+.chat-lightbox-title{font-size:15px;font-weight:800}
+.chat-lightbox-actions{display:flex;gap:10px;align-items:center}
+.chat-lightbox-btn{background:rgba(255,255,255,.15);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:background .15s}
+.chat-lightbox-btn:hover{background:rgba(255,255,255,.28)}
+.chat-lightbox-img-wrap{display:flex;align-items:center;justify-content:center;max-height:80vh;width:100%}
+.chat-lightbox-img-wrap img{max-width:100%;max-height:80vh;object-fit:contain;border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+
+/* Message Action Bottom Sheet */
+.msg-action-sheet{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100150;display:none;align-items:flex-end;justify-content:center;padding:0}
+.msg-action-sheet.show{display:flex}
+.msg-action-card{width:100%;max-width:480px;background:#fff;border-radius:24px 24px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));animation:slideUpSheet .2s cubic-bezier(.16,1,.3,1)}
+.dark-mode .msg-action-card{background:#181818;color:#fff}
+@keyframes slideUpSheet{0%{transform:translateY(100%)}100%{transform:translateY(0)}}
+.msg-action-reactions{display:flex;justify-content:space-between;gap:6px;padding:6px 6px 12px;border-bottom:1px solid #f0f0f0}
+.dark-mode .msg-action-reactions{border-bottom-color:#2a2a2a}
+.msg-action-reactions button{background:none;border:none;font-size:28px;cursor:pointer;padding:6px;border-radius:50%;transition:transform .12s}
+.msg-action-reactions button:hover{transform:scale(1.25)}
+.msg-action-items{display:flex;flex-direction:column;gap:3px;padding:8px 0}
+.msg-action-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border:none;background:none;width:100%;text-align:left;font-size:15px;font-weight:700;font-family:inherit;color:inherit;border-radius:12px;cursor:pointer;transition:background .12s}
+.msg-action-item:hover{background:#f5f5f5}
+.dark-mode .msg-action-item:hover{background:#222}
+.msg-action-item.danger{color:#e63946}
+.msg-action-cancel{width:100%;padding:12px;margin-top:6px;border:none;background:#f0f0f0;color:#111;font-weight:800;font-size:14px;border-radius:14px;cursor:pointer}
+.dark-mode .msg-action-cancel{background:#262626;color:#fff}
 .chat-bubble-row:not(.mine) .chat-msg-status{display:none}
 
 /* Reply Preview */
@@ -1744,13 +2113,145 @@ body.messages-open .bottom-nav{display:none !important}
 <body class="on-home">
    <div class="menu-backdrop" id="menuBackdrop"></div>
 
-<div id="pageLoader">
-  <div class="loader-logo-wrap">
-    <div class="loader-ring"></div>
-    <img src="IMG_20260917_172912.jpg" alt="Loading">
+<div id="pageLoader" aria-label="Loading UPComedyHub">
+  <!-- Red ambient light streaks (cinematic curves) -->
+  <div class="loader-bg-ambient">
+    <svg class="loader-bg-svg" viewBox="0 0 420 840" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <!-- Top Left Red Ribbons -->
+        <linearGradient id="tlRibbonCore" x1="0%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stop-color="#ff163a" stop-opacity="0.95"/>
+          <stop offset="60%" stop-color="#cc0824" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#55000c" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="tlRibbonOuter" x1="0%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stop-color="#ff1c42" stop-opacity="0.45"/>
+          <stop offset="70%" stop-color="#990417" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#2b0005" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Bottom Right Red Ribbons -->
+        <linearGradient id="brRibbonCore" x1="100%" y1="60%" x2="40%" y2="100%">
+          <stop offset="0%" stop-color="#ff183c" stop-opacity="0.95"/>
+          <stop offset="50%" stop-color="#d60927" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#55000c" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="brRibbonOuter" x1="100%" y1="50%" x2="30%" y2="100%">
+          <stop offset="0%" stop-color="#ff264a" stop-opacity="0.45"/>
+          <stop offset="60%" stop-color="#aa0820" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#1f0004" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Blur Filters -->
+        <filter id="ribbonBlurDeep" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="22"/>
+        </filter>
+        <filter id="ribbonBlurMid" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="10"/>
+        </filter>
+        <filter id="ribbonBlurSharp" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3.5"/>
+        </filter>
+      </defs>
+
+      <!-- Top Left Light Curves -->
+      <path d="M -30 -20 Q 80 140 20 340" fill="none" stroke="url(#tlRibbonOuter)" stroke-width="70" filter="url(#ribbonBlurDeep)"/>
+      <path d="M -20 -10 Q 75 130 15 320" fill="none" stroke="url(#tlRibbonCore)" stroke-width="20" filter="url(#ribbonBlurMid)"/>
+      <path d="M -15 -10 Q 70 125 10 310" fill="none" stroke="#ff3858" stroke-width="3" filter="url(#ribbonBlurSharp)"/>
+      <path d="M 40 -30 Q 120 110 50 270" fill="none" stroke="url(#tlRibbonOuter)" stroke-width="35" filter="url(#ribbonBlurMid)" opacity="0.6"/>
+
+      <!-- Bottom Right Light Curves -->
+      <path d="M 440 520 Q 320 670 220 860" fill="none" stroke="url(#brRibbonOuter)" stroke-width="80" filter="url(#ribbonBlurDeep)"/>
+      <path d="M 430 535 Q 330 665 240 850" fill="none" stroke="url(#brRibbonCore)" stroke-width="24" filter="url(#ribbonBlurMid)"/>
+      <path d="M 425 545 Q 335 660 250 845" fill="none" stroke="#ff3858" stroke-width="3.5" filter="url(#ribbonBlurSharp)"/>
+      <path d="M 450 470 Q 360 610 290 770" fill="none" stroke="url(#brRibbonOuter)" stroke-width="40" filter="url(#ribbonBlurMid)" opacity="0.5"/>
+    </svg>
   </div>
-  <div class="loader-text">UPComedyHub</div>
-  <div class="loader-powered">Powered by <span>Cobra</span></div>
+
+  <!-- Top spacer for optical balance -->
+  <div class="loader-spacer-top"></div>
+
+  <!-- Center Branding: Squircle Icon + UPComedyHub + Tagline -->
+  <div class="loader-center-content">
+    <div class="loader-app-icon-wrap">
+      <div class="loader-aura-glow"></div>
+      <div class="loader-app-icon">
+        <svg viewBox="0 0 100 100" width="100%" height="100%">
+          <defs>
+            <linearGradient id="iconSurface" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1d1d26"/>
+              <stop offset="55%" stop-color="#0e0e13"/>
+              <stop offset="100%" stop-color="#060608"/>
+            </linearGradient>
+            <linearGradient id="whitePlayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#f0f2f5"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="100" height="100" rx="27" ry="27" fill="url(#iconSurface)"/>
+          <rect x="0.75" y="0.75" width="98.5" height="98.5" rx="26.25" ry="26.25" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.2"/>
+          
+          <!-- Play Button Triangle -->
+          <path d="M 44.5 28.5 C 44.5 26.8 46.4 25.8 47.8 26.7 L 62.2 36.2 C 63.5 37.1 63.5 39.0 62.2 39.9 L 47.8 49.3 C 46.4 50.2 44.5 49.2 44.5 47.5 Z" fill="url(#whitePlayGrad)"/>
+          
+          <!-- Smiling Arc -->
+          <path d="M 27 55 C 27 76, 73 76, 73 55" fill="none" stroke="url(#whitePlayGrad)" stroke-width="6.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="loader-title">UPComedyHub</h1>
+    <div class="loader-tagline">
+      <span>WATCH</span>
+      <span>&bull;</span>
+      <span>CREATE</span>
+      <span>&bull;</span>
+      <span>CONNECT</span>
+      <span>&bull;</span>
+      <span>ENJOY</span>
+    </div>
+  </div>
+
+  <!-- Bottom Brand: from Cobra -->
+  <div class="loader-bottom-brand">
+    <div class="loader-from-text">from</div>
+    <div class="loader-cobra-wrap">
+      <svg viewBox="0 0 64 64" width="38" height="38" aria-hidden="true">
+        <defs>
+          <linearGradient id="cobraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00f5a0"/>
+            <stop offset="45%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#006688"/>
+          </linearGradient>
+          <linearGradient id="cobraGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00c878"/>
+            <stop offset="70%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#80ffff"/>
+          </linearGradient>
+          <filter id="cobraDrop" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#00e5ff" flood-opacity="0.45"/>
+          </filter>
+        </defs>
+        <!-- Cobra Hood & Head -->
+        <path d="M 32 18 C 28 14, 18 13, 16 23 C 14 31, 22 36, 27 38 L 32 35 L 37 38 C 42 36, 50 31, 48 23 C 46 13, 36 14, 32 18 Z" fill="url(#cobraGrad)" filter="url(#cobraDrop)"/>
+        <!-- Hood Inner Shadow -->
+        <path d="M 32 20 C 29 17, 22 17, 20 24 C 19 29, 25 33, 28 34 C 27 31, 27 25, 32 22 C 37 25, 37 31, 36 34 C 39 33, 45 29, 44 24 C 42 17, 35 17, 32 20 Z" fill="#041217"/>
+        <!-- Center Head & Snout -->
+        <path d="M 32 17 C 29 19, 28 24, 30 29 C 31 31, 33 31, 34 29 C 36 24, 35 19, 32 17 Z" fill="url(#cobraGlow)"/>
+        <!-- Eyes -->
+        <ellipse cx="29" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(-15 29 23)"/>
+        <ellipse cx="35" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(15 35 23)"/>
+        
+        <!-- Lower Infinity Body Loops -->
+        <path d="M 32 37 C 26 40, 18 43, 18 49 C 18 55, 25 58, 30 56 C 34 54, 38 48, 41 45 C 44 42, 50 43, 50 49 C 50 56, 42 58, 36 55 C 33 53, 31 51, 32 48" 
+              fill="none" stroke="url(#cobraGrad)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cobraDrop)"/>
+        <!-- Overlapping coil highlight -->
+        <path d="M 23 46 C 21 48, 20 51, 22 53 C 24 55, 28 55, 32 51 C 36 47, 41 45, 45 47 C 47 48, 48 51, 46 53" 
+              fill="none" stroke="url(#cobraGlow)" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="loader-cobra-text">Cobra</div>
+  </div>
 </div>
 
 <div class="login-screen" id="loginScreen">
@@ -2277,14 +2778,98 @@ body.messages-open .bottom-nav{display:none !important}
 </div>
 
 <div id="tab-search" class="tab-pane">
-  <section>
-    <h2 class="section-title"><svg class="ico"><use href="#i-search"></use></svg> Search</h2>
-    <div class="site-search">
-      <input type="text" id="tabSearchInput" placeholder="🔍 Search videos, pages ya @username...">
+  <div class="search-page-container">
+    <!-- Search Bar with Dynamic Icon & Clear Button -->
+    <div class="search-bar-wrap">
+      <div class="search-input-box">
+        <svg class="search-input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="tabSearchInput" placeholder="Dhoondho accounts, videos ya reels..." autocomplete="off">
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search" style="display:none">✕</button>
+      </div>
     </div>
-    <div class="search-results" id="tabPeopleSearchResults"></div>
-    <div class="search-results" id="tabSearchResults"></div>
-  </section>
+
+    <!-- Category Filter Tabs: Top, Accounts, Videos, Reels -->
+    <div class="search-tabs-bar" id="searchCategoryTabs">
+      <button type="button" class="search-tab-pill active" data-search-cat="top">🔥 Top</button>
+      <button type="button" class="search-tab-pill" data-search-cat="accounts">👤 Accounts</button>
+      <button type="button" class="search-tab-pill" data-search-cat="videos">🎬 Videos</button>
+      <button type="button" class="search-tab-pill" data-search-cat="reels">⚡ Reels</button>
+    </div>
+
+    <!-- State 1: Discovery Screen (shown when search box is empty) -->
+    <div class="search-discovery-wrap" id="searchDiscoveryWrap">
+      <!-- Recent Searches -->
+      <div class="recent-searches-box" id="recentSearchesBox" style="display:none">
+        <div class="search-section-header">
+          <span class="ssh-title">🕒 Recent Searches</span>
+          <button type="button" class="search-clear-all-btn" id="clearAllRecentSearchesBtn">Clear All</button>
+        </div>
+        <div class="recent-searches-list" id="recentSearchesList"></div>
+      </div>
+
+      <!-- Trending Comedy Topics / Hashtags -->
+      <div class="trending-topics-box">
+        <div class="search-section-header">
+          <span class="ssh-title">🔥 Trending Topics</span>
+        </div>
+        <div class="trending-tags-row" id="trendingTagsRow">
+          <button type="button" class="trending-tag-pill" data-query="Stand Up Comedy">#StandUpComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Desi Jokes">#DesiJokes</button>
+          <button type="button" class="trending-tag-pill" data-query="UPComedyHub">#UPComedyHub</button>
+          <button type="button" class="trending-tag-pill" data-query="Hasya Kavi">#HasyaKavi</button>
+          <button type="button" class="trending-tag-pill" data-query="Comedy Roast">#ComedyRoast</button>
+          <button type="button" class="trending-tag-pill" data-query="Funny Shorts">#FunnyShorts</button>
+          <button type="button" class="trending-tag-pill" data-query="Bhojpuri Tadka">#BhojpuriComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Memes">#Memes</button>
+        </div>
+      </div>
+
+      <!-- Suggested Comedy Creators -->
+      <div class="suggested-creators-box">
+        <div class="search-section-header">
+          <span class="ssh-title">✨ Suggested Creators</span>
+        </div>
+        <div class="suggested-creators-list" id="suggestedCreatorsList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- State 2: Results Screen (shown when search query is entered) -->
+    <div class="search-results-wrap" id="searchResultsWrap" style="display:none">
+      <!-- Top Tab Pane -->
+      <div class="search-pane-cat" id="searchPaneTop">
+        <div id="searchTopSpotlight"></div>
+        <div id="searchTopVideos" class="search-youtube-list"></div>
+      </div>
+
+      <!-- Accounts Tab Pane (Pure Instagram Style) -->
+      <div class="search-pane-cat" id="searchPaneAccounts" style="display:none">
+        <div class="search-accounts-list" id="searchAccountsList"></div>
+      </div>
+
+      <!-- Videos Tab Pane (Pure YouTube Style) -->
+      <div class="search-pane-cat" id="searchPaneVideos" style="display:none">
+        <div class="search-youtube-list" id="searchVideosList"></div>
+      </div>
+
+      <!-- Reels Tab Pane (Shorts Grid) -->
+      <div class="search-pane-cat" id="searchPaneReels" style="display:none">
+        <div class="search-reels-grid" id="searchReelsList"></div>
+      </div>
+
+      <!-- No Results State -->
+      <div class="search-no-results" id="searchNoResults" style="display:none">
+        <div class="snr-icon">🔍</div>
+        <div class="snr-title">Koi result nahi mila</div>
+        <div class="snr-subtitle">Kripya koi doosra shabd ya creator ka naam dhoondhein.</div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <div id="tab-profile" class="tab-pane">
@@ -2307,7 +2892,7 @@ body.messages-open .bottom-nav{display:none !important}
         <div class="ig-avatar-wrap">
           <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
           <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo">📷</label>
-          <input id="profilePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <input id="profilePhotoInput" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;opacity:0">
         </div>
         <div class="ig-stats-row">
           <div class="ig-stat" id="statPostsClick">
@@ -2636,9 +3221,18 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="fun-player-row">
         <div class="fun-avatar-wrap">
           <img id="funPlayerAvatar" class="fun-avatar" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>" alt="Player photo">
+          <label class="fun-photo-btn" for="funPlayerPhotoInput">Change Photo</label>
+          <input type="file" id="funPlayerPhotoInput" class="fun-photo-input" accept="image/*" onchange="uploadFunPlayerPhoto(this)">
         </div>
         <div class="fun-player-info">
-          <div class="fun-player-name" id="funPlayerName">Arcade Champion 😎</div>
+          <div class="fun-player-name-row">
+            <div class="fun-player-name" id="funPlayerName">Arcade Champion 😎</div>
+            <div class="fun-streak-badge" id="funStreakBadge" title="Daily Activity Streak: 1 day">
+              <span class="fun-streak-flame" aria-hidden="true">🔥</span>
+              <span class="fun-streak-num" id="funStreakCount">1</span>
+              <span class="fun-streak-label">Streak</span>
+            </div>
+          </div>
           <div class="fun-player-meta" id="funPlayerMeta">Level 1 • 0 XP</div>
           <div class="fun-xp-bar"><div class="fun-xp-fill" id="funXpFill" style="width:15%"></div></div>
         </div>
@@ -3119,7 +3713,26 @@ body.messages-open .bottom-nav{display:none !important}
       <h3 id="igListTitle">Followers</h3>
       <button type="button" id="igListClose" aria-label="Close">✕</button>
     </div>
+    <div class="ig-list-search-wrap">
+      <input type="text" id="igListSearchInput" placeholder="🔍 Dhoondho..." class="ig-list-search-input">
+    </div>
     <div class="ig-list-content" id="igListContent"></div>
+  </div>
+</div>
+
+<!-- Dedicated Instagram-Style User Profile Modal Overlay -->
+<div class="user-profile-overlay" id="userProfileOverlay">
+  <div class="user-profile-box">
+    <div class="user-profile-modal-header">
+      <button type="button" class="up-back-btn" id="userProfileCloseBtn" aria-label="Back">‹</button>
+      <div class="up-header-username" id="upModalHeaderUsername">@username</div>
+      <button type="button" class="up-share-btn" id="upModalShareBtn" aria-label="Share">
+        <svg class="ico"><use href="#i-send"></use></svg>
+      </button>
+    </div>
+    <div class="user-profile-modal-content" id="userProfileContent">
+      <!-- Dynamically filled with avatar, stats, follow button, tabs, posts/videos -->
+    </div>
   </div>
 </div>
 
@@ -3182,6 +3795,51 @@ body.messages-open .bottom-nav{display:none !important}
   <button type="button" data-reaction="😢">😢</button>
   <button type="button" data-reaction="🔥">🔥</button>
   <button type="button" data-reaction="👍">👍</button>
+</div>
+
+<!-- Fullscreen In-App Image Lightbox Modal for Chat -->
+<div class="chat-lightbox-overlay" id="chatLightboxOverlay">
+  <div class="chat-lightbox-box">
+    <div class="chat-lightbox-header">
+      <span class="chat-lightbox-title" id="chatLightboxTitle">📷 Photo</span>
+      <div class="chat-lightbox-actions">
+        <a id="chatLightboxDownload" class="chat-lightbox-btn" download="upcomedyhub-photo.jpg" href="" target="_blank" title="Save Photo">💾</a>
+        <button type="button" class="chat-lightbox-btn" id="chatLightboxClose" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="chat-lightbox-img-wrap">
+      <img id="chatLightboxImg" src="" alt="Chat photo">
+    </div>
+  </div>
+</div>
+
+<!-- Message Action Menu Sheet (Reactions, Reply, Copy, Delete) -->
+<div class="msg-action-sheet" id="msgActionSheet">
+  <div class="msg-action-card">
+    <div class="msg-action-reactions" id="sheetReactions">
+      <button type="button" data-reaction="❤️">❤️</button>
+      <button type="button" data-reaction="😂">😂</button>
+      <button type="button" data-reaction="😮">😮</button>
+      <button type="button" data-reaction="😢">😢</button>
+      <button type="button" data-reaction="🔥">🔥</button>
+      <button type="button" data-reaction="👍">👍</button>
+    </div>
+    <div class="msg-action-items">
+      <button type="button" class="msg-action-item" id="actionReplyBtn">
+        <span>↪️</span><span>Reply</span>
+      </button>
+      <button type="button" class="msg-action-item" id="actionCopyBtn">
+        <span>📋</span><span>Copy Text</span>
+      </button>
+      <button type="button" class="msg-action-item" id="actionDeleteForMeBtn">
+        <span>🗑️</span><span>Delete for me</span>
+      </button>
+      <button type="button" class="msg-action-item danger" id="actionDeleteEveryoneBtn" style="display:none">
+        <span>🚫</span><span>Delete for everyone</span>
+      </button>
+    </div>
+    <button type="button" class="msg-action-cancel" id="msgActionCancel">Cancel</button>
+  </div>
 </div>
 
 <!-- Global footer moved inside Channel Profile (Point 4) -->
@@ -3831,6 +4489,7 @@ function switchTab(name){
   document.body.classList.toggle("on-home", name==="home");
   window.scrollTo({top:0, behavior:"smooth"});
   if(name==="profile") updateProfileUI();
+  else if(name==="search"){ if(typeof window.renderSearchDiscovery === "function") window.renderSearchDiscovery(); }
   else if(document.getElementById("messagesOverlay")?.classList.contains("show")) closeMessages();
   if(name==="admin"){ loadAdminStats(); loadAdminConfig(); loadManualVideosList(); }
 }
@@ -4261,45 +4920,112 @@ async function saveProfileIdentity(){
   }finally{ saveBtn.disabled = false; saveBtn.textContent = "Save Profile"; }
 }
 
-/* ---------- PROFILE PHOTO ---------- */
-function fileToDataURL(file){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>rej(new Error("READ_FAILED")); r.readAsDataURL(file); }); }
+/* ---------- PROFILE PHOTO (ENHANCED & RELIABLE) ---------- */
+function fileToDataURL(file){
+  return new Promise((res,rej)=>{
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = () => rej(new Error("READ_FAILED"));
+    r.readAsDataURL(file);
+  });
+}
+window.fileToDataURL = fileToDataURL;
+
 function canvasToBlob(c,t,q){ return new Promise(r=>c.toBlob(r,t,q)); }
+window.canvasToBlob = canvasToBlob;
+
 async function compressProfilePhoto(file){
   const dataUrl = await fileToDataURL(file);
   const img = new Image();
-  await new Promise((res,rej)=>{ img.onload=res; img.onerror=()=>rej(new Error("DECODE_FAILED")); img.src=dataUrl; });
-  const maxSide = 256;
+  await new Promise((res,rej)=>{
+    img.onload = res;
+    img.onerror = () => rej(new Error("DECODE_FAILED"));
+    img.src = dataUrl;
+  });
+  const maxSide = 320;
   const scale = Math.min(1, maxSide / Math.max(img.naturalWidth||img.width, img.naturalHeight||img.height));
   const w = Math.max(1, Math.round((img.naturalWidth||img.width)*scale));
   const h = Math.max(1, Math.round((img.naturalHeight||img.height)*scale));
-  const c = document.createElement("canvas"); c.width = w; c.height = h;
+  const c = document.createElement("canvas");
+  c.width = w;
+  c.height = h;
   const ctx = c.getContext("2d",{alpha:false});
-  ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,w,h);
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0,0,w,h);
   ctx.drawImage(img,0,0,w,h);
-  let q = 0.82;
+  let q = 0.85;
   let blob = await canvasToBlob(c,"image/jpeg",q);
-  while(blob && blob.size > 280*1024 && q > 0.45){ q -= 0.07; blob = await canvasToBlob(c,"image/jpeg",q); }
-  if(!blob || blob.size > 320*1024) throw new Error("TOO_LARGE");
+  while(blob && blob.size > 140*1024 && q > 0.4){
+    q -= 0.1;
+    blob = await canvasToBlob(c,"image/jpeg",q);
+  }
+  if(!blob) return dataUrl;
   return await fileToDataURL(blob);
 }
+window.compressProfilePhoto = compressProfilePhoto;
 
 async function uploadProfilePhoto(file){
-  if(!currentUser || !file) return;
   const input = document.getElementById("profilePhotoInput");
   const imgEl = document.getElementById("userPhoto");
-  if(!file.type || !["image/jpeg","image/png","image/webp"].includes(file.type)){ showToast("❌ Sirf JPG/PNG/WebP"); if(input) input.value=""; return; }
-  if(file.size > 5*1024*1024){ showToast("❌ 5 MB se chhoti photo"); if(input) input.value=""; return; }
+
+  if(!currentUser){
+    showToast("🔐 Photo badalne ke liye pehle login karein!");
+    if(typeof window.openLoginScreen === 'function') window.openLoginScreen();
+    if(input) input.value = "";
+    return;
+  }
+  if(!file) return;
+
+  const isImage = (file.type && file.type.startsWith("image/")) || (file.name && /\.(jpg|jpeg|png|webp|heic|heif|gif)$/i.test(file.name));
+  if(!isImage){
+    showToast("❌ Kripya photo (JPG, PNG, WebP) chunein");
+    if(input) input.value = "";
+    return;
+  }
+
+  if(file.size > 25*1024*1024){
+    showToast("❌ 25 MB se chhoti photo chunein");
+    if(input) input.value = "";
+    return;
+  }
+
+  showToast("⏳ Photo update ho rahi hai...");
   if(imgEl) imgEl.style.opacity = "0.5";
+
   try{
     const photoData = await compressProfilePhoto(file);
-    await db.collection("publicProfiles").doc(currentUser.uid).set({uid:currentUser.uid,photoURL:photoData,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-    await db.collection("users").doc(currentUser.uid).set({photo:photoData,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
     currentProfilePhotoURL = photoData;
+    localStorage.setItem("upch_user_photo_" + currentUser.uid, photoData);
     if(imgEl) imgEl.src = photoData;
-    showToast("✅ Photo updated!");
-  }catch(e){ console.error(e); showToast(e.message==="TOO_LARGE"?"❌ Compress fail":"❌ Photo save fail"); }
-  finally{ if(imgEl) imgEl.style.opacity = "1"; if(input) input.value = ""; }
+
+    // Update arcade avatar if visible
+    const funAv = document.getElementById("funPlayerAvatar");
+    if(funAv) funAv.src = photoData;
+
+    // Save to Firestore non-blocking
+    if(typeof db !== "undefined" && db){
+      await db.collection("publicProfiles").doc(currentUser.uid).set({
+        uid: currentUser.uid,
+        photoURL: photoData,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      },{merge:true}).catch(e => console.warn("Firestore publicProfile notice:", e));
+
+      await db.collection("users").doc(currentUser.uid).set({
+        photo: photoData,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      },{merge:true}).catch(e => console.warn("Firestore user photo notice:", e));
+    }
+
+    showToast("✅ Profile photo updated!");
+  }catch(e){
+    console.error("Profile photo upload error:", e);
+    showToast("❌ Photo update me samasya aayi: " + (e.message || "Retry karein"));
+  }finally{
+    if(imgEl) imgEl.style.opacity = "1";
+    if(input) input.value = "";
+  }
 }
+window.uploadProfilePhoto = uploadProfilePhoto;
 
 async function removeProfilePhoto(){
   if(!currentUser) return;
@@ -4344,56 +5070,130 @@ async function loadUserLikesAndSaves(uid){
 }
 
 /* ---------- IG PROFILE MODAL ---------- */
-async function openIgList(kind){
-  if(!currentUser){ showToast("🔐 Login"); return; }
+async function openIgList(kind, targetUid){
+  const uidToInspect = targetUid || (currentUser ? currentUser.uid : null);
+  if(!uidToInspect){ showToast("🔐 Pehle login karein"); return; }
   const overlay = document.getElementById("igListOverlay");
   const title = document.getElementById("igListTitle");
   const content = document.getElementById("igListContent");
-  if(!overlay||!title||!content) return;
+  const searchInput = document.getElementById("igListSearchInput");
+  if(!overlay || !title || !content) return;
   overlay.classList.add("show");
+  if(searchInput){ searchInput.value = ""; }
   title.textContent = kind === "followers" ? "Followers" : "Following";
-  content.innerHTML = '<p style="color:#888;text-align:center;padding:30px">Loading...</p>';
+  content.innerHTML = '<p style="color:#888;text-align:center;padding:30px">Loading list...</p>';
   try{
     const snap = kind === "followers"
-      ? await db.collection("follows").where("to","==",currentUser.uid).limit(100).get()
-      : await db.collection("follows").where("from","==",currentUser.uid).limit(100).get();
-    if(snap.empty){ content.innerHTML = '<div class="ig-list-empty"><span class="big-icon">👥</span>Koi user nahi.</div>'; return; }
+      ? await db.collection("follows").where("to","==",uidToInspect).limit(100).get()
+      : await db.collection("follows").where("from","==",uidToInspect).limit(100).get();
+    if(snap.empty){
+      title.textContent = (kind === "followers" ? "Followers" : "Following") + " (0)";
+      content.innerHTML = '<div class="ig-list-empty"><span class="big-icon">👥</span>Abhi koi user nahi hai.</div>';
+      return;
+    }
     const rows = [];
     for(const doc of snap.docs){
       const d = doc.data();
-      const uid = kind==="followers" ? d.from : d.to;
-      if(!uid) continue;
-      const ps = await db.collection("publicProfiles").doc(uid).get();
-      if(ps.exists) rows.push({uid,...ps.data()});
+      const u = kind === "followers" ? d.from : d.to;
+      if(!u) continue;
+      const ps = await db.collection("publicProfiles").doc(u).get();
+      if(ps.exists) rows.push({uid:u, ...ps.data()});
     }
+    title.textContent = (kind === "followers" ? "Followers" : "Following") + " (" + rows.length + ")";
     if(!rows.length){ content.innerHTML = '<div class="ig-list-empty">👥 Koi user nahi.</div>'; return; }
-    const fs = {};
-    if(kind === "followers"){
-      const mf = await db.collection("follows").where("from","==",currentUser.uid).get();
-      const set = new Set(); mf.forEach(d=>set.add(d.data().to));
-      rows.forEach(r=>{ fs[r.uid] = set.has(r.uid); });
-    } else { rows.forEach(r=>{ fs[r.uid] = true; }); }
-    content.innerHTML = rows.map(r =>
-      '<div class="ig-user-row"><img src="'+escapeAttr(avatarFor(r))+'"><div class="ig-user-meta"><div class="ig-user-name">'+escapeHtml(r.displayName||"User")+'</div><div class="ig-user-username">@'+escapeHtml(r.username||"user")+'</div></div><button type="button" class="ig-user-action '+(fs[r.uid]?"secondary":"")+'" data-follow-toggle="'+escapeAttr(r.uid)+'" data-following="'+(fs[r.uid]?"1":"0")+'">'+(fs[r.uid]?"Following":"Follow")+'</button></div>'
-    ).join("");
-    content.querySelectorAll("[data-follow-toggle]").forEach(btn=>{
-      btn.addEventListener("click", async ()=>{
-        const uid = btn.getAttribute("data-follow-toggle");
-        const wf = btn.getAttribute("data-following") === "1";
-        btn.disabled = true;
-        try{
-          if(wf){ await db.collection("follows").doc(followId(currentUser.uid,uid)).delete(); btn.textContent="Follow"; btn.setAttribute("data-following","0"); btn.classList.remove("secondary"); }
-          else{
-            await db.collection("follows").doc(followId(currentUser.uid,uid)).set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-            await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
-            btn.textContent="Following"; btn.setAttribute("data-following","1"); btn.classList.add("secondary");
-          }
-          await loadFollowCounts();
-        }catch(e){ showToast("❌"); }
-        finally{ btn.disabled = false; }
+
+    // Check my follow status and who follows me
+    const followingSet = new Set();
+    const followedBySet = new Set();
+    if(currentUser){
+      try{
+        const [myFollowing, myFollowers] = await Promise.all([
+          db.collection("follows").where("from","==",currentUser.uid).get(),
+          db.collection("follows").where("to","==",currentUser.uid).get()
+        ]);
+        myFollowing.forEach(d=>followingSet.add(d.data().to));
+        myFollowers.forEach(d=>followedBySet.add(d.data().from));
+      }catch(e){}
+    }
+
+    function renderListItems(filteredRows){
+      if(!filteredRows.length){
+        content.innerHTML = '<p style="color:#888;text-align:center;padding:24px">Koi user nahi mila.</p>';
+        return;
+      }
+      content.innerHTML = filteredRows.map(r => {
+        const isSelf = currentUser && r.uid === currentUser.uid;
+        const isFollowing = followingSet.has(r.uid);
+        const isFollowedByThem = followedBySet.has(r.uid);
+        const btnClass = isFollowing ? "following" : (isFollowedByThem ? "followback" : "follow");
+        const btnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
+        const followsYouChip = isFollowedByThem && !isSelf ? '<span class="follows-you-chip">Follows you</span>' : '';
+        const btnHtml = isSelf ? '<span style="font-size:12px;color:#888;padding:0 8px">You</span>'
+          : (currentUser ? '<button type="button" class="btn-action-follow '+btnClass+'" data-list-toggle="'+escapeAttr(r.uid)+'" data-followed-by="'+(isFollowedByThem?'1':'0')+'">'+btnText+'</button>' : '');
+        return '<div class="ig-user-row" data-row-uid="'+escapeAttr(r.uid)+'" style="cursor:pointer">'
+          + '<img src="'+escapeAttr(avatarFor(r))+'">'
+          + '<div class="ig-user-meta">'
+          +   '<div class="ig-user-name">'+escapeHtml(r.displayName||"User")+followsYouChip+'</div>'
+          +   '<div class="ig-user-username">@'+escapeHtml(r.username||"user")+'</div>'
+          + '</div>'
+          + btnHtml
+          + '</div>';
+      }).join("");
+
+      // Bind button events
+      content.querySelectorAll("[data-list-toggle]").forEach(btn=>{
+        btn.addEventListener("click", async (e)=>{
+          e.stopPropagation();
+          const targetUserUid = btn.getAttribute("data-list-toggle");
+          const isFollowedByThem = btn.getAttribute("data-followed-by") === "1";
+          btn.disabled = true;
+          try{
+            if(btn.classList.contains("following")){
+              await db.collection("follows").doc(followId(currentUser.uid, targetUserUid)).delete();
+              followingSet.delete(targetUserUid);
+              btn.className = "btn-action-follow " + (isFollowedByThem ? "followback" : "follow");
+              btn.textContent = isFollowedByThem ? "Follow Back" : "Follow";
+              showToast("Unfollowed");
+            } else {
+              await db.collection("follows").doc(followId(currentUser.uid, targetUserUid)).set({
+                from: currentUser.uid,
+                to: targetUserUid,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              });
+              followingSet.add(targetUserUid);
+              await createNotification(targetUserUid, "follow", "👤 New follower", (currentUser.displayName||"Someone")+" started following you.", {profileUid:currentUser.uid});
+              btn.className = "btn-action-follow following";
+              btn.textContent = "Following";
+              showToast("✅ Following");
+            }
+            await loadFollowCounts();
+          }catch(err){ showToast("❌ Action failed"); }
+          finally{ btn.disabled = false; }
+        });
       });
-    });
-  }catch(e){ console.error(e); content.innerHTML='<p style="color:#e63946;text-align:center;padding:30px">Load failed.</p>'; }
+
+      // Bind row click to open user profile
+      content.querySelectorAll(".ig-user-row").forEach(row=>{
+        row.addEventListener("click", ()=>{
+          const rUid = row.getAttribute("data-row-uid");
+          const targetObj = rows.find(x=>x.uid === rUid);
+          if(targetObj) showUserProfileModal(targetObj);
+        });
+      });
+    }
+
+    renderListItems(rows);
+
+    if(searchInput){
+      searchInput.oninput = ()=>{
+        const q = searchInput.value.toLowerCase().trim();
+        if(!q){ renderListItems(rows); return; }
+        const filtered = rows.filter(r => (r.displayName||"").toLowerCase().includes(q) || (r.username||"").toLowerCase().includes(q));
+        renderListItems(filtered);
+      };
+    }
+
+  }catch(e){ console.error(e); content.innerHTML='<p style="color:#e63946;text-align:center;padding:30px">List load karne me dikkat aayi.</p>'; }
 }
 
 /* ---------- CHANNEL PROFILE (About/Team/Contact page) ---------- */
@@ -4932,61 +5732,579 @@ async function loadAllLikes(){
   }catch(e){ console.error(e); }
 }
 
-/* ---------- SEARCH TAB ---------- */
-const tsi = document.getElementById("tabSearchInput");
-let peopleSearchTimer = null;
-if(tsi){
-  tsi.addEventListener("input",()=>{
-    const q = tsi.value.toLowerCase().trim();
-    const tr = document.getElementById("tabSearchResults");
-    const pr = document.getElementById("tabPeopleSearchResults");
-    if(peopleSearchTimer) clearTimeout(peopleSearchTimer);
-    tr.innerHTML = ""; pr.innerHTML = "";
-    if(q.length < 2) return;
-    /* Point 6: username (people) search */
-    peopleSearchTimer = setTimeout(()=>searchUsersAnywhere(q,pr),280);
-    /* Point 6: sirf videos + Shorts search karo (channel profile sections NAHI) */
-    const vids = [];
-    Object.keys(allVideos).forEach(vid=>{
-      const info = allVideos[vid] || {};
-      const t = (info.title||"").toLowerCase();
-      if(t.includes(q)) vids.push({vid, title: info.title||"Video", cat: info.category||"long"});
+/* ============================================================
+   SMART UNIFIED HYBRID SEARCH (INSTAGRAM + YOUTUBE STYLE)
+   ============================================================ */
+let searchActiveCategory = "top";
+let searchDebounceTimer = null;
+let cachedSuggestedCreators = null;
+
+function getRecentSearches(){
+  try{
+    return JSON.parse(localStorage.getItem("upch_recent_searches") || "[]");
+  }catch(e){ return []; }
+}
+function saveRecentSearch(q){
+  if(!q || q.trim().length < 2) return;
+  const clean = q.trim();
+  let list = getRecentSearches().filter(x=>x.toLowerCase() !== clean.toLowerCase());
+  list.unshift(clean);
+  if(list.length > 8) list = list.slice(0, 8);
+  try{ localStorage.setItem("upch_recent_searches", JSON.stringify(list)); }catch(e){}
+  renderRecentSearches();
+}
+function removeRecentSearch(q){
+  let list = getRecentSearches().filter(x=>x.toLowerCase() !== q.toLowerCase());
+  try{ localStorage.setItem("upch_recent_searches", JSON.stringify(list)); }catch(e){}
+  renderRecentSearches();
+}
+function clearAllRecentSearches(){
+  try{ localStorage.removeItem("upch_recent_searches"); }catch(e){}
+  renderRecentSearches();
+}
+
+function renderRecentSearches(){
+  const box = document.getElementById("recentSearchesBox");
+  const listEl = document.getElementById("recentSearchesList");
+  if(!box || !listEl) return;
+  const searches = getRecentSearches();
+  if(!searches.length){ box.style.display = "none"; return; }
+  box.style.display = "block";
+  listEl.innerHTML = "";
+  searches.forEach(term => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "recent-search-chip";
+    chip.innerHTML = '<span class="chip-clock">🕒</span><span>'+escapeHtml(term)+'</span><span class="chip-del" title="Remove">✕</span>';
+    chip.addEventListener("click", (e)=>{
+      if(e.target.classList.contains("chip-del")){
+        e.stopPropagation();
+        removeRecentSearch(term);
+      } else {
+        const inp = document.getElementById("tabSearchInput");
+        if(inp){ inp.value = term; }
+        runUnifiedSearch(term, true);
+      }
     });
-    if(!vids.length){ tr.innerHTML = "<p style='text-align:center;color:#888;padding:8px'>🎬 Koi video/short nahi mila</p>"; return; }
-    const vhead = document.createElement("p"); vhead.style.cssText = "color:#888;font-size:12px;padding:6px 4px;margin:0"; vhead.textContent = "🎬 Videos & Shorts";
-    tr.appendChild(vhead);
-    vids.slice(0,12).forEach(v=>{
-      const d = document.createElement("div");
-      d.className = "search-result-item";
-      d.innerHTML = '<img src="https://i.ytimg.com/vi/'+escapeAttr(v.vid)+'/default.jpg" alt="" style="width:60px;height:42px;object-fit:cover;border-radius:6px;margin-right:10px;vertical-align:middle"><strong>'+escapeHtml(v.title)+'</strong>';
-      d.addEventListener("click",()=>{
-        const targetTab = v.cat === "shorts" ? "reels" : "home";
-        switchTab(targetTab);
-        setTimeout(()=>{ const el = document.querySelector('.video-card[data-video-id="'+v.vid+'"]'); if(el) el.scrollIntoView({behavior:"smooth",block:"center"}); }, 400);
-      });
-      tr.appendChild(d);
-    });
+    listEl.appendChild(chip);
   });
 }
 
-async function searchUsersAnywhere(query, out){
-  if(!currentUser || !out) return;
-  const q = normalizeUsername(query);
-  out.innerHTML = "";
-  if(q.length < 2) return;
-  out.innerHTML = '<p style="color:#888;font-size:12px;padding:8px 4px">👤 People search...</p>';
+async function renderSuggestedCreators(){
+  const container = document.getElementById("suggestedCreatorsList");
+  if(!container) return;
+  if(cachedSuggestedCreators && cachedSuggestedCreators.length){
+    buildSuggestedCreatorsUI(cachedSuggestedCreators, container);
+    return;
+  }
+  container.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">Loading creators...</p>';
   try{
-    const snap = await db.collection("usernames").orderBy("username").startAt(q).endAt(q+"\uf8ff").limit(8).get();
-    const docs = snap.docs.filter(d=>d.data().uid !== currentUser.uid);
-    out.innerHTML = "";
-    if(!docs.length){ out.innerHTML = '<p style="color:#888;text-align:center;padding:10px">Koi profile nahi mila.</p>'; return; }
-    for(const d of docs){
-      const uid = d.data().uid;
-      const ps = await db.collection("publicProfiles").doc(uid).get();
-      if(ps.exists) await buildPersonSearchResult(uid, ps.data(), out);
+    const snap = await db.collection("publicProfiles").limit(6).get();
+    let creators = [];
+    if(!snap.empty){
+      creators = snap.docs.map(d=>({uid:d.id, ...d.data()})).filter(u=>!currentUser || u.uid !== currentUser.uid);
     }
-  }catch(e){ console.error(e); out.innerHTML = '<p style="color:#e63946;padding:8px 4px">Search failed.</p>'; }
+    if(!creators.length){
+      creators = [
+        {uid:"upcomedyhub_official", displayName:"UPComedyHub Official", username:"upcomedyhub", bio:"Official comedy, funny sketches & entertainment 🔥", photoURL:"icon.svg", isVerified:true, followersCount:1250},
+        {uid:"desi_comedy_king", displayName:"Desi Comedy Stars", username:"desicomedy", bio:"Best desi standup comedy & jokes", photoURL:"https://ui-avatars.com/api/?name=Desi+Comedy&background=e63946&color=fff", isVerified:true, followersCount:840}
+      ];
+    }
+    cachedSuggestedCreators = creators;
+    buildSuggestedCreatorsUI(creators, container);
+  }catch(err){
+    console.warn("Suggested creators fallback:", err);
+    container.innerHTML = '<p style="color:#888;font-size:12px;padding:8px">Popular comedy creators jald aa rahe hain! ✨</p>';
+  }
 }
+
+async function buildSuggestedCreatorsUI(creators, container){
+  container.innerHTML = "";
+  for(const c of creators){
+    const card = document.createElement("div");
+    card.className = "suggested-creator-card";
+    const avatar = avatarFor(c);
+    const name = c.displayName || "Comedy Creator";
+    const uname = c.username || "creator";
+    const verifiedBadge = c.isVerified ? ' <span style="color:#0095f6;font-size:13px">✓</span>' : '';
+    
+    let isFollowing = false;
+    let isFollowedByThem = false;
+    if(currentUser && c.uid && c.uid !== currentUser.uid){
+      try{
+        const [folSnap, folBackSnap] = await Promise.all([
+          db.collection("follows").doc(followId(currentUser.uid, c.uid)).get(),
+          db.collection("follows").doc(followId(c.uid, currentUser.uid)).get()
+        ]);
+        isFollowing = folSnap.exists;
+        isFollowedByThem = folBackSnap.exists;
+      }catch(e){}
+    }
+
+    const followBtnClass = isFollowing ? "following" : (isFollowedByThem ? "followback" : "follow");
+    const followBtnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
+    const followsYouBadge = isFollowedByThem ? '<span class="follows-you-chip">Follows you</span>' : '';
+
+    card.innerHTML = '<img class="suggested-creator-avatar" src="'+escapeAttr(avatar)+'">'
+      + '<div class="suggested-creator-meta">'
+      +   '<div class="suggested-creator-name">'+escapeHtml(name)+verifiedBadge+followsYouBadge+'</div>'
+      +   '<div class="suggested-creator-user">@'+escapeHtml(uname)+'</div>'
+      +   '<div class="suggested-creator-stats">'+(c.followersCount ? c.followersCount+' followers' : 'Comedy Creator')+'</div>'
+      + '</div>'
+      + (currentUser && c.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-creator-uid="'+escapeAttr(c.uid)+'">'+followBtnText+'</button>' : '');
+
+    const btn = card.querySelector(".btn-action-follow");
+    if(btn){
+      btn.addEventListener("click", async (e)=>{
+        e.stopPropagation();
+        btn.disabled = true;
+        try{
+          if(btn.classList.contains("following")){
+            await db.collection("follows").doc(followId(currentUser.uid, c.uid)).delete();
+            btn.className = "btn-action-follow "+(isFollowedByThem ? "followback" : "follow");
+            btn.textContent = isFollowedByThem ? "Follow Back" : "Follow";
+            showToast("Unfollowed");
+          } else {
+            await db.collection("follows").doc(followId(currentUser.uid, c.uid)).set({
+              from: currentUser.uid,
+              to: c.uid,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            await createNotification(c.uid, "follow", "👤 New follower", (currentUser.displayName||"Someone")+" started following you.", {profileUid:currentUser.uid});
+            btn.className = "btn-action-follow following";
+            btn.textContent = "Following";
+            showToast("✅ Following");
+          }
+          await loadFollowCounts();
+        }catch(err){ showToast("❌ Follow failed"); }
+        finally{ btn.disabled = false; }
+      });
+    }
+
+    card.addEventListener("click", ()=>showUserProfileModal(c));
+    container.appendChild(card);
+  }
+}
+
+function renderSearchDiscovery(){
+  const disc = document.getElementById("searchDiscoveryWrap");
+  const res = document.getElementById("searchResultsWrap");
+  const clr = document.getElementById("searchClearBtn");
+  if(disc) disc.style.display = "block";
+  if(res) res.style.display = "none";
+  if(clr) clr.style.display = "none";
+  renderRecentSearches();
+  renderSuggestedCreators();
+}
+
+function switchSearchCategory(cat){
+  searchActiveCategory = cat;
+  document.querySelectorAll(".search-tab-pill").forEach(pill=>{
+    pill.classList.toggle("active", pill.getAttribute("data-search-cat") === cat);
+  });
+  const topPane = document.getElementById("searchPaneTop");
+  const accPane = document.getElementById("searchPaneAccounts");
+  const vidPane = document.getElementById("searchPaneVideos");
+  const reelPane = document.getElementById("searchPaneReels");
+  if(topPane) topPane.style.display = cat === "top" ? "block" : "none";
+  if(accPane) accPane.style.display = cat === "accounts" ? "block" : "none";
+  if(vidPane) vidPane.style.display = cat === "videos" ? "block" : "none";
+  if(reelPane) reelPane.style.display = cat === "reels" ? "block" : "none";
+}
+
+async function runUnifiedSearch(rawQuery, saveHistory = true){
+  const query = (rawQuery || "").trim();
+  const disc = document.getElementById("searchDiscoveryWrap");
+  const res = document.getElementById("searchResultsWrap");
+  const clr = document.getElementById("searchClearBtn");
+  const noRes = document.getElementById("searchNoResults");
+
+  if(clr) clr.style.display = query.length > 0 ? "flex" : "none";
+
+  if(query.length < 2){
+    renderSearchDiscovery();
+    return;
+  }
+
+  if(saveHistory) saveRecentSearch(query);
+
+  if(disc) disc.style.display = "none";
+  if(res) res.style.display = "block";
+  if(noRes) noRes.style.display = "none";
+
+  const topSpotlight = document.getElementById("searchTopSpotlight");
+  const topVideos = document.getElementById("searchTopVideos");
+  const accountsList = document.getElementById("searchAccountsList");
+  const videosList = document.getElementById("searchVideosList");
+  const reelsList = document.getElementById("searchReelsList");
+
+  if(topSpotlight) topSpotlight.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">🔍 Searching accounts & videos...</p>';
+  if(topVideos) topVideos.innerHTML = "";
+  if(accountsList) accountsList.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">👤 Dhoondh rahe hain...</p>';
+  if(videosList) videosList.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">🎬 Videos dhoondh rahe hain...</p>';
+  if(reelsList) reelsList.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">⚡ Reels dhoondh rahe hain...</p>';
+
+  const qLower = query.toLowerCase();
+  const qNorm = normalizeUsername(query);
+
+  // 1. Search Videos
+  const matchedLongVideos = [];
+  const matchedShorts = [];
+  Object.keys(allVideos).forEach(vid=>{
+    const info = allVideos[vid] || {};
+    const t = (info.title || "").toLowerCase();
+    if(t.includes(qLower)){
+      const item = { vid, title: info.title || "UPComedyHub Video", cat: info.category || "long" };
+      if(item.cat === "shorts" || item.cat === "reels") matchedShorts.push(item);
+      else matchedLongVideos.push(item);
+    }
+  });
+
+  // 2. Search Accounts (Firestore)
+  let matchedUsers = [];
+  try{
+    if(qNorm.length >= 2){
+      const snap = await db.collection("usernames").orderBy("username").startAt(qNorm).endAt(qNorm + "\uf8ff").limit(12).get();
+      for(const doc of snap.docs){
+        const uid = doc.data().uid;
+        if(currentUser && uid === currentUser.uid) continue;
+        const ps = await db.collection("publicProfiles").doc(uid).get();
+        if(ps.exists) matchedUsers.push({uid, ...ps.data()});
+      }
+    }
+  }catch(err){ console.warn("Search users error:", err); }
+
+  const totalResults = matchedUsers.length + matchedLongVideos.length + matchedShorts.length;
+
+  if(totalResults === 0){
+    if(topSpotlight) topSpotlight.innerHTML = "";
+    if(topVideos) topVideos.innerHTML = "";
+    if(accountsList) accountsList.innerHTML = "";
+    if(videosList) videosList.innerHTML = "";
+    if(reelsList) reelsList.innerHTML = "";
+    if(noRes) noRes.style.display = "block";
+    return;
+  }
+
+  // --- RENDER TOP TAB ---
+  if(topSpotlight){
+    topSpotlight.innerHTML = "";
+    if(matchedUsers.length > 0){
+      const spotlightUser = matchedUsers[0];
+      const spotCard = await buildCreatorSpotlightCard(spotlightUser);
+      topSpotlight.appendChild(spotCard);
+    }
+  }
+  if(topVideos){
+    topVideos.innerHTML = "";
+    const mixedVids = [...matchedLongVideos.slice(0, 4), ...matchedShorts.slice(0, 4)];
+    if(mixedVids.length > 0){
+      const vhead = document.createElement("div");
+      vhead.className = "ssh-title";
+      vhead.style.margin = "12px 0 8px";
+      vhead.textContent = "🎬 Top Videos & Clips (" + (matchedLongVideos.length + matchedShorts.length) + ")";
+      topVideos.appendChild(vhead);
+      mixedVids.forEach(v=>{
+        topVideos.appendChild(buildYouTubeVideoCard(v));
+      });
+    }
+  }
+
+  // --- RENDER ACCOUNTS TAB (Instagram Style) ---
+  if(accountsList){
+    accountsList.innerHTML = "";
+    if(!matchedUsers.length){
+      accountsList.innerHTML = '<p style="color:#888;text-align:center;padding:30px">Koi account nahi mila.</p>';
+    } else {
+      for(const u of matchedUsers){
+        const row = await buildAccountResultRow(u);
+        accountsList.appendChild(row);
+      }
+    }
+  }
+
+  // --- RENDER VIDEOS TAB (YouTube Style) ---
+  if(videosList){
+    videosList.innerHTML = "";
+    if(!matchedLongVideos.length){
+      videosList.innerHTML = '<p style="color:#888;text-align:center;padding:30px">🎬 Koi long video nahi mila.</p>';
+    } else {
+      matchedLongVideos.forEach(v=>{
+        videosList.appendChild(buildYouTubeVideoCard(v));
+      });
+    }
+  }
+
+  // --- RENDER REELS TAB ---
+  if(reelsList){
+    reelsList.innerHTML = "";
+    if(!matchedShorts.length){
+      reelsList.innerHTML = '<p style="color:#888;text-align:center;padding:30px;grid-column:1/-1">⚡ Koi comedy reel nahi mili.</p>';
+    } else {
+      matchedShorts.forEach(v=>{
+        reelsList.appendChild(buildSearchReelCard(v));
+      });
+    }
+  }
+}
+
+async function buildCreatorSpotlightCard(user){
+  const card = document.createElement("div");
+  card.className = "search-spotlight-card";
+  const avatar = avatarFor(user);
+  const name = user.displayName || "Creator";
+  const uname = user.username || "creator";
+  const bio = user.bio || "Creator on UPComedyHub";
+
+  let isFollowing = false;
+  let isFollowedByThem = false;
+  if(currentUser && user.uid && user.uid !== currentUser.uid){
+    try{
+      const [folSnap, folBackSnap] = await Promise.all([
+        db.collection("follows").doc(followId(currentUser.uid, user.uid)).get(),
+        db.collection("follows").doc(followId(user.uid, currentUser.uid)).get()
+      ]);
+      isFollowing = folSnap.exists;
+      isFollowedByThem = folBackSnap.exists;
+    }catch(e){}
+  }
+
+  const followBtnClass = isFollowing ? "following" : (isFollowedByThem ? "followback" : "follow");
+  const followBtnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
+  const followsYouBadge = isFollowedByThem ? '<span class="follows-you-badge">Follows you</span>' : '';
+
+  card.innerHTML = '<img class="search-spotlight-avatar" src="'+escapeAttr(avatar)+'">'
+    + '<div class="search-spotlight-info">'
+    +   '<div class="search-spotlight-name">'+escapeHtml(name)+followsYouBadge+'</div>'
+    +   '<div class="search-spotlight-user">@'+escapeHtml(uname)+'</div>'
+    +   '<div class="search-spotlight-bio">'+escapeHtml(bio)+'</div>'
+    +   '<div class="search-spotlight-actions">'
+    +     (currentUser && user.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-spotlight-uid="'+escapeAttr(user.uid)+'">'+followBtnText+'</button>' : '')
+    +     '<button type="button" class="btn-action-msg" data-spotlight-msg>💬 Message</button>'
+    +   '</div>'
+    + '</div>';
+
+  const fb = card.querySelector(".btn-action-follow");
+  if(fb){
+    fb.addEventListener("click", async (e)=>{
+      e.stopPropagation();
+      fb.disabled = true;
+      try{
+        if(fb.classList.contains("following")){
+          await db.collection("follows").doc(followId(currentUser.uid, user.uid)).delete();
+          fb.className = "btn-action-follow "+(isFollowedByThem ? "followback" : "follow");
+          fb.textContent = isFollowedByThem ? "Follow Back" : "Follow";
+          showToast("Unfollowed");
+        } else {
+          await db.collection("follows").doc(followId(currentUser.uid, user.uid)).set({
+            from: currentUser.uid,
+            to: user.uid,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          await createNotification(user.uid, "follow", "👤 New follower", (currentUser.displayName||"Someone")+" started following you.", {profileUid:currentUser.uid});
+          fb.className = "btn-action-follow following";
+          fb.textContent = "Following";
+          showToast("✅ Following");
+        }
+        await loadFollowCounts();
+      }catch(err){ showToast("❌ Follow failed"); }
+      finally{ fb.disabled = false; }
+    });
+  }
+
+  const mb = card.querySelector("[data-spotlight-msg]");
+  if(mb){
+    mb.addEventListener("click", (e)=>{
+      e.stopPropagation();
+      openChat({uid: user.uid, ...user});
+    });
+  }
+
+  card.addEventListener("click", ()=>showUserProfileModal(user));
+  return card;
+}
+
+async function buildAccountResultRow(user){
+  const row = document.createElement("div");
+  row.className = "search-account-row";
+  const avatar = avatarFor(user);
+  const name = user.displayName || "User";
+  const uname = user.username || "user";
+  const bio = user.bio || "";
+
+  let isFollowing = false;
+  let isFollowedByThem = false;
+  if(currentUser && user.uid && user.uid !== currentUser.uid){
+    try{
+      const [folSnap, folBackSnap] = await Promise.all([
+        db.collection("follows").doc(followId(currentUser.uid, user.uid)).get(),
+        db.collection("follows").doc(followId(user.uid, currentUser.uid)).get()
+      ]);
+      isFollowing = folSnap.exists;
+      isFollowedByThem = folBackSnap.exists;
+    }catch(e){}
+  }
+
+  const followBtnClass = isFollowing ? "following" : (isFollowedByThem ? "followback" : "follow");
+  const followBtnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
+  const followsYouChip = isFollowedByThem ? '<span class="follows-you-chip">Follows you</span>' : '';
+
+  row.innerHTML = '<img class="search-account-avatar" src="'+escapeAttr(avatar)+'">'
+    + '<div class="search-account-meta">'
+    +   '<div class="search-account-name">'+escapeHtml(name)+followsYouChip+'</div>'
+    +   '<div class="search-account-username">@'+escapeHtml(uname)+'</div>'
+    +   (bio ? '<div class="search-account-bio">'+escapeHtml(bio)+'</div>' : '')
+    + '</div>'
+    + (currentUser && user.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-follow-row>'+followBtnText+'</button>' : '');
+
+  const fb = row.querySelector("[data-follow-row]");
+  if(fb){
+    fb.addEventListener("click", async (e)=>{
+      e.stopPropagation();
+      fb.disabled = true;
+      try{
+        if(fb.classList.contains("following")){
+          await db.collection("follows").doc(followId(currentUser.uid, user.uid)).delete();
+          fb.className = "btn-action-follow "+(isFollowedByThem ? "followback" : "follow");
+          fb.textContent = isFollowedByThem ? "Follow Back" : "Follow";
+          showToast("Unfollowed");
+        } else {
+          await db.collection("follows").doc(followId(currentUser.uid, user.uid)).set({
+            from: currentUser.uid,
+            to: user.uid,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          await createNotification(user.uid, "follow", "👤 New follower", (currentUser.displayName||"Someone")+" started following you.", {profileUid:currentUser.uid});
+          fb.className = "btn-action-follow following";
+          fb.textContent = "Following";
+          showToast("✅ Following");
+        }
+        await loadFollowCounts();
+      }catch(err){ showToast("❌ Follow failed"); }
+      finally{ fb.disabled = false; }
+    });
+  }
+
+  row.addEventListener("click", ()=>showUserProfileModal(user));
+  return row;
+}
+
+function buildYouTubeVideoCard(v){
+  const card = document.createElement("div");
+  card.className = "search-youtube-card";
+  const thumb = "https://i.ytimg.com/vi/" + escapeAttr(v.vid) + "/hqdefault.jpg";
+  const isShort = v.cat === "shorts" || v.cat === "reels";
+  const badgeLabel = isShort ? "⚡ REEL" : "🎬 HD";
+
+  card.innerHTML = '<div class="search-yt-thumb-wrap">'
+    +   '<img class="search-yt-thumb" src="'+thumb+'" alt="" loading="lazy">'
+    +   '<div class="search-yt-badge">'+badgeLabel+'</div>'
+    +   '<div class="search-yt-play-overlay">▶</div>'
+    + '</div>'
+    + '<div class="search-yt-meta">'
+    +   '<div class="search-yt-title">'+escapeHtml(v.title)+'</div>'
+    +   '<div class="search-yt-channel"><span style="color:#e63946;font-size:11px">●</span> UPComedyHub Official</div>'
+    +   '<div class="search-yt-tags">'
+    +     '<span class="search-yt-tag">'+(isShort ? "Shorts & Reels" : "Long Comedy Video")+'</span>'
+    +   '</div>'
+    + '</div>';
+
+  card.addEventListener("click", ()=>{
+    const targetTab = isShort ? "reels" : "home";
+    switchTab(targetTab);
+    setTimeout(()=>{
+      const el = document.querySelector('.video-card[data-video-id="'+v.vid+'"]');
+      if(el){
+        el.scrollIntoView({behavior:"smooth", block:"center"});
+        const thumbBtn = el.querySelector(".video-thumb");
+        if(thumbBtn && !thumbBtn.querySelector("iframe")) thumbBtn.click();
+      }
+    }, 450);
+  });
+  return card;
+}
+
+function buildSearchReelCard(v){
+  const card = document.createElement("div");
+  card.className = "search-reel-card";
+  const thumb = "https://i.ytimg.com/vi/" + escapeAttr(v.vid) + "/hqdefault.jpg";
+  card.innerHTML = '<img src="'+thumb+'" alt="" loading="lazy">'
+    + '<div class="search-reel-overlay">'
+    +   '<span class="search-reel-badge">⚡ REEL</span>'
+    +   '<div class="search-reel-title">'+escapeHtml(v.title)+'</div>'
+    + '</div>';
+
+  card.addEventListener("click", ()=>{
+    switchTab("reels");
+    setTimeout(()=>{
+      const el = document.querySelector('.video-card[data-video-id="'+v.vid+'"]');
+      if(el){
+        el.scrollIntoView({behavior:"smooth", block:"center"});
+        const thumbBtn = el.querySelector(".video-thumb");
+        if(thumbBtn && !thumbBtn.querySelector("iframe")) thumbBtn.click();
+      }
+    }, 450);
+  });
+  return card;
+}
+
+// Global initialization for Search Tab elements
+function initSearchTabListeners(){
+  const inp = document.getElementById("tabSearchInput");
+  const clr = document.getElementById("searchClearBtn");
+  const tabs = document.getElementById("searchCategoryTabs");
+  const clearAllBtn = document.getElementById("clearAllRecentSearchesBtn");
+
+  if(inp){
+    inp.addEventListener("input", ()=>{
+      const val = inp.value;
+      if(clr) clr.style.display = val.length > 0 ? "flex" : "none";
+      if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(()=>runUnifiedSearch(val, false), 260);
+    });
+    inp.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter"){
+        if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        runUnifiedSearch(inp.value, true);
+      }
+    });
+  }
+
+  if(clr){
+    clr.addEventListener("click", ()=>{
+      if(inp){ inp.value = ""; inp.focus(); }
+      renderSearchDiscovery();
+    });
+  }
+
+  if(clearAllBtn){
+    clearAllBtn.addEventListener("click", clearAllRecentSearches);
+  }
+
+  if(tabs){
+    tabs.querySelectorAll(".search-tab-pill").forEach(pill=>{
+      pill.addEventListener("click", ()=>{
+        const cat = pill.getAttribute("data-search-cat");
+        if(cat) switchSearchCategory(cat);
+      });
+    });
+  }
+
+  // Trending tag pill clicks
+  document.querySelectorAll(".trending-tag-pill").forEach(tag=>{
+    tag.addEventListener("click", ()=>{
+      const q = tag.getAttribute("data-query") || tag.textContent.replace("#","").trim();
+      if(inp){ inp.value = q; }
+      runUnifiedSearch(q, true);
+    });
+  });
+
+  renderSearchDiscovery();
+}
+
+window.initSearchTabListeners = initSearchTabListeners;
+window.renderSearchDiscovery = renderSearchDiscovery;
+
 
 /* ---------- UPI + YT + RECENTLY VIEWED ---------- */
 const UPI_ID = "9236994154@axl";
@@ -5354,7 +6672,56 @@ async function buildPersonSearchResult(uid, profile, container){
   const data = profile || {};
   const row = document.createElement("div");
   row.className = "search-people-card";
-  row.innerHTML = '<img src="'+escapeAttr(avatarFor(data))+'"><div class="search-people-meta"><div class="search-people-name">'+escapeHtml(data.displayName||"User")+'</div><div class="search-people-username">@'+escapeHtml(data.username||"user")+'</div></div><span class="search-people-chevron">›</span>';
+
+  let isFollowing = false;
+  if(currentUser && uid !== currentUser.uid){
+    try{
+      const fs = await db.collection("follows").doc(followId(currentUser.uid, uid)).get();
+      isFollowing = fs.exists;
+    }catch(e){}
+  }
+
+  row.innerHTML = '<img src="'+escapeAttr(avatarFor(data))+'">'
+    + '<div class="search-people-meta">'
+    +   '<div class="search-people-name">'+escapeHtml(data.displayName||"User")+'</div>'
+    +   '<div class="search-people-username">@'+escapeHtml(data.username||"user")+'</div>'
+    + '</div>'
+    + (currentUser && uid !== currentUser.uid
+        ? '<button type="button" class="search-follow-btn '+(isFollowing?'following':'')+'">'+(isFollowing?'Following':'Follow')+'</button>'
+        : '<span class="search-people-chevron">›</span>');
+
+  const btn = row.querySelector(".search-follow-btn");
+  if(btn){
+    btn.addEventListener("click", async (e)=>{
+      e.stopPropagation();
+      btn.disabled = true;
+      try{
+        if(btn.textContent.trim() === "Following"){
+          await db.collection("follows").doc(followId(currentUser.uid, uid)).delete();
+          btn.textContent = "Follow";
+          btn.classList.remove("following");
+          showToast("Unfollowed");
+        } else {
+          await db.collection("follows").doc(followId(currentUser.uid, uid)).set({
+            from: currentUser.uid,
+            to: uid,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
+          btn.textContent = "Following";
+          btn.classList.add("following");
+          showToast("✅ Following");
+        }
+        await loadFollowCounts();
+      }catch(err){
+        console.error(err);
+        showToast("❌ Follow failed");
+      }finally{
+        btn.disabled = false;
+      }
+    });
+  }
+
   row.addEventListener("click", ()=>showUserProfileModal({uid,...data}));
   container.appendChild(row);
 }
@@ -5415,7 +6782,11 @@ function setupTypingListener(cid, fuid){
 }
 async function updateChatUserStatus(fuid, isTyping){
   const el = document.getElementById("chatUserStatus"); if(!el || !fuid) return;
-  if(isTyping){ el.textContent = "typing..."; el.className = "chat-user-status typing"; return; }
+  if(isTyping){
+    el.innerHTML = '<span class="typing-indicator-wrap"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span> typing...</span>';
+    el.className = "chat-user-status typing";
+    return;
+  }
   try{
     const snap = await db.collection("users").doc(fuid).get();
     if(!snap.exists){ el.textContent = ""; return; }
@@ -5423,8 +6794,13 @@ async function updateChatUserStatus(fuid, isTyping){
     const ls = d.lastSeen?.toDate ? d.lastSeen.toDate() : null;
     if(ls){
       const mins = (Date.now() - ls.getTime()) / 60000;
-      if(mins < 2){ el.textContent = "● Online"; el.className = "chat-user-status online"; }
-      else { el.textContent = "last seen "+formatTimeAgo(ls); el.className = "chat-user-status"; }
+      if(mins < 2){
+        el.innerHTML = '<span style="color:#22c55e;font-weight:900">●</span> Online';
+        el.className = "chat-user-status online";
+      } else {
+        el.textContent = "last seen " + formatTimeAgo(ls);
+        el.className = "chat-user-status";
+      }
     } else el.textContent = "";
   }catch(e){}
 }
@@ -5450,7 +6826,7 @@ async function openChat(friend){
     const aiBox = document.getElementById("chatMessages");
     if(aiBox) aiBox.innerHTML = "";
     if(typeof renderAIHistory === "function") renderAIHistory();
-      updateComposerButtons();
+    updateComposerButtons();
     return;
   }
 
@@ -5467,6 +6843,46 @@ async function openChat(friend){
   setupTypingListener(currentConversationId, friend.uid);
   updateChatUserStatus(friend.uid, false);
 }
+
+/* ---------- IN-APP IMAGE LIGHTBOX ---------- */
+function openChatLightbox(url){
+  const ov = document.getElementById("chatLightboxOverlay");
+  const img = document.getElementById("chatLightboxImg");
+  const down = document.getElementById("chatLightboxDownload");
+  if(!ov || !img || !url) return;
+  img.src = url;
+  if(down) down.href = url;
+  ov.classList.add("show");
+}
+function closeChatLightbox(){
+  const ov = document.getElementById("chatLightboxOverlay");
+  if(ov) ov.classList.remove("show");
+}
+window.openChatLightbox = openChatLightbox;
+window.closeChatLightbox = closeChatLightbox;
+
+/* ---------- MESSAGE ACTION SHEET (REACTIONS, REPLY, DELETE) ---------- */
+let activeActionMsgId = null;
+let activeActionMsgMine = false;
+let activeActionMsgText = "";
+
+function openMsgActionSheet(mid, mine, text){
+  activeActionMsgId = mid;
+  activeActionMsgMine = mine;
+  activeActionMsgText = text || "";
+  const sheet = document.getElementById("msgActionSheet");
+  const delEve = document.getElementById("actionDeleteEveryoneBtn");
+  if(!sheet) return;
+  if(delEve) delEve.style.display = mine ? "flex" : "none";
+  sheet.classList.add("show");
+}
+function closeMsgActionSheet(){
+  const sheet = document.getElementById("msgActionSheet");
+  if(sheet) sheet.classList.remove("show");
+  activeActionMsgId = null;
+}
+window.openMsgActionSheet = openMsgActionSheet;
+window.closeMsgActionSheet = closeMsgActionSheet;
 
 /* ---------- RENDER CHAT MESSAGES ---------- */
 function getTimeSeparatorLabel(date){
@@ -5496,20 +6912,53 @@ async function renderChatMessages(docs){
     const mine = d.senderId === currentUser.uid;
     const same = (lastSender === d.senderId);
     lastSender = d.senderId;
+
+    // Auto mark incoming messages as read so sender gets double blue check!
+    if(!mine && !d.readAt && currentUser && currentConversationId){
+      try{
+        db.collection("conversations").doc(currentConversationId).collection("messages").doc(doc.id).update({
+          readAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).catch(()=>{});
+      }catch(e){}
+    }
+
     const reply = d.replyTo ? '<div class="reply-preview">↪ '+escapeHtml((d.replyTo.text||"Message").slice(0,60))+'</div>' : "";
     let content = "";
-    if(d.deletedForEveryone) content = '<div class="chat-message-text" style="font-style:italic;opacity:.7">🚫 This message was deleted</div>';
-    else if(d.mediaType === "image" && d.mediaUrl) content = '<img class="chat-image-msg" src="'+escapeAttr(d.mediaUrl)+'" data-open-image="'+escapeAttr(d.mediaUrl)+'">'+(d.text?'<div class="chat-message-text" style="margin-top:6px">'+escapeHtml(d.text)+'</div>':'');
-    else if(d.mediaType === "voice" && d.mediaUrl){
-      content = '<div class="voice-bubble" data-voice-id="'+escapeAttr(doc.id)+'"><button type="button" class="voice-play-btn">▶</button><div class="voice-waveform">'+Array(16).fill(0).map((_,i)=>'<div class="voice-bar" style="height:'+(6+(i*3)%14)+'px"></div>').join("")+'</div><span class="voice-duration">'+(d.mediaDuration||0)+'s</span><audio src="'+escapeAttr(d.mediaUrl)+'" preload="none"></audio></div>';
-    } else content = '<div class="chat-message-text">'+escapeHtml(d.text||"")+'</div>';
+    if(d.deletedForEveryone){
+      content = '<div class="chat-message-text" style="font-style:italic;opacity:.7">🚫 This message was deleted</div>';
+    } else if(d.mediaType === "image" && d.mediaUrl){
+      content = '<img class="chat-image-msg" src="'+escapeAttr(d.mediaUrl)+'" data-open-image="'+escapeAttr(d.mediaUrl)+'" loading="lazy">'
+        + (d.text ? '<div class="chat-message-text" style="margin-top:6px">'+escapeHtml(d.text)+'</div>' : '');
+    } else if(d.mediaType === "voice" && d.mediaUrl){
+      content = '<div class="voice-bubble" data-voice-id="'+escapeAttr(doc.id)+'">'
+        + '<button type="button" class="voice-play-btn" aria-label="Play">▶</button>'
+        + '<div class="voice-waveform">'
+        + Array(16).fill(0).map((_,i)=>'<div class="voice-bar" style="height:'+(6+(i*3)%14)+'px"></div>').join("")
+        + '</div>'
+        + '<span class="voice-duration">'+(d.mediaDuration||0)+'s</span>'
+        + '<audio src="'+escapeAttr(d.mediaUrl)+'" preload="none"></audio>'
+        + '</div>';
+    } else {
+      content = '<div class="chat-message-text">'+escapeHtml(d.text||"")+'</div>';
+    }
+
     let status = "";
     if(mine && !d.deletedForEveryone){
-      const tick = d.readAt ? '✓✓' : (d.deliveredAt ? '✓✓' : '✓');
-      const cls = d.readAt ? 'chat-msg-status read' : 'chat-msg-status';
-      status = '<span class="'+cls+'">'+tick+'</span>';
+      const isRead = !!d.readAt;
+      const tick = isRead ? '✓✓' : '✓';
+      const cls = isRead ? 'chat-msg-status read' : 'chat-msg-status';
+      status = '<span class="'+cls+'" title="'+(isRead?'Seen':'Sent')+'">'+tick+'</span>';
     }
-    html.push('<div class="chat-bubble-row '+(mine?"mine":"")+(same?" same-sender":"")+'"><div class="chat-bubble" data-mid="'+escapeAttr(doc.id)+'">'+reply+content+'<div class="chat-meta">'+escapeHtml(dt.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"}))+status+'</div><div class="reaction-summary" data-reaction-summary="'+escapeAttr(doc.id)+'"></div></div></div>');
+
+    html.push('<div class="chat-bubble-row '+(mine?"mine":"")+(same?" same-sender":"")+'">'
+      + '<div class="chat-bubble" data-mid="'+escapeAttr(doc.id)+'" data-mine="'+(mine?'1':'0')+'" data-text="'+escapeAttr(d.text||"")+'">'
+      + reply + content
+      + '<div class="chat-meta">'
+      + escapeHtml(dt.toLocaleTimeString("en-IN",{hour:"2-digit",minute:"2-digit"})) + status
+      + '</div>'
+      + '<div class="reaction-summary" data-reaction-summary="'+escapeAttr(doc.id)+'"></div>'
+      + '</div>'
+      + '</div>');
   }
 
   box.innerHTML = html.join("") || '<p style="color:#888;text-align:center;margin:auto;padding:20px">No messages yet 👋</p>';
@@ -5638,8 +7087,9 @@ async function compressChatImage(file){
 
 async function sendImageFile(file){
   if(!file) return;
-  if(!file.type || !file.type.startsWith("image/")){ showToast("❌ Sirf image"); return; }
-  if(file.size > 10*1024*1024){ showToast("❌ 10 MB se chhoti photo"); return; }
+  const isImage = (file.type && file.type.startsWith("image/")) || (file.name && /\.(jpg|jpeg|png|webp|heic|heif|gif)$/i.test(file.name));
+  if(!isImage){ showToast("❌ Kripya photo chunein"); return; }
+  if(file.size > 25*1024*1024){ showToast("❌ 25 MB se chhoti photo chunein"); return; }
 
   // 1. Sending image to UPComedyHub AI Assistant
   if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
@@ -5850,54 +7300,109 @@ function showReactionMenu(bubble){
 }
 function hideReactionMenu(){ const m = document.getElementById("reactionMenu"); if(m) m.classList.remove("show"); activeReactionMid = null; }
 
-/* ---------- USER PROFILE MODAL ---------- */
-async function showUserProfileModal(user){
-  const ov = document.getElementById("igListOverlay");
-  const t = document.getElementById("igListTitle");
-  const c = document.getElementById("igListContent");
-  if(!ov || !t || !c || !user) return;
+/* ============================================================
+   DEDICATED INSTAGRAM-STYLE USER PROFILE MODAL & FOLLOW SYSTEM
+   ============================================================ */
+function closeUserProfileModal(){
+  const ov = document.getElementById("userProfileOverlay");
+  if(ov) ov.classList.remove("show");
+  document.body.classList.remove("messages-open");
+}
+window.closeUserProfileModal = closeUserProfileModal;
+
+async function showUserProfileModal(userOrUid){
+  let userData = userOrUid;
+  if(typeof userOrUid === "string"){
+    try{
+      const snap = await db.collection("publicProfiles").doc(userOrUid).get();
+      if(!snap.exists){ showToast("❌ Profile nahi mili"); return; }
+      userData = { uid: userOrUid, ...snap.data() };
+    }catch(e){ showToast("❌ Profile load failed"); return; }
+  }
+  if(!userData) return;
+
+  const ov = document.getElementById("userProfileOverlay");
+  const headerUname = document.getElementById("upModalHeaderUsername");
+  const content = document.getElementById("userProfileContent");
+  const closeBtn = document.getElementById("userProfileCloseBtn");
+  const shareBtn = document.getElementById("upModalShareBtn");
+
+  if(!ov || !content) return;
   ov.classList.add("show");
-  t.textContent = "Profile";
-  const uid = user.uid;
+  document.body.classList.add("messages-open");
+
+  if(closeBtn) closeBtn.onclick = closeUserProfileModal;
+  if(headerUname) headerUname.textContent = "@" + (userData.username || "user");
+  if(shareBtn) shareBtn.onclick = ()=>{
+    const url = "https://upcomedyhub.github.io/?u=" + encodeURIComponent(userData.username || "");
+    const txt = "Check out @" + (userData.username || "") + " on UPComedyHub!";
+    if(navigator.share) navigator.share({title:"UPComedyHub", text:txt, url}).catch(()=>{});
+    else navigator.clipboard.writeText(url).then(()=>showToast("🔗 Link copied!"));
+  };
+
+  const uid = userData.uid;
   const isSelf = currentUser && uid === currentUser.uid;
-  c.innerHTML = '<div class="real-profile">'
+
+  content.innerHTML = '<div class="real-profile">'
     + '<div class="rp-top">'
-    +   '<img class="rp-avatar" src="'+escapeAttr(avatarFor(user))+'">'
+    +   '<img class="rp-avatar" src="'+escapeAttr(avatarFor(userData))+'">'
     +   '<div class="rp-stats">'
-    +     '<div class="rp-stat"><b id="rpFollowers">0</b><span>Followers</span></div>'
-    +     '<div class="rp-stat"><b id="rpFollowing">0</b><span>Following</span></div>'
+    +     '<div class="rp-stat"><b id="rpPostsCount">0</b><span>Posts</span></div>'
+    +     '<div class="rp-stat" id="rpFollowersClick" style="cursor:pointer"><b id="rpFollowers">0</b><span>Followers</span></div>'
+    +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">'+escapeHtml(user.displayName||"User")+'</div>'
-    + '<div class="rp-username">@'+escapeHtml(user.username||"user")+'</div>'
-    + (user.bio?'<div class="rp-bio">'+escapeHtml(user.bio)+'</div>':'')
-    + '<div class="profile-modal-actions" id="profileModalActions">'+(isSelf||!currentUser?'':'<span style="font-size:12px;color:#888">Loading...</span>')+'</div>'
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + '</div>'
+    + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
+    + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
+    +   (isSelf ? '<button type="button" class="ig-btn" id="modalEditSelfBtn">✏️ Edit Profile</button>' : '<span style="font-size:12px;color:#888;padding:6px">Checking follow status...</span>')
+    + '</div>'
     + '<div class="rp-tabs">'
     +   '<button type="button" class="rp-tab active" data-rp-tab="posts">Posts</button>'
     +   '<button type="button" class="rp-tab" data-rp-tab="reels">Reels</button>'
     +   '<button type="button" class="rp-tab" data-rp-tab="videos">Videos</button>'
     +   '<button type="button" class="rp-tab" data-rp-tab="playlist">Playlist</button>'
     + '</div>'
-    + '<div class="rp-grid" id="profileModalGrid"><div class="rp-empty"><span>\ud83d\udcf7</span>Abhi koi post nahi.</div></div>'
+    + '<div class="rp-grid" id="profileModalGrid"><div class="rp-empty"><span>📷</span>Abhi koi post nahi.</div></div>'
     + '</div>';
 
-  // Real profile tabs
-  c.querySelectorAll(".rp-tab").forEach(tab=>tab.addEventListener("click", ()=>{
-    c.querySelectorAll(".rp-tab").forEach(x=>x.classList.remove("active"));
-    tab.classList.add("active");
-    const k = tab.getAttribute("data-rp-tab");
-    const grid = document.getElementById("profileModalGrid");
-    if(!grid) return;
-    const map = {
-      posts:'<span>\ud83d\udcf7</span>Abhi koi post nahi.',
-      reels:'<span>\ud83c\udfac</span>Abhi koi reel nahi.',
-      videos:'<span>\ud83d\udcf9</span>Abhi koi video nahi.',
-      playlist:'<span>\ud83d\udd16</span>Abhi koi playlist nahi.'
-    };
-    grid.innerHTML = '<div class="rp-empty">'+(map[k]||map.posts)+'</div>';
-  }));
+  // Clickable stats to open followers/following modal
+  const fClick = document.getElementById("rpFollowersClick");
+  const gClick = document.getElementById("rpFollowingClick");
+  if(fClick) fClick.onclick = ()=>openIgList("followers", uid);
+  if(gClick) gClick.onclick = ()=>openIgList("following", uid);
 
-  // Followers / Following counts (agar available ho)
+  // Tab switching inside profile
+  content.querySelectorAll(".rp-tab").forEach(tab=>{
+    tab.addEventListener("click", ()=>{
+      content.querySelectorAll(".rp-tab").forEach(x=>x.classList.remove("active"));
+      tab.classList.add("active");
+      const k = tab.getAttribute("data-rp-tab");
+      const grid = document.getElementById("profileModalGrid");
+      if(!grid) return;
+      const map = {
+        posts:'<span>📷</span>Abhi koi post nahi.',
+        reels:'<span>🎬</span>Abhi koi reel nahi.',
+        videos:'<span>📹</span>Abhi koi video nahi.',
+        playlist:'<span>🔖</span>Abhi koi playlist nahi.'
+      };
+      grid.innerHTML = '<div class="rp-empty">'+(map[k]||map.posts)+'</div>';
+    });
+  });
+
+  // Edit self profile if viewing own profile
+  const editSelfBtn = document.getElementById("modalEditSelfBtn");
+  if(editSelfBtn){
+    editSelfBtn.onclick = ()=>{
+      closeUserProfileModal();
+      switchTab("profile");
+      const pc = document.getElementById("profileEditCard");
+      if(pc) pc.hidden = false;
+    };
+  }
+
+  // Fetch real-time followers & following counts
   if(uid){
     try{
       const [fSnap, gSnap] = await Promise.all([
@@ -5906,63 +7411,78 @@ async function showUserProfileModal(user){
       ]);
       const rf = document.getElementById("rpFollowers"); if(rf) rf.textContent = fSnap.size;
       const rg = document.getElementById("rpFollowing"); if(rg) rg.textContent = gSnap.size;
-    }catch(e){ /* ignore */ }
+    }catch(e){}
   }
 
+  // If viewing someone else, configure Follow, Follow Back, and Message
+  if(!isSelf && currentUser && uid){
+    const actions = document.getElementById("profileModalActions");
+    const followsYouSlot = document.getElementById("rpFollowsYouSlot");
+    try{
+      const [folSnap, folBackSnap] = await Promise.all([
+        db.collection("follows").doc(followId(currentUser.uid, uid)).get(),
+        db.collection("follows").doc(followId(uid, currentUser.uid)).get()
+      ]);
+      if(!ov.classList.contains("show")) return;
+      const isFollowing = folSnap.exists;
+      const isFollowedByThem = folBackSnap.exists;
 
-  if(isSelf || !currentUser || !uid) return;
-  const actions = document.getElementById("profileModalActions");
-  try{
-    const [fr, reqSnap, folSnap] = await Promise.all([
-      db.collection("friendships").doc(pairId(currentUser.uid,uid)).get(),
-      db.collection("messageRequests").doc(pairId(currentUser.uid,uid)).get(),
-      db.collection("follows").doc(followId(currentUser.uid,uid)).get()
-    ]);
-    if(!ov.classList.contains("show")) return; // modal closed meanwhile
-    const isFriend = fr.exists;
-    const rq = reqSnap.exists ? reqSnap.data() : null;
-    const hasReq = rq?.status === "pending";
-    const isAccepted = rq?.status === "accepted";
-    const isFollowing = folSnap.exists;
+      if(followsYouSlot && isFollowedByThem){
+        followsYouSlot.innerHTML = '<span class="follows-you-badge">Follows you</span>';
+      }
 
-    let html = '<button type="button" data-follow style="background:'+(isFollowing?'#efefef':'#0095f6')+';color:'+(isFollowing?'#111':'#fff')+'">'+(isFollowing?'Following':'Follow')+'</button>';
-    if(isFriend || isAccepted) html += '<button type="button" data-chat style="background:#efefef;color:#111">💬 Message</button>';
-    else if(hasReq) html += '<button type="button" disabled style="background:#efefef;color:#888">Sent ✓</button>';
-    else {
-      html += '<button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
-      html += '<button type="button" data-msg style="background:#efefef;color:#111">💬 Message</button>';
+      const followBtnClass = isFollowing ? "following" : (isFollowedByThem ? "followback" : "follow");
+      const followBtnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
+
+      actions.innerHTML = '<button type="button" class="btn-action-follow '+followBtnClass+'" id="modalActionFollow" style="flex:1;padding:10px 18px;font-size:14px">'+followBtnText+'</button>'
+        + '<button type="button" class="btn-action-msg" id="modalActionMsg" style="flex:1;padding:10px 18px;font-size:14px">💬 Message</button>';
+
+      const fb = document.getElementById("modalActionFollow");
+      if(fb){
+        fb.onclick = async ()=>{
+          fb.disabled = true;
+          try{
+            if(fb.classList.contains("following")){
+              await db.collection("follows").doc(followId(currentUser.uid, uid)).delete();
+              fb.className = "btn-action-follow " + (isFollowedByThem ? "followback" : "follow");
+              fb.textContent = isFollowedByThem ? "Follow Back" : "Follow";
+              showToast("Unfollowed");
+              const rf = document.getElementById("rpFollowers");
+              if(rf){ const c = parseInt(rf.textContent||"0",10); rf.textContent = Math.max(0, c - 1); }
+            } else {
+              await db.collection("follows").doc(followId(currentUser.uid, uid)).set({
+                from: currentUser.uid,
+                to: uid,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              });
+              await createNotification(uid, "follow", "👤 New follower", (currentUser.displayName||"Someone")+" started following you.", {profileUid:currentUser.uid});
+              fb.className = "btn-action-follow following";
+              fb.textContent = "Following";
+              showToast("✅ Following");
+              const rf = document.getElementById("rpFollowers");
+              if(rf){ const c = parseInt(rf.textContent||"0",10); rf.textContent = c + 1; }
+            }
+            await loadFollowCounts();
+          }catch(err){ showToast("❌ Follow action failed"); }
+          finally{ fb.disabled = false; }
+        };
+      }
+
+      const mb = document.getElementById("modalActionMsg");
+      if(mb){
+        mb.onclick = ()=>{
+          closeUserProfileModal();
+          openChat({uid: userData.uid, ...userData});
+        };
+      }
+
+    }catch(err){
+      console.warn(err);
+      if(actions) actions.innerHTML = '<button type="button" class="btn-action-follow follow" onclick="toggleFollow(\''+escapeAttr(uid)+'\')">Follow</button><button type="button" class="btn-action-msg" onclick="closeUserProfileModal();openChat({uid:\''+escapeAttr(uid)+'\'});">💬 Message</button>';
     }
-    actions.innerHTML = html;
-
-    const fb = actions.querySelector("[data-follow]");
-    if(fb) fb.onclick = async ()=>{
-      fb.disabled = true;
-      try{
-        if(fb.textContent.trim() === "Following"){
-          await db.collection("follows").doc(followId(currentUser.uid,uid)).delete();
-          fb.textContent = "Follow"; fb.style.background = "#0095f6"; fb.style.color = "#fff";
-        } else {
-          await db.collection("follows").doc(followId(currentUser.uid,uid)).set({from:currentUser.uid,to:uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-          await createNotification(uid,"follow","👤 New follower",(currentUser.displayName||"Someone")+" started following you.",{profileUid:currentUser.uid});
-          fb.textContent = "Following"; fb.style.background = "#efefef"; fb.style.color = "#111";
-        }
-        await loadFollowCounts();
-      }catch(e){ console.error(e); showToast("❌ Follow failed"); }
-      finally{ fb.disabled = false; }
-    };
-    const cb = actions.querySelector("[data-chat]");
-    if(cb) cb.onclick = ()=>{ ov.classList.remove("show"); openChat({uid,...user}); };
-    const ab = actions.querySelector("[data-add]");
-    if(ab) ab.onclick = async ()=>{ ab.disabled = true; ab.textContent = "Sending..."; try{ await sendMessageRequest(uid,user); ab.textContent = "Sent ✓"; ab.style.background = "#efefef"; ab.style.color = "#888"; }catch(e){ ab.disabled = false; } };
-    const mb = actions.querySelector("[data-msg]");
-    if(mb) mb.onclick = async ()=>{ mb.disabled = true; mb.textContent = "Sending..."; try{ await sendMessageRequest(uid,user); mb.textContent = "Sent ✓"; mb.style.background = "#efefef"; mb.style.color = "#888"; }catch(e){ mb.disabled = false; } };
-  }catch(e){
-    console.error(e);
-    actions.innerHTML = '<button type="button" data-follow style="background:#0095f6;color:#fff">Follow</button><button type="button" data-add style="background:#e63946;color:#fff">+ Add Friend</button>';
-    actions.querySelector("[data-follow]").onclick = ()=>toggleFollow(uid);
-    actions.querySelector("[data-add]").onclick = ()=>sendMessageRequest(uid,user);
   }
 }
+window.showUserProfileModal = showUserProfileModal;
 
 /* ---------- INIT COMMUNITY UI ---------- */
 function initCommunityUI(){
@@ -6045,16 +7565,44 @@ function initCommunityUI(){
   if(cm){
     cm.addEventListener("click", async (e)=>{
       const img = e.target.closest("[data-open-image]");
-      if(img){ e.stopPropagation(); const w = window.open(""); w.document.write('<img src="'+img.getAttribute("data-open-image")+'" style="max-width:100%;max-height:100vh;margin:auto;display:block">'); return; }
+      if(img){
+        e.stopPropagation();
+        openChatLightbox(img.getAttribute("data-open-image"));
+        return;
+      }
       const vp = e.target.closest(".voice-play-btn");
       if(vp){
         e.stopPropagation();
         const wrap = vp.closest(".voice-bubble");
         const audio = wrap?.querySelector("audio");
         const bars = wrap?.querySelectorAll(".voice-bar");
+        const durationEl = wrap?.querySelector(".voice-duration");
         if(audio){
-          if(audio.paused){ audio.play(); vp.textContent = "⏸"; bars?.forEach(b=>b.classList.add("playing")); audio.onended = ()=>{ vp.textContent = "▶"; bars?.forEach(b=>b.classList.remove("playing")); }; }
-          else { audio.pause(); vp.textContent = "▶"; bars?.forEach(b=>b.classList.remove("playing")); }
+          if(audio.paused){
+            // Pause all other audio first
+            document.querySelectorAll("#chatMessages audio").forEach(a=>{ if(a !== audio){ a.pause(); a.currentTime = 0; } });
+            document.querySelectorAll(".voice-play-btn").forEach(b=>{ if(b !== vp) b.textContent = "▶"; });
+            document.querySelectorAll(".voice-bar").forEach(b=>b.classList.remove("playing"));
+
+            audio.play();
+            vp.textContent = "⏸";
+            bars?.forEach(b=>b.classList.add("playing"));
+            audio.ontimeupdate = ()=>{
+              if(durationEl && audio.duration){
+                const rem = Math.max(0, Math.ceil(audio.duration - audio.currentTime));
+                durationEl.textContent = rem + "s";
+              }
+            };
+            audio.onended = ()=>{
+              vp.textContent = "▶";
+              bars?.forEach(b=>b.classList.remove("playing"));
+              if(durationEl && audio.duration) durationEl.textContent = Math.round(audio.duration) + "s";
+            };
+          } else {
+            audio.pause();
+            vp.textContent = "▶";
+            bars?.forEach(b=>b.classList.remove("playing"));
+          }
         }
         return;
       }
@@ -6064,7 +7612,13 @@ function initCommunityUI(){
     const startPress = (e)=>{
       const b = e.target.closest(".chat-bubble"); if(!b) return;
       if(e.target.closest("[data-open-image]") || e.target.closest(".voice-play-btn")) return;
-      pressTimer = setTimeout(()=>{ if(navigator.vibrate) navigator.vibrate(15); showReactionMenu(b); }, 450);
+      pressTimer = setTimeout(()=>{
+        if(navigator.vibrate) navigator.vibrate(15);
+        const mid = b.getAttribute("data-mid");
+        const mine = b.getAttribute("data-mine") === "1";
+        const txt = b.getAttribute("data-text") || "";
+        openMsgActionSheet(mid, mine, txt);
+      }, 450);
     };
     const cancelPress = ()=>{ if(pressTimer){ clearTimeout(pressTimer); pressTimer = null; } };
     cm.addEventListener("touchstart", startPress, {passive:true});
@@ -6095,6 +7649,69 @@ function initCommunityUI(){
   if(vcb) vcb.addEventListener("click",()=>startCall(true));
   const acb = document.getElementById("audioCallBtn");
   if(acb) acb.addEventListener("click",()=>startCall(false));
+
+  // Lightbox Close listeners
+  const clc = document.getElementById("chatLightboxClose");
+  const clb = document.getElementById("chatLightboxOverlay");
+  if(clc) clc.addEventListener("click", closeChatLightbox);
+  if(clb) clb.addEventListener("click", (e)=>{ if(e.target === clb || e.target.classList.contains("chat-lightbox-box")) closeChatLightbox(); });
+
+  // Action Sheet listeners
+  const mac = document.getElementById("msgActionCancel");
+  const mas = document.getElementById("msgActionSheet");
+  if(mac) mac.addEventListener("click", closeMsgActionSheet);
+  if(mas) mas.addEventListener("click", (e)=>{ if(e.target === mas) closeMsgActionSheet(); });
+
+  const actReply = document.getElementById("actionReplyBtn");
+  if(actReply) actReply.addEventListener("click", ()=>{
+    if(activeActionMsgId){
+      currentReplyTo = {id: activeActionMsgId, text: activeActionMsgText, senderId: ""};
+      const rep = document.getElementById("chatReplying");
+      const repTxt = document.getElementById("chatReplyText");
+      if(rep && repTxt){
+        repTxt.textContent = "↪ " + activeActionMsgText.slice(0, 50);
+        rep.style.display = "flex";
+      }
+      closeMsgActionSheet();
+      const inp = document.getElementById("chatInput");
+      if(inp) inp.focus();
+    }
+  });
+
+  const actCopy = document.getElementById("actionCopyBtn");
+  if(actCopy) actCopy.addEventListener("click", async ()=>{
+    if(activeActionMsgText){
+      try{ await navigator.clipboard.writeText(activeActionMsgText); showToast("📋 Copied!"); }catch(e){ showToast("❌ Copy failed"); }
+    }
+    closeMsgActionSheet();
+  });
+
+  const actDelMe = document.getElementById("actionDeleteForMeBtn");
+  if(actDelMe) actDelMe.addEventListener("click", async ()=>{
+    const mid = activeActionMsgId;
+    closeMsgActionSheet();
+    if(mid) await deleteMessageForMe(mid);
+  });
+
+  const actDelEve = document.getElementById("actionDeleteEveryoneBtn");
+  if(actDelEve) actDelEve.addEventListener("click", async ()=>{
+    const mid = activeActionMsgId;
+    closeMsgActionSheet();
+    if(mid) await deleteMessageForEveryone(mid);
+  });
+
+  // Action Sheet Emoji Reactions
+  const sheetReactions = document.getElementById("sheetReactions");
+  if(sheetReactions){
+    sheetReactions.querySelectorAll("button[data-reaction]").forEach(b=>{
+      b.addEventListener("click", async ()=>{
+        const emoji = b.getAttribute("data-reaction");
+        const mid = activeActionMsgId;
+        closeMsgActionSheet();
+        if(mid && emoji) await toggleReaction(mid, emoji);
+      });
+    });
+  }
 
   initCallControls();
   initEmojiPicker();
@@ -7394,6 +9011,51 @@ function triggerStoryAICaptionSuggestion() {
 }
 window.triggerStoryAICaptionSuggestion = triggerStoryAICaptionSuggestion;
 
+/* ---------- STORY PHOTO COMPRESSION & VIDEO HELPERS ---------- */
+async function compressStoryPhoto(file) {
+  const dataUrl = await fileToDataURL(file);
+  const img = new Image();
+  await new Promise((res, rej) => {
+    img.onload = res;
+    img.onerror = () => rej(new Error("DECODE_FAILED"));
+    img.src = dataUrl;
+  });
+
+  // Scale down to max 1080px (Instagram standard)
+  const maxSide = 1080;
+  const scale = Math.min(1, maxSide / Math.max(img.naturalWidth || img.width, img.naturalHeight || img.height));
+  const w = Math.max(1, Math.round((img.naturalWidth || img.width) * scale));
+  const h = Math.max(1, Math.round((img.naturalHeight || img.height) * scale));
+
+  const c = document.createElement("canvas");
+  c.width = w;
+  c.height = h;
+  const ctx = c.getContext("2d", { alpha: false });
+  ctx.fillStyle = "#000000";
+  ctx.fillRect(0, 0, w, h);
+  ctx.drawImage(img, 0, 0, w, h);
+
+  // Compress so size stays under 320 KB (safely within Firestore document limit)
+  let q = 0.85;
+  let blob = await canvasToBlob(c, "image/jpeg", q);
+  while (blob && blob.size > 320 * 1024 && q > 0.4) {
+    q -= 0.1;
+    blob = await canvasToBlob(c, "image/jpeg", q);
+  }
+  if (!blob) return dataUrl;
+  return await fileToDataURL(blob);
+}
+window.compressStoryPhoto = compressStoryPhoto;
+
+async function uploadStoryVideo(file) {
+  if (!file) return "";
+  if (file.size <= 700 * 1024) {
+    return await fileToDataURL(file);
+  }
+  return URL.createObjectURL(file);
+}
+window.uploadStoryVideo = uploadStoryVideo;
+
 async function handleStoryFileChange(input) {
   const file = input && input.files && input.files[0];
   if (!file) return;
@@ -7472,7 +9134,18 @@ async function publishStoryFromEditor() {
       expiresAt: firebase.firestore.Timestamp.fromDate(new Date(Date.now() + 24 * 60 * 60 * 1000))
     };
 
-    await db.collection("stories").doc(storyId).set(storyDoc);
+    // Save to Firestore non-blocking with local storage fallback
+    if (typeof db !== "undefined" && db) {
+      await db.collection("stories").doc(storyId).set(storyDoc).catch(e => console.warn("Firestore story sync:", e));
+    }
+    const localStories = JSON.parse(localStorage.getItem("upch_local_stories") || "[]");
+    localStories.unshift(storyDoc);
+    localStorage.setItem("upch_local_stories", JSON.stringify(localStories.slice(0, 15)));
+
+    // Immediately render story in viewer tray
+    allActiveStories.unshift(storyDoc);
+    if (typeof renderStoriesTray === "function") renderStoriesTray();
+
     const editor = document.getElementById("storyEditorScreen");
     if (editor) editor.classList.remove("active");
     showToast("✨ Story shared for 24 hours! 🔥");
@@ -9220,6 +10893,9 @@ window.addEventListener("DOMContentLoaded",()=>{
   const shb = document.getElementById("shareProfileBtn"); if(shb) shb.addEventListener("click", shareUserProfile);
   document.querySelectorAll(".ig-tab").forEach(tab=>tab.addEventListener("click", ()=>switchIgTab(tab.getAttribute("data-ig-tab"))));
 
+  // Initialize Smart Unified Search Tab listeners
+  if(typeof window.initSearchTabListeners === "function") window.initSearchTabListeners();
+
   // Also from Cobra — Future Apps
   document.querySelectorAll(".afc-row").forEach(row=>{
     row.addEventListener("click", ()=>{
@@ -9469,8 +11145,8 @@ function hideLoader(){
   l.classList.add("loader-hidden");
   setTimeout(()=>{ if(l.parentNode) l.remove(); }, 600);
 }
-window.addEventListener("load", ()=>setTimeout(hideLoader, 400));
-setTimeout(hideLoader, 4000);
+window.addEventListener("load", ()=>setTimeout(hideLoader, 1100));
+setTimeout(hideLoader, 3500);
 
 console.log("✅ UPComedyHub — All loaded with fixes");
 /* ============================================================
@@ -10486,6 +12162,49 @@ window.handleAIMessageSend = handleAIMessageSend;
     updatePlayerCard();
   }
 
+  // Daily Streak Counter for Arcade Fun Zone
+  function checkDailyStreak() {
+    const today = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD in local time
+    let streak = parseInt(localStorage.getItem('upch_daily_streak_count') || '0', 10);
+    const lastDate = localStorage.getItem('upch_daily_streak_last_date');
+
+    if (!lastDate) {
+      streak = 1;
+      localStorage.setItem('upch_daily_streak_count', '1');
+      localStorage.setItem('upch_daily_streak_last_date', today);
+    } else if (lastDate !== today) {
+      const lastTime = new Date(lastDate + 'T00:00:00').getTime();
+      const todayTime = new Date(today + 'T00:00:00').getTime();
+      const diffDays = Math.round((todayTime - lastTime) / (1000 * 60 * 60 * 24));
+
+      if (diffDays === 1) {
+        streak += 1;
+        localStorage.setItem('upch_daily_streak_count', String(streak));
+        localStorage.setItem('upch_daily_streak_last_date', today);
+        // Award daily streak bonus XP!
+        let xp = parseInt(localStorage.getItem('upch_player_xp') || '0', 10);
+        xp += 25;
+        localStorage.setItem('upch_player_xp', String(xp));
+        if (typeof showToast === 'function') {
+          setTimeout(() => showToast(`🔥 Daily Streak! ${streak} Din Lagataar! (+25 XP)`), 800);
+        }
+      } else if (diffDays > 1) {
+        streak = 1; // Missed a day, streak resets
+        localStorage.setItem('upch_daily_streak_count', '1');
+        localStorage.setItem('upch_daily_streak_last_date', today);
+      }
+    }
+
+    const streakCountEl = document.getElementById('funStreakCount');
+    const streakBadgeEl = document.getElementById('funStreakBadge');
+    if (streakCountEl) streakCountEl.textContent = streak;
+    if (streakBadgeEl) {
+      streakBadgeEl.title = `Daily Activity Streak: ${streak} day${streak > 1 ? 's' : ''} consecutive!`;
+    }
+    return streak;
+  }
+  window.checkDailyStreak = checkDailyStreak;
+
   function updatePlayerCard() {
     const xp = parseInt(localStorage.getItem('upch_player_xp') || '0', 10);
     const level = Math.floor(xp / 100) + 1;
@@ -10495,6 +12214,9 @@ window.handleAIMessageSend = handleAIMessageSend;
     const fill = document.getElementById('funXpFill');
     if (meta) meta.textContent = `Level ${level} • ${xp} XP`;
     if (fill) fill.style.width = `${levelProgress}%`;
+
+    // Track & update Daily Streak
+    checkDailyStreak();
 
     // Try to sync with logged in user profile if available
     const avatar = document.getElementById('funPlayerAvatar');
@@ -14834,6 +16556,32 @@ window.handleAIMessageSend = handleAIMessageSend;
     }
   }
 
+
+  // Fun Zone Player Avatar Upload
+  async function uploadFunPlayerPhoto(input) {
+    const file = input && input.files && input.files[0];
+    if (!file) return;
+    try {
+      showToast("⏳ Avatar update ho raha hai...");
+      const photoData = await compressProfilePhoto(file);
+      const av = document.getElementById("funPlayerAvatar");
+      if (av) av.src = photoData;
+      localStorage.setItem("upch_arcade_avatar", photoData);
+      if (window.currentUser) {
+        localStorage.setItem("upch_user_photo_" + window.currentUser.uid, photoData);
+        if (typeof currentProfilePhotoURL !== "undefined") currentProfilePhotoURL = photoData;
+        const ph = document.getElementById("userPhoto");
+        if (ph) ph.src = photoData;
+      }
+      showToast("✅ Arcade avatar updated!");
+    } catch(e) {
+      console.error(e);
+      showToast("❌ Avatar update fail");
+    } finally {
+      input.value = "";
+    }
+  }
+  window.uploadFunPlayerPhoto = uploadFunPlayerPhoto;
 
   // Initialize player card on script load
   if (document.readyState === 'loading') {

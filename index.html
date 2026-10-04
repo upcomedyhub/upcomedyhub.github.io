@@ -66,7 +66,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥</title>
 <link rel="icon" type="image/jpeg" href="IMG_20260917_172912.jpg">
-<link rel="preload" as="image" href="Screenshot_2026-10-03-13-12-55-63_92460851df6f172a4592fca41cc2d2e6.jpg" fetchpriority="high">
 <meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
 <meta name="theme-color" content="#111111">
 <link rel="manifest" href="/manifest.json">
@@ -88,7 +87,7 @@ button{font-family:inherit}
 .dark-mode .announcement-bar a,.dark-mode #closeAnnouncement{color:#111}
 .dark-mode #closeAnnouncement{background:rgba(0,0,0,.1)}
 
-/* ==================== LOADING SCREEN (SPLASH SCREEN) ==================== */
+/* ==================== YOUTUBE-STYLE ANIMATED LOADING SCREEN ==================== */
 #pageLoader {
   position: fixed;
   inset: 0;
@@ -97,12 +96,17 @@ button{font-family:inherit}
   height: 100dvh;
   z-index: 100000;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   background-color: #000000;
+  background-image: radial-gradient(circle at 50% 42%, rgba(220, 18, 44, 0.36) 0%, rgba(140, 10, 28, 0.16) 35%, rgba(0, 0, 0, 0) 70%);
+  padding: calc(env(safe-area-inset-top, 24px) + 20px) 24px calc(env(safe-area-inset-bottom, 24px) + 28px);
+  box-sizing: border-box;
   overflow: hidden;
   user-select: none;
   -webkit-user-select: none;
+  cursor: pointer;
   transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.5s ease;
 }
 
@@ -112,51 +116,341 @@ button{font-family:inherit}
   pointer-events: none !important;
 }
 
-.loader-splash-container {
-  position: relative;
+/* Ambient Red Curved Ribbons Background */
+.loader-bg-ambient {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  transition: opacity 0.35s ease;
+}
+
+.loader-bg-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.loader-spacer-top {
+  flex: 0 0 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Center Branding Block */
+.loader-center-content {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: -24px;
+  transform-origin: center center;
+}
+
+/* Squircle Icon Wrapper */
+.loader-app-icon-wrap {
+  position: relative;
+  width: 126px;
+  height: 126px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000000;
 }
 
-.loader-splash-img {
+/* Red backlight aura pulse */
+.loader-aura-glow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 44px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 26, 56, 0.75) 0%, rgba(200, 10, 36, 0.42) 45%, rgba(120, 0, 18, 0) 75%);
+  filter: blur(16px);
+  animation: loaderAuraPulse 2.8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 1;
+  transform-origin: center center;
+}
+
+@keyframes loaderAuraPulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.75;
+    filter: blur(14px);
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+    filter: blur(22px);
+  }
+}
+
+/* Squircle Icon Body matching IMG-20261002-WA0002.jpg */
+.loader-app-icon {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
-  max-width: 500px;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-  margin: auto;
-  user-select: none;
-  -webkit-user-drag: none;
+  border-radius: 36px;
+  overflow: hidden;
+  box-shadow: 
+    0 18px 45px rgba(0, 0, 0, 0.94),
+    0 0 42px 10px rgba(230, 57, 70, 0.5),
+    0 0 85px 24px rgba(180, 12, 32, 0.3),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.38);
+}
+
+/* YouTube Light Sheen / Gleam across the icon */
+.loader-app-icon::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -130%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent 100%
+  );
+  transform: rotate(26deg);
   pointer-events: none;
-  animation: splashFadeIn 0.35s ease-out forwards;
+  animation: youtubeGleamSweep 2.8s ease-in-out infinite;
 }
 
-@media (max-width: 480px) {
-  .loader-splash-container {
-    max-width: 100%;
+@keyframes youtubeGleamSweep {
+  0% {
+    left: -130%;
   }
-  .loader-splash-img {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+  45%, 100% {
+    left: 210%;
   }
 }
 
-@keyframes splashFadeIn {
-  from {
-    opacity: 0.85;
-    transform: scale(0.99);
+/* Play Glyph & Smile Arc Idle Breathing */
+.loader-play-glyph {
+  transform-origin: 60px 49px;
+  animation: playIdlePulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes playIdlePulse {
+  0% {
+    transform: scale(0.97);
   }
-  to {
+  100% {
+    transform: scale(1.045);
+  }
+}
+
+.loader-smile-arc {
+  transform-origin: 60px 68px;
+  animation: smileIdlePulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes smileIdlePulse {
+  0% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1.035);
+  }
+}
+
+/* Title Typography */
+.loader-title {
+  margin: 26px 0 0;
+  padding: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: #ffffff;
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 255, 255, 0.15);
+  line-height: 1.15;
+}
+
+/* Tagline Typography */
+.loader-tagline {
+  margin-top: 11px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 3.8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Bottom "from Cobra" branding */
+.loader-bottom-brand {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.loader-from-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 7px;
+  text-transform: lowercase;
+}
+
+.loader-cobra-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.45));
+}
+
+.loader-cobra-text {
+  margin-top: 6px;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 380px) {
+  .loader-app-icon-wrap { width: 106px; height: 106px; }
+  .loader-title { font-size: 29px; margin-top: 20px; }
+  .loader-tagline { font-size: 9.5px; letter-spacing: 2.8px; }
+}
+
+/* ============================================================
+   YOUTUBE-STYLE EXIT TRANSITION (When Loading Finishes)
+   Play Button Pops -> Logo Expands Forward -> App Feed Revealed
+   ============================================================ */
+
+#pageLoader.loader-animating-out {
+  pointer-events: none !important;
+  animation: youtubeSplashFade 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#pageLoader.loader-animating-out .loader-center-content {
+  animation: youtubeLogoZoom 0.62s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#pageLoader.loader-animating-out .loader-play-glyph {
+  animation: youtubePlayPop 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#pageLoader.loader-animating-out .loader-smile-arc {
+  animation: youtubeSmileGlow 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#pageLoader.loader-animating-out .loader-aura-glow {
+  animation: youtubeAuraBurst 0.52s ease-out forwards;
+}
+
+#pageLoader.loader-animating-out .loader-title,
+#pageLoader.loader-animating-out .loader-tagline,
+#pageLoader.loader-animating-out .loader-bottom-brand,
+#pageLoader.loader-animating-out .loader-bg-ambient {
+  animation: youtubeSubElementsFade 0.28s ease-out forwards;
+}
+
+@keyframes youtubeSplashFade {
+  0% {
     opacity: 1;
+  }
+  50% {
+    opacity: 0.96;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes youtubeLogoZoom {
+  0% {
     transform: scale(1);
+    opacity: 1;
+  }
+  28% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.48);
+    opacity: 0;
+  }
+}
+
+@keyframes youtubePlayPop {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+  }
+  38% {
+    transform: scale(1.24) translateX(2px);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.98)) drop-shadow(0 0 35px rgba(230, 57, 70, 0.9));
+  }
+  100% {
+    transform: scale(1.42) translateX(3px);
+    filter: drop-shadow(0 0 28px rgba(255, 255, 255, 1));
+  }
+}
+
+@keyframes youtubeSmileGlow {
+  0% {
+    transform: scale(1);
+  }
+  38% {
+    transform: scale(1.14);
+    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.9));
+  }
+  100% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 24px rgba(255, 255, 255, 1));
+  }
+}
+
+@keyframes youtubeAuraBurst {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1.45);
+    opacity: 1;
+    filter: blur(28px);
+  }
+  100% {
+    transform: scale(2.0);
+    opacity: 0;
+    filter: blur(45px);
+  }
+}
+
+@keyframes youtubeSubElementsFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(8px);
   }
 }
 
@@ -2000,14 +2294,156 @@ body.messages-open .bottom-nav{display:none !important}
    <div class="menu-backdrop" id="menuBackdrop"></div>
 
 <div id="pageLoader" aria-label="Loading UPComedyHub">
-  <div class="loader-splash-container">
-    <img 
-      src="Screenshot_2026-10-03-13-12-55-63_92460851df6f172a4592fca41cc2d2e6.jpg" 
-      alt="UPComedyHub" 
-      class="loader-splash-img" 
-      decoding="async" 
-      fetchpriority="high"
-    />
+  <!-- Red ambient cinematic light curves in background -->
+  <div class="loader-bg-ambient">
+    <svg class="loader-bg-svg" viewBox="0 0 420 840" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <!-- Top Left Red Ribbons -->
+        <linearGradient id="tlRibbonCore" x1="0%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stop-color="#ff163a" stop-opacity="0.95"/>
+          <stop offset="60%" stop-color="#cc0824" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#55000c" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="tlRibbonOuter" x1="0%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stop-color="#ff1c42" stop-opacity="0.45"/>
+          <stop offset="70%" stop-color="#990417" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#2b0005" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Bottom Right Red Ribbons -->
+        <linearGradient id="brRibbonCore" x1="100%" y1="60%" x2="40%" y2="100%">
+          <stop offset="0%" stop-color="#ff183c" stop-opacity="0.95"/>
+          <stop offset="50%" stop-color="#d60927" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#55000c" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="brRibbonOuter" x1="100%" y1="50%" x2="30%" y2="100%">
+          <stop offset="0%" stop-color="#ff264a" stop-opacity="0.45"/>
+          <stop offset="60%" stop-color="#aa0820" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#1f0004" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Blur Filters -->
+        <filter id="ribbonBlurDeep" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="22"/>
+        </filter>
+        <filter id="ribbonBlurMid" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="10"/>
+        </filter>
+        <filter id="ribbonBlurSharp" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3.5"/>
+        </filter>
+      </defs>
+
+      <!-- Top Left Light Curves -->
+      <path d="M -30 -20 Q 80 140 20 340" fill="none" stroke="url(#tlRibbonOuter)" stroke-width="70" filter="url(#ribbonBlurDeep)"/>
+      <path d="M -20 -10 Q 75 130 15 320" fill="none" stroke="url(#tlRibbonCore)" stroke-width="20" filter="url(#ribbonBlurMid)"/>
+      <path d="M -15 -10 Q 70 125 10 310" fill="none" stroke="#ff3858" stroke-width="3" filter="url(#ribbonBlurSharp)"/>
+      <path d="M 40 -30 Q 120 110 50 270" fill="none" stroke="url(#tlRibbonOuter)" stroke-width="35" filter="url(#ribbonBlurMid)" opacity="0.6"/>
+
+      <!-- Bottom Right Light Curves -->
+      <path d="M 440 520 Q 320 670 220 860" fill="none" stroke="url(#brRibbonOuter)" stroke-width="80" filter="url(#ribbonBlurDeep)"/>
+      <path d="M 430 535 Q 330 665 240 850" fill="none" stroke="url(#brRibbonCore)" stroke-width="24" filter="url(#ribbonBlurMid)"/>
+      <path d="M 425 545 Q 335 660 250 845" fill="none" stroke="#ff3858" stroke-width="3.5" filter="url(#ribbonBlurSharp)"/>
+      <path d="M 450 470 Q 360 610 290 770" fill="none" stroke="url(#brRibbonOuter)" stroke-width="40" filter="url(#ribbonBlurMid)" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Top spacer for optical balance -->
+  <div class="loader-spacer-top"></div>
+
+  <!-- Center Branding: Animated Squircle Logo + UPComedyHub + Tagline -->
+  <div class="loader-center-content">
+    <div class="loader-app-icon-wrap">
+      <div class="loader-aura-glow"></div>
+      <div class="loader-app-icon">
+        <!-- Logo matching IMG-20261002-WA0002.jpg with YouTube animated play button -->
+        <svg viewBox="0 0 120 120" width="100%" height="100%" class="loader-svg-logo">
+          <defs>
+            <linearGradient id="iconSurface" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#24242e"/>
+              <stop offset="35%" stop-color="#141419"/>
+              <stop offset="75%" stop-color="#0a0a0d"/>
+              <stop offset="100%" stop-color="#040406"/>
+            </linearGradient>
+            <linearGradient id="whitePlayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#f0f2f5"/>
+            </linearGradient>
+            <linearGradient id="iconRim" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
+              <stop offset="50%" stop-color="rgba(255,255,255,0.32)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.06)"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Squircle Base matching IMG-20261002-WA0002.jpg -->
+          <rect x="0" y="0" width="120" height="120" rx="35" ry="35" fill="url(#iconSurface)"/>
+          <rect x="1" y="1" width="118" height="118" rx="34" ry="34" fill="none" stroke="url(#iconRim)" stroke-width="1.2"/>
+
+          <!-- Animated Play Button Triangle (YouTube Pop & Breathing Animation) -->
+          <g class="loader-play-glyph">
+            <path d="M 51.5 34.5 C 51.5 32.5 53.8 31.3 55.4 32.4 L 75.8 46.4 C 77.4 47.5 77.4 49.9 75.8 51.0 L 55.4 65.0 C 53.8 66.1 51.5 64.9 51.5 62.9 Z" fill="url(#whitePlayGrad)"/>
+          </g>
+
+          <!-- Animated Smiling Arc (YouTube Pop & Glow Animation) -->
+          <g class="loader-smile-arc">
+            <path d="M 32 59 C 32 86, 88 86, 88 59" fill="none" stroke="url(#whitePlayGrad)" stroke-width="8.6" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="loader-title">UPComedyHub</h1>
+    <div class="loader-tagline">
+      <span>WATCH</span>
+      <span>&bull;</span>
+      <span>CREATE</span>
+      <span>&bull;</span>
+      <span>CONNECT</span>
+      <span>&bull;</span>
+      <span>ENJOY</span>
+    </div>
+  </div>
+
+  <!-- Bottom Brand: from Cobra -->
+  <div class="loader-bottom-brand">
+    <div class="loader-from-text">from</div>
+    <div class="loader-cobra-wrap">
+      <svg viewBox="0 0 64 64" width="38" height="38" aria-hidden="true">
+        <defs>
+          <linearGradient id="cobraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00f5a0"/>
+            <stop offset="45%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#006688"/>
+          </linearGradient>
+          <linearGradient id="cobraGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00c878"/>
+            <stop offset="70%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#80ffff"/>
+          </linearGradient>
+          <filter id="cobraDrop" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#00e5ff" flood-opacity="0.45"/>
+          </filter>
+        </defs>
+        <!-- Cobra Hood & Head -->
+        <path d="M 32 18 C 28 14, 18 13, 16 23 C 14 31, 22 36, 27 38 L 32 35 L 37 38 C 42 36, 50 31, 48 23 C 46 13, 36 14, 32 18 Z" fill="url(#cobraGrad)" filter="url(#cobraDrop)"/>
+        <!-- Hood Inner Shadow -->
+        <path d="M 32 20 C 29 17, 22 17, 20 24 C 19 29, 25 33, 28 34 C 27 31, 27 25, 32 22 C 37 25, 37 31, 36 34 C 39 33, 45 29, 44 24 C 42 17, 35 17, 32 20 Z" fill="#041217"/>
+        <!-- Center Head & Snout -->
+        <path d="M 32 17 C 29 19, 28 24, 30 29 C 31 31, 33 31, 34 29 C 36 24, 35 19, 32 17 Z" fill="url(#cobraGlow)"/>
+        <!-- Eyes -->
+        <ellipse cx="29" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(-15 29 23)"/>
+        <ellipse cx="35" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(15 35 23)"/>
+        
+        <!-- Lower Infinity Body Loops -->
+        <path d="M 32 37 C 26 40, 18 43, 18 49 C 18 55, 25 58, 30 56 C 34 54, 38 48, 41 45 C 44 42, 50 43, 50 49 C 50 56, 42 58, 36 55 C 33 53, 31 51, 32 48" 
+              fill="none" stroke="url(#cobraGrad)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cobraDrop)"/>
+        <!-- Overlapping coil highlight -->
+        <path d="M 23 46 C 21 48, 20 51, 22 53 C 24 55, 28 55, 32 51 C 36 47, 41 45, 45 47 C 47 48, 48 51, 46 53" 
+              fill="none" stroke="url(#cobraGlow)" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+      </svg>
+    </div>
+    <div class="loader-cobra-text">Cobra</div>
   </div>
 </div>
 
@@ -10897,12 +11333,33 @@ auth.onAuthStateChanged(async (user)=>{
   });
 })();
 
+let _loaderHiding = false;
 function hideLoader(){
-  const l = document.getElementById("pageLoader"); if(!l) return;
-  l.classList.add("loader-hidden");
-  setTimeout(()=>{ if(l.parentNode) l.remove(); }, 600);
+  if (_loaderHiding) return;
+  const l = document.getElementById("pageLoader");
+  if (!l) return;
+  _loaderHiding = true;
+  
+  // Trigger signature YouTube-style Play Button pop and Logo zoom exit
+  l.classList.add("loader-animating-out");
+  
+  setTimeout(() => {
+    l.classList.add("loader-hidden");
+    setTimeout(() => {
+      if (l.parentNode) l.remove();
+    }, 250);
+  }, 620);
 }
-window.addEventListener("load", ()=>setTimeout(hideLoader, 1100));
+
+// Allow one-tap to play/enter immediately
+document.addEventListener("DOMContentLoaded", () => {
+  const l = document.getElementById("pageLoader");
+  if (l) {
+    l.addEventListener("click", () => hideLoader());
+  }
+});
+
+window.addEventListener("load", () => setTimeout(hideLoader, 1150));
 setTimeout(hideLoader, 3500);
 
 console.log("✅ UPComedyHub — All loaded with fixes");

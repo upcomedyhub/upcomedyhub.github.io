@@ -2490,8 +2490,8 @@ body.messages-open .bottom-nav{display:none !important}
 </div>
 
 <header>
-  <div class="logo" id="channelProfileTrigger" role="button" tabindex="0" aria-label="Open Channel Profile">
-    <img src="IMG_20260917_172912.jpg" alt="UPComedyHub" class="logo-profile">
+  <div class="logo" onclick="switchTab('home')" role="button" tabindex="0" aria-label="UPComedyHub Home">
+    <img src="IMG_20261002_053016.png" alt="UPComedyHub" class="logo-profile">
     <span>UPComedyHub</span>
   </div>
   <div class="header-controls">
@@ -3534,7 +3534,20 @@ body.messages-open .bottom-nav{display:none !important}
 </main>
 <div class="comments-overlay" id="commentsOverlay">
   <div class="comments-box">
-    <div class="comments-header"><h3>💬 Comments</h3><button type="button" class="comments-close" id="commentsClose" aria-label="Close">✕</button></div>
+    <div class="comments-header">
+      <div style="display:flex;align-items:center;gap:8px">
+        <h3>💬 Comments</h3>
+        <span class="comments-badge" id="commentsCountBadge">0</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <select id="commentsSortSelect" class="comments-sort-select" aria-label="Sort comments">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="most_liked">Most Liked</option>
+        </select>
+        <button type="button" class="comments-close" id="commentsClose" aria-label="Close">✕</button>
+      </div>
+    </div>
     <div class="comments-list" id="commentsList"></div>
     <div id="commentFormWrap"></div>
   </div>
@@ -3559,7 +3572,10 @@ body.messages-open .bottom-nav{display:none !important}
     <div class="reel-viewer-frame" id="reelViewerFrame"></div>
     <div class="reel-viewer-top">
       <div class="reel-viewer-title" id="reelViewerTitle">Reel</div>
-      <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close">✕</button>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button type="button" class="reel-viewer-save" id="reelViewerSave" title="Save reel" aria-label="Save reel"><svg class="ico"><use href="#i-bookmark"></use></svg></button>
+        <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close">✕</button>
+      </div>
     </div>
     <div class="reel-viewer-nav">
       <button type="button" id="reelViewerPrev" aria-label="Previous reel">▲</button>
@@ -3579,6 +3595,7 @@ body.messages-open .bottom-nav{display:none !important}
 
     <!-- MAIN SETTINGS VIEW -->
     <div class="settings-modal-body" id="settingsMainView">
+      <div class="settings-nav-row" id="channelProfileTrigger" onclick="openChannelProfile();closeSettings();"><svg class="snr-ico"><use href="#i-film"></use></svg><span class="snr-label">Channel Profile &amp; Reels</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -4598,6 +4615,13 @@ let userLikedVideos = new Set();
 let userSavedVideos = new Set();
 let allVideos = {};
 let currentCommentsVideoId = null;
+let currentCommentsList = [];
+let currentCommentsSort = "newest";
+let userLikedComments = new Set();
+try {
+  const _savedLiked = localStorage.getItem("upcomedyhub_liked_comments");
+  if (_savedLiked) userLikedComments = new Set(JSON.parse(_savedLiked));
+} catch (_) {}
 let likesByVideo = {};
 let currentChatFriend = null;
 let currentConversationId = null;
@@ -4751,7 +4775,7 @@ en: {
 "Saare Shorts & Reels ab":"All Shorts & Reels are now in","me 🔥":"🔥","🎬":"🎬","Reels ab Channel Profile me hain":"Reels are now in Channel Profile","Upar wale logo par tap karein aur":"Tap the logo above and open the","section me saare Shorts & Reels dekhein.":"section to see all Shorts & Reels.","Channel Profile kholein →":"Open Channel Profile →",
 "username":"username","🔐 Login karke like, comment, save videos aur message friends.":"🔐 Log in to like, comment, save videos and message friends.","📷":"📷","Posts":"Posts","Followers":"Followers","Following":"Following","@username":"@username","No bio yet.":"No bio yet.","✏️ Edit Profile":"✏️ Edit Profile","Share Profile":"Share Profile","Username":"Username","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 characters. Letters, numbers, underscore (_) and dot (.) only.","Bio":"Bio","Cancel":"Cancel","Save Profile":"Save Profile","Playlist":"Playlist","Abhi koi post nahi. Jald aa raha hai! 🚀":"No posts yet. Coming soon! 🚀","Abhi koi post nahi.":"No posts yet.","Abhi tak koi reel nahi.":"No reels yet.","Abhi koi video nahi.":"No videos yet.","Abhi tak koi video playlist me nahi.":"No videos in playlist yet.",
 "Saare mini games ek hi jagah. Open karke play karo! 🔥":"All mini games in one place. Open and play! 🔥","🎮 Open Fun Zone":"🎮 Open Fun Zone","🧠":"🧠","Comedy Quiz":"Comedy Quiz","Guess the Dialogue":"Guess the Dialogue","⚡":"⚡","Reaction Test":"Reaction Test","🎡":"🎡","Spin Wheel":"Spin Wheel","🤔":"🤔","Emoji Riddle":"Emoji Riddle","🔤":"🔤","Word Scramble":"Word Scramble","🎴":"🎴","Memory Match":"Memory Match","🐍":"🐍","Snake & Ladder":"Snake & Ladder","🎮 Game":"🎮 Game","📷 Change Photo":"📷 Change Photo","Player 😎":"Player 😎","Level 1 • 0 XP":"Level 1 • 0 XP","🔥 Daily Challenge":"🔥 Daily Challenge","Aaj ka challenge load ho raha hai...":"Today's challenge is loading...","🎯 Aaj ka challenge":"🎯 Today's challenge","🏆 Local Leaderboard":"🏆 Local Leaderboard","Is device par top players.":"Top players on this device.","📤 Share My Score":"📤 Share My Score","🏆 Best Quiz:":"🏆 Best Quiz:","⚡ Best Reaction:":"⚡ Best Reaction:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 Game scores are saved on this device.",
-"Admin Panel":"Admin Panel","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 This panel is only for admin. You are authorized.","📊 Live Stats":"📊 Live Stats","Total Users":"Total Users","Comments":"Comments","Likes":"Likes","Saves":"Saves","🔄 Refresh Stats":"🔄 Refresh Stats","❤️ Likes Management (Per Video)":"❤️ Likes Management (Per Video)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"How many and who liked each video — full breakdown.","🔄 Load Likes":"🔄 Load Likes","Fan Name":"Fan Name","Photo URL":"Photo URL","Message":"Message","Date":"Date","💾 Save Fan of Week":"💾 Save Fan of Week","📢 Announcement Bar":"📢 Announcement Bar","Announcement Text":"Announcement Text","Button Text (optional)":"Button Text (optional)","💾 Save Announcement":"💾 Save Announcement","📌 Notice Board (Popup)":"📌 Notice Board (Popup)","Notice Title":"Notice Title","Notice Message":"Notice Message","Show Notice?":"Show Notice?","❌ Hidden":"❌ Hidden","✅ Visible to all users":"✅ Visible to all users","💾 Save Notice":"💾 Save Notice","🎥 Manual Videos Management":"🎥 Manual Videos Management","Video Title":"Video Title","YouTube Video ID":"YouTube Video ID","Category":"Category","🎥 Long Video (Videos tab mein jayegi)":"🎥 Long Video (goes in Videos tab)","🎬 Short (Reels tab mein jayegi)":"🎬 Short (goes in Reels tab)","➕ Add Video":"➕ Add Video","👥 Users List":"👥 Users List","🔄 Load Users":"🔄 Load Users","💬 Recent Comments":"💬 Recent Comments","🔄 Load Comments":"🔄 Load Comments","💬 Comments":"💬 Comments","❤️ Liked by":"❤️ Liked by","Share":"Share","Reel":"Reel","▲":"▲","▼":"▼","1 / 1":"1 / 1",
+"Admin Panel":"Admin Panel","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 This panel is only for admin. You are authorized.","📊 Live Stats":"📊 Live Stats","Total Users":"Total Users","Comments":"Comments","Likes":"Likes","Saves":"Saves","🔄 Refresh Stats":"🔄 Refresh Stats","❤️ Likes Management (Per Video)":"❤️ Likes Management (Per Video)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"How many and who liked each video — full breakdown.","🔄 Load Likes":"🔄 Load Likes","Fan Name":"Fan Name","Photo URL":"Photo URL","Message":"Message","Date":"Date","💾 Save Fan of Week":"💾 Save Fan of Week","📢 Announcement Bar":"📢 Announcement Bar","Announcement Text":"Announcement Text","Button Text (optional)":"Button Text (optional)","💾 Save Announcement":"💾 Save Announcement","📌 Notice Board (Popup)":"📌 Notice Board (Popup)","Notice Title":"Notice Title","Notice Message":"Notice Message","Show Notice?":"Show Notice?","❌ Hidden":"❌ Hidden","✅ Visible to all users":"✅ Visible to all users","💾 Save Notice":"💾 Save Notice","🎥 Manual Videos Management":"🎥 Manual Videos Management","Video Title":"Video Title","YouTube Video ID":"YouTube Video ID","Category":"Category","🎥 Long Video (Videos tab mein jayegi)":"🎥 Long Video (goes in Videos tab)","🎬 Short (Reels tab mein jayegi)":"🎬 Short (goes in Reels tab)","➕ Add Video":"➕ Add Video","👥 Users List":"👥 Users List","🔄 Load Users":"🔄 Load Users","💬 Recent Comments":"💬 Recent Comments","🔄 Load Comments":"🔄 Load Comments","💬 Comments":"💬 Comments","Sort by:":"Sort by:","Newest":"Newest","Oldest":"Oldest","Most Liked":"Most Liked","❤️ Liked by":"❤️ Liked by","Share":"Share","Reel":"Reel","▲":"▲","▼":"▼","1 / 1":"1 / 1",
 "⚙️ Settings":"⚙️ Settings","Language":"Language","Appearance":"Appearance","Community & Messages":"Community & Messages","Liked Videos":"Liked Videos","Saved Videos":"Saved Videos","Mobile Verification":"Mobile Verification","Not verified":"Not verified","Help":"Help","Report":"Report","Support & Donate":"Support & Donate","Also from Cobra":"Also from Cobra","💬":"💬","C Chat":"C Chat","Chat aur baat-cheet karein":"Chat and talk","🤖":"🤖","Cobra AI":"Cobra AI","Smart AI assistant":"Smart AI assistant","📧":"📧","C Mail":"C Mail","Email bhejein aur paayein":"Send and receive email","🌐":"🌐","C Browser":"C Browser","Tez aur safe browsing":"Fast and safe browsing","🔍":"🔍","Search engine":"Search engine","👋 Logout":"👋 Logout",
 "Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.":"Choose your preferred language. The whole app will be shown in this language.","Hinglish":"Hinglish","हिंदी":"हिंदी","English":"English",
 "App ka look chunein — System, Light ya Dark mode.":"Choose the app's look — System, Light or Dark mode.","📱 System":"📱 System","☀️ Light":"☀️ Light","🌙 Dark":"🌙 Dark",
@@ -4806,7 +4830,7 @@ hi: {
 "Saare Shorts & Reels ab":"सारे शॉर्ट्स और रील्स अब","me 🔥":"में 🔥","🎬":"🎬","Reels ab Channel Profile me hain":"रील्स अब चैनल प्रोफ़ाइल में हैं","Upar wale logo par tap karein aur":"ऊपर वाले लोगो पर टैप करें और","section me saare Shorts & Reels dekhein.":"सेक्शन में सारे शॉर्ट्स और रील्स देखें।","Channel Profile kholein →":"चैनल प्रोफ़ाइल खोलें →",
 "username":"उपयोगकर्ता नाम","🔐 Login karke like, comment, save videos aur message friends.":"🔐 लाइक, कमेंट, वीडियो सेव और दोस्तों को मैसेज करने के लिए लॉगिन करें।","📷":"📷","Posts":"पोस्ट","Followers":"फ़ॉलोअर","Following":"फ़ॉलोइंग","@username":"@उपयोगकर्ता","No bio yet.":"अभी कोई बायो नहीं।","✏️ Edit Profile":"✏️ प्रोफ़ाइल एडिट करें","Share Profile":"प्रोफ़ाइल शेयर करें","Username":"उपयोगकर्ता नाम","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 अक्षर। सिर्फ़ अक्षर, अंक, अंडरस्कोर (_) और डॉट (.)।","Bio":"बायो","Cancel":"रद्द करें","Save Profile":"प्रोफ़ाइल सेव करें","Playlist":"प्लेलिस्ट","Abhi koi post nahi. Jald aa raha hai! 🚀":"अभी कोई पोस्ट नहीं। जल्द आ रहा है! 🚀","Abhi koi post nahi.":"अभी कोई पोस्ट नहीं।","Abhi tak koi reel nahi.":"अभी तक कोई रील नहीं।","Abhi koi video nahi.":"अभी कोई वीडियो नहीं।","Abhi tak koi video playlist me nahi.":"अभी तक कोई वीडियो प्लेलिस्ट में नहीं।",
 "Saare mini games ek hi jagah. Open karke play karo! 🔥":"सारे मिनी गेम एक ही जगह। खोलकर खेलो! 🔥","🎮 Open Fun Zone":"🎮 फन ज़ोन खोलें","🧠":"🧠","Comedy Quiz":"कॉमेडी क्विज़","Guess the Dialogue":"डायलॉग पहचानो","⚡":"⚡","Reaction Test":"रिएक्शन टेस्ट","🎡":"🎡","Spin Wheel":"स्पिन व्हील","🤔":"🤔","Emoji Riddle":"इमोजी पहेली","🔤":"🔤","Word Scramble":"वर्ड स्क्रैम्बल","🎴":"🎴","Memory Match":"मेमोरी मैच","🐍":"🐍","Snake & Ladder":"साँप और सीढ़ी","🎮 Game":"🎮 गेम","📷 Change Photo":"📷 फ़ोटो बदलें","Player 😎":"प्लेयर 😎","Level 1 • 0 XP":"लेवल 1 • 0 XP","🔥 Daily Challenge":"🔥 डेली चैलेंज","Aaj ka challenge load ho raha hai...":"आज का चैलेंज लोड हो रहा है...","🎯 Aaj ka challenge":"🎯 आज का चैलेंज","🏆 Local Leaderboard":"🏆 लोकल लीडरबोर्ड","Is device par top players.":"इस डिवाइस पर टॉप प्लेयर।","📤 Share My Score":"📤 मेरा स्कोर शेयर करें","🏆 Best Quiz:":"🏆 बेस्ट क्विज़:","⚡ Best Reaction:":"⚡ बेस्ट रिएक्शन:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 गेम स्कोर इस डिवाइस पर सेव होते हैं।",
-"Admin Panel":"एडमिन पैनल","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 यह पैनल सिर्फ़ एडमिन के लिए है। आप अधिकृत हैं।","📊 Live Stats":"📊 लाइव आँकड़े","Total Users":"कुल यूज़र","Comments":"कमेंट","Likes":"लाइक","Saves":"सेव","🔄 Refresh Stats":"🔄 आँकड़े रीफ़्रेश करें","❤️ Likes Management (Per Video)":"❤️ लाइक मैनेजमेंट (प्रति वीडियो)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"हर वीडियो के लिए कितने और कौन लोगों ने लाइक किया — पूरा ब्यौरा।","🔄 Load Likes":"🔄 लाइक लोड करें","Fan Name":"फैन का नाम","Photo URL":"फ़ोटो URL","Message":"संदेश","Date":"तारीख़","💾 Save Fan of Week":"💾 सप्ताह का फैन सेव करें","📢 Announcement Bar":"📢 अनाउंसमेंट बार","Announcement Text":"अनाउंसमेंट टेक्स्ट","Button Text (optional)":"बटन टेक्स्ट (वैकल्पिक)","💾 Save Announcement":"💾 अनाउंसमेंट सेव करें","📌 Notice Board (Popup)":"📌 नोटिस बोर्ड (पॉपअप)","Notice Title":"नोटिस शीर्षक","Notice Message":"नोटिस संदेश","Show Notice?":"नोटिस दिखाएँ?","❌ Hidden":"❌ छिपा हुआ","✅ Visible to all users":"✅ सभी यूज़र को दिखे","💾 Save Notice":"💾 नोटिस सेव करें","🎥 Manual Videos Management":"🎥 मैनुअल वीडियो मैनेजमेंट","Video Title":"वीडियो शीर्षक","YouTube Video ID":"YouTube वीडियो ID","Category":"श्रेणी","🎥 Long Video (Videos tab mein jayegi)":"🎥 लॉन्ग वीडियो (वीडियो टैब में जाएगी)","🎬 Short (Reels tab mein jayegi)":"🎬 शॉर्ट (रील्स टैब में जाएगी)","➕ Add Video":"➕ वीडियो जोड़ें","👥 Users List":"👥 यूज़र लिस्ट","🔄 Load Users":"🔄 यूज़र लोड करें","💬 Recent Comments":"💬 हाल के कमेंट","🔄 Load Comments":"🔄 कमेंट लोड करें","💬 Comments":"💬 कमेंट","❤️ Liked by":"❤️ लाइक किया","Share":"शेयर","Reel":"रील","▲":"▲","▼":"▼","1 / 1":"1 / 1",
+"Admin Panel":"एडमिन पैनल","🔒 Yeh panel sirf admin ke liye hai. Aap authorized ho.":"🔒 यह पैनल सिर्फ़ एडमिन के लिए है। आप अधिकृत हैं।","📊 Live Stats":"📊 लाइव आँकड़े","Total Users":"कुल यूज़र","Comments":"कमेंट","Likes":"लाइक","Saves":"सेव","🔄 Refresh Stats":"🔄 आँकड़े रीफ़्रेश करें","❤️ Likes Management (Per Video)":"❤️ लाइक मैनेजमेंट (प्रति वीडियो)","Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.":"हर वीडियो के लिए कितने और कौन लोगों ने लाइक किया — पूरा ब्यौरा।","🔄 Load Likes":"🔄 लाइक लोड करें","Fan Name":"फैन का नाम","Photo URL":"फ़ोटो URL","Message":"संदेश","Date":"तारीख़","💾 Save Fan of Week":"💾 सप्ताह का फैन सेव करें","📢 Announcement Bar":"📢 अनाउंसमेंट बार","Announcement Text":"अनाउंसमेंट टेक्स्ट","Button Text (optional)":"बटन टेक्स्ट (वैकल्पिक)","💾 Save Announcement":"💾 अनाउंसमेंट सेव करें","📌 Notice Board (Popup)":"📌 नोटिस बोर्ड (पॉपअप)","Notice Title":"नोटिस शीर्षक","Notice Message":"नोटिस संदेश","Show Notice?":"नोटिस दिखाएँ?","❌ Hidden":"❌ छिपा हुआ","✅ Visible to all users":"✅ सभी यूज़र को दिखे","💾 Save Notice":"💾 नोटिस सेव करें","🎥 Manual Videos Management":"🎥 मैनुअल वीडियो मैनेजमेंट","Video Title":"वीडियो शीर्षक","YouTube Video ID":"YouTube वीडियो ID","Category":"श्रेणी","🎥 Long Video (Videos tab mein jayegi)":"🎥 लॉन्ग वीडियो (वीडियो टैब में जाएगी)","🎬 Short (Reels tab mein jayegi)":"🎬 शॉर्ट (रील्स टैब में जाएगी)","➕ Add Video":"➕ वीडियो जोड़ें","👥 Users List":"👥 यूज़र लिस्ट","🔄 Load Users":"🔄 यूज़र लोड करें","💬 Recent Comments":"💬 हाल के कमेंट","🔄 Load Comments":"🔄 कमेंट लोड करें","💬 Comments":"💬 कमेंट","Sort by:":"क्रम:","Newest":"नवीनतम","Oldest":"सबसे पुराने","Most Liked":"सर्वाधिक पसंद","❤️ Liked by":"❤️ लाइक किया","Share":"शेयर","Reel":"रील","▲":"▲","▼":"▼","1 / 1":"1 / 1",
 "⚙️ Settings":"⚙️ सेटिंग्स","Language":"भाषा","Appearance":"रूप","Community & Messages":"कम्युनिटी और मैसेज","Liked Videos":"लाइक किए वीडियो","Saved Videos":"सेव किए वीडियो","Mobile Verification":"मोबाइल वेरिफ़िकेशन","Not verified":"वेरिफ़ाई नहीं","Help":"मदद","Report":"रिपोर्ट","Support & Donate":"सपोर्ट और डोनेट","Also from Cobra":"Cobra की ओर से भी","💬":"💬","C Chat":"C Chat","Chat aur baat-cheet karein":"चैट और बातचीत करें","🤖":"🤖","Cobra AI":"Cobra AI","Smart AI assistant":"स्मार्ट AI सहायक","📧":"📧","C Mail":"C Mail","Email bhejein aur paayein":"ईमेल भेजें और पाएँ","🌐":"🌐","C Browser":"C Browser","Tez aur safe browsing":"तेज़ और सुरक्षित ब्राउज़िंग","🔍":"🔍","Search engine":"सर्च इंजन","👋 Logout":"👋 लॉगआउट",
 "Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.":"अपनी पसंद की भाषा चुनें। पूरी ऐप इसी भाषा में दिखेगी।","Hinglish":"Hinglish","हिंदी":"हिंदी","English":"English",
 "App ka look chunein — System, Light ya Dark mode.":"ऐप का रूप चुनें — सिस्टम, लाइट या डार्क मोड।","📱 System":"📱 सिस्टम","☀️ Light":"☀️ लाइट","🌙 Dark":"🌙 डार्क",
@@ -5617,10 +5641,33 @@ document.addEventListener("click",(e)=>{
   const titleEl = document.getElementById("reelViewerTitle");
   const countEl = document.getElementById("reelViewerCount");
   const btnClose = document.getElementById("reelViewerClose");
+  const btnSave = document.getElementById("reelViewerSave");
   const btnPrev = document.getElementById("reelViewerPrev");
   const btnNext = document.getElementById("reelViewerNext");
   if(!viewer || !frame) return;
   let reels = [], index = 0;
+
+  function updateSaveButton(){
+    if(!btnSave) return;
+    const r = reels[index];
+    if(!r || !r.vid){
+      btnSave.classList.remove("saved");
+      btnSave.innerHTML = '<svg class="ico"><use href="#i-bookmark"></use></svg>';
+      btnSave.setAttribute("title", "Save reel");
+      return;
+    }
+    const isSaved = userSavedVideos.has(r.vid);
+    if(isSaved){
+      btnSave.classList.add("saved");
+      btnSave.innerHTML = '<svg class="ico"><use href="#i-bookmark-fill"></use></svg>';
+      btnSave.setAttribute("title", "Saved in your list");
+    } else {
+      btnSave.classList.remove("saved");
+      btnSave.innerHTML = '<svg class="ico"><use href="#i-bookmark"></use></svg>';
+      btnSave.setAttribute("title", "Save reel");
+    }
+  }
+  window.updateReelViewerSaveButton = updateSaveButton;
 
   function collectReels(){
     const list = [];
@@ -5648,6 +5695,7 @@ document.addEventListener("click",(e)=>{
     countEl.textContent = (index+1)+" / "+reels.length;
     btnPrev.disabled = index<=0;
     btnNext.disabled = index>=reels.length-1;
+    updateSaveButton();
   }
 
   function open(vid){
@@ -5664,6 +5712,15 @@ document.addEventListener("click",(e)=>{
   function prev(){ if(index>0){ index--; render(); } }
   window.openReelViewer = open;
 
+  if(btnSave){
+    btnSave.addEventListener("click", async (e)=>{
+      e.stopPropagation();
+      const r = reels[index];
+      if(!r || !r.vid) return;
+      await toggleSave(r.vid);
+      updateSaveButton();
+    });
+  }
   if(btnClose) btnClose.addEventListener("click", close);
   if(btnNext) btnNext.addEventListener("click", next);
   if(btnPrev) btnPrev.addEventListener("click", prev);
@@ -5719,6 +5776,7 @@ function refreshAllVideoActions(){
       '<button type="button" class="action-btn '+(s?"saved":"")+'" data-action="save" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#'+(s?"i-bookmark-fill":"i-bookmark")+'"></use></svg></span><span>Save</span></button>';
   });
   refreshLikesLinks();
+  if(typeof window.updateReelViewerSaveButton === "function") window.updateReelViewerSaveButton();
 }
 window.refreshAllVideoActions = refreshAllVideoActions;
 
@@ -5848,59 +5906,245 @@ async function sendReelToChat(oid, vid){
 
 /* ---------- COMMENTS ---------- */
 const commentsOverlay = document.getElementById("commentsOverlay");
-function closeComments(){ if(commentsOverlay) commentsOverlay.classList.remove("show"); currentCommentsVideoId = null; }
+function closeComments(){
+  if(commentsOverlay) commentsOverlay.classList.remove("show");
+  currentCommentsVideoId = null;
+}
 window.closeComments = closeComments;
 
 async function openComments(vid){
   currentCommentsVideoId = vid;
-  commentsOverlay.classList.add("show");
-  document.getElementById("commentsList").innerHTML = "<p style='color:#888'>Loading...</p>";
+  if(commentsOverlay) commentsOverlay.classList.add("show");
+  
+  const list = document.getElementById("commentsList");
+  if(list) list.innerHTML = "<p style='color:#888;text-align:center;padding:30px 16px'>Loading comments...</p>";
+  
+  const countBadge = document.getElementById("commentsCountBadge");
+  if(countBadge) countBadge.textContent = "0";
+  
+  const sortSelect = document.getElementById("commentsSortSelect");
+  if(sortSelect) sortSelect.value = currentCommentsSort || "newest";
+  
   const fw = document.getElementById("commentFormWrap");
-  if(currentUser){
-    fw.innerHTML = '<div class="comment-form"><img src="'+escapeAttr(currentProfilePhotoURL||currentUser.photoURL||"")+'" style="width:32px;height:32px;border-radius:50%" alt=""><input type="text" id="commentInput" placeholder="Add a comment..." maxlength="500"><button type="button" id="postCommentBtn">Post</button></div>';
-    document.getElementById("postCommentBtn").addEventListener("click", postComment);
-    document.getElementById("commentInput").addEventListener("keydown",e=>{ if(e.key==="Enter") postComment(); });
-  } else {
-    fw.innerHTML = '<div class="comments-login-msg"><p>Login karke comment karein</p><button type="button" class="comments-login-btn" onclick="closeComments();switchTab(\'profile\');">Continue with Google</button></div>';
+  if(fw){
+    if(currentUser){
+      fw.innerHTML = '<div class="comment-form"><img src="'+escapeAttr(currentProfilePhotoURL||currentUser.photoURL||"https://ui-avatars.com/api/?name=User&background=e63946&color=fff")+'" style="width:32px;height:32px;border-radius:50%;object-fit:cover" alt=""><input type="text" id="commentInput" placeholder="Add a comment..." maxlength="500"><button type="button" id="postCommentBtn">Post</button></div>';
+      const pbtn = document.getElementById("postCommentBtn");
+      if(pbtn) pbtn.addEventListener("click", postComment);
+      const cinp = document.getElementById("commentInput");
+      if(cinp) cinp.addEventListener("keydown", e => { if(e.key === "Enter") postComment(); });
+    } else {
+      fw.innerHTML = '<div class="comments-login-msg"><p>Login karke comment karein</p><button type="button" class="comments-login-btn" onclick="closeComments();switchTab(\'profile\');">Continue with Google</button></div>';
+    }
   }
+  
   loadComments(vid);
+}
+
+function renderSortedComments(){
+  const list = document.getElementById("commentsList");
+  const countBadge = document.getElementById("commentsCountBadge");
+  
+  const total = currentCommentsList.length;
+  if(countBadge) countBadge.textContent = total;
+  
+  if(!list) return;
+  if(!total){
+    list.innerHTML = "<p style='color:#888;text-align:center;padding:36px 20px'>Abhi koi comment nahi 💬<br><span style='font-size:12.5px;color:#aaa;display:inline-block;margin-top:6px'>Pehla comment aap karein!</span></p>";
+    return;
+  }
+  
+  // Sort according to currentCommentsSort
+  const sorted = [...currentCommentsList].sort((a, b) => {
+    const timeA = a.createdAt?.seconds || (a.createdAt?.toDate ? a.createdAt.toDate().getTime()/1000 : 0);
+    const timeB = b.createdAt?.seconds || (b.createdAt?.toDate ? b.createdAt.toDate().getTime()/1000 : 0);
+    const likesA = Number(a.likesCount || 0);
+    const likesB = Number(b.likesCount || 0);
+    
+    if(currentCommentsSort === "oldest"){
+      return timeA - timeB;
+    } else if(currentCommentsSort === "most_liked"){
+      if(likesB !== likesA) return likesB - likesA;
+      return timeB - timeA;
+    } else {
+      // Default: newest
+      return timeB - timeA;
+    }
+  });
+  
+  list.innerHTML = "";
+  sorted.forEach(c => {
+    const canDel = currentUser && (currentUser.uid === c.userId || currentUser.uid === ADMIN_UID);
+    const t = c.createdAt ? (c.createdAt.toDate ? formatTimeAgo(c.createdAt.toDate()) : (c.createdAt.seconds ? formatTimeAgo(new Date(c.createdAt.seconds * 1000)) : "just now")) : "just now";
+    const isLiked = (currentUser && Array.isArray(c.likedBy) && c.likedBy.includes(currentUser.uid)) || userLikedComments.has(c.id);
+    const likesCount = Math.max(0, Number(c.likesCount || 0));
+    const avatar = c.userPhoto || ("https://ui-avatars.com/api/?name=" + encodeURIComponent(c.userName || "User") + "&background=e63946&color=fff");
+    
+    const el = document.createElement("div");
+    el.className = "comment-item";
+    el.id = "comment-" + c.id;
+    el.innerHTML = `
+      <img src="${escapeAttr(avatar)}" class="comment-avatar" alt="" onerror="this.src='https://ui-avatars.com/api/?name=User&background=e63946&color=fff'">
+      <div class="comment-body">
+        <div class="comment-name">${escapeHtml(c.userName || "User")}</div>
+        <div class="comment-text">${escapeHtml(c.text || "")}</div>
+        <div class="comment-footer" style="display:flex;align-items:center;gap:12px;margin-top:6px">
+          <span class="comment-time">${escapeHtml(t)}</span>
+          <button type="button" class="comment-like-btn ${isLiked ? 'liked' : ''}" data-cid="${c.id}" aria-label="Like comment" title="Like comment" style="background:none;border:none;display:flex;align-items:center;gap:4px;cursor:pointer;color:${isLiked ? '#e63946' : '#888'};font-size:12px;padding:2px 4px">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="${isLiked ? '#e63946' : 'none'}" stroke="${isLiked ? '#e63946' : 'currentColor'}" stroke-width="2">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            <span class="comment-likes-count">${likesCount > 0 ? likesCount : ''}</span>
+          </button>
+          ${canDel ? `<button type="button" class="comment-del" data-cid="${c.id}" style="background:none;border:none;color:#ef4444;font-size:12px;cursor:pointer">Delete</button>` : ''}
+        </div>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+  
+  // Attach like listeners
+  list.querySelectorAll(".comment-like-btn").forEach(btn => {
+    btn.addEventListener("click", () => toggleLikeComment(btn.getAttribute("data-cid")));
+  });
+  
+  // Attach delete listeners
+  list.querySelectorAll(".comment-del").forEach(b => {
+    b.addEventListener("click", async () => {
+      if(!confirm("Kya aap ye comment delete karna chahte hain?")) return;
+      const cid = b.getAttribute("data-cid");
+      try {
+        await db.collection("comments").doc(cid).delete();
+        currentCommentsList = currentCommentsList.filter(item => item.id !== cid);
+        showToast("🗑️ Comment deleted");
+        renderSortedComments();
+      } catch(e) {
+        console.error(e);
+        showToast("❌ Delete nahi ho paya");
+      }
+    });
+  });
+}
+
+async function toggleLikeComment(cid){
+  if(!currentUser){
+    showToast("🔒 Login karke comment like karein");
+    return;
+  }
+  const comment = currentCommentsList.find(c => c.id === cid);
+  if(!comment) return;
+  
+  const alreadyLiked = (Array.isArray(comment.likedBy) && comment.likedBy.includes(currentUser.uid)) || userLikedComments.has(cid);
+  
+  if(alreadyLiked){
+    userLikedComments.delete(cid);
+    if(Array.isArray(comment.likedBy)){
+      comment.likedBy = comment.likedBy.filter(uid => uid !== currentUser.uid);
+    }
+    comment.likesCount = Math.max(0, (Number(comment.likesCount) || 1) - 1);
+  } else {
+    userLikedComments.add(cid);
+    if(!Array.isArray(comment.likedBy)) comment.likedBy = [];
+    if(!comment.likedBy.includes(currentUser.uid)){
+      comment.likedBy.push(currentUser.uid);
+    }
+    comment.likesCount = (Number(comment.likesCount) || 0) + 1;
+  }
+  
+  try {
+    localStorage.setItem("upcomedyhub_liked_comments", JSON.stringify(Array.from(userLikedComments)));
+  } catch(_) {}
+  
+  renderSortedComments();
+  
+  try {
+    const commentRef = db.collection("comments").doc(cid);
+    if(alreadyLiked){
+      await commentRef.update({
+        likesCount: firebase.firestore.FieldValue.increment(-1),
+        likedBy: firebase.firestore.FieldValue.arrayRemove(currentUser.uid)
+      });
+    } else {
+      await commentRef.update({
+        likesCount: firebase.firestore.FieldValue.increment(1),
+        likedBy: firebase.firestore.FieldValue.arrayUnion(currentUser.uid)
+      });
+    }
+  } catch(err) {
+    console.warn("Firestore comment like warning:", err);
+  }
 }
 
 async function loadComments(vid){
   const list = document.getElementById("commentsList");
-  try{
-    const snap = await db.collection("comments").where("videoId","==",vid).get();
-    const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0)).slice(0,100);
-    if(!docs.length){ list.innerHTML = "<p style='color:#888;text-align:center;padding:20px'>Abhi koi comment nahi 💬</p>"; return; }
-    list.innerHTML = "";
-    docs.forEach(doc=>{
+  const countBadge = document.getElementById("commentsCountBadge");
+  const sortSelect = document.getElementById("commentsSortSelect");
+  if(sortSelect) sortSelect.value = currentCommentsSort || "newest";
+  
+  try {
+    const snap = await db.collection("comments").where("videoId", "==", vid).get();
+    currentCommentsList = snap.docs.map(doc => {
       const d = doc.data();
-      const canDel = currentUser && (currentUser.uid === d.userId || currentUser.uid === ADMIN_UID);
-      const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now";
-      const el = document.createElement("div");
-      el.className = "comment-item";
-      el.innerHTML = '<img src="'+escapeAttr(d.userPhoto||"")+'" class="comment-avatar"><div class="comment-body"><div class="comment-name">'+escapeHtml(d.userName||"User")+'</div><div class="comment-text">'+escapeHtml(d.text||"")+'</div><div class="comment-time">'+escapeHtml(t)+(canDel?'<button class="comment-del" data-cid="'+doc.id+'">Delete</button>':'')+'</div></div>';
-      list.appendChild(el);
+      return {
+        id: doc.id,
+        ...d,
+        likesCount: typeof d.likesCount === "number" ? d.likesCount : (Array.isArray(d.likedBy) ? d.likedBy.length : (typeof d.likes === "number" ? d.likes : 0)),
+        likedBy: Array.isArray(d.likedBy) ? d.likedBy : []
+      };
     });
-    list.querySelectorAll(".comment-del").forEach(b=>b.addEventListener("click",async()=>{
-      if(!confirm("Delete?")) return;
-      try{ await db.collection("comments").doc(b.getAttribute("data-cid")).delete(); showToast("🗑️"); loadComments(vid); }catch(e){}
-    }));
-  }catch(e){ console.error(e); list.innerHTML = "<p style='color:#e63946;text-align:center;padding:20px'>Load fail</p>"; }
+    renderSortedComments();
+  } catch(e) {
+    console.error("Comments load error:", e);
+    if(countBadge) countBadge.textContent = "0";
+    if(list) list.innerHTML = "<p style='color:#e63946;text-align:center;padding:24px'>Comments load nahi ho paye 💬</p>";
+  }
 }
 
 async function postComment(){
   if(!currentUser || !currentCommentsVideoId) return;
-  const inp = document.getElementById("commentInput"); const txt = inp.value.trim();
+  const inp = document.getElementById("commentInput");
+  const txt = inp ? inp.value.trim() : "";
   if(!txt) return;
-  try{
-    const us = await db.collection("comments").where("videoId","==",currentCommentsVideoId).get();
-    let mc = 0; us.forEach(d=>{ if(d.data().userId===currentUser.uid) mc++; });
-    if(mc >= 5){ showToast("⚠️ Max 5"); return; }
-    await db.collection("comments").add({videoId:currentCommentsVideoId,userId:currentUser.uid,userName:currentUser.displayName||"User",userPhoto:currentProfilePhotoURL||currentUser.photoURL||"",text:txt,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-    await createNotification(ADMIN_UID,"comment","💬 New comment",(currentUser.displayName||"Someone")+" commented.",{videoId:currentCommentsVideoId});
-    inp.value=""; showToast("💬 Posted!"); loadComments(currentCommentsVideoId);
-  }catch(e){ showToast("❌"); console.error(e); }
+  const postBtn = document.getElementById("postCommentBtn");
+  if(postBtn) postBtn.disabled = true;
+  try {
+    const us = await db.collection("comments").where("videoId", "==", currentCommentsVideoId).get();
+    let mc = 0;
+    us.forEach(d => { if(d.data().userId === currentUser.uid) mc++; });
+    if(mc >= 5){
+      showToast("⚠️ Max 5 comments allowed per video");
+      if(postBtn) postBtn.disabled = false;
+      return;
+    }
+    const newDoc = {
+      videoId: currentCommentsVideoId,
+      userId: currentUser.uid,
+      userName: currentUser.displayName || "User",
+      userPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+      text: txt,
+      likesCount: 0,
+      likedBy: [],
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    const ref = await db.collection("comments").add(newDoc);
+    
+    // Add locally for instant UI update
+    currentCommentsList.unshift({
+      id: ref.id,
+      ...newDoc,
+      createdAt: { seconds: Math.floor(Date.now() / 1000) }
+    });
+    
+    await createNotification(ADMIN_UID, "comment", "💬 New comment", (currentUser.displayName || "Someone") + " commented.", { videoId: currentCommentsVideoId });
+    if(inp) inp.value = "";
+    showToast("💬 Comment posted!");
+    renderSortedComments();
+  } catch(e) {
+    showToast("❌ Comment post nahi ho paya");
+    console.error(e);
+  } finally {
+    if(postBtn) postBtn.disabled = false;
+  }
 }
 
 /* ---------- LIKES MODAL ---------- */
@@ -10965,6 +11209,13 @@ window.addEventListener("DOMContentLoaded",()=>{
 
   /* --- Comments & Likes close (✕) buttons (Point C) --- */
   const ccl = document.getElementById("commentsClose"); if(ccl) ccl.addEventListener("click", ()=>closeComments());
+  const css = document.getElementById("commentsSortSelect");
+  if(css){
+    css.addEventListener("change", e=>{
+      currentCommentsSort = e.target.value;
+      renderSortedComments();
+    });
+  }
   const lcl = document.getElementById("likesClose"); if(lcl) lcl.addEventListener("click", ()=>{ const lo = document.getElementById("likesOverlay"); if(lo) lo.classList.remove("show"); });
   const co = document.getElementById("commentsOverlay"); if(co) co.addEventListener("click", e=>{ if(e.target === co) closeComments(); });
   const lo2 = document.getElementById("likesOverlay"); if(lo2) lo2.addEventListener("click", e=>{ if(e.target === lo2) lo2.classList.remove("show"); });

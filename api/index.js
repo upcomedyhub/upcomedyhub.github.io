@@ -1,9 +1,16 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.join(__dirname, '..');
 
 const app = express();
 
 app.disable('x-powered-by');
 app.use(express.json({ limit: '10mb' }));
+app.use(express.static(rootDir));
 
 // =====================================================
 // CORS
@@ -849,6 +856,10 @@ app.get('/api/health', (req, res) => {
     backend:
       'vercel'
   });
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(rootDir, 'index.html'));
 });
 
 // =====================================================

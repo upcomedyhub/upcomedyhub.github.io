@@ -204,6 +204,22 @@ button{font-family:inherit}
     inset 0 1px 1.5px rgba(255, 255, 255, 0.38);
 }
 
+.loader-app-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 36px;
+  object-fit: cover;
+  display: block;
+}
+
+.loader-cobra-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
+}
+
 /* YouTube Light Sheen / Gleam across the icon */
 .loader-app-icon::after {
   content: "";
@@ -466,14 +482,18 @@ body:not(.on-home) header{display:none}
 .dark-mode header{background:#000;border-bottom-color:#262626}
 .logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
-.header-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
-#messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:#f1f1f1;width:46px;height:46px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;color:#111;transition:transform .15s}
-#messageBtn:hover,#bellBtn:hover,#headerSearchBtn:hover{transform:scale(1.05)}
-.dark-mode #messageBtn,.dark-mode #bellBtn,.dark-mode #headerSearchBtn{background:#1c1c1c;color:#fff}
-#bellBtn{width:54px;height:54px;font-size:27px}
-#bellBtn .ico{width:27px;height:27px}
-#headerSearchBtn .ico{width:23px;height:23px}
-#bellBadge{position:absolute;top:2px;right:2px;background:#e63946;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:none;align-items:center;justify-content:center;padding:0 4px}
+.header-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
+#messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:transparent;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0f0f0f;padding:0;transition:background-color .15s,opacity .15s;-webkit-tap-highlight-color:transparent}
+#messageBtn:hover,#bellBtn:hover,#headerSearchBtn:hover{background-color:rgba(0,0,0,.06)}
+#messageBtn:active,#bellBtn:active,#headerSearchBtn:active{background-color:rgba(0,0,0,.12);transform:scale(0.96)}
+.dark-mode #messageBtn,.dark-mode #bellBtn,.dark-mode #headerSearchBtn{background:transparent;color:#f1f1f1}
+.dark-mode #messageBtn:hover,.dark-mode #bellBtn:hover,.dark-mode #headerSearchBtn:hover{background-color:rgba(255,255,255,.1)}
+.dark-mode #messageBtn:active,.dark-mode #bellBtn:active,.dark-mode #headerSearchBtn:active{background-color:rgba(255,255,255,.18)}
+#bellBtn .ico{width:22px;height:22px}
+#headerSearchBtn .ico{width:21px;height:21px}
+#messageBtn .ico{width:21px;height:21px}
+#bellBadge{position:absolute;top:1px;right:1px;background:#cc0000;color:#fff;font-size:10px;font-weight:700;min-width:16px;height:16px;border-radius:8px;border:2px solid #fff;display:none;align-items:center;justify-content:center;padding:0 3px;line-height:1}
+.dark-mode #bellBadge{border-color:#000}
 #menuToggle{display:none;border:none;background:#f1f1f1;font-size:24px;width:46px;height:46px;border-radius:12px;cursor:pointer;color:#111}
 .dark-mode #menuToggle{background:#1c1c1c;color:#fff}
 nav.top-nav{display:flex;align-items:center}
@@ -1022,7 +1042,7 @@ body.messages-open .bottom-nav{display:none !important}
 .ig-name{font-size:16px;font-weight:700;color:#111;margin-bottom:2px}
 .dark-mode .ig-name{color:#fff}
 .ig-username{font-size:14px;color:#e63946;font-weight:600}
-#userEmail{font-size:13px;color:#888;margin-top:4px}
+#userEmail{display:none!important}
 .ig-bio{font-size:14px;line-height:1.5;color:#555;margin:10px 0 16px;white-space:pre-wrap;word-break:break-word}
 .dark-mode .ig-bio{color:#ccc}
 .ig-actions{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
@@ -1420,14 +1440,15 @@ body.messages-open .bottom-nav{display:none !important}
 @media(max-width:720px){.settings-overlay{padding:7px}.settings-modal{width:100%;max-height:90vh}.settings-modal-body{padding:14px}.settings-modal .settings-row{align-items:flex-start}.settings-modal .settings-select,.settings-modal .settings-open-btn{max-width:48%;white-space:nowrap}}
 @media(max-width:520px){.ig-profile-top{gap:18px}.ig-avatar{width:76px;height:76px}.ig-avatar-edit{width:26px;height:26px;font-size:12px}.ig-stat-num{font-size:16px}.ig-stat-label{font-size:11px}.ig-btn{min-width:110px;font-size:12px;padding:8px 12px}.ig-meta-stats{gap:16px;font-size:12px}}
 @media(max-width:700px){
-  header{padding:10px 15px}
+  header{padding:9px 12px}
   .logo{font-size:20px}
-  .logo-profile{width:36px;height:36px}
-  #messageBtn,#headerSearchBtn{width:40px;height:40px;font-size:19px}
-  #bellBtn{width:46px;height:46px;font-size:23px}
-  #bellBtn .ico{width:23px;height:23px}
+  .logo-profile{width:34px;height:34px}
+  .header-controls{gap:2px}
+  #messageBtn,#headerSearchBtn,#bellBtn{width:34px;height:34px;background:transparent}
+  #bellBtn .ico{width:21px;height:21px}
   #headerSearchBtn .ico{width:20px;height:20px}
-  #menuToggle{display:block;width:38px;height:38px;font-size:20px}
+  #messageBtn .ico{width:20px;height:20px}
+  #menuToggle{display:block;width:34px;height:34px;font-size:18px}
   nav.top-nav{display:none;position:fixed;top:60px;right:15px;width:250px;max-height:calc(100vh - 80px);overflow-y:auto;background:#fff;padding:12px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.15);flex-direction:column;align-items:stretch;gap:5px;z-index:1100}
   nav.top-nav.show-menu{display:flex}
   nav.top-nav a{margin:0;padding:10px 12px;border-radius:10px}
@@ -2356,40 +2377,7 @@ body.messages-open .bottom-nav{display:none !important}
     <div class="loader-app-icon-wrap">
       <div class="loader-aura-glow"></div>
       <div class="loader-app-icon">
-        <!-- Logo matching IMG-20261002-WA0002.jpg with YouTube animated play button -->
-        <svg viewBox="0 0 120 120" width="100%" height="100%" class="loader-svg-logo">
-          <defs>
-            <linearGradient id="iconSurface" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#24242e"/>
-              <stop offset="35%" stop-color="#141419"/>
-              <stop offset="75%" stop-color="#0a0a0d"/>
-              <stop offset="100%" stop-color="#040406"/>
-            </linearGradient>
-            <linearGradient id="whitePlayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ffffff"/>
-              <stop offset="100%" stop-color="#f0f2f5"/>
-            </linearGradient>
-            <linearGradient id="iconRim" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
-              <stop offset="50%" stop-color="rgba(255,255,255,0.32)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0.06)"/>
-            </linearGradient>
-          </defs>
-
-          <!-- Squircle Base matching IMG-20261002-WA0002.jpg -->
-          <rect x="0" y="0" width="120" height="120" rx="35" ry="35" fill="url(#iconSurface)"/>
-          <rect x="1" y="1" width="118" height="118" rx="34" ry="34" fill="none" stroke="url(#iconRim)" stroke-width="1.2"/>
-
-          <!-- Animated Play Button Triangle (YouTube Pop & Breathing Animation) -->
-          <g class="loader-play-glyph">
-            <path d="M 51.5 34.5 C 51.5 32.5 53.8 31.3 55.4 32.4 L 75.8 46.4 C 77.4 47.5 77.4 49.9 75.8 51.0 L 55.4 65.0 C 53.8 66.1 51.5 64.9 51.5 62.9 Z" fill="url(#whitePlayGrad)"/>
-          </g>
-
-          <!-- Animated Smiling Arc (YouTube Pop & Glow Animation) -->
-          <g class="loader-smile-arc">
-            <path d="M 32 59 C 32 86, 88 86, 88 59" fill="none" stroke="url(#whitePlayGrad)" stroke-width="8.6" stroke-linecap="round"/>
-          </g>
-        </svg>
+        <img src="upcomedyhub-logo.svg" alt="UPComedyHub" class="loader-app-img" width="120" height="120">
       </div>
     </div>
 
@@ -2409,39 +2397,7 @@ body.messages-open .bottom-nav{display:none !important}
   <div class="loader-bottom-brand">
     <div class="loader-from-text">from</div>
     <div class="loader-cobra-wrap">
-      <svg viewBox="0 0 64 64" width="38" height="38" aria-hidden="true">
-        <defs>
-          <linearGradient id="cobraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#00f5a0"/>
-            <stop offset="45%" stop-color="#00e5ff"/>
-            <stop offset="100%" stop-color="#006688"/>
-          </linearGradient>
-          <linearGradient id="cobraGlow" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#00c878"/>
-            <stop offset="70%" stop-color="#00e5ff"/>
-            <stop offset="100%" stop-color="#80ffff"/>
-          </linearGradient>
-          <filter id="cobraDrop" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#00e5ff" flood-opacity="0.45"/>
-          </filter>
-        </defs>
-        <!-- Cobra Hood & Head -->
-        <path d="M 32 18 C 28 14, 18 13, 16 23 C 14 31, 22 36, 27 38 L 32 35 L 37 38 C 42 36, 50 31, 48 23 C 46 13, 36 14, 32 18 Z" fill="url(#cobraGrad)" filter="url(#cobraDrop)"/>
-        <!-- Hood Inner Shadow -->
-        <path d="M 32 20 C 29 17, 22 17, 20 24 C 19 29, 25 33, 28 34 C 27 31, 27 25, 32 22 C 37 25, 37 31, 36 34 C 39 33, 45 29, 44 24 C 42 17, 35 17, 32 20 Z" fill="#041217"/>
-        <!-- Center Head & Snout -->
-        <path d="M 32 17 C 29 19, 28 24, 30 29 C 31 31, 33 31, 34 29 C 36 24, 35 19, 32 17 Z" fill="url(#cobraGlow)"/>
-        <!-- Eyes -->
-        <ellipse cx="29" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(-15 29 23)"/>
-        <ellipse cx="35" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(15 35 23)"/>
-        
-        <!-- Lower Infinity Body Loops -->
-        <path d="M 32 37 C 26 40, 18 43, 18 49 C 18 55, 25 58, 30 56 C 34 54, 38 48, 41 45 C 44 42, 50 43, 50 49 C 50 56, 42 58, 36 55 C 33 53, 31 51, 32 48" 
-              fill="none" stroke="url(#cobraGrad)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cobraDrop)"/>
-        <!-- Overlapping coil highlight -->
-        <path d="M 23 46 C 21 48, 20 51, 22 53 C 24 55, 28 55, 32 51 C 36 47, 41 45, 45 47 C 47 48, 48 51, 46 53" 
-              fill="none" stroke="url(#cobraGlow)" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
-      </svg>
+      <img src="cobra_logo.png" alt="Cobra" class="loader-cobra-img" width="38" height="38">
     </div>
     <div class="loader-cobra-text">Cobra</div>
   </div>
@@ -2958,14 +2914,10 @@ body.messages-open .bottom-nav{display:none !important}
   <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website"><svg class="ico"><use href="#i-link"></use></svg></a>
 </div>
 <div id="tab-reels" class="tab-pane">
-  <section>
+  <section style="padding:20px 14px">
     <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
-    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Saare Shorts &amp; Reels ab <strong>Channel Profile</strong> me 🔥</p>
-    <div class="reels-moved-note">
-      <div class="rmn-icon">🎬</div>
-      <p class="rmn-title">Reels ab Channel Profile me hain</p>
-      <p class="rmn-text">Upar wale logo par tap karein aur <strong>Reels</strong> section me saare Shorts &amp; Reels dekhein.</p>
-      <button type="button" class="rmn-btn" onclick="openChannelProfile('channel-reels')">Channel Profile kholein →</button>
+    <div class="channel-reels-grid" id="mainTabReelsGrid">
+      <div class="ig-reels-empty">⏳ Loading Reels...</div>
     </div>
   </section>
 </div>
@@ -3106,7 +3058,6 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="ig-name-block">
         <div id="userName" class="ig-name"></div>
         <div id="profileUsername" class="ig-username">@username</div>
-        <div id="userEmail"></div>
       </div>
 
       <div id="profileBio" class="ig-bio">No bio yet.</div>
@@ -5264,7 +5215,7 @@ function updateProfileUI(){
     if(li) li.style.display="block";
     const ph = document.getElementById("userPhoto"); if(ph) ph.src = currentProfilePhotoURL || currentUser.photoURL || "";
     const un = document.getElementById("userName"); if(un) un.textContent = currentUser.displayName || "User";
-    const ue = document.getElementById("userEmail"); if(ue) ue.textContent = currentUser.email || "";
+    const ue = document.getElementById("userEmail"); if(ue) ue.textContent = "";
     loadProfileIdentity();
     const sl = document.getElementById("statLikes"); if(sl) sl.textContent = userLikedVideos.size;
     const ss = document.getElementById("statSaves"); if(ss) ss.textContent = userSavedVideos.size;
@@ -5489,17 +5440,20 @@ function buildChannelReelItem(vid, title, thumb){
 (function fetchReels(){
   const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
   const grid = document.getElementById("channelReelsGrid");
-  if(!grid) return;
-  grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
+  const mainGrid = document.getElementById("mainTabReelsGrid");
+  if(grid) grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
+  if(mainGrid) mainGrid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
 
   function renderReelList(items){
-    grid.innerHTML = "";
+    if(grid) grid.innerHTML = "";
+    if(mainGrid) mainGrid.innerHTML = "";
     items.forEach(item => {
       const vid = item.videoId;
       const title = item.title;
       allVideos[vid] = { title, category: "shorts" };
       const thumb = item.thumb || ("https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg");
-      grid.appendChild(buildChannelReelItem(vid, title, thumb));
+      if(grid) grid.appendChild(buildChannelReelItem(vid, title, thumb));
+      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, title, thumb));
     });
     refreshAllVideoActions();
     refreshLikesLinks();
@@ -5534,25 +5488,32 @@ function buildChannelReelItem(vid, title, thumb){
 
 async function appendManualShortsToReels(){
   try{
-    const grid = document.getElementById("channelReelsGrid"); if(!grid) return;
+    const grid = document.getElementById("channelReelsGrid");
+    const mainGrid = document.getElementById("mainTabReelsGrid");
     const snap = await db.collection("manualVideos").where("category","==","shorts").get();
-    if(snap.empty){ if(!grid.querySelector(".channel-reel-item")) grid.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>'; return; }
+    if(snap.empty){
+      if(grid && !grid.querySelector(".channel-reel-item")) grid.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>';
+      if(mainGrid && !mainGrid.querySelector(".channel-reel-item")) mainGrid.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>';
+      return;
+    }
     const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0));
-    const rendered = new Set(Array.from(grid.querySelectorAll('.channel-reel-item')).map(c=>c.getAttribute("data-video-id")));
-    const empty = grid.querySelector(".ig-reels-empty"); if(empty) empty.remove();
+    const rendered = new Set(Array.from(document.querySelectorAll('.channel-reel-item')).map(c=>c.getAttribute("data-video-id")));
+    const empty = grid ? grid.querySelector(".ig-reels-empty") : null; if(empty) empty.remove();
+    const emptyMain = mainGrid ? mainGrid.querySelector(".ig-reels-empty") : null; if(emptyMain) emptyMain.remove();
     docs.forEach(doc=>{
       const d = doc.data(); const vid = d.videoId;
       if(!vid || rendered.has(vid)) return;
       allVideos[vid] = {title:d.title, category:"shorts", _manual:true};
       const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-      grid.appendChild(buildChannelReelItem(vid, d.title, thumb));
+      if(grid) grid.appendChild(buildChannelReelItem(vid, d.title, thumb));
+      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, d.title, thumb));
     });
     refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
   }catch(e){ console.warn("Manual shorts notice:", e?.message || e); }
 }
 
 async function refreshManualShorts(){
-  document.querySelectorAll('#channelReelsGrid .channel-reel-item').forEach(c=>c.remove());
+  document.querySelectorAll('#channelReelsGrid .channel-reel-item, #mainTabReelsGrid .channel-reel-item').forEach(c=>c.remove());
   Object.keys(allVideos).forEach(k=>{ if(allVideos[k]?. _manual) delete allVideos[k]; });
   await appendManualShortsToReels();
 }

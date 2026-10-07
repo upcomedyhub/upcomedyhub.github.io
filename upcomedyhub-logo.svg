@@ -1,45 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="137 137 750 750" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="120 120 760 760" width="100%" height="100%">
   <defs>
-    <!-- Background / Squircle Gradient -->
-    <linearGradient id="squircleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#25252d"/>
-      <stop offset="30%" stop-color="#18181f"/>
-      <stop offset="70%" stop-color="#0e0e13"/>
-      <stop offset="100%" stop-color="#050507"/>
+    <linearGradient id="upchSquircleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2c34"/>
+      <stop offset="25%" stop-color="#1c1d24"/>
+      <stop offset="65%" stop-color="#0f1015"/>
+      <stop offset="100%" stop-color="#060608"/>
     </linearGradient>
 
-    <!-- Top Rim Specular Highlight -->
-    <linearGradient id="rimLight" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="rgba(255,255,255,0.05)"/>
-      <stop offset="50%" stop-color="rgba(255,255,255,0.28)"/>
-      <stop offset="100%" stop-color="rgba(255,255,255,0.05)"/>
+    <linearGradient id="upchRimLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.35)"/>
+      <stop offset="40%" stop-color="rgba(255, 255, 255, 0.08)"/>
+      <stop offset="100%" stop-color="rgba(255, 255, 255, 0.01)"/>
     </linearGradient>
 
-    <!-- Soft White Glyph Gradient -->
-    <linearGradient id="glyphGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="upchWhiteGlyph" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#f2f3f7"/>
+      <stop offset="100%" stop-color="#f2f4f8"/>
     </linearGradient>
   </defs>
 
-  <!-- Main Squircle Icon (750x750) filling entire viewBox -->
   <g>
-    <rect x="137" y="137" width="750" height="750" rx="220" ry="220" fill="url(#squircleGrad)"/>
-    <!-- Subtle Inner Rim Border -->
-    <rect x="138.5" y="138.5" width="747" height="747" rx="218.5" ry="218.5" fill="none" stroke="url(#rimLight)" stroke-width="3"/>
+    <rect x="120" y="120" width="760" height="760" rx="230" ry="230" fill="url(#upchSquircleGrad)"/>
+    <rect x="121.5" y="121.5" width="757" height="757" rx="228.5" ry="228.5" fill="none" stroke="url(#upchRimLight)" stroke-width="3"/>
   </g>
 
-  <!-- Play Button Triangle (Upper Center) -->
-  <!-- Centered horizontally around x=512, pointing east -->
-  <!-- Vertices: Top-left (415, 290), Bottom-left (415, 600), Right-point (675, 445) with rounded corners -->
-  <path d="M 425 292 C 405 280 380 295 380 318 L 380 572 C 380 595 405 610 425 598 L 646 471 C 665 460 665 430 646 419 Z"
-        fill="url(#glyphGrad)"/>
+  <!-- Play Button Triangle -->
+  <path d="M 412 288 C 392 276 372 290 372 314 L 372 586 C 372 610 392 624 412 612 L 648 476 C 668 464 668 436 648 424 Z"
+        fill="url(#upchWhiteGlyph)"/>
 
-  <!-- Smiling Arc (Below Play Button) -->
-  <!-- Curves from (250, 480) down through (512, 730) up to (774, 480) -->
-  <path d="M 252 485 C 252 745, 772 745, 772 485"
+  <!-- Smiling Arc -->
+  <path d="M 238 472 C 238 732, 762 732, 762 472"
         fill="none"
-        stroke="url(#glyphGrad)"
-        stroke-width="70"
+        stroke="url(#upchWhiteGlyph)"
+        stroke-width="78"
         stroke-linecap="round"/>
 </svg>

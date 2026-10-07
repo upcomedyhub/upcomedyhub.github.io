@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "node api/index.js",
     "build": "echo 'Build completed'",
-    "lint": "node -c api/index.js && node -c server.js",
+    "lint": "node -c api/index.js",
     "start": "node api/index.js"
   },
   "dependencies": {

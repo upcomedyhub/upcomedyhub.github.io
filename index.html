@@ -2397,7 +2397,38 @@ body.messages-open .bottom-nav{display:none !important}
   <div class="loader-bottom-brand">
     <div class="loader-from-text">from</div>
     <div class="loader-cobra-wrap">
-      <img src="cobra_logo.png" alt="Cobra" class="loader-cobra-img" width="38" height="38">
+      <svg viewBox="0 0 64 64" width="38" height="38" aria-hidden="true" class="loader-cobra-svg" style="display:block;filter:drop-shadow(0 0 10px rgba(0,229,255,0.6));">
+        <defs>
+          <linearGradient id="cobraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00f5a0"/>
+            <stop offset="45%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#006688"/>
+          </linearGradient>
+          <linearGradient id="cobraGlow" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00c878"/>
+            <stop offset="70%" stop-color="#00e5ff"/>
+            <stop offset="100%" stop-color="#80ffff"/>
+          </linearGradient>
+          <filter id="cobraDrop" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#00e5ff" flood-opacity="0.45"/>
+          </filter>
+        </defs>
+        <!-- Cobra Hood & Head -->
+        <path d="M 32 18 C 28 14, 18 13, 16 23 C 14 31, 22 36, 27 38 L 32 35 L 37 38 C 42 36, 50 31, 48 23 C 46 13, 36 14, 32 18 Z" fill="url(#cobraGrad)" filter="url(#cobraDrop)"/>
+        <!-- Hood Inner Shadow -->
+        <path d="M 32 20 C 29 17, 22 17, 20 24 C 19 29, 25 33, 28 34 C 27 31, 27 25, 32 22 C 37 25, 37 31, 36 34 C 39 33, 45 29, 44 24 C 42 17, 35 17, 32 20 Z" fill="#041217"/>
+        <!-- Center Head & Snout -->
+        <path d="M 32 17 C 29 19, 28 24, 30 29 C 31 31, 33 31, 34 29 C 36 24, 35 19, 32 17 Z" fill="url(#cobraGlow)"/>
+        <!-- Eyes -->
+        <ellipse cx="29" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(-15 29 23)"/>
+        <ellipse cx="35" cy="23" rx="1.2" ry="0.9" fill="#00ffcc" transform="rotate(15 35 23)"/>
+        <!-- Lower Infinity Body Loops -->
+        <path d="M 32 37 C 26 40, 18 43, 18 49 C 18 55, 25 58, 30 56 C 34 54, 38 48, 41 45 C 44 42, 50 43, 50 49 C 50 56, 42 58, 36 55 C 33 53, 31 51, 32 48" 
+              fill="none" stroke="url(#cobraGrad)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cobraDrop)"/>
+        <!-- Overlapping coil highlight -->
+        <path d="M 23 46 C 21 48, 20 51, 22 53 C 24 55, 28 55, 32 51 C 36 47, 41 45, 45 47 C 47 48, 48 51, 46 53" 
+              fill="none" stroke="url(#cobraGlow)" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+      </svg>
     </div>
     <div class="loader-cobra-text">Cobra</div>
   </div>

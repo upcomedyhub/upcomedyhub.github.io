@@ -2309,6 +2309,38 @@ body.messages-open .bottom-nav{display:none !important}
 .music-preview-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
 .music-preview-btn:hover{background:#e63946}
 .music-select-btn{background:#e63946;border:none;color:#fff;padding:6px 12px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer}
+
+/* AI Call Avatar Animation */
+#aiVideoAvatarStage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+#aiVideoAvatarStage img, #aiVideoAvatarImg {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e63946;
+  animation: aiPulse 2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.5);
+}
+@keyframes aiPulse {
+  0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.55); transform: scale(1); }
+  50% { box-shadow: 0 0 0 18px rgba(230, 57, 70, 0); transform: scale(1.04); }
+  100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); transform: scale(1); }
+}
+#aiCallSubtitle {
+  max-width: 85%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #e5e7eb;
+  min-height: 40px;
+}
+
 </style>
 </head>
 <body class="on-home">
@@ -8135,8 +8167,26 @@ const RTC_ICE_SERVERS = {
   iceServers: [
     { urls: "stun:stun.l.google.com:19302" },
     { urls: "stun:stun1.l.google.com:19302" },
-    { urls: "stun:stun2.l.google.com:19302" }
-  ]
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun.cloudflare.com:3478" },
+    // Free public TURN (Metered.ca open relay - works for most NAT cases)
+    {
+      urls: "turn:openrelay.metered.ca:80",
+      username: "openrelayproject",
+      credential: "openrelayproject"
+    },
+    {
+      urls: "turn:openrelay.metered.ca:443",
+      username: "openrelayproject",
+      credential: "openrelayproject"
+    },
+    {
+      urls: "turn:openrelay.metered.ca:443?transport=tcp",
+      username: "openrelayproject",
+      credential: "openrelayproject"
+    }
+  ],
+  iceCandidatePoolSize: 10
 };
 
 function playCallTone(type) {
@@ -8300,7 +8350,7 @@ async function startCall(isVideo = false) {
       audio: true,
       video: isVideo ? { facingMode: callCameraFacing, width: { ideal: 640 }, height: { ideal: 480 } } : false
     };
-    localMediaStream = await navigator.mediaDevices.getUserMedia(constraints);
+    localMediaStream = await requestMediaPermissions(isVideo);
     if (isVideo && localVid) {
       localVid.srcObject = localMediaStream;
       localVid.style.display = "block";
@@ -8437,6 +8487,7 @@ async function startCall(isVideo = false) {
 }
 
 function startCallTimer() {
+  try { startNetworkQualityMonitor(); } catch(e){}
   if (callTimerInterval) clearInterval(callTimerInterval);
   callElapsedSeconds = 0;
   callTimerInterval = setInterval(() => {
@@ -8447,6 +8498,7 @@ function startCallTimer() {
 }
 
 function endCall() {
+  try { stopNetworkQualityMonitor(); } catch(e){}
   // 1. Instantly hide the call overlay immediately (no async delay)
   const overlay = document.getElementById("activeCallOverlay");
   if (overlay) {
@@ -8493,20 +8545,295 @@ function endCall() {
 
   const endedCallId = currentCallSession && currentCallSession.callId;
   const isAICall = currentCallSession && currentCallSession.isAI;
+  const endedSession = currentCallSession ? { ...currentCallSession } : null;
+  const endedDuration = callElapsedSeconds || 0;
   currentCallSession = null;
 
   if (endedCallId && !isAICall) {
     try {
       db.collection("calls").doc(endedCallId).update({
         status: "ended",
-        endedAt: firebase.firestore.FieldValue.serverTimestamp()
+        endedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        duration: endedDuration
       }).catch(() => {});
     } catch(e){}
+  }
+
+  if (endedSession && !isAICall) {
+    saveCallHistory(endedSession, endedDuration);
   }
 
   showToast("☎️ Call ended");
 }
 window.endCall = endCall;
+
+
+
+
+/* ---------- GROUP CALL FOUNDATION (1-to-1 ready, multi-peer scaffold) ---------- */
+// Full multi-party mesh needs more UI + signaling. Foundation ready:
+const groupCallPeers = new Map(); // peerId -> { pc, stream }
+
+async function startGroupCall(peerIds, isVideo = true) {
+  if (!Array.isArray(peerIds) || peerIds.length < 1) {
+    showToast("Group call ke liye kam se kam 1 friend select karo");
+    return;
+  }
+  if (peerIds.length > 3) {
+    showToast("Abhi max 4 log (tum + 3) support hai beta version mein");
+    peerIds = peerIds.slice(0, 3);
+  }
+  // For now: start 1-to-1 with first, rest as invite queue
+  showToast("Group call beta: pehle " + peerIds.length + " friends ko invite bheja jayega");
+  // Future: create group room doc + multiple RTCPeerConnections
+  if (peerIds[0]) {
+    // Set friend and start normal call as starting point
+    // currentChatFriend should be set by UI
+    startCall(isVideo);
+  }
+}
+window.startGroupCall = startGroupCall;
+
+/* ---------- BACKGROUND / VISIBILITY HANDLING ---------- */
+let callWasInBackground = false;
+document.addEventListener("visibilitychange", () => {
+  if (!currentCallSession) return;
+  if (document.hidden) {
+    callWasInBackground = true;
+    // Keep tracks alive; just note status
+    const statusEl = document.getElementById("activeCallStatus");
+    if (statusEl && statusEl.textContent && !statusEl.textContent.includes("Background")) {
+      statusEl.dataset.prevStatus = statusEl.textContent;
+      statusEl.textContent = "Background mode...";
+    }
+  } else {
+    if (callWasInBackground) {
+      callWasInBackground = false;
+      const statusEl = document.getElementById("activeCallStatus");
+      if (statusEl && statusEl.dataset.prevStatus) {
+        statusEl.textContent = statusEl.dataset.prevStatus;
+        delete statusEl.dataset.prevStatus;
+      }
+      // Re-attach local video if needed
+      const localVid = document.getElementById("localVideo");
+      if (localVid && localMediaStream && currentCallSession && currentCallSession.isVideo) {
+        localVid.srcObject = localMediaStream;
+        localVid.play().catch(() => {});
+      }
+      const remoteVid = document.getElementById("remoteVideo");
+      if (remoteVid && remoteVid.srcObject) {
+        remoteVid.play().catch(() => {});
+      }
+      showToast("Call resume hua ✅");
+    }
+  }
+});
+
+// Prevent accidental tab close during active call
+window.addEventListener("beforeunload", (e) => {
+  if (currentCallSession && !currentCallSession.isAI) {
+    e.preventDefault();
+    e.returnValue = "Call chal rahi hai. Band karna hai?";
+    return e.returnValue;
+  }
+});
+
+/* ---------- NETWORK QUALITY MONITOR ---------- */
+let callStatsInterval = null;
+let lastBytesReceived = 0;
+let lastStatsTs = 0;
+
+function startNetworkQualityMonitor() {
+  stopNetworkQualityMonitor();
+  lastBytesReceived = 0;
+  lastStatsTs = Date.now();
+  ensureQualityBadge();
+  callStatsInterval = setInterval(async () => {
+    if (!rtcPeerConnection) return;
+    try {
+      const stats = await rtcPeerConnection.getStats();
+      let inbound = null;
+      let candidatePair = null;
+      stats.forEach(r => {
+        if (r.type === "inbound-rtp" && (r.kind === "video" || r.kind === "audio") && !inbound) inbound = r;
+        if (r.type === "candidate-pair" && r.state === "succeeded") candidatePair = r;
+      });
+      let quality = "good";
+      let label = "Good";
+      let color = "#22c55e";
+      if (inbound) {
+        const now = Date.now();
+        const bytes = inbound.bytesReceived || 0;
+        const dt = (now - lastStatsTs) / 1000;
+        const kbps = dt > 0 ? ((bytes - lastBytesReceived) * 8 / 1000) / dt : 0;
+        lastBytesReceived = bytes;
+        lastStatsTs = now;
+        const lost = inbound.packetsLost || 0;
+        const recv = inbound.packetsReceived || 1;
+        const lossRate = lost / (lost + recv);
+        if (lossRate > 0.08 || kbps < 30) { quality = "poor"; label = "Poor"; color = "#ef4444"; }
+        else if (lossRate > 0.03 || kbps < 80) { quality = "fair"; label = "Fair"; color = "#eab308"; }
+        else { quality = "good"; label = "Good"; color = "#22c55e"; }
+      }
+      const badge = document.getElementById("callQualityBadge");
+      if (badge) {
+        badge.textContent = "● " + label;
+        badge.style.color = color;
+        badge.style.display = "block";
+      }
+    } catch (e) {}
+  }, 2500);
+}
+
+function stopNetworkQualityMonitor() {
+  if (callStatsInterval) { clearInterval(callStatsInterval); callStatsInterval = null; }
+  const badge = document.getElementById("callQualityBadge");
+  if (badge) badge.style.display = "none";
+}
+
+function ensureQualityBadge() {
+  if (document.getElementById("callQualityBadge")) return;
+  const statusEl = document.getElementById("activeCallStatus");
+  if (!statusEl || !statusEl.parentElement) return;
+  const badge = document.createElement("div");
+  badge.id = "callQualityBadge";
+  badge.style.cssText = "font-size:11px;font-weight:600;margin-top:2px;display:none";
+  badge.textContent = "● Good";
+  statusEl.parentElement.appendChild(badge);
+}
+
+
+/* ---------- MEDIA PERMISSION HELPERS ---------- */
+async function requestMediaPermissions(needVideo) {
+  try {
+    // Quick permission probe
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: needVideo ? { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } } : false
+    });
+    return stream;
+  } catch (err) {
+    const name = (err && err.name) || "";
+    const msg = (err && err.message) || String(err);
+    let title = "Permission chahiye";
+    let detail = "";
+    if (name === "NotAllowedError" || name === "PermissionDeniedError") {
+      title = "🎤 Camera / Mic blocked";
+      detail = "Browser settings mein Camera & Microphone allow karo, phir page refresh karke try karo.\n\nChrome: 🔒 icon → Site settings → Camera/Mic → Allow";
+    } else if (name === "NotFoundError" || name === "DevicesNotFoundError") {
+      title = "Device nahi mila";
+      detail = "Koi camera ya microphone detect nahi hua. Device connect karke try karo.";
+    } else if (name === "NotReadableError" || name === "TrackStartError") {
+      title = "Device busy hai";
+      detail = "Koi aur app camera/mic use kar rahi hai. Use band karke try karo.";
+    } else if (name === "OverconstrainedError") {
+      title = "Camera settings issue";
+      detail = "Camera constraints match nahi hue. Simple mode try kar rahe hain...";
+      try {
+        return await navigator.mediaDevices.getUserMedia({ audio: true, video: needVideo });
+      } catch (e2) {}
+    } else {
+      detail = msg || "Media access fail hua";
+    }
+    showToast(title);
+    // Show longer guidance
+    setTimeout(() => {
+      if (typeof showToast === "function") showToast(detail.slice(0, 120));
+    }, 1800);
+    console.warn("Media permission error:", name, msg);
+    throw err;
+  }
+}
+
+/* ---------- CALL HISTORY ---------- */
+async function saveCallHistory(session, durationSec) {
+  try {
+    if (!currentUser || !session || session.isAI) return;
+    const friend = session.friend || {};
+    const entry = {
+      callId: session.callId || null,
+      peerId: friend.uid || "",
+      peerName: friend.displayName || "Unknown",
+      peerPhoto: friend.photoURL || "",
+      isVideo: !!session.isVideo,
+      isOutgoing: !!session.isCaller,
+      duration: durationSec || 0,
+      status: "ended",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    await db.collection("users").doc(currentUser.uid).collection("callHistory").add(entry);
+  } catch (e) {
+    console.warn("saveCallHistory:", e);
+  }
+}
+
+async function loadCallHistory(limit = 30) {
+  try {
+    if (!currentUser) return [];
+    const snap = await db.collection("users").doc(currentUser.uid)
+      .collection("callHistory")
+      .orderBy("createdAt", "desc")
+      .limit(limit)
+      .get();
+    return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch (e) {
+    console.warn("loadCallHistory:", e);
+    return [];
+  }
+}
+
+function formatCallDuration(sec) {
+  if (!sec || sec < 1) return "Missed / Short";
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return m > 0 ? `${m}m ${s}s` : `${s}s`;
+}
+
+async function openCallHistory() {
+  const list = await loadCallHistory();
+  let html = `<div style="padding:16px;max-height:70vh;overflow-y:auto">
+    <h3 style="margin:0 0 12px;font-size:18px">📞 Call History</h3>`;
+  if (!list.length) {
+    html += `<p style="color:#888;text-align:center;padding:30px 0">Abhi koi call history nahi hai</p>`;
+  } else {
+    list.forEach(c => {
+      const icon = c.isVideo ? "📹" : "📞";
+      const dir = c.isOutgoing ? "↗ Outgoing" : "↙ Incoming";
+      const dur = formatCallDuration(c.duration);
+      const time = c.createdAt && c.createdAt.toDate ? c.createdAt.toDate().toLocaleString("en-IN") : "";
+      html += `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #222">
+        <img src="${c.peerPhoto || 'IMG_20260917_172912.jpg'}" style="width:44px;height:44px;border-radius:50%;object-fit:cover" onerror="this.src='IMG_20260917_172912.jpg'">
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:600;font-size:14px">${icon} ${c.peerName || 'Unknown'}</div>
+          <div style="font-size:12px;color:#888">${dir} · ${dur}</div>
+          <div style="font-size:11px;color:#666">${time}</div>
+        </div>
+      </div>`;
+    });
+  }
+  html += `</div>`;
+  // Reuse a simple modal if available, else toast + console
+  if (typeof showGenericModal === "function") {
+    showGenericModal("Call History", html);
+  } else {
+    // Create temporary overlay
+    let ov = document.getElementById("callHistoryOverlay");
+    if (!ov) {
+      ov = document.createElement("div");
+      ov.id = "callHistoryOverlay";
+      ov.style.cssText = "position:fixed;inset:0;z-index:100100;background:rgba(0,0,0,0.85);display:flex;align-items:flex-end;justify-content:center";
+      ov.innerHTML = `<div style="background:#111;width:100%;max-width:480px;border-radius:16px 16px 0 0;color:#fff;position:relative">
+        <button onclick="document.getElementById('callHistoryOverlay').remove()" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer">✕</button>
+        <div id="callHistoryBody"></div>
+      </div>`;
+      document.body.appendChild(ov);
+      ov.onclick = (e) => { if (e.target === ov) ov.remove(); };
+    }
+    document.getElementById("callHistoryBody").innerHTML = html;
+  }
+}
+window.openCallHistory = openCallHistory;
+
 
 async function answerCall(callData) {
   const inc = document.getElementById("incomingCallOverlay");
@@ -8548,10 +8875,7 @@ async function answerCall(callData) {
   }
 
   try {
-    localMediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: isVideo ? { facingMode: callCameraFacing, width: { ideal: 640 }, height: { ideal: 480 } } : false
-    });
+    localMediaStream = await requestMediaPermissions(isVideo);
     if (isVideo && localVid) {
       localVid.srcObject = localMediaStream;
       localVid.style.display = "block";
@@ -8844,7 +9168,19 @@ function openCallingHub(){
   const sov = document.getElementById("settingsOverlay");
   if(sov) sov.classList.remove("show");
   const hub = document.getElementById("callingHubOverlay");
-  if(hub) hub.style.display = "flex";
+  if(hub) {
+    hub.style.display = "flex";
+    // Inject Call History button if not present
+    if (!document.getElementById("callHistoryHubBtn")) {
+      const btn = document.createElement("button");
+      btn.id = "callHistoryHubBtn";
+      btn.type = "button";
+      btn.textContent = "📞 Call History";
+      btn.style.cssText = "margin:12px auto;display:block;padding:10px 20px;border-radius:10px;border:none;background:#e63946;color:#fff;font-weight:600;cursor:pointer";
+      btn.onclick = () => openCallHistory();
+      hub.appendChild(btn);
+    }
+  }
 }
 window.openCallingHub = openCallingHub;
 

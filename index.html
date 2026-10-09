@@ -4530,6 +4530,42 @@ try {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+/* ========== CLOUDINARY (photos) — live config ========== */
+const CLOUDINARY_CONFIG = {
+  cloudName: "yxuwtts6",
+  uploadPreset: "upch_profile_photos",
+  folder: "upcomedyhub/photos"
+};
+
+function isCloudinaryConfigured() {
+  return !!(CLOUDINARY_CONFIG.cloudName
+    && CLOUDINARY_CONFIG.cloudName !== "YOUR_CLOUD_NAME"
+    && CLOUDINARY_CONFIG.uploadPreset);
+}
+
+async function uploadImageToCloudinary(fileOrBlob, opts) {
+  opts = opts || {};
+  if (!isCloudinaryConfigured()) throw new Error("CLOUDINARY_NOT_CONFIGURED");
+  const folder = opts.folder || CLOUDINARY_CONFIG.folder || "upcomedyhub/photos";
+  const form = new FormData();
+  form.append("file", fileOrBlob);
+  form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+  form.append("folder", folder);
+  if (opts.publicId) form.append("public_id", opts.publicId);
+  const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/image/upload";
+  const res = await fetch(endpoint, { method: "POST", body: form });
+  const data = await res.json().catch(function(){ return {}; });
+  if (!res.ok || !data.secure_url) {
+    var msg = (data && data.error && data.error.message) || ("HTTP " + res.status);
+    throw new Error("Cloudinary upload failed: " + msg);
+  }
+  return data.secure_url;
+}
+window.uploadImageToCloudinary = uploadImageToCloudinary;
+window.CLOUDINARY_CONFIG = CLOUDINARY_CONFIG;
+window.isCloudinaryConfigured = isCloudinaryConfigured;
+
+
 try {
   db.settings({
     experimentalAutoDetectLongPolling: true
@@ -5188,37 +5224,50 @@ async function uploadProfilePhoto(file){
     return;
   }
 
-  showToast("⏳ Photo update ho rahi hai...");
+  if(typeof isCloudinaryConfigured === "function" && !isCloudinaryConfigured()){
+    showToast("⚠️ Cloudinary setup pending");
+    if(input) input.value = "";
+    return;
+  }
+
+  showToast("⏳ Photo Cloudinary pe upload ho rahi hai...");
   if(imgEl) imgEl.style.opacity = "0.5";
 
   try{
-    const photoData = await compressProfilePhoto(file);
-    currentProfilePhotoURL = photoData;
-    localStorage.setItem("upch_user_photo_" + currentUser.uid, photoData);
-    if(imgEl) imgEl.src = photoData;
+    const compressedDataUrl = await compressProfilePhoto(file);
+    const blob = await (await fetch(compressedDataUrl)).blob();
+    const photoUrl = await uploadImageToCloudinary(blob, {
+      folder: "upcomedyhub/profiles",
+      publicId: "profile_" + currentUser.uid
+    });
 
-    // Update arcade avatar if visible
+    currentProfilePhotoURL = photoUrl;
+    localStorage.setItem("upch_user_photo_" + currentUser.uid, photoUrl);
+    if(imgEl) imgEl.src = photoUrl;
+
     const funAv = document.getElementById("funPlayerAvatar");
-    if(funAv) funAv.src = photoData;
+    if(funAv) funAv.src = photoUrl;
 
-    // Save to Firestore non-blocking
     if(typeof db !== "undefined" && db){
       await db.collection("publicProfiles").doc(currentUser.uid).set({
         uid: currentUser.uid,
-        photoURL: photoData,
+        photoURL: photoUrl,
+        photoProvider: "cloudinary",
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      },{merge:true}).catch(e => console.warn("Firestore publicProfile notice:", e));
+      },{merge:true}).catch(function(e){ console.warn("Firestore publicProfile notice:", e); });
 
       await db.collection("users").doc(currentUser.uid).set({
-        photo: photoData,
+        photo: photoUrl,
+        photoProvider: "cloudinary",
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      },{merge:true}).catch(e => console.warn("Firestore user photo notice:", e));
+      },{merge:true}).catch(function(e){ console.warn("Firestore user photo notice:", e); });
     }
 
-    showToast("✅ Profile photo updated!");
+    showToast("✅ Profile photo Cloudinary pe save ho gayi!");
   }catch(e){
     console.error("Profile photo upload error:", e);
-    showToast("❌ Photo update me samasya aayi: " + (e.message || "Retry karein"));
+    var msg = (e && e.message) || "";
+    showToast("❌ Photo upload fail: " + (msg.slice(0, 90) || "Retry karein"));
   }finally{
     if(imgEl) imgEl.style.opacity = "1";
     if(input) input.value = "";
@@ -9842,8 +9891,28 @@ async function publishStoryFromEditor() {
 
   try {
     let finalMediaUrl = storyMediaDataUrl;
-    if (storyMediaType === "video" && storyMediaFile) {
-      finalMediaUrl = await uploadStoryVideo(storyMediaFile);
+  if (storyMediaType === "image" && typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()) {
+    try {
+      showToast("⏳ Story photo Cloudinary pe...");
+      var imgBlob = null;
+      if (storyMediaFile && storyMediaFile.type && storyMediaFile.type.startsWith("image/")) {
+        var compressed = await compressStoryPhoto(storyMediaFile);
+        imgBlob = await (await fetch(compressed)).blob();
+      } else if (storyMediaDataUrl && String(storyMediaDataUrl).indexOf("data:") === 0) {
+        imgBlob = await (await fetch(storyMediaDataUrl)).blob();
+      }
+      if (imgBlob) {
+        finalMediaUrl = await uploadImageToCloudinary(imgBlob, {
+          folder: "upcomedyhub/stories",
+          publicId: "story_" + (currentUser && currentUser.uid ? currentUser.uid + "_" : "") + Date.now()
+        });
+      }
+    } catch (upErr) {
+      console.warn("Story Cloudinary upload failed, using local data URL:", upErr);
+    }
+  }
+  if (storyMediaType === "video" && storyMediaFile) {
+    finalMediaUrl = await uploadStoryVideo(storyMediaFile);
     }
 
     const storyId = "story_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);
@@ -10045,8 +10114,28 @@ async function publishStory() {
 
   try {
     let finalMediaUrl = storyMediaDataUrl;
-    if (storyMediaType === "video" && storyMediaFile) {
-      finalMediaUrl = await uploadStoryVideo(storyMediaFile);
+  if (storyMediaType === "image" && typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()) {
+    try {
+      showToast("⏳ Story photo Cloudinary pe...");
+      var imgBlob = null;
+      if (storyMediaFile && storyMediaFile.type && storyMediaFile.type.startsWith("image/")) {
+        var compressed = await compressStoryPhoto(storyMediaFile);
+        imgBlob = await (await fetch(compressed)).blob();
+      } else if (storyMediaDataUrl && String(storyMediaDataUrl).indexOf("data:") === 0) {
+        imgBlob = await (await fetch(storyMediaDataUrl)).blob();
+      }
+      if (imgBlob) {
+        finalMediaUrl = await uploadImageToCloudinary(imgBlob, {
+          folder: "upcomedyhub/stories",
+          publicId: "story_" + (currentUser && currentUser.uid ? currentUser.uid + "_" : "") + Date.now()
+        });
+      }
+    } catch (upErr) {
+      console.warn("Story Cloudinary upload failed, using local data URL:", upErr);
+    }
+  }
+  if (storyMediaType === "video" && storyMediaFile) {
+    finalMediaUrl = await uploadStoryVideo(storyMediaFile);
     }
 
     const storyId = "story_" + Date.now() + "_" + Math.random().toString(36).substring(2, 7);

@@ -193,18 +193,16 @@ button{font-family:inherit}
   z-index: 2;
   width: 100%;
   height: 100%;
-  border-radius: 38px;
-  overflow: hidden;
-  box-shadow: 
-    0 22px 50px rgba(0, 0, 0, 0.92),
-    0 8px 20px rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.95));
 }
 
 .loader-app-img {
   width: 100%;
   height: 100%;
-  border-radius: 38px;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -2409,7 +2407,7 @@ body.messages-open .bottom-nav{display:none !important}
     <div class="loader-app-icon-wrap">
       <div class="loader-aura-glow"></div>
       <div class="loader-app-icon">
-        <img src="upcomedyhub-logo.svg" alt="UPComedyHub" class="loader-app-img" width="120" height="120">
+        <img src="upcomedyhub-logo.png" alt="UPComedyHub" class="loader-app-img" width="128" height="128">
       </div>
     </div>
 

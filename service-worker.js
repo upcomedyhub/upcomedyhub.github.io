@@ -1,4 +1,4 @@
-const CACHE_NAME = "upcomedyhub-v7";
+const CACHE_NAME = "upcomedyhub-v8";
 
 const FILES_TO_CACHE = [
   "/",
@@ -8,6 +8,7 @@ const FILES_TO_CACHE = [
   "/IMG_20261002_053016.png",
   "/IMG_20261002_052601.png",
   "/upcomedyhub-logo.svg",
+  "/upcomedyhub-logo.png",
   "/cobra_logo.png"
 ];
 

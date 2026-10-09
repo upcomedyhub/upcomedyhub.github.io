@@ -808,6 +808,68 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .bottom-nav button.active{color:#ff8a80}
 body.messages-open .bottom-nav{display:none !important}
 
+/* Reels — brand icon (play + smile) */
+.bottom-nav button.nav-reels-btn .nav-reels-icon{
+  display:flex;align-items:center;justify-content:center;
+}
+.bottom-nav button.nav-reels-btn .nav-reels-icon .ico{
+  width:26px;height:26px;
+}
+.bottom-nav button.nav-reels-btn.active{
+  color:#e63946;
+}
+.bottom-nav button.nav-reels-btn.active .nav-reels-icon .ico{
+  filter:drop-shadow(0 0 6px rgba(230,57,70,.45));
+}
+.dark-mode .bottom-nav button.nav-reels-btn.active{
+  color:#ff6b6b;
+}
+
+/* Create — TikTok-style raised center button */
+.bottom-nav button.nav-create-btn{
+  flex:1.15;
+  gap:3px;
+  position:relative;
+  top:-6px;
+  color:#111;
+}
+.bottom-nav button.nav-create-btn .nav-create-pill{
+  width:48px;
+  height:32px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#ff2d55 0%,#e63946 45%,#ff8a00 100%);
+  box-shadow:0 4px 14px rgba(230,57,70,.4), inset 0 1px 0 rgba(255,255,255,.25);
+  color:#fff;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.bottom-nav button.nav-create-btn .nav-create-plus{
+  width:22px;
+  height:22px;
+}
+.bottom-nav button.nav-create-btn .nav-create-label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.2px;
+  color:#e63946;
+}
+.bottom-nav button.nav-create-btn:active .nav-create-pill{
+  transform:scale(.94);
+}
+.dark-mode .bottom-nav button.nav-create-btn{
+  color:#fff;
+}
+.dark-mode .bottom-nav button.nav-create-btn .nav-create-label{
+  color:#ff8a80;
+}
+.dark-mode .bottom-nav button.nav-create-btn .nav-create-pill{
+  background:linear-gradient(135deg,#ff2d55 0%,#e63946 50%,#ff9f1a 100%);
+  box-shadow:0 4px 16px rgba(255,45,85,.35), inset 0 1px 0 rgba(255,255,255,.2);
+}
+
+
 /* Tabs */
 .tab-pane{display:none}
 .tab-pane.active{display:block}
@@ -2515,6 +2577,12 @@ body.messages-open .bottom-nav{display:none !important}
 <svg style="display:none" aria-hidden="true">
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
 <symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
+<!-- UPComedyHub Reels: play + smile (brand style C) -->
+<symbol id="i-reels" viewBox="0 0 24 24" fill="none">
+  <rect x="3" y="2" width="18" height="20" rx="5" stroke="currentColor" stroke-width="1.85"/>
+  <path d="M10 8.2v7.6c0 .5.55.8.98.55l5.7-3.8a.65.65 0 0 0 0-1.1l-5.7-3.8A.65.65 0 0 0 10 8.2z" fill="currentColor" stroke="none"/>
+  <path d="M8.2 16.8c1.1 1.15 2.35 1.7 3.8 1.7s2.7-.55 3.8-1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+</symbol>
 <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
 <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
@@ -4046,8 +4114,8 @@ body.messages-open .bottom-nav{display:none !important}
 
 <nav class="bottom-nav" id="bottomNav">
   <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use href="#i-home"></use></svg></span><span>Home</span></button>
-  <button type="button" data-tab="reels"><span class="icon"><svg class="ico"><use href="#i-film"></use></svg></span><span>Reels</span></button>
-  <button type="button" id="createUploadBtn"><span class="icon"><svg class="ico"><use href="#i-plus-square"></use></svg></span><span>Create</span></button>
+  <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico"><use href="#i-reels"></use></svg></span><span>Reels</span></button>
+  <button type="button" id="createUploadBtn" class="nav-create-btn" aria-label="Create"><span class="nav-create-pill"><svg class="nav-create-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="nav-create-label">Create</span></button>
   <button type="button" id="funZoneNavBtn" data-tab="funzone"><span class="icon"><svg class="ico"><use href="#i-gamepad"></use></svg></span><span>Fun Zone</span></button>
   <button type="button" data-tab="profile"><span class="icon"><svg class="ico"><use href="#i-user"></use></svg></span><span>Profile</span></button>
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>

@@ -384,16 +384,24 @@ async function askGemini({ prompt, image }) {
 
   let lastError = null;
 
+  const useSearch = !imagePart;
+
   for (const model of modelsToTry) {
     try {
+      const config = {
+        systemInstruction: UPCH_SYSTEM_PROMPT,
+        temperature: 0.85,
+        topP: 0.95
+      };
+
+      if (useSearch) {
+        config.tools = [{ googleSearch: {} }];
+      }
+
       const response = await ai.models.generateContent({
         model,
         contents,
-        config: {
-          systemInstruction: UPCH_SYSTEM_PROMPT,
-          temperature: 0.85,
-          topP: 0.95
-        }
+        config
       });
 
       const text = cleanText(
@@ -408,9 +416,26 @@ async function askGemini({ prompt, image }) {
       lastError = err;
 
       console.warn(
-        `Gemini model ${model} failed:`,
+        `Gemini model ${model} with search failed:`,
         err?.message || err
       );
+
+      // Safe fallback: try without tools if search grounding was rejected
+      if (useSearch) {
+        try {
+          const fallbackResp = await ai.models.generateContent({
+            model,
+            contents,
+            config: {
+              systemInstruction: UPCH_SYSTEM_PROMPT,
+              temperature: 0.85,
+              topP: 0.95
+            }
+          });
+          const fbText = cleanText(fallbackResp?.text, 12000);
+          if (fbText) return fbText;
+        } catch (e2) {}
+      }
     }
   }
 

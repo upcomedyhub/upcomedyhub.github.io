@@ -1,4 +1,4 @@
-const CACHE_NAME = "upcomedyhub-v8";
+const CACHE_NAME = "upcomedyhub-v9";
 
 const FILES_TO_CACHE = [
   "/",

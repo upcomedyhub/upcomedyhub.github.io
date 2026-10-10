@@ -66,8 +66,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥</title>
 <link rel="icon" type="image/jpeg" href="IMG_20260917_172912.jpg">
-<meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
+<link rel="canonical" href="https://upcomedyhub.github.io/">
+<meta name="description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda. Dekhein trending reels, funny videos aur banein creator UPComedyHub par.">
 <meta name="theme-color" content="#111111">
+<meta name="google-site-verification" content="google198ec1695b4928c0">
+<meta name="robots" content="index, follow">
+
+<!-- OpenGraph / Social Share Cards -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://upcomedyhub.github.io/">
+<meta property="og:site_name" content="UPComedyHub">
+<meta property="og:title" content="UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥">
+<meta property="og:description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda. Dekhein trending reels, funny videos aur banein creator UPComedyHub par.">
+<meta property="og:image" content="https://upcomedyhub.github.io/upcomedyhub-logo.png">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://upcomedyhub.github.io/">
+<meta name="twitter:title" content="UPComedyHub — Aapki Hansi, Hamari Pehchaan 🔥">
+<meta name="twitter:description" content="UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
+<meta name="twitter:image" content="https://upcomedyhub.github.io/upcomedyhub-logo.png">
+
+<!-- Google Search Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://upcomedyhub.github.io/#website",
+      "url": "https://upcomedyhub.github.io/",
+      "name": "UPComedyHub",
+      "description": "Desi comedy, funny Shorts aur entertainment ka ek hi adda.",
+      "inLanguage": "hi-IN",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://upcomedyhub.github.io/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://upcomedyhub.github.io/#organization",
+      "name": "UPComedyHub",
+      "url": "https://upcomedyhub.github.io/",
+      "logo": "https://upcomedyhub.github.io/upcomedyhub-logo.png",
+      "sameAs": [
+        "https://www.youtube.com/@upcomedyhub"
+      ]
+    }
+  ]
+}
+</script>
+
 <link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -2371,9 +2422,16 @@ body.messages-open .bottom-nav{display:none !important}
 .music-info{flex:1;min-width:0}
 .music-title{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .music-artist{font-size:11px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.music-preview-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px}
-.music-preview-btn:hover{background:#e63946}
-.music-select-btn{background:#e63946;border:none;color:#fff;padding:6px 12px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer}
+.music-preview-btn{background:rgba(255,255,255,.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,transform .1s}
+.music-preview-btn:hover{background:#e63946;transform:scale(1.05)}
+.music-preview-btn svg{width:14px;height:14px;fill:currentColor}
+.music-select-btn{background:#e63946;border:none;color:#fff;padding:6px 12px;border-radius:14px;font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:opacity .15s}
+.music-select-btn:hover{opacity:.9}
+.channel-reel-item{position:relative}
+.reel-boost-badge{position:absolute;top:6px;left:6px;background:linear-gradient(135deg,#e63946,#b91c1c);color:#fff;font-size:10px;font-weight:800;padding:2px 7px;border-radius:10px;display:inline-flex;align-items:center;gap:3px;z-index:3;box-shadow:0 2px 8px rgba(230,57,70,.45);letter-spacing:.3px}
+.reel-boost-badge svg{width:10px;height:10px}
+.admin-boost-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:8px;background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06)}
+.dark-mode .admin-boost-item{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
 
 /* AI Call Avatar Animation */
 #aiVideoAvatarStage {
@@ -2629,6 +2687,15 @@ body.messages-open .bottom-nav{display:none !important}
 <symbol id="i-bookmark-fill" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"/></symbol>
 <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M9 6l1.5-2h3L15 6"/></symbol>
 <symbol id="i-plus-square" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4.5c1.2-1.2 3-1.5 3-1.5"/><path d="M12 15v5s3.03-.55 4.5-2c1.2-1.2 1.5-3 1.5-3"/></symbol>
+<symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+<symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
 </svg>
 <main>
 
@@ -3559,8 +3626,77 @@ body.messages-open .bottom-nav{display:none !important}
         <option value="long">🎥 Long Video (Videos tab mein jayegi)</option>
         <option value="shorts">🎬 Short (Reels tab mein jayegi)</option>
       </select>
-      <button type="button" class="admin-btn green" id="addVideoBtn">➕ Add Video</button>
+      <button type="button" class="admin-btn green" id="addVideoBtn"><svg class="ico" style="width:14px;height:14px;vertical-align:middle"><use href="#i-plus-square"></use></svg> Add Video</button>
       <div id="adminVideoList" style="margin-top:16px"></div>
+    </div>
+
+    <!-- Reel Boost & Algorithm Manager (Instagram/FB Boost style for Admin) -->
+    <div class="admin-card" id="adminBoostSection">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <h3 style="display:flex;align-items:center;gap:8px">
+          <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-rocket"></use></svg>
+          <span>Reel Boost &amp; Algorithm Manager</span>
+        </h3>
+        <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
+          <svg class="ico" style="width:12px;height:12px"><use href="#i-sliders"></use></svg> Live Control
+        </span>
+      </div>
+      <p style="font-size:13px;color:#888;margin-bottom:14px">
+        Instagram &amp; YouTube Boost jaisa: Kisi bhi reel ko extra push dein, viral ranking prioritize karein aur explore queue me #1 rank dein.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:12px">
+        <div>
+          <label class="admin-label">YouTube Video / Reel ID</label>
+          <input type="text" class="admin-input" id="adminBoostVideoId" placeholder="e.g. qmyXXyjSkHw">
+        </div>
+        <div>
+          <label class="admin-label">Boost Multiplier</label>
+          <select class="admin-input" id="adminBoostMultiplier">
+            <option value="2">⚡ 2x Reach (Starter Push)</option>
+            <option value="5" selected>🚀 5x Super Boost (Trending Push)</option>
+            <option value="10">🔥 10x Mega Push (Explore Top)</option>
+            <option value="25">👑 25x Super Viral Pin (Feed #1)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px">
+        <div>
+          <label class="admin-label">Boost Duration</label>
+          <select class="admin-input" id="adminBoostDuration">
+            <option value="3">3 Din (72 Hours)</option>
+            <option value="7" selected>7 Din (1 Week)</option>
+            <option value="30">30 Din (1 Month)</option>
+            <option value="0">Permanent (Hamesha Active)</option>
+          </select>
+        </div>
+        <div>
+          <label class="admin-label">Badge Label (Shown on Reel)</label>
+          <input type="text" class="admin-input" id="adminBoostLabel" placeholder="e.g. 🔥 Trending, Featured">
+        </div>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button type="button" class="admin-btn green" id="applyBoostBtn" style="display:inline-flex;align-items:center;gap:6px">
+          <svg class="ico" style="width:15px;height:15px"><use href="#i-rocket"></use></svg>
+          <span>Boost Reel Now</span>
+        </button>
+        <button type="button" class="admin-btn" id="refreshBoostedListBtn" style="display:inline-flex;align-items:center;gap:6px">
+          <svg class="ico" style="width:15px;height:15px"><use href="#i-refresh"></use></svg>
+          <span>Refresh Boosted Reels</span>
+        </button>
+      </div>
+
+      <div style="margin-top:18px">
+        <div style="font-size:13px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:6px">
+          <svg class="ico" style="width:14px;height:14px;color:#e63946"><use href="#i-flame"></use></svg>
+          <span>Active Boosted Reels:</span>
+        </div>
+        <div id="adminBoostedReelsList" style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:12px;color:#888">⏳ Loading boosted reels...</div>
+        </div>
+      </div>
     </div>
 
     <div class="admin-card">
@@ -4305,19 +4441,30 @@ body.messages-open .bottom-nav{display:none !important}
 <div class="music-picker-overlay" id="musicPickerModal">
   <div class="music-picker-card">
     <div class="music-picker-header">
-      <div style="font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px">
-        <span>🎵</span> Choose Music for Story
+      <div style="font-size:15px;font-weight:800;display:flex;align-items:center;gap:8px">
+        <svg class="ico" style="width:18px;height:18px;color:#e63946"><use href="#i-music"></use></svg>
+        <span>Choose Music for Story &amp; Reels</span>
       </div>
-      <button type="button" class="story-creator-close" onclick="closeMusicPicker()" aria-label="Close">✕</button>
+      <button type="button" class="story-creator-close" onclick="closeMusicPicker()" aria-label="Close">
+        <svg class="ico" style="width:16px;height:16px"><use href="#i-close"></use></svg>
+      </button>
     </div>
-    <div class="music-search-box">
-      <input type="text" class="music-search-input" id="musicSearchInput" placeholder="🔍 Search Bollywood, Punjabi, Trending songs..." oninput="handleMusicSearch(this.value)">
+    <div class="music-search-box" style="position:relative">
+      <input type="text" class="music-search-input" id="musicSearchInput" placeholder="Search Bollywood, Punjabi, Trending songs..." oninput="handleMusicSearch(this.value)">
     </div>
     <div class="music-tabs">
-      <button type="button" class="music-tab-btn active" onclick="switchMusicCategory('all', this)">🔥 All Trending</button>
-      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('comedy', this)">😂 Comedy &amp; Memes</button>
-      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('bollywood', this)">🎬 Bollywood</button>
-      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('punjabi', this)">🕺 Punjabi Beats</button>
+      <button type="button" class="music-tab-btn active" onclick="switchMusicCategory('trending', this)">
+        <svg class="ico" style="width:13px;height:13px;vertical-align:text-bottom"><use href="#i-flame"></use></svg> Trending
+      </button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('comedy', this)">
+        <svg class="ico" style="width:13px;height:13px;vertical-align:text-bottom"><use href="#i-sparkles"></use></svg> Comedy &amp; Memes
+      </button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('bollywood', this)">
+        <svg class="ico" style="width:13px;height:13px;vertical-align:text-bottom"><use href="#i-film"></use></svg> Bollywood
+      </button>
+      <button type="button" class="music-tab-btn" onclick="switchMusicCategory('punjabi', this)">
+        <svg class="ico" style="width:13px;height:13px;vertical-align:text-bottom"><use href="#i-music"></use></svg> Punjabi Beats
+      </button>
     </div>
     <div class="music-list" id="musicListContainer">
       <!-- Populated dynamically -->
@@ -4799,7 +4946,7 @@ function switchTab(name){
   if(name==="profile") updateProfileUI();
   else if(name==="search"){ if(typeof window.renderSearchDiscovery === "function") window.renderSearchDiscovery(); }
   else if(document.getElementById("messagesOverlay")?.classList.contains("show")) closeMessages();
-  if(name==="admin"){ loadAdminStats(); loadAdminConfig(); loadManualVideosList(); }
+  if(name==="admin"){ loadAdminStats(); loadAdminConfig(); loadManualVideosList(); if(typeof loadBoostedReels === "function") loadBoostedReels(); }
 }
 window.switchTab = switchTab;
 navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
@@ -5589,13 +5736,97 @@ function switchIgTab(t){
 }
 window.switchIgTab = switchIgTab;
 
+/* =====================================================
+   UPCOMEDYHUB REEL VIRAL ALGORITHM & ADMIN BOOST ENGINE
+   ===================================================== */
+let cachedBoostedReels = {};
+try {
+  cachedBoostedReels = JSON.parse(localStorage.getItem("upch_admin_boosts") || "{}");
+} catch(e) { cachedBoostedReels = {}; }
+
+let cachedTrendingSounds = {};
+try {
+  cachedTrendingSounds = JSON.parse(localStorage.getItem("upch_trending_sounds") || "{}");
+} catch(e) { cachedTrendingSounds = {}; }
+
+function recordSoundUsage(soundId, soundTitle) {
+  if (!soundId) return;
+  cachedTrendingSounds[soundId] = (cachedTrendingSounds[soundId] || 0) + 1;
+  try { localStorage.setItem("upch_trending_sounds", JSON.stringify(cachedTrendingSounds)); } catch(e){}
+  if (typeof db !== "undefined" && db) {
+    const docKey = soundId.replace(/[^a-zA-Z0-9_-]/g, "_").slice(-40);
+    db.collection("sound_usage").doc(docKey).set({
+      soundId,
+      soundTitle: soundTitle || "Sound",
+      usageCount: firebase.firestore.FieldValue.increment(1),
+      lastUsedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, { merge: true }).catch(() => null);
+  }
+}
+window.recordSoundUsage = recordSoundUsage;
+
+function calculateReelAlgorithmScore(item, boostData, creatorProfile = null) {
+  let score = 100; // Baseline points
+  const vid = item.videoId || item.id;
+  
+  // 1. Engagement Signals (Likes, Comments)
+  const likesCount = (typeof likesByVideo !== "undefined" && likesByVideo[vid]) ? likesByVideo[vid].length : (Number(item.likesCount || 0));
+  const commentsCount = (typeof commentsByVideo !== "undefined" && commentsByVideo[vid]) ? commentsByVideo[vid].length : (Number(item.commentsCount || 0));
+  score += (likesCount * 5) + (commentsCount * 8);
+
+  // 2. New Creator Push (Cold-Start Bootstrap: First 3 uploads get discovery boost)
+  const totalUploads = creatorProfile ? Number(creatorProfile.uploadsCount || 1) : 1;
+  if (totalUploads <= 3) {
+    score += 300; // Gives new creators guaranteed visibility in early user feed
+  }
+
+  // 3. Consistency Streak Multiplier vs Inactivity Decay (1 Month gap)
+  let daysSinceLastPost = 1;
+  if (item.createdAt && item.createdAt.seconds) {
+    daysSinceLastPost = Math.max(0, (Date.now() - (item.createdAt.seconds * 1000)) / (1000 * 60 * 60 * 24));
+  } else if (item.date) {
+    const dt = new Date(item.date).getTime();
+    if (!isNaN(dt)) daysSinceLastPost = Math.max(0, (Date.now() - dt) / (1000 * 60 * 60 * 24));
+  }
+
+  let consistencyMultiplier = 1.0;
+  if (daysSinceLastPost <= 2) {
+    consistencyMultiplier = 1.8; // Daily consistency viral boost
+  } else if (daysSinceLastPost <= 7) {
+    consistencyMultiplier = 1.4; // Weekly consistent
+  } else if (daysSinceLastPost > 30) {
+    consistencyMultiplier = 0.5; // 30+ days inactive penalty (views decay)
+  }
+  score = score * consistencyMultiplier;
+
+  // 4. Admin Direct Super Boost (Instagram/FB Boost style for Admin)
+  if (boostData) {
+    const mult = Number(boostData.multiplier || 5);
+    score += (mult * 2000); // Guarantees boosted reels top algorithmic rank
+  }
+
+  return Math.round(score);
+}
+window.calculateReelAlgorithmScore = calculateReelAlgorithmScore;
+
+function rankReelsByAlgorithm(items) {
+  if (!Array.isArray(items) || !items.length) return items;
+  return [...items].sort((a, b) => {
+    const boostA = cachedBoostedReels[a.videoId];
+    const boostB = cachedBoostedReels[b.videoId];
+    const scoreA = calculateReelAlgorithmScore(a, boostA);
+    const scoreB = calculateReelAlgorithmScore(b, boostB);
+    return scoreB - scoreA;
+  });
+}
+window.rankReelsByAlgorithm = rankReelsByAlgorithm;
+
 /* ---------- YOUTUBE REELS + VIDEOS ---------- */
-/* Reels/Shorts ab sirf Channel Profile me dikhte hain (Reels tab me nahi) */
-function buildChannelReelItem(vid, title, thumb){
+function buildChannelReelItem(vid, title, thumb, boostBadgeHtml = ""){
   const el = document.createElement("div");
   el.className = "channel-reel-item";
   el.setAttribute("data-video-id", vid);
-  el.innerHTML = '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
+  el.innerHTML = boostBadgeHtml + '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
   return el;
 }
 (function fetchReels(){
@@ -5608,13 +5839,20 @@ function buildChannelReelItem(vid, title, thumb){
   function renderReelList(items){
     if(grid) grid.innerHTML = "";
     if(mainGrid) mainGrid.innerHTML = "";
-    items.forEach(item => {
+    const ranked = rankReelsByAlgorithm(items);
+    ranked.forEach(item => {
       const vid = item.videoId;
       const title = item.title;
       allVideos[vid] = { title, category: "shorts" };
       const thumb = item.thumb || ("https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg");
-      if(grid) grid.appendChild(buildChannelReelItem(vid, title, thumb));
-      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, title, thumb));
+      const boostData = cachedBoostedReels[vid];
+      let boostBadgeHtml = "";
+      if (boostData) {
+        const lbl = boostData.label || "🔥 Boosted";
+        boostBadgeHtml = '<div class="reel-boost-badge"><svg class="ico"><use href="#i-rocket"></use></svg><span>'+escapeHtml(lbl)+'</span></div>';
+      }
+      if(grid) grid.appendChild(buildChannelReelItem(vid, title, thumb, boostBadgeHtml));
+      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, title, thumb, boostBadgeHtml));
     });
     refreshAllVideoActions();
     refreshLikesLinks();
@@ -5657,17 +5895,29 @@ async function appendManualShortsToReels(){
       if(mainGrid && !mainGrid.querySelector(".channel-reel-item")) mainGrid.innerHTML = '<div class="ig-reels-empty">Abhi koi Reel nahi. Jald aa rahe hain! 🎬</div>';
       return;
     }
-    const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0));
+    const docs = snap.docs.map(d=>({ docId: d.id, ...d.data() }));
+    const rankedManual = rankReelsByAlgorithm(docs);
     const rendered = new Set(Array.from(document.querySelectorAll('.channel-reel-item')).map(c=>c.getAttribute("data-video-id")));
     const empty = grid ? grid.querySelector(".ig-reels-empty") : null; if(empty) empty.remove();
     const emptyMain = mainGrid ? mainGrid.querySelector(".ig-reels-empty") : null; if(emptyMain) emptyMain.remove();
-    docs.forEach(doc=>{
-      const d = doc.data(); const vid = d.videoId;
+    rankedManual.forEach(d=>{
+      const vid = d.videoId;
       if(!vid || rendered.has(vid)) return;
       allVideos[vid] = {title:d.title, category:"shorts", _manual:true};
       const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-      if(grid) grid.appendChild(buildChannelReelItem(vid, d.title, thumb));
-      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, d.title, thumb));
+      const boostData = cachedBoostedReels[vid];
+      let boostBadgeHtml = "";
+      if (boostData) {
+        const lbl = boostData.label || "🔥 Boosted";
+        boostBadgeHtml = '<div class="reel-boost-badge"><svg class="ico"><use href="#i-rocket"></use></svg><span>'+escapeHtml(lbl)+'</span></div>';
+      }
+      if (boostData) {
+        if(grid) grid.prepend(buildChannelReelItem(vid, d.title, thumb, boostBadgeHtml));
+        if(mainGrid) mainGrid.prepend(buildChannelReelItem(vid, d.title, thumb, boostBadgeHtml));
+      } else {
+        if(grid) grid.appendChild(buildChannelReelItem(vid, d.title, thumb, boostBadgeHtml));
+        if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, d.title, thumb, boostBadgeHtml));
+      }
     });
     refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
   }catch(e){ console.warn("Manual shorts notice:", e?.message || e); }
@@ -6974,6 +7224,121 @@ async function loadManualVideosList(){
     }));
   }catch(e){ console.error(e); }
 }
+
+/* ---------- REEL BOOST & ALGORITHM MANAGER (ADMIN) ---------- */
+async function loadBoostedReels() {
+  const container = document.getElementById("adminBoostedReelsList");
+  if (!container) return;
+  container.innerHTML = '<div style="font-size:12px;color:#888">⏳ Loading boosted reels...</div>';
+  try {
+    let list = [];
+    if (typeof db !== "undefined" && db) {
+      const snap = await db.collection("reel_boosts").get().catch(() => null);
+      if (snap && !snap.empty) {
+        cachedBoostedReels = {};
+        snap.forEach(doc => {
+          const d = doc.data();
+          cachedBoostedReels[d.videoId] = d;
+          list.push({ id: doc.id, ...d });
+        });
+        try { localStorage.setItem("upch_admin_boosts", JSON.stringify(cachedBoostedReels)); } catch(e){}
+      }
+    }
+    if (!list.length) {
+      list = Object.values(cachedBoostedReels);
+    }
+    if (!list.length) {
+      container.innerHTML = '<div style="font-size:12px;color:#888">Abhi koi reel boosted nahi hai. Upar se ID daal kar boost karein!</div>';
+      return;
+    }
+    container.innerHTML = "";
+    list.forEach(b => {
+      const itemEl = document.createElement("div");
+      itemEl.className = "admin-boost-item";
+      itemEl.innerHTML = `
+        <div>
+          <div style="font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px">
+            <svg class="ico" style="width:14px;height:14px;color:#e63946"><use href="#i-rocket"></use></svg>
+            <span>${escapeHtml(b.videoId)}</span>
+            <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:800">${escapeHtml(b.multiplier)}x Boost</span>
+          </div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Badge: "${escapeHtml(b.label || 'Trending')}"</div>
+        </div>
+        <button type="button" class="admin-btn" style="background:#fee2e2;color:#dc2626;padding:5px 10px;display:inline-flex;align-items:center;gap:4px;font-size:12px;border:none;border-radius:6px;cursor:pointer" onclick="removeReelBoost('${escapeAttr(b.videoId)}')">
+          <svg class="ico" style="width:12px;height:12px"><use href="#i-trash"></use></svg>
+          <span>Remove</span>
+        </button>
+      `;
+      container.appendChild(itemEl);
+    });
+  } catch(e) {
+    console.warn("Load boosted reels notice:", e);
+    container.innerHTML = '<div style="font-size:12px;color:#888">List load nahi ho saki.</div>';
+  }
+}
+window.loadBoostedReels = loadBoostedReels;
+
+async function applyReelBoost() {
+  if (!currentUser || currentUser.uid !== ADMIN_UID) {
+    showToast("🔒 Admin only");
+    return;
+  }
+  const vidInput = document.getElementById("adminBoostVideoId");
+  const multInput = document.getElementById("adminBoostMultiplier");
+  const durInput = document.getElementById("adminBoostDuration");
+  const labelInput = document.getElementById("adminBoostLabel");
+
+  const vid = (vidInput?.value || "").trim();
+  if (!vid) {
+    showToast("❌ Pehle Video/Reel ID enter karein!");
+    return;
+  }
+  const multiplier = Number(multInput?.value || 5);
+  const durationDays = Number(durInput?.value || 7);
+  const label = (labelInput?.value || "").trim() || "🔥 Trending";
+
+  const boostData = {
+    videoId: vid,
+    multiplier,
+    durationDays,
+    label,
+    createdAt: Date.now(),
+    expiresAt: durationDays > 0 ? (Date.now() + durationDays * 24 * 60 * 60 * 1000) : null
+  };
+
+  cachedBoostedReels[vid] = boostData;
+  try { localStorage.setItem("upch_admin_boosts", JSON.stringify(cachedBoostedReels)); } catch(e){}
+
+  if (typeof db !== "undefined" && db) {
+    await db.collection("reel_boosts").doc(vid).set({
+      ...boostData,
+      adminUid: ADMIN_UID,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(e => console.warn("Firestore boost save notice:", e));
+  }
+
+  showToast(`🚀 Reel boosted ${multiplier}x! Feed me top rank active 🔥`);
+  if (vidInput) vidInput.value = "";
+  loadBoostedReels();
+  if (typeof refreshManualShorts === "function") refreshManualShorts();
+}
+window.applyReelBoost = applyReelBoost;
+
+async function removeReelBoost(vid) {
+  if (!currentUser || currentUser.uid !== ADMIN_UID) {
+    showToast("🔒 Admin only");
+    return;
+  }
+  delete cachedBoostedReels[vid];
+  try { localStorage.setItem("upch_admin_boosts", JSON.stringify(cachedBoostedReels)); } catch(e){}
+  if (typeof db !== "undefined" && db) {
+    await db.collection("reel_boosts").doc(vid).delete().catch(() => null);
+  }
+  showToast("🗑️ Boost removed!");
+  loadBoostedReels();
+  if (typeof refreshManualShorts === "function") refreshManualShorts();
+}
+window.removeReelBoost = removeReelBoost;
 
 async function loadFanOfWeek(){
   try{
@@ -9332,12 +9697,13 @@ window.openCommunity = openCommunity;
    UPCOMEDYHUB STORIES FEATURE (24H EPHEMERAL STORIES)
    ===================================================== */
 const CURATED_COMEDY_SOUNDS = [
-  { id: "s1", title: "Desi Dholak Beat", artist: "UPComedyHub Beats", icon: "🥁", previewUrl: "https://actions.google.com/sounds/v1/foley/djembe_drumming.ogg" },
-  { id: "s2", title: "Funny Comedy Laugh Track", artist: "Laugh Vault", icon: "😂", previewUrl: "https://actions.google.com/sounds/v1/human_voices/laughter_small_group.ogg" },
-  { id: "s3", title: "Oh No Dramatic Whistle", artist: "Meme SFX", icon: "🎺", previewUrl: "https://actions.google.com/sounds/v1/cartoon/descending_slide_whistle.ogg" },
-  { id: "s4", title: "Cartoon Boing & Drama", artist: "Retro Cartoons", icon: "💥", previewUrl: "https://actions.google.com/sounds/v1/cartoon/boing_deep.ogg" },
-  { id: "s5", title: "Desi Whistle & Cheer", artist: "Desi Party", icon: "🥳", previewUrl: "https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_pop.ogg" },
-  { id: "s6", title: "Upbeat Acoustic Comedy", artist: "Sunny Day", icon: "🎸", previewUrl: "https://actions.google.com/sounds/v1/ambiences/outdoor_carnival.ogg" }
+  { id: "s1", title: "Canned Crowd Laughter", artist: "Comedy Sound Effect", icon: "😂", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/v4/ff/40/f7/ff40f780-35ab-892e-813a-35572d584972/mzaf_2134656824493948011.plus.aac.p.m4a" },
+  { id: "s2", title: "Funny Cartoon Chuckle", artist: "Human Comedy Laughs", icon: "🤣", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/63/eb/b5/mzi.vsvactmo.aac.p.m4a" },
+  { id: "s3", title: "Chipmunk Funny Laugh", artist: "Cartoon Comedy", icon: "🐿️", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/e4/49/5e/mzi.ursgjfru.aac.p.m4a" },
+  { id: "s4", title: "Wheeze & Belly Laugh", artist: "Comedy Laughs", icon: "😆", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/68/61/af/mzi.mxqurddg.aac.p.m4a" },
+  { id: "s5", title: "Comedy Horn Honk", artist: "Meme SFX", icon: "🎺", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/v4/29/b2/0b/29b20b85-fa71-b77c-9a84-024a06ff8406/mzaf_2469507381488198420.plus.aac.p.m4a" },
+  { id: "s6", title: "Male Funny Yell Yee-Ha!", artist: "Funny Voices", icon: "🤠", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music/v4/0b/4b/ed/0b4bedea-36ca-3efd-b877-2f174ea5cc83/mzaf_4341505107806463460.plus.aac.p.m4a" },
+  { id: "s7", title: "Chuckle & Laughs", artist: "Comedy SFX", icon: "🥳", previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/Music5/v4/97/2a/89/972a8955-26eb-73f1-d07c-de5d07424e64/mzaf_1572000842414506060.plus.aac.p.m4a" }
 ];
 
 let storyMediaFile = null;
@@ -9354,21 +9720,48 @@ let storyProgressDuration = 6000;
 let isStoryPaused = false;
 let musicSearchDebounce = null;
 
+function setPreviewButtonState(btnEl, state) {
+  if (!btnEl) return;
+  if (state === "playing") {
+    btnEl.innerHTML = '<svg class="ico" style="width:14px;height:14px;fill:currentColor"><use href="#i-pause"></use></svg>';
+    btnEl.setAttribute("aria-label", "Pause");
+  } else if (state === "loading") {
+    btnEl.innerHTML = '<svg class="ico" style="width:14px;height:14px;animation:spin 1s linear infinite"><use href="#i-refresh"></use></svg>';
+    btnEl.setAttribute("aria-label", "Loading audio");
+  } else {
+    btnEl.innerHTML = '<svg class="ico" style="width:14px;height:14px;fill:currentColor"><use href="#i-play"></use></svg>';
+    btnEl.setAttribute("aria-label", "Play preview");
+  }
+}
+
+function resetAllPreviewButtons() {
+  document.querySelectorAll(".music-preview-btn").forEach(b => setPreviewButtonState(b, "paused"));
+}
+
 function playMusicPreview(url, btnEl) {
   const player = document.getElementById("musicPreviewPlayer");
   if (!player) return;
   if (player.src === url && !player.paused) {
     player.pause();
-    if (btnEl) btnEl.textContent = "▶";
+    setPreviewButtonState(btnEl, "paused");
     return;
   }
-  document.querySelectorAll(".music-preview-btn").forEach(b => b.textContent = "▶");
+  resetAllPreviewButtons();
   player.src = url;
+  setPreviewButtonState(btnEl, "loading");
   player.play().then(() => {
-    if (btnEl) btnEl.textContent = "⏸";
-  }).catch(() => {});
+    setPreviewButtonState(btnEl, "playing");
+  }).catch(err => {
+    setPreviewButtonState(btnEl, "paused");
+    console.warn("Audio play issue:", err);
+    if (typeof showToast === "function") showToast("⚠️ Audio stream play nahi ho paya");
+  });
+  player.onerror = () => {
+    setPreviewButtonState(btnEl, "paused");
+    if (typeof showToast === "function") showToast("⚠️ Audio file load nahi ho saki");
+  };
   player.onended = () => {
-    if (btnEl) btnEl.textContent = "▶";
+    setPreviewButtonState(btnEl, "paused");
   };
 }
 
@@ -9378,7 +9771,7 @@ function stopMusicPreview() {
     player.pause();
     player.src = "";
   }
-  document.querySelectorAll(".music-preview-btn").forEach(b => b.textContent = "▶");
+  resetAllPreviewButtons();
 }
 
 const DEFAULT_USER_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23999999'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/></svg>";
@@ -10068,7 +10461,15 @@ function switchMusicCategory(cat, btnEl) {
   const container = document.getElementById("musicListContainer");
   if (!container) return;
 
-  if (cat === "comedy") {
+  if (cat === "trending") {
+    // Trending Sounds Algorithm: Rank by usage
+    const rankedSounds = [...CURATED_COMEDY_SOUNDS].sort((a, b) => {
+      const countA = (cachedTrendingSounds && cachedTrendingSounds[a.previewUrl]) || 0;
+      const countB = (cachedTrendingSounds && cachedTrendingSounds[b.previewUrl]) || 0;
+      return countB - countA;
+    });
+    renderMusicList(rankedSounds);
+  } else if (cat === "comedy") {
     renderMusicList(CURATED_COMEDY_SOUNDS);
   } else if (cat === "bollywood") {
     fetchTrendingMusic("bollywood latest hit");
@@ -10084,7 +10485,7 @@ function handleMusicSearch(query) {
   clearTimeout(musicSearchDebounce);
   const q = (query || "").trim();
   if (!q) {
-    switchMusicCategory("all");
+    switchMusicCategory("trending");
     return;
   }
   musicSearchDebounce = setTimeout(() => {
@@ -10105,7 +10506,9 @@ async function fetchTrendingMusic(term) {
     }
     const data = await res.json().catch(() => ({}));
     if (data && Array.isArray(data.results) && data.results.length) {
-      const items = data.results.map(r => ({
+      const validResults = data.results.filter(r => r.previewUrl && !r.previewUrl.includes(".m4p"));
+      const listToUse = validResults.length ? validResults : data.results;
+      const items = listToUse.map(r => ({
         id: "itunes_" + r.trackId,
         title: r.trackName,
         artist: r.artistName,
@@ -10136,7 +10539,7 @@ function renderMusicList(items) {
     div.className = "music-item";
     const thumbHtml = item.artwork 
       ? `<img src="${escapeAttr(item.artwork)}" class="music-thumb" alt="">`
-      : `<div class="music-thumb">${item.icon || "🎵"}</div>`;
+      : `<div class="music-thumb"><svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-music"></use></svg></div>`;
 
     div.innerHTML = `
       ${thumbHtml}
@@ -10144,8 +10547,13 @@ function renderMusicList(items) {
         <div class="music-title">${escapeAttr(item.title)}</div>
         <div class="music-artist">${escapeAttr(item.artist)}</div>
       </div>
-      <button type="button" class="music-preview-btn" onclick="playMusicPreview('${escapeAttr(item.previewUrl)}', this)">▶</button>
-      <button type="button" class="music-select-btn" onclick="selectStoryMusic('${escapeAttr(item.title)}', '${escapeAttr(item.artist)}', '${escapeAttr(item.previewUrl)}')">Use</button>
+      <button type="button" class="music-preview-btn" onclick="playMusicPreview('${escapeAttr(item.previewUrl)}', this)" aria-label="Play audio">
+        <svg class="ico" style="width:14px;height:14px;fill:currentColor"><use href="#i-play"></use></svg>
+      </button>
+      <button type="button" class="music-select-btn" onclick="selectStoryMusic('${escapeAttr(item.title)}', '${escapeAttr(item.artist)}', '${escapeAttr(item.previewUrl)}')">
+        <svg class="ico" style="width:13px;height:13px"><use href="#i-check"></use></svg>
+        <span>Use</span>
+      </button>
     `;
     container.appendChild(div);
   });
@@ -10154,6 +10562,11 @@ function renderMusicList(items) {
 function selectStoryMusic(title, artist, previewUrl) {
   stopMusicPreview();
   storySelectedMusic = { title, artist, previewUrl };
+
+  // Record sound usage in trending sounds algorithm
+  if (typeof recordSoundUsage === "function") {
+    recordSoundUsage(previewUrl, title + " • " + artist);
+  }
 
   const btn = document.getElementById("storyMusicBtn");
   const label = document.getElementById("storyMusicLabel");
@@ -11870,6 +12283,10 @@ window.addEventListener("DOMContentLoaded",()=>{
       if(cat === "shorts") refreshManualShorts();
     }catch(e){ showToast("❌"); }
   });
+  const abBtn = document.getElementById("applyBoostBtn");
+  if(abBtn) abBtn.addEventListener("click", applyReelBoost);
+  const rbBtn = document.getElementById("refreshBoostedListBtn");
+  if(rbBtn) rbBtn.addEventListener("click", loadBoostedReels);
   const llBtn = document.getElementById("loadLikesBtn");
   if(llBtn) llBtn.addEventListener("click", async ()=>{
     const list = document.getElementById("adminLikesList");

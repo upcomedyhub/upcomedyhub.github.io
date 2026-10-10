@@ -5168,7 +5168,14 @@ try {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-/* ========== CLOUDINARY (photos) — live config ========== */
+/* ========== CLOUDINARY (photos) — live config ==========
+   Profile uploads use Option A: publicId = profile_{uid}_{timestamp}
+   so each update gets a new URL (no stuck cache).
+
+   EXTRA TIP: Purani profile photos delete karni hon to
+   Cloudinary → Media Library → upcomedyhub/profiles → unused files delete
+   (storage bachane ke liye). Firestore mein sirf latest URL rehti hai.
+*/
 const CLOUDINARY_CONFIG = {
   cloudName: "yxuwtts6",
   uploadPreset: "upch_profile_photos",
@@ -5190,6 +5197,8 @@ async function uploadImageToCloudinary(fileOrBlob, opts) {
   form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
   form.append("folder", folder);
   if (opts.publicId) form.append("public_id", opts.publicId);
+  // Optional: help CDN refresh if same id ever reused
+  form.append("invalidate", "true");
   const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/image/upload";
   const res = await fetch(endpoint, { method: "POST", body: form });
   const data = await res.json().catch(function(){ return {}; });
@@ -6501,23 +6510,27 @@ async function uploadProfilePhoto(file){
   try{
     const compressedDataUrl = await compressProfilePhoto(file);
     const blob = await (await fetch(compressedDataUrl)).blob();
+    // Option A: unique publicId every upload → always new URL (no overwrite/cache issue)
     const photoUrl = await uploadImageToCloudinary(blob, {
       folder: "upcomedyhub/profiles",
-      publicId: "profile_" + currentUser.uid
+      publicId: "profile_" + currentUser.uid + "_" + Date.now()
     });
 
     currentProfilePhotoURL = photoUrl;
     localStorage.setItem("upch_user_photo_" + currentUser.uid, photoUrl);
-    if(imgEl) imgEl.src = photoUrl;
+
+    // Cache-bust so browser shows new image immediately
+    const bustUrl = photoUrl + (photoUrl.indexOf("?") >= 0 ? "&" : "?") + "t=" + Date.now();
+    if(imgEl) imgEl.src = bustUrl;
 
     const funAv = document.getElementById("funPlayerAvatar");
-    if(funAv) funAv.src = photoUrl;
+    if(funAv) funAv.src = bustUrl;
 
     // Instagram-style: home story tray pe bhi naya avatar
     const storyAv = document.getElementById("myStoryTrayAvatar");
-    if(storyAv) storyAv.src = photoUrl;
+    if(storyAv) storyAv.src = bustUrl;
     const userPhotoEls = document.querySelectorAll(".user-avatar-live, #chatAvatarBtn img, .profile-avatar-img");
-    userPhotoEls.forEach(function(el){ try { el.src = photoUrl; } catch(e){} });
+    userPhotoEls.forEach(function(el){ try { el.src = bustUrl; } catch(e){} });
 
     if(typeof db !== "undefined" && db){
       await db.collection("publicProfiles").doc(currentUser.uid).set({

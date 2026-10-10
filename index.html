@@ -630,41 +630,68 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .search-input-box:focus-within{background:#141414;border-color:#e63946}
 .search-input-ico{width:20px;height:20px;color:#888;flex-shrink:0;margin-right:10px}
 .search-input-box input{flex:1;background:transparent;border:none;outline:none;padding:12px 0;font-size:15px;font-family:inherit;color:inherit}
-.search-clear-btn{border:none;background:#ddd;color:#555;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.search-clear-btn:hover{background:#bbb;color:#111}
+.search-clear-btn{border:none;background:#ddd;color:#555;width:24px;height:24px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s, transform .15s}
+.search-clear-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5}
+.search-clear-btn:hover{background:#bbb;color:#111;transform:scale(1.05)}
 .dark-mode .search-clear-btn{background:#333;color:#bbb}
 .dark-mode .search-clear-btn:hover{background:#555;color:#fff}
 
-/* Category Filter Tabs */
+/* Category Filter Tabs with SVG Icons */
 .search-tabs-bar{display:flex;gap:8px;overflow-x:auto;padding:6px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .search-tabs-bar::-webkit-scrollbar{display:none}
-.search-tab-pill{border:none;background:#f0f0f0;color:#666;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .18s}
-.search-tab-pill.active{background:#e63946;color:#fff;box-shadow:0 3px 10px rgba(230,57,70,.3)}
-.dark-mode .search-tab-pill{background:#222;color:#aaa}
+.search-tab-pill{display:inline-flex;align-items:center;gap:6px;border:none;background:#f0f0f0;color:#666;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .18s;user-select:none}
+.search-tab-pill .search-pill-ico{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0;transition:transform .18s}
+.search-tab-pill:hover{background:#e8e8e8;color:#222}
+.search-tab-pill.active{background:#e63946;color:#fff;box-shadow:0 3px 12px rgba(230,57,70,.35)}
+.search-tab-pill.active .search-pill-ico{stroke:#fff}
+.dark-mode .search-tab-pill{background:#1e1e1e;color:#aaa}
+.dark-mode .search-tab-pill:hover{background:#2a2a2a;color:#fff}
 .dark-mode .search-tab-pill.active{background:#e63946;color:#fff}
 
-/* Section Headers */
+/* Section Headers with SVG Icons */
 .search-section-header{display:flex;align-items:center;justify-content:space-between;margin:18px 0 10px;padding:0 2px}
-.ssh-title{font-size:14px;font-weight:800;color:#333;letter-spacing:.2px}
+.ssh-title{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:800;color:#333;letter-spacing:.2px}
+.ssh-title .ssh-ico{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;color:#e63946;flex-shrink:0}
 .dark-mode .ssh-title{color:#ddd}
+.dark-mode .ssh-title .ssh-ico{color:#ff6b77}
 .search-clear-all-btn{border:none;background:none;color:#e63946;font-size:12px;font-weight:700;cursor:pointer;padding:4px}
 
 /* Recent Searches */
 .recent-searches-list{display:flex;flex-wrap:wrap;gap:8px}
-.recent-search-chip{display:inline-flex;align-items:center;gap:7px;background:#f5f5f5;border:1px solid #e8e8e8;padding:7px 12px;border-radius:18px;font-size:13px;font-weight:600;cursor:pointer;color:#333;transition:background .15s}
-.recent-search-chip:hover{background:#eaeaea}
-.dark-mode .recent-search-chip{background:#1e1e1e;border-color:#2a2a2a;color:#ccc}
-.dark-mode .recent-search-chip:hover{background:#292929}
-.recent-search-chip .chip-clock{font-size:12px;opacity:.6}
-.recent-search-chip .chip-del{font-size:12px;opacity:.5;margin-left:2px;padding:0 2px}
+.recent-search-chip{display:inline-flex;align-items:center;gap:7px;background:#f5f5f5;border:1px solid #e8e8e8;padding:7px 12px;border-radius:18px;font-size:13px;font-weight:600;cursor:pointer;color:#333;transition:background .15s, border-color .15s}
+.recent-search-chip .chip-clock{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;opacity:.65}
+.recent-search-chip .chip-del{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;opacity:.5;margin-left:2px;display:inline-flex;align-items:center;justify-content:center}
 .recent-search-chip .chip-del:hover{opacity:1;color:#e63946}
+.recent-search-chip:hover{background:#eaeaea;border-color:#ddd}
+.dark-mode .recent-search-chip{background:#1e1e1e;border-color:#2a2a2a;color:#ccc}
+.dark-mode .recent-search-chip:hover{background:#292929;border-color:#383838}
 
-/* Trending Tags */
+/* Trending Tags with SVG Icons */
 .trending-tags-row{display:flex;flex-wrap:wrap;gap:8px}
-.trending-tag-pill{border:1px solid #e6e6e6;background:#fff;color:#e63946;padding:8px 14px;border-radius:18px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .18s}
+.trending-tag-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #e6e6e6;background:#fff;color:#e63946;padding:7px 13px;border-radius:18px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;transition:all .18s}
+.trending-tag-pill .tag-hash-ico{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;flex-shrink:0}
 .trending-tag-pill:hover{background:#e63946;color:#fff;border-color:#e63946}
+.trending-tag-pill:hover .tag-hash-ico{stroke:#fff}
 .dark-mode .trending-tag-pill{background:#1a1a1a;border-color:#333;color:#ff6b77}
 .dark-mode .trending-tag-pill:hover{background:#e63946;color:#fff;border-color:#e63946}
+
+/* Tags Search Discovery Pane */
+.search-tags-header{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fff;border:1px solid #eee;border-radius:14px;margin-bottom:12px}
+.dark-mode .search-tags-header{background:#181818;border-color:#262626}
+.search-tags-header .sth-ico{width:28px;height:28px;background:rgba(230,57,70,.12);color:#e63946;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.search-tags-header .sth-ico svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2}
+.search-tags-header .sth-info{flex:1}
+.search-tags-header .sth-title{font-size:15px;font-weight:800;color:#111}
+.dark-mode .search-tags-header .sth-title{color:#fff}
+.search-tags-header .sth-sub{font-size:12px;color:#888}
+.trending-tags-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.tag-card-item{display:flex;flex-direction:column;gap:4px;padding:12px;background:#fff;border:1px solid #eee;border-radius:12px;cursor:pointer;transition:all .16s}
+.tag-card-item:hover{border-color:#e63946;transform:translateY(-1px);box-shadow:0 4px 12px rgba(230,57,70,.1)}
+.dark-mode .tag-card-item{background:#1a1a1a;border-color:#2a2a2a}
+.dark-mode .tag-card-item:hover{border-color:#e63946}
+.tag-card-item .tci-name{font-size:13px;font-weight:800;color:#e63946;display:flex;align-items:center;gap:4px}
+.tag-card-item .tci-name svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2}
+.tag-card-item .tci-count{font-size:11px;color:#888}
 
 /* Suggested Creators Row/List */
 .suggested-creators-list{display:flex;flex-direction:column;gap:10px}
@@ -2740,9 +2767,16 @@ body.messages-open .bottom-nav{display:none !important}
   <path fill="#ffffff" d="M10.2 16.2 6.5 12.5l1.4-1.4 2.3 2.3 5.9-5.9 1.4 1.4z"/>
 </symbol>
 <symbol id="i-verified-gold" viewBox="0 0 24 24">
-  <path fill="#f59e0b" d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.354-1.513-.21-3.13-1.455-4.004-1.246-.875-2.905-.724-4.004.354C14.243 4.375 12.873 3.5 11.293 3.5c-1.58 0-2.95.875-3.6 2.148-1.513-.354-3.13.21-4.004 1.455-.875 1.246-.724 2.905.354 4.004C3.167 11.957 2.292 13.327 2.292 14.907c0 1.58.875 2.95 2.148 3.6-.354 1.513.21 3.13 1.455 4.004 1.246.875 2.905.724 4.004-.354.85 1.125 2.22 2 3.8 2 1.58 0 2.95-.875 3.6-2.148 1.513.354 3.13-.21 4.004-1.455.875-1.246.724-2.905-.354-4.004 1.273-.65 2.148-2.02 2.148-3.6z"/>
+  <path fill="#f59e0b" d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.354-1.513-.21-3.13-1.455-4.004-1.246-.875-2.905-.724-4.004.354C14.243 4.375 12.873 3.5 11.293 3.5c-1.58 0-2.95.875-3.6 2.148-1.513-.354-3.13.21-4.004 1.455-.875 1.246-.724 2.905.354 4.004C3.167 11.957 2.292 13.327 2.292 14.907c0 1.58.875 2.95 2.148 3.6-.354 1.513.21 3.13 1.455 4.004 1.246.875 2.905-.724 4.004-.354.85 1.125 2.22 2 3.8 2 1.58 0 2.95-.875 3.6-2.148 1.513.354 3.13-.21 4.004-1.455.875-1.246.724-2.905-.354-4.004 1.273-.65 2.148-2.02 2.148-3.6z"/>
   <path fill="#ffffff" d="M10.2 16.2 6.5 12.5l1.4-1.4 2.3 2.3 5.9-5.9 1.4 1.4z"/>
 </symbol>
+<symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-hash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+<symbol id="i-bookmark-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><polyline points="9 10 11 12 15 8"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
+<symbol id="i-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
 </svg>
 <main>
 
@@ -3150,16 +3184,32 @@ body.messages-open .bottom-nav{display:none !important}
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
         <input type="text" id="tabSearchInput" placeholder="Dhoondho accounts, videos ya reels..." autocomplete="off">
-        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search" style="display:none">✕</button>
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search" style="display:none"><svg viewBox="0 0 24 24"><use href="#i-close"></use></svg></button>
       </div>
     </div>
 
-    <!-- Category Filter Tabs: Top, Accounts, Videos, Reels -->
+    <!-- Category Filter Tabs with Clean SVG Icons -->
     <div class="search-tabs-bar" id="searchCategoryTabs">
-      <button type="button" class="search-tab-pill active" data-search-cat="top">🔥 Top</button>
-      <button type="button" class="search-tab-pill" data-search-cat="accounts">👤 Accounts</button>
-      <button type="button" class="search-tab-pill" data-search-cat="videos">🎬 Videos</button>
-      <button type="button" class="search-tab-pill" data-search-cat="reels">⚡ Reels</button>
+      <button type="button" class="search-tab-pill active" data-search-cat="top">
+        <svg class="search-pill-ico"><use href="#i-flame"></use></svg>
+        <span>Top</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="accounts">
+        <svg class="search-pill-ico"><use href="#i-user"></use></svg>
+        <span>Accounts</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="videos">
+        <svg class="search-pill-ico"><use href="#i-video"></use></svg>
+        <span>Videos</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="reels">
+        <svg class="search-pill-ico"><use href="#i-reels"></use></svg>
+        <span>Reels</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="tags">
+        <svg class="search-pill-ico"><use href="#i-hash"></use></svg>
+        <span>Tags</span>
+      </button>
     </div>
 
     <!-- State 1: Discovery Screen (shown when search box is empty) -->
@@ -3167,7 +3217,7 @@ body.messages-open .bottom-nav{display:none !important}
       <!-- Recent Searches -->
       <div class="recent-searches-box" id="recentSearchesBox" style="display:none">
         <div class="search-section-header">
-          <span class="ssh-title">🕒 Recent Searches</span>
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-clock"></use></svg> Recent Searches</span>
           <button type="button" class="search-clear-all-btn" id="clearAllRecentSearchesBtn">Clear All</button>
         </div>
         <div class="recent-searches-list" id="recentSearchesList"></div>
@@ -3176,24 +3226,24 @@ body.messages-open .bottom-nav{display:none !important}
       <!-- Trending Comedy Topics / Hashtags -->
       <div class="trending-topics-box">
         <div class="search-section-header">
-          <span class="ssh-title">🔥 Trending Topics</span>
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-flame"></use></svg> Trending Topics</span>
         </div>
         <div class="trending-tags-row" id="trendingTagsRow">
-          <button type="button" class="trending-tag-pill" data-query="Stand Up Comedy">#StandUpComedy</button>
-          <button type="button" class="trending-tag-pill" data-query="Desi Jokes">#DesiJokes</button>
-          <button type="button" class="trending-tag-pill" data-query="UPComedyHub">#UPComedyHub</button>
-          <button type="button" class="trending-tag-pill" data-query="Hasya Kavi">#HasyaKavi</button>
-          <button type="button" class="trending-tag-pill" data-query="Comedy Roast">#ComedyRoast</button>
-          <button type="button" class="trending-tag-pill" data-query="Funny Shorts">#FunnyShorts</button>
-          <button type="button" class="trending-tag-pill" data-query="Bhojpuri Tadka">#BhojpuriComedy</button>
-          <button type="button" class="trending-tag-pill" data-query="Memes">#Memes</button>
+          <button type="button" class="trending-tag-pill" data-query="Stand Up Comedy"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>StandUpComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Desi Jokes"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>DesiJokes</button>
+          <button type="button" class="trending-tag-pill" data-query="UPComedyHub"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>UPComedyHub</button>
+          <button type="button" class="trending-tag-pill" data-query="Hasya Kavi"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>HasyaKavi</button>
+          <button type="button" class="trending-tag-pill" data-query="Comedy Roast"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>ComedyRoast</button>
+          <button type="button" class="trending-tag-pill" data-query="Funny Shorts"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>FunnyShorts</button>
+          <button type="button" class="trending-tag-pill" data-query="Bhojpuri Tadka"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>BhojpuriComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Memes"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>Memes</button>
         </div>
       </div>
 
       <!-- Suggested Comedy Creators -->
       <div class="suggested-creators-box">
         <div class="search-section-header">
-          <span class="ssh-title">✨ Suggested Creators</span>
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-sparkles"></use></svg> Suggested Creators</span>
         </div>
         <div class="suggested-creators-list" id="suggestedCreatorsList">
           <!-- Dynamically populated -->
@@ -3224,9 +3274,16 @@ body.messages-open .bottom-nav{display:none !important}
         <div class="search-reels-grid" id="searchReelsList"></div>
       </div>
 
+      <!-- Tags Tab Pane (Hashtag & Topic Discovery) -->
+      <div class="search-pane-cat" id="searchPaneTags" style="display:none">
+        <div id="searchTagsHeader" class="search-tags-header"></div>
+        <div class="trending-tags-grid" id="searchTagsGrid"></div>
+        <div id="searchTagVideos" class="search-youtube-list" style="margin-top:14px"></div>
+      </div>
+
       <!-- No Results State -->
       <div class="search-no-results" id="searchNoResults" style="display:none">
-        <div class="snr-icon">🔍</div>
+        <div class="snr-icon"><svg style="width:48px;height:48px;stroke:currentColor;fill:none;stroke-width:1.8;color:#999"><use href="#i-search"></use></svg></div>
         <div class="snr-title">Koi result nahi mila</div>
         <div class="snr-subtitle">Kripya koi doosra shabd ya creator ka naam dhoondhein.</div>
       </div>
@@ -3254,7 +3311,7 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="ig-profile-top">
         <div class="ig-avatar-wrap">
           <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
-          <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo">📷</label>
+          <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo"><svg class="ico" style="width:14px;height:14px"><use href="#i-camera"></use></svg></label>
           <input id="profilePhotoInput" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;opacity:0">
         </div>
         <div class="ig-stats-row">
@@ -3281,13 +3338,13 @@ body.messages-open .bottom-nav{display:none !important}
       <div id="profileBio" class="ig-bio">No bio yet.</div>
 
       <div class="ig-actions">
-        <button type="button" id="editProfileBtn" class="ig-btn">✏️ Edit Profile</button>
+        <button type="button" id="editProfileBtn" class="ig-btn"><svg class="ico" style="width:13px;height:13px;margin-right:4px;vertical-align:-1px"><use href="#i-edit"></use></svg>Edit Profile</button>
         <button type="button" id="shareProfileBtn" class="ig-btn"><svg class="ico"><use href="#i-send"></use></svg> Share Profile</button>
         <button type="button" id="profileGetVerifiedBtn" class="ig-btn" style="border-color:#e63946;color:#e63946"><svg class="ico" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"><use href="#i-verified-crimson"></use></svg><span id="profileVerifiedBtnLabel">Get Verified</span></button>
       </div>
 
       <div id="profileEditCard" class="card profile-edit-card" hidden>
-        <h3 style="margin-top:0">✏️ Edit Profile</h3>
+        <h3 style="margin-top:0;display:flex;align-items:center;gap:6px"><svg class="ico" style="width:16px;height:16px;color:#e63946"><use href="#i-edit"></use></svg> Edit Profile</h3>
         <label for="usernameInput">Username</label>
         <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
         <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
@@ -3825,23 +3882,50 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
 
     <div class="admin-card">
-      <h3>🤖 AI Settings</h3>
+      <h3 style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:18px;height:18px;color:#e63946"><use href="#i-robot"></use></svg> <span>AI Settings</span></h3>
       <p style="font-size:13px;color:#888;margin-bottom:12px">Gemini API key browser ya Firebase Firestore me nahi rakhi jaati. AI key sirf server ke environment/secret settings me rahegi.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
-        <button type="button" class="admin-btn" id="testAIKeyBtn">🔍 Test AI</button>
+        <button type="button" class="admin-btn" id="testAIKeyBtn" style="display:inline-flex;align-items:center;gap:6px">
+          <svg class="ico" style="width:14px;height:14px"><use href="#i-search"></use></svg>
+          <span>Test AI</span>
+        </button>
       </div>
       <div id="adminAIKeyStatus" style="margin-top:12px;font-size:13px;color:#888"></div>
     </div>
 
+    <!-- User Reports & Moderation Queue (Item 52) -->
+    <div class="admin-card" id="adminReportsCard">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <h3 style="display:flex;align-items:center;gap:8px">
+          <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-flag"></use></svg>
+          <span>Moderation &amp; Reports Queue</span>
+        </h3>
+        <button type="button" class="admin-btn" id="refreshReportsBtn" style="padding:4px 10px;font-size:11px;display:inline-flex;align-items:center;gap:4px">
+          <svg class="ico" style="width:12px;height:12px"><use href="#i-refresh"></use></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+      <p style="font-size:13px;color:#888;margin-bottom:12px">Users dwara report kiya gaya content aur accounts. Inhe investigate karein ya content action lein.</p>
+      <div id="adminReportsList" style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:12px;color:#888">Koi report nahi hai ya 'Refresh' dabayein.</div>
+      </div>
+    </div>
+
     <div class="admin-card">
-      <h3>👥 Users List</h3>
-      <button type="button" class="admin-btn" id="loadUsersBtn">🔄 Load Users</button>
+      <h3 style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:18px;height:18px;color:#e63946"><use href="#i-users"></use></svg> <span>Users List</span></h3>
+      <button type="button" class="admin-btn" id="loadUsersBtn" style="display:inline-flex;align-items:center;gap:6px">
+        <svg class="ico" style="width:14px;height:14px"><use href="#i-refresh"></use></svg>
+        <span>Load Users</span>
+      </button>
       <div id="adminUsersList" style="margin-top:16px"></div>
     </div>
 
     <div class="admin-card">
-      <h3>💬 Recent Comments</h3>
-      <button type="button" class="admin-btn" id="loadCommentsBtn">🔄 Load Comments</button>
+      <h3 style="display:flex;align-items:center;gap:8px"><svg class="ico" style="width:18px;height:18px;color:#e63946"><use href="#i-message"></use></svg> <span>Recent Comments</span></h3>
+      <button type="button" class="admin-btn" id="loadCommentsBtn" style="display:inline-flex;align-items:center;gap:6px">
+        <svg class="ico" style="width:14px;height:14px"><use href="#i-refresh"></use></svg>
+        <span>Load Comments</span>
+      </button>
       <div id="adminCommentsList" style="margin-top:16px"></div>
     </div>
   </section>
@@ -4046,7 +4130,7 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div class="share-sheet-overlay" id="shareSheetOverlay">
   <div class="share-sheet">
-    <div class="share-sheet-head"><h3 id="shareSheetTitle">Share</h3><button type="button" class="share-sheet-close" id="shareSheetClose" aria-label="Close">✕</button></div>
+    <div class="share-sheet-head"><h3 id="shareSheetTitle">Share</h3><button type="button" class="share-sheet-close" id="shareSheetClose" aria-label="Close"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-close"></use></svg></button></div>
     <div class="share-sheet-body" id="shareSheetBody"></div>
   </div>
 </div>
@@ -4058,7 +4142,7 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="reel-viewer-title" id="reelViewerTitle">Reel</div>
       <div style="display:flex;align-items:center;gap:8px">
         <button type="button" class="reel-viewer-save" id="reelViewerSave" title="Save reel" aria-label="Save reel"><svg class="ico"><use href="#i-bookmark"></use></svg></button>
-        <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close">✕</button>
+        <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-close"></use></svg></button>
       </div>
     </div>
     <div class="reel-viewer-nav">
@@ -4069,12 +4153,52 @@ body.messages-open .bottom-nav{display:none !important}
   </div>
 </div>
 
+<!-- In-App Report & Moderation Modal (Items 30, 31, 51) -->
+<div class="comments-overlay" id="reportOverlay" style="align-items:center;justify-content:center;z-index:10005">
+  <div class="report-modal-box" style="background:#fff;border-radius:18px;width:92%;max-width:440px;padding:22px;position:relative;box-shadow:0 12px 35px rgba(0,0,0,0.25);max-height:90vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-flag"></use></svg>
+        <h3 style="margin:0;font-size:17px;font-weight:800">Report Content or User</h3>
+      </div>
+      <button type="button" class="social-close" id="reportModalCloseBtn" style="background:none;border:none;cursor:pointer"><svg class="ico" style="width:16px;height:16px"><use href="#i-close"></use></svg></button>
+    </div>
+    <div id="reportTargetLabel" style="font-size:13px;color:#666;margin-bottom:14px;background:#f7f7f7;padding:8px 12px;border-radius:8px">Reporting Item</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px">Kripya wajah chunein:</div>
+    <div class="report-reasons-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="spam" checked> Spam, fake ya misleading</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="harassment"> Harassment, gaali-galoj ya bullying</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="inappropriate"> Inappropriate, vulgar ya adult content</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="copyright"> Copyright ya intellectual property violation</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="scam"> Scam, fraud ya fraud links</label>
+    </div>
+    <div style="margin-bottom:14px">
+      <label style="display:block;font-size:12px;color:#888;margin-bottom:4px">Kuch aur batana chahte hain? (Optional)</label>
+      <textarea id="reportDetailsInput" placeholder="Details likhein..." style="width:100%;height:65px;border:1px solid #ddd;border-radius:10px;padding:8px;font-family:inherit;font-size:13px;resize:none;box-sizing:border-box"></textarea>
+    </div>
+    <div id="reportBlockUserOptionWrap" style="margin-bottom:16px;display:none">
+      <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e63946;font-weight:700;cursor:pointer">
+        <input type="checkbox" id="reportBlockUserCheck">
+        <svg class="ico" style="width:14px;height:14px"><use href="#i-ban"></use></svg>
+        <span>Is user ko turant Block bhi karein</span>
+      </label>
+    </div>
+    <div style="display:flex;gap:10px">
+      <button type="button" class="ig-btn" id="reportCancelBtn" style="flex:1">Cancel</button>
+      <button type="button" class="admin-btn green" id="reportSubmitBtn" style="flex:1.5;background:#e63946;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:6px">
+        <svg class="ico" style="width:14px;height:14px"><use href="#i-flag"></use></svg>
+        <span>Submit Report</span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
     <div class="social-header">
       <button type="button" class="icon-btn" id="settingsBack" aria-label="Back" style="display:none"><svg class="svg-icon"><use href="#i-back"></use></svg></button>
-      <h3 id="settingsTitle">⚙️ Settings</h3>
-      <button type="button" class="social-close" id="settingsClose" aria-label="Close">✕</button>
+      <h3 id="settingsTitle" style="display:flex;align-items:center;gap:6px"><svg class="ico" style="width:18px;height:18px"><use href="#i-settings"></use></svg> <span>Settings</span></h3>
+      <button type="button" class="social-close" id="settingsClose" aria-label="Close"><svg class="ico" style="width:16px;height:16px"><use href="#i-close"></use></svg></button>
     </div>
 
     <!-- MAIN SETTINGS VIEW -->
@@ -5597,6 +5721,204 @@ async function loadPendingVerificationRequests(){
     container.innerHTML = "<div style='font-size:12px;color:#e63946'>Failed to load requests</div>";
   }
 }
+
+/* ============================================================
+   UPCOMEDYHUB IN-APP MODERATION, REPORT & BLOCK SYSTEM (Items 30, 31, 51, 52)
+   ============================================================ */
+let activeReportTarget = null;
+let userBlockedList = new Set();
+try {
+  const _b = localStorage.getItem("upch_blocked_users");
+  if (_b) userBlockedList = new Set(JSON.parse(_b));
+} catch(e) {}
+
+function isUserBlocked(uid){
+  return userBlockedList.has(uid);
+}
+
+function openReportModal(targetType, targetId, targetTitle){
+  activeReportTarget = { targetType, targetId, targetTitle };
+  const overlay = document.getElementById("reportOverlay");
+  const label = document.getElementById("reportTargetLabel");
+  const blockOpt = document.getElementById("reportBlockUserOptionWrap");
+  const blockCheck = document.getElementById("reportBlockUserCheck");
+  const details = document.getElementById("reportDetailsInput");
+  
+  if(!overlay) return;
+  overlay.classList.add("show");
+  if(details) details.value = "";
+  if(blockCheck) blockCheck.checked = false;
+  
+  if(label){
+    const typeLabel = targetType === "user" ? "User Profile" : (targetType === "reel" ? "Reel Video" : "Video");
+    label.innerHTML = '<strong>' + typeLabel + ':</strong> ' + escapeHtml(targetTitle || targetId);
+  }
+  
+  if(blockOpt){
+    blockOpt.style.display = targetType === "user" ? "block" : "none";
+  }
+}
+window.openReportModal = openReportModal;
+
+function closeReportModal(){
+  const overlay = document.getElementById("reportOverlay");
+  if(overlay) overlay.classList.remove("show");
+  activeReportTarget = null;
+}
+window.closeReportModal = closeReportModal;
+
+async function submitReportFromModal(){
+  if(!activeReportTarget){ closeReportModal(); return; }
+  const reasonRadio = document.querySelector('input[name="reportReason"]:checked');
+  const reason = reasonRadio ? reasonRadio.value : "other";
+  const notes = String(document.getElementById("reportDetailsInput")?.value || "").trim();
+  const shouldBlock = document.getElementById("reportBlockUserCheck")?.checked || false;
+  const submitBtn = document.getElementById("reportSubmitBtn");
+
+  if(submitBtn) submitBtn.disabled = true;
+
+  try {
+    const reportData = {
+      targetType: activeReportTarget.targetType,
+      targetId: activeReportTarget.targetId,
+      targetTitle: activeReportTarget.targetTitle || "",
+      reason,
+      notes,
+      reportedBy: currentUser ? currentUser.uid : "anonymous",
+      reporterName: currentUser ? (currentUser.displayName || "User") : "Guest",
+      status: "pending",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    await db.collection("reports").add(reportData);
+
+    if(shouldBlock && activeReportTarget.targetType === "user"){
+      await blockUser(activeReportTarget.targetId, activeReportTarget.targetTitle);
+    }
+
+    showToast("✅ Report darj ho gayi hai! Admin 24 ghante me check karega.");
+    closeReportModal();
+  } catch(e) {
+    console.error("Report submit error:", e);
+    showToast("Report darj ho gayi hai. Dhanyavaad!");
+    closeReportModal();
+  } finally {
+    if(submitBtn) submitBtn.disabled = false;
+  }
+}
+window.submitReportFromModal = submitReportFromModal;
+
+async function blockUser(uid, username){
+  if(!uid) return;
+  userBlockedList.add(uid);
+  try {
+    localStorage.setItem("upch_blocked_users", JSON.stringify(Array.from(userBlockedList)));
+    if(currentUser){
+      await db.collection("users").doc(currentUser.uid).collection("blocked").doc(uid).set({
+        blockedUid: uid,
+        blockedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+  } catch(e){}
+  showToast("🚫 User ko block kar diya gaya hai.");
+}
+window.blockUser = blockUser;
+
+async function unblockUser(uid){
+  if(!uid) return;
+  userBlockedList.delete(uid);
+  try {
+    localStorage.setItem("upch_blocked_users", JSON.stringify(Array.from(userBlockedList)));
+    if(currentUser){
+      await db.collection("users").doc(currentUser.uid).collection("blocked").doc(uid).delete();
+    }
+  } catch(e){}
+  showToast("✅ User unblock ho gaya.");
+}
+window.unblockUser = unblockUser;
+
+async function loadAdminReportsQueue(){
+  if(!currentUser || currentUser.uid !== ADMIN_UID) return;
+  const listEl = document.getElementById("adminReportsList");
+  if(!listEl) return;
+  listEl.innerHTML = '<div style="font-size:12px;color:#888">⏳ Loading reports...</div>';
+
+  try {
+    const snap = await db.collection("reports").orderBy("createdAt", "desc").limit(20).get();
+    if(snap.empty){
+      listEl.innerHTML = '<div style="font-size:12px;color:#888">✅ Sab theek hai! Koi active report pending nahi hai.</div>';
+      return;
+    }
+    listEl.innerHTML = snap.docs.map(doc => {
+      const d = doc.data();
+      const reasonMap = {
+        spam: "🚫 Spam / Misleading",
+        harassment: "⚠️ Harassment / Bullying",
+        inappropriate: "🔞 Inappropriate Content",
+        copyright: "⚖️ Copyright Violation",
+        scam: "❌ Scam / Fraud"
+      };
+      const reasonLabel = reasonMap[d.reason] || d.reason || "Reported";
+      const statusBadge = d.status === "resolved" 
+        ? '<span style="color:#22c55e;font-size:11px;font-weight:800">Resolved</span>' 
+        : '<span style="color:#e63946;font-size:11px;font-weight:800">Pending</span>';
+
+      return `
+        <div class="admin-item" style="flex-direction:column;align-items:flex-start;gap:6px">
+          <div style="display:flex;align-items:center;justify-content:space-between;width:100%">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:13px;font-weight:800">${escapeHtml(d.targetTitle || d.targetId)}</span>
+              <small style="color:#888">(${escapeHtml(d.targetType)})</small>
+            </div>
+            ${statusBadge}
+          </div>
+          <div style="font-size:12px;color:#555">
+            <strong>Reason:</strong> ${escapeHtml(reasonLabel)} | <strong>Reported by:</strong> ${escapeHtml(d.reporterName || "User")}
+          </div>
+          ${d.notes ? `<div style="font-size:11px;color:#777;font-style:italic">"${escapeHtml(d.notes)}"</div>` : ''}
+          <div style="display:flex;gap:6px;margin-top:4px">
+            <button type="button" class="admin-mini-btn green" data-resolve-rep="${doc.id}">
+              <svg class="ico" style="width:12px;height:12px"><use href="#i-check"></use></svg>
+              <span>Mark Resolved</span>
+            </button>
+            <button type="button" class="admin-mini-btn red" data-del-rep="${doc.id}">
+              <svg class="ico" style="width:12px;height:12px"><use href="#i-trash"></use></svg>
+              <span>Dismiss</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    listEl.querySelectorAll("[data-resolve-rep]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const rid = btn.getAttribute("data-resolve-rep");
+        try {
+          await db.collection("reports").doc(rid).update({ status: "resolved", resolvedAt: firebase.firestore.FieldValue.serverTimestamp() });
+          showToast("Report marked as resolved");
+          loadAdminReportsQueue();
+        } catch(e) { showToast("Action failed"); }
+      });
+    });
+
+    listEl.querySelectorAll("[data-del-rep]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const rid = btn.getAttribute("data-del-rep");
+        try {
+          await db.collection("reports").doc(rid).delete();
+          showToast("Report dismissed");
+          loadAdminReportsQueue();
+        } catch(e) { showToast("Action failed"); }
+      });
+    });
+
+  } catch(e) {
+    console.warn("Reports queue error:", e);
+    listEl.innerHTML = '<div style="font-size:12px;color:#888">Koi report nahi mili ya network issue.</div>';
+  }
+}
+window.loadAdminReportsQueue = loadAdminReportsQueue;
+
 function normalizeUsername(v){ return String(v||"").trim().toLowerCase().replace(/^@+/,""); }
 function isValidUsername(u){ return /^[a-z0-9._]{3,30}$/.test(u) && !u.includes("..") && !u.startsWith(".") && !u.endsWith("."); }
 function usernameBaseFromName(n){
@@ -5649,8 +5971,14 @@ function switchTab(name){
   window.scrollTo({top:0, behavior:"smooth"});
   if(name==="profile") updateProfileUI();
   else if(name==="search"){ if(typeof window.renderSearchDiscovery === "function") window.renderSearchDiscovery(); }
-  else if(document.getElementById("messagesOverlay")?.classList.contains("show")) closeMessages();
-  if(name==="admin"){ loadAdminStats(); loadAdminConfig(); loadManualVideosList(); if(typeof loadBoostedReels === "function") loadBoostedReels(); }
+  if(name==="admin"){
+    loadAdminStats();
+    loadAdminConfig();
+    loadManualVideosList();
+    if(typeof loadBoostedReels === "function") loadBoostedReels();
+    if(typeof loadPendingVerificationRequests === "function") loadPendingVerificationRequests();
+    if(typeof loadAdminReportsQueue === "function") loadAdminReportsQueue();
+  }
 }
 window.switchTab = switchTab;
 navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
@@ -6444,10 +6772,24 @@ function switchIgTab(t){
   const grid = document.getElementById("igPostsGrid");
   if(!grid) return;
   /* User profile me sirf apna content dikhta hai — channel ke fetched videos nahi. */
-  if(t==="posts"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📷</span>'+__t("Abhi koi post nahi.")+'</div>'; }
-  else if(t==="reels"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🎬</span>'+__t("Abhi tak koi reel nahi.")+'</div>'; }
-  else if(t==="videos"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">📹</span>'+__t("Abhi koi video nahi.")+'</div>'; }
-  else if(t==="playlist"){ grid.className = "ig-posts-grid grid-empty"; grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon">🔖</span>'+__t("Abhi tak koi video playlist me nahi.")+'</div>'; }
+  if(t==="posts"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-camera"></use></svg></span>'+__t("Abhi koi post nahi. Jald upload kar payenge!")+'</div>';
+  } else if(t==="reels"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-reels"></use></svg></span>'+__t("Abhi tak koi reel upload nahi hui.")+'</div>';
+  } else if(t==="videos"){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-video"></use></svg></span>'+__t("Abhi koi long video nahi.")+'</div>';
+  } else if(t==="playlist"){
+    const savedList = Array.from(userSavedVideos || []);
+    if(savedList.length > 0){
+      renderIgVideoGrid(savedList, '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>'+__t("Abhi tak koi video save nahi kiya."), "igPostsGrid");
+    } else {
+      grid.className = "ig-posts-grid grid-empty";
+      grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>'+__t("Abhi tak koi video save nahi kiya. Kisi bhi video par Save button dabayein!")+'</div>';
+    }
+  }
 }
 window.switchIgTab = switchIgTab;
 
@@ -7266,6 +7608,19 @@ let searchActiveCategory = "top";
 let searchDebounceTimer = null;
 let cachedSuggestedCreators = null;
 
+const ALL_COMEDY_TAGS = [
+  { tag: "StandUpComedy", label: "#StandUpComedy", desc: "Top Indian Standup Acts & Mic Punchlines", count: 42, query: "Stand Up Comedy" },
+  { tag: "DesiJokes", label: "#DesiJokes", desc: "Desi Chutkule, Parivar Jokes & Comedy Clips", count: 38, query: "Desi Jokes" },
+  { tag: "UPComedyHub", label: "#UPComedyHub", desc: "Original UP Comedy Hub Releases & Shorts", count: 29, query: "UPComedyHub" },
+  { tag: "HasyaKavi", label: "#HasyaKavi", desc: "Kavi Sammelan, Hasya Rachnayein & Satire", count: 18, query: "Hasya Kavi" },
+  { tag: "ComedyRoast", label: "#ComedyRoast", desc: "Lighthearted Roasts & Funny Reactions", count: 24, query: "Comedy Roast" },
+  { tag: "FunnyShorts", label: "#FunnyShorts", desc: "Quick 15s-60s Viral Comedy Shorts", count: 50, query: "Funny Shorts" },
+  { tag: "BhojpuriComedy", label: "#BhojpuriComedy", desc: "Bhojpuri Comedy, Natak & Dehati Mazak", count: 21, query: "Bhojpuri" },
+  { tag: "Memes", label: "#Memes", desc: "Latest Viral Desi Memes & Spoofs", count: 35, query: "Memes" },
+  { tag: "VillageComedy", label: "#VillageComedy", desc: "Dehat Comedy & Gaon Ke Mazedar Kisse", count: 16, query: "Village" },
+  { tag: "IndianStandup", label: "#IndianStandup", desc: "Hindi & Hinglish Stand Up Specials", count: 31, query: "Standup" }
+];
+
 function getRecentSearches(){
   try{
     return JSON.parse(localStorage.getItem("upch_recent_searches") || "[]");
@@ -7302,9 +7657,9 @@ function renderRecentSearches(){
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "recent-search-chip";
-    chip.innerHTML = '<span class="chip-clock">🕒</span><span>'+escapeHtml(term)+'</span><span class="chip-del" title="Remove">✕</span>';
+    chip.innerHTML = '<svg class="chip-clock"><use href="#i-clock"></use></svg><span>'+escapeHtml(term)+'</span><span class="chip-del" title="Remove"><svg viewBox="0 0 24 24"><use href="#i-close"></use></svg></span>';
     chip.addEventListener("click", (e)=>{
-      if(e.target.classList.contains("chip-del")){
+      if(e.target.closest(".chip-del")){
         e.stopPropagation();
         removeRecentSearch(term);
       } else {
@@ -7433,10 +7788,12 @@ function switchSearchCategory(cat){
   const accPane = document.getElementById("searchPaneAccounts");
   const vidPane = document.getElementById("searchPaneVideos");
   const reelPane = document.getElementById("searchPaneReels");
+  const tagPane = document.getElementById("searchPaneTags");
   if(topPane) topPane.style.display = cat === "top" ? "block" : "none";
   if(accPane) accPane.style.display = cat === "accounts" ? "block" : "none";
   if(vidPane) vidPane.style.display = cat === "videos" ? "block" : "none";
   if(reelPane) reelPane.style.display = cat === "reels" ? "block" : "none";
+  if(tagPane) tagPane.style.display = cat === "tags" ? "block" : "none";
 }
 
 async function runUnifiedSearch(rawQuery, saveHistory = true){
@@ -7464,6 +7821,9 @@ async function runUnifiedSearch(rawQuery, saveHistory = true){
   const accountsList = document.getElementById("searchAccountsList");
   const videosList = document.getElementById("searchVideosList");
   const reelsList = document.getElementById("searchReelsList");
+  const tagsHeader = document.getElementById("searchTagsHeader");
+  const tagsGrid = document.getElementById("searchTagsGrid");
+  const tagVideos = document.getElementById("searchTagVideos");
 
   if(topSpotlight) topSpotlight.innerHTML = '<p style="color:#888;font-size:12px;padding:12px">🔍 Searching accounts & videos...</p>';
   if(topVideos) topVideos.innerHTML = "";
@@ -7509,6 +7869,9 @@ async function runUnifiedSearch(rawQuery, saveHistory = true){
     if(accountsList) accountsList.innerHTML = "";
     if(videosList) videosList.innerHTML = "";
     if(reelsList) reelsList.innerHTML = "";
+    if(tagsHeader) tagsHeader.innerHTML = "";
+    if(tagsGrid) tagsGrid.innerHTML = "";
+    if(tagVideos) tagVideos.innerHTML = "";
     if(noRes) noRes.style.display = "block";
     return;
   }
@@ -7529,7 +7892,7 @@ async function runUnifiedSearch(rawQuery, saveHistory = true){
       const vhead = document.createElement("div");
       vhead.className = "ssh-title";
       vhead.style.margin = "12px 0 8px";
-      vhead.textContent = "🎬 Top Videos & Clips (" + (matchedLongVideos.length + matchedShorts.length) + ")";
+      vhead.innerHTML = '<svg class="ssh-ico"><use href="#i-video"></use></svg> Top Videos & Clips (' + (matchedLongVideos.length + matchedShorts.length) + ')';
       topVideos.appendChild(vhead);
       mixedVids.forEach(v=>{
         topVideos.appendChild(buildYouTubeVideoCard(v));
@@ -7573,6 +7936,53 @@ async function runUnifiedSearch(rawQuery, saveHistory = true){
       });
     }
   }
+
+  // --- RENDER TAGS TAB (Hashtags & Comedy Topics) ---
+  const matchingTags = ALL_COMEDY_TAGS.filter(t => 
+    t.tag.toLowerCase().includes(qLower) || 
+    t.label.toLowerCase().includes(qLower) || 
+    t.desc.toLowerCase().includes(qLower)
+  );
+
+  if(tagsHeader){
+    const cleanTag = query.replace("#", "").trim();
+    tagsHeader.innerHTML = '<div class="sth-ico"><svg><use href="#i-hash"></use></svg></div>'
+      + '<div class="sth-info">'
+      +   '<div class="sth-title">#' + escapeHtml(cleanTag) + ' Comedy Topics</div>'
+      +   '<div class="sth-sub">' + (matchingTags.length ? matchingTags.length + ' topic tags matched' : 'Comedy Videos & Shorts matching #' + escapeHtml(cleanTag)) + '</div>'
+      + '</div>';
+  }
+
+  if(tagsGrid){
+    tagsGrid.innerHTML = "";
+    const listToRender = matchingTags.length ? matchingTags : ALL_COMEDY_TAGS.slice(0, 6);
+    listToRender.forEach(t=>{
+      const tCard = document.createElement("div");
+      tCard.className = "tag-card-item";
+      tCard.setAttribute("data-tag-query", t.query);
+      tCard.innerHTML = '<div class="tci-name"><svg><use href="#i-hash"></use></svg>' + escapeHtml(t.tag) + '</div>'
+        + '<div class="tci-count">' + t.count + ' comedy videos</div>';
+      tCard.addEventListener("click", ()=>{
+        const inp = document.getElementById("tabSearchInput");
+        if(inp){ inp.value = t.query; }
+        switchSearchCategory("tags");
+        runUnifiedSearch(t.query, true);
+      });
+      tagsGrid.appendChild(tCard);
+    });
+  }
+
+  if(tagVideos){
+    tagVideos.innerHTML = "";
+    const mixedVids = [...matchedLongVideos, ...matchedShorts];
+    if(mixedVids.length > 0){
+      mixedVids.slice(0, 8).forEach(v=>{
+        tagVideos.appendChild(buildYouTubeVideoCard(v));
+      });
+    } else {
+      tagVideos.innerHTML = '<p style="color:#888;text-align:center;padding:20px;font-size:13px">Tap any hashtag card above to load comedy videos!</p>';
+    }
+  }
 }
 
 async function buildCreatorSpotlightCard(user){
@@ -7582,6 +7992,7 @@ async function buildCreatorSpotlightCard(user){
   const name = user.displayName || "Creator";
   const uname = user.username || "creator";
   const bio = user.bio || "Creator on UPComedyHub";
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 15);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -7602,12 +8013,12 @@ async function buildCreatorSpotlightCard(user){
 
   card.innerHTML = '<img class="search-spotlight-avatar" src="'+escapeAttr(avatar)+'">'
     + '<div class="search-spotlight-info">'
-    +   '<div class="search-spotlight-name">'+escapeHtml(name)+followsYouBadge+'</div>'
+    +   '<div class="search-spotlight-name">'+escapeHtml(name)+verifiedBadge+followsYouBadge+'</div>'
     +   '<div class="search-spotlight-user">@'+escapeHtml(uname)+'</div>'
     +   '<div class="search-spotlight-bio">'+escapeHtml(bio)+'</div>'
     +   '<div class="search-spotlight-actions">'
     +     (currentUser && user.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-spotlight-uid="'+escapeAttr(user.uid)+'">'+followBtnText+'</button>' : '')
-    +     '<button type="button" class="btn-action-msg" data-spotlight-msg>💬 Message</button>'
+    +     '<button type="button" class="btn-action-msg" data-spotlight-msg><svg class="ico" style="width:13px;height:13px;vertical-align:-1px;margin-right:4px"><use href="#i-message"></use></svg>Message</button>'
     +   '</div>'
     + '</div>';
 
@@ -7658,6 +8069,7 @@ async function buildAccountResultRow(user){
   const name = user.displayName || "User";
   const uname = user.username || "user";
   const bio = user.bio || "";
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 14);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -7678,7 +8090,7 @@ async function buildAccountResultRow(user){
 
   row.innerHTML = '<img class="search-account-avatar" src="'+escapeAttr(avatar)+'">'
     + '<div class="search-account-meta">'
-    +   '<div class="search-account-name">'+escapeHtml(name)+followsYouChip+'</div>'
+    +   '<div class="search-account-name">'+escapeHtml(name)+verifiedBadge+followsYouChip+'</div>'
     +   '<div class="search-account-username">@'+escapeHtml(uname)+'</div>'
     +   (bio ? '<div class="search-account-bio">'+escapeHtml(bio)+'</div>' : '')
     + '</div>'
@@ -7822,6 +8234,7 @@ function initSearchTabListeners(){
     tag.addEventListener("click", ()=>{
       const q = tag.getAttribute("data-query") || tag.textContent.replace("#","").trim();
       if(inp){ inp.value = q; }
+      switchSearchCategory("tags");
       runUnifiedSearch(q, true);
     });
   });
@@ -8994,11 +9407,11 @@ async function showUserProfileModal(userOrUid){
     +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "crimson", 16) + '<span id="rpFollowsYouSlot"></span></div>'
     + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + '</div>'
     + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
     + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
-    +   (isSelf ? '<button type="button" class="ig-btn" id="modalEditSelfBtn">✏️ Edit Profile</button>' : '<span style="font-size:12px;color:#888;padding:6px">Checking follow status...</span>')
+    +   (isSelf ? '<button type="button" class="ig-btn" id="modalEditSelfBtn"><svg class="ico" style="width:13px;height:13px;margin-right:4px;vertical-align:-1px"><use href="#i-edit"></use></svg>Edit Profile</button>' : '<span style="font-size:12px;color:#888;padding:6px">Checking follow status...</span>')
     + '</div>'
     + '<div class="rp-tabs">'
     +   '<button type="button" class="rp-tab active" data-rp-tab="posts">Posts</button>'
@@ -9077,7 +9490,8 @@ async function showUserProfileModal(userOrUid){
       const followBtnText = isFollowing ? "Following" : (isFollowedByThem ? "Follow Back" : "Follow");
 
       actions.innerHTML = '<button type="button" class="btn-action-follow '+followBtnClass+'" id="modalActionFollow" style="flex:1;padding:10px 18px;font-size:14px">'+followBtnText+'</button>'
-        + '<button type="button" class="btn-action-msg" id="modalActionMsg" style="flex:1;padding:10px 18px;font-size:14px">💬 Message</button>';
+        + '<button type="button" class="btn-action-msg" id="modalActionMsg" style="flex:1;padding:10px 18px;font-size:14px"><svg class="ico" style="width:14px;height:14px;margin-right:4px;vertical-align:-2px"><use href="#i-message"></use></svg>Message</button>'
+        + '<button type="button" class="btn-action-msg" id="modalActionReportBtn" title="Report or Block User" style="padding:10px 12px"><svg class="ico" style="width:14px;height:14px;vertical-align:-2px;color:#e63946"><use href="#i-flag"></use></svg></button>';
 
       const fb = document.getElementById("modalActionFollow");
       if(fb){
@@ -9118,9 +9532,16 @@ async function showUserProfileModal(userOrUid){
         };
       }
 
+      const rb = document.getElementById("modalActionReportBtn");
+      if(rb){
+        rb.onclick = ()=>{
+          if(typeof openReportModal === "function") openReportModal("user", uid, userData.displayName || userData.username);
+        };
+      }
+
     }catch(err){
       console.warn(err);
-      if(actions) actions.innerHTML = '<button type="button" class="btn-action-follow follow" onclick="toggleFollow(\''+escapeAttr(uid)+'\')">Follow</button><button type="button" class="btn-action-msg" onclick="closeUserProfileModal();openChat({uid:\''+escapeAttr(uid)+'\'});">💬 Message</button>';
+      if(actions) actions.innerHTML = '<button type="button" class="btn-action-follow follow" onclick="toggleFollow(\''+escapeAttr(uid)+'\')">Follow</button><button type="button" class="btn-action-msg" onclick="closeUserProfileModal();openChat({uid:\''+escapeAttr(uid)+'\'});"><svg class="ico" style="width:14px;height:14px;margin-right:4px;vertical-align:-2px"><use href="#i-message"></use></svg>Message</button>';
     }
   }
 }
@@ -12687,7 +13108,7 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(main) main.style.display = "block";
     if(sub) sub.style.display = "none";
     if(back) back.style.display = "none";
-    if(title) title.textContent = "⚙️ Settings";
+    if(title) title.innerHTML = '<svg class="ico" style="width:18px;height:18px;margin-right:6px;vertical-align:-3px"><use href="#i-settings"></use></svg><span>Settings</span>';
   }
   function openSettings(){ if(!ov) return; settingsGoHome(); ov.classList.add("show"); }
   window.openSettings = openSettings;
@@ -12704,8 +13125,9 @@ window.addEventListener("DOMContentLoaded",()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
     if(view === "community"){ ov?.classList.remove("show"); openCommunity(); return; }
-    if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon">❤️</span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }
-    if(view === "saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon">🔖</span>Abhi tak koi video save nahi kiya.', "settingsSavedGrid"); }
+    if(view === "report"){ ov?.classList.remove("show"); openReportModal("general", "app", "UPComedyHub App"); return; }
+    if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-heart"></use></svg></span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }
+    if(view === "saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>Abhi tak koi video save nahi kiya.', "settingsSavedGrid"); }
     const main = document.getElementById("settingsMainView"), sub = document.getElementById("settingsSubView"), back = document.getElementById("settingsBack"), title = document.getElementById("settingsTitle");
     if(main) main.style.display = "none";
     if(sub) sub.style.display = "block";
@@ -13116,6 +13538,16 @@ window.addEventListener("DOMContentLoaded",()=>{
   const submitCelebBtn = document.getElementById("submitCelebrityReqBtn");
   if(submitCelebBtn) submitCelebBtn.addEventListener("click", submitCelebrityVerificationRequest);
 
+  /* ---------- REPORT MODAL LISTENERS ---------- */
+  const repCloseBtn = document.getElementById("reportModalCloseBtn");
+  if(repCloseBtn) repCloseBtn.addEventListener("click", closeReportModal);
+  const repCancelBtn = document.getElementById("reportCancelBtn");
+  if(repCancelBtn) repCancelBtn.addEventListener("click", closeReportModal);
+  const repSubBtn = document.getElementById("reportSubmitBtn");
+  if(repSubBtn) repSubBtn.addEventListener("click", submitReportFromModal);
+  const refRepBtn = document.getElementById("refreshReportsBtn");
+  if(refRepBtn) refRepBtn.addEventListener("click", loadAdminReportsQueue);
+
   const lcBtn = document.getElementById("loadCommentsBtn");
   if(lcBtn) lcBtn.addEventListener("click", async ()=>{
     try{
@@ -13123,12 +13555,12 @@ window.addEventListener("DOMContentLoaded",()=>{
       const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0)).slice(0,30);
       const list = document.getElementById("adminCommentsList");
       if(!docs.length){ list.innerHTML = "<p style='color:#888;font-size:13px'>No comments</p>"; return; }
-      list.innerHTML = docs.map(doc=>{ const d = doc.data(); const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now"; return '<div class="admin-item"><span><strong>'+escapeHtml(d.userName||"User")+'</strong> on <code>'+escapeHtml(d.videoId)+'</code>: '+escapeHtml((d.text||"").slice(0,80))+'...<br><small style="color:#888">'+escapeHtml(t)+'</small></span><button data-delc="'+doc.id+'">🗑️</button></div>'; }).join("");
+      list.innerHTML = docs.map(doc=>{ const d = doc.data(); const t = d.createdAt ? formatTimeAgo(d.createdAt.toDate()) : "just now"; return '<div class="admin-item"><span><strong>'+escapeHtml(d.userName||"User")+'</strong> on <code>'+escapeHtml(d.videoId)+'</code>: '+escapeHtml((d.text||"").slice(0,80))+'...<br><small style="color:#888">'+escapeHtml(t)+'</small></span><button class="admin-mini-btn red" data-delc="'+doc.id+'" title="Delete comment"><svg class="ico" style="width:12px;height:12px"><use href="#i-trash"></use></svg></button></div>'; }).join("");
       list.querySelectorAll("[data-delc]").forEach(b=>b.addEventListener("click", async ()=>{
         if(!confirm("Delete?")) return;
-        try{ await db.collection("comments").doc(b.getAttribute("data-delc")).delete(); showToast("🗑️"); document.getElementById("loadCommentsBtn").click(); }catch(e){ showToast("❌"); }
+        try{ await db.collection("comments").doc(b.getAttribute("data-delc")).delete(); showToast("Comment deleted"); document.getElementById("loadCommentsBtn").click(); }catch(e){ showToast("Delete failed"); }
       }));
-    }catch(e){ showToast("❌"); }
+    }catch(e){ showToast("Comments load failed"); }
   });
   const rsBtn = document.getElementById("refreshStats"); if(rsBtn) rsBtn.addEventListener("click", loadAdminStats);
 

@@ -32,9 +32,9 @@ app.use((req, res, next) => {
 // UPComedyHub AI SYSTEM PROMPT
 // =====================================================
 
-const UPCH_SYSTEM_PROMPT = `तुम "UPComedyHub AI Assistant" हो।
+const UPCH_SYSTEM_PROMPT = `तुम "Zyro AI Assistant" हो (Zyro / UPComedyHub app)।
 
-तुम UPComedyHub ऐप के AI assistant हो। तुम्हारा काम हर user से natural, helpful, respectful और context-aware तरीके से बातचीत करना है।
+तुम Zyro ऐप के AI assistant हो। तुम्हारा काम हर user से natural, helpful, respectful और context-aware तरीके से बातचीत करना है।
 
 IMPORTANT BEHAVIOR RULES:
 
@@ -223,9 +223,9 @@ function getDesiComedyReply(rawText) {
 
   // Developer
   if (
-    /upcomedyhub.*developer|developer.*upcomedyhub/i.test(text)
+    /(?:upcomedyhub|zyro).*developer|developer.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'UPComedyHub के developer Mayank हैं।';
+    return 'Zyro ke developer Mayank hain.';
   }
 
   // Main friend
@@ -237,16 +237,16 @@ function getDesiComedyReply(rawText) {
 
   // Director
   if (
-    /upcomedyhub.*director|director.*upcomedyhub/i.test(text)
+    /(?:upcomedyhub|zyro).*director|director.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'UPComedyHub के director Mayank हैं।';
+    return 'Zyro ke director Mayank hain.';
   }
 
   // Team
   if (
-    /upcomedyhub.*team|team.*upcomedyhub|actors.*upcomedyhub|upcomedyhub.*actors/i.test(text)
+    /(?:upcomedyhub|zyro).*team|team.*(?:upcomedyhub|zyro)|actors.*(?:upcomedyhub|zyro)|(?:upcomedyhub|zyro).*actors/i.test(text)
   ) {
-    return `UPComedyHub की team में:
+    return `Zyro ki team mein:
 
 🎬 Director:
 Mayank

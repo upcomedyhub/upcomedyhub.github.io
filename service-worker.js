@@ -1,4 +1,4 @@
-const CACHE_NAME = "upcomedyhub-v9";
+const CACHE_NAME = "zyro-v10";
 
 const FILES_TO_CACHE = [
   "/",

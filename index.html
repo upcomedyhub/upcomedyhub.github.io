@@ -1148,98 +1148,162 @@ body.messages-open .bottom-nav{display:none !important}
 .admin-likes-user-chip{background:#fff;border:1px solid #ddd;border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700}
 .dark-mode .admin-likes-user-chip{background:#333;border-color:#555;color:#fff}
 
-/* Instagram Profile */
-.profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px;position:relative}
-.ig-profile-header{display:flex;align-items:center;gap:6px;padding:6px 0 18px;padding-right:60px}
-.ig-profile-username{font-size:20px;font-weight:800;color:#111}
+/* Instagram Profile - Authentic UI & Touch Ergonomics */
+.profile-section-ig{max-width:935px;margin:0 auto;padding:0 16px 80px;position:relative}
+.ig-profile-header{display:flex;align-items:center;justify-content:space-between;padding:10px 0 14px}
+.ig-header-identity{display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:4px 8px;border-radius:10px;transition:background .15s}
+.ig-header-identity:hover{background:rgba(0,0,0,.04)}
+.dark-mode .ig-header-identity:hover{background:rgba(255,255,255,.06)}
+.ig-header-lock{width:16px;height:16px;color:#111;stroke-width:2.2}
+.dark-mode .ig-header-lock{color:#fff}
+.ig-profile-username{font-size:20px;font-weight:800;color:#111;letter-spacing:-.3px}
 .dark-mode .ig-profile-username{color:#fff}
-.ig-profile-chev{width:18px;height:18px;color:#111;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ig-profile-chev{width:16px;height:16px;color:#111;stroke-width:2.5}
 .dark-mode .ig-profile-chev{color:#fff}
-#profileMenuBtn{position:absolute;top:2px;right:16px;width:46px;height:46px;border-radius:50%;border:none;background:#f1f1f1;color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;transition:transform .15s,background .15s}
-#profileMenuBtn:hover{transform:scale(1.06)}
-#profileMenuBtn:active{transform:scale(.94)}
-#profileMenuBtn .ico{width:24px;height:24px}
-.dark-mode #profileMenuBtn{background:#1c1c1c;color:#fff}
-@media(max-width:520px){#profileMenuBtn{top:0;right:10px;width:42px;height:42px}}
+.ig-header-actions{display:flex;align-items:center;gap:10px}
+.ig-header-btn{width:40px;height:40px;border-radius:50%;border:none;background:#f5f5f5;color:#111;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s, background .15s}
+.ig-header-btn:hover{background:#ebebeb;transform:scale(1.05)}
+.ig-header-btn:active{transform:scale(.95)}
+.ig-header-btn .ico{width:22px;height:22px}
+.dark-mode .ig-header-btn{background:#262626;color:#fff}
+.dark-mode .ig-header-btn:hover{background:#333}
+
 #profileLoggedOut{text-align:center;padding:60px 20px}
 #profileLoggedOut p{color:#888;margin-bottom:20px;font-size:15px}
-#profileLoggedIn.profile-ig{padding:24px 0 40px}
-.ig-profile-top{display:flex;align-items:center;gap:32px;margin-bottom:20px}
-.ig-avatar-wrap{position:relative;flex:0 0 auto}
-.ig-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 0 0 3px #e63946;background:#f2f2f2;display:block}
-.dark-mode .ig-avatar{border-color:#000}
-.ig-avatar-edit{position:absolute;bottom:0;right:0;width:30px;height:30px;border-radius:50%;background:#e63946;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:.15s}
-.ig-avatar-edit:hover{transform:scale(1.08)}
-.dark-mode .ig-avatar-edit{border-color:#000}
-.ig-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;flex:1;text-align:center}
-.ig-stat{padding:8px 4px;border-radius:10px;cursor:pointer;transition:background .15s}
+#profileLoggedIn.profile-ig{padding:12px 0 40px}
+
+/* Profile Header Row */
+.ig-profile-top{display:flex;align-items:center;gap:28px;margin-bottom:16px}
+.ig-avatar-wrap{position:relative;flex:0 0 auto;cursor:pointer}
+.ig-story-ring{padding:3px;border-radius:50%;background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);display:inline-block;box-shadow:0 4px 14px rgba(220,39,67,.2)}
+.ig-avatar{width:86px;height:86px;border-radius:50%;object-fit:cover;border:3px solid #fff;background:#f2f2f2;display:block}
+.dark-mode .ig-avatar{border-color:#111}
+.ig-avatar-edit{position:absolute;bottom:2px;right:2px;width:28px;height:28px;border-radius:50%;background:#0095f6;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.2);transition:.15s}
+.ig-avatar-edit:hover{transform:scale(1.1)}
+.dark-mode .ig-avatar-edit{border-color:#111}
+
+/* Stats Row */
+.ig-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;flex:1;text-align:center}
+.ig-stat{padding:8px 4px;border-radius:12px;cursor:pointer;transition:background .15s}
 .ig-stat:hover{background:rgba(0,0,0,.04)}
 .dark-mode .ig-stat:hover{background:rgba(255,255,255,.06)}
-.ig-stat-num{font-size:18px;font-weight:800;color:#111;line-height:1.2}
+.ig-stat-num{font-size:18px;font-weight:800;color:#111;line-height:1.2;font-variant-numeric:tabular-nums}
 .dark-mode .ig-stat-num{color:#fff}
-.ig-stat-label{font-size:12px;color:#777;margin-top:2px;font-weight:600}
+.ig-stat-label{font-size:13px;color:#777;margin-top:2px;font-weight:500}
 .dark-mode .ig-stat-label{color:#aaa}
-.ig-name-block{margin:8px 0 6px}
-.ig-name{font-size:16px;font-weight:700;color:#111;margin-bottom:2px}
+
+/* Identity & Bio */
+.ig-name-block{margin:6px 0 14px}
+.ig-name{font-size:15px;font-weight:800;color:#111;margin-bottom:2px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .dark-mode .ig-name{color:#fff}
-.ig-username{font-size:14px;color:#e63946;font-weight:600}
-#userEmail{display:none!important}
-.ig-bio{font-size:14px;line-height:1.5;color:#555;margin:10px 0 16px;white-space:pre-wrap;word-break:break-word}
-.dark-mode .ig-bio{color:#ccc}
-.ig-actions{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.ig-btn{flex:1;min-width:130px;padding:9px 16px;border:1px solid #ddd;background:#f5f5f5;color:#111;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:background .15s}
-.ig-btn:hover{background:#e8e8e8}
-.dark-mode .ig-btn{background:#262626;border-color:#333;color:#fff}
-.dark-mode .ig-btn:hover{background:#333}
-.ig-meta-stats{display:flex;gap:24px;padding:12px 0;border-top:1px solid #eee;border-bottom:1px solid #eee;font-size:13px;color:#666;margin-bottom:16px}
-.dark-mode .ig-meta-stats{border-color:#262626;color:#aaa}
-.ig-meta-stats b{color:#e63946;font-weight:800}
-.ig-posts-tabs{display:flex;gap:0;border-bottom:1px solid #eee;margin-bottom:0}
-.dark-mode .ig-posts-tabs{border-color:#262626}
-.ig-tab{flex:1;padding:12px 8px;background:none;border:none;border-bottom:2px solid transparent;font-size:11px;font-weight:800;color:#888;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.8px;transition:.15s}
-.ig-tab.active{color:#111;border-bottom-color:#111}
-.dark-mode .ig-tab{color:#888}
-.dark-mode .ig-tab.active{color:#fff;border-bottom-color:#fff}
-.ig-posts-grid{min-height:220px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:20px;padding-top:4px}
-.ig-posts-grid.grid-empty{display:block;text-align:center}
-.ig-posts-grid.ig-video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;padding:6px 0 10px}
-@media(max-width:520px){.ig-posts-grid.ig-video-grid{grid-template-columns:1fr}}
-.ig-empty{color:#888;font-size:14px;padding:60px 20px}
-.ig-empty-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
-.ig-post-tile{position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;cursor:pointer}
-.ig-post-tile img{width:100%;height:100%;object-fit:cover;display:block}
-.ig-logout-btn{width:100%;padding:12px;border:1px solid #e63946;background:transparent;color:#e63946;border-radius:10px;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px;margin-top:8px;transition:.15s}
-.ig-logout-btn:hover{background:#e63946;color:#fff}
-.ig-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:10040;align-items:center;justify-content:center;padding:14px}
+.ig-category-badge{font-size:12px;color:#777;font-weight:600;margin-bottom:6px}
+.dark-mode .ig-category-badge{color:#999}
+.ig-bio{font-size:14px;line-height:1.45;color:#222;margin:6px 0 8px;white-space:pre-wrap;word-break:break-word}
+.dark-mode .ig-bio{color:#ddd}
+.ig-bio-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:#00376b;text-decoration:none;transition:opacity .15s}
+.ig-bio-link:hover{text-decoration:underline}
+.dark-mode .ig-bio-link{color:#e0f1ff}
+
+/* Action Buttons */
+.ig-actions{display:flex;gap:8px;margin-bottom:14px}
+.ig-btn{flex:1;padding:8px 14px;border:none;background:#efefef;color:#111;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:background .15s, transform .1s}
+.ig-btn:hover{background:#dbdbdb}
+.ig-btn:active{transform:scale(.98)}
+.dark-mode .ig-btn{background:#262626;color:#fff}
+.dark-mode .ig-btn:hover{background:#363636}
+.ig-btn.primary{background:#0095f6;color:#fff}
+.ig-btn.primary:hover{background:#1877f2}
+.ig-btn.icon-only{flex:0 0 42px;width:42px;padding:0}
+
+/* Professional Dashboard Card */
+.ig-pro-dashboard{background:#f8f9fa;border:1px solid #e9ecef;border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin-bottom:16px;transition:background .15s}
+.ig-pro-dashboard:hover{background:#f1f3f5}
+.dark-mode .ig-pro-dashboard{background:#1e1e1e;border-color:#2a2a2a}
+.dark-mode .ig-pro-dashboard:hover{background:#262626}
+.ipd-title{font-size:13px;font-weight:800;color:#111}
+.dark-mode .ipd-title{color:#fff}
+.ipd-sub{font-size:12px;color:#666;margin-top:2px}
+.dark-mode .ipd-sub{color:#aaa}
+.ipd-arrow{width:14px;height:14px;color:#999}
+
+/* Story Highlights Tray */
+.ig-highlights-tray{display:flex;gap:16px;overflow-x:auto;padding:4px 0 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.ig-highlights-tray::-webkit-scrollbar{display:none}
+.ig-highlight-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;flex-shrink:0}
+.igh-ring{width:64px;height:64px;border-radius:50%;padding:2px;border:1px solid #dbdbdb;display:flex;align-items:center;justify-content:center;background:#fff;transition:transform .15s}
+.ig-highlight-item:hover .igh-ring{transform:scale(1.05)}
+.dark-mode .igh-ring{border-color:#363636;background:#181818}
+.igh-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.igh-ring.igh-add{border:1px dashed #999;color:#555;background:#f9f9f9}
+.dark-mode .igh-ring.igh-add{border-color:#666;color:#ccc;background:#222}
+.igh-label{font-size:11px;font-weight:600;color:#111;max-width:68px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dark-mode .igh-label{color:#ddd}
+
+/* Instagram Sticky Tabs */
+.ig-posts-tabs{display:flex;border-top:1px solid #dbdbdb;border-bottom:1px solid #efefef;position:sticky;top:56px;background:#fff;z-index:10}
+.dark-mode .ig-posts-tabs{border-color:#262626;background:#111}
+.ig-tab{flex:1;height:46px;background:none;border:none;border-top:2px solid transparent;margin-top:-1px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700;color:#8e8e8e;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:color .15s, border-color .15s}
+.ig-tab .ico{width:18px;height:18px}
+.ig-tab.active{color:#111;border-top-color:#111}
+.dark-mode .ig-tab.active{color:#fff;border-top-color:#fff}
+@media(max-width:480px){.ig-tab span{display:none}.ig-tab .ico{width:22px;height:22px}}
+
+/* Grid Content */
+.ig-posts-grid{min-height:260px;margin-top:3px}
+.ig-posts-grid.ig-grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.ig-grid-tile{position:relative;aspect-ratio:1/1;background:#262626;overflow:hidden;cursor:pointer}
+.ig-grid-tile img,.ig-grid-tile video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+.ig-grid-tile:hover img{transform:scale(1.04)}
+.ig-tile-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;gap:16px;color:#fff;font-weight:800;font-size:14px;opacity:0;transition:opacity .15s}
+.ig-grid-tile:hover .ig-tile-overlay{opacity:1}
+.ig-tile-badge{position:absolute;top:8px;right:8px;color:#fff;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+
+/* Reel Tile (9:16 vertical) */
+.ig-posts-grid.ig-reels-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.ig-reel-tile{position:relative;aspect-ratio:9/16;background:#181818;overflow:hidden;border-radius:4px;cursor:pointer}
+.ig-reel-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.ig-reel-plays{position:absolute;bottom:8px;left:8px;color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;gap:4px;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+
+.ig-empty{color:#888;font-size:14px;padding:60px 20px;text-align:center}
+.ig-empty-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.6}
+
+/* Modals & Overlays */
+.ig-sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;z-index:10050;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.ig-sheet-overlay.show{display:flex}
+.ig-sheet-box{width:min(440px,100%);background:#fff;border-radius:18px 18px 0 0;overflow:hidden;animation:igSlideUp .2s ease;padding:8px 0 24px}
+.dark-mode .ig-sheet-box{background:#1f1f1f}
+@keyframes igSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.ig-sheet-item{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:15px;font-weight:600;color:#111;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background .12s}
+.ig-sheet-item:hover{background:#f5f5f5}
+.dark-mode .ig-sheet-item{color:#eee}
+.dark-mode .ig-sheet-item:hover{background:#2a2a2a}
+.ig-sheet-item.danger{color:#ed4956}
+.ig-sheet-cancel{margin-top:6px;border-top:1px solid #eee;font-weight:700}
+.dark-mode .ig-sheet-cancel{border-color:#333}
+
+/* List Overlay (Followers/Following) */
+.ig-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10040;align-items:center;justify-content:center;padding:14px}
 .ig-list-overlay.show{display:flex}
-.ig-list-box{width:min(420px,100%);height:min(72vh,620px);background:#fff;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.dark-mode .ig-list-box{background:#1b1b1b}
-.ig-list-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid #eee;flex-shrink:0}
-.dark-mode .ig-list-header{border-color:#262626}
-.ig-list-header h3{font-size:16px;font-weight:800}
-.ig-list-header button{border:none;background:#f1f1f1;color:#333;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px}
-.dark-mode .ig-list-header button{background:#262626;color:#fff}
-.ig-list-content{flex:1;overflow-y:auto;padding:8px 16px}
-.ig-user-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5}
-.dark-mode .ig-user-row{border-color:#262626}
-.ig-user-row img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
-.ig-user-meta{flex:1;min-width:0}
-.ig-user-name{font-size:14px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dark-mode .ig-user-name{color:#fff}
-.ig-user-username{font-size:12px;color:#888;margin-top:2px}
-.ig-user-action{border:none;background:#e63946;color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
-.ig-user-action.secondary{background:#f1f1f1;color:#111}
-.dark-mode .ig-user-action.secondary{background:#262626;color:#fff}
-.ig-list-empty{text-align:center;color:#888;padding:60px 20px;font-size:14px}
-.ig-list-empty .big-icon{font-size:44px;display:block;margin-bottom:12px;opacity:.5}
-.profile-edit-card{margin-top:16px;text-align:left}
-.profile-edit-card[hidden]{display:none}
-.profile-edit-card label{display:block;font-weight:700;margin:10px 0 6px}
-.profile-edit-card input,.profile-edit-card textarea{width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:12px;padding:11px 12px;font:inherit;background:#fff;color:#222}
-.dark-mode .profile-edit-card input,.dark-mode .profile-edit-card textarea{background:#1c1c1c;color:#fff;border-color:#333}
-.profile-edit-card textarea{min-height:90px;resize:vertical}
-.profile-edit-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
-.profile-edit-hint{font-size:12px;color:#888;margin-top:5px}
+.ig-list-box{width:min(440px,100%);height:min(75vh,640px);background:#fff;border-radius:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+.dark-mode .ig-list-box{background:#1c1c1c}
+.ig-list-tabs{display:flex;border-bottom:1px solid #eee}
+.dark-mode .ig-list-tabs{border-color:#2a2a2a}
+.ig-list-tab{flex:1;padding:14px;background:none;border:none;border-bottom:2px solid transparent;font-size:14px;font-weight:700;color:#888;cursor:pointer;transition:.15s}
+.ig-list-tab.active{color:#111;border-bottom-color:#111}
+.dark-mode .ig-list-tab.active{color:#fff;border-bottom-color:#fff}
+.ig-list-search-wrap{padding:10px 14px;border-bottom:1px solid #f0f0f0}
+.dark-mode .ig-list-search-wrap{border-color:#262626}
+.ig-list-search-input{width:100%;box-sizing:border-box;background:#f0f2f5;border:none;border-radius:10px;padding:9px 12px;font-size:13px;outline:none}
+.dark-mode .ig-list-search-input{background:#2a2a2a;color:#fff}
+.ig-user-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #f8f8f8}
+.dark-mode .ig-user-row{border-color:#252525}
+.ig-user-row img{width:46px;height:46px;border-radius:50%;object-fit:cover;background:#eee;flex:0 0 auto}
+.ig-user-actions-cluster{display:flex;align-items:center;gap:6px}
+.ig-msg-shortcut-btn{width:34px;height:34px;border-radius:50%;border:1px solid #dbdbdb;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#111}
+.dark-mode .ig-msg-shortcut-btn{background:#262626;border-color:#363636;color:#fff}
+.ig-remove-follower-btn{background:#efefef;border:none;color:#ed4956;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer}
+.dark-mode .ig-remove-follower-btn{background:#2a2a2a;color:#ff6b6b}
+
 .login-google{background:#4285f4;color:#fff;border:none;padding:14px 28px;border-radius:30px;font-weight:800;cursor:pointer;font-size:15px;display:inline-flex;align-items:center;gap:10px;font-family:inherit}
 
 /* Settings */
@@ -1292,6 +1356,123 @@ body.messages-open .bottom-nav{display:none !important}
 .mobile-link-btn{display:block;margin:12px auto 0;border:none;background:transparent;color:#e63946;font-weight:700;font-size:13px;cursor:pointer;padding:6px}
 .mobile-verified-badge{width:64px;height:64px;border-radius:50%;background:#e8f8ee;color:#1a9e56;font-size:32px;display:flex;align-items:center;justify-content:center;margin:0 auto}
 .dark-mode .mobile-verified-badge{background:#123322}
+
+/* Instagram Profile Extra Features & Post Grid Overlays */
+.ig-grid-tile { position: relative; aspect-ratio: 1/1; background: #262626; overflow: hidden; cursor: pointer; border-radius: 3px; }
+.ig-grid-tile img, .ig-grid-tile video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+.ig-grid-tile:hover img, .ig-grid-tile:hover video { transform: scale(1.03); }
+.ig-tile-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.42); display: flex; align-items: center; justify-content: center; gap: 16px; color: #fff; font-weight: 800; font-size: 14px; opacity: 0; transition: opacity .15s; }
+.ig-grid-tile:hover .ig-tile-overlay, .ig-grid-tile:active .ig-tile-overlay { opacity: 1; }
+.ig-tile-stat { display: inline-flex; align-items: center; gap: 5px; }
+.ig-tile-badge { position: absolute; top: 7px; right: 7px; color: #fff; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.7)); pointer-events: none; }
+
+/* Reel Grid Tile (9:16) */
+.ig-reel-tile { position: relative; aspect-ratio: 9/16; background: #161616; overflow: hidden; border-radius: 6px; cursor: pointer; }
+.ig-reel-tile img, .ig-reel-tile video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ig-reel-plays { position: absolute; bottom: 8px; left: 8px; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 5px; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
+
+/* Instagram Empty States with action button */
+.ig-empty-box { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px 20px; text-align: center; }
+.ig-empty-circle { width: 68px; height: 68px; border-radius: 50%; border: 2px solid #111; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; color: #111; }
+.dark-mode .ig-empty-circle { border-color: #fff; color: #fff; }
+.ig-empty-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: #111; }
+.dark-mode .ig-empty-title { color: #fff; }
+.ig-empty-desc { font-size: 13px; color: #777; max-width: 320px; line-height: 1.45; margin-bottom: 18px; }
+.dark-mode .ig-empty-desc { color: #aaa; }
+.ig-empty-action-btn { background: #0095f6; color: #fff; border: none; padding: 10px 18px; border-radius: 20px; font-weight: 700; font-size: 13px; cursor: pointer; font-family: inherit; transition: opacity .15s; }
+.ig-empty-action-btn:hover { opacity: .9; }
+
+/* Instagram Create Post/Reel Modal */
+.ig-create-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; z-index: 10045; align-items: center; justify-content: center; padding: 14px; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.ig-create-overlay.show { display: flex; }
+.ig-create-box { width: min(520px, 100%); max-height: 90vh; max-height: 90dvh; background: #fff; border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+.dark-mode .ig-create-box { background: #1a1a1a; color: #fff; border: 1px solid #2a2a2a; }
+.ig-create-header { padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; }
+.dark-mode .ig-create-header { border-bottom-color: #2a2a2a; }
+.ig-create-header h3 { font-size: 16px; font-weight: 800; margin: 0; }
+.ig-create-tabs { display: flex; border-bottom: 1px solid #eee; background: #fafafa; }
+.dark-mode .ig-create-tabs { border-bottom-color: #2a2a2a; background: #141414; }
+.ig-create-tab { flex: 1; padding: 12px; border: none; background: none; font-size: 13px; font-weight: 700; color: #888; cursor: pointer; border-bottom: 2px solid transparent; font-family: inherit; }
+.ig-create-tab.active { color: #0095f6; border-bottom-color: #0095f6; }
+.ig-create-body { padding: 18px; overflow-y: auto; flex: 1; min-height: 0; }
+.ig-media-drop { border: 2px dashed #ddd; border-radius: 16px; padding: 26px 16px; text-align: center; cursor: pointer; transition: border-color .15s, background .15s; background: #fafafa; }
+.dark-mode .ig-media-drop { border-color: #333; background: #222; }
+.ig-media-drop:hover { border-color: #0095f6; }
+.ig-media-preview-wrap { position: relative; border-radius: 14px; overflow: hidden; max-height: 280px; background: #000; margin-bottom: 14px; display: none; }
+.ig-media-preview-wrap img, .ig-media-preview-wrap video { width: 100%; max-height: 280px; object-fit: contain; display: block; margin: 0 auto; }
+.ig-media-remove-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.7); color: #fff; border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+.ig-tags-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
+.ig-tag-pill { background: #f0f2f5; border: 1px solid #e4e6eb; border-radius: 14px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #0095f6; cursor: pointer; }
+.dark-mode .ig-tag-pill { background: #262626; border-color: #363636; }
+
+/* Instagram Post Viewer Modal */
+.ig-post-view-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; z-index: 10048; align-items: center; justify-content: center; padding: 12px; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); }
+.ig-post-view-overlay.show { display: flex; }
+.ig-post-view-box { width: min(480px, 100%); max-height: 92vh; max-height: 92dvh; background: #fff; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 25px 70px rgba(0,0,0,0.6); }
+.dark-mode .ig-post-view-box { background: #161616; color: #fff; border: 1px solid #2a2a2a; }
+.ig-pv-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; }
+.dark-mode .ig-pv-header { border-bottom-color: #2a2a2a; }
+.ig-pv-user { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.ig-pv-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+.ig-pv-name { font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 4px; }
+.ig-pv-media-wrap { width: 100%; max-height: 420px; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.ig-pv-media-wrap img, .ig-pv-media-wrap video { width: 100%; max-height: 420px; object-fit: contain; }
+.ig-pv-actions { padding: 10px 16px 6px; display: flex; align-items: center; justify-content: space-between; }
+.ig-pv-actions-left { display: flex; align-items: center; gap: 14px; }
+.ig-pv-btn { background: none; border: none; padding: 4px; cursor: pointer; color: #111; display: inline-flex; align-items: center; }
+.dark-mode .ig-pv-btn { color: #fff; }
+.ig-pv-btn.liked { color: #e63946; }
+.ig-pv-btn svg { width: 22px; height: 22px; }
+.ig-pv-content { padding: 0 16px 12px; overflow-y: auto; flex: 1; min-height: 0; }
+.ig-pv-likes { font-size: 13px; font-weight: 800; margin-bottom: 6px; }
+.ig-pv-caption { font-size: 13px; line-height: 1.45; margin-bottom: 10px; word-break: break-word; }
+.ig-pv-comments-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; border-top: 1px solid #f0f0f0; padding-top: 8px; }
+.dark-mode .ig-pv-comments-list { border-top-color: #262626; }
+.ig-pv-comment-row { font-size: 12px; line-height: 1.35; display: flex; gap: 8px; }
+.ig-pv-comment-input-bar { padding: 10px 14px; border-top: 1px solid #eee; display: flex; align-items: center; gap: 8px; background: #fafafa; }
+.dark-mode .ig-pv-comment-input-bar { border-top-color: #2a2a2a; background: #1a1a1a; }
+.ig-pv-input { flex: 1; border: none; background: transparent; font-size: 13px; outline: none; font-family: inherit; color: #111; }
+.dark-mode .ig-pv-input { color: #fff; }
+.ig-pv-post-comment-btn { border: none; background: none; color: #0095f6; font-weight: 700; font-size: 13px; cursor: pointer; }
+
+/* Instagram Share Profile Card Modal */
+.ig-qr-card { border-radius: 24px; padding: 28px 20px; text-align: center; color: #fff; position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3); transition: background .3s; }
+.ig-qr-avatar { width: 76px; height: 76px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; margin: 0 auto 10px; box-shadow: 0 6px 16px rgba(0,0,0,0.25); display: block; }
+.ig-qr-title { font-size: 20px; font-weight: 800; margin: 0 0 2px; }
+.ig-qr-sub { font-size: 12px; opacity: .88; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+.ig-qr-code-box { background: #fff; border-radius: 18px; padding: 12px; width: 180px; height: 180px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
+.ig-qr-code-box img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ig-color-dots { display: flex; justify-content: center; gap: 10px; margin-bottom: 16px; }
+.ig-color-dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+
+/* Creator Professional Dashboard Modal */
+.ig-pro-metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0; }
+.ig-metric-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 14px; padding: 14px; text-align: left; }
+.dark-mode .ig-metric-card { background: #202020; border-color: #2c2c2c; }
+.ig-metric-label { font-size: 11px; color: #777; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+.dark-mode .ig-metric-label { color: #aaa; }
+.ig-metric-val { font-size: 20px; font-weight: 800; color: #111; }
+.dark-mode .ig-metric-val { color: #fff; }
+.ig-metric-change { font-size: 11px; font-weight: 700; color: #22c55e; margin-top: 3px; display: inline-flex; align-items: center; gap: 2px; }
+
+/* Settings Switches and Toggles */
+.ig-switch { position: relative; display: inline-block; width: 44px; height: 24px; flex-shrink: 0; }
+.ig-switch input { opacity: 0; width: 0; height: 0; }
+.ig-switch-slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .25s; border-radius: 24px; }
+.ig-switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+.ig-switch input:checked + .ig-switch-slider { background-color: #0095f6; }
+.ig-switch input:checked + .ig-switch-slider:before { transform: translateX(20px); }
+.dark-mode .ig-switch-slider { background-color: #444; }
+
+.settings-radio-pill { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e8e8e8; border-radius: 12px; margin-bottom: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: border-color .15s, background .15s; }
+.dark-mode .settings-radio-pill { border-color: #2e2e2e; }
+.settings-radio-pill.selected { border-color: #0095f6; background: rgba(0,149,246,0.06); color: #0095f6; }
+.blocked-user-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+.dark-mode .blocked-user-row { border-bottom-color: #262626; }
+.blocked-user-info { display: flex; align-items: center; gap: 10px; }
+.blocked-user-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.unblock-btn { background: #efefef; color: #e63946; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.dark-mode .unblock-btn { background: #262626; color: #ff6b77; }
 /* Crimson Verification & Creator Badges */
 .verified-badge-wrap{display:inline-flex;align-items:center;vertical-align:middle;margin-left:4px;flex-shrink:0}
 .verified-badge-wrap svg{display:block}
@@ -2777,6 +2958,14 @@ body.messages-open .bottom-nav{display:none !important}
 <symbol id="i-bookmark-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/><polyline points="9 10 11 12 15 8"/></symbol>
 <symbol id="i-ban" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
 <symbol id="i-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+<symbol id="i-user-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="18" y1="8" x2="23" y2="13"/><line x1="23" y1="8" x2="18" y2="13"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 2-2 2m-1.5 1.5L16 7l-1.5-1.5L13 7l-1 1H8a6 6 0 1 0 6 6v-3.5L21 2z"/><circle cx="8" cy="16" r="2"/></symbol>
+<symbol id="i-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></symbol>
 </svg>
 <main>
 
@@ -3294,11 +3483,18 @@ body.messages-open .bottom-nav{display:none !important}
 
 <div id="tab-profile" class="tab-pane">
   <section class="profile-section-ig">
+    <!-- Instagram Top Bar -->
     <div class="ig-profile-header">
-      <span class="ig-profile-username" id="profileHeaderUsername">username</span>
-      <svg class="ico ig-profile-chev"><use href="#i-chevron"></use></svg>
+      <div class="ig-header-identity" id="igHeaderIdentityBtn" role="button" tabindex="0">
+        <svg class="ico ig-header-lock"><use href="#i-lock"></use></svg>
+        <span class="ig-profile-username" id="profileHeaderUsername">username</span>
+        <svg class="ico ig-profile-chev"><use href="#i-chevron"></use></svg>
+      </div>
+      <div class="ig-header-actions">
+        <button type="button" id="profileCreateBtn" class="ig-header-btn" aria-label="Create content" title="Create"><svg class="ico"><use href="#i-plus-square"></use></svg></button>
+        <button type="button" id="profileMenuBtn" class="ig-header-btn" aria-label="Settings & Activity" title="Settings"><svg class="ico"><use href="#i-menu"></use></svg></button>
+      </div>
     </div>
-    <button type="button" id="profileMenuBtn" aria-label="Menu" title="Menu"><svg class="ico"><use href="#i-dots"></use></svg></button>
 
     <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
       <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login karke like, comment, save videos aur message friends.</p>
@@ -3308,14 +3504,17 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
 
     <div id="profileLoggedIn" class="profile-ig" style="display:none">
+      <!-- Profile Header Row -->
       <div class="ig-profile-top">
-        <div class="ig-avatar-wrap">
-          <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
-          <label for="profilePhotoInput" class="ig-avatar-edit" title="Change Photo"><svg class="ico" style="width:14px;height:14px"><use href="#i-camera"></use></svg></label>
+        <div class="ig-avatar-wrap" id="profileAvatarWrap" title="Profile picture options" onclick="openAvatarActionSheet()">
+          <div class="ig-story-ring" id="profileStoryRing">
+            <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
+          </div>
+          <div class="ig-avatar-edit" id="avatarEditBadge" title="Change Photo" onclick="event.stopPropagation();openAvatarActionSheet();"><svg class="ico" style="width:14px;height:14px"><use href="#i-camera"></use></svg></div>
           <input id="profilePhotoInput" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;opacity:0">
         </div>
         <div class="ig-stats-row">
-          <div class="ig-stat" id="statPostsClick">
+          <div class="ig-stat" id="statPostsClick" onclick="switchIgTab('posts')">
             <div class="ig-stat-num" id="statPosts">0</div>
             <div class="ig-stat-label">Posts</div>
           </div>
@@ -3330,45 +3529,115 @@ body.messages-open .bottom-nav{display:none !important}
         </div>
       </div>
 
+      <!-- Identity & Bio -->
       <div class="ig-name-block">
-        <div id="userName" class="ig-name"></div>
-        <div id="profileUsername" class="ig-username">@username</div>
+        <div id="userName" class="ig-name">User</div>
+        <div class="ig-category-badge" id="profileCategoryBadge">🎬 Comedy Creator · Entertainer</div>
+        <div id="profileBio" class="ig-bio">No bio yet.</div>
+        <a id="profileBioLink" class="ig-bio-link" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">
+          <svg class="ico" style="width:13px;height:13px"><use href="#i-link"></use></svg>
+          <span id="profileBioLinkText">youtube.com/@up_comedyhub</span>
+        </a>
       </div>
 
-      <div id="profileBio" class="ig-bio">No bio yet.</div>
-
+      <!-- Instagram Action Buttons -->
       <div class="ig-actions">
-        <button type="button" id="editProfileBtn" class="ig-btn"><svg class="ico" style="width:13px;height:13px;margin-right:4px;vertical-align:-1px"><use href="#i-edit"></use></svg>Edit Profile</button>
-        <button type="button" id="shareProfileBtn" class="ig-btn"><svg class="ico"><use href="#i-send"></use></svg> Share Profile</button>
-        <button type="button" id="profileGetVerifiedBtn" class="ig-btn" style="border-color:#e63946;color:#e63946"><svg class="ico" style="width:14px;height:14px;vertical-align:middle;margin-right:4px"><use href="#i-verified-crimson"></use></svg><span id="profileVerifiedBtnLabel">Get Verified</span></button>
+        <button type="button" id="editProfileBtn" class="ig-btn primary"><svg class="ico" style="width:14px;height:14px"><use href="#i-edit"></use></svg>Edit Profile</button>
+        <button type="button" id="shareProfileBtn" class="ig-btn" onclick="openShareProfileCard()"><svg class="ico" style="width:14px;height:14px"><use href="#i-send"></use></svg>Share Profile</button>
+        <button type="button" id="createPostShortcutBtn" class="ig-btn" onclick="openCreatePostModal('photo')"><svg class="ico" style="width:14px;height:14px"><use href="#i-plus-square"></use></svg>New Post</button>
+        <button type="button" id="savedShortcutBtn" class="ig-btn icon-only" title="Saved" onclick="switchIgTab('saved')"><svg class="ico" style="width:16px;height:16px"><use href="#i-bookmark"></use></svg></button>
       </div>
 
+      <!-- Professional Dashboard Card -->
+      <div class="ig-pro-dashboard" id="proDashboardCard" onclick="openProDashboardModal()">
+        <div class="ipd-left">
+          <div class="ipd-title">📊 Professional dashboard</div>
+          <div class="ipd-sub">1.8K accounts reached in the last 30 days</div>
+        </div>
+        <svg class="ico ipd-arrow"><use href="#i-chevron"></use></svg>
+      </div>
+
+      <!-- Story Highlights Tray -->
+      <div class="ig-highlights-tray" id="profileHighlightsTray">
+        <div class="ig-highlight-item" id="newHighlightBtn" onclick="openCreateHighlightModal()">
+          <div class="igh-ring igh-add">
+            <svg class="ico" style="width:20px;height:20px"><use href="#i-plus"></use></svg>
+          </div>
+          <span class="igh-label">New</span>
+        </div>
+        <div class="ig-highlight-item" data-highlight="standup" onclick="playStoryHighlight('standup', '🔥 Standup')">
+          <div class="igh-ring">
+            <img src="IMG_20260917_172912.jpg" alt="Standup">
+          </div>
+          <span class="igh-label">🔥 Standup</span>
+        </div>
+        <div class="ig-highlight-item" data-highlight="jokes" onclick="playStoryHighlight('jokes', '😂 Memes')">
+          <div class="igh-ring">
+            <img src="IMG_20261002_053016.png" alt="Memes">
+          </div>
+          <span class="igh-label">😂 Memes</span>
+        </div>
+        <div class="ig-highlight-item" data-highlight="bts" onclick="playStoryHighlight('bts', '🎬 BTS')">
+          <div class="igh-ring">
+            <img src="IMG_20260804_133118670_HDR_AE.jpg" alt="BTS">
+          </div>
+          <span class="igh-label">🎬 BTS</span>
+        </div>
+        <div class="ig-highlight-item" data-highlight="team" onclick="playStoryHighlight('team', '❤️ Family')">
+          <div class="igh-ring">
+            <img src="IMG_20260818_143929710_HDR_PORTRAIT.jpg" alt="Family">
+          </div>
+          <span class="igh-label">❤️ Family</span>
+        </div>
+      </div>
+
+      <!-- Edit Profile Card -->
       <div id="profileEditCard" class="card profile-edit-card" hidden>
         <h3 style="margin-top:0;display:flex;align-items:center;gap:6px"><svg class="ico" style="width:16px;height:16px;color:#e63946"><use href="#i-edit"></use></svg> Edit Profile</h3>
+        <div class="edit-profile-avatar-row" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee">
+          <img id="editProfileAvatarPreview" class="edit-profile-avatar-preview" src="" alt="Avatar" style="width:62px;height:62px;border-radius:50%;object-fit:cover;background:#eee">
+          <div>
+            <div id="editProfileNamePreview" style="font-weight:700;font-size:15px">User</div>
+            <button type="button" class="change-photo-link" onclick="openAvatarActionSheet()" style="background:none;border:none;color:#0095f6;font-size:13px;font-weight:700;padding:4px 0;cursor:pointer">Change profile photo</button>
+          </div>
+        </div>
         <label for="usernameInput">Username</label>
         <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
         <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+        <label for="displayNameInput">Name</label>
+        <input id="displayNameInput" type="text" maxlength="50" autocomplete="off" placeholder="Your full name">
+        <label for="pronounsInput">Pronouns</label>
+        <input id="pronounsInput" type="text" maxlength="30" placeholder="e.g. he/him, creator">
+        <label for="categoryInput">Category</label>
+        <select id="categoryInput" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px;background:#f9f9f9;font-family:inherit;font-size:14px">
+          <option value="🎬 Comedy Creator · Entertainer">🎬 Comedy Creator · Entertainer</option>
+          <option value="🎭 Standup Comedian">🎭 Standup Comedian</option>
+          <option value="⚡ Digital Video Creator">⚡ Digital Video Creator</option>
+          <option value="🌟 Public Figure">🌟 Public Figure</option>
+          <option value="🎨 Artist & Entertainer">🎨 Artist & Entertainer</option>
+          <option value="🎮 Gaming & Comedy">🎮 Gaming & Comedy</option>
+          <option value="❤️ Community Creator">❤️ Community Creator</option>
+        </select>
         <label for="bioInput">Bio</label>
         <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..."></textarea>
-        <div class="profile-edit-actions">
+        <label for="websiteLinkInput">Link in Bio</label>
+        <input id="websiteLinkInput" type="url" placeholder="https://youtube.com/@yourchannel or website">
+        <div class="profile-edit-actions" style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
           <button type="button" id="cancelProfileEdit" style="background:#eee;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Cancel</button>
-          <button type="button" id="saveProfileBtn" style="background:#e63946;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
+          <button type="button" id="saveProfileBtn" style="background:#0095f6;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
         </div>
       </div>
 
+      <!-- Instagram Sticky Navigation Tabs -->
       <div class="ig-posts-tabs">
-        <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-camera"></use></svg> Posts</button>
-        <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</button>
-        <button type="button" class="ig-tab" data-ig-tab="videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</button>
-        <button type="button" class="ig-tab" data-ig-tab="playlist"><svg class="ico"><use href="#i-bookmark"></use></svg> Playlist</button>
+        <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-grid"></use></svg><span>Posts</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-reels"></use></svg><span>Reels</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="saved"><svg class="ico"><use href="#i-bookmark"></use></svg><span>Saved</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="tagged"><svg class="ico"><use href="#i-tag"></use></svg><span>Tagged</span></button>
       </div>
 
-      <div id="igPostsGrid" class="ig-posts-grid grid-empty">
-        <div class="ig-empty">
-          <span class="ig-empty-icon">📷</span>
-          Abhi koi post nahi. Jald aa raha hai! 🚀
-        </div>
-      </div>
+      <!-- Main Profile Grid -->
+      <div id="igPostsGrid" class="ig-posts-grid"></div>
     </div>
 
   </section>
@@ -4217,6 +4486,10 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" id="settingsVerifyTickRow" onclick="openVerificationModal()"><svg class="snr-ico" style="color:#e63946"><use href="#i-verified-crimson"></use></svg><span class="snr-label">Creator Verification &amp; Tick</span><span class="snr-value" id="settingsVerifiedStatus" style="color:#e63946;font-weight:700">Get Verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
+      <!-- Account Privacy, Calling & Password Security (Feature 5) -->
+      <div class="settings-nav-row" data-settings-view="privacySafety"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy &amp; Safety</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="passwordSecurity"><svg class="snr-ico"><use href="#i-lock"></use></svg><span class="snr-label">Password &amp; Security</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="guidelines"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community Guidelines</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="terms"><svg class="snr-ico"><use href="#i-file"></use></svg><span class="snr-label">Terms &amp; Conditions</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -4403,6 +4676,112 @@ body.messages-open .bottom-nav{display:none !important}
         <p style="font-size:13px;color:#777;margin:0 0 16px;text-align:center">📱 Scan this QR with any UPI app</p>
         <p class="support-note" style="text-align:center">🔒 100% secure. Payment directly humare UPI par aata hai.</p>
       </div>
+
+      <!-- Feature 5: Privacy & Safety Subpage -->
+      <div class="settings-subpage" id="subPrivacySafety" style="display:none">
+        <p style="color:#888;font-size:13px;margin-bottom:14px">Apne account ki privacy, messaging aur calls control karein.</p>
+        
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:16px" class="dark-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
+            <div style="font-weight:700;font-size:14px">🔒 Private Account</div>
+            <label class="ig-switch">
+              <input type="checkbox" id="privateAccountToggle" onchange="togglePrivateAccount(this.checked)">
+              <span class="ig-switch-slider"></span>
+            </label>
+          </div>
+          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Jab aapka account private hoga, tab sirf aapke approved followers hi aapke posts aur stories dekh payenge.</p>
+        </div>
+
+        <h4 style="font-size:13px;text-transform:uppercase;color:#888;margin:16px 0 8px;letter-spacing:0.5px">Who can message you</h4>
+        <div id="msgPermissionGroup">
+          <div class="settings-radio-pill selected" id="msgOptEveryone" onclick="setMsgPermission('everyone', this)">
+            <span>🌐 Everyone (Sabhi users)</span>
+            <span class="ico-check">✓</span>
+          </div>
+          <div class="settings-radio-pill" id="msgOptFollowers" onclick="setMsgPermission('followers', this)">
+            <span>👥 People you follow only</span>
+            <span class="ico-check"></span>
+          </div>
+          <div class="settings-radio-pill" id="msgOptNone" onclick="setMsgPermission('none', this)">
+            <span>🚫 No one (Messages off)</span>
+            <span class="ico-check"></span>
+          </div>
+        </div>
+
+        <h4 style="font-size:13px;text-transform:uppercase;color:#888;margin:16px 0 8px;letter-spacing:0.5px">Who can call you</h4>
+        <div id="callPermissionGroup">
+          <div class="settings-radio-pill selected" id="callOptEveryone" onclick="setCallPermission('everyone', this)">
+            <span>🌐 Everyone (Audio/Video calls)</span>
+            <span class="ico-check">✓</span>
+          </div>
+          <div class="settings-radio-pill" id="callOptFollowers" onclick="setCallPermission('followers', this)">
+            <span>👥 People you follow only</span>
+            <span class="ico-check"></span>
+          </div>
+          <div class="settings-radio-pill" id="callOptNone" onclick="setCallPermission('none', this)">
+            <span>🚫 No one (Calls disabled)</span>
+            <span class="ico-check"></span>
+          </div>
+        </div>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin:16px 0" class="dark-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
+            <div style="font-weight:700;font-size:14px">🟢 Activity Status</div>
+            <label class="ig-switch">
+              <input type="checkbox" id="activityStatusToggle" checked onchange="toggleActivityStatus(this.checked)">
+              <span class="ig-switch-slider"></span>
+            </label>
+          </div>
+          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Doston ko dikhayein ki aap kab online hain aur last active the.</p>
+        </div>
+
+        <h4 style="font-size:13px;text-transform:uppercase;color:#888;margin:16px 0 8px;letter-spacing:0.5px">🚫 Blocked Accounts</h4>
+        <div id="settingsBlockedList" style="min-height:48px">
+          <p style="font-size:13px;color:#888;text-align:center;padding:12px">Koi blocked user nahi hai.</p>
+        </div>
+      </div>
+
+      <!-- Feature 5: Password & Security Subpage -->
+      <div class="settings-subpage" id="subPasswordSecurity" style="display:none">
+        <p style="color:#888;font-size:13px;margin-bottom:14px">Apna password badlein aur account security manage karein.</p>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:16px" class="dark-box">
+          <h4 style="font-size:14px;font-weight:800;margin:0 0 12px">Change Password</h4>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:4px">New Password</label>
+          <div style="position:relative;margin-bottom:10px">
+            <input type="password" id="newPasswordInput" placeholder="Min 6 characters" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 38px 10px 12px;font-size:14px;outline:none;background:#fff;color:#111">
+            <button type="button" onclick="togglePasswordVisibility('newPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;font-size:15px;color:#888">👁️</button>
+          </div>
+          <label style="font-size:12px;font-weight:700;display:block;margin-bottom:4px">Confirm New Password</label>
+          <div style="position:relative;margin-bottom:14px">
+            <input type="password" id="confirmPasswordInput" placeholder="Re-enter new password" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 38px 10px 12px;font-size:14px;outline:none;background:#fff;color:#111">
+            <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;font-size:15px;color:#888">👁️</button>
+          </div>
+          <button type="button" id="updatePasswordBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff" onclick="updateUserPassword()">Update Password</button>
+        </div>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:16px" class="dark-box">
+          <h4 style="font-size:14px;font-weight:800;margin:0 0 6px">Reset Password via Email</h4>
+          <p style="font-size:12px;color:#777;margin:0 0 12px">Aapke registered email par single-click password reset link bheja jayega.</p>
+          <button type="button" class="settings-open-btn" style="width:100%" onclick="sendPasswordResetEmailCurrent()">📧 Send Reset Email</button>
+        </div>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px" class="dark-box">
+          <h4 style="font-size:14px;font-weight:800;margin:0 0 10px">Security &amp; Account Info</h4>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #eee">
+            <span style="color:#777">Account Email</span>
+            <span id="securityEmailText" style="font-weight:700">-</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #eee">
+            <span style="color:#777">Login Provider</span>
+            <span id="securityProviderText" style="font-weight:700">Google / Password</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0">
+            <span style="color:#777">Status</span>
+            <span style="font-weight:700;color:#22c55e">Active &amp; Secure</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -4532,10 +4911,249 @@ body.messages-open .bottom-nav{display:none !important}
       <h3 id="igListTitle">Followers</h3>
       <button type="button" id="igListClose" aria-label="Close">✕</button>
     </div>
+    <div class="ig-list-tabs" id="igListTabs">
+      <button type="button" class="ig-list-tab active" id="igTabFollowers" onclick="switchIgListTab('followers')">Followers (<span id="igListFollowersCount">0</span>)</button>
+      <button type="button" class="ig-list-tab" id="igTabFollowing" onclick="switchIgListTab('following')">Following (<span id="igListFollowingCount">0</span>)</button>
+    </div>
     <div class="ig-list-search-wrap">
       <input type="text" id="igListSearchInput" placeholder="🔍 Dhoondho..." class="ig-list-search-input">
     </div>
     <div class="ig-list-content" id="igListContent"></div>
+  </div>
+</div>
+
+<!-- Instagram Profile Photo Action Sheet Modal -->
+<div class="ig-sheet-overlay" id="avatarActionSheetOverlay" onclick="if(event.target===this)closeAvatarActionSheet()">
+  <div class="ig-sheet-box">
+    <div style="text-align:center;padding:12px 16px 8px;font-weight:800;font-size:15px;border-bottom:1px solid #f0f0f0;">Profile photo</div>
+    <button type="button" class="ig-sheet-item" id="sheetUploadPhotoBtn" onclick="triggerProfilePhotoPicker()" style="color:#0095f6">
+      <svg class="ico" style="width:20px;height:20px"><use href="#i-camera"></use></svg>
+      <span>Upload New Photo</span>
+    </button>
+    <button type="button" class="ig-sheet-item" id="sheetViewPhotoBtn" onclick="openPhotoViewer()">
+      <svg class="ico" style="width:20px;height:20px"><use href="#i-image"></use></svg>
+      <span>View Profile Picture</span>
+    </button>
+    <button type="button" class="ig-sheet-item danger" id="sheetRemovePhotoBtn" onclick="confirmRemovePhoto()">
+      <svg class="ico" style="width:20px;height:20px"><use href="#i-trash"></use></svg>
+      <span>Remove Current Photo</span>
+    </button>
+    <button type="button" class="ig-sheet-item ig-sheet-cancel" onclick="closeAvatarActionSheet()">Cancel</button>
+  </div>
+</div>
+
+<!-- Fullscreen Profile Photo Lightbox Modal -->
+<div class="ig-sheet-overlay" id="photoViewerModal" style="align-items:center" onclick="if(event.target===this)closePhotoViewer()">
+  <div style="max-width:380px;width:92%;background:#111;border-radius:20px;overflow:hidden;text-align:center;position:relative;padding:22px 16px;box-shadow:0 24px 70px rgba(0,0,0,.7)">
+    <button type="button" onclick="closePhotoViewer()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+    <h4 style="color:#fff;margin:0 0 16px;font-size:15px" id="photoViewerTitle">Profile Picture</h4>
+    <img id="photoViewerImg" src="" alt="Profile Picture" style="width:240px;height:240px;border-radius:50%;object-fit:cover;border:3px solid #fff;margin:0 auto 16px;display:block;background:#222">
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button type="button" class="ig-btn primary" onclick="closePhotoViewer();triggerProfilePhotoPicker()">Change Photo</button>
+      <button type="button" class="ig-btn" style="background:#333;color:#fff" onclick="closePhotoViewer()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Instagram Create Post / Reel Modal ("kam ka lagana") -->
+<div class="ig-create-overlay" id="createPostModal" onclick="if(event.target===this)closeCreatePostModal()">
+  <div class="ig-create-box">
+    <div class="ig-create-header">
+      <h3 id="createPostModalTitle">Create new post</h3>
+      <button type="button" onclick="closeCreatePostModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+    </div>
+    <div class="ig-create-tabs">
+      <button type="button" class="ig-create-tab active" id="createTabPhoto" onclick="switchCreateType('photo')">📷 Photo Post</button>
+      <button type="button" class="ig-create-tab" id="createTabReel" onclick="switchCreateType('reel')">🎬 Reel Video</button>
+    </div>
+    <div class="ig-create-body">
+      <!-- Media Drop / Picker Box -->
+      <div class="ig-media-drop" id="mediaDropBox" onclick="document.getElementById('postMediaFileInput').click()">
+        <svg class="ico" style="width:42px;height:42px;color:#0095f6;margin-bottom:8px"><use href="#i-camera"></use></svg>
+        <div style="font-weight:700;font-size:15px;margin-bottom:4px" id="dropBoxPrompt">Select photo to share</div>
+        <div style="font-size:12px;color:#888">Tap to choose from device / camera</div>
+      </div>
+      <input type="file" id="postMediaFileInput" accept="image/*,video/*" style="display:none" onchange="handlePostMediaSelected(this.files[0])">
+      
+      <!-- Live Media Preview -->
+      <div class="ig-media-preview-wrap" id="mediaPreviewWrap">
+        <img id="mediaPreviewImg" src="" alt="Preview" style="display:none">
+        <video id="mediaPreviewVideo" controls style="display:none"></video>
+        <button type="button" class="ig-media-remove-btn" onclick="clearSelectedPostMedia()" title="Remove media">✕</button>
+      </div>
+
+      <!-- Caption -->
+      <label for="postCaptionInput" style="font-size:13px;font-weight:700;display:block;margin:12px 0 6px">Caption &amp; Jokes</label>
+      <textarea id="postCaptionInput" rows="3" placeholder="Write a comedy punchline, funny caption or jokes..." style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:12px;padding:10px;font-family:inherit;font-size:14px;resize:vertical;outline:none;background:#fafafa"></textarea>
+      
+      <!-- Hashtag Pills -->
+      <div style="font-size:11px;color:#888;font-weight:700;margin-top:8px">Quick Hashtags (Tap to add):</div>
+      <div class="ig-tags-pills">
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#DesiComedy')">#DesiComedy</span>
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#Zyro')">#Zyro</span>
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#UPComedyHub')">#UPComedyHub</span>
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#DesiJokes')">#DesiJokes</span>
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#StandUp')">#StandUp</span>
+        <span class="ig-tag-pill" onclick="appendPostHashtag('#Viral')">#Viral</span>
+      </div>
+
+      <!-- Location -->
+      <label for="postLocationInput" style="font-size:13px;font-weight:700;display:block;margin:10px 0 6px">📍 Add Location (Optional)</label>
+      <input type="text" id="postLocationInput" placeholder="e.g. Lucknow, Delhi, Varanasi, Mumbai..." style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;background:#fafafa">
+
+      <button type="button" id="publishPostBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff;margin-top:16px;padding:12px" onclick="publishNewUserPost()">🚀 Publish to Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- Instagram Post Viewer Modal Lightbox -->
+<div class="ig-post-view-overlay" id="postViewerModal" onclick="if(event.target===this)closePostViewer()">
+  <div class="ig-post-view-box">
+    <div class="ig-pv-header">
+      <div class="ig-pv-user" id="pvUserWrap">
+        <img id="pvAvatar" class="ig-pv-avatar" src="" alt="Avatar">
+        <div>
+          <div class="ig-pv-name" id="pvAuthorName">username</div>
+          <small id="pvLocationTime" style="color:#888;font-size:11px">Just now</small>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button type="button" id="pvDeleteBtn" style="display:none;background:none;border:none;color:#e63946;cursor:pointer;padding:4px" title="Delete Post" onclick="deleteCurrentViewedPost()">
+          <svg class="ico" style="width:18px;height:18px"><use href="#i-trash"></use></svg>
+        </button>
+        <button type="button" onclick="closePostViewer()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+      </div>
+    </div>
+
+    <div class="ig-pv-media-wrap" id="pvMediaWrap">
+      <img id="pvImg" src="" alt="Post" style="display:none">
+      <video id="pvVideo" controls playsinline style="display:none"></video>
+    </div>
+
+    <div class="ig-pv-actions">
+      <div class="ig-pv-actions-left">
+        <button type="button" class="ig-pv-btn" id="pvLikeBtn" onclick="toggleLikeCurrentPost()">
+          <svg><use href="#i-heart"></use></svg>
+        </button>
+        <button type="button" class="ig-pv-btn" onclick="focusPostCommentInput()">
+          <svg><use href="#i-message"></use></svg>
+        </button>
+        <button type="button" class="ig-pv-btn" onclick="shareCurrentPost()">
+          <svg><use href="#i-send"></use></svg>
+        </button>
+      </div>
+      <button type="button" class="ig-pv-btn" id="pvSaveBtn" onclick="toggleSaveCurrentPost()">
+        <svg><use href="#i-bookmark"></use></svg>
+      </button>
+    </div>
+
+    <div class="ig-pv-content">
+      <div class="ig-pv-likes" id="pvLikesCount">0 likes</div>
+      <div class="ig-pv-caption" id="pvCaption"></div>
+      <div class="ig-pv-comments-list" id="pvCommentsList"></div>
+    </div>
+
+    <div class="ig-pv-comment-input-bar">
+      <input type="text" id="pvCommentInput" placeholder="Add a comment..." class="ig-pv-input" onkeydown="if(event.key==='Enter')submitPostComment()">
+      <button type="button" class="ig-pv-post-comment-btn" onclick="submitPostComment()">Post</button>
+    </div>
+  </div>
+</div>
+
+<!-- Instagram Share Profile Card Modal (QR & Link) -->
+<div class="ig-sheet-overlay" id="shareProfileCardModal" style="align-items:center" onclick="if(event.target===this)closeShareProfileCard()">
+  <div style="max-width:380px;width:92%;background:#111;border-radius:24px;overflow:hidden;position:relative;padding:16px;box-shadow:0 24px 70px rgba(0,0,0,.6)">
+    <button type="button" onclick="closeShareProfileCard()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2">✕</button>
+    
+    <div class="ig-qr-card" id="shareQrCard" style="background:linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)">
+      <img id="shareQrAvatar" class="ig-qr-avatar" src="" alt="Avatar">
+      <h3 class="ig-qr-title" id="shareQrUsername">@username</h3>
+      <div class="ig-qr-sub">Zyro · UPComedyHub</div>
+      <div class="ig-qr-code-box">
+        <img id="shareQrImage" src="" alt="Profile QR Code">
+      </div>
+      <p style="font-size:12px;margin:0;opacity:.9">Scan to view profile on Zyro</p>
+    </div>
+
+    <div style="margin-top:14px">
+      <div class="ig-color-dots">
+        <div class="ig-color-dot" style="background:linear-gradient(135deg,#f09433,#dc2743,#bc1888)" onclick="setQrTheme('instagram')" title="Sunset"></div>
+        <div class="ig-color-dot" style="background:linear-gradient(135deg,#0095f6,#002878)" onclick="setQrTheme('ocean')" title="Ocean"></div>
+        <div class="ig-color-dot" style="background:linear-gradient(135deg,#833ab4,#fd1d1d)" onclick="setQrTheme('neon')" title="Neon"></div>
+        <div class="ig-color-dot" style="background:linear-gradient(135deg,#111827,#030712)" onclick="setQrTheme('dark')" title="Midnight"></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button type="button" class="ig-btn primary" style="flex:1" onclick="copyProfileShareLink()">📋 Copy Link</button>
+        <button type="button" class="ig-btn" style="flex:1;background:#25d366;color:#fff" onclick="shareProfileToWhatsApp()">💬 WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Creator Professional Dashboard Modal -->
+<div class="ig-sheet-overlay" id="proDashboardModal" style="align-items:center" onclick="if(event.target===this)closeProDashboardModal()">
+  <div style="max-width:440px;width:92%;background:#fff;border-radius:24px;overflow:hidden;position:relative;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)" class="dark-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h3 style="margin:0;font-size:17px;font-weight:800;display:flex;align-items:center;gap:6px">📊 Professional Dashboard</h3>
+      <button type="button" onclick="closeProDashboardModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+    </div>
+    <p style="font-size:12px;color:#777;margin:0 0 14px">Insights and performance summary for the last 30 days.</p>
+
+    <div class="ig-pro-metrics-grid">
+      <div class="ig-metric-card">
+        <div class="ig-metric-label">Accounts Reached</div>
+        <div class="ig-metric-val">1,842</div>
+        <div class="ig-metric-change">▲ +14.2% vs last month</div>
+      </div>
+      <div class="ig-metric-card">
+        <div class="ig-metric-label">Content Interactions</div>
+        <div class="ig-metric-val" id="metricInteractions">784</div>
+        <div class="ig-metric-change">▲ +21.5% engagement</div>
+      </div>
+      <div class="ig-metric-card">
+        <div class="ig-metric-label">Total Followers</div>
+        <div class="ig-metric-val" id="metricFollowers">0</div>
+        <div class="ig-metric-change">Active community</div>
+      </div>
+      <div class="ig-metric-card">
+        <div class="ig-metric-label">Profile Views</div>
+        <div class="ig-metric-val">3,420</div>
+        <div class="ig-metric-change">▲ +32.0% visits</div>
+      </div>
+    </div>
+
+    <div style="background:#f8f9fa;border-radius:14px;padding:14px;margin-bottom:14px" class="dark-box">
+      <h4 style="font-size:13px;font-weight:800;margin:0 0 6px">💡 Creator Growth Tips</h4>
+      <p style="font-size:12px;color:#666;margin:0 0 4px">• Post at least 1 comedy reel daily for viral algorithm bootstrap.</p>
+      <p style="font-size:12px;color:#666;margin:0 0 4px">• Use popular audio effects from the Fun Zone and audio tray.</p>
+      <p style="font-size:12px;color:#666;margin:0">• Reply to comments within the first 15 minutes.</p>
+    </div>
+
+    <button type="button" class="ig-btn primary" style="width:100%" onclick="closeProDashboardModal();openCreatePostModal('reel')">Create Reel Now</button>
+  </div>
+</div>
+
+<!-- Create Story Highlight Modal -->
+<div class="ig-sheet-overlay" id="createHighlightModal" style="align-items:center" onclick="if(event.target===this)closeCreateHighlightModal()">
+  <div style="max-width:380px;width:92%;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)" class="dark-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <h3 style="margin:0;font-size:16px;font-weight:800">New Story Highlight</h3>
+      <button type="button" onclick="closeCreateHighlightModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+    </div>
+    <label for="highlightNameInput" style="font-size:12px;font-weight:700;display:block;margin-bottom:6px">Highlight Name</label>
+    <input type="text" id="highlightNameInput" maxlength="15" placeholder="e.g. Best Moments, Fun" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa">
+    
+    <label style="font-size:12px;font-weight:700;display:block;margin:12px 0 6px">Pick Cover Emoji</label>
+    <div style="display:flex;gap:8px;font-size:22px;margin-bottom:16px" id="highlightEmojiPicker">
+      <span style="cursor:pointer;padding:6px;border-radius:8px;background:#efefef" onclick="selectHighlightEmoji('⭐', this)">⭐</span>
+      <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('🔥', this)">🔥</span>
+      <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('😂', this)">😂</span>
+      <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('🎬', this)">🎬</span>
+      <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('❤️', this)">❤️</span>
+      <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('🎭', this)">🎭</span>
+    </div>
+
+    <button type="button" class="ig-btn primary" style="width:100%" onclick="saveNewHighlight()">Add Highlight</button>
   </div>
 </div>
 
@@ -5195,10 +5813,11 @@ async function uploadImageToCloudinary(fileOrBlob, opts) {
   const form = new FormData();
   form.append("file", fileOrBlob);
   form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
-  form.append("folder", folder);
-  if (opts.publicId) form.append("public_id", opts.publicId);
-  // Optional: help CDN refresh if same id ever reused
-  form.append("invalidate", "true");
+  if (folder) form.append("folder", folder);
+  if (opts.publicId) {
+    // Only send public_id if explicitly requested
+    form.append("public_id", opts.publicId);
+  }
   const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/image/upload";
   const res = await fetch(endpoint, { method: "POST", body: form });
   const data = await res.json().catch(function(){ return {}; });
@@ -6370,26 +6989,67 @@ async function loadProfileIdentity(){
     const snap = await db.collection("publicProfiles").doc(currentUser.uid).get();
     const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
     cachedCurrentUserProfile = data;
-    currentProfilePhotoURL = data.photoURL || currentUser.photoURL || localStorage.getItem("upch_user_photo_" + currentUser.uid) || "";
-    const _storyAv = document.getElementById("myStoryTrayAvatar");
-    if (_storyAv && currentProfilePhotoURL) _storyAv.src = currentProfilePhotoURL;
+    const savedLocalPhoto = localStorage.getItem("upch_user_photo_" + currentUser.uid);
+    currentProfilePhotoURL = data.photoURL || savedLocalPhoto || currentUser.photoURL || "";
+    
+    // Update all avatar images across the whole app
+    const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
+    allAvatarEls.forEach(function(el){ try { if(currentProfilePhotoURL) el.src = currentProfilePhotoURL; } catch(e){} });
+
     const isV = !!data.isVerified;
     const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
     const un = document.getElementById("profileUsername"); 
     if(un) un.textContent = "@"+(data.username||"user");
+    
+    const isPrivate = !!data.isPrivate;
+    const lockIcon = isPrivate ? '<svg class="ico ig-header-lock" style="width:14px;height:14px;margin-right:4px"><use href="#i-lock"></use></svg>' : '';
     const uh = document.getElementById("profileHeaderUsername"); 
-    if(uh) uh.innerHTML = escapeHtml(data.username||"user") + vBadge;
+    if(uh) uh.innerHTML = lockIcon + escapeHtml(data.username||"user") + vBadge;
+    
     const uNameEl = document.getElementById("userName");
     if(uNameEl) uNameEl.innerHTML = escapeHtml(data.displayName || currentUser.displayName || "User") + vBadge;
+    
+    const epName = document.getElementById("editProfileNamePreview");
+    if(epName) epName.textContent = data.displayName || currentUser.displayName || "User";
+
     const vBtnLabel = document.getElementById("profileVerifiedBtnLabel");
     if(vBtnLabel) vBtnLabel.textContent = isV ? "Verified ✓" : "Get Verified";
     const vSetStatus = document.getElementById("settingsVerifiedStatus");
     if(vSetStatus) vSetStatus.textContent = isV ? "Active (Crimson)" : "Get Verified";
-    const pb = document.getElementById("profileBio"); if(pb) pb.textContent = data.bio || "No bio yet.";
-    const ph = document.getElementById("userPhoto"); if(ph) ph.src = currentProfilePhotoURL;
+    
+    const pb = document.getElementById("profileBio");
+    if(pb) pb.textContent = data.bio || "No bio yet.";
+
+    const pcb = document.getElementById("profileCategoryBadge");
+    if(pcb) pcb.textContent = data.category || "🎬 Comedy Creator · Entertainer";
+
+    const bioLinkEl = document.getElementById("profileBioLink");
+    const bioLinkText = document.getElementById("profileBioLinkText");
+    if(bioLinkEl && bioLinkText){
+      const linkVal = data.websiteLink || "";
+      if(linkVal){
+        bioLinkEl.href = linkVal.startsWith("http") ? linkVal : "https://" + linkVal;
+        bioLinkText.textContent = linkVal.replace(/^https?:\/\//, "");
+      } else {
+        bioLinkEl.href = "https://youtube.com/@up_comedyhub";
+        bioLinkText.textContent = "youtube.com/@up_comedyhub";
+      }
+    }
+
     const ui = document.getElementById("usernameInput"); if(ui) ui.value = data.username || "";
+    const dni = document.getElementById("displayNameInput"); if(dni) dni.value = data.displayName || currentUser.displayName || "";
+    const pni = document.getElementById("pronounsInput"); if(pni) pni.value = data.pronouns || "";
+    const cti = document.getElementById("categoryInput"); if(cti && data.category) cti.value = data.category;
     const bi = document.getElementById("bioInput"); if(bi) bi.value = data.bio || "";
-    await loadFollowCounts();
+    const wli = document.getElementById("websiteLinkInput"); if(wli) wli.value = data.websiteLink || "";
+    
+    const privToggle = document.getElementById("privateAccountToggle");
+    if(privToggle) privToggle.checked = isPrivate;
+
+    await Promise.all([
+      loadFollowCounts(),
+      loadUserPostsCount(currentUser.uid)
+    ]);
     return data;
   }catch(e){ console.error(e); return null; }
 }
@@ -6397,10 +7057,20 @@ async function loadProfileIdentity(){
 async function saveProfileIdentity(){
   if(!currentUser) return;
   const input = document.getElementById("usernameInput");
+  const nameInput = document.getElementById("displayNameInput");
+  const pronounsInput = document.getElementById("pronounsInput");
+  const categoryInput = document.getElementById("categoryInput");
   const bioInput = document.getElementById("bioInput");
+  const linkInput = document.getElementById("websiteLinkInput");
   const saveBtn = document.getElementById("saveProfileBtn");
+
   const newUsername = normalizeUsername(input.value);
+  const newDisplayName = String(nameInput ? nameInput.value : "").trim() || (currentUser.displayName || "User");
+  const newPronouns = String(pronounsInput ? pronounsInput.value : "").trim().slice(0, 30);
+  const newCategory = String(categoryInput ? categoryInput.value : "").trim();
   const newBio = String(bioInput.value||"").trim().slice(0,160);
+  const newLink = String(linkInput ? linkInput.value : "").trim().slice(0, 200);
+
   if(!isValidUsername(newUsername)){ showToast("❌ Username: 3–30 chars, a-z, 0-9, _ and ."); return; }
   saveBtn.disabled = true; saveBtn.textContent = "Saving...";
   try{
@@ -6417,9 +7087,31 @@ async function saveProfileIdentity(){
         if(oldSnap.exists && oldSnap.data().uid === currentUser.uid) tx.delete(oldRef);
       }
       tx.set(newRef,{uid:currentUser.uid,username:newUsername,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-      tx.set(profileRef,{uid:currentUser.uid,username:newUsername,displayName:currentUser.displayName||"User",photoURL:(profileSnap.exists && profileSnap.data().photoURL)||currentUser.photoURL||"",bio:newBio,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
-      tx.set(db.collection("users").doc(currentUser.uid),{username:newUsername,bio:newBio},{merge:true});
+      const updatedProfile = {
+        uid: currentUser.uid,
+        username: newUsername,
+        displayName: newDisplayName,
+        pronouns: newPronouns,
+        category: newCategory,
+        photoURL: (profileSnap.exists && profileSnap.data().photoURL) || currentProfilePhotoURL || currentUser.photoURL || "",
+        bio: newBio,
+        websiteLink: newLink,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      tx.set(profileRef, updatedProfile, {merge:true});
+      tx.set(db.collection("users").doc(currentUser.uid), {
+        name: newDisplayName,
+        displayName: newDisplayName,
+        username: newUsername,
+        pronouns: newPronouns,
+        category: newCategory,
+        bio: newBio,
+        websiteLink: newLink
+      }, {merge:true});
     });
+    if(currentUser.updateProfile){
+      await currentUser.updateProfile({ displayName: newDisplayName }).catch(()=>null);
+    }
     await loadProfileIdentity();
     document.getElementById("profileEditCard").hidden = true;
     showToast("✅ Profile updated!");
@@ -6509,18 +7201,34 @@ async function uploadProfilePhoto(file){
 
   try{
     const compressedDataUrl = await compressProfilePhoto(file);
-    const blob = await (await fetch(compressedDataUrl)).blob();
-    // Option A: unique publicId every upload → always new URL (no overwrite/cache issue)
-    const photoUrl = await uploadImageToCloudinary(blob, {
-      folder: "upcomedyhub/profiles",
-      publicId: "profile_" + currentUser.uid + "_" + Date.now()
-    });
+    let photoUrl = "";
+    let provider = "base64";
+
+    // Try uploading to Cloudinary
+    if(typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()){
+      try{
+        const blob = await (await fetch(compressedDataUrl)).blob();
+        photoUrl = await uploadImageToCloudinary(blob, {
+          folder: "upcomedyhub/profiles"
+        });
+        provider = "cloudinary";
+      }catch(cErr){
+        console.warn("Cloudinary upload failed, falling back to compressed photo:", cErr);
+        photoUrl = compressedDataUrl;
+      }
+    } else {
+      photoUrl = compressedDataUrl;
+    }
+
+    if(!photoUrl){
+      photoUrl = compressedDataUrl;
+    }
 
     currentProfilePhotoURL = photoUrl;
     localStorage.setItem("upch_user_photo_" + currentUser.uid, photoUrl);
 
-    // Cache-bust so browser shows new image immediately
-    const bustUrl = photoUrl + (photoUrl.indexOf("?") >= 0 ? "&" : "?") + "t=" + Date.now();
+    // Cache-bust if external URL, else direct dataUrl
+    const bustUrl = photoUrl.startsWith("data:") ? photoUrl : (photoUrl + (photoUrl.indexOf("?") >= 0 ? "&" : "?") + "t=" + Date.now());
     if(imgEl) imgEl.src = bustUrl;
 
     const funAv = document.getElementById("funPlayerAvatar");
@@ -6529,28 +7237,28 @@ async function uploadProfilePhoto(file){
     // Instagram-style: home story tray pe bhi naya avatar
     const storyAv = document.getElementById("myStoryTrayAvatar");
     if(storyAv) storyAv.src = bustUrl;
-    const userPhotoEls = document.querySelectorAll(".user-avatar-live, #chatAvatarBtn img, .profile-avatar-img");
+    const userPhotoEls = document.querySelectorAll(".user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
     userPhotoEls.forEach(function(el){ try { el.src = bustUrl; } catch(e){} });
 
     if(typeof db !== "undefined" && db){
       await db.collection("publicProfiles").doc(currentUser.uid).set({
         uid: currentUser.uid,
         photoURL: photoUrl,
-        photoProvider: "cloudinary",
+        photoProvider: provider,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       },{merge:true}).catch(function(e){ console.warn("Firestore publicProfile notice:", e); });
 
       await db.collection("users").doc(currentUser.uid).set({
         photo: photoUrl,
-        photoProvider: "cloudinary",
+        photoURL: photoUrl,
+        photoProvider: provider,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       },{merge:true}).catch(function(e){ console.warn("Firestore user photo notice:", e); });
     }
 
-    showToast("✨ Profile picture updated successfully");
+    showToast("✨ Profile picture updated successfully!");
   }catch(e){
     console.error("Profile photo upload error:", e);
-    var msg = (e && e.message) || "";
     showToast("❌ Couldn't update photo. Please try again");
   }finally{
     if(imgEl) imgEl.style.opacity = "1";
@@ -6780,31 +7488,890 @@ function renderIgVideoGrid(vids, emptyMsg, gridId){
   vids.forEach(vid=>grid.appendChild(buildIgVideoCard(vid)));
   refreshAllVideoActions(); refreshLikesLinks();
 }
-function switchIgTab(t){
+/* =====================================================
+   INSTAGRAM PROFILE & CONTENT ENGINE (POSTS, REELS, SAVED, TAGGED)
+   ===================================================== */
+let currentViewedPostData = null;
+let currentIgActiveTab = "posts";
+let cachedUserPosts = [];
+
+// Switch Instagram Profile Tabs with real content
+async function switchIgTab(t){
+  currentIgActiveTab = t;
   document.querySelectorAll(".ig-tab").forEach(x=>x.classList.toggle("active", x.getAttribute("data-ig-tab")===t));
   const grid = document.getElementById("igPostsGrid");
   if(!grid) return;
-  /* User profile me sirf apna content dikhta hai — channel ke fetched videos nahi. */
-  if(t==="posts"){
+
+  if(!currentUser){
     grid.className = "ig-posts-grid grid-empty";
-    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-camera"></use></svg></span>'+__t("Abhi koi post nahi. Jald upload kar payenge!")+'</div>';
-  } else if(t==="reels"){
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-lock"></use></svg></span>' + (typeof __t === 'function' ? __t("🔐 Login karke apna content dekhein") : "🔐 Login to view your profile content") + '</div>';
+    return;
+  }
+
+  if(t === "posts"){
+    await renderCurrentUserPostsGrid();
+  } else if(t === "reels"){
+    await renderCurrentUserReelsGrid();
+  } else if(t === "saved"){
+    renderCurrentUserSavedGrid();
+  } else if(t === "tagged"){
     grid.className = "ig-posts-grid grid-empty";
-    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-reels"></use></svg></span>'+__t("Abhi tak koi reel upload nahi hui.")+'</div>';
-  } else if(t==="videos"){
-    grid.className = "ig-posts-grid grid-empty";
-    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-video"></use></svg></span>'+__t("Abhi koi long video nahi.")+'</div>';
-  } else if(t==="playlist"){
-    const savedList = Array.from(userSavedVideos || []);
-    if(savedList.length > 0){
-      renderIgVideoGrid(savedList, '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>'+__t("Abhi tak koi video save nahi kiya."), "igPostsGrid");
-    } else {
-      grid.className = "ig-posts-grid grid-empty";
-      grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>'+__t("Abhi tak koi video save nahi kiya. Kisi bhi video par Save button dabayein!")+'</div>';
-    }
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-tag"></use></svg></span>Photos and videos of you<p style="font-size:12px;color:#888;margin-top:6px">When people tag you in photos or reels, they will appear here.</p></div>';
+  } else if(t === "playlist" || t === "videos"){
+    renderCurrentUserSavedGrid();
   }
 }
 window.switchIgTab = switchIgTab;
+
+// Render Posts Tab
+async function renderCurrentUserPostsGrid(){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid || !currentUser) return;
+  grid.innerHTML = '<div class="ig-empty" style="grid-column:1/-1">⏳ Loading posts...</div>';
+
+  try {
+    let posts = [];
+    if(typeof db !== "undefined" && db){
+      const snap = await db.collection("user_posts")
+        .where("userId", "==", currentUser.uid)
+        .limit(60)
+        .get();
+      snap.forEach(doc => {
+        posts.push({ id: doc.id, ...doc.data() });
+      });
+      // Sort client-side in case compound index is missing
+      posts.sort((a,b) => {
+        const ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
+        const tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
+        return tb - ta;
+      });
+    }
+
+    cachedUserPosts = posts;
+    updateProfilePostsCount(posts.length);
+
+    if(!posts.length){
+      grid.className = "ig-posts-grid grid-empty";
+      grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-camera"></use></svg></span>Share Photos &amp; Reels<p style="font-size:12px;color:#888;margin:6px 0 14px">When you share comedy photos and reels, they appear on your profile.</p><button type="button" class="ig-btn primary" onclick="openCreatePostModal(\'photo\')" style="margin:0 auto">Share your first post</button></div>';
+      return;
+    }
+
+    grid.className = "ig-posts-grid";
+    grid.innerHTML = "";
+    posts.forEach(p => {
+      const itemEl = document.createElement("div");
+      itemEl.className = "ig-grid-item";
+      const isReel = p.type === "reel";
+      const badgeHtml = isReel ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>' : '';
+      const mediaHtml = isReel && !p.thumbnail
+        ? '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>'
+        : '<img src="' + escapeAttr(p.thumbnail || p.mediaUrl) + '" alt="Post" loading="lazy">';
+
+      itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+      itemEl.addEventListener("click", () => openPostViewer(p));
+      grid.appendChild(itemEl);
+    });
+  } catch(e) {
+    console.error("renderCurrentUserPostsGrid error:", e);
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty">Koi post load nahi ho saki.</div>';
+  }
+}
+window.renderCurrentUserPostsGrid = renderCurrentUserPostsGrid;
+
+// Render Reels Tab
+async function renderCurrentUserReelsGrid(){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid || !currentUser) return;
+  const reels = cachedUserPosts.filter(p => p.type === "reel");
+
+  if(!reels.length){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-reels"></use></svg></span>No Reels Yet<p style="font-size:12px;color:#888;margin:6px 0 14px">Create short comedy reels to reach thousands of fans on Zyro.</p><button type="button" class="ig-btn primary" onclick="openCreatePostModal(\'reel\')" style="margin:0 auto">Create a Reel</button></div>';
+    return;
+  }
+
+  grid.className = "ig-posts-grid";
+  grid.innerHTML = "";
+  reels.forEach(p => {
+    const itemEl = document.createElement("div");
+    itemEl.className = "ig-grid-item";
+    const mediaHtml = p.thumbnail
+      ? '<img src="' + escapeAttr(p.thumbnail) + '" alt="Reel" loading="lazy">'
+      : '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>';
+    itemEl.innerHTML = mediaHtml + '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span><div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+    itemEl.addEventListener("click", () => openPostViewer(p));
+    grid.appendChild(itemEl);
+  });
+}
+
+// Render Saved Tab
+function renderCurrentUserSavedGrid(){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid) return;
+  const savedList = Array.from(userSavedVideos || []);
+  if(savedList.length > 0){
+    renderIgVideoGrid(savedList, '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>Abhi tak koi video save nahi kiya.', "igPostsGrid");
+  } else {
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>Only you can see what you have saved<p style="font-size:12px;color:#888;margin-top:6px">Save videos and reels you want to watch again later.</p></div>';
+  }
+}
+
+function updateProfilePostsCount(count){
+  const el = document.getElementById("statPosts");
+  if(el) el.textContent = String(count || 0);
+}
+
+async function loadUserPostsCount(uid){
+  if(!uid) return;
+  try {
+    if(typeof db !== "undefined" && db){
+      const snap = await db.collection("user_posts").where("userId", "==", uid).get();
+      cachedUserPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      updateProfilePostsCount(snap.size);
+    }
+  } catch(e) {
+    console.warn("loadUserPostsCount error:", e);
+  }
+}
+window.loadUserPostsCount = loadUserPostsCount;
+
+/* ---------- AVATAR ACTION SHEET & PHOTO VIEWER ---------- */
+function openAvatarActionSheet(){
+  const sheet = document.getElementById("avatarActionSheetOverlay");
+  if(sheet) sheet.classList.add("show");
+}
+window.openAvatarActionSheet = openAvatarActionSheet;
+
+function closeAvatarActionSheet(){
+  const sheet = document.getElementById("avatarActionSheetOverlay");
+  if(sheet) sheet.classList.remove("show");
+}
+window.closeAvatarActionSheet = closeAvatarActionSheet;
+
+function triggerProfilePhotoPicker(){
+  closeAvatarActionSheet();
+  const input = document.getElementById("profilePhotoInput");
+  if(input) {
+    input.value = "";
+    input.click();
+  }
+}
+window.triggerProfilePhotoPicker = triggerProfilePhotoPicker;
+
+function openPhotoViewer(){
+  closeAvatarActionSheet();
+  const modal = document.getElementById("photoViewerModal");
+  const img = document.getElementById("photoViewerImg");
+  const title = document.getElementById("photoViewerTitle");
+  const photoSrc = currentProfilePhotoURL || (currentUser ? currentUser.photoURL : "") || "IMG_20260917_172912.jpg";
+  if(img) img.src = photoSrc;
+  if(title && currentUser) title.textContent = "@" + (currentUser.displayName || "user");
+  if(modal) modal.classList.add("show");
+}
+window.openPhotoViewer = openPhotoViewer;
+
+function closePhotoViewer(){
+  const modal = document.getElementById("photoViewerModal");
+  if(modal) modal.classList.remove("show");
+}
+window.closePhotoViewer = closePhotoViewer;
+
+async function confirmRemovePhoto(){
+  closeAvatarActionSheet();
+  if(!currentUser){
+    showToast("🔐 Pehle login karein");
+    return;
+  }
+  if(confirm("Remove current profile picture?")){
+    await removeProfilePhoto();
+  }
+}
+window.confirmRemovePhoto = confirmRemovePhoto;
+
+/* ---------- CREATE POST / REEL MODAL LOGIC ---------- */
+let currentCreateType = "photo";
+let selectedPostFile = null;
+let selectedPostDataUrl = null;
+
+function openCreatePostModal(type = "photo"){
+  if(!currentUser){
+    showToast("🔐 Post banane ke liye pehle login karein!");
+    if(typeof window.openLoginScreen === "function") window.openLoginScreen();
+    return;
+  }
+  const modal = document.getElementById("createPostModal");
+  if(modal) modal.classList.add("show");
+  switchCreateType(type);
+}
+window.openCreatePostModal = openCreatePostModal;
+
+function closeCreatePostModal(){
+  const modal = document.getElementById("createPostModal");
+  if(modal) modal.classList.remove("show");
+  clearSelectedPostMedia();
+  const cap = document.getElementById("postCaptionInput");
+  if(cap) cap.value = "";
+  const loc = document.getElementById("postLocationInput");
+  if(loc) loc.value = "";
+}
+window.closeCreatePostModal = closeCreatePostModal;
+
+function switchCreateType(type){
+  currentCreateType = type;
+  const pTab = document.getElementById("createTabPhoto");
+  const rTab = document.getElementById("createTabReel");
+  const prompt = document.getElementById("dropBoxPrompt");
+  const fileInput = document.getElementById("postMediaFileInput");
+  const title = document.getElementById("createPostModalTitle");
+
+  if(pTab) pTab.classList.toggle("active", type === "photo");
+  if(rTab) rTab.classList.toggle("active", type === "reel");
+
+  if(type === "reel"){
+    if(title) title.textContent = "Create new Reel";
+    if(prompt) prompt.textContent = "Select video for your Reel";
+    if(fileInput) fileInput.accept = "video/*";
+  } else {
+    if(title) title.textContent = "Create new Photo Post";
+    if(prompt) prompt.textContent = "Select photo to share";
+    if(fileInput) fileInput.accept = "image/*";
+  }
+}
+window.switchCreateType = switchCreateType;
+
+function handlePostMediaSelected(file){
+  if(!file) return;
+  selectedPostFile = file;
+
+  const dropBox = document.getElementById("mediaDropBox");
+  const previewWrap = document.getElementById("mediaPreviewWrap");
+  const previewImg = document.getElementById("mediaPreviewImg");
+  const previewVid = document.getElementById("mediaPreviewVideo");
+
+  const r = new FileReader();
+  r.onload = (e) => {
+    selectedPostDataUrl = e.target.result;
+    if(dropBox) dropBox.style.display = "none";
+    if(previewWrap) previewWrap.style.display = "block";
+
+    if(file.type.startsWith("video/")){
+      if(previewImg) previewImg.style.display = "none";
+      if(previewVid){
+        previewVid.style.display = "block";
+        previewVid.src = selectedPostDataUrl;
+      }
+    } else {
+      if(previewVid) previewVid.style.display = "none";
+      if(previewImg){
+        previewImg.style.display = "block";
+        previewImg.src = selectedPostDataUrl;
+      }
+    }
+  };
+  r.readAsDataURL(file);
+}
+window.handlePostMediaSelected = handlePostMediaSelected;
+
+function clearSelectedPostMedia(){
+  selectedPostFile = null;
+  selectedPostDataUrl = null;
+  const fileInput = document.getElementById("postMediaFileInput");
+  if(fileInput) fileInput.value = "";
+  const dropBox = document.getElementById("mediaDropBox");
+  const previewWrap = document.getElementById("mediaPreviewWrap");
+  const previewImg = document.getElementById("mediaPreviewImg");
+  const previewVid = document.getElementById("mediaPreviewVideo");
+  if(dropBox) dropBox.style.display = "";
+  if(previewWrap) previewWrap.style.display = "none";
+  if(previewImg){ previewImg.style.display = "none"; previewImg.src = ""; }
+  if(previewVid){ previewVid.style.display = "none"; previewVid.src = ""; }
+}
+window.clearSelectedPostMedia = clearSelectedPostMedia;
+
+function appendPostHashtag(tag){
+  const cap = document.getElementById("postCaptionInput");
+  if(!cap) return;
+  const cur = cap.value.trim();
+  if(!cur.includes(tag)){
+    cap.value = cur ? (cur + " " + tag) : tag;
+  }
+  cap.focus();
+}
+window.appendPostHashtag = appendPostHashtag;
+
+async function publishNewUserPost(){
+  if(!currentUser){
+    showToast("🔐 Pehle login karein");
+    return;
+  }
+  if(!selectedPostFile && !selectedPostDataUrl){
+    showToast("⚠️ Kripya photo ya video select karein!");
+    return;
+  }
+
+  const btn = document.getElementById("publishPostBtn");
+  const caption = (document.getElementById("postCaptionInput")?.value || "").trim();
+  const location = (document.getElementById("postLocationInput")?.value || "").trim();
+
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = "⏳ Publishing to Profile...";
+  }
+
+  try {
+    let mediaUrl = selectedPostDataUrl;
+    let thumbnail = "";
+
+    // Upload to Cloudinary if available
+    if(typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured() && selectedPostFile){
+      try {
+        showToast("Uploading media to Cloudinary...");
+        if(selectedPostFile.type.startsWith("image/")){
+          mediaUrl = await uploadImageToCloudinary(selectedPostFile, { folder: "upcomedyhub/posts" });
+          thumbnail = mediaUrl;
+        } else if(selectedPostFile.type.startsWith("video/")){
+          // Videos go via Cloudflare R2 / Cloudinary
+          mediaUrl = await uploadImageToCloudinary(selectedPostFile, { folder: "upcomedyhub/reels" });
+          thumbnail = mediaUrl;
+        }
+      } catch(cErr){
+        console.warn("Cloudinary upload failed, using optimized data URL:", cErr);
+        mediaUrl = selectedPostDataUrl;
+      }
+    }
+
+    const postDoc = {
+      userId: currentUser.uid,
+      authorName: currentUser.displayName || "User",
+      authorUsername: (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "user",
+      authorPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+      mediaUrl: mediaUrl,
+      thumbnail: thumbnail || mediaUrl,
+      type: currentCreateType,
+      caption: caption,
+      location: location,
+      likesCount: 0,
+      commentsCount: 0,
+      createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+    };
+
+    if(typeof db !== "undefined" && db){
+      const ref = await db.collection("user_posts").add(postDoc);
+      postDoc.id = ref.id;
+    }
+
+    showToast("🚀 Post published successfully!");
+    closeCreatePostModal();
+
+    // Refresh profile grid instantly
+    await switchIgTab(currentCreateType === "reel" ? "reels" : "posts");
+  } catch(e) {
+    console.error("Publish post error:", e);
+    showToast("❌ Post publish nahi ho payi: " + (e.message || "Error"));
+  } finally {
+    if(btn){
+      btn.disabled = false;
+      btn.textContent = "🚀 Publish to Profile";
+    }
+  }
+}
+window.publishNewUserPost = publishNewUserPost;
+
+/* ---------- POST VIEWER LIGHTBOX ---------- */
+function openPostViewer(post){
+  currentViewedPostData = post;
+  const modal = document.getElementById("postViewerModal");
+  if(!modal) return;
+
+  const authorName = document.getElementById("pvAuthorName");
+  const authorAvatar = document.getElementById("pvAvatar");
+  const locationTime = document.getElementById("pvLocationTime");
+  const imgEl = document.getElementById("pvImg");
+  const vidEl = document.getElementById("pvVideo");
+  const captionEl = document.getElementById("pvCaption");
+  const likesEl = document.getElementById("pvLikesCount");
+  const deleteBtn = document.getElementById("pvDeleteBtn");
+
+  if(authorName) authorName.textContent = post.authorName || post.authorUsername || "User";
+  if(authorAvatar) authorAvatar.src = post.authorPhoto || currentProfilePhotoURL || "IMG_20260917_172912.jpg";
+  if(locationTime) locationTime.textContent = post.location ? ("📍 " + post.location) : "Zyro Community";
+
+  if(post.type === "reel"){
+    if(imgEl) imgEl.style.display = "none";
+    if(vidEl){
+      vidEl.style.display = "block";
+      vidEl.src = post.mediaUrl;
+      vidEl.play().catch(()=>null);
+    }
+  } else {
+    if(vidEl){
+      vidEl.style.display = "none";
+      vidEl.pause();
+    }
+    if(imgEl){
+      imgEl.style.display = "block";
+      imgEl.src = post.mediaUrl || post.thumbnail;
+    }
+  }
+
+  if(captionEl){
+    captionEl.innerHTML = '<strong>' + escapeHtml(post.authorName || "User") + '</strong> ' + escapeHtml(post.caption || "");
+  }
+  if(likesEl) likesEl.textContent = (post.likesCount || 0) + " likes";
+
+  if(deleteBtn){
+    deleteBtn.style.display = (currentUser && currentUser.uid === post.userId) ? "inline-block" : "none";
+  }
+
+  loadPostComments(post.id);
+  modal.classList.add("show");
+}
+window.openPostViewer = openPostViewer;
+
+function closePostViewer(){
+  const modal = document.getElementById("postViewerModal");
+  if(modal) modal.classList.remove("show");
+  const vidEl = document.getElementById("pvVideo");
+  if(vidEl) vidEl.pause();
+  currentViewedPostData = null;
+}
+window.closePostViewer = closePostViewer;
+
+async function deleteCurrentViewedPost(){
+  if(!currentViewedPostData || !currentUser) return;
+  if(!confirm("Are you sure you want to delete this post?")) return;
+
+  try {
+    if(typeof db !== "undefined" && db){
+      await db.collection("user_posts").doc(currentViewedPostData.id).delete();
+    }
+    showToast("🗑️ Post deleted");
+    closePostViewer();
+    await switchIgTab(currentIgActiveTab);
+  } catch(e) {
+    showToast("❌ Delete failed: " + e.message);
+  }
+}
+window.deleteCurrentViewedPost = deleteCurrentViewedPost;
+
+async function toggleLikeCurrentPost(){
+  if(!currentViewedPostData) return;
+  const btn = document.getElementById("pvLikeBtn");
+  const likesEl = document.getElementById("pvLikesCount");
+  const newCount = (currentViewedPostData.likesCount || 0) + 1;
+  currentViewedPostData.likesCount = newCount;
+  if(likesEl) likesEl.textContent = newCount + " likes";
+  if(btn) btn.classList.toggle("active");
+  showToast("❤️ Liked");
+
+  if(typeof db !== "undefined" && db && currentViewedPostData.id){
+    db.collection("user_posts").doc(currentViewedPostData.id).update({
+      likesCount: firebase.firestore.FieldValue.increment(1)
+    }).catch(()=>null);
+  }
+}
+window.toggleLikeCurrentPost = toggleLikeCurrentPost;
+
+function toggleSaveCurrentPost(){
+  const btn = document.getElementById("pvSaveBtn");
+  if(btn) btn.classList.toggle("active");
+  showToast("🔖 Saved to your collection");
+}
+window.toggleSaveCurrentPost = toggleSaveCurrentPost;
+
+function focusPostCommentInput(){
+  const inp = document.getElementById("pvCommentInput");
+  if(inp) inp.focus();
+}
+window.focusPostCommentInput = focusPostCommentInput;
+
+async function loadPostComments(postId){
+  const listEl = document.getElementById("pvCommentsList");
+  if(!listEl) return;
+  listEl.innerHTML = '<div style="font-size:12px;color:#888;padding:8px 0">No comments yet. Be the first to comment!</div>';
+
+  if(!postId || typeof db === "undefined" || !db) return;
+  try {
+    const snap = await db.collection("user_posts").doc(postId).collection("comments").limit(20).get();
+    if(!snap.empty){
+      listEl.innerHTML = "";
+      snap.forEach(d => {
+        const c = d.data();
+        const row = document.createElement("div");
+        row.style.cssText = "font-size:13px;margin-bottom:6px;line-height:1.4";
+        row.innerHTML = '<strong>' + escapeHtml(c.userName || "User") + '</strong> ' + escapeHtml(c.text || "");
+        listEl.appendChild(row);
+      });
+    }
+  } catch(e){}
+}
+
+async function submitPostComment(){
+  const inp = document.getElementById("pvCommentInput");
+  if(!inp || !currentViewedPostData) return;
+  const text = inp.value.trim();
+  if(!text) return;
+
+  if(!currentUser){
+    showToast("🔐 Login karke comment karein");
+    return;
+  }
+
+  const listEl = document.getElementById("pvCommentsList");
+  const newRow = document.createElement("div");
+  newRow.style.cssText = "font-size:13px;margin-bottom:6px;line-height:1.4";
+  newRow.innerHTML = '<strong>' + escapeHtml(currentUser.displayName || "You") + '</strong> ' + escapeHtml(text);
+  if(listEl) listEl.appendChild(newRow);
+  inp.value = "";
+
+  if(typeof db !== "undefined" && db && currentViewedPostData.id){
+    try {
+      await db.collection("user_posts").doc(currentViewedPostData.id).collection("comments").add({
+        userId: currentUser.uid,
+        userName: currentUser.displayName || "User",
+        text: text,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      await db.collection("user_posts").doc(currentViewedPostData.id).update({
+        commentsCount: firebase.firestore.FieldValue.increment(1)
+      });
+    } catch(e){}
+  }
+}
+window.submitPostComment = submitPostComment;
+
+function shareCurrentPost(){
+  if(!currentViewedPostData) return;
+  const url = window.location.origin + "/?post=" + (currentViewedPostData.id || "");
+  const txt = "Check out this comedy post by " + (currentViewedPostData.authorName || "User") + " on Zyro!";
+  if(navigator.share){
+    navigator.share({ title: "Zyro Post", text: txt, url: url }).catch(()=>null);
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(() => showToast("📋 Post link copied!"));
+  }
+}
+window.shareCurrentPost = shareCurrentPost;
+
+/* ---------- SHARE PROFILE CARD (QR & THEMES) ---------- */
+function openShareProfileCard(){
+  const modal = document.getElementById("shareProfileCardModal");
+  if(!modal) return;
+
+  const uname = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || (currentUser ? currentUser.displayName : "user");
+  const avatar = currentProfilePhotoURL || (currentUser ? currentUser.photoURL : "") || "IMG_20260917_172912.jpg";
+
+  const uEl = document.getElementById("shareQrUsername");
+  const avEl = document.getElementById("shareQrAvatar");
+  const qrImg = document.getElementById("shareQrImage");
+
+  if(uEl) uEl.textContent = "@" + uname;
+  if(avEl) avEl.src = avatar;
+
+  const profileUrl = window.location.origin + "/?u=" + encodeURIComponent(uname);
+  if(qrImg){
+    qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(profileUrl);
+  }
+
+  modal.classList.add("show");
+}
+window.openShareProfileCard = openShareProfileCard;
+
+function closeShareProfileCard(){
+  const modal = document.getElementById("shareProfileCardModal");
+  if(modal) modal.classList.remove("show");
+}
+window.closeShareProfileCard = closeShareProfileCard;
+
+function setQrTheme(theme){
+  const card = document.getElementById("shareQrCard");
+  if(!card) return;
+  if(theme === "instagram"){
+    card.style.background = "linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)";
+  } else if(theme === "ocean"){
+    card.style.background = "linear-gradient(135deg, #0095f6 0%, #002878 100%)";
+  } else if(theme === "neon"){
+    card.style.background = "linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%)";
+  } else if(theme === "dark"){
+    card.style.background = "linear-gradient(135deg, #111827 0%, #030712 100%)";
+  }
+}
+window.setQrTheme = setQrTheme;
+
+function copyProfileShareLink(){
+  const uname = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "user";
+  const url = window.location.origin + "/?u=" + encodeURIComponent(uname);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(() => showToast("📋 Profile link copied!"));
+  } else {
+    showToast("Profile link: " + url);
+  }
+}
+window.copyProfileShareLink = copyProfileShareLink;
+
+function shareProfileToWhatsApp(){
+  const uname = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "user";
+  const url = window.location.origin + "/?u=" + encodeURIComponent(uname);
+  const text = "Follow @" + uname + " on Zyro! 🔥\n" + url;
+  window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(text), "_blank");
+}
+window.shareProfileToWhatsApp = shareProfileToWhatsApp;
+
+/* ---------- PROFESSIONAL DASHBOARD ---------- */
+function openProDashboardModal(){
+  const modal = document.getElementById("proDashboardModal");
+  if(!modal) return;
+  const fCount = document.getElementById("statFollowers")?.textContent || "0";
+  const mF = document.getElementById("metricFollowers");
+  if(mF) mF.textContent = fCount;
+  modal.classList.add("show");
+}
+window.openProDashboardModal = openProDashboardModal;
+
+function closeProDashboardModal(){
+  const modal = document.getElementById("proDashboardModal");
+  if(modal) modal.classList.remove("show");
+}
+window.closeProDashboardModal = closeProDashboardModal;
+
+/* ---------- STORY HIGHLIGHTS ---------- */
+let selectedHighlightEmoji = "⭐";
+
+function openCreateHighlightModal(){
+  const modal = document.getElementById("createHighlightModal");
+  if(modal) modal.classList.add("show");
+}
+window.openCreateHighlightModal = openCreateHighlightModal;
+
+function closeCreateHighlightModal(){
+  const modal = document.getElementById("createHighlightModal");
+  if(modal) modal.classList.remove("show");
+}
+window.closeCreateHighlightModal = closeCreateHighlightModal;
+
+function selectHighlightEmoji(emoji, el){
+  selectedHighlightEmoji = emoji;
+  const picker = document.getElementById("highlightEmojiPicker");
+  if(picker){
+    picker.querySelectorAll("span").forEach(s => s.style.background = "none");
+    if(el) el.style.background = "#efefef";
+  }
+}
+window.selectHighlightEmoji = selectHighlightEmoji;
+
+function saveNewHighlight(){
+  const inp = document.getElementById("highlightNameInput");
+  const name = (inp ? inp.value : "").trim() || "Highlight";
+  const tray = document.getElementById("profileHighlightsTray");
+  if(!tray) return;
+
+  const item = document.createElement("div");
+  item.className = "ig-highlight-item";
+  item.onclick = () => playStoryHighlight(name, selectedHighlightEmoji + " " + name);
+  item.innerHTML = '<div class="igh-ring" style="display:flex;align-items:center;justify-content:center;font-size:26px;background:#f5f5f5">' + selectedHighlightEmoji + '</div><span class="igh-label">' + escapeHtml(name) + '</span>';
+
+  // Insert before the last 2 items
+  tray.appendChild(item);
+  showToast("⭐ Highlight added to profile!");
+  closeCreateHighlightModal();
+  if(inp) inp.value = "";
+}
+window.saveNewHighlight = saveNewHighlight;
+
+function playStoryHighlight(id, title){
+  showToast("🎬 Playing " + title);
+  if(typeof window.openStoryViewer === "function"){
+    window.openStoryViewer(id);
+  }
+}
+window.playStoryHighlight = playStoryHighlight;
+
+/* =====================================================
+   FEATURE 5: ACCOUNT SETTINGS (PRIVACY, CALLING & PASSWORDS)
+   ===================================================== */
+async function togglePrivateAccount(isPrivate){
+  if(!currentUser){ showToast("🔐 Login required"); return; }
+  try {
+    if(typeof db !== "undefined" && db){
+      await db.collection("publicProfiles").doc(currentUser.uid).set({
+        isPrivate: isPrivate,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, {merge:true});
+    }
+    showToast(isPrivate ? "🔒 Account set to Private" : "🌐 Account is now Public");
+    await loadProfileIdentity();
+  } catch(e) {
+    showToast("❌ Could not update privacy: " + e.message);
+  }
+}
+window.togglePrivateAccount = togglePrivateAccount;
+
+async function setMsgPermission(permission, el){
+  if(el){
+    document.querySelectorAll("#msgPermissionGroup .settings-radio-pill").forEach(p => {
+      p.classList.remove("selected");
+      const c = p.querySelector(".ico-check");
+      if(c) c.textContent = "";
+    });
+    el.classList.add("selected");
+    const check = el.querySelector(".ico-check");
+    if(check) check.textContent = "✓";
+  }
+  if(currentUser && typeof db !== "undefined" && db){
+    await db.collection("users").doc(currentUser.uid).set({
+      messagePermission: permission
+    }, {merge:true}).catch(()=>null);
+  }
+  showToast("✅ Messaging preferences updated");
+}
+window.setMsgPermission = setMsgPermission;
+
+async function setCallPermission(permission, el){
+  if(el){
+    document.querySelectorAll("#callPermissionGroup .settings-radio-pill").forEach(p => {
+      p.classList.remove("selected");
+      const c = p.querySelector(".ico-check");
+      if(c) c.textContent = "";
+    });
+    el.classList.add("selected");
+    const check = el.querySelector(".ico-check");
+    if(check) check.textContent = "✓";
+  }
+  if(currentUser && typeof db !== "undefined" && db){
+    await db.collection("users").doc(currentUser.uid).set({
+      callingPermission: permission
+    }, {merge:true}).catch(()=>null);
+  }
+  showToast("✅ Call preferences updated");
+}
+window.setCallPermission = setCallPermission;
+
+function toggleActivityStatus(isActive){
+  localStorage.setItem("upch_activity_status", isActive ? "1" : "0");
+  if(currentUser && typeof db !== "undefined" && db){
+    db.collection("users").doc(currentUser.uid).set({
+      showActivityStatus: isActive
+    }, {merge:true}).catch(()=>null);
+  }
+  showToast(isActive ? "🟢 Activity status visible" : "⚪ Activity status hidden");
+}
+window.toggleActivityStatus = toggleActivityStatus;
+
+function togglePasswordVisibility(inputId, btn){
+  const inp = document.getElementById(inputId);
+  if(!inp) return;
+  if(inp.type === "password"){
+    inp.type = "text";
+    if(btn) btn.textContent = "🙈";
+  } else {
+    inp.type = "password";
+    if(btn) btn.textContent = "👁️";
+  }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+
+async function updateUserPassword(){
+  if(!currentUser){ showToast("🔐 Login required"); return; }
+  const newPass = document.getElementById("newPasswordInput")?.value || "";
+  const confPass = document.getElementById("confirmPasswordInput")?.value || "";
+
+  if(!newPass || newPass.length < 6){
+    showToast("⚠️ Password kam se kam 6 characters ka hona chahiye");
+    return;
+  }
+  if(newPass !== confPass){
+    showToast("❌ Passwords do not match!");
+    return;
+  }
+
+  const btn = document.getElementById("updatePasswordBtn");
+  if(btn){ btn.disabled = true; btn.textContent = "Updating..."; }
+
+  try {
+    if(currentUser.updatePassword){
+      await currentUser.updatePassword(newPass);
+      showToast("✅ Password successfully updated!");
+      const p1 = document.getElementById("newPasswordInput");
+      const p2 = document.getElementById("confirmPasswordInput");
+      if(p1) p1.value = "";
+      if(p2) p2.value = "";
+    } else {
+      showToast("❌ Password change not supported on this provider");
+    }
+  } catch(e) {
+    if(e.code === "auth/requires-recent-login"){
+      showToast("🔐 Security notice: Please re-login before changing password");
+    } else {
+      showToast("❌ " + (e.message || "Failed to update password"));
+    }
+  } finally {
+    if(btn){ btn.disabled = false; btn.textContent = "Update Password"; }
+  }
+}
+window.updateUserPassword = updateUserPassword;
+
+async function sendPasswordResetEmailCurrent(){
+  if(!currentUser || !currentUser.email){
+    showToast("❌ No email found for this account");
+    return;
+  }
+  try {
+    if(typeof auth !== "undefined" && auth.sendPasswordResetEmail){
+      await auth.sendPasswordResetEmail(currentUser.email);
+      showToast("📧 Reset link sent to " + currentUser.email);
+    }
+  } catch(e) {
+    showToast("❌ Could not send reset link: " + e.message);
+  }
+}
+window.sendPasswordResetEmailCurrent = sendPasswordResetEmailCurrent;
+
+async function loadBlockedAccountsList(){
+  const listEl = document.getElementById("settingsBlockedList");
+  if(!listEl || !currentUser) return;
+  listEl.innerHTML = '<p style="font-size:13px;color:#888;text-align:center;padding:12px">Loading blocked accounts...</p>';
+
+  try {
+    if(typeof db !== "undefined" && db){
+      const snap = await db.collection("blocks").where("blockerUid", "==", currentUser.uid).get();
+      if(snap.empty){
+        listEl.innerHTML = '<p style="font-size:13px;color:#888;text-align:center;padding:12px">Koi blocked user nahi hai.</p>';
+        return;
+      }
+      listEl.innerHTML = "";
+      for(const doc of snap.docs){
+        const b = doc.data();
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee";
+        row.innerHTML = '<div><div style="font-weight:700;font-size:14px">@' + escapeHtml(b.blockedUsername || "user") + '</div></div><button type="button" class="ig-btn" style="padding:4px 12px;font-size:12px" onclick="unblockUserInSettings(\'' + b.blockedUid + '\')">Unblock</button>';
+        listEl.appendChild(row);
+      }
+    }
+  } catch(e){
+    listEl.innerHTML = '<p style="font-size:13px;color:#888;text-align:center;padding:12px">Koi blocked user nahi hai.</p>';
+  }
+}
+window.loadBlockedAccountsList = loadBlockedAccountsList;
+
+async function unblockUserInSettings(blockedUid){
+  if(!currentUser || !blockedUid) return;
+  try {
+    if(typeof db !== "undefined" && db){
+      const snap = await db.collection("blocks")
+        .where("blockerUid", "==", currentUser.uid)
+        .where("blockedUid", "==", blockedUid)
+        .get();
+      snap.forEach(d => d.ref.delete());
+    }
+    showToast("✅ User unblocked");
+    await loadBlockedAccountsList();
+  } catch(e){
+    showToast("❌ Action failed: " + e.message);
+  }
+}
+window.unblockUserInSettings = unblockUserInSettings;
+
 
 /* =====================================================
    UPCOMEDYHUB REEL VIRAL ALGORITHM & ADMIN BOOST ENGINE
@@ -13133,7 +14700,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Privacy & Safety", passwordSecurity:"🔑 Password & Security", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
@@ -13141,6 +14708,18 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(view === "report"){ ov?.classList.remove("show"); openReportModal("general", "app", "UPComedyHub App"); return; }
     if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-heart"></use></svg></span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }
     if(view === "saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>Abhi tak koi video save nahi kiya.', "settingsSavedGrid"); }
+    if(view === "privacySafety"){
+      if(typeof loadBlockedAccountsList === "function") loadBlockedAccountsList();
+    }
+    if(view === "passwordSecurity"){
+      const eEl = document.getElementById("securityEmailText");
+      if(eEl) eEl.textContent = (currentUser && currentUser.email) ? currentUser.email : "Not linked";
+      const pEl = document.getElementById("securityProviderText");
+      if(pEl && currentUser){
+        const provs = (currentUser.providerData || []).map(p => p.providerId.replace(".com","")).join(", ");
+        pEl.textContent = provs || "Email / Password";
+      }
+    }
     const main = document.getElementById("settingsMainView"), sub = document.getElementById("settingsSubView"), back = document.getElementById("settingsBack"), title = document.getElementById("settingsTitle");
     if(main) main.style.display = "none";
     if(sub) sub.style.display = "block";

@@ -1240,10 +1240,10 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .igh-label{color:#ddd}
 
 /* Instagram Sticky Tabs */
-.ig-posts-tabs{display:flex;border-top:1px solid #dbdbdb;border-bottom:1px solid #efefef;position:sticky;top:56px;background:#fff;z-index:10}
+.ig-posts-tabs{display:flex;border-top:1px solid #dbdbdb;border-bottom:1px solid #efefef;position:sticky;top:56px;background:#fff;z-index:10;width:100%;max-width:100%;box-sizing:border-box;overflow:hidden}
 .dark-mode .ig-posts-tabs{border-color:#262626;background:#111}
-.ig-tab{flex:1;height:46px;background:none;border:none;border-top:2px solid transparent;margin-top:-1px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700;color:#8e8e8e;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:color .15s, border-color .15s}
-.ig-tab .ico{width:18px;height:18px}
+.ig-tab{flex:1;min-width:0;height:46px;background:none;border:none;border-top:2px solid transparent;margin-top:-1px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700;color:#8e8e8e;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:color .15s, border-color .15s}
+.ig-tab .ico{width:18px;height:18px;flex-shrink:0}
 .ig-tab.active{color:#111;border-top-color:#111}
 .dark-mode .ig-tab.active{color:#fff;border-top-color:#fff}
 @media(max-width:480px){.ig-tab span{display:none}.ig-tab .ico{width:22px;height:22px}}
@@ -3486,12 +3486,11 @@ body.messages-open .bottom-nav{display:none !important}
     <!-- Instagram Top Bar -->
     <div class="ig-profile-header">
       <div class="ig-header-identity" id="igHeaderIdentityBtn" role="button" tabindex="0">
-        <svg class="ico ig-header-lock"><use href="#i-lock"></use></svg>
         <span class="ig-profile-username" id="profileHeaderUsername">username</span>
         <svg class="ico ig-profile-chev"><use href="#i-chevron"></use></svg>
       </div>
       <div class="ig-header-actions">
-        <button type="button" id="profileCreateBtn" class="ig-header-btn" aria-label="Create content" title="Create"><svg class="ico"><use href="#i-plus-square"></use></svg></button>
+        <button type="button" id="profileCreateBtn" class="ig-header-btn" aria-label="Create content" title="Create" onclick="openCreatePostModal('photo')"><svg class="ico"><use href="#i-plus-square"></use></svg></button>
         <button type="button" id="profileMenuBtn" class="ig-header-btn" aria-label="Settings & Activity" title="Settings"><svg class="ico"><use href="#i-menu"></use></svg></button>
       </div>
     </div>
@@ -3532,7 +3531,7 @@ body.messages-open .bottom-nav{display:none !important}
       <!-- Identity & Bio -->
       <div class="ig-name-block">
         <div id="userName" class="ig-name">User</div>
-        <div class="ig-category-badge" id="profileCategoryBadge">🎬 Comedy Creator · Entertainer</div>
+        <div class="ig-category-badge" id="profileCategoryBadge" style="display:none">🎬 Comedy Creator · Entertainer</div>
         <div id="profileBio" class="ig-bio">No bio yet.</div>
         <a id="profileBioLink" class="ig-bio-link" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">
           <svg class="ico" style="width:13px;height:13px"><use href="#i-link"></use></svg>
@@ -3540,100 +3539,28 @@ body.messages-open .bottom-nav{display:none !important}
         </a>
       </div>
 
-      <!-- Instagram Action Buttons -->
+      <!-- Instagram Action Buttons (Clean 2-button row fitting mobile perfectly) -->
       <div class="ig-actions">
-        <button type="button" id="editProfileBtn" class="ig-btn primary"><svg class="ico" style="width:14px;height:14px"><use href="#i-edit"></use></svg>Edit Profile</button>
+        <button type="button" id="editProfileBtn" class="ig-btn" onclick="openEditProfileModal()"><svg class="ico" style="width:14px;height:14px"><use href="#i-edit"></use></svg>Edit Profile</button>
         <button type="button" id="shareProfileBtn" class="ig-btn" onclick="openShareProfileCard()"><svg class="ico" style="width:14px;height:14px"><use href="#i-send"></use></svg>Share Profile</button>
-        <button type="button" id="createPostShortcutBtn" class="ig-btn" onclick="openCreatePostModal('photo')"><svg class="ico" style="width:14px;height:14px"><use href="#i-plus-square"></use></svg>New Post</button>
-        <button type="button" id="savedShortcutBtn" class="ig-btn icon-only" title="Saved" onclick="switchIgTab('saved')"><svg class="ico" style="width:16px;height:16px"><use href="#i-bookmark"></use></svg></button>
       </div>
 
-      <!-- Professional Dashboard Card -->
-      <div class="ig-pro-dashboard" id="proDashboardCard" onclick="openProDashboardModal()">
-        <div class="ipd-left">
-          <div class="ipd-title">📊 Professional dashboard</div>
-          <div class="ipd-sub">1.8K accounts reached in the last 30 days</div>
-        </div>
-        <svg class="ico ipd-arrow"><use href="#i-chevron"></use></svg>
-      </div>
-
-      <!-- Story Highlights Tray -->
-      <div class="ig-highlights-tray" id="profileHighlightsTray">
+      <!-- Highlights Tray (Hidden by default, can be toggled/managed via Settings) -->
+      <div class="ig-highlights-tray" id="profileHighlightsTray" style="display:none">
         <div class="ig-highlight-item" id="newHighlightBtn" onclick="openCreateHighlightModal()">
           <div class="igh-ring igh-add">
             <svg class="ico" style="width:20px;height:20px"><use href="#i-plus"></use></svg>
           </div>
           <span class="igh-label">New</span>
         </div>
-        <div class="ig-highlight-item" data-highlight="standup" onclick="playStoryHighlight('standup', '🔥 Standup')">
-          <div class="igh-ring">
-            <img src="IMG_20260917_172912.jpg" alt="Standup">
-          </div>
-          <span class="igh-label">🔥 Standup</span>
-        </div>
-        <div class="ig-highlight-item" data-highlight="jokes" onclick="playStoryHighlight('jokes', '😂 Memes')">
-          <div class="igh-ring">
-            <img src="IMG_20261002_053016.png" alt="Memes">
-          </div>
-          <span class="igh-label">😂 Memes</span>
-        </div>
-        <div class="ig-highlight-item" data-highlight="bts" onclick="playStoryHighlight('bts', '🎬 BTS')">
-          <div class="igh-ring">
-            <img src="IMG_20260804_133118670_HDR_AE.jpg" alt="BTS">
-          </div>
-          <span class="igh-label">🎬 BTS</span>
-        </div>
-        <div class="ig-highlight-item" data-highlight="team" onclick="playStoryHighlight('team', '❤️ Family')">
-          <div class="igh-ring">
-            <img src="IMG_20260818_143929710_HDR_PORTRAIT.jpg" alt="Family">
-          </div>
-          <span class="igh-label">❤️ Family</span>
-        </div>
       </div>
 
-      <!-- Edit Profile Card -->
-      <div id="profileEditCard" class="card profile-edit-card" hidden>
-        <h3 style="margin-top:0;display:flex;align-items:center;gap:6px"><svg class="ico" style="width:16px;height:16px;color:#e63946"><use href="#i-edit"></use></svg> Edit Profile</h3>
-        <div class="edit-profile-avatar-row" style="display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #eee">
-          <img id="editProfileAvatarPreview" class="edit-profile-avatar-preview" src="" alt="Avatar" style="width:62px;height:62px;border-radius:50%;object-fit:cover;background:#eee">
-          <div>
-            <div id="editProfileNamePreview" style="font-weight:700;font-size:15px">User</div>
-            <button type="button" class="change-photo-link" onclick="openAvatarActionSheet()" style="background:none;border:none;color:#0095f6;font-size:13px;font-weight:700;padding:4px 0;cursor:pointer">Change profile photo</button>
-          </div>
-        </div>
-        <label for="usernameInput">Username</label>
-        <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
-        <div class="profile-edit-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
-        <label for="displayNameInput">Name</label>
-        <input id="displayNameInput" type="text" maxlength="50" autocomplete="off" placeholder="Your full name">
-        <label for="pronounsInput">Pronouns</label>
-        <input id="pronounsInput" type="text" maxlength="30" placeholder="e.g. he/him, creator">
-        <label for="categoryInput">Category</label>
-        <select id="categoryInput" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;margin-bottom:12px;background:#f9f9f9;font-family:inherit;font-size:14px">
-          <option value="🎬 Comedy Creator · Entertainer">🎬 Comedy Creator · Entertainer</option>
-          <option value="🎭 Standup Comedian">🎭 Standup Comedian</option>
-          <option value="⚡ Digital Video Creator">⚡ Digital Video Creator</option>
-          <option value="🌟 Public Figure">🌟 Public Figure</option>
-          <option value="🎨 Artist & Entertainer">🎨 Artist & Entertainer</option>
-          <option value="🎮 Gaming & Comedy">🎮 Gaming & Comedy</option>
-          <option value="❤️ Community Creator">❤️ Community Creator</option>
-        </select>
-        <label for="bioInput">Bio</label>
-        <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..."></textarea>
-        <label for="websiteLinkInput">Link in Bio</label>
-        <input id="websiteLinkInput" type="url" placeholder="https://youtube.com/@yourchannel or website">
-        <div class="profile-edit-actions" style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">
-          <button type="button" id="cancelProfileEdit" style="background:#eee;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Cancel</button>
-          <button type="button" id="saveProfileBtn" style="background:#0095f6;color:#fff;border:none;padding:10px 16px;border-radius:18px;font-weight:700;cursor:pointer">Save Profile</button>
-        </div>
-      </div>
-
-      <!-- Instagram Sticky Navigation Tabs -->
+      <!-- Instagram Sticky Navigation Tabs: Posts | Reels | Videos | Playlist -->
       <div class="ig-posts-tabs">
         <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-grid"></use></svg><span>Posts</span></button>
         <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-reels"></use></svg><span>Reels</span></button>
-        <button type="button" class="ig-tab" data-ig-tab="saved"><svg class="ico"><use href="#i-bookmark"></use></svg><span>Saved</span></button>
-        <button type="button" class="ig-tab" data-ig-tab="tagged"><svg class="ico"><use href="#i-tag"></use></svg><span>Tagged</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="videos"><svg class="ico"><use href="#i-video"></use></svg><span>Videos</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="playlist"><svg class="ico"><use href="#i-film"></use></svg><span>Playlist</span></button>
       </div>
 
       <!-- Main Profile Grid -->
@@ -3641,6 +3568,57 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
 
   </section>
+</div>
+
+<!-- Standalone Fullscreen / Dedicated Modal Window for Edit Profile ("alag window me khule") -->
+<div class="ig-sheet-overlay" id="editProfileModalOverlay" style="align-items:center" onclick="if(event.target===this)closeEditProfileModal()">
+  <div class="ig-edit-modal-box">
+    <div class="ig-edit-modal-header">
+      <button type="button" class="ig-edit-modal-btn cancel" onclick="closeEditProfileModal()">Cancel</button>
+      <h3 style="margin:0;font-size:16px;font-weight:800">Edit Profile</h3>
+      <button type="button" id="saveProfileBtn" class="ig-edit-modal-btn done" onclick="saveProfileIdentity()">Done</button>
+    </div>
+    <div class="ig-edit-modal-body">
+      <div class="edit-profile-avatar-row" style="text-align:center;padding:16px 0 20px;border-bottom:1px solid #f0f0f0">
+        <img id="editProfileAvatarPreview" class="edit-profile-avatar-preview" src="" alt="Avatar" style="width:82px;height:82px;border-radius:50%;object-fit:cover;background:#eee;margin:0 auto 10px;display:block">
+        <button type="button" class="change-photo-link" onclick="openAvatarActionSheet()" style="background:none;border:none;color:#0095f6;font-size:14px;font-weight:700;cursor:pointer">Change profile photo</button>
+      </div>
+
+      <div style="padding:16px 0">
+        <label for="displayNameInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Name</label>
+        <input id="displayNameInput" type="text" maxlength="50" autocomplete="off" placeholder="Your full name" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+
+        <label for="usernameInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Username</label>
+        <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:4px">
+        <div style="font-size:11px;color:#888;margin-bottom:14px">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+
+        <label for="pronounsInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Pronouns</label>
+        <input id="pronounsInput" type="text" maxlength="30" placeholder="e.g. he/him, creator" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+
+        <label for="bioInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Bio</label>
+        <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..." rows="3" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px;resize:vertical;font-family:inherit"></textarea>
+
+        <label for="websiteLinkInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Links (Add link in bio)</label>
+        <input id="websiteLinkInput" type="url" placeholder="https://youtube.com/@yourchannel or website" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+
+        <label for="categoryInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Category</label>
+        <select id="categoryInput" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;margin-bottom:16px;background:#fafafa;font-family:inherit;font-size:14px;outline:none">
+          <option value="🎬 Comedy Creator · Entertainer">🎬 Comedy Creator · Entertainer</option>
+          <option value="🎭 Standup Comedian">🎭 Standup Comedian</option>
+          <option value="⚡ Digital Video Creator">⚡ Digital Video Creator</option>
+          <option value="🌟 Public Figure">🌟 Public Figure</option>
+          <option value="🎨 Artist &amp; Entertainer">🎨 Artist &amp; Entertainer</option>
+          <option value="🎮 Gaming &amp; Comedy">🎮 Gaming &amp; Comedy</option>
+          <option value="❤️ Community Creator">❤️ Community Creator</option>
+        </select>
+
+        <div style="background:#f0f2f5;padding:12px 14px;border-radius:12px" class="dark-box">
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Switch to Professional Account</div>
+          <div style="font-size:12px;color:#777;line-height:1.4">Get insights about your comedy followers and access creator tools from Settings &gt; Account type and tools.</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="tab-funzone" class="tab-pane">
@@ -4486,9 +4464,15 @@ body.messages-open .bottom-nav{display:none !important}
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" id="settingsVerifyTickRow" onclick="openVerificationModal()"><svg class="snr-ico" style="color:#e63946"><use href="#i-verified-crimson"></use></svg><span class="snr-label">Creator Verification &amp; Tick</span><span class="snr-value" id="settingsVerifiedStatus" style="color:#e63946;font-weight:700">Get Verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
-      <!-- Account Privacy, Calling & Password Security (Feature 5) -->
-      <div class="settings-nav-row" data-settings-view="privacySafety"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy &amp; Safety</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-      <div class="settings-nav-row" data-settings-view="passwordSecurity"><svg class="snr-ico"><use href="#i-lock"></use></svg><span class="snr-label">Password &amp; Security</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <!-- Instagram Settings Sections: "Your insights and tools" -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#888;letter-spacing:0.5px;padding:12px 4px 6px">Your insights and tools</div>
+      <div class="settings-nav-row" data-settings-view="proDashboard"><svg class="snr-ico"><use href="#i-grid"></use></svg><span class="snr-label">Professional dashboard</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="accountType"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Account type and tools</span><span class="snr-value" id="settingsAccountTypeBadge">Personal</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+
+      <!-- Instagram Settings Section: "Who can see your content" -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#888;letter-spacing:0.5px;padding:14px 4px 6px">Who can see your content</div>
+      <div class="settings-nav-row" data-settings-view="privacySafety"><svg class="snr-ico"><use href="#i-lock"></use></svg><span class="snr-label">Account privacy</span><span class="snr-value" id="settingsPrivacyStatus">Public</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="passwordSecurity"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Password &amp; Security</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <div class="settings-nav-row" data-settings-view="privacy"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Privacy Policy</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="guidelines"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community Guidelines</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -4781,6 +4765,99 @@ body.messages-open .bottom-nav{display:none !important}
             <span style="font-weight:700;color:#22c55e">Active &amp; Secure</span>
           </div>
         </div>
+      </div>
+
+      <!-- Account Type and Tools Subpage (Authentic Instagram "Account type and tools") -->
+      <div class="settings-subpage" id="subAccountType" style="display:none">
+        <p style="color:#888;font-size:13px;margin-bottom:14px">Control account type, creator categories, and profile features.</p>
+        
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:14px" class="dark-box">
+          <h4 style="font-size:14px;font-weight:800;margin:0 0 4px">Switch Account Type</h4>
+          <p style="font-size:12px;color:#777;margin:0 0 14px">Choose how your account behaves across the comedy hub.</p>
+
+          <div class="settings-radio-pill selected" id="accTypePersonal" onclick="switchAccountTypeOption('personal', this)">
+            <div>
+              <div style="font-weight:700">👤 Personal Account</div>
+              <small style="color:#777;font-size:11px">Simple standard profile for watching &amp; sharing</small>
+            </div>
+            <span class="ico-check">✓</span>
+          </div>
+
+          <div class="settings-radio-pill" id="accTypeCreator" onclick="switchAccountTypeOption('creator', this)">
+            <div>
+              <div style="font-weight:700">🎬 Creator / Comedian Account</div>
+              <small style="color:#777;font-size:11px">For comedy creators, actors, standup artists</small>
+            </div>
+            <span class="ico-check"></span>
+          </div>
+
+          <div class="settings-radio-pill" id="accTypeBusiness" onclick="switchAccountTypeOption('business', this)">
+            <div>
+              <div style="font-weight:700">💼 Business / Brand Account</div>
+              <small style="color:#777;font-size:11px">For entertainment brands, studios, agencies</small>
+            </div>
+            <span class="ico-check"></span>
+          </div>
+        </div>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:14px" class="dark-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
+            <div style="font-weight:700;font-size:14px">🏷️ Show Category on Profile</div>
+            <label class="ig-switch">
+              <input type="checkbox" id="showCategoryToggle" onchange="toggleCategoryBadgeDisplay(this.checked)">
+              <span class="ig-switch-slider"></span>
+            </label>
+          </div>
+          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Display your creator category badge (e.g. Comedy Creator · Entertainer) under your name on profile.</p>
+        </div>
+
+        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px" class="dark-box">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
+            <div style="font-weight:700;font-size:14px">⭐ Story Highlights on Profile</div>
+            <label class="ig-switch">
+              <input type="checkbox" id="showHighlightsToggle" onchange="toggleHighlightsDisplay(this.checked)">
+              <span class="ig-switch-slider"></span>
+            </label>
+          </div>
+          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Show saved story highlights tray on your profile under bio.</p>
+        </div>
+      </div>
+
+      <!-- Professional Dashboard Subpage (Accessible from Settings) -->
+      <div class="settings-subpage" id="subProDashboard" style="display:none">
+        <p style="color:#888;font-size:13px;margin-bottom:14px">Insights and performance summary for the last 30 days.</p>
+
+        <div class="ig-pro-metrics-grid">
+          <div class="ig-metric-card">
+            <div class="ig-metric-label">Accounts Reached</div>
+            <div class="ig-metric-val">1,842</div>
+            <div class="ig-metric-change">▲ +14.2% vs last month</div>
+          </div>
+          <div class="ig-metric-card">
+            <div class="ig-metric-label">Content Interactions</div>
+            <div class="ig-metric-val" id="metricInteractionsSettings">784</div>
+            <div class="ig-metric-change">▲ +21.5% engagement</div>
+          </div>
+          <div class="ig-metric-card">
+            <div class="ig-metric-label">Total Followers</div>
+            <div class="ig-metric-val" id="metricFollowersSettings">0</div>
+            <div class="ig-metric-change">Active community</div>
+          </div>
+          <div class="ig-metric-card">
+            <div class="ig-metric-label">Profile Views</div>
+            <div class="ig-metric-val">3,420</div>
+            <div class="ig-metric-change">▲ +32.0% visits</div>
+          </div>
+        </div>
+
+        <div style="background:#f8f9fa;border-radius:14px;padding:14px;margin-bottom:14px" class="dark-box">
+          <h4 style="font-size:13px;font-weight:800;margin:0 0 6px">💡 Creator Growth Tips</h4>
+          <p style="font-size:12px;color:#666;margin:0 0 4px">• Post at least 1 comedy reel daily for viral algorithm bootstrap.</p>
+          <p style="font-size:12px;color:#666;margin:0 0 4px">• Use popular audio effects from the Fun Zone and audio tray.</p>
+          <p style="font-size:12px;color:#666;margin:0">• Reply to comments within the first 15 minutes.</p>
+        </div>
+
+        <button type="button" class="ig-btn primary" style="width:100%" onclick="closeSettings();openCreatePostModal('reel')">Create Reel Now</button>
       </div>
     </div>
   </div>
@@ -5154,6 +5231,30 @@ body.messages-open .bottom-nav{display:none !important}
     </div>
 
     <button type="button" class="ig-btn primary" style="width:100%" onclick="saveNewHighlight()">Add Highlight</button>
+  </div>
+</div>
+
+<!-- Instagram-Style "Add Story to Highlight" Sheet -->
+<div class="ig-sheet-overlay" id="addToHighlightSheet" style="align-items:flex-end;z-index:100100" onclick="if(event.target===this)closeAddToHighlightSheet()">
+  <div class="ig-sheet-box" style="border-radius:24px 24px 0 0;max-width:440px">
+    <div class="ig-sheet-handle"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px 8px;border-bottom:1px solid #eee">
+      <h3 style="margin:0;font-size:16px;font-weight:800">Add to Highlights</h3>
+      <button type="button" class="ig-edit-modal-btn cancel" onclick="closeAddToHighlightSheet()">Cancel</button>
+    </div>
+    <div style="padding:16px 18px">
+      <!-- New Highlight Quick Input -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#f0f2f5;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0" id="quickHighlightCover">⭐</div>
+        <input type="text" id="quickHighlightNameInput" placeholder="Highlight name (e.g. Comedy, Memes)" maxlength="20" style="flex:1;padding:10px 12px;border:1px solid #ddd;border-radius:10px;font-size:14px;outline:none;background:#fafafa">
+        <button type="button" class="ig-btn primary" onclick="confirmAddStoryToHighlight()" style="padding:10px 16px;font-size:13px;flex-shrink:0">Add</button>
+      </div>
+
+      <div style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:8px">Choose Existing Highlight</div>
+      <div id="existingHighlightsList" style="display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none">
+        <!-- Render existing highlights -->
+      </div>
+    </div>
   </div>
 </div>
 
@@ -5536,6 +5637,7 @@ body.messages-open .bottom-nav{display:none !important}
         </div>
       </div>
       <div class="story-viewer-actions">
+        <button type="button" class="story-viewer-btn" id="storyHighlightBtn" onclick="addCurrentStoryToHighlight()" title="Add to Highlights" aria-label="Highlight">⭐</button>
         <button type="button" class="story-viewer-btn" id="storyDeleteBtn" onclick="deleteCurrentStory()" style="display:none;color:#ef4444" title="Delete your story" aria-label="Delete story">🗑️</button>
         <button type="button" class="story-viewer-btn" onclick="closeStoryViewer()" aria-label="Close story">✕</button>
       </div>
@@ -5555,6 +5657,7 @@ body.messages-open .bottom-nav{display:none !important}
     <!-- Bottom Interaction Bar -->
     <div class="story-viewer-bottom">
       <input type="text" class="story-reply-input" id="storyReplyInput" placeholder="Send message..." onkeydown="handleStoryReplyKey(event)">
+      <button type="button" class="story-reaction-btn" id="storyHighlightBottomBtn" onclick="addCurrentStoryToHighlight()" title="Highlight" aria-label="Highlight" style="display:flex;align-items:center;gap:4px;padding:6px 10px;font-size:12px;font-weight:700">⭐ Highlight</button>
       <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('❤️')" aria-label="Heart">❤️</button>
       <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('😂')" aria-label="Laugh">😂</button>
       <button type="button" class="story-reaction-btn" onclick="sendStoryReaction('🔥')" aria-label="Fire">🔥</button>
@@ -7002,9 +7105,8 @@ async function loadProfileIdentity(){
     if(un) un.textContent = "@"+(data.username||"user");
     
     const isPrivate = !!data.isPrivate;
-    const lockIcon = isPrivate ? '<svg class="ico ig-header-lock" style="width:14px;height:14px;margin-right:4px"><use href="#i-lock"></use></svg>' : '';
     const uh = document.getElementById("profileHeaderUsername"); 
-    if(uh) uh.innerHTML = lockIcon + escapeHtml(data.username||"user") + vBadge;
+    if(uh) uh.innerHTML = escapeHtml(data.username||"user") + vBadge;
     
     const uNameEl = document.getElementById("userName");
     if(uNameEl) uNameEl.innerHTML = escapeHtml(data.displayName || currentUser.displayName || "User") + vBadge;
@@ -7020,8 +7122,24 @@ async function loadProfileIdentity(){
     const pb = document.getElementById("profileBio");
     if(pb) pb.textContent = data.bio || "No bio yet.";
 
+    const showCat = localStorage.getItem("upch_show_category_" + currentUser.uid) === "1" || data.showCategory === true;
     const pcb = document.getElementById("profileCategoryBadge");
-    if(pcb) pcb.textContent = data.category || "🎬 Comedy Creator · Entertainer";
+    if(pcb){
+      pcb.textContent = data.category || "🎬 Comedy Creator · Entertainer";
+      pcb.style.display = showCat ? "inline-block" : "none";
+    }
+    const catTog = document.getElementById("showCategoryToggle");
+    if(catTog) catTog.checked = showCat;
+
+    const showHigh = localStorage.getItem("upch_show_highlights_" + currentUser.uid) === "1" || data.showHighlights === true;
+    const hTray = document.getElementById("profileHighlightsTray");
+    if(hTray) hTray.style.display = showHigh ? "flex" : "none";
+    const highTog = document.getElementById("showHighlightsToggle");
+    if(highTog) highTog.checked = showHigh;
+
+    const accType = data.accountType || localStorage.getItem("upch_account_type_" + currentUser.uid) || "personal";
+    const atBadge = document.getElementById("settingsAccountTypeBadge");
+    if(atBadge) atBadge.textContent = accType.charAt(0).toUpperCase() + accType.slice(1);
 
     const bioLinkEl = document.getElementById("profileBioLink");
     const bioLinkText = document.getElementById("profileBioLinkText");
@@ -7045,6 +7163,8 @@ async function loadProfileIdentity(){
     
     const privToggle = document.getElementById("privateAccountToggle");
     if(privToggle) privToggle.checked = isPrivate;
+    const privStatus = document.getElementById("settingsPrivacyStatus");
+    if(privStatus) privStatus.textContent = isPrivate ? "Private" : "Public";
 
     await Promise.all([
       loadFollowCounts(),
@@ -7113,12 +7233,13 @@ async function saveProfileIdentity(){
       await currentUser.updateProfile({ displayName: newDisplayName }).catch(()=>null);
     }
     await loadProfileIdentity();
-    document.getElementById("profileEditCard").hidden = true;
+    closeEditProfileModal();
+    const pec = document.getElementById("profileEditCard"); if(pec) pec.hidden = true;
     showToast("✅ Profile updated!");
   }catch(e){
     console.error(e);
     showToast(e.message === "USERNAME_TAKEN" ? "❌ Username already taken" : "❌ Update failed");
-  }finally{ saveBtn.disabled = false; saveBtn.textContent = "Save Profile"; }
+  }finally{ saveBtn.disabled = false; saveBtn.textContent = "Done"; }
 }
 
 /* ---------- PROFILE PHOTO (ENHANCED & RELIABLE) ---------- */
@@ -7512,70 +7633,76 @@ async function switchIgTab(t){
     await renderCurrentUserPostsGrid();
   } else if(t === "reels"){
     await renderCurrentUserReelsGrid();
+  } else if(t === "videos"){
+    await renderCurrentUserVideosGrid();
+  } else if(t === "playlist"){
+    renderCurrentUserPlaylistsGrid();
   } else if(t === "saved"){
-    renderCurrentUserSavedGrid();
-  } else if(t === "tagged"){
-    grid.className = "ig-posts-grid grid-empty";
-    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-tag"></use></svg></span>Photos and videos of you<p style="font-size:12px;color:#888;margin-top:6px">When people tag you in photos or reels, they will appear here.</p></div>';
-  } else if(t === "playlist" || t === "videos"){
     renderCurrentUserSavedGrid();
   }
 }
 window.switchIgTab = switchIgTab;
 
-// Render Posts Tab
+// Render Posts Tab (Never crashes with ugly error, always graceful empty state)
 async function renderCurrentUserPostsGrid(){
   const grid = document.getElementById("igPostsGrid");
   if(!grid || !currentUser) return;
   grid.innerHTML = '<div class="ig-empty" style="grid-column:1/-1">⏳ Loading posts...</div>';
 
+  let posts = [];
   try {
-    let posts = [];
+    const local = JSON.parse(localStorage.getItem("upch_user_posts_" + currentUser.uid) || "[]");
+    if(Array.isArray(local) && local.length) posts = local;
+  } catch(e){}
+
+  try {
     if(typeof db !== "undefined" && db){
       const snap = await db.collection("user_posts")
         .where("userId", "==", currentUser.uid)
         .limit(60)
         .get();
-      snap.forEach(doc => {
-        posts.push({ id: doc.id, ...doc.data() });
-      });
-      // Sort client-side in case compound index is missing
-      posts.sort((a,b) => {
-        const ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
-        const tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
-        return tb - ta;
-      });
+      if(!snap.empty){
+        const remote = [];
+        snap.forEach(doc => {
+          remote.push({ id: doc.id, ...doc.data() });
+        });
+        remote.sort((a,b) => {
+          const ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
+          const tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
+          return tb - ta;
+        });
+        posts = remote;
+        try { localStorage.setItem("upch_user_posts_" + currentUser.uid, JSON.stringify(posts)); } catch(e){}
+      }
     }
-
-    cachedUserPosts = posts;
-    updateProfilePostsCount(posts.length);
-
-    if(!posts.length){
-      grid.className = "ig-posts-grid grid-empty";
-      grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-camera"></use></svg></span>Share Photos &amp; Reels<p style="font-size:12px;color:#888;margin:6px 0 14px">When you share comedy photos and reels, they appear on your profile.</p><button type="button" class="ig-btn primary" onclick="openCreatePostModal(\'photo\')" style="margin:0 auto">Share your first post</button></div>';
-      return;
-    }
-
-    grid.className = "ig-posts-grid";
-    grid.innerHTML = "";
-    posts.forEach(p => {
-      const itemEl = document.createElement("div");
-      itemEl.className = "ig-grid-item";
-      const isReel = p.type === "reel";
-      const badgeHtml = isReel ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>' : '';
-      const mediaHtml = isReel && !p.thumbnail
-        ? '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>'
-        : '<img src="' + escapeAttr(p.thumbnail || p.mediaUrl) + '" alt="Post" loading="lazy">';
-
-      itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
-      itemEl.addEventListener("click", () => openPostViewer(p));
-      grid.appendChild(itemEl);
-    });
   } catch(e) {
-    console.error("renderCurrentUserPostsGrid error:", e);
-    grid.className = "ig-posts-grid grid-empty";
-    grid.innerHTML = '<div class="ig-empty">Koi post load nahi ho saki.</div>';
+    console.warn("user_posts query note:", e);
   }
+
+  cachedUserPosts = posts;
+  updateProfilePostsCount(posts.length);
+
+  if(!posts.length){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-camera"></use></svg></span>Share Photos &amp; Reels<p style="font-size:12px;color:#888;margin:6px 0 14px">When you share comedy photos and reels, they appear on your profile.</p><button type="button" class="ig-btn primary" onclick="openCreatePostModal(\'photo\')" style="margin:0 auto">Share your first post</button></div>';
+    return;
+  }
+
+  grid.className = "ig-posts-grid";
+  grid.innerHTML = "";
+  posts.forEach(p => {
+    const itemEl = document.createElement("div");
+    itemEl.className = "ig-grid-item";
+    const isReel = p.type === "reel";
+    const badgeHtml = isReel ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>' : '';
+    const mediaHtml = isReel && !p.thumbnail
+      ? '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>'
+      : '<img src="' + escapeAttr(p.thumbnail || p.mediaUrl) + '" alt="Post" loading="lazy">';
+
+    itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+    itemEl.addEventListener("click", () => openPostViewer(p));
+    grid.appendChild(itemEl);
+  });
 }
 window.renderCurrentUserPostsGrid = renderCurrentUserPostsGrid;
 
@@ -7604,6 +7731,70 @@ async function renderCurrentUserReelsGrid(){
     grid.appendChild(itemEl);
   });
 }
+window.renderCurrentUserReelsGrid = renderCurrentUserReelsGrid;
+
+// Render Videos Tab (Long Videos Section)
+async function renderCurrentUserVideosGrid(){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid || !currentUser) return;
+  const videos = cachedUserPosts.filter(p => p.type === "video" || p.category === "long");
+
+  if(!videos.length){
+    grid.className = "ig-posts-grid grid-empty";
+    grid.innerHTML = '<div class="ig-empty"><span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-video"></use></svg></span>No Long Videos Yet<p style="font-size:12px;color:#888;margin:6px 0 14px">Upload full-length comedy sketches, stand-up clips, and funny videos.</p><button type="button" class="ig-btn primary" onclick="openCreatePostModal(\'video\')" style="margin:0 auto">Upload Video</button></div>';
+    return;
+  }
+
+  grid.className = "ig-posts-grid";
+  grid.innerHTML = "";
+  videos.forEach(p => {
+    const itemEl = document.createElement("div");
+    itemEl.className = "ig-grid-item";
+    const mediaHtml = p.thumbnail
+      ? '<img src="' + escapeAttr(p.thumbnail) + '" alt="Video" loading="lazy">'
+      : '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>';
+    itemEl.innerHTML = mediaHtml + '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-video"></use></svg></span><div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+    itemEl.addEventListener("click", () => openPostViewer(p));
+    grid.appendChild(itemEl);
+  });
+}
+window.renderCurrentUserVideosGrid = renderCurrentUserVideosGrid;
+
+// Render Playlist Tab (Playlists Section)
+function renderCurrentUserPlaylistsGrid(){
+  const grid = document.getElementById("igPostsGrid");
+  if(!grid) return;
+  
+  let playlists = [];
+  try {
+    playlists = JSON.parse(localStorage.getItem("upch_user_playlists_" + (currentUser ? currentUser.uid : "guest")) || "[]");
+  } catch(e){}
+
+  if(!playlists.length){
+    // Starter entertainment playlists
+    playlists = [
+      { id: "pl_favorites", title: "😂 Comedy Favorites", count: 8, cover: "IMG_20260917_172912.jpg" },
+      { id: "pl_memes", title: "🔥 Viral Memes & Shorts", count: 14, cover: "IMG-20251109-WA0006.jpg" },
+      { id: "pl_standup", title: "🎭 Standup Specials", count: 6, cover: "IMG_20260515_142405545_HDR_PORTRAIT.jpg" }
+    ];
+  }
+
+  grid.className = "ig-posts-grid ig-video-grid";
+  grid.innerHTML = "";
+  
+  playlists.forEach(pl => {
+    const card = document.createElement("div");
+    card.className = "video-card";
+    card.style.cursor = "pointer";
+    card.innerHTML = '<div class="video-thumb"><img src="' + escapeAttr(pl.cover) + '" alt="' + escapeAttr(pl.title) + '" style="width:100%;height:100%;object-fit:cover"><div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,0.75);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;display:flex;align-items:center;gap:4px"><svg class="ico" style="width:12px;height:12px"><use href="#i-film"></use></svg>' + pl.count + ' items</div></div><div class="video-info"><h3 style="font-size:14px;font-weight:700;margin:6px 0 2px">' + escapeHtml(pl.title) + '</h3><div class="video-date">Playlist · ' + pl.count + ' comedy videos</div></div>';
+    card.onclick = () => {
+      showToast("📂 Playlist: " + pl.title);
+      renderIgVideoGrid(Array.from(userSavedVideos || []).slice(0, 10), "Playlist is empty", "igPostsGrid");
+    };
+    grid.appendChild(card);
+  });
+}
+window.renderCurrentUserPlaylistsGrid = renderCurrentUserPlaylistsGrid;
 
 // Render Saved Tab
 function renderCurrentUserSavedGrid(){
@@ -8186,6 +8377,224 @@ function playStoryHighlight(id, title){
   }
 }
 window.playStoryHighlight = playStoryHighlight;
+
+/* ---------- EDIT PROFILE MODAL (DEDICATED WINDOW) ---------- */
+function openEditProfileModal(){
+  const modal = document.getElementById("editProfileModalOverlay");
+  if(!modal) return;
+  if(cachedCurrentUserProfile){
+    const d = cachedCurrentUserProfile;
+    const ui = document.getElementById("usernameInput"); if(ui) ui.value = d.username || "";
+    const dni = document.getElementById("displayNameInput"); if(dni) dni.value = d.displayName || (currentUser ? currentUser.displayName : "") || "";
+    const pni = document.getElementById("pronounsInput"); if(pni) pni.value = d.pronouns || "";
+    const cti = document.getElementById("categoryInput"); if(cti && d.category) cti.value = d.category;
+    const bi = document.getElementById("bioInput"); if(bi) bi.value = d.bio || "";
+    const wli = document.getElementById("websiteLinkInput"); if(wli) wli.value = d.websiteLink || "";
+    const prev = document.getElementById("editProfileAvatarPreview");
+    if(prev) prev.src = d.photoURL || currentProfilePhotoURL || (currentUser ? currentUser.photoURL : "") || "IMG_20260917_172912.jpg";
+  }
+  modal.classList.add("show");
+  document.body.classList.add("messages-open");
+}
+window.openEditProfileModal = openEditProfileModal;
+
+function closeEditProfileModal(){
+  const modal = document.getElementById("editProfileModalOverlay");
+  if(modal) modal.classList.remove("show");
+  document.body.classList.remove("messages-open");
+}
+window.closeEditProfileModal = closeEditProfileModal;
+
+/* ---------- STORY HIGHLIGHTS FROM STORY VIEWER ---------- */
+let pendingStoryForHighlight = null;
+
+function addCurrentStoryToHighlight(){
+  if(typeof currentViewingUserStories !== "undefined" && currentViewingUserStories && currentViewingStoryIndex >= 0 && currentViewingUserStories[currentViewingStoryIndex]){
+    openAddToHighlightSheet(currentViewingUserStories[currentViewingStoryIndex]);
+  } else {
+    openCreateHighlightModal();
+  }
+}
+window.addCurrentStoryToHighlight = addCurrentStoryToHighlight;
+
+function openAddToHighlightSheet(story){
+  pendingStoryForHighlight = story;
+  const sheet = document.getElementById("addToHighlightSheet");
+  if(!sheet) return;
+
+  const quickCover = document.getElementById("quickHighlightCover");
+  if(quickCover){
+    if(story && story.mediaUrl && (story.type === "photo" || !story.type)){
+      quickCover.innerHTML = '<img src="' + escapeAttr(story.thumbnail || story.mediaUrl) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">';
+    } else {
+      quickCover.textContent = "⭐";
+    }
+  }
+
+  // Populate existing highlights list
+  const listEl = document.getElementById("existingHighlightsList");
+  if(listEl){
+    let savedHighlights = [];
+    try {
+      savedHighlights = JSON.parse(localStorage.getItem("upch_highlights_" + (currentUser ? currentUser.uid : "guest")) || "[]");
+    } catch(e){}
+    if(!savedHighlights.length){
+      savedHighlights = [
+        { title: "Comedy", emoji: "😂", cover: "IMG_20260917_172912.jpg" },
+        { title: "Memes", emoji: "🔥", cover: "IMG-20251109-WA0006.jpg" }
+      ];
+    }
+    listEl.innerHTML = savedHighlights.map((h) => {
+      return '<div onclick="addStoryToExistingHighlight(\'' + escapeAttr(h.title) + '\',\'' + escapeAttr(h.emoji||"⭐") + '\')" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex-shrink:0">' +
+        '<div style="width:54px;height:54px;border-radius:50%;padding:2px;border:1px solid #dbdbdb;display:flex;align-items:center;justify-content:center;background:#f5f5f5;font-size:20px;overflow:hidden">' +
+        (h.cover ? '<img src="' + escapeAttr(h.cover) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">' : (h.emoji || '⭐')) +
+        '</div>' +
+        '<span style="font-size:11px;font-weight:600;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(h.title) + '</span>' +
+        '</div>';
+    }).join('');
+  }
+
+  sheet.classList.add("show");
+}
+window.openAddToHighlightSheet = openAddToHighlightSheet;
+
+function closeAddToHighlightSheet(){
+  const sheet = document.getElementById("addToHighlightSheet");
+  if(sheet) sheet.classList.remove("show");
+  pendingStoryForHighlight = null;
+}
+window.closeAddToHighlightSheet = closeAddToHighlightSheet;
+
+function confirmAddStoryToHighlight(){
+  const inp = document.getElementById("quickHighlightNameInput");
+  const name = (inp ? inp.value : "").trim() || "Highlights";
+  const story = pendingStoryForHighlight;
+  const coverUrl = story ? (story.thumbnail || story.mediaUrl || "") : "";
+  addStoryToExistingHighlight(name, "⭐", coverUrl);
+  if(inp) inp.value = "";
+}
+window.confirmAddStoryToHighlight = confirmAddStoryToHighlight;
+
+function addStoryToExistingHighlight(title, emoji, coverUrl){
+  const uid = currentUser ? currentUser.uid : "guest";
+  let savedHighlights = [];
+  try {
+    savedHighlights = JSON.parse(localStorage.getItem("upch_highlights_" + uid) || "[]");
+  } catch(e){}
+
+  const existingIdx = savedHighlights.findIndex(h => h.title.toLowerCase() === title.toLowerCase());
+  if(existingIdx >= 0){
+    if(coverUrl) savedHighlights[existingIdx].cover = coverUrl;
+  } else {
+    savedHighlights.push({
+      title: title,
+      emoji: emoji || "⭐",
+      cover: coverUrl || "IMG_20260917_172912.jpg"
+    });
+  }
+  try { localStorage.setItem("upch_highlights_" + uid, JSON.stringify(savedHighlights)); } catch(e){}
+
+  // Render on profile tray if highlights tray exists
+  const tray = document.getElementById("profileHighlightsTray");
+  if(tray){
+    const item = document.createElement("div");
+    item.className = "ig-highlight-item";
+    item.onclick = () => playStoryHighlight(title, title);
+    const ringInner = coverUrl 
+      ? '<img src="' + escapeAttr(coverUrl) + '" alt="' + escapeAttr(title) + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">'
+      : (emoji || '⭐');
+    item.innerHTML = '<div class="igh-ring" style="display:flex;align-items:center;justify-content:center;font-size:22px;background:#f5f5f5">' + ringInner + '</div><span class="igh-label">' + escapeHtml(title) + '</span>';
+    tray.appendChild(item);
+  }
+
+  showToast("⭐ Added to " + title + " highlights!");
+  closeAddToHighlightSheet();
+}
+window.addStoryToExistingHighlight = addStoryToExistingHighlight;
+
+/* ---------- ACCOUNT SETTINGS & CREATOR TOOLS TOGGLES ---------- */
+function toggleHighlightsDisplay(show){
+  if(currentUser){
+    localStorage.setItem("upch_show_highlights_" + currentUser.uid, show ? "1" : "0");
+    if(typeof db !== "undefined" && db){
+      db.collection("publicProfiles").doc(currentUser.uid).set({ showHighlights: show }, {merge:true}).catch(()=>null);
+    }
+  }
+  const tray = document.getElementById("profileHighlightsTray");
+  if(tray) tray.style.display = show ? "flex" : "none";
+  showToast(show ? "⭐ Highlights enabled on profile" : "Highlights hidden from profile");
+}
+window.toggleHighlightsDisplay = toggleHighlightsDisplay;
+
+function toggleCategoryBadgeDisplay(show){
+  if(currentUser){
+    localStorage.setItem("upch_show_category_" + currentUser.uid, show ? "1" : "0");
+    if(typeof db !== "undefined" && db){
+      db.collection("publicProfiles").doc(currentUser.uid).set({ showCategory: show }, {merge:true}).catch(()=>null);
+    }
+  }
+  const badge = document.getElementById("profileCategoryBadge");
+  if(badge) badge.style.display = show ? "inline-block" : "none";
+  showToast(show ? "🏷️ Category shown on profile" : "Category hidden from profile");
+}
+window.toggleCategoryBadgeDisplay = toggleCategoryBadgeDisplay;
+
+async function switchAccountTypeOption(type, el){
+  if(!currentUser){ showToast("🔐 Login required"); return; }
+  document.querySelectorAll("#subAccountType .settings-radio-pill").forEach(p => {
+    p.classList.remove("selected");
+    const check = p.querySelector(".ico-check");
+    if(check) check.textContent = "";
+  });
+  if(el){
+    el.classList.add("selected");
+    const check = el.querySelector(".ico-check");
+    if(check) check.textContent = "✓";
+  }
+  localStorage.setItem("upch_account_type_" + currentUser.uid, type);
+  const badge = document.getElementById("settingsAccountTypeBadge");
+  if(badge) badge.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+
+  if(typeof db !== "undefined" && db){
+    await db.collection("publicProfiles").doc(currentUser.uid).set({
+      accountType: type,
+      isCreator: type === "creator" || type === "business",
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    }, {merge:true}).catch(()=>null);
+  }
+  showToast("⚙️ Account type switched to " + type.charAt(0).toUpperCase() + type.slice(1));
+}
+window.switchAccountTypeOption = switchAccountTypeOption;
+
+function syncAccountTypeUI(){
+  if(!currentUser) return;
+  const cur = localStorage.getItem("upch_account_type_" + currentUser.uid) || (cachedCurrentUserProfile && cachedCurrentUserProfile.accountType) || "personal";
+  document.querySelectorAll("#subAccountType .settings-radio-pill").forEach(p => {
+    p.classList.remove("selected");
+    const check = p.querySelector(".ico-check");
+    if(check) check.textContent = "";
+  });
+  const map = { personal: "accTypePersonal", creator: "accTypeCreator", business: "accTypeBusiness" };
+  const target = document.getElementById(map[cur] || "accTypePersonal");
+  if(target){
+    target.classList.add("selected");
+    const check = target.querySelector(".ico-check");
+    if(check) check.textContent = "✓";
+  }
+  const badge = document.getElementById("settingsAccountTypeBadge");
+  if(badge) badge.textContent = cur.charAt(0).toUpperCase() + cur.slice(1);
+}
+window.syncAccountTypeUI = syncAccountTypeUI;
+
+function syncProDashboardUI(){
+  const fCount = document.getElementById("statFollowers")?.textContent || "0";
+  const mF = document.getElementById("metricFollowersSettings");
+  if(mF) mF.textContent = fCount;
+  const pCount = document.getElementById("statPosts")?.textContent || "0";
+  const mI = document.getElementById("metricInteractionsSettings");
+  if(mI) mI.textContent = String(Math.max(12, Number(pCount) * 14 + Number(fCount) * 5));
+}
+window.syncProDashboardUI = syncProDashboardUI;
 
 /* =====================================================
    FEATURE 5: ACCOUNT SETTINGS (PRIVACY, CALLING & PASSWORDS)
@@ -14700,7 +15109,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Privacy & Safety", passwordSecurity:"🔑 Password & Security", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Account privacy", passwordSecurity:"🔑 Password & Security", proDashboard:"📊 Professional dashboard", accountType:"⚙️ Account type and tools", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
     if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
@@ -14710,6 +15119,12 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(view === "saved"){ renderIgVideoGrid(Array.from(userSavedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-bookmark"></use></svg></span>Abhi tak koi video save nahi kiya.', "settingsSavedGrid"); }
     if(view === "privacySafety"){
       if(typeof loadBlockedAccountsList === "function") loadBlockedAccountsList();
+    }
+    if(view === "accountType"){
+      if(typeof syncAccountTypeUI === "function") syncAccountTypeUI();
+    }
+    if(view === "proDashboard"){
+      if(typeof syncProDashboardUI === "function") syncProDashboardUI();
     }
     if(view === "passwordSecurity"){
       const eEl = document.getElementById("securityEmailText");
@@ -14934,8 +15349,8 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(lob) lob.addEventListener("click", async ()=>{ const sov = document.getElementById("settingsOverlay"); if(sov) sov.classList.remove("show"); await auth.signOut(); showToast("👋 Logged out"); });
 
   const eb = document.getElementById("editProfileBtn"), ce = document.getElementById("cancelProfileEdit"), sp2 = document.getElementById("saveProfileBtn");
-  if(eb) eb.addEventListener("click", async ()=>{ await loadProfileIdentity(); document.getElementById("profileEditCard").hidden = false; });
-  if(ce) ce.addEventListener("click", ()=>{ document.getElementById("profileEditCard").hidden = true; });
+  if(eb) eb.addEventListener("click", async ()=>{ await loadProfileIdentity(); openEditProfileModal(); });
+  if(ce) ce.addEventListener("click", closeEditProfileModal);
   if(sp2) sp2.addEventListener("click", saveProfileIdentity);
 
   const pfi = document.getElementById("profilePhotoInput"), rpp = document.getElementById("removeProfilePhotoBtn");

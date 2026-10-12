@@ -277,7 +277,7 @@ button{font-family:inherit}
 /* Light sheen — ONLY inside logo (overflow clipped) */
 .loader-app-icon {
   overflow: hidden;
-  border-radius: 28%;
+  border-radius: 24px;
 }
 .loader-app-icon::after {
   content: "";
@@ -540,8 +540,8 @@ header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px soli
 body:not(.on-home) header{display:none}
 .dark-mode header{background:#000;border-bottom-color:#262626}
 .logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:-0.5px}
-.logo-profile{width:36px;height:36px;object-fit:contain;display:block;filter:drop-shadow(0 2px 8px rgba(230,57,70,0.35));transition:transform .2s ease}
-.logo:hover .logo-profile{transform:scale(1.08)}
+.logo-profile{width:36px;height:36px;object-fit:contain;display:block;border-radius:50%;filter:drop-shadow(0 0 10px rgba(255,45,85,0.65));transition:transform .2s ease, filter .2s ease}
+.logo:hover .logo-profile{transform:scale(1.08);filter:drop-shadow(0 0 16px rgba(255,45,85,0.95))}
 .header-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
 #messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:transparent;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0f0f0f;padding:0;transition:background-color .15s,opacity .15s;-webkit-tap-highlight-color:transparent}
 #messageBtn:hover,#bellBtn:hover,#headerSearchBtn:hover{background-color:rgba(0,0,0,.06)}
@@ -922,6 +922,91 @@ body.messages-open .bottom-nav{display:none !important}
 }
 .dark-mode .bottom-nav button.nav-reels-btn .nav-reels-label{
   color:#ff5277;
+}
+
+/* Reels Icon Heart Tap Animation directly above icon center */
+.bottom-nav button.nav-reels-btn {
+  position: relative;
+}
+
+.bottom-nav button.nav-reels-btn.heart-anim::after {
+  content: '';
+  position: absolute;
+  bottom: 82%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='mainG' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23ff0055'/%3E%3Cstop offset='50%25' stop-color='%23ff00d4'/%3E%3Cstop offset='100%25' stop-color='%237000ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23mainG)' d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: reelsHeartDirectlyAbove 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  filter: drop-shadow(0 0 12px rgba(255, 0, 128, 0.9));
+  z-index: 100;
+}
+
+@keyframes reelsHeartDirectlyAbove {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 12px) scale(0.2) rotate(-18deg);
+    filter: drop-shadow(0 0 6px #ff0055);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, -24px) scale(1.4) rotate(0deg);
+    filter: drop-shadow(0 0 16px #ff00d4);
+  }
+  70% {
+    opacity: 0.95;
+    transform: translate(-50%, -50px) scale(1.2) rotate(12deg);
+    filter: drop-shadow(0 0 20px #7000ff);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -78px) scale(0.5) rotate(-8deg);
+    filter: drop-shadow(0 0 28px rgba(255, 0, 128, 0));
+  }
+}
+
+@keyframes reelsHeartBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+    filter: drop-shadow(0 0 8px rgba(255,0,128,0.9));
+  }
+  50% {
+    opacity: 1;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - var(--dy, 55px))) scale(1.45) rotate(var(--rot, -12deg));
+    filter: drop-shadow(0 0 18px rgba(255,0,212,1));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px) * 1.5), calc(-50% - var(--dy, 90px))) scale(1.9) rotate(var(--rot, 15deg));
+    filter: drop-shadow(0 0 28px rgba(112,0,255,0));
+  }
+}
+
+.reels-heart-particle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100000;
+  width: 28px;
+  height: 28px;
+  user-select: none;
+  animation: reelsHeartBurst 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+@keyframes reelsIconPulse {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.38) rotate(-8deg); filter: drop-shadow(0 0 18px rgba(255,45,85,1)); }
+  50% { transform: scale(0.88) rotate(5deg); }
+  75% { transform: scale(1.22) rotate(-3deg); }
+  100% { transform: scale(1.18) rotate(0deg); }
+}
+
+.bottom-nav button.nav-reels-btn.heart-anim .nav-reels-logo-img {
+  animation: reelsIconPulse 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Create — TikTok-style raised center button */
@@ -2485,8 +2570,33 @@ body.messages-open .bottom-nav{display:none !important}
 .channel-reels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;max-width:900px;margin:0 auto;padding:0 14px}
 .channel-reel-item{border-radius:12px;overflow:hidden;background:#000}
 .channel-reel-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden;cursor:pointer;border-radius:12px}
-.channel-reel-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .channel-reel-item .video-play span{width:40px;height:40px;font-size:16px}
+.reel-views-overlay {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  color: #ffffff;
+  font-size: 11.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 3px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 3;
+  letter-spacing: 0.2px;
+}
+.reel-views-overlay svg.ico, .reel-views-overlay svg {
+  width: 11px;
+  height: 11px;
+  fill: currentColor;
+}
 .channel-guidelines-wrap{max-width:760px;margin:0 auto;padding:0 16px}
 .channel-guidelines-wrap p{font-size:14px;line-height:1.7;color:#444;margin-bottom:14px}
 .dark-mode .channel-guidelines-wrap p{color:#ccc}
@@ -4610,6 +4720,10 @@ body.messages-open .bottom-nav{display:none !important}
     <div class="reel-viewer-frame" id="reelViewerFrame"></div>
     <div class="reel-viewer-top">
       <div class="reel-viewer-title" id="reelViewerTitle">Reel</div>
+      <div class="reel-viewer-views" id="reelViewerViews" style="font-size:12px;font-weight:800;color:#fff;background:rgba(255,255,255,0.18);padding:4px 10px;border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;gap:5px;box-shadow:0 2px 8px rgba(0,0,0,0.3);margin-left:auto">
+        <svg class="ico" style="width:12px;height:12px;fill:currentColor"><use href="#i-play"></use></svg>
+        <span id="reelViewerViewsCount">0</span>
+      </div>
       <div style="display:flex;align-items:center;gap:8px">
         <button type="button" class="reel-viewer-save" id="reelViewerSave" title="Save reel" aria-label="Save reel"><svg class="ico"><use href="#i-bookmark"></use></svg></button>
         <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-close"></use></svg></button>
@@ -6935,7 +7049,78 @@ function switchTab(name){
   }
 }
 window.switchTab = switchTab;
-navButtons.forEach(btn=>{ if(btn.getAttribute("data-tab")) btn.addEventListener("click",()=>switchTab(btn.getAttribute("data-tab"))); });
+function triggerReelsHeartAnimation(targetEl){
+  const reelsBtn = targetEl || document.querySelector('.bottom-nav button.nav-reels-btn');
+  if(!reelsBtn) return;
+  
+  reelsBtn.classList.remove('heart-anim');
+  void reelsBtn.offsetWidth;
+  reelsBtn.classList.add('heart-anim');
+  setTimeout(()=> reelsBtn.classList.remove('heart-anim'), 650);
+
+  const rect = reelsBtn.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const topY = rect.top - 8; // Directly above the top center of the Reels icon
+
+  const svgGradients = [
+    { start: '#ff0055', stop: '#ff00d4', shadow: '#ff0055' },
+    { start: '#7000ff', stop: '#00f0ff', shadow: '#00f0ff' },
+    { start: '#ff8a00', stop: '#ff007f', shadow: '#ff8a00' },
+    { start: '#ff3366', stop: '#ff00aa', shadow: '#ff3366' },
+    { start: '#00f0ff', stop: '#7000ff', shadow: '#7000ff' }
+  ];
+
+  const count = 8;
+
+  for(let i = 0; i < count; i++){
+    const particle = document.createElement('div');
+    particle.className = 'reels-heart-particle';
+
+    const grad = svgGradients[i % svgGradients.length];
+    const gradId = 'reelsGrad_' + Math.random().toString(36).substr(2, 6);
+
+    particle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width:100%;height:100%;display:block;filter:drop-shadow(0 0 8px ${grad.shadow});">
+      <defs>
+        <linearGradient id="${gradId}" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="${grad.start}"/>
+          <stop offset="100%" stop-color="${grad.stop}"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#${gradId})" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>`;
+    
+    const dx = (Math.random() - 0.5) * 70;
+    const dy = 50 + Math.random() * 45;
+    const rot = (Math.random() - 0.5) * 44;
+    const delay = Math.random() * 0.08;
+
+    particle.style.left = centerX + 'px';
+    particle.style.top = topY + 'px';
+    particle.style.setProperty('--dx', dx + 'px');
+    particle.style.setProperty('--dy', dy + 'px');
+    particle.style.setProperty('--rot', rot + 'deg');
+    particle.style.animationDelay = delay + 's';
+
+    document.body.appendChild(particle);
+
+    setTimeout(()=>{
+      if(particle && particle.parentNode) particle.parentNode.removeChild(particle);
+    }, 850);
+  }
+}
+window.triggerReelsHeartAnimation = triggerReelsHeartAnimation;
+
+navButtons.forEach(btn=>{
+  if(btn.getAttribute("data-tab")){
+    btn.addEventListener("click",()=>{
+      const tab = btn.getAttribute("data-tab");
+      if(tab === "reels"){
+        triggerReelsHeartAnimation(btn);
+      }
+      switchTab(tab);
+    });
+  }
+});
 const createUploadBtn = document.getElementById("createUploadBtn");
 if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>openStoryCreator());
 /* Fun Zone nav handled via data-tab="funzone" in switchTab */
@@ -9170,12 +9355,75 @@ function rankReelsByAlgorithm(items) {
 }
 window.rankReelsByAlgorithm = rankReelsByAlgorithm;
 
+/* ---------- REEL VIEWS ENGINE ---------- */
+function getSeedViewsForVid(vid) {
+  if(!vid) return 5200;
+  let hash = 0;
+  for (let i = 0; i < vid.length; i++) {
+    hash = ((hash << 5) - hash) + vid.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+  return 2400 + (absHash % 145000);
+}
+
+function getReelViewsCount(vid) {
+  if(!vid) return 0;
+  try {
+    const saved = localStorage.getItem("zyro_reel_views_" + vid);
+    if(saved !== null) {
+      return parseInt(saved, 10) || 0;
+    }
+  } catch(e){}
+  const seed = getSeedViewsForVid(vid);
+  try {
+    localStorage.setItem("zyro_reel_views_" + vid, seed.toString());
+  } catch(e){}
+  return seed;
+}
+
+function incrementReelViews(vid) {
+  if(!vid) return 0;
+  let current = getReelViewsCount(vid);
+  current += 1;
+  try {
+    localStorage.setItem("zyro_reel_views_" + vid, current.toString());
+  } catch(e){}
+  updateReelTileViewsUI(vid, current);
+  return current;
+}
+
+function formatViewsCount(num) {
+  const n = Number(num) || 0;
+  if(n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if(n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  return n.toString();
+}
+
+function updateReelTileViewsUI(vid, count) {
+  const formatted = formatViewsCount(count);
+  document.querySelectorAll('.channel-reel-item[data-video-id="' + vid + '"]').forEach(el => {
+    let badge = el.querySelector('.reel-views-count-text');
+    if(badge) badge.textContent = formatted;
+  });
+  const viewerViewsEl = document.getElementById("reelViewerViewsCount");
+  if(viewerViewsEl) {
+    viewerViewsEl.textContent = formatted;
+  }
+}
+window.getReelViewsCount = getReelViewsCount;
+window.incrementReelViews = incrementReelViews;
+window.formatViewsCount = formatViewsCount;
+
 /* ---------- YOUTUBE REELS + VIDEOS ---------- */
 function buildChannelReelItem(vid, title, thumb, boostBadgeHtml = ""){
   const el = document.createElement("div");
   el.className = "channel-reel-item";
   el.setAttribute("data-video-id", vid);
-  el.innerHTML = boostBadgeHtml + '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy"><div class="video-play"><span>▶</span></div></div>';
+  const views = getReelViewsCount(vid);
+  const viewsFormatted = formatViewsCount(views);
+  const viewsOverlayHtml = '<div class="reel-views-overlay"><svg class="ico" style="width:11px;height:11px;fill:currentColor"><use href="#i-play"></use></svg><span class="reel-views-count-text">' + escapeHtml(viewsFormatted) + '</span></div>';
+  el.innerHTML = boostBadgeHtml + '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy">' + viewsOverlayHtml + '<div class="video-play"><span>▶</span></div></div>';
   return el;
 }
 (function fetchReels(){
@@ -9417,6 +9665,11 @@ document.addEventListener("click",(e)=>{
     btnPrev.disabled = index<=0;
     btnNext.disabled = index>=reels.length-1;
     updateSaveButton();
+    if(typeof window.incrementReelViews === "function") {
+      const newCount = window.incrementReelViews(r.vid);
+      const viewsEl = document.getElementById("reelViewerViewsCount");
+      if(viewsEl) viewsEl.textContent = window.formatViewsCount(newCount);
+    }
   }
 
   function open(vid){

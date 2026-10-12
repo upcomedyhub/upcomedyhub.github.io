@@ -540,7 +540,7 @@ header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px soli
 body:not(.on-home) header{display:none}
 .dark-mode header{background:#000;border-bottom-color:#262626}
 .logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:-0.5px}
-.logo-profile{width:36px;height:36px;object-fit:contain;display:block;border-radius:50%;filter:drop-shadow(0 0 10px rgba(255,45,85,0.65));transition:transform .2s ease, filter .2s ease}
+.logo-profile{width:42px;height:42px;object-fit:cover;border-radius:50%;border:none;background:transparent;}
 .logo:hover .logo-profile{transform:scale(1.08);filter:drop-shadow(0 0 16px rgba(255,45,85,0.95))}
 .header-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
 #messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:transparent;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0f0f0f;padding:0;transition:background-color .15s,opacity .15s;-webkit-tap-highlight-color:transparent}
@@ -3119,8 +3119,8 @@ body.messages-open .bottom-nav{display:none !important}
   animation: zyroTextIn 0.65s ease-out 1.4s forwards;
 }
 .loader-bottom-brand {
-  opacity: 0;
-  animation: zyroTextIn 0.6s ease-out 1.65s forwards;
+  opacity: 1;
+  /* from Cobra — visible from start */
 }
 
 @keyframes zyroGlowRing {
@@ -3168,6 +3168,44 @@ body.messages-open .bottom-nav{display:none !important}
 }
 #pageLoader.loader-animating-out .zyro-splash-logo {
   animation: none !important;
+}
+
+
+/* Logo — no white ring / border */
+.zyro-header-logo,
+img.logo-profile.zyro-header-logo {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: 0 0 14px rgba(255, 45, 120, 0.5) !important;
+  filter: none !important;
+}
+.logo-profile {
+  border: none !important;
+  background: transparent !important;
+}
+/* Splash logo — no white fringe */
+#pageLoader .loader-app-img.zyro-splash-logo,
+#pageLoader .loader-app-img {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Kill any white stroke/outline on loader icon box */
+.loader-app-icon {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.loader-app-icon-wrap {
+  background: transparent !important;
 }
 
 </style>
@@ -3342,10 +3380,16 @@ body.messages-open .bottom-nav{display:none !important}
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
 <symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
 <!-- Zyro Reels: brand Z logo -->
-<symbol id="i-reels" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="5" y="2.5" width="14" height="19" rx="3.2"/>
-  <path d="M10.2 8.8l5.5 3.2-5.5 3.2V8.8z" fill="currentColor" stroke="none"/>
+<symbol id="i-reels" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Clapper top bar -->
+  <path d="M7 4.2h10"/>
+  <path d="M8.2 4.2V2.8M11 4.2V2.8M13.8 4.2V2.8M15.8 4.2V2.8"/>
+  <!-- Screen body -->
+  <rect x="5.5" y="4.2" width="13" height="15.5" rx="2.8"/>
+  <!-- Play triangle -->
+  <path d="M10.4 9.2l5 2.9-5 2.9V9.2z" fill="currentColor" stroke="none"/>
 </symbol>
+
 
 <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>

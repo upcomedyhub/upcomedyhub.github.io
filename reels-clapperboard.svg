@@ -1,7 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Reels clapperboard icon">
- <defs><linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff70b5"/><stop offset="1" stop-color="#ff2d73"/></linearGradient></defs>
- <path d="M10 21h44v32H10z" fill="#101116" stroke="url(#pink)" stroke-width="4" stroke-linejoin="round"/>
- <path d="M10 21 15 9h44l-5 12z" fill="#171923" stroke="url(#pink)" stroke-width="3" stroke-linejoin="round"/>
- <path d="m21 10 7 11M36 10l7 11M50 10l5 11" stroke="#ff4c98" stroke-width="3" stroke-linecap="round"/>
- <path d="M27 29v17l15-8.5z" fill="url(#pink)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+  <rect x="4.5" y="8.5" width="23" height="19" rx="3.2" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M5.5 8.8 8.8 3.7h18.1l-3.2 5.1M13.3 3.7l3.2 5.1M20.4 3.7l3.2 5.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m13 14.2 7.1 4.1-7.1 4.1z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
 </svg>

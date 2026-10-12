@@ -899,14 +899,12 @@ body.messages-open .bottom-nav{display:none !important}
   display:flex;align-items:center;justify-content:center;
   width:28px;
   height:28px;
+  color:#aeb4c2;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-logo-img{
-  width:28px;
-  height:28px;
-  object-fit:contain;
-  display:block;
-  filter:drop-shadow(0 2px 6px rgba(255,45,85,.55));
-  transition:transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter .2s ease;
+  width:28px; height:28px; object-fit:contain; display:block;
+  color:#aeb4c2; filter:none;
+  transition:transform .22s cubic-bezier(0.175, 0.885, 0.32, 1.275), color .2s ease, filter .2s ease;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-label{
   color:#ff3366;
@@ -917,8 +915,8 @@ body.messages-open .bottom-nav{display:none !important}
   color:#ff2d55;
 }
 .bottom-nav button.nav-reels-btn.active .nav-reels-logo-img{
-  transform:scale(1.18);
-  filter:drop-shadow(0 0 12px rgba(255,45,85,1));
+  transform:scale(1.12); color:#ff4c9a;
+  filter:drop-shadow(0 0 8px rgba(255,45,145,.72));
 }
 .dark-mode .bottom-nav button.nav-reels-btn .nav-reels-label{
   color:#ff5277;
@@ -3035,6 +3033,22 @@ body.messages-open .bottom-nav{display:none !important}
   color: #e5e7eb;
   min-height: 40px;
 }
+
+
+/* Zyro visual refresh: circular brand mark, dark cinematic header and crisp Reels state */
+.loader-app-icon{border-radius:50%;overflow:hidden;width:100%;height:100%;border:1px solid rgba(255,61,157,.75);box-shadow:0 0 0 1px rgba(255,61,157,.12),0 0 24px rgba(255,30,100,.22);}
+.loader-app-img{border-radius:50%;object-fit:cover;animation:loaderZPulse 2.4s ease-in-out infinite alternate;}
+.logo-profile{width:42px;height:42px;object-fit:cover;border-radius:50%;border:1px solid rgba(255,65,164,.5);background:#080912;filter:drop-shadow(0 0 9px rgba(255,45,135,.42));}
+.dark-mode header{background:rgba(3,3,6,.97);border-bottom:1px solid rgba(255,255,255,.12);}
+.dark-mode .logo{color:#f7f7fb;letter-spacing:-.65px;}
+.dark-mode .bottom-nav{background:rgba(3,3,6,.98);border-top:1px solid rgba(255,255,255,.14);box-shadow:0 -8px 28px rgba(0,0,0,.28);}
+.dark-mode .bottom-nav button.active{color:#ff579e;}
+.dark-mode .bottom-nav button.nav-reels-btn .nav-reels-icon{color:#aeb4c2;}
+.dark-mode .bottom-nav button.nav-reels-btn.active .nav-reels-icon{color:#ff4c9a;}
+.bottom-nav button.nav-reels-btn .nav-reels-label{color:#aeb4c2;font-weight:750;}
+.bottom-nav button.nav-reels-btn.active .nav-reels-label{color:#ff4c9a;}
+.bottom-nav button.nav-reels-btn.heart-anim .nav-reels-logo-img{animation:reelsIconPulse .45s cubic-bezier(.175,.885,.32,1.275);}
+@media(max-width:480px){.logo-profile{width:40px;height:40px}.logo{gap:9px;font-size:23px}.bottom-nav button.nav-reels-btn .nav-reels-icon{width:28px;height:28px}}
 
 </style>
 </head>

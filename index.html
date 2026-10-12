@@ -255,6 +255,13 @@ button{font-family:inherit}
   height: 100%;
   object-fit: contain;
   display: block;
+  filter: drop-shadow(0 0 16px rgba(255, 45, 85, 0.75));
+  animation: loaderZPulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes loaderZPulse {
+  0% { transform: scale(0.95); filter: drop-shadow(0 0 12px rgba(255, 45, 85, 0.55)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 0 30px rgba(255, 45, 85, 0.95)); }
 }
 
 .loader-cobra-img {
@@ -532,8 +539,9 @@ button{font-family:inherit}
 header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #eee;padding:12px 6%;display:flex;justify-content:space-between;align-items:center}
 body:not(.on-home) header{display:none}
 .dark-mode header{background:#000;border-bottom-color:#262626}
-.logo{display:flex;align-items:center;gap:9px;font-size:24px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.logo-profile{width:42px;height:42px;border-radius:50%;object-fit:cover;display:block}
+.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;cursor:pointer;-webkit-tap-highlight-color:transparent;letter-spacing:-0.5px}
+.logo-profile{width:36px;height:36px;object-fit:contain;display:block;filter:drop-shadow(0 2px 8px rgba(230,57,70,0.35));transition:transform .2s ease}
+.logo:hover .logo-profile{transform:scale(1.08)}
 .header-controls{display:flex;align-items:center;gap:6px;margin-left:auto}
 #messageBtn,#bellBtn,#headerSearchBtn{position:relative;border:none;background:transparent;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#0f0f0f;padding:0;transition:background-color .15s,opacity .15s;-webkit-tap-highlight-color:transparent}
 #messageBtn:hover,#bellBtn:hover,#headerSearchBtn:hover{background-color:rgba(0,0,0,.06)}
@@ -886,18 +894,19 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .bottom-nav button.active{color:#ff8a80}
 body.messages-open .bottom-nav{display:none !important}
 
-/* Reels — brand icon (play + smile) */
+/* Reels — Zyro brand Z icon */
 .bottom-nav button.nav-reels-btn .nav-reels-icon{
   display:flex;align-items:center;justify-content:center;
+  width:28px;
+  height:28px;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-logo-img{
   width:26px;
   height:26px;
   object-fit:contain;
   display:block;
-  border-radius:6px;
-  filter:drop-shadow(0 2px 6px rgba(255,45,85,.5));
-  transition:transform .18s ease, filter .18s ease;
+  filter:drop-shadow(0 2px 6px rgba(255,45,85,.55));
+  transition:transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter .2s ease;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-label{
   color:#ff3366;
@@ -908,8 +917,8 @@ body.messages-open .bottom-nav{display:none !important}
   color:#ff2d55;
 }
 .bottom-nav button.nav-reels-btn.active .nav-reels-logo-img{
-  transform:scale(1.15);
-  filter:drop-shadow(0 0 10px rgba(255,45,85,.9));
+  transform:scale(1.18);
+  filter:drop-shadow(0 0 12px rgba(255,45,85,1));
 }
 .dark-mode .bottom-nav button.nav-reels-btn .nav-reels-label{
   color:#ff5277;
@@ -1292,6 +1301,200 @@ body.messages-open .bottom-nav{display:none !important}
 .ig-sheet-item.danger{color:#ed4956}
 .ig-sheet-cancel{margin-top:6px;border-top:1px solid #eee;font-weight:700}
 .dark-mode .ig-sheet-cancel{border-color:#333}
+
+/* Dedicated Instagram-Style Edit Profile Modal Window */
+#editProfileModalOverlay {
+  z-index: 10050;
+}
+#avatarActionSheetOverlay {
+  z-index: 10080 !important;
+}
+.ig-edit-modal-box {
+  width: min(500px, 94vw);
+  max-height: min(88vh, 750px);
+  background: #ffffff;
+  color: #111111;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  animation: igEditModalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.dark-mode .ig-edit-modal-box {
+  background: #121212;
+  color: #f5f5f5;
+  border-color: #282828;
+}
+@media (max-width: 600px) {
+  #editProfileModalOverlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+  .ig-edit-modal-box {
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+@keyframes igEditModalPop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.ig-edit-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #efefef;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.dark-mode .ig-edit-modal-header {
+  background: #181818;
+  border-bottom-color: #282828;
+}
+.ig-edit-modal-btn {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: opacity 0.15s, background 0.15s;
+}
+.ig-edit-modal-btn.cancel {
+  color: #262626;
+}
+.dark-mode .ig-edit-modal-btn.cancel {
+  color: #e0e0e0;
+}
+.ig-edit-modal-btn.cancel:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.dark-mode .ig-edit-modal-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.ig-edit-modal-btn.done {
+  color: #0095f6;
+  font-weight: 700;
+}
+.ig-edit-modal-btn.done:hover {
+  opacity: 0.85;
+}
+.ig-edit-modal-body {
+  padding: 16px 20px 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.ig-edit-modal-body .edit-profile-avatar-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0 18px;
+  border-bottom: 1px solid #efefef;
+}
+.dark-mode .ig-edit-modal-body .edit-profile-avatar-row {
+  border-bottom-color: #282828;
+}
+.ig-edit-modal-body .edit-profile-avatar-preview {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  background: #eee;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+.dark-mode .ig-edit-modal-body .edit-profile-avatar-preview {
+  border-color: #333;
+}
+.ig-edit-modal-body .change-photo-link {
+  background: none;
+  border: none;
+  color: #0095f6;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-family: inherit;
+}
+.ig-edit-modal-body .change-photo-link:hover {
+  text-decoration: underline;
+}
+.ig-edit-field-group {
+  margin-top: 14px;
+}
+.ig-edit-field-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #737373;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.dark-mode .ig-edit-field-group label {
+  color: #a8a8a8;
+}
+.ig-edit-field-group input,
+.ig-edit-field-group textarea,
+.ig-edit-field-group select {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fafafa;
+  border: 1px solid #dbdbdb;
+  color: #111;
+  border-radius: 12px;
+  padding: 11px 13px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.dark-mode .ig-edit-field-group input,
+.dark-mode .ig-edit-field-group textarea,
+.dark-mode .ig-edit-field-group select {
+  background: #242424;
+  border-color: #383838;
+  color: #fff;
+}
+.ig-edit-field-group input:focus,
+.ig-edit-field-group textarea:focus,
+.ig-edit-field-group select:focus {
+  border-color: #0095f6;
+  box-shadow: 0 0 0 3px rgba(0, 149, 246, 0.12);
+}
+.ig-edit-field-hint {
+  font-size: 11.5px;
+  color: #8e8e8e;
+  margin-top: 5px;
+  line-height: 1.4;
+}
+.dark-mode .ig-edit-field-hint {
+  color: #999;
+}
+.ig-edit-pro-banner {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f7f9fa;
+  border: 1px solid #eef0f2;
+}
+.dark-mode .ig-edit-pro-banner {
+  background: #222222;
+  border-color: #333333;
+}
+
 
 /* List Overlay (Followers/Following) */
 .ig-list-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10040;align-items:center;justify-content:center;padding:14px}
@@ -2728,7 +2931,7 @@ body.messages-open .bottom-nav{display:none !important}
 <body class="on-home">
    <div class="menu-backdrop" id="menuBackdrop"></div>
 
-<div id="pageLoader" aria-label="Loading UPComedyHub">
+<div id="pageLoader" aria-label="Loading Zyro">
   <!-- Red ambient cinematic light curves in background -->
   <div class="loader-bg-ambient">
     <svg class="loader-bg-svg" viewBox="0 0 420 840" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -2894,11 +3097,9 @@ body.messages-open .bottom-nav{display:none !important}
 <svg style="display:none" aria-hidden="true">
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
 <symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
-<!-- UPComedyHub Reels: play + smile (brand style C) -->
-<symbol id="i-reels" viewBox="0 0 24 24" fill="none">
-  <rect x="3" y="2" width="18" height="20" rx="5" stroke="currentColor" stroke-width="1.85"/>
-  <path d="M10 8.2v7.6c0 .5.55.8.98.55l5.7-3.8a.65.65 0 0 0 0-1.1l-5.7-3.8A.65.65 0 0 0 10 8.2z" fill="currentColor" stroke="none"/>
-  <path d="M8.2 16.8c1.1 1.15 2.35 1.7 3.8 1.7s2.7-.55 3.8-1.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" fill="none"/>
+<!-- Zyro Reels: brand Z logo -->
+<symbol id="i-reels" viewBox="0 0 24 24">
+  <image href="IMG_20261002_053016.png" xlink:href="IMG_20261002_053016.png" x="0" y="0" width="24" height="24" preserveAspectRatio="xMidYMid meet"/>
 </symbol>
 <symbol id="i-video" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3"/></symbol>
 <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
@@ -3017,7 +3218,7 @@ body.messages-open .bottom-nav{display:none !important}
   <nav class="channel-profile-nav" id="channelProfileNav">
     <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
     <a href="#fan-of-week"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</a>
-    <a href="#channel-reels"><svg class="ico"><use href="#i-film"></use></svg> Reels</a>
+    <a href="#channel-reels"><svg class="ico"><use href="#i-reels"></use></svg> Reels</a>
     <a href="#channel-videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</a>
     <a href="#channel-guidelines"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</a>
     <a href="#team"><svg class="ico"><use href="#i-users"></use></svg> Team</a>
@@ -3368,7 +3569,7 @@ body.messages-open .bottom-nav{display:none !important}
 </div>
 <div id="tab-reels" class="tab-pane">
   <section style="padding:20px 14px">
-    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
+    <h2 class="section-title"><img src="IMG_20261002_053016.png" alt="Reels" style="width:24px;height:24px;object-fit:contain;vertical-align:middle;margin-right:8px;display:inline-block"> Reels</h2>
     <div class="channel-reels-grid" id="mainTabReelsGrid">
       <div class="ig-reels-empty">⏳ Loading Reels...</div>
     </div>
@@ -3404,7 +3605,7 @@ body.messages-open .bottom-nav{display:none !important}
         <span>Videos</span>
       </button>
       <button type="button" class="search-tab-pill" data-search-cat="reels">
-        <svg class="search-pill-ico"><use href="#i-reels"></use></svg>
+        <img src="IMG_20261002_053016.png" alt="Reels" style="width:16px;height:16px;object-fit:contain;margin-right:4px">
         <span>Reels</span>
       </button>
       <button type="button" class="search-tab-pill" data-search-cat="tags">
@@ -3570,7 +3771,7 @@ body.messages-open .bottom-nav{display:none !important}
       <!-- Instagram Sticky Navigation Tabs: Posts | Reels | Videos | Playlist -->
       <div class="ig-posts-tabs">
         <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-grid"></use></svg><span>Posts</span></button>
-        <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico"><use href="#i-reels"></use></svg><span>Reels</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="reels"><img src="IMG_20261002_053016.png" alt="Reels" class="ig-tab-reels-logo" style="width:18px;height:18px;object-fit:contain"><span>Reels</span></button>
         <button type="button" class="ig-tab" data-ig-tab="videos"><svg class="ico"><use href="#i-video"></use></svg><span>Videos</span></button>
         <button type="button" class="ig-tab" data-ig-tab="playlist"><svg class="ico"><use href="#i-film"></use></svg><span>Playlist</span></button>
       </div>
@@ -3591,30 +3792,40 @@ body.messages-open .bottom-nav{display:none !important}
       <button type="button" id="saveProfileBtn" class="ig-edit-modal-btn done" onclick="saveProfileIdentity()">Done</button>
     </div>
     <div class="ig-edit-modal-body">
-      <div class="edit-profile-avatar-row" style="text-align:center;padding:16px 0 20px;border-bottom:1px solid #f0f0f0">
-        <img id="editProfileAvatarPreview" class="edit-profile-avatar-preview" src="" alt="Avatar" style="width:82px;height:82px;border-radius:50%;object-fit:cover;background:#eee;margin:0 auto 10px;display:block">
-        <button type="button" class="change-photo-link" onclick="openAvatarActionSheet()" style="background:none;border:none;color:#0095f6;font-size:14px;font-weight:700;cursor:pointer">Change profile photo</button>
+      <div class="edit-profile-avatar-row">
+        <img id="editProfileAvatarPreview" class="edit-profile-avatar-preview" src="IMG_20260917_172912.jpg" alt="Avatar">
+        <button type="button" class="change-photo-link" onclick="openAvatarActionSheet()">Change profile photo</button>
       </div>
 
-      <div style="padding:16px 0">
-        <label for="displayNameInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Name</label>
-        <input id="displayNameInput" type="text" maxlength="50" autocomplete="off" placeholder="Your full name" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+      <div class="ig-edit-field-group">
+        <label for="displayNameInput">Name</label>
+        <input id="displayNameInput" type="text" maxlength="50" autocomplete="off" placeholder="Your full name">
+      </div>
 
-        <label for="usernameInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Username</label>
-        <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:4px">
-        <div style="font-size:11px;color:#888;margin-bottom:14px">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+      <div class="ig-edit-field-group">
+        <label for="usernameInput">Username</label>
+        <input id="usernameInput" type="text" maxlength="30" autocomplete="off" placeholder="e.g. mayank.123">
+        <div class="ig-edit-field-hint">3–30 characters. Letters, numbers, underscore (_) and dot (.) only.</div>
+      </div>
 
-        <label for="pronounsInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Pronouns</label>
-        <input id="pronounsInput" type="text" maxlength="30" placeholder="e.g. he/him, creator" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+      <div class="ig-edit-field-group">
+        <label for="pronounsInput">Pronouns</label>
+        <input id="pronounsInput" type="text" maxlength="30" placeholder="e.g. he/him, creator">
+      </div>
 
-        <label for="bioInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Bio</label>
-        <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..." rows="3" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px;resize:vertical;font-family:inherit"></textarea>
+      <div class="ig-edit-field-group">
+        <label for="bioInput">Bio</label>
+        <textarea id="bioInput" maxlength="160" placeholder="Tell people a little about yourself..." rows="3"></textarea>
+      </div>
 
-        <label for="websiteLinkInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Links (Add link in bio)</label>
-        <input id="websiteLinkInput" type="url" placeholder="https://youtube.com/@yourchannel or website" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa;margin-bottom:14px">
+      <div class="ig-edit-field-group">
+        <label for="websiteLinkInput">Links (Add link in bio)</label>
+        <input id="websiteLinkInput" type="url" placeholder="https://youtube.com/@yourchannel or website">
+      </div>
 
-        <label for="categoryInput" style="font-size:12px;font-weight:700;color:#777;display:block;margin-bottom:4px">Category</label>
-        <select id="categoryInput" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:10px;margin-bottom:16px;background:#fafafa;font-family:inherit;font-size:14px;outline:none">
+      <div class="ig-edit-field-group">
+        <label for="categoryInput">Category</label>
+        <select id="categoryInput">
           <option value="🎬 Comedy Creator · Entertainer">🎬 Comedy Creator · Entertainer</option>
           <option value="🎭 Standup Comedian">🎭 Standup Comedian</option>
           <option value="⚡ Digital Video Creator">⚡ Digital Video Creator</option>
@@ -3623,11 +3834,11 @@ body.messages-open .bottom-nav{display:none !important}
           <option value="🎮 Gaming &amp; Comedy">🎮 Gaming &amp; Comedy</option>
           <option value="❤️ Community Creator">❤️ Community Creator</option>
         </select>
+      </div>
 
-        <div style="background:#f0f2f5;padding:12px 14px;border-radius:12px" class="dark-box">
-          <div style="font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Switch to Professional Account</div>
-          <div style="font-size:12px;color:#777;line-height:1.4">Get insights about your comedy followers and access creator tools from Settings &gt; Account type and tools.</div>
-        </div>
+      <div class="ig-edit-pro-banner">
+        <div style="font-weight:700;font-size:13px;margin-bottom:4px">⚙️ Switch to Professional Account</div>
+        <div style="font-size:12px;color:#777;line-height:1.4">Get insights about your comedy followers and access creator tools from Settings &gt; Account type and tools.</div>
       </div>
     </div>
   </div>
@@ -6781,10 +6992,10 @@ en: {
 "🌐 Professional Website Development":"🌐 Professional Website Development","Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.":"Send an enquiry to get a professional website built for your business, brand, creator profile or project.","💰":"💰","Price:":"Price:","₹10,000 – ₹2,00,000+":"₹10,000 – ₹2,00,000+","Final price website ki requirements aur features ke according decide hoga.":"The final price will be decided according to the website's requirements and features.","👤 Name":"👤 Name","📱 Mobile Number":"📱 Mobile Number","🌐 Website Type":"🌐 Website Type","Select Website Type":"Select Website Type","Business Website":"Business Website","Portfolio Website":"Portfolio Website","Creator / YouTuber Website":"Creator / YouTuber Website","E-commerce Website":"E-commerce Website","Other":"Other","💬 Requirements / Message":"💬 Requirements / Message","🚀 Send Enquiry":"🚀 Send Enquiry","🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.":"🔒 Your contact details will be used only for the enquiry and reply.",
 "Website Visitors":"Website Visitors","🔥 UPComedyHub Family":"🔥 UPComedyHub Family","Ab tak UPComedyHub website par":"So far on the UPComedyHub website","visits record ho chuke hain ❤️":"visits have been recorded ❤️","Aap bhi UPComedyHub family ka hissa hain! 😎":"You are part of the UPComedyHub family too! 😎","YouTube Stats":"YouTube Stats","🔔 UPComedyHub Subscribers":"🔔 UPComedyHub Subscribers","Hamari YouTube Family ❤️":"Our YouTube Family ❤️","Follow UPComedyHub":"Follow UPComedyHub","▶ YouTube":"▶ YouTube","📸 Instagram":"📸 Instagram","👍 Facebook":"👍 Facebook","📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India":"📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India",
 "🔥 Never Miss an Update":"🔥 Never Miss an Update","Stay Connected":"Stay Connected","🔥 UPComedyHub Updates":"🔥 UPComedyHub Updates","Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.":"Subscribe to get email updates about new comedy videos, Shorts and important updates.","📧 Email Address":"📧 Email Address","🚀 Subscribe to Updates":"🚀 Subscribe to Updates","🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose ke liye use kiya jayega.":"🔒 Your email will be used only for UPComedyHub updates and replies.","Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡":"Or join the WhatsApp Channel — the fastest updates! ⚡","💬 Join WhatsApp Channel":"💬 Join WhatsApp Channel",
-"Support UPComedyHub":"Support UPComedyHub","❤️ Aapka Support, Hamari Taakat":"❤️ Your Support, Our Strength","Ek Chai Pilao ☕":"Buy Us a Tea ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"If you like our comedy, support us by buying a small tea. Every contribution helps make new videos! ❤️","Custom":"Custom","💳 Pay ₹100 via UPI":"💳 Pay ₹100 via UPI","UPI ID":"UPI ID","📱 Scan this QR with any UPI app":"📱 Scan this QR with any UPI app","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% secure. Payment comes directly to our UPI.","😂 Haste Raho, Connected Raho!":"😂 Keep Laughing, Keep Connected!","UPComedyHub ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"Support UPComedyHub and subscribe on YouTube for new comedy videos.","🔔 Subscribe Now":"🔔 Subscribe Now",
-"🔒 Privacy Policy":"🔒 Privacy Policy","UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"UPComedyHub respects your privacy. This app/website does not sell or share any personal information without your permission.","UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"UPComedyHub uses the Stats4U visitor counter for visitor count and basic audience measurement. When a page opens, the browser technically sends the IP address, browser identification and viewed page address to Stats4U.","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"According to Stats4U, the IP address is not stored in statistics. It is used to create a salted daily hash for approximate country/city and daily visitor counting. The counter does not set cookies.","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"According to Stats4U, daily statistics are kept for 400 days and processing happens in Poland.","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"Screen information measurement is enabled in this counter. So the counter script can also read three values such as screen resolution, browser window width and pixel ratio.","Stats4U Privacy Policy:":"Stats4U Privacy Policy:","किसी भी सवाल के लिए आप हमसे":"For any question, you can","पर contact कर सकते हैं।":"contact us at.",
+"Support Zyro":"Support Zyro","❤️ Aapka Support, Hamari Taakat":"❤️ Your Support, Our Strength","Ek Chai Pilao ☕":"Buy Us a Tea ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"If you like our comedy, support us by buying a small tea. Every contribution helps make new videos! ❤️","Custom":"Custom","💳 Pay ₹100 via UPI":"💳 Pay ₹100 via UPI","UPI ID":"UPI ID","📱 Scan this QR with any UPI app":"📱 Scan this QR with any UPI app","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% secure. Payment comes directly to our UPI.","😂 Haste Raho, Connected Raho!":"😂 Keep Laughing, Keep Connected!","Zyro ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"Support Zyro and subscribe on YouTube for new comedy videos.","🔔 Subscribe Now":"🔔 Subscribe Now",
+"🔒 Privacy Policy":"🔒 Privacy Policy","Zyro आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"Zyro respects your privacy. This app/website does not sell or share any personal information without your permission.","Zyro app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"Zyro uses the Stats4U visitor counter for visitor count and basic audience measurement. When a page opens, the browser technically sends the IP address, browser identification and viewed page address to Stats4U.","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"According to Stats4U, the IP address is not stored in statistics. It is used to create a salted daily hash for approximate country/city and daily visitor counting. The counter does not set cookies.","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"According to Stats4U, daily statistics are kept for 400 days and processing happens in Poland.","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"Screen information measurement is enabled in this counter. So the counter script can also read three values such as screen resolution, browser window width and pixel ratio.","Stats4U Privacy Policy:":"Stats4U Privacy Policy:","किसी भी सवाल के लिए आप हमसे":"For any question, you can","पर contact कर सकते हैं।":"contact us at.",
 "Aapke dwara upload ki gayi photo, video aur reel third-party storage service (jaise Cloudinary ya Firebase Storage) par store ho sakti hain, taaki wo app mein dikhai ja sakein.":"Photos, videos and reels uploaded by you may be stored on a third-party storage service (such as Cloudinary or Firebase Storage) so that they can be shown in the app.",
-"📋 Terms & Conditions":"📋 Terms & Conditions","UPComedyHub app/website par available content ka purpose entertainment aur information provide karna hai.":"The purpose of content available on the UPComedyHub app/website is to provide entertainment and information.","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"Do not use or redistribute videos, images and other content provided on the app/website for commercial purposes without permission.","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"While using the app/website, it is necessary to respect applicable laws and the rights of others.","Kisi bhi question ke liye contact karein:":"For any question, contact:","© 2026 UPComedyHub. All Rights Reserved.":"© 2026 UPComedyHub. All Rights Reserved.","Made with ❤️ by UPComedyHub":"Made with ❤️ by UPComedyHub","Privacy Policy":"Privacy Policy","Terms & Conditions":"Terms & Conditions",
+"📋 Terms & Conditions":"📋 Terms & Conditions","Zyro app/website par available content ka purpose entertainment aur information provide karna hai.":"The purpose of content available on the Zyro app/website is to provide entertainment and information.","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"Do not use or redistribute videos, images and other content provided on the app/website for commercial purposes without permission.","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"While using the app/website, it is necessary to respect applicable laws and the rights of others.","Kisi bhi question ke liye contact karein:":"For any question, contact:","© 2026 Zyro. All Rights Reserved.":"© 2026 Zyro. All Rights Reserved.","Made with ❤️ by Zyro":"Made with ❤️ by Zyro","Privacy Policy":"Privacy Policy","Terms & Conditions":"Terms & Conditions",
 "Saare Shorts & Reels ab":"All Shorts & Reels are now in","me 🔥":"🔥","🎬":"🎬","Reels ab Channel Profile me hain":"Reels are now in Channel Profile","Upar wale logo par tap karein aur":"Tap the logo above and open the","section me saare Shorts & Reels dekhein.":"section to see all Shorts & Reels.","Channel Profile kholein →":"Open Channel Profile →",
 "username":"username","🔐 Login karke like, comment, save videos aur message friends.":"🔐 Log in to like, comment, save videos and message friends.","📷":"📷","Posts":"Posts","Followers":"Followers","Following":"Following","@username":"@username","No bio yet.":"No bio yet.","✏️ Edit Profile":"✏️ Edit Profile","Share Profile":"Share Profile","Username":"Username","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 characters. Letters, numbers, underscore (_) and dot (.) only.","Bio":"Bio","Cancel":"Cancel","Save Profile":"Save Profile","Playlist":"Playlist","Abhi koi post nahi. Jald aa raha hai! 🚀":"No posts yet. Coming soon! 🚀","Abhi koi post nahi.":"No posts yet.","Abhi tak koi reel nahi.":"No reels yet.","Abhi koi video nahi.":"No videos yet.","Abhi tak koi video playlist me nahi.":"No videos in playlist yet.",
 "Saare mini games ek hi jagah. Open karke play karo! 🔥":"All mini games in one place. Open and play! 🔥","🎮 Open Fun Zone":"🎮 Open Fun Zone","🧠":"🧠","Comedy Quiz":"Comedy Quiz","Guess the Dialogue":"Guess the Dialogue","⚡":"⚡","Reaction Test":"Reaction Test","🎡":"🎡","Spin Wheel":"Spin Wheel","🤔":"🤔","Emoji Riddle":"Emoji Riddle","🔤":"🔤","Word Scramble":"Word Scramble","🎴":"🎴","Memory Match":"Memory Match","🐍":"🐍","Snake & Ladder":"Snake & Ladder","🎮 Game":"🎮 Game","📷 Change Photo":"📷 Change Photo","Player 😎":"Player 😎","Level 1 • 0 XP":"Level 1 • 0 XP","🔥 Daily Challenge":"🔥 Daily Challenge","Aaj ka challenge load ho raha hai...":"Today's challenge is loading...","🎯 Aaj ka challenge":"🎯 Today's challenge","🏆 Local Leaderboard":"🏆 Local Leaderboard","Is device par top players.":"Top players on this device.","📤 Share My Score":"📤 Share My Score","🏆 Best Quiz:":"🏆 Best Quiz:","⚡ Best Reaction:":"⚡ Best Reaction:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 Game scores are saved on this device.",
@@ -6796,7 +7007,7 @@ en: {
 "Kisi bhi help ya sawaal ke liye humse seedha contact karein:":"For any help or question, contact us directly:","WhatsApp Support":"WhatsApp Support","Gmail Support":"Gmail Support",
 "Koi problem, galat content ya suggestion? Humein batayein — aapki report seedha humari Gmail par jayegi.":"Any problem, wrong content or suggestion? Tell us — your report goes straight to our Gmail.","Aapki Report":"Your Report","📧 Send Report via Gmail":"📧 Send Report via Gmail",
 "Messages":"Messages","Primary":"Primary","Requests":"Requests","General":"General","Friend":"Friend","0:00":"0:00","➤":"➤","📝 Set Your Note":"📝 Set Your Note","✨":"✨","😮":"😮","😢":"😢","👍":"👍","↑":"↑","/60":"/60","Share Note":"Share Note",
-"Aapka Content, Aapka Ownership:":"Your Content, Your Ownership:","Jo bhi video, reel, story, photo, comment ya audio aap UPComedyHub par upload karte hain, uska ownership aapka hi rehta hai. Aap confirm karte hain ki wo content aapka original hai, ya aapke paas use upload karne ka poora adhikar hai.":"Whatever video, reel, story, photo, comment or audio you upload on UPComedyHub, its ownership stays yours. You confirm that the content is your original, or that you have full rights to upload it.","Hamein Aap Kya License Dete Hain:":"What License You Give Us:","Upload karke aap UPComedyHub ko ye limited, non-exclusive right dete hain ki wo aapke content ko app aur website par store kare, dikhaye, stream kare aur share kare. Ye right sirf app chalane ke liye hai. Aap jab chahein apna content delete kar sakte hain.":"By uploading, you give UPComedyHub a limited, non-exclusive right to store, display, stream and share your content on the app and website. This right is only to run the app. You can delete your content whenever you want.","Content Kahan Store Hota Hai:":"Where Content Is Stored:","App se upload kiye gaye videos, reels aur photos third-party storage/hosting service par store ho sakte hain. UPComedyHub kuch videos YouTube ke link/embed se bhi dikhata hai. Aise videos YouTube par hi host rehte hain aur unpar YouTube ki apni terms lagti hain.":"Videos, reels and photos uploaded from the app may be stored on a third-party storage/hosting service. UPComedyHub also shows some videos via YouTube link/embed. Such videos are hosted on YouTube and YouTube's own terms apply to them.","Review aur Approval:":"Review and Approval:","Upload kiya gaya content turant public nahi hota. UPComedyHub use pehle check kar sakta hai aur approve ya reject kar sakta hai. Approve hone ke baad bhi rules todne par use kabhi bhi hataya ja sakta hai.":"Uploaded content does not become public instantly. UPComedyHub may check it first and approve or reject it. Even after approval, it may be removed at any time if rules are broken.","Copyright aur Music:":"Copyright and Music:","Kisi aur ka copyrighted gaana, film clip, video ya photo bina permission upload na karein. Sirf apna original content ya wahi content daalein jiska use karne ka aapke paas legal adhikar hai (jaise khud banaya hua ya royalty-free music).":"Do not upload anyone else's copyrighted song, film clip, video or photo without permission. Only upload your own original content or content you have the legal right to use (such as self-made or royalty-free music).","Copyright Complaint aur Takedown:":"Copyright Complaint and Takedown:","Agar aapko lagta hai ki koi content aapke copyright ka ulanghan karta hai, to":"If you feel some content infringes your copyright, then","par apna naam, content ka link aur ownership ka proof bhejein. Hum jaanch karke use jaldi hata denge. Report kiya gaya content jaanch ke dauran bhi hataya ja sakta hai.":"send your name, the content link and proof of ownership to. We will check and remove it quickly. Reported content may be removed even during the review.","Stories:":"Stories:","Stories 24 ghante ke liye dikhti hain, uske baad automatically hat jaati hain. Story ke screenshot ya copy par hamara koi control nahi hai.":"Stories are shown for 24 hours, after which they are removed automatically. We have no control over screenshots or copies of a story.","Ye Sab Allowed Nahi Hai:":"All This Is Not Allowed:","Hinsa ya nafrat phailane wala content, nudity ya sexual content, bachchon ke liye nuksaandeh content, kisi ko dhamki ya pareshan karna, jhoothi ya gumrah karne wali jaankari, spam, kisi ki permission ke bina uski personal photo/video, aur koi bhi illegal content.":"Content spreading violence or hate, nudity or sexual content, content harmful to children, threatening or harassing anyone, false or misleading information, spam, anyone's personal photo/video without permission, and any illegal content.","Umar:":"Age:","UPComedyHub use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam umar ke users apne parents/guardian ki permission se app use karein.":"You must be at least 13 years old to use UPComedyHub. Users under 18 should use the app with their parents'/guardian's permission.","Account aur Content par Action:":"Action on Account and Content:","Rules todne par UPComedyHub bina pehle bataye aapka content hata sakta hai, upload ki suvidha rok sakta hai ya account band kar sakta hai.":"On breaking rules, UPComedyHub may remove your content, disable uploading or ban your account without prior notice.","Content Delete Karna:":"Deleting Content:","Aap apna content delete karne ki request":"You can send a request to delete your content","par bhej sakte hain. Delete hone mein kuch samay lag sakta hai, aur backup/cache se poori tarah hatne mein thoda zyada.":"to. Deletion may take some time, and a bit longer to be fully removed from backup/cache.","Zimmedari ki Seema:":"Limitation of Responsibility:","UPComedyHub users ke content ka creator nahi hai, isliye uski sachchai ya legality ki poori guarantee nahi de sakta. Hum problem ki report milte hi action lene ki koshish karte hain. App \"jaisa hai\" wahi milta hai, aur service beech mein rukne ya data ke kho jaane ki koi guarantee nahi hai.":"UPComedyHub is not the creator of users' content, so it cannot fully guarantee its truthfulness or legality. We try to take action as soon as a problem is reported. The app is provided \"as is\", and there is no guarantee against the service stopping midway or data being lost.","Badlav:":"Changes:","Ye terms samay-samay par update ho sakte hain. Update ke baad app use karte rehne ka matlab hai ki aap naye terms maante hain.":"These terms may be updated from time to time. Continuing to use the app after an update means you accept the new terms."
+"Aapka Content, Aapka Ownership:":"Your Content, Your Ownership:","Jo bhi video, reel, story, photo, comment ya audio aap Zyro par upload karte hain, uska ownership aapka hi rehta hai. Aap confirm karte hain ki wo content aapka original hai, ya aapke paas use upload karne ka poora adhikar hai.":"Whatever video, reel, story, photo, comment or audio you upload on Zyro, its ownership stays yours. You confirm that the content is your original, or that you have full rights to upload it.","Hamein Aap Kya License Dete Hain:":"What License You Give Us:","Upload karke aap Zyro ko ye limited, non-exclusive right dete hain ki wo aapke content ko app aur website par store kare, dikhaye, stream kare aur share kare. Ye right sirf app chalane ke liye hai. Aap jab chahein apna content delete kar sakte hain.":"By uploading, you give Zyro a limited, non-exclusive right to store, display, stream and share your content on the app and website. This right is only to run the app. You can delete your content whenever you want.","Content Kahan Store Hota Hai:":"Where Content Is Stored:","App se upload kiye gaye videos, reels aur photos third-party storage/hosting service par store ho sakte hain. Zyro kuch videos YouTube ke link/embed se bhi dikhata hai. Aise videos YouTube par hi host rehte hain aur unpar YouTube ki apni terms lagti hain.":"Videos, reels and photos uploaded from the app may be stored on a third-party storage/hosting service. Zyro also shows some videos via YouTube link/embed. Such videos are hosted on YouTube and YouTube's own terms apply to them.","Review aur Approval:":"Review and Approval:","Upload kiya gaya content turant public nahi hota. Zyro use pehle check kar sakta hai aur approve ya reject kar sakta hai. Approve hone ke baad bhi rules todne par use kabhi bhi hataya ja sakta hai.":"Uploaded content does not become public instantly. Zyro may check it first and approve or reject it. Even after approval, it may be removed at any time if rules are broken.","Copyright aur Music:":"Copyright and Music:","Kisi aur ka copyrighted gaana, film clip, video ya photo bina permission upload na karein. Sirf apna original content ya wahi content daalein jiska use karne ka aapke paas legal adhikar hai (jaise khud banaya hua ya royalty-free music).":"Do not upload anyone else's copyrighted song, film clip, video or photo without permission. Only upload your own original content or content you have the legal right to use (such as self-made or royalty-free music).","Copyright Complaint aur Takedown:":"Copyright Complaint and Takedown:","Agar aapko lagta hai ki koi content aapke copyright ka ulanghan karta hai, to":"If you feel some content infringes your copyright, then","par apna naam, content ka link aur ownership ka proof bhejein. Hum jaanch karke use jaldi hata denge. Report kiya gaya content jaanch ke dauran bhi hataya ja sakta hai.":"send your name, the content link and proof of ownership to. We will check and remove it quickly. Reported content may be removed even during the review.","Stories:":"Stories:","Stories 24 ghante ke liye dikhti hain, uske baad automatically hat jaati hain. Story ke screenshot ya copy par hamara koi control nahi hai.":"Stories are shown for 24 hours, after which they are removed automatically. We have no control over screenshots or copies of a story.","Ye Sab Allowed Nahi Hai:":"All This Is Not Allowed:","Hinsa ya nafrat phailane wala content, nudity ya sexual content, bachchon ke liye nuksaandeh content, kisi ko dhamki ya pareshan karna, jhoothi ya gumrah karne wali jaankari, spam, kisi ki permission ke bina uski personal photo/video, aur koi bhi illegal content.":"Content spreading violence or hate, nudity or sexual content, content harmful to children, threatening or harassing anyone, false or misleading information, spam, anyone's personal photo/video without permission, and any illegal content.","Umar:":"Age:","Zyro use karne ke liye aapki umar kam se kam 13 saal honi chahiye. 18 saal se kam umar ke users apne parents/guardian ki permission se app use karein.":"You must be at least 13 years old to use Zyro. Users under 18 should use the app with their parents'/guardian's permission.","Account aur Content par Action:":"Action on Account and Content:","Rules todne par Zyro bina pehle bataye aapka content hata sakta hai, upload ki suvidha rok sakta hai ya account band kar sakta hai.":"On breaking rules, Zyro may remove your content, disable uploading or ban your account without prior notice.","Content Delete Karna:":"Deleting Content:","Aap apna content delete karne ki request":"You can send a request to delete your content","par bhej sakte hain. Delete hone mein kuch samay lag sakta hai, aur backup/cache se poori tarah hatne mein thoda zyada.":"to. Deletion may take some time, and a bit longer to be fully removed from backup/cache.","Zimmedari ki Seema:":"Limitation of Responsibility:","Zyro users ke content ka creator nahi hai, isliye uski sachchai ya legality ki poori guarantee nahi de sakta. Hum problem ki report milte hi action lene ki koshish karte hain. App \"jaisa hai\" wahi milta hai, aur service beech mein rukne ya data ke kho jaane ki koi guarantee nahi hai.":"Zyro is not the creator of users' content, so it cannot fully guarantee its truthfulness or legality. We try to take action as soon as a problem is reported. The app is provided \"as is\", and there is no guarantee against the service stopping midway or data being lost.","Badlav:":"Changes:","Ye terms samay-samay par update ho sakte hain. Update ke baad app use karte rehne ka matlab hai ki aap naye terms maante hain.":"These terms may be updated from time to time. Continuing to use the app after an update means you accept the new terms."
 },
 hi: {
 "Home":"होम","Reels":"रील्स","Create":"बनाएँ","Fun Zone":"फन ज़ोन","Profile":"प्रोफ़ाइल","Admin":"एडमिन","Search":"खोजें","Notifications":"सूचनाएँ","Settings":"सेटिंग्स",
@@ -6836,10 +7047,10 @@ hi: {
 "🌐 Professional Website Development":"🌐 प्रोफ़ेशनल वेबसाइट डेवलपमेंट","Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.":"अपने बिज़नेस, ब्रांड, क्रिएटर प्रोफ़ाइल या प्रोजेक्ट के लिए प्रोफ़ेशनल वेबसाइट बनवाने के लिए पूछताछ भेजें।","💰":"💰","Price:":"कीमत:","₹10,000 – ₹2,00,000+":"₹10,000 – ₹2,00,000+","Final price website ki requirements aur features ke according decide hoga.":"अंतिम कीमत वेबसाइट की ज़रूरतों और फ़ीचर्स के अनुसार तय होगी।","👤 Name":"👤 नाम","📱 Mobile Number":"📱 मोबाइल नंबर","🌐 Website Type":"🌐 वेबसाइट का प्रकार","Select Website Type":"वेबसाइट का प्रकार चुनें","Business Website":"बिज़नेस वेबसाइट","Portfolio Website":"पोर्टफ़ोलियो वेबसाइट","Creator / YouTuber Website":"क्रिएटर / यूट्यूबर वेबसाइट","E-commerce Website":"ई-कॉमर्स वेबसाइट","Other":"अन्य","💬 Requirements / Message":"💬 ज़रूरतें / संदेश","🚀 Send Enquiry":"🚀 पूछताछ भेजें","🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.":"🔒 आपकी संपर्क जानकारी सिर्फ़ पूछताछ और जवाब के लिए इस्तेमाल की जाएगी।",
 "Website Visitors":"वेबसाइट विज़िटर","🔥 UPComedyHub Family":"🔥 UPComedyHub परिवार","Ab tak UPComedyHub website par":"अब तक UPComedyHub वेबसाइट पर","visits record ho chuke hain ❤️":"विज़िट दर्ज हो चुकी हैं ❤️","Aap bhi UPComedyHub family ka hissa hain! 😎":"आप भी UPComedyHub परिवार का हिस्सा हैं! 😎","YouTube Stats":"YouTube आँकड़े","🔔 UPComedyHub Subscribers":"🔔 UPComedyHub सब्सक्राइबर","Hamari YouTube Family ❤️":"हमारा YouTube परिवार ❤️","Follow UPComedyHub":"UPComedyHub को फ़ॉलो करें","▶ YouTube":"▶ YouTube","📸 Instagram":"📸 Instagram","👍 Facebook":"👍 Facebook","📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India":"📍जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश, भारत",
 "🔥 Never Miss an Update":"🔥 कोई अपडेट न छूटे","Stay Connected":"जुड़े रहें","🔥 UPComedyHub Updates":"🔥 UPComedyHub अपडेट","Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.":"नए कॉमेडी वीडियो, शॉर्ट्स और ज़रूरी अपडेट के बारे में ईमेल पर जानकारी पाने के लिए सब्सक्राइब करें।","📧 Email Address":"📧 ईमेल पता","🚀 Subscribe to Updates":"🚀 अपडेट के लिए सब्सक्राइब करें","🔒 Aapka email sirf UPComedyHub updates aur reply ke purpose ke liye use kiya jayega.":"🔒 आपका ईमेल सिर्फ़ UPComedyHub अपडेट और जवाब के लिए इस्तेमाल किया जाएगा।","Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡":"या फिर व्हाट्सएप चैनल जॉइन करें — सबसे तेज़ अपडेट! ⚡","💬 Join WhatsApp Channel":"💬 व्हाट्सएप चैनल जॉइन करें",
-"Support UPComedyHub":"UPComedyHub को सपोर्ट करें","❤️ Aapka Support, Hamari Taakat":"❤️ आपका सपोर्ट, हमारी ताकत","Ek Chai Pilao ☕":"एक चाय पिलाओ ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"अगर आपको हमारी कॉमेडी पसंद है, तो एक छोटी सी चाय पिलाकर सपोर्ट करें। आपका हर योगदान नए वीडियो बनाने में मदद करता है! ❤️","Custom":"कस्टम","💳 Pay ₹100 via UPI":"💳 UPI से ₹100 भुगतान करें","UPI ID":"UPI आईडी","📱 Scan this QR with any UPI app":"📱 किसी भी UPI ऐप से यह QR स्कैन करें","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% सुरक्षित। भुगतान सीधे हमारे UPI पर आता है।","😂 Haste Raho, Connected Raho!":"😂 हँसते रहो, जुड़े रहो!","UPComedyHub ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"UPComedyHub को सपोर्ट करें और नए कॉमेडी वीडियो के लिए YouTube पर सब्सक्राइब करें।","🔔 Subscribe Now":"🔔 अभी सब्सक्राइब करें",
-"🔒 Privacy Policy":"🔒 प्राइवेसी पॉलिसी","UPComedyHub आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"UPComedyHub आपकी प्राइवेसी का सम्मान करता है। यह ऐप/वेबसाइट किसी भी निजी जानकारी को बिना आपकी अनुमति के बेचती या शेयर नहीं करती।","UPComedyHub app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"UPComedyHub विज़िटर काउंट और बेसिक ऑडियंस माप के लिए Stats4U विज़िटर काउंटर का उपयोग करती है। पेज खुलने पर ब्राउज़र तकनीकी रूप से IP पता, ब्राउज़र पहचान और देखे गए पेज का पता Stats4U को भेजता है।","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"Stats4U के अनुसार IP पता आँकड़ों में सेव नहीं होता। इसका उपयोग अनुमानित देश/शहर और दैनिक विज़िटर गिनती के लिए salted daily hash बनाने में होता है। काउंटर कुकीज़ सेट नहीं करता।","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"Stats4U के अनुसार दैनिक आँकड़े 400 दिनों तक रखे जाते हैं और प्रोसेसिंग पोलैंड में होती है।","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"इस काउंटर में स्क्रीन जानकारी माप सक्रिय है। इसलिए काउंटर स्क्रिप्ट स्क्रीन रेज़ोल्यूशन, ब्राउज़र विंडो चौड़ाई और पिक्सल अनुपात जैसी तीन वैल्यू भी पढ़ सकती है।","Stats4U Privacy Policy:":"Stats4U प्राइवेसी पॉलिसी:","किसी भी सवाल के लिए आप हमसे":"किसी भी सवाल के लिए आप हमसे","पर contact कर सकते हैं।":"पर संपर्क कर सकते हैं।",
+"Support Zyro":"Zyro को सपोर्ट करें","❤️ Aapka Support, Hamari Taakat":"❤️ आपका सपोर्ट, हमारी ताकत","Ek Chai Pilao ☕":"एक चाय पिलाओ ☕","Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️":"अगर आपको हमारी कॉमेडी पसंद है, तो एक छोटी सी चाय पिलाकर सपोर्ट करें। आपका हर योगदान नए वीडियो बनाने में मदद करता है! ❤️","Custom":"कस्टम","💳 Pay ₹100 via UPI":"💳 UPI से ₹100 भुगतान करें","UPI ID":"UPI आईडी","📱 Scan this QR with any UPI app":"📱 किसी भी UPI ऐप से यह QR स्कैन करें","🔒 100% secure. Payment directly humare UPI par aata hai.":"🔒 100% सुरक्षित। भुगतान सीधे हमारे UPI पर आता है।","😂 Haste Raho, Connected Raho!":"😂 हँसते रहो, जुड़े रहो!","Zyro ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.":"Zyro को सपोर्ट करें और नए कॉमेडी वीडियो के लिए YouTube पर सब्सक्राइब करें।","🔔 Subscribe Now":"🔔 अभी सब्सक्राइब करें",
+"🔒 Privacy Policy":"🔒 प्राइवेसी पॉलिसी","Zyro आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।":"Zyro आपकी प्राइवेसी का सम्मान करता है। यह ऐप/वेबसाइट किसी भी निजी जानकारी को बिना आपकी अनुमति के बेचती या शेयर नहीं करती।","Zyro app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।":"Zyro विज़िटर काउंट और बेसिक ऑडियंस माप के लिए Stats4U विज़िटर काउंटर का उपयोग करती है। पेज खुलने पर ब्राउज़र तकनीकी रूप से IP पता, ब्राउज़र पहचान और देखे गए पेज का पता Stats4U को भेजता है।","Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।":"Stats4U के अनुसार IP पता आँकड़ों में सेव नहीं होता। इसका उपयोग अनुमानित देश/शहर और दैनिक विज़िटर गिनती के लिए salted daily hash बनाने में होता है। काउंटर कुकीज़ सेट नहीं करता।","Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।":"Stats4U के अनुसार दैनिक आँकड़े 400 दिनों तक रखे जाते हैं और प्रोसेसिंग पोलैंड में होती है।","इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।":"इस काउंटर में स्क्रीन जानकारी माप सक्रिय है। इसलिए काउंटर स्क्रिप्ट स्क्रीन रेज़ोल्यूशन, ब्राउज़र विंडो चौड़ाई और पिक्सल अनुपात जैसी तीन वैल्यू भी पढ़ सकती है।","Stats4U Privacy Policy:":"Stats4U प्राइवेसी पॉलिसी:","किसी भी सवाल के लिए आप हमसे":"किसी भी सवाल के लिए आप हमसे","पर contact कर सकते हैं।":"पर संपर्क कर सकते हैं।",
 "Aapke dwara upload ki gayi photo, video aur reel third-party storage service (jaise Cloudinary ya Firebase Storage) par store ho sakti hain, taaki wo app mein dikhai ja sakein.":"आपके द्वारा अपलोड की गई फ़ोटो, वीडियो और रील किसी थर्ड-पार्टी स्टोरेज सेवा (जैसे Cloudinary या Firebase Storage) पर सेव हो सकती हैं, ताकि वे ऐप में दिखाई जा सकें।",
-"📋 Terms & Conditions":"📋 नियम और शर्तें","UPComedyHub app/website par available content ka purpose entertainment aur information provide karna hai.":"UPComedyHub ऐप/वेबसाइट पर उपलब्ध कंटेंट का उद्देश्य मनोरंजन और जानकारी देना है।","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"ऐप/वेबसाइट पर दिए गए वीडियो, इमेज और अन्य कंटेंट को बिना अनुमति के व्यावसायिक उद्देश्य के लिए उपयोग या रीडिस्ट्रीब्यूट न करें।","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"ऐप/वेबसाइट उपयोग करते समय लागू कानूनों और दूसरों के अधिकारों का सम्मान करना ज़रूरी है।","Kisi bhi question ke liye contact karein:":"किसी भी सवाल के लिए संपर्क करें:","© 2026 UPComedyHub. All Rights Reserved.":"© 2026 UPComedyHub. सर्वाधिकार सुरक्षित।","Made with ❤️ by UPComedyHub":"UPComedyHub द्वारा ❤️ से बनाया गया","Privacy Policy":"प्राइवेसी पॉलिसी","Terms & Conditions":"नियम और शर्तें",
+"📋 Terms & Conditions":"📋 नियम और शर्तें","Zyro app/website par available content ka purpose entertainment aur information provide karna hai.":"Zyro ऐप/वेबसाइट पर उपलब्ध कंटेंट का उद्देश्य मनोरंजन और जानकारी देना है।","App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.":"ऐप/वेबसाइट पर दिए गए वीडियो, इमेज और अन्य कंटेंट को बिना अनुमति के व्यावसायिक उद्देश्य के लिए उपयोग या रीडिस्ट्रीब्यूट न करें।","App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.":"ऐप/वेबसाइट उपयोग करते समय लागू कानूनों और दूसरों के अधिकारों का सम्मान करना ज़रूरी है।","Kisi bhi question ke liye contact karein:":"किसी भी सवाल के लिए संपर्क करें:","© 2026 Zyro. All Rights Reserved.":"© 2026 Zyro. सर्वाधिकार सुरक्षित।","Made with ❤️ by Zyro":"Zyro द्वारा ❤️ से बनाया गया","Privacy Policy":"प्राइवेसी पॉलिसी","Terms & Conditions":"नियम और शर्तें",
 "Saare Shorts & Reels ab":"सारे शॉर्ट्स और रील्स अब","me 🔥":"में 🔥","🎬":"🎬","Reels ab Channel Profile me hain":"रील्स अब चैनल प्रोफ़ाइल में हैं","Upar wale logo par tap karein aur":"ऊपर वाले लोगो पर टैप करें और","section me saare Shorts & Reels dekhein.":"सेक्शन में सारे शॉर्ट्स और रील्स देखें।","Channel Profile kholein →":"चैनल प्रोफ़ाइल खोलें →",
 "username":"उपयोगकर्ता नाम","🔐 Login karke like, comment, save videos aur message friends.":"🔐 लाइक, कमेंट, वीडियो सेव और दोस्तों को मैसेज करने के लिए लॉगिन करें।","📷":"📷","Posts":"पोस्ट","Followers":"फ़ॉलोअर","Following":"फ़ॉलोइंग","@username":"@उपयोगकर्ता","No bio yet.":"अभी कोई बायो नहीं।","✏️ Edit Profile":"✏️ प्रोफ़ाइल एडिट करें","Share Profile":"प्रोफ़ाइल शेयर करें","Username":"उपयोगकर्ता नाम","3–30 characters. Letters, numbers, underscore (_) and dot (.) only.":"3–30 अक्षर। सिर्फ़ अक्षर, अंक, अंडरस्कोर (_) और डॉट (.)।","Bio":"बायो","Cancel":"रद्द करें","Save Profile":"प्रोफ़ाइल सेव करें","Playlist":"प्लेलिस्ट","Abhi koi post nahi. Jald aa raha hai! 🚀":"अभी कोई पोस्ट नहीं। जल्द आ रहा है! 🚀","Abhi koi post nahi.":"अभी कोई पोस्ट नहीं।","Abhi tak koi reel nahi.":"अभी तक कोई रील नहीं।","Abhi koi video nahi.":"अभी कोई वीडियो नहीं।","Abhi tak koi video playlist me nahi.":"अभी तक कोई वीडियो प्लेलिस्ट में नहीं।",
 "Saare mini games ek hi jagah. Open karke play karo! 🔥":"सारे मिनी गेम एक ही जगह। खोलकर खेलो! 🔥","🎮 Open Fun Zone":"🎮 फन ज़ोन खोलें","🧠":"🧠","Comedy Quiz":"कॉमेडी क्विज़","Guess the Dialogue":"डायलॉग पहचानो","⚡":"⚡","Reaction Test":"रिएक्शन टेस्ट","🎡":"🎡","Spin Wheel":"स्पिन व्हील","🤔":"🤔","Emoji Riddle":"इमोजी पहेली","🔤":"🔤","Word Scramble":"वर्ड स्क्रैम्बल","🎴":"🎴","Memory Match":"मेमोरी मैच","🐍":"🐍","Snake & Ladder":"साँप और सीढ़ी","🎮 Game":"🎮 गेम","📷 Change Photo":"📷 फ़ोटो बदलें","Player 😎":"प्लेयर 😎","Level 1 • 0 XP":"लेवल 1 • 0 XP","🔥 Daily Challenge":"🔥 डेली चैलेंज","Aaj ka challenge load ho raha hai...":"आज का चैलेंज लोड हो रहा है...","🎯 Aaj ka challenge":"🎯 आज का चैलेंज","🏆 Local Leaderboard":"🏆 लोकल लीडरबोर्ड","Is device par top players.":"इस डिवाइस पर टॉप प्लेयर।","📤 Share My Score":"📤 मेरा स्कोर शेयर करें","🏆 Best Quiz:":"🏆 बेस्ट क्विज़:","⚡ Best Reaction:":"⚡ बेस्ट रिएक्शन:","ms":"ms","💡 Game scores is device par save hote hain.":"💡 गेम स्कोर इस डिवाइस पर सेव होते हैं।",
@@ -7099,7 +7310,24 @@ async function ensurePublicProfile(user){
 }
 
 async function loadProfileIdentity(){
-  if(!currentUser) return null;
+  if(!currentUser){
+    let guestData = null;
+    try {
+      guestData = JSON.parse(localStorage.getItem("zyro_guest_profile") || "null");
+    } catch(e){}
+    if(!guestData){
+      guestData = {
+        username: "guest_user",
+        displayName: "Guest Creator",
+        bio: "Exploring Zyro! 🚀 Log in to save your posts & reels.",
+        photoURL: "IMG_20260917_172912.jpg"
+      };
+    }
+    cachedCurrentUserProfile = guestData;
+    currentProfilePhotoURL = guestData.photoURL || "IMG_20260917_172912.jpg";
+    updateUIProfileIdentity(guestData);
+    return guestData;
+  }
   try{
     const snap = await db.collection("publicProfiles").doc(currentUser.uid).get();
     const data = snap.exists ? snap.data() : await ensurePublicProfile(currentUser);
@@ -7186,8 +7414,42 @@ async function loadProfileIdentity(){
   }catch(e){ console.error(e); return null; }
 }
 
+function updateUIProfileIdentity(data){
+  if(!data) return;
+  const photo = data.photoURL || currentProfilePhotoURL || "IMG_20260917_172912.jpg";
+  const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
+  allAvatarEls.forEach(function(el){ try { if(photo) el.src = photo; } catch(e){} });
+
+  const isV = !!data.isVerified;
+  const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
+  const un = document.getElementById("profileUsername"); 
+  if(un) un.textContent = "@"+(data.username||"guest");
+
+  const uh = document.getElementById("profileHeaderUsername"); 
+  if(uh) uh.innerHTML = escapeHtml(data.username||"guest") + vBadge;
+
+  const uNameEl = document.getElementById("userName");
+  if(uNameEl) uNameEl.innerHTML = escapeHtml(data.displayName || (currentUser ? currentUser.displayName : "Guest User")) + vBadge;
+
+  const epName = document.getElementById("editProfileNamePreview");
+  if(epName) epName.textContent = data.displayName || (currentUser ? currentUser.displayName : "Guest User");
+
+  const pb = document.getElementById("profileBio");
+  if(pb) pb.textContent = data.bio || "No bio yet.";
+
+  const pl = document.getElementById("profileWebsiteLink");
+  if(pl){
+    if(data.websiteLink){
+      pl.href = data.websiteLink;
+      pl.textContent = data.websiteLink.replace(/^https?:\/\//, '');
+      pl.style.display = "inline-flex";
+    } else {
+      pl.style.display = "none";
+    }
+  }
+}
+
 async function saveProfileIdentity(){
-  if(!currentUser) return;
   const input = document.getElementById("usernameInput");
   const nameInput = document.getElementById("displayNameInput");
   const pronounsInput = document.getElementById("pronounsInput");
@@ -7196,15 +7458,40 @@ async function saveProfileIdentity(){
   const linkInput = document.getElementById("websiteLinkInput");
   const saveBtn = document.getElementById("saveProfileBtn");
 
-  const newUsername = normalizeUsername(input.value);
-  const newDisplayName = String(nameInput ? nameInput.value : "").trim() || (currentUser.displayName || "User");
+  const newUsername = normalizeUsername(input ? input.value : "");
+  const newDisplayName = String(nameInput ? nameInput.value : "").trim() || (currentUser ? (currentUser.displayName || "User") : "Guest User");
   const newPronouns = String(pronounsInput ? pronounsInput.value : "").trim().slice(0, 30);
   const newCategory = String(categoryInput ? categoryInput.value : "").trim();
-  const newBio = String(bioInput.value||"").trim().slice(0,160);
+  const newBio = String(bioInput ? bioInput.value : "").trim().slice(0,160);
   const newLink = String(linkInput ? linkInput.value : "").trim().slice(0, 200);
 
   if(!isValidUsername(newUsername)){ showToast("❌ Username: 3–30 chars, a-z, 0-9, _ and ."); return; }
   saveBtn.disabled = true; saveBtn.textContent = "Saving...";
+
+  if(!currentUser){
+    try {
+      const guestProfile = {
+        username: newUsername,
+        displayName: newDisplayName,
+        pronouns: newPronouns,
+        category: newCategory,
+        bio: newBio,
+        websiteLink: newLink,
+        photoURL: currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+      };
+      localStorage.setItem("zyro_guest_profile", JSON.stringify(guestProfile));
+      cachedCurrentUserProfile = guestProfile;
+      updateUIProfileIdentity(guestProfile);
+      closeEditProfileModal();
+      showToast("✅ Profile updated!");
+    } catch(e) {
+      console.error(e);
+      showToast("❌ Update failed");
+    } finally {
+      saveBtn.disabled = false; saveBtn.textContent = "Done";
+    }
+    return;
+  }
   try{
     const profileRef = db.collection("publicProfiles").doc(currentUser.uid);
     const profileSnap = await profileRef.get();
@@ -7246,7 +7533,6 @@ async function saveProfileIdentity(){
     }
     await loadProfileIdentity();
     closeEditProfileModal();
-    const pec = document.getElementById("profileEditCard"); if(pec) pec.hidden = true;
     showToast("✅ Profile updated!");
   }catch(e){
     console.error(e);
@@ -8394,17 +8680,22 @@ window.playStoryHighlight = playStoryHighlight;
 function openEditProfileModal(){
   const modal = document.getElementById("editProfileModalOverlay");
   if(!modal) return;
-  if(cachedCurrentUserProfile){
-    const d = cachedCurrentUserProfile;
-    const ui = document.getElementById("usernameInput"); if(ui) ui.value = d.username || "";
-    const dni = document.getElementById("displayNameInput"); if(dni) dni.value = d.displayName || (currentUser ? currentUser.displayName : "") || "";
-    const pni = document.getElementById("pronounsInput"); if(pni) pni.value = d.pronouns || "";
-    const cti = document.getElementById("categoryInput"); if(cti && d.category) cti.value = d.category;
-    const bi = document.getElementById("bioInput"); if(bi) bi.value = d.bio || "";
-    const wli = document.getElementById("websiteLinkInput"); if(wli) wli.value = d.websiteLink || "";
-    const prev = document.getElementById("editProfileAvatarPreview");
-    if(prev) prev.src = d.photoURL || currentProfilePhotoURL || (currentUser ? currentUser.photoURL : "") || "IMG_20260917_172912.jpg";
-  }
+  const d = cachedCurrentUserProfile || {};
+  const ui = document.getElementById("usernameInput"); 
+  if(ui) ui.value = d.username || (currentUser ? (currentUser.displayName || (currentUser.email ? currentUser.email.split('@')[0] : "user")) : "") || "";
+  const dni = document.getElementById("displayNameInput"); 
+  if(dni) dni.value = d.displayName || (currentUser ? currentUser.displayName : "") || "";
+  const pni = document.getElementById("pronounsInput"); 
+  if(pni) pni.value = d.pronouns || "";
+  const cti = document.getElementById("categoryInput"); 
+  if(cti && d.category) cti.value = d.category;
+  const bi = document.getElementById("bioInput"); 
+  if(bi) bi.value = d.bio || "";
+  const wli = document.getElementById("websiteLinkInput"); 
+  if(wli) wli.value = d.websiteLink || "";
+  const prev = document.getElementById("editProfileAvatarPreview");
+  if(prev) prev.src = d.photoURL || currentProfilePhotoURL || (currentUser ? currentUser.photoURL : "") || "IMG_20260917_172912.jpg";
+
   modal.classList.add("show");
   document.body.classList.add("messages-open");
 }
@@ -11453,8 +11744,7 @@ async function showUserProfileModal(userOrUid){
     editSelfBtn.onclick = ()=>{
       closeUserProfileModal();
       switchTab("profile");
-      const pc = document.getElementById("profileEditCard");
-      if(pc) pc.hidden = false;
+      openEditProfileModal();
     };
   }
 

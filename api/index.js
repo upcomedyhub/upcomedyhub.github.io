@@ -910,6 +910,8 @@ app.post('/api/upload/video', (req, res) => {
     const description = cleanText(req.body.description || '', 2000);
     const isPublic = req.body.isPublic !== 'false' && req.body.isPublic !== false;
     const category = cleanText(req.body.category || 'reel', 50);
+    const trimStart = parseFloat(req.body.trimStart) || 0;
+    const trimEnd = parseFloat(req.body.trimEnd) || 0;
 
     const videoUrl = `/uploads/videos/${req.file.filename}`;
 
@@ -923,6 +925,9 @@ app.post('/api/upload/video', (req, res) => {
       description: description,
       isPublic: isPublic,
       category: category,
+      trimStart: trimStart,
+      trimEnd: trimEnd,
+      trimmedDuration: trimEnd > trimStart ? +(trimEnd - trimStart).toFixed(1) : null,
       timestamp: new Date().toISOString()
     });
   });

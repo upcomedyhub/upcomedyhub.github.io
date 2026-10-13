@@ -1887,6 +1887,30 @@ body.messages-open .bottom-nav{display:none !important}
 .ve-btn-secondary { background: rgba(255,255,255,0.1); color: #ddd; }
 .ve-btn-secondary:hover { background: rgba(255,255,255,0.16); color: #fff; }
 
+/* Video Trimmer Component Styles */
+.ve-trimmer-card { width: 100%; box-sizing: border-box; background: #131418; border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; border-radius: 0 0 16px 16px; }
+.ve-trimmer-header { display: flex; align-items: center; justify-content: space-between; }
+.ve-trimmer-title { font-size: 12px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 6px; letter-spacing: 0.3px; }
+.ve-trim-reset-btn { background: transparent; border: 1px solid rgba(255,255,255,0.18); color: #aaa; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; cursor: pointer; transition: all .15s; font-family: inherit; }
+.ve-trim-reset-btn:hover { color: #fff; border-color: #0095f6; }
+.ve-trim-stats-row { display: flex; align-items: center; justify-content: space-between; background: #0b0c0f; border-radius: 10px; padding: 7px 12px; font-size: 12px; border: 1px solid rgba(255,255,255,0.06); }
+.ve-trim-stat-badge { display: flex; align-items: center; gap: 5px; }
+.ve-trim-stat-badge span:first-child { color: #888; font-size: 11px; font-weight: 600; }
+.ve-trim-stat-badge b { color: #00d2ff; font-family: monospace; font-size: 12px; }
+.ve-trim-stat-badge.duration b { color: #22c55e; }
+.ve-trim-slider-wrap { display: flex; flex-direction: column; gap: 8px; background: #0c0d10; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); }
+.ve-trim-range { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; background: #26272f; border-radius: 3px; outline: none; margin: 4px 0 2px; }
+.ve-trim-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #0095f6; cursor: pointer; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.6); transition: transform .1s; }
+.ve-trim-range::-webkit-slider-thumb:hover { transform: scale(1.18); }
+.ve-trim-range::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #0095f6; cursor: pointer; border: 2px solid #fff; }
+.ve-trim-quick-actions { display: flex; gap: 8px; justify-content: space-between; }
+.ve-trim-action-btn { background: #202127; border: 1px solid rgba(255,255,255,0.12); color: #ddd; font-size: 11px; font-weight: 700; padding: 6px 10px; border-radius: 8px; cursor: pointer; flex: 1; text-align: center; transition: all .15s ease; font-family: inherit; }
+.ve-trim-action-btn:hover { background: #2a2b33; color: #fff; border-color: #0095f6; }
+.ve-trim-action-btn.active { background: rgba(0, 149, 246, 0.25); color: #0095f6; border-color: #0095f6; }
+.ve-play-trimmer-btn { background: linear-gradient(135deg, #0095f6, #0066cc); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 13px; font-weight: 800; padding: 10px 14px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 14px rgba(0, 149, 246, 0.35); transition: all .15s ease; font-family: inherit; }
+.ve-play-trimmer-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.ve-play-trimmer-btn.playing { background: linear-gradient(135deg, #22c55e, #16a34a); box-shadow: 0 4px 16px rgba(34, 197, 94, 0.45); }
+
 .blocked-user-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
 .dark-mode .blocked-user-row { border-bottom-color: #262626; }
 .blocked-user-info { display: flex; align-items: center; gap: 10px; }
@@ -5928,13 +5952,65 @@ img.logo-profile.zyro-header-logo {
 
     <!-- Body (2-Column Studio: Video Player on left, Settings on right) -->
     <div class="ve-body">
-      <!-- Left Column: Video Loop Preview Card -->
+      <!-- Left Column: Video Loop Preview Card + Trimmer Component -->
       <div class="ve-player-card">
-        <video id="veVideoPlayer" class="ve-video-player" autoplay loop muted playsinline controls></video>
+        <video id="veVideoPlayer" class="ve-video-player" autoplay muted playsinline controls></video>
         <div class="ve-meta-badge-row">
           <span id="veVideoDurationBadge">⏱️ 0:00</span>
           <span id="veVideoSizeBadge">💾 0 MB</span>
           <span id="veVideoTypeBadge">🎥 MP4</span>
+        </div>
+
+        <!-- Integrated Video Trimmer Component -->
+        <div class="ve-trimmer-card" id="veTrimmerComponent">
+          <div class="ve-trimmer-header">
+            <span class="ve-trimmer-title">✂️ Video Trimmer (Loop Range)</span>
+            <button type="button" class="ve-trim-reset-btn" onclick="resetVideoTrimmer()" title="Reset to original video length">🔄 Reset Trim</button>
+          </div>
+
+          <!-- Trimmed Range Indicators -->
+          <div class="ve-trim-stats-row">
+            <div class="ve-trim-stat-badge">
+              <span>Start:</span>
+              <b id="veTrimStartBadge">0:00</b>
+            </div>
+            <div class="ve-trim-stat-badge">
+              <span>End:</span>
+              <b id="veTrimEndBadge">0:00</b>
+            </div>
+            <div class="ve-trim-stat-badge duration">
+              <span>Duration:</span>
+              <b id="veTrimDurationBadge">0:00</b>
+            </div>
+          </div>
+
+          <!-- Dual Sliders for Start & End Trimming -->
+          <div class="ve-trim-slider-wrap">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8e8e93">
+              <span>Trim Start Point</span>
+              <span id="veTrimStartSecText" style="font-family:monospace;color:#00d2ff">0.0s</span>
+            </div>
+            <input type="range" id="veTrimStartSlider" class="ve-trim-range" min="0" max="100" step="0.1" value="0" oninput="handleTrimStartChange(parseFloat(this.value))">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8e8e93;margin-top:2px">
+              <span>Trim End Point</span>
+              <span id="veTrimEndSecText" style="font-family:monospace;color:#00d2ff">0.0s</span>
+            </div>
+            <input type="range" id="veTrimEndSlider" class="ve-trim-range" min="0" max="100" step="0.1" value="100" oninput="handleTrimEndChange(parseFloat(this.value))">
+          </div>
+
+          <!-- Dedicated Play Trimmer Button -->
+          <button type="button" class="ve-play-trimmer-btn" id="vePlayTrimmerBtn" onclick="playTrimmerLoop()" title="Plays video strictly from selected start to end point in a loop">
+            <span id="vePlayTrimmerIcon">▶️</span>
+            <span id="vePlayTrimmerBtnText">Play Trimmer</span>
+          </button>
+
+          <!-- Quick Preview Actions -->
+          <div class="ve-trim-quick-actions">
+            <button type="button" class="ve-trim-action-btn" onclick="seekTrimStart()" title="Preview trimmed start frame">⏮️ Start Frame</button>
+            <button type="button" class="ve-trim-action-btn" onclick="seekTrimEnd()" title="Preview trimmed end frame">⏭️ End Frame</button>
+            <button type="button" class="ve-trim-action-btn" onclick="resetVideoTrimmer()" title="Reset to full length">🔄 Full Video</button>
+          </div>
         </div>
       </div>
 
@@ -6872,7 +6948,7 @@ const BUNNY_STORAGE_CONFIG = {
 };
 window.BUNNY_STORAGE_CONFIG = BUNNY_STORAGE_CONFIG;
 
-function extractVideoThumbnailBlob(fileOrBlob) {
+function extractVideoThumbnailBlob(fileOrBlob, seekTime) {
   return new Promise((resolve) => {
     try {
       const video = document.createElement("video");
@@ -6883,7 +6959,10 @@ function extractVideoThumbnailBlob(fileOrBlob) {
       video.src = url;
       video.onloadeddata = () => {
         try {
-          video.currentTime = Math.min(1, Math.max(0.1, (video.duration || 1) / 3));
+          const targetTime = (typeof seekTime === "number" && !isNaN(seekTime))
+            ? Math.max(0.05, Math.min(video.duration || 10, seekTime))
+            : Math.min(1, Math.max(0.1, (video.duration || 1) / 3));
+          video.currentTime = targetTime;
         } catch(e) {
           resolve(null);
         }
@@ -9409,6 +9488,219 @@ let currentVeObjectUrl = null;
 let currentVeCategory = "reel"; // "reel" | "video"
 let currentVeIsPublic = true;
 let isVeUploading = false;
+let veTrimStart = 0;
+let veTrimEnd = 0;
+let veVideoDuration = 0;
+
+function formatTrimTime(seconds) {
+  seconds = Math.max(0, Number(seconds) || 0);
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return mins + ":" + (secs < 10 ? "0" : "") + secs;
+}
+
+function initTrimmerComponent(duration) {
+  veVideoDuration = duration || 0;
+  veTrimStart = 0;
+  veTrimEnd = veVideoDuration;
+
+  const startSlider = document.getElementById("veTrimStartSlider");
+  const endSlider = document.getElementById("veTrimEndSlider");
+  const startBadge = document.getElementById("veTrimStartBadge");
+  const endBadge = document.getElementById("veTrimEndBadge");
+  const durBadge = document.getElementById("veTrimDurationBadge");
+  const startSec = document.getElementById("veTrimStartSecText");
+  const endSec = document.getElementById("veTrimEndSecText");
+
+  if (startSlider) {
+    startSlider.min = "0";
+    startSlider.max = String(veVideoDuration || 10);
+    startSlider.step = "0.1";
+    startSlider.value = "0";
+  }
+  if (endSlider) {
+    endSlider.min = "0";
+    endSlider.max = String(veVideoDuration || 10);
+    endSlider.step = "0.1";
+    endSlider.value = String(veVideoDuration || 10);
+  }
+
+  if (startBadge) startBadge.textContent = "0:00";
+  if (endBadge) endBadge.textContent = formatTrimTime(veVideoDuration);
+  if (durBadge) durBadge.textContent = formatTrimTime(veVideoDuration);
+  if (startSec) startSec.textContent = "0.0s";
+  if (endSec) endSec.textContent = (veVideoDuration || 0).toFixed(1) + "s";
+}
+window.initTrimmerComponent = initTrimmerComponent;
+
+function handleTrimStartChange(val) {
+  val = parseFloat(val) || 0;
+  if (veTrimEnd > 0 && val >= veTrimEnd - 0.5) {
+    val = Math.max(0, veTrimEnd - 0.5);
+    const slider = document.getElementById("veTrimStartSlider");
+    if (slider) slider.value = String(val);
+  }
+  veTrimStart = val;
+
+  const startBadge = document.getElementById("veTrimStartBadge");
+  const durBadge = document.getElementById("veTrimDurationBadge");
+  const startSec = document.getElementById("veTrimStartSecText");
+
+  if (startBadge) startBadge.textContent = formatTrimTime(veTrimStart);
+  if (durBadge) durBadge.textContent = formatTrimTime(Math.max(0, veTrimEnd - veTrimStart));
+  if (startSec) startSec.textContent = veTrimStart.toFixed(1) + "s";
+
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    player.currentTime = veTrimStart;
+  }
+}
+window.handleTrimStartChange = handleTrimStartChange;
+
+function handleTrimEndChange(val) {
+  val = parseFloat(val) || 0;
+  if (val <= veTrimStart + 0.5) {
+    val = Math.min(veVideoDuration, veTrimStart + 0.5);
+    const slider = document.getElementById("veTrimEndSlider");
+    if (slider) slider.value = String(val);
+  }
+  veTrimEnd = val;
+
+  const endBadge = document.getElementById("veTrimEndBadge");
+  const durBadge = document.getElementById("veTrimDurationBadge");
+  const endSec = document.getElementById("veTrimEndSecText");
+
+  if (endBadge) endBadge.textContent = formatTrimTime(veTrimEnd);
+  if (durBadge) durBadge.textContent = formatTrimTime(Math.max(0, veTrimEnd - veTrimStart));
+  if (endSec) endSec.textContent = veTrimEnd.toFixed(1) + "s";
+
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    if (player.paused) {
+      player.currentTime = Math.max(0, veTrimEnd - 0.2);
+    } else if (player.currentTime >= veTrimEnd) {
+      player.currentTime = veTrimStart;
+    }
+  }
+}
+window.handleTrimEndChange = handleTrimEndChange;
+
+let isTrimmerLoopPlaying = false;
+let trimmerRafId = null;
+
+function checkTrimmerPlaybackLoop() {
+  const player = document.getElementById("veVideoPlayer");
+  if (!player || player.paused || player.ended) {
+    return;
+  }
+  if (veTrimEnd > 0) {
+    // When playback reaches or exceeds the trimmed end point, automatically loop back to start point
+    if (player.currentTime >= veTrimEnd) {
+      player.currentTime = veTrimStart;
+      player.play().catch(function() {});
+    } else if (player.currentTime < veTrimStart - 0.15) {
+      player.currentTime = veTrimStart;
+    }
+  }
+  trimmerRafId = requestAnimationFrame(checkTrimmerPlaybackLoop);
+}
+
+function startTrimmerRaf() {
+  if (trimmerRafId) cancelAnimationFrame(trimmerRafId);
+  trimmerRafId = requestAnimationFrame(checkTrimmerPlaybackLoop);
+}
+
+function stopTrimmerRaf() {
+  if (trimmerRafId) {
+    cancelAnimationFrame(trimmerRafId);
+    trimmerRafId = null;
+  }
+}
+
+function updateTrimmerPlayBtnState(isPlaying) {
+  isTrimmerLoopPlaying = isPlaying;
+  const btn = document.getElementById("vePlayTrimmerBtn");
+  const icon = document.getElementById("vePlayTrimmerIcon");
+  const text = document.getElementById("vePlayTrimmerBtnText");
+  if (isPlaying) {
+    if (btn) {
+      btn.classList.add("playing");
+      btn.setAttribute("aria-label", "Pause Trimmer");
+    }
+    if (icon) icon.textContent = "⏸️";
+    if (text) text.textContent = "Pause Trimmer";
+  } else {
+    if (btn) {
+      btn.classList.remove("playing");
+      btn.setAttribute("aria-label", "Play Trimmer");
+    }
+    if (icon) icon.textContent = "▶️";
+    if (text) text.textContent = "Play Trimmer";
+  }
+}
+window.updateTrimmerPlayBtnState = updateTrimmerPlayBtnState;
+
+function playTrimmerLoop() {
+  const player = document.getElementById("veVideoPlayer");
+  if (!player) return;
+
+  if (isTrimmerLoopPlaying && !player.paused) {
+    // Already playing in loop -> pause it
+    player.pause();
+    stopTrimmerRaf();
+    updateTrimmerPlayBtnState(false);
+  } else {
+    // Specifically start looping playback of the video segment defined by start and end sliders
+    updateTrimmerPlayBtnState(true);
+    player.currentTime = veTrimStart;
+    const playPromise = player.play();
+    if (playPromise !== undefined) {
+      playPromise.then(function() {
+        startTrimmerRaf();
+      }).catch(function(err) {
+        console.warn("Play trimmer notice:", err);
+        updateTrimmerPlayBtnState(false);
+        stopTrimmerRaf();
+      });
+    } else {
+      startTrimmerRaf();
+    }
+  }
+}
+window.playTrimmerLoop = playTrimmerLoop;
+
+function resetVideoTrimmer() {
+  initTrimmerComponent(veVideoDuration);
+  updateTrimmerPlayBtnState(false);
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    player.currentTime = 0;
+    player.play().catch(() => {});
+  }
+}
+window.resetVideoTrimmer = resetVideoTrimmer;
+
+function seekTrimStart() {
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    player.pause();
+    stopTrimmerRaf();
+    updateTrimmerPlayBtnState(false);
+    player.currentTime = veTrimStart;
+  }
+}
+window.seekTrimStart = seekTrimStart;
+
+function seekTrimEnd() {
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    player.pause();
+    stopTrimmerRaf();
+    updateTrimmerPlayBtnState(false);
+    player.currentTime = Math.max(0, veTrimEnd - 0.2);
+  }
+}
+window.seekTrimEnd = seekTrimEnd;
 
 function triggerVideoFilePicker(category) {
   currentVeCategory = category || "reel";
@@ -9483,19 +9775,43 @@ function handleVideoSelectedForEditor(file, category) {
   const ext = (file.name.split('.').pop() || "MP4").toUpperCase();
   if (typeBadge) typeBadge.textContent = "🎥 " + ext;
 
-  // Setup loop preview player
+  // Setup loop preview player with video trimmer controller
   if (player) {
     player.src = currentVeObjectUrl;
     player.muted = true; // start muted for compliant autoplay
-    player.loop = true;
     player.playsInline = true;
+    player.loop = false; // custom trimmer loop handles boundary looping
     player.onloadedmetadata = function() {
       const mins = Math.floor(player.duration / 60);
       const secs = Math.floor(player.duration % 60);
       const timeStr = mins + ":" + (secs < 10 ? "0" : "") + secs;
       if (durationBadge) durationBadge.textContent = "⏱️ " + timeStr;
+      initTrimmerComponent(player.duration);
     };
-    player.play().catch(function() {});
+    player.ontimeupdate = function() {
+      if (veTrimEnd > 0) {
+        if (player.currentTime >= veTrimEnd || player.currentTime < veTrimStart - 0.15) {
+          player.currentTime = veTrimStart;
+          player.play().catch(function() {});
+        }
+      }
+    };
+    player.onended = function() {
+      player.currentTime = veTrimStart;
+      player.play().catch(function() {});
+    };
+    player.onplay = function() {
+      startTrimmerRaf();
+    };
+    player.onpause = function() {
+      stopTrimmerRaf();
+      if (!isTrimmerLoopPlaying) {
+        updateTrimmerPlayBtnState(false);
+      }
+    };
+    player.play().then(function() {
+      startTrimmerRaf();
+    }).catch(function() {});
   }
 
   // 4. Reveal Editor Screen
@@ -9560,6 +9876,8 @@ function confirmCloseVideoEditor() {
 window.confirmCloseVideoEditor = confirmCloseVideoEditor;
 
 function closeVideoEditorModal() {
+  stopTrimmerRaf();
+  updateTrimmerPlayBtnState(false);
   const modal = document.getElementById("videoEditorModal");
   const player = document.getElementById("veVideoPlayer");
   if (player) {
@@ -9629,6 +9947,8 @@ async function startVideoPublishWorkflow() {
           form.append("description", description);
           form.append("category", currentVeCategory);
           form.append("isPublic", String(currentVeIsPublic));
+          form.append("trimStart", String(veTrimStart));
+          form.append("trimEnd", String(veTrimEnd));
           xhr.open("POST", "/api/upload/video");
         }
 
@@ -9671,6 +9991,8 @@ async function startVideoPublishWorkflow() {
         form.append("description", description);
         form.append("category", currentVeCategory);
         form.append("isPublic", String(currentVeIsPublic));
+        form.append("trimStart", String(veTrimStart));
+        form.append("trimEnd", String(veTrimEnd));
 
         xhr.upload.onprogress = function(e) {
           if (e.lengthComputable) {
@@ -9692,11 +10014,11 @@ async function startVideoPublishWorkflow() {
       });
     }
 
-    setProgress(85, "🖼️ Extracting first-frame thumbnail...");
+    setProgress(85, "🖼️ Extracting trimmed-frame thumbnail...");
 
-    // 2. Extract genuine thumbnail
+    // 2. Extract genuine thumbnail from the trimmed start point
     try {
-      const thumbBlob = await extractVideoThumbnailBlob(currentVeFile);
+      const thumbBlob = await extractVideoThumbnailBlob(currentVeFile, veTrimStart);
       if (thumbBlob && typeof uploadImageToCloudinary === "function" && isCloudinaryConfigured()) {
         uploadedThumbnailUrl = await uploadImageToCloudinary(thumbBlob, { folder: "upcomedyhub/thumbnails" });
       }
@@ -9730,6 +10052,9 @@ async function startVideoPublishWorkflow() {
       type: currentVeCategory,
       isPublic: currentVeIsPublic,
       visibility: currentVeIsPublic ? "public" : "private",
+      trimStart: veTrimStart,
+      trimEnd: veTrimEnd,
+      trimmedDuration: veTrimEnd > veTrimStart ? +(veTrimEnd - veTrimStart).toFixed(1) : null,
       likesCount: 0,
       commentsCount: 0,
       viewsCount: 1,
@@ -9752,6 +10077,9 @@ async function startVideoPublishWorkflow() {
             thumbnail: uploadedThumbnailUrl,
             title: title,
             caption: description || title,
+            trimStart: veTrimStart,
+            trimEnd: veTrimEnd,
+            duration: veTrimEnd > veTrimStart ? +(veTrimEnd - veTrimStart).toFixed(1) : null,
             likesCount: 0,
             viewsCount: 1,
             commentsCount: 0,
@@ -9771,6 +10099,9 @@ async function startVideoPublishWorkflow() {
             title: title,
             description: description,
             category: "long",
+            trimStart: veTrimStart,
+            trimEnd: veTrimEnd,
+            duration: veTrimEnd > veTrimStart ? +(veTrimEnd - veTrimStart).toFixed(1) : null,
             likesCount: 0,
             viewsCount: 1,
             commentsCount: 0,

@@ -1,0 +1,248 @@
+/* ============================================================
+   ZYRO MEDIA EDITOR  —  YouTube-style upload/edit experience
+   Self-contained styles. Safe to include; scoped with .ze- prefix.
+   ============================================================ */
+
+.ze-overlay{
+  position:fixed; inset:0; z-index:100200;
+  background:#0b0b0d;
+  display:none; align-items:stretch; justify-content:center;
+  -webkit-tap-highlight-color:transparent;
+  font-family:inherit;
+}
+.ze-overlay.show{ display:flex; }
+
+.ze-shell{
+  width:100%; max-width:560px; height:100%;
+  display:flex; flex-direction:column;
+  background:#0f0f12; color:#fff;
+  position:relative; overflow:hidden;
+}
+@media(min-width:600px){
+  .ze-overlay{ background:#000; padding:0; }
+  .ze-shell{ max-width:560px; box-shadow:0 0 80px rgba(0,0,0,.9); }
+}
+
+/* ---------- Top bar ---------- */
+.ze-top{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; gap:10px; flex:0 0 auto;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  background:rgba(15,15,18,.96); backdrop-filter:blur(8px);
+}
+.ze-top-btn{
+  border:none; background:transparent; color:#fff; cursor:pointer;
+  font-family:inherit; font-size:15px; font-weight:700;
+  padding:8px 10px; border-radius:10px; display:flex; align-items:center; gap:6px;
+  -webkit-tap-highlight-color:transparent;
+}
+.ze-top-btn:active{ background:rgba(255,255,255,.1); }
+.ze-title{ font-size:15px; font-weight:800; letter-spacing:.2px; opacity:.95; }
+.ze-next{
+  background:linear-gradient(135deg,#e63946,#ff5a5f); color:#fff;
+  padding:9px 20px; border-radius:999px; font-weight:800;
+  box-shadow:0 6px 18px rgba(230,57,70,.35);
+}
+.ze-next:disabled{ opacity:.55; box-shadow:none; }
+.ze-undo{ color:#bbb; font-size:13px; font-weight:700; }
+
+/* ---------- Stage (preview surface) ---------- */
+.ze-stage{
+  flex:1 1 auto; position:relative; display:flex; align-items:center; justify-content:center;
+  background:
+     radial-gradient(120% 90% at 50% 0%, rgba(230,57,70,.10), transparent 60%),
+     #050506;
+  overflow:hidden; padding:14px; min-height:0;
+}
+.ze-canvas{
+  position:relative; overflow:hidden; background:#000;
+  border-radius:14px; box-shadow:0 18px 50px rgba(0,0,0,.65);
+  max-width:100%; max-height:100%;
+  touch-action:none;
+  transition:border-radius .2s ease;
+}
+.ze-canvas.ze-no-round{ border-radius:0; }
+.ze-media{
+  display:block; max-width:100%; max-height:100%;
+  width:100%; height:100%; object-fit:contain;
+  transform-origin:center center;
+  background:#000;
+  pointer-events:none;
+}
+.ze-canvas video.ze-media{ object-fit:contain; }
+
+/* effect layers */
+.ze-fx-layer{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.ze-fx{ position:absolute; inset:0; pointer-events:none; }
+.ze-fx-vignette{ box-shadow:inset 0 0 120px 40px rgba(0,0,0,.85); }
+.ze-fx-grain{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size:180px 180px; mix-blend-mode:overlay;
+}
+.ze-fx-glow{ box-shadow:inset 0 0 90px 10px rgba(255,255,255,.35); mix-blend-mode:screen; }
+.ze-fx-leak{
+  background:linear-gradient(120deg, rgba(255,120,0,.0) 40%, rgba(255,150,40,.55) 60%, rgba(255,60,120,.35) 100%);
+  mix-blend-mode:screen;
+}
+.ze-fx-warm{ background:linear-gradient(0deg, rgba(255,140,0,.5), rgba(255,80,0,.35)); mix-blend-mode:soft-light; }
+.ze-fx-cool{ background:linear-gradient(0deg, rgba(0,120,255,.5), rgba(0,200,255,.3)); mix-blend-mode:soft-light; }
+
+/* text overlay layer */
+.ze-text-layer{ position:absolute; inset:0; overflow:hidden; }
+.ze-text-item{
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  padding:6px 12px; border-radius:10px;
+  font-weight:800; line-height:1.2; white-space:pre-wrap;
+  cursor:grab; user-select:none; max-width:92%;
+  text-align:center; word-break:break-word;
+  text-shadow:0 2px 8px rgba(0,0,0,.55);
+}
+.ze-text-item.selected{ outline:2px dashed rgba(255,255,255,.85); outline-offset:3px; }
+.ze-text-item.ze-bg-solid{ text-shadow:none; }
+.ze-text-item.ze-bg-outline{ text-shadow:none; -webkit-text-stroke:2px #000; }
+
+.ze-hint{
+  position:absolute; left:50%; bottom:14px; transform:translateX(-50%);
+  background:rgba(0,0,0,.6); color:#fff; font-size:12px; font-weight:600;
+  padding:7px 14px; border-radius:999px; backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.12); pointer-events:none;
+  transition:opacity .3s; white-space:nowrap;
+}
+.ze-hint.hide{ opacity:0; }
+
+/* ---------- Control panel ---------- */
+.ze-panel{
+  flex:0 0 auto; height:206px; overflow-y:auto; overflow-x:hidden;
+  background:#141419; border-top:1px solid rgba(255,255,255,.07);
+  padding:12px 14px 16px; scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+}
+.ze-panel::-webkit-scrollbar{ width:6px; }
+.ze-panel::-webkit-scrollbar-thumb{ background:#333; border-radius:6px; }
+
+.ze-panel-title{
+  font-size:11px; font-weight:800; letter-spacing:.7px; text-transform:uppercase;
+  color:#8a8a92; margin:2px 0 10px;
+}
+.ze-row{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.ze-row .ze-label{ font-size:12px; font-weight:700; color:#cfcfd6; width:78px; flex:0 0 auto; }
+.ze-row .ze-val{ font-size:11px; font-weight:700; color:#8a8a92; width:40px; text-align:right; flex:0 0 auto; }
+
+/* range slider */
+.ze-range{
+  -webkit-appearance:none; appearance:none; flex:1; height:4px; border-radius:4px;
+  background:#2c2c33; outline:none; cursor:pointer;
+}
+.ze-range::-webkit-slider-thumb{
+  -webkit-appearance:none; width:18px; height:18px; border-radius:50%;
+  background:#fff; border:3px solid #e63946; box-shadow:0 2px 6px rgba(0,0,0,.5); cursor:pointer;
+}
+.ze-range::-moz-range-thumb{
+  width:16px; height:16px; border-radius:50%; background:#fff; border:3px solid #e63946; cursor:pointer;
+}
+
+/* filter thumbnails */
+.ze-filter-strip{ display:flex; gap:12px; overflow-x:auto; padding:4px 2px 10px; scrollbar-width:none; }
+.ze-filter-strip::-webkit-scrollbar{ display:none; }
+.ze-filter-thumb{
+  flex:0 0 auto; width:64px; text-align:center; cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.ze-filter-thumb .ze-ft-img{
+  width:64px; height:64px; border-radius:12px; object-fit:cover; background:#222;
+  border:2px solid transparent; display:block;
+}
+.ze-filter-thumb.active .ze-ft-img{ border-color:#e63946; box-shadow:0 0 0 2px rgba(230,57,70,.35); }
+.ze-filter-thumb .ze-ft-name{
+  font-size:10.5px; font-weight:700; color:#b9b9c0; margin-top:6px; display:block;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ze-filter-thumb.active .ze-ft-name{ color:#fff; }
+
+/* chips (effects, aspect, toggles) */
+.ze-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.ze-chip{
+  border:1.5px solid #2e2e36; background:#1c1c22; color:#d6d6dd;
+  font-family:inherit; font-size:12.5px; font-weight:700;
+  padding:9px 14px; border-radius:999px; cursor:pointer;
+  display:flex; align-items:center; gap:6px;
+  -webkit-tap-highlight-color:transparent; transition:.15s;
+}
+.ze-chip:active{ transform:scale(.96); }
+.ze-chip.active{ background:#e63946; border-color:#e63946; color:#fff; box-shadow:0 6px 16px rgba(230,57,70,.35); }
+
+/* action buttons in panel */
+.ze-btn{
+  border:none; border-radius:12px; font-family:inherit; font-weight:800;
+  font-size:13.5px; padding:11px 16px; cursor:pointer; display:flex;
+  align-items:center; justify-content:center; gap:7px; width:100%;
+  -webkit-tap-highlight-color:transparent; transition:.15s;
+}
+.ze-btn:active{ transform:scale(.98); }
+.ze-btn-primary{ background:linear-gradient(135deg,#e63946,#ff5a5f); color:#fff; }
+.ze-btn-ghost{ background:#232329; color:#e6e6ea; border:1px solid #33333c; }
+.ze-btn-danger{ background:rgba(230,57,70,.14); color:#ff6b77; border:1px solid rgba(230,57,70,.4); }
+
+/* text editor controls */
+.ze-text-tools{ display:flex; flex-direction:column; gap:10px; }
+.ze-swatches{ display:flex; gap:9px; flex-wrap:wrap; }
+.ze-swatch{
+  width:28px; height:28px; border-radius:50%; cursor:pointer;
+  border:2px solid rgba(255,255,255,.25); -webkit-tap-highlight-color:transparent;
+}
+.ze-swatch.active{ border-color:#fff; box-shadow:0 0 0 2px rgba(255,255,255,.4); }
+.ze-font-row{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+.ze-font-row::-webkit-scrollbar{ display:none; }
+.ze-font-btn{
+  flex:0 0 auto; border:1.5px solid #2e2e36; background:#1c1c22; color:#d6d6dd;
+  padding:8px 14px; border-radius:10px; font-size:13px; cursor:pointer; font-weight:700;
+}
+.ze-font-btn.active{ border-color:#e63946; color:#fff; background:#241417; }
+.ze-empty{
+  color:#77777f; font-size:12.5px; text-align:center; padding:26px 10px; line-height:1.5;
+}
+
+/* ---------- Bottom tabs ---------- */
+.ze-tabs{
+  flex:0 0 auto; display:flex; align-items:stretch;
+  background:#0f0f12; border-top:1px solid rgba(255,255,255,.07);
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom));
+}
+.ze-tab{
+  flex:1; border:none; background:transparent; color:#8a8a92; cursor:pointer;
+  font-family:inherit; font-size:11.5px; font-weight:800; letter-spacing:.3px;
+  padding:9px 2px; border-radius:12px; display:flex; flex-direction:column;
+  align-items:center; gap:5px; -webkit-tap-highlight-color:transparent; transition:.15s;
+}
+.ze-tab svg{ width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:2; }
+.ze-tab.active{ color:#fff; background:rgba(230,57,70,.14); }
+.ze-tab.active svg{ stroke:#ff5a5f; }
+
+/* ---------- Rendering overlay ---------- */
+.ze-render{
+  position:absolute; inset:0; z-index:5; background:rgba(5,5,7,.86);
+  display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px;
+  backdrop-filter:blur(4px); text-align:center; padding:24px;
+}
+.ze-render.show{ display:flex; }
+.ze-spinner{
+  width:52px; height:52px; border-radius:50%;
+  border:4px solid rgba(255,255,255,.15); border-top-color:#e63946;
+  animation:zeSpin .8s linear infinite;
+}
+@keyframes zeSpin{ to{ transform:rotate(360deg); } }
+.ze-render-text{ font-size:14px; font-weight:800; color:#fff; }
+.ze-render-sub{ font-size:12px; color:#9a9aa2; max-width:260px; line-height:1.5; }
+.ze-render-bar{ width:220px; height:6px; border-radius:6px; background:#26262c; overflow:hidden; }
+.ze-render-fill{ height:100%; width:0%; background:linear-gradient(90deg,#e63946,#ff5a5f); transition:width .2s; }
+
+/* toast fallback (in case app toast unavailable) */
+.ze-toast{
+  position:fixed; left:50%; bottom:84px; transform:translateX(-50%);
+  background:#222; color:#fff; font-size:13px; font-weight:600;
+  padding:11px 18px; border-radius:999px; z-index:100300;
+  box-shadow:0 10px 30px rgba(0,0,0,.6); opacity:0; transition:opacity .25s, bottom .25s;
+  pointer-events:none; max-width:88vw; text-align:center;
+}
+.ze-toast.show{ opacity:1; bottom:96px; }

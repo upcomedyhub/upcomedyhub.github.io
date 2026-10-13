@@ -1977,6 +1977,34 @@ body.messages-open .bottom-nav{display:none !important}
 .settings-help-btn.gm{background:#e63946;color:#fff}
 .dark-mode .settings-help-btn.wa,.dark-mode .settings-help-btn.gm{color:#fff}
 
+/* ---- Theme-consistent settings form controls (override inline light styles) ---- */
+.dark-mode #reportText,
+.dark-mode #newPasswordInput,
+.dark-mode #confirmPasswordInput{
+  background:#1c1c1f !important;
+  color:#f0f2f5 !important;
+  border-color:#38383e !important;
+}
+.dark-mode #reportText::placeholder,
+.dark-mode #newPasswordInput::placeholder,
+.dark-mode #confirmPasswordInput::placeholder{ color:#8e8e93 !important; }
+.dark-mode #subReport label,
+.dark-mode #subPasswordSecurity label{ color:#e6e6ea !important; }
+.dark-mode #subPasswordSecurity .dark-box > div{ border-bottom-color:#2a2a2e !important; }
+.dark-mode #subPasswordSecurity .dark-box > div > span[style*="color:#777"]{ color:#a0a0a5 !important; }
+.dark-mode #subReport p[style*="color:#888"],
+.dark-mode #subHelp p[style*="color:#888"]{ color:#9a9aa2 !important; }
+
+/* ---- Theme consistency: dark-mode overrides for light hover/focus/active states ---- */
+.dark-mode .community-tab:hover{ background:#232326; color:#fff; border-color:#3a3a40; }
+.dark-mode .chat-list-item:hover,.dark-mode .chat-list-item:active{ background:#1a1a1a; }
+.dark-mode .chat-composer textarea:focus{ background:#242428; border-color:#3a3a40; color:#fff; }
+.dark-mode .note-emoji:hover{ background:#3a1a1a; border-color:#e63946; }
+.dark-mode .admin-warning{ background:#3a2f12; border-color:#7a6420; color:#f0d98a; }
+.dark-mode .comment-avatar,.dark-mode .likes-user img,.dark-mode .share-friend img,
+.dark-mode .ig-user-row img,.dark-mode .search-people-card img,
+.dark-mode .chat-header .chat-avatar-btn img,.dark-mode .rp-avatar{ background:#262626; }
+
 /* Notifications */
 .notifications-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;z-index:10020;align-items:center;justify-content:center;padding:14px}
 .notifications-overlay.show{display:flex}
@@ -3355,6 +3383,7 @@ img.logo-profile.zyro-header-logo {
 }
 
 </style>
+<link rel="stylesheet" href="zyro-editor.css">
 </head>
 <body class="on-home">
    <div class="menu-backdrop" id="menuBackdrop"></div>
@@ -23599,5 +23628,6 @@ window.handleAIMessageSend = handleAIMessageSend;
 })();
 
 </script>
+<script src="zyro-editor.js"></script>
 </body>
 </html>

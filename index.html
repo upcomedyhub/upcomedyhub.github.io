@@ -1789,9 +1789,66 @@ body.messages-open .bottom-nav{display:none !important}
 .ig-switch input:checked + .ig-switch-slider:before { transform: translateX(20px); }
 .dark-mode .ig-switch-slider { background-color: #444; }
 
-.settings-radio-pill { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e8e8e8; border-radius: 12px; margin-bottom: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: border-color .15s, background .15s; }
-.dark-mode .settings-radio-pill { border-color: #2e2e2e; }
+.settings-radio-pill { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid #e8e8e8; border-radius: 12px; margin-bottom: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: border-color .15s, background .15s; background: #fff; color: #111; }
+.dark-mode .settings-radio-pill { border-color: #2e2e32; background: #1c1c1f; color: #f0f2f5; }
+.dark-mode .settings-radio-pill small { color: #8e8e93 !important; }
 .settings-radio-pill.selected { border-color: #0095f6; background: rgba(0,149,246,0.06); color: #0095f6; }
+.dark-mode .settings-radio-pill.selected { border-color: #0095f6 !important; background: rgba(0,149,246,0.16) !important; color: #38bdf8 !important; }
+.dark-mode .settings-radio-pill.selected small { color: #93c5fd !important; }
+
+/* Theme-Adaptive Dark-Box Cards */
+.dark-box { background: #fafafa; border: 1px solid #eee; border-radius: 16px; padding: 16px; margin-bottom: 14px; color: #111; transition: background .2s, border-color .2s; }
+.dark-mode .dark-box { background: #18191c !important; border-color: #2a2a2e !important; color: #f0f2f5 !important; }
+.dark-mode .dark-box h4 { color: #fff !important; }
+.dark-mode .dark-box p { color: #a0a0a5 !important; }
+.dark-mode .dark-box small { color: #88888e !important; }
+
+/* In-App Report Modal (Dark & Light Theme Consistent) */
+.report-modal-box { background: #fff; border-radius: 20px; width: 92%; max-width: 440px; padding: 22px; position: relative; box-shadow: 0 16px 40px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto; color: #111; border: 1px solid rgba(0,0,0,0.08); }
+.dark-mode .report-modal-box { background: #1c1c1f !important; color: #f0f2f5 !important; border-color: #2e2e33 !important; box-shadow: 0 20px 50px rgba(0,0,0,0.7) !important; }
+.report-target-label { font-size: 13px; color: #666; margin-bottom: 14px; background: #f7f7f7; padding: 8px 12px; border-radius: 10px; }
+.dark-mode .report-target-label { background: #26262a !important; color: #bbb !important; border: 1px solid #333338; }
+.report-reasons-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.report-reasons-list label { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: #333; }
+.dark-mode .report-reasons-list label { color: #ddd !important; }
+.report-details-textarea { width: 100%; height: 65px; border: 1px solid #ddd; border-radius: 10px; padding: 8px; font-family: inherit; font-size: 13px; resize: none; box-sizing: border-box; background: #fff; color: #111; }
+.dark-mode .report-details-textarea { background: #242428 !important; color: #fff !important; border-color: #38383e !important; }
+
+/* Authentic Instagram Settings Logout & Account Section */
+.settings-auth-section { margin-top: 24px; padding-top: 18px; border-top: 1px solid #eee; display: flex; flex-direction: column; gap: 12px; }
+.dark-mode .settings-auth-section { border-top-color: #2a2a2e; }
+.settings-user-card { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 14px; background: #f8f9fa; border: 1px solid #ebebeb; }
+.dark-mode .settings-user-card { background: #1c1c1f; border-color: #2c2c30; }
+.settings-user-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #0095f6; }
+.settings-user-info { flex: 1; min-width: 0; }
+.settings-user-name { font-weight: 800; font-size: 14px; color: #111; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dark-mode .settings-user-name { color: #fff; }
+.settings-user-handle { font-size: 12px; color: #888; }
+.dark-mode .settings-user-handle { color: #a0a0a5; }
+.ig-logout-btn { width: 100%; padding: 13px 18px; border-radius: 14px; background: rgba(230, 57, 70, 0.08); color: #e63946; font-size: 14px; font-weight: 800; border: 1.5px solid rgba(230, 57, 70, 0.25); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all .2s ease; font-family: inherit; }
+.ig-logout-btn:hover { background: rgba(230, 57, 70, 0.16); border-color: #e63946; transform: translateY(-1px); }
+.dark-mode .ig-logout-btn { background: rgba(230, 57, 70, 0.16); color: #ff6b77; border-color: rgba(230, 57, 70, 0.35); }
+.dark-mode .ig-logout-btn:hover { background: rgba(230, 57, 70, 0.28); border-color: #ff6b77; }
+
+/* Creator Category Selection Grid */
+.settings-category-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.category-chip { padding: 8px 13px; border-radius: 12px; border: 1px solid #e0e0e0; background: #f5f5f7; color: #333; font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s ease; font-family: inherit; }
+.category-chip:hover { border-color: #0095f6; color: #0095f6; }
+.category-chip.active { background: #0095f6; color: #fff; border-color: #0095f6; box-shadow: 0 4px 12px rgba(0, 149, 246, 0.25); }
+.dark-mode .category-chip { background: #252528; border-color: #38383c; color: #ddd; }
+.dark-mode .category-chip.active { background: #0095f6; color: #fff; border-color: #0095f6; }
+
+/* Instagram Create Bottom Mode Switcher Carousel */
+.ig-create-next-btn { border: none; background: #0095f6; color: #fff; font-weight: 800; font-size: 13px; padding: 6px 14px; border-radius: 16px; cursor: pointer; transition: opacity .15s; font-family: inherit; }
+.ig-create-next-btn:hover { opacity: 0.9; }
+.ig-create-bottom-bar { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 14px; border-top: 1px solid #eee; background: #fafafa; overflow-x: auto; scrollbar-width: none; }
+.ig-create-bottom-bar::-webkit-scrollbar { display: none; }
+.dark-mode .ig-create-bottom-bar { background: #141416; border-top-color: #26262a; }
+.ig-create-mode-btn { border: none; background: transparent; color: #888; font-size: 12px; font-weight: 800; letter-spacing: 0.5px; padding: 6px 14px; border-radius: 20px; cursor: pointer; transition: all .2s; font-family: inherit; white-space: nowrap; }
+.ig-create-mode-btn:hover { color: #fff; }
+.ig-create-mode-btn.active { background: #0095f6; color: #fff; box-shadow: 0 4px 12px rgba(0,149,246,0.3); }
+.ig-create-mode-btn.live-btn { color: #ff3b30; }
+.ig-create-mode-btn.live-btn.active { background: #ff3b30; color: #fff; box-shadow: 0 4px 12px rgba(255,59,48,0.3); }
 .blocked-user-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
 .dark-mode .blocked-user-row { border-bottom-color: #262626; }
 .blocked-user-info { display: flex; align-items: center; gap: 10px; }
@@ -4954,7 +5011,7 @@ img.logo-profile.zyro-header-logo {
 
 <!-- In-App Report & Moderation Modal (Items 30, 31, 51) -->
 <div class="comments-overlay" id="reportOverlay" style="align-items:center;justify-content:center;z-index:10005">
-  <div class="report-modal-box" style="background:#fff;border-radius:18px;width:92%;max-width:440px;padding:22px;position:relative;box-shadow:0 12px 35px rgba(0,0,0,0.25);max-height:90vh;overflow-y:auto">
+  <div class="report-modal-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <div style="display:flex;align-items:center;gap:8px">
         <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-flag"></use></svg>
@@ -4962,18 +5019,18 @@ img.logo-profile.zyro-header-logo {
       </div>
       <button type="button" class="social-close" id="reportModalCloseBtn" style="background:none;border:none;cursor:pointer"><svg class="ico" style="width:16px;height:16px"><use href="#i-close"></use></svg></button>
     </div>
-    <div id="reportTargetLabel" style="font-size:13px;color:#666;margin-bottom:14px;background:#f7f7f7;padding:8px 12px;border-radius:8px">Reporting Item</div>
+    <div id="reportTargetLabel" class="report-target-label">Reporting Item</div>
     <div style="font-size:13px;font-weight:700;margin-bottom:8px">Kripya wajah chunein:</div>
-    <div class="report-reasons-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="spam" checked> Spam, fake ya misleading</label>
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="harassment"> Harassment, gaali-galoj ya bullying</label>
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="inappropriate"> Inappropriate, vulgar ya adult content</label>
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="copyright"> Copyright ya intellectual property violation</label>
-      <label style="display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer"><input type="radio" name="reportReason" value="scam"> Scam, fraud ya fraud links</label>
+    <div class="report-reasons-list">
+      <label><input type="radio" name="reportReason" value="spam" checked> Spam, fake ya misleading</label>
+      <label><input type="radio" name="reportReason" value="harassment"> Harassment, gaali-galoj ya bullying</label>
+      <label><input type="radio" name="reportReason" value="inappropriate"> Inappropriate, vulgar ya adult content</label>
+      <label><input type="radio" name="reportReason" value="copyright"> Copyright ya intellectual property violation</label>
+      <label><input type="radio" name="reportReason" value="scam"> Scam, fraud ya fraud links</label>
     </div>
     <div style="margin-bottom:14px">
       <label style="display:block;font-size:12px;color:#888;margin-bottom:4px">Kuch aur batana chahte hain? (Optional)</label>
-      <textarea id="reportDetailsInput" placeholder="Details likhein..." style="width:100%;height:65px;border:1px solid #ddd;border-radius:10px;padding:8px;font-family:inherit;font-size:13px;resize:none;box-sizing:border-box"></textarea>
+      <textarea id="reportDetailsInput" class="report-details-textarea" placeholder="Details likhein..."></textarea>
     </div>
     <div id="reportBlockUserOptionWrap" style="margin-bottom:16px;display:none">
       <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#e63946;font-weight:700;cursor:pointer">
@@ -5064,7 +5121,20 @@ img.logo-profile.zyro-header-logo {
         </div>
       </div>
 
-      <button type="button" id="logoutBtn" class="ig-logout-btn">👋 Logout</button>
+      <!-- Authentic Instagram Account & Logout Section -->
+      <div class="settings-auth-section">
+        <div class="settings-user-card" id="settingsUserCard">
+          <img id="settingsUserAvatar" src="IMG_20261002_053016.png" class="settings-user-avatar" alt="Avatar">
+          <div class="settings-user-info">
+            <div class="settings-user-name" id="settingsUserName">User</div>
+            <div class="settings-user-handle" id="settingsUserHandle">@user</div>
+          </div>
+        </div>
+        <button type="button" id="logoutBtn" class="ig-logout-btn">
+          <svg class="ico" style="width:18px;height:18px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          <span id="logoutBtnText">Log out</span>
+        </button>
+      </div>
     </div>
 
     <!-- SUB VIEWS -->
@@ -5217,7 +5287,7 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-subpage" id="subPrivacySafety" style="display:none">
         <p style="color:#888;font-size:13px;margin-bottom:14px">Apne account ki privacy, messaging aur calls control karein.</p>
         
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:16px" class="dark-box">
+        <div class="dark-box" style="margin-bottom:16px">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
             <div style="font-weight:700;font-size:14px">🔒 Private Account</div>
             <label class="ig-switch">
@@ -5260,7 +5330,7 @@ img.logo-profile.zyro-header-logo {
           </div>
         </div>
 
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin:16px 0" class="dark-box">
+        <div class="dark-box" style="margin:16px 0">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
             <div style="font-weight:700;font-size:14px">🟢 Activity Status</div>
             <label class="ig-switch">
@@ -5323,7 +5393,7 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-subpage" id="subAccountType" style="display:none">
         <p style="color:#888;font-size:13px;margin-bottom:14px">Control account type, creator categories, and profile features.</p>
         
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:14px" class="dark-box">
+        <div class="dark-box">
           <h4 style="font-size:14px;font-weight:800;margin:0 0 4px">Switch Account Type</h4>
           <p style="font-size:12px;color:#777;margin:0 0 14px">Choose how your account behaves across the comedy hub.</p>
 
@@ -5352,7 +5422,21 @@ img.logo-profile.zyro-header-logo {
           </div>
         </div>
 
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:14px" class="dark-box">
+        <div class="dark-box">
+          <h4 style="font-size:14px;font-weight:800;margin:0 0 4px">Creator Category</h4>
+          <p style="font-size:12px;color:#777;margin:0 0 8px">Select your public category badge:</p>
+          <div class="settings-category-grid" id="settingsCategoryGrid">
+            <button type="button" class="category-chip active" data-cat="🎬 Comedy Creator · Entertainer" onclick="selectCreatorCategory('🎬 Comedy Creator · Entertainer', this)">🎬 Comedy Creator</button>
+            <button type="button" class="category-chip" data-cat="🎤 Stand-up Comedian" onclick="selectCreatorCategory('🎤 Stand-up Comedian', this)">🎤 Stand-up Comedian</button>
+            <button type="button" class="category-chip" data-cat="🎥 Video Creator" onclick="selectCreatorCategory('🎥 Video Creator', this)">🎥 Video Creator</button>
+            <button type="button" class="category-chip" data-cat="🎭 Actor &amp; Entertainer" onclick="selectCreatorCategory('🎭 Actor &amp; Entertainer', this)">🎭 Actor</button>
+            <button type="button" class="category-chip" data-cat="🎵 Audio &amp; Mimicry" onclick="selectCreatorCategory('🎵 Audio &amp; Mimicry', this)">🎵 Audio &amp; Mimicry</button>
+            <button type="button" class="category-chip" data-cat="🎮 Gaming Entertainer" onclick="selectCreatorCategory('🎮 Gaming Entertainer', this)">🎮 Gaming</button>
+            <button type="button" class="category-chip" data-cat="⚡ Digital Creator" onclick="selectCreatorCategory('⚡ Digital Creator', this)">⚡ Digital Creator</button>
+          </div>
+        </div>
+
+        <div class="dark-box">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
             <div style="font-weight:700;font-size:14px">🏷️ Show Category on Profile</div>
             <label class="ig-switch">
@@ -5360,10 +5444,10 @@ img.logo-profile.zyro-header-logo {
               <span class="ig-switch-slider"></span>
             </label>
           </div>
-          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Display your creator category badge (e.g. Comedy Creator · Entertainer) under your name on profile.</p>
+          <p style="font-size:12px;color:#777;margin:0;line-height:1.4">Display your creator category badge under your name on profile.</p>
         </div>
 
-        <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px" class="dark-box">
+        <div class="dark-box">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px">
             <div style="font-weight:700;font-size:14px">⭐ Story Highlights on Profile</div>
             <label class="ig-switch">
@@ -5402,7 +5486,7 @@ img.logo-profile.zyro-header-logo {
           </div>
         </div>
 
-        <div style="background:#f8f9fa;border-radius:14px;padding:14px;margin-bottom:14px" class="dark-box">
+        <div class="dark-box">
           <h4 style="font-size:13px;font-weight:800;margin:0 0 6px">💡 Creator Growth Tips</h4>
           <p style="font-size:12px;color:#666;margin:0 0 4px">• Post at least 1 comedy reel daily for viral algorithm bootstrap.</p>
           <p style="font-size:12px;color:#666;margin:0 0 4px">• Use popular audio effects from the Fun Zone and audio tray.</p>
@@ -5580,31 +5664,38 @@ img.logo-profile.zyro-header-logo {
       <h3 style="margin:0;font-size:17px;font-weight:800;color:#fff">Create on Zyro</h3>
       <button type="button" onclick="closeCreateActionSheet()" style="background:transparent;border:none;color:#aaa;font-size:18px;cursor:pointer">✕</button>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;text-align:center">
       <!-- 1. Reel Upload -->
       <div onclick="closeCreateActionSheet();openCreatePostModal('reel')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ff007f,#ff1744);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(255,23,68,0.4)">
-          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><use href="#i-reels-clapper"></use></svg>
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff007f,#ff1744);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(255,23,68,0.4)">
+          <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2"><use href="#i-reels-clapper"></use></svg>
         </div>
         <span style="font-size:12px;font-weight:700;color:#fff">Reel</span>
       </div>
-      <!-- 2. Post Upload -->
+      <!-- 2. Video Upload (Long / Comedy Video next to Reel) -->
+      <div onclick="closeCreateActionSheet();openCreatePostModal('video')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(139,92,246,0.4)">
+          <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#c4b5fd">Video</span>
+      </div>
+      <!-- 3. Post Upload -->
       <div onclick="closeCreateActionSheet();openCreatePostModal('photo')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#3b82f6);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(59,130,246,0.4)">
-          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#0ea5e9);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(59,130,246,0.4)">
+          <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
         <span style="font-size:12px;font-weight:700;color:#fff">Post</span>
       </div>
-      <!-- 3. Story Creator -->
+      <!-- 4. Story Creator -->
       <div onclick="closeCreateActionSheet();openStoryCreator()" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(245,158,11,0.4)">
-          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(245,158,11,0.4)">
+          <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
         <span style="font-size:12px;font-weight:700;color:#fff">Story</span>
       </div>
-      <!-- 4. Go Live (Agora.io) -->
+      <!-- 5. Go Live (Agora.io) -->
       <div onclick="closeCreateActionSheet();startLiveStreamFlow()" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
-        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#991b1b);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(220,38,38,0.4);position:relative">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#991b1b);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(220,38,38,0.4);position:relative">
           <span style="width:10px;height:10px;border-radius:50%;background:#fff;animation:liveBlink 1.2s infinite ease-in-out"></span>
         </div>
         <span style="font-size:12px;font-weight:700;color:#ff4d4d">Go Live</span>
@@ -5724,16 +5815,13 @@ img.logo-profile.zyro-header-logo {
   </div>
 </div>
 
-<!-- Instagram Create Post / Reel Modal ("kam ka lagana") -->
+<!-- Instagram Create Studio Modal (POST, STORY, REEL, VIDEO, LIVE) -->
 <div class="ig-create-overlay" id="createPostModal" onclick="if(event.target===this)closeCreatePostModal()">
   <div class="ig-create-box">
     <div class="ig-create-header">
+      <button type="button" onclick="closeCreatePostModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888;padding:4px" aria-label="Cancel">✕</button>
       <h3 id="createPostModalTitle">Create new post</h3>
-      <button type="button" onclick="closeCreatePostModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
-    </div>
-    <div class="ig-create-tabs">
-      <button type="button" class="ig-create-tab active" id="createTabPhoto" onclick="switchCreateType('photo')">📷 Photo Post</button>
-      <button type="button" class="ig-create-tab" id="createTabReel" onclick="switchCreateType('reel')">🎬 Reel Video</button>
+      <button type="button" class="ig-create-next-btn" id="createModalShareTopBtn" onclick="publishNewUserPost()">Share</button>
     </div>
     <div class="ig-create-body">
       <!-- Media Drop / Picker Box -->
@@ -5747,7 +5835,7 @@ img.logo-profile.zyro-header-logo {
       <!-- Live Media Preview -->
       <div class="ig-media-preview-wrap" id="mediaPreviewWrap">
         <img id="mediaPreviewImg" src="" alt="Preview" style="display:none">
-        <video id="mediaPreviewVideo" controls style="display:none"></video>
+        <video id="mediaPreviewVideo" controls playsinline style="display:none"></video>
         <button type="button" class="ig-media-remove-btn" onclick="clearSelectedPostMedia()" title="Remove media">✕</button>
       </div>
 
@@ -5771,6 +5859,15 @@ img.logo-profile.zyro-header-logo {
       <input type="text" id="postLocationInput" placeholder="e.g. Lucknow, Delhi, Varanasi, Mumbai..." style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;background:#fafafa">
 
       <button type="button" id="publishPostBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff;margin-top:16px;padding:12px" onclick="publishNewUserPost()">🚀 Publish to Profile</button>
+    </div>
+
+    <!-- Instagram Create Bottom Mode Switcher Carousel -->
+    <div class="ig-create-bottom-bar" id="createBottomModeBar">
+      <button type="button" class="ig-create-mode-btn active" id="createModePost" onclick="switchCreateType('photo')">POST</button>
+      <button type="button" class="ig-create-mode-btn" id="createModeStory" onclick="switchCreateType('story')">STORY</button>
+      <button type="button" class="ig-create-mode-btn" id="createModeReel" onclick="switchCreateType('reel')">REEL</button>
+      <button type="button" class="ig-create-mode-btn" id="createModeVideo" onclick="switchCreateType('video')">VIDEO</button>
+      <button type="button" class="ig-create-mode-btn live-btn" id="createModeLive" onclick="switchToLiveMode()">LIVE</button>
     </div>
   </div>
 </div>
@@ -6641,28 +6738,116 @@ const BUNNY_STORAGE_CONFIG = {
 };
 window.BUNNY_STORAGE_CONFIG = BUNNY_STORAGE_CONFIG;
 
+function extractVideoThumbnailBlob(fileOrBlob) {
+  return new Promise((resolve) => {
+    try {
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.muted = true;
+      video.playsInline = true;
+      const url = URL.createObjectURL(fileOrBlob);
+      video.src = url;
+      video.onloadeddata = () => {
+        try {
+          video.currentTime = Math.min(1, Math.max(0.1, (video.duration || 1) / 3));
+        } catch(e) {
+          resolve(null);
+        }
+      };
+      video.onseeked = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.min(720, video.videoWidth || 640);
+          canvas.height = Math.min(1280, video.videoHeight || 360);
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((blob) => {
+            try { URL.revokeObjectURL(url); } catch(e){}
+            resolve(blob);
+          }, "image/jpeg", 0.85);
+        } catch(e) {
+          try { URL.revokeObjectURL(url); } catch(e2){}
+          resolve(null);
+        }
+      };
+      video.onerror = () => {
+        try { URL.revokeObjectURL(url); } catch(e){}
+        resolve(null);
+      };
+      setTimeout(() => {
+        try { URL.revokeObjectURL(url); } catch(e){}
+        resolve(null);
+      }, 4000);
+    } catch(e) {
+      resolve(null);
+    }
+  });
+}
+window.extractVideoThumbnailBlob = extractVideoThumbnailBlob;
+
 async function uploadVideoToCloudinary(fileOrBlob, opts) {
   opts = opts || {};
   if (!isCloudinaryConfigured()) throw new Error("CLOUDINARY_NOT_CONFIGURED");
   const folder = opts.folder || "upcomedyhub/reels";
-  const form = new FormData();
-  form.append("file", fileOrBlob);
-  form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
-  if (folder) form.append("folder", folder);
-  if (opts.publicId) form.append("public_id", opts.publicId);
+  
+  let secureUrl = "";
+  let publicId = "";
+  let duration = 0;
 
-  const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/video/upload";
-  const res = await fetch(endpoint, { method: "POST", body: form });
-  const data = await res.json().catch(function(){ return {}; });
-  if (!res.ok || !data.secure_url) {
-    var msg = (data && data.error && data.error.message) || ("HTTP " + res.status);
-    throw new Error("Cloudinary video upload failed: " + msg);
+  // 1. Try standard video/upload endpoint first
+  try {
+    const form = new FormData();
+    form.append("file", fileOrBlob);
+    form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+    if (folder) form.append("folder", folder);
+    if (opts.publicId) form.append("public_id", opts.publicId);
+
+    const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/video/upload";
+    const res = await fetch(endpoint, { method: "POST", body: form });
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.secure_url) {
+      secureUrl = data.secure_url;
+      publicId = data.public_id || "";
+      duration = data.duration || 0;
+    }
+  } catch(e) {
+    console.warn("Cloudinary video/upload notice:", e);
   }
+
+  // 2. If video/upload failed or preset rejected format, fallback to raw/upload (works universally)
+  if (!secureUrl) {
+    const formRaw = new FormData();
+    formRaw.append("file", fileOrBlob);
+    formRaw.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+    if (folder) formRaw.append("folder", folder);
+    const endpointRaw = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/raw/upload";
+    const resRaw = await fetch(endpointRaw, { method: "POST", body: formRaw });
+    const dataRaw = await resRaw.json().catch(() => ({}));
+    if (resRaw.ok && dataRaw.secure_url) {
+      secureUrl = dataRaw.secure_url;
+      publicId = dataRaw.public_id || "";
+    } else {
+      const errM = (dataRaw && dataRaw.error && dataRaw.error.message) || ("HTTP " + resRaw.status);
+      throw new Error("Video upload failed: " + errM);
+    }
+  }
+
+  // 3. Extract and upload genuine thumbnail to image store
+  let thumbnailUrl = "";
+  try {
+    const thumbBlob = await extractVideoThumbnailBlob(fileOrBlob);
+    if (thumbBlob) {
+      thumbnailUrl = await uploadImageToCloudinary(thumbBlob, { folder: "upcomedyhub/thumbnails" });
+    }
+  } catch(tErr) {
+    console.warn("Thumbnail upload notice:", tErr);
+  }
+
   return {
-    videoUrl: data.secure_url,
-    thumbnailUrl: data.secure_url ? data.secure_url.replace(/\.[^.]+$/, ".jpg") : "",
-    duration: data.duration || 0,
-    publicId: data.public_id
+    videoUrl: secureUrl,
+    thumbnailUrl: thumbnailUrl || secureUrl,
+    duration: duration,
+    publicId: publicId
   };
 }
 window.uploadVideoToCloudinary = uploadVideoToCloudinary;
@@ -9022,26 +9207,49 @@ window.closeCreatePostModal = closeCreatePostModal;
 
 function switchCreateType(type){
   currentCreateType = type;
-  const pTab = document.getElementById("createTabPhoto");
-  const rTab = document.getElementById("createTabReel");
   const prompt = document.getElementById("dropBoxPrompt");
   const fileInput = document.getElementById("postMediaFileInput");
   const title = document.getElementById("createPostModalTitle");
 
-  if(pTab) pTab.classList.toggle("active", type === "photo");
-  if(rTab) rTab.classList.toggle("active", type === "reel");
+  // Highlight bottom mode carousel
+  const modeMap = {
+    photo: "createModePost",
+    post: "createModePost",
+    story: "createModeStory",
+    reel: "createModeReel",
+    video: "createModeVideo",
+    live: "createModeLive"
+  };
+  document.querySelectorAll(".ig-create-mode-btn").forEach(b => b.classList.remove("active"));
+  const activeBtn = document.getElementById(modeMap[type] || "createModePost");
+  if(activeBtn) activeBtn.classList.add("active");
 
   if(type === "reel"){
-    if(title) title.textContent = "Create new Reel";
-    if(prompt) prompt.textContent = "Select video for your Reel";
+    if(title) title.textContent = "New Reel";
+    if(prompt) prompt.textContent = "Select video for Reel (9:16 vertical)";
     if(fileInput) fileInput.accept = "video/*";
+  } else if(type === "video"){
+    if(title) title.textContent = "New Comedy Video";
+    if(prompt) prompt.textContent = "Select comedy video / sketch";
+    if(fileInput) fileInput.accept = "video/*";
+  } else if(type === "story"){
+    if(title) title.textContent = "Add to Story";
+    if(prompt) prompt.textContent = "Select photo or short video for story";
+    if(fileInput) fileInput.accept = "image/*,video/*";
   } else {
-    if(title) title.textContent = "Create new Photo Post";
+    currentCreateType = "photo";
+    if(title) title.textContent = "New Post";
     if(prompt) prompt.textContent = "Select photo to share";
     if(fileInput) fileInput.accept = "image/*";
   }
 }
 window.switchCreateType = switchCreateType;
+
+function switchToLiveMode(){
+  closeCreatePostModal();
+  startLiveStreamFlow();
+}
+window.switchToLiveMode = switchToLiveMode;
 
 function handlePostMediaSelected(file){
   if(!file) return;
@@ -9114,35 +9322,48 @@ async function publishNewUserPost(){
   }
 
   const btn = document.getElementById("publishPostBtn");
+  const topBtn = document.getElementById("createModalShareTopBtn");
   const caption = (document.getElementById("postCaptionInput")?.value || "").trim();
   const location = (document.getElementById("postLocationInput")?.value || "").trim();
 
   if(btn){
     btn.disabled = true;
-    btn.textContent = "⏳ Publishing to Profile...";
+    btn.textContent = "⏳ Uploading...";
+  }
+  if(topBtn){
+    topBtn.disabled = true;
+    topBtn.textContent = "⏳...";
   }
 
   try {
-    let mediaUrl = selectedPostDataUrl;
+    let mediaUrl = "";
     let thumbnail = "";
 
-    // Upload to Cloudinary if available
-    if(typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured() && selectedPostFile){
+    // Upload to Cloudinary
+    if(selectedPostFile && typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()){
       try {
         if(selectedPostFile.type.startsWith("image/")){
-          showToast("Uploading photo to Cloudinary...");
           mediaUrl = await uploadImageToCloudinary(selectedPostFile, { folder: "upcomedyhub/posts" });
           thumbnail = mediaUrl;
-        } else if(selectedPostFile.type.startsWith("video/") || currentCreateType === "reel"){
-          showToast("⏳ Video Cloudinary par upload ho raha hai...");
-          const vRes = await uploadVideoToCloudinary(selectedPostFile, { folder: "upcomedyhub/reels" });
+        } else if(selectedPostFile.type.startsWith("video/") || currentCreateType === "reel" || currentCreateType === "video"){
+          const vFolder = currentCreateType === "reel" ? "upcomedyhub/reels" : "upcomedyhub/videos";
+          const vRes = await uploadVideoToCloudinary(selectedPostFile, { folder: vFolder });
           mediaUrl = vRes.videoUrl;
           thumbnail = vRes.thumbnailUrl || mediaUrl;
         }
       } catch(cErr){
-        console.warn("Cloudinary upload failed, using optimized data URL:", cErr);
-        mediaUrl = selectedPostDataUrl;
+        console.warn("Cloudinary upload failed:", cErr);
+        // Only fallback to data URL if image is small (< 800KB) to prevent Firestore crash
+        if(selectedPostFile.type.startsWith("image/") && selectedPostFile.size < 800000){
+          mediaUrl = selectedPostDataUrl;
+          thumbnail = selectedPostDataUrl;
+        } else {
+          throw new Error("Media upload failed. Kripya dobara koshish karein.");
+        }
       }
+    } else {
+      mediaUrl = selectedPostDataUrl;
+      thumbnail = selectedPostDataUrl;
     }
 
     const postDoc = {
@@ -9182,21 +9403,47 @@ async function publishNewUserPost(){
         };
         await db.collection("reels").add(reelDoc);
         if(typeof loadPlatformReels === "function") loadPlatformReels();
+      } else if(currentCreateType === "video"){
+        const videoDoc = {
+          userId: currentUser.uid,
+          authorName: currentUser.displayName || "User",
+          authorUsername: (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "user",
+          authorPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+          videoUrl: mediaUrl,
+          thumbnail: thumbnail || mediaUrl,
+          title: caption || "Comedy Video",
+          description: caption,
+          category: "long",
+          likesCount: 0,
+          viewsCount: 1,
+          commentsCount: 0,
+          createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+        };
+        await db.collection("manualVideos").add(videoDoc).catch(()=>null);
       }
     }
 
-    showToast(currentCreateType === "reel" ? "🎬 Reel published successfully!" : "🚀 Post published successfully!");
+    cachedUserPosts.unshift(postDoc);
+    updateProfilePostsCount(cachedUserPosts.length);
+
+    const successMsg = currentCreateType === "reel" ? "🎬 Reel published!" : (currentCreateType === "video" ? "📹 Video published!" : "🚀 Post published!");
+    showToast(successMsg);
     closeCreatePostModal();
 
     // Refresh profile grid instantly
-    await switchIgTab(currentCreateType === "reel" ? "reels" : "posts");
+    const targetTab = currentCreateType === "reel" ? "reels" : (currentCreateType === "video" ? "videos" : "posts");
+    await switchIgTab(targetTab);
   } catch(e) {
     console.error("Publish post error:", e);
-    showToast("❌ Post publish nahi ho payi: " + (e.message || "Error"));
+    showToast("❌ " + (e.message || "Post publish nahi ho payi"));
   } finally {
     if(btn){
       btn.disabled = false;
       btn.textContent = "🚀 Publish to Profile";
+    }
+    if(topBtn){
+      topBtn.disabled = false;
+      topBtn.textContent = "Share";
     }
   }
 }
@@ -9720,8 +9967,28 @@ function syncAccountTypeUI(){
   }
   const badge = document.getElementById("settingsAccountTypeBadge");
   if(badge) badge.textContent = cur.charAt(0).toUpperCase() + cur.slice(1);
+
+  // Sync Category selector
+  const curCat = localStorage.getItem("upch_creator_category_" + currentUser.uid) || (cachedCurrentUserProfile && cachedCurrentUserProfile.category) || "🎬 Comedy Creator · Entertainer";
+  document.querySelectorAll("#settingsCategoryGrid .category-chip").forEach(c => {
+    c.classList.toggle("active", c.getAttribute("data-cat") === curCat);
+  });
 }
 window.syncAccountTypeUI = syncAccountTypeUI;
+
+function selectCreatorCategory(cat, el){
+  if(!currentUser){ showToast("🔐 Login required"); return; }
+  document.querySelectorAll("#settingsCategoryGrid .category-chip").forEach(c => c.classList.remove("active"));
+  if(el) el.classList.add("active");
+  localStorage.setItem("upch_creator_category_" + currentUser.uid, cat);
+  const badge = document.getElementById("profileCategoryBadge");
+  if(badge) badge.textContent = cat;
+  if(typeof db !== "undefined" && db){
+    db.collection("publicProfiles").doc(currentUser.uid).set({ category: cat }, {merge:true}).catch(()=>null);
+  }
+  showToast("🏷️ Category set to " + cat);
+}
+window.selectCreatorCategory = selectCreatorCategory;
 
 function syncProDashboardUI(){
   const fCount = document.getElementById("statFollowers")?.textContent || "0";
@@ -16318,7 +16585,31 @@ window.addEventListener("DOMContentLoaded",()=>{
     if(back) back.style.display = "none";
     if(title) title.innerHTML = '<svg class="ico" style="width:18px;height:18px;margin-right:6px;vertical-align:-3px"><use href="#i-settings"></use></svg><span>Settings</span>';
   }
-  function openSettings(){ if(!ov) return; settingsGoHome(); ov.classList.add("show"); }
+  function openSettings(){
+    if(!ov) return;
+    settingsGoHome();
+    
+    // Sync Authentic Instagram Settings User Card
+    const uAvatar = document.getElementById("settingsUserAvatar");
+    const uName = document.getElementById("settingsUserName");
+    const uHandle = document.getElementById("settingsUserHandle");
+    const lText = document.getElementById("logoutBtnText");
+    if(currentUser){
+      const handle = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || (currentUser.displayName ? currentUser.displayName.replace(/\s+/g, "").toLowerCase() : "user");
+      const name = (cachedCurrentUserProfile && cachedCurrentUserProfile.displayName) || currentUser.displayName || "User";
+      const photo = currentProfilePhotoURL || (currentUser && currentUser.photoURL) || "IMG_20261002_053016.png";
+      if(uAvatar) uAvatar.src = photo;
+      if(uName) uName.textContent = name;
+      if(uHandle) uHandle.textContent = "@" + handle;
+      if(lText) lText.textContent = "Log out @" + handle;
+    } else {
+      if(uName) uName.textContent = "Guest User";
+      if(uHandle) uHandle.textContent = "@guest";
+      if(lText) lText.textContent = "Log out";
+    }
+    
+    ov.classList.add("show");
+  }
   window.openSettings = openSettings;
   if(o) o.addEventListener("click", openSettings);
   if(c) c.addEventListener("click", ()=>ov?.classList.remove("show"));
@@ -16565,7 +16856,19 @@ window.addEventListener("DOMContentLoaded",()=>{
   const glb = document.getElementById("googleLoginBtn");
   if(glb) glb.addEventListener("click", async ()=>{ try{ await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); showToast("✅ Login!"); }catch(e){ console.error(e); showToast("❌ "+(e.code||"Login failed")); } });
   const lob = document.getElementById("logoutBtn");
-  if(lob) lob.addEventListener("click", async ()=>{ const sov = document.getElementById("settingsOverlay"); if(sov) sov.classList.remove("show"); await auth.signOut(); showToast("👋 Logged out"); });
+  if(lob) lob.addEventListener("click", async ()=>{
+    const handle = (currentUser && ((cachedCurrentUserProfile && cachedCurrentUserProfile.username) || currentUser.displayName)) || "user";
+    if(confirm("Log out of @" + handle + "? You can log back in anytime.")){
+      const sov = document.getElementById("settingsOverlay");
+      if(sov) sov.classList.remove("show");
+      try {
+        await auth.signOut();
+        showToast("👋 Successfully logged out");
+      } catch(e){
+        console.error("Logout error:", e);
+      }
+    }
+  });
 
   const eb = document.getElementById("editProfileBtn"), ce = document.getElementById("cancelProfileEdit"), sp2 = document.getElementById("saveProfileBtn");
   if(eb) eb.addEventListener("click", async ()=>{ await loadProfileIdentity(); openEditProfileModal(); });

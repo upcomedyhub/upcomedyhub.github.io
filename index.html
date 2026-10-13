@@ -894,32 +894,59 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .bottom-nav button.active{color:#ff8a80}
 body.messages-open .bottom-nav{display:none !important}
 
-/* Reels — clapperboard icon */
+/* Reels — Instagram-Style Clapperboard matching uploaded screenshots & reels-clapperboard.svg */
+.bottom-nav button.nav-reels-btn{
+  position: relative;
+}
 .bottom-nav button.nav-reels-btn .nav-reels-icon{
   display:flex;align-items:center;justify-content:center;
   width:28px;
   height:28px;
-  color:#aeb4c2;
 }
-.bottom-nav button.nav-reels-btn .nav-reels-logo-img{
-  width:28px; height:28px; object-fit:contain; display:block;
-  color:#aeb4c2; filter:none;
-  transition:transform .22s cubic-bezier(0.175, 0.885, 0.32, 1.275), color .2s ease, filter .2s ease;
+.bottom-nav button.nav-reels-btn .nav-reels-svg{
+  width:25px;
+  height:25px;
+  color:#d1d5db;
+  display:block;
+  transition:transform .2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter .2s ease, color .2s ease;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-label{
-  color:#ff3366;
-  font-weight:800;
+  color:#9ca3af;
+  font-weight:600;
+  font-size:11px;
   letter-spacing:.2px;
+  transition:color .2s ease, text-shadow .2s ease;
 }
-.bottom-nav button.nav-reels-btn.active{
-  color:#ff2d55;
-}
-.bottom-nav button.nav-reels-btn.active .nav-reels-logo-img{
-  transform:scale(1.12); color:#ff4c9a;
-  filter:drop-shadow(0 0 8px rgba(255,45,145,.72));
+
+/* Normal state in dark mode */
+.dark-mode .bottom-nav button.nav-reels-btn .nav-reels-svg{
+  color:#d1d5db;
 }
 .dark-mode .bottom-nav button.nav-reels-btn .nav-reels-label{
-  color:#ff5277;
+  color:#9ca3af;
+}
+
+/* Active / Clicked State matching uploaded screenshot (Glowing Neon Gradient) */
+.bottom-nav button.nav-reels-btn.active .nav-reels-svg,
+.bottom-nav button.nav-reels-btn.heart-anim .nav-reels-svg{
+  color:#ff1744;
+  transform:scale(1.15);
+  filter:drop-shadow(0 0 10px rgba(255,23,68,0.95)) drop-shadow(0 0 20px rgba(255,0,128,0.65));
+}
+.bottom-nav button.nav-reels-btn.active .nav-reels-svg .reels-svg-rect,
+.bottom-nav button.nav-reels-btn.active .nav-reels-svg .reels-svg-line{
+  stroke:url(#reelsNeonGrad) !important;
+}
+.bottom-nav button.nav-reels-btn.active .nav-reels-svg .reels-svg-play{
+  fill:url(#reelsNeonGrad) !important;
+}
+.bottom-nav button.nav-reels-btn.active .nav-reels-label{
+  color:#ff2d55 !important;
+  font-weight:800;
+  text-shadow:0 0 8px rgba(255,45,85,0.7);
+}
+.dark-mode .bottom-nav button.nav-reels-btn.active .nav-reels-label{
+  color:#ff2d55 !important;
 }
 
 /* Reels Icon Heart Tap Animation directly above icon center */
@@ -3380,14 +3407,23 @@ img.logo-profile.zyro-header-logo {
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
 <symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
 <!-- Zyro Reels: brand Z logo -->
-<symbol id="i-reels" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-  <!-- Clapper top bar -->
-  <path d="M7 4.2h10"/>
-  <path d="M8.2 4.2V2.8M11 4.2V2.8M13.8 4.2V2.8M15.8 4.2V2.8"/>
-  <!-- Screen body -->
-  <rect x="5.5" y="4.2" width="13" height="15.5" rx="2.8"/>
-  <!-- Play triangle -->
-  <path d="M10.4 9.2l5 2.9-5 2.9V9.2z" fill="currentColor" stroke="none"/>
+<!-- Instagram-Style Reels Clapperboard Icon (Matching reels-clapperboard.svg & Screenshots) -->
+<symbol id="i-reels-clapper" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="reelsNeonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff1744"/>
+      <stop offset="45%" stop-color="#ff007f"/>
+      <stop offset="100%" stop-color="#ff8a00"/>
+    </linearGradient>
+  </defs>
+  <rect class="reels-svg-rect" x="4.5" y="8.5" width="23" height="19" rx="3.2" stroke="currentColor" stroke-width="2.2" fill="none"/>
+  <path class="reels-svg-line" d="M5.5 8.8 8.8 3.7h18.1l-3.2 5.1M13.3 3.7l3.2 5.1M20.4 3.7l3.2 5.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="reels-svg-play" d="m13 14.2 7.1 4.1-7.1 4.1z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
+</symbol>
+<symbol id="i-reels" viewBox="0 0 32 32">
+  <rect class="reels-svg-rect" x="4.5" y="8.5" width="23" height="19" rx="3.2" stroke="currentColor" stroke-width="2.2" fill="none"/>
+  <path class="reels-svg-line" d="M5.5 8.8 8.8 3.7h18.1l-3.2 5.1M13.3 3.7l3.2 5.1M20.4 3.7l3.2 5.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path class="reels-svg-play" d="m13 14.2 7.1 4.1-7.1 4.1z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
 </symbol>
 
 
@@ -5536,6 +5572,146 @@ img.logo-profile.zyro-header-logo {
 </div>
 
 <!-- Fullscreen Profile Photo Lightbox Modal -->
+<!-- Instagram-Style Create Action Sheet (Reel, Post, Story, Live) -->
+<div class="ig-sheet-overlay" id="createActionSheetOverlay" onclick="if(event.target===this)closeCreateActionSheet()" style="display:none;z-index:100060">
+  <div class="ig-sheet-box" style="border-radius:24px 24px 0 0;padding:16px 20px 28px;max-width:480px;margin:0 auto;background:#18181b;color:#fff;border-top:1px solid #333">
+    <div style="width:36px;height:4px;background:#555;border-radius:2px;margin:0 auto 16px"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <h3 style="margin:0;font-size:17px;font-weight:800;color:#fff">Create on Zyro</h3>
+      <button type="button" onclick="closeCreateActionSheet()" style="background:transparent;border:none;color:#aaa;font-size:18px;cursor:pointer">✕</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center">
+      <!-- 1. Reel Upload -->
+      <div onclick="closeCreateActionSheet();openCreatePostModal('reel')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#ff007f,#ff1744);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(255,23,68,0.4)">
+          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><use href="#i-reels-clapper"></use></svg>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#fff">Reel</span>
+      </div>
+      <!-- 2. Post Upload -->
+      <div onclick="closeCreateActionSheet();openCreatePostModal('photo')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#3b82f6);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(59,130,246,0.4)">
+          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#fff">Post</span>
+      </div>
+      <!-- 3. Story Creator -->
+      <div onclick="closeCreateActionSheet();openStoryCreator()" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#ef4444);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(245,158,11,0.4)">
+          <svg style="width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#fff">Story</span>
+      </div>
+      <!-- 4. Go Live (Agora.io) -->
+      <div onclick="closeCreateActionSheet();startLiveStreamFlow()" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#dc2626,#991b1b);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(220,38,38,0.4);position:relative">
+          <span style="width:10px;height:10px;border-radius:50%;background:#fff;animation:liveBlink 1.2s infinite ease-in-out"></span>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#ff4d4d">Go Live</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Live Streaming Followers Requirement / Admin Eligibility Modal -->
+<div class="ig-sheet-overlay" id="liveEligibilityModal" onclick="if(event.target===this)closeLiveEligibilityModal()" style="display:none;z-index:100070">
+  <div class="ig-sheet-box" style="background:#1e1e24;color:#fff;border-radius:20px;max-width:380px;margin:auto;padding:24px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.8);border:1px solid rgba(255,255,255,0.1)">
+    <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,45,85,0.15);display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+      <span style="font-size:28px">🔴</span>
+    </div>
+    <h3 style="margin:0 0 10px;font-size:19px;font-weight:900">Live Streaming Eligibility</h3>
+    <p style="color:#aaa;font-size:13px;line-height:1.5;margin-bottom:18px">
+      Zyro par Live stream karne ke liye aapke profile par kam se kam <b>50 followers</b> hone zaroori hain.
+    </p>
+    <div style="background:#121216;padding:12px;border-radius:12px;margin-bottom:18px;text-align:left">
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:#888;margin-bottom:6px">
+        <span>Aapke Followers</span>
+        <b style="color:#ff2d55" id="liveFollowersProgressText">0 / 50</b>
+      </div>
+      <div style="width:100%;height:8px;background:#333;border-radius:4px;overflow:hidden">
+        <div id="liveFollowersProgressBar" style="width:0%;height:100%;background:linear-gradient(90deg,#ff2d55,#ff8a00);transition:width .4s ease"></div>
+      </div>
+      <div id="liveFollowersNeededText" style="font-size:11px;color:#888;margin-top:6px">Live Stream unlock karne ke liye aur 50 followers banayein!</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);padding:10px;border-radius:10px;font-size:11px;color:#bbb;margin-bottom:18px;border-radius:10px;line-height:1.4">
+      👑 <b>Admin Note:</b> Admin ke liye 50 followers ki shart nahi hai, admin kisi bhi samay directly Live Stream chala sakte hain.
+    </div>
+    <button type="button" class="btn" onclick="closeLiveEligibilityModal()" style="width:100%;padding:11px;background:#ff2d55;border-radius:14px;color:#fff;font-weight:700;border:none;cursor:pointer">Samajh Gaya 👍</button>
+  </div>
+</div>
+
+<!-- Agora.io Host Live Broadcast Modal -->
+<div class="live-stream-overlay" id="liveBroadcastModal" style="display:none;position:fixed;inset:0;background:#000;z-index:100080;flex-direction:column">
+  <!-- Top Live Bar -->
+  <div style="position:absolute;top:0;left:0;right:0;padding:16px;display:flex;align-items:center;justify-content:space-between;z-index:12;background:linear-gradient(180deg,rgba(0,0,0,0.85),transparent)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="background:#ff1744;color:#fff;font-size:11px;font-weight:900;padding:3px 9px;border-radius:8px;letter-spacing:0.5px;display:flex;align-items:center;gap:5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#fff;animation:liveBlink 1s infinite alternate"></span> LIVE
+      </div>
+      <div style="background:rgba(0,0,0,0.55);color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px;backdrop-filter:blur(6px)">
+        👁️ <span id="liveHostViewersNum">1</span>
+      </div>
+      <div id="liveHostDurationTimer" style="color:#eee;font-size:12px;font-weight:700">00:00</div>
+    </div>
+    <button type="button" onclick="confirmEndLiveStream()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;backdrop-filter:blur(6px)">End Live ✕</button>
+  </div>
+
+  <!-- Local Video Camera Stage -->
+  <div id="localLiveVideoPlayer" style="width:100%;height:100%;background:#111;position:relative;display:flex;align-items:center;justify-content:center">
+    <div id="localLiveVideoPlaceholder" style="text-align:center;color:#888;font-size:14px">
+      <div class="spinner" style="margin:0 auto 12px"></div>
+      <div>Connecting Camera & Agora Network...</div>
+    </div>
+  </div>
+
+  <!-- Bottom Floating Chat & Host Controls -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(0,0,0,0.9),transparent);z-index:12">
+    <div id="liveHostCommentsList" style="max-height:180px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:6px"></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="text" id="liveHostCommentInput" placeholder="Comment on your stream..." style="flex:1;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:9px 14px;color:#fff;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')sendLiveHostComment()">
+      <button type="button" onclick="sendLiveHostComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800">➤</button>
+      <button type="button" onclick="toggleLiveCameraMute()" id="liveMuteBtn" title="Mute Mic" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">🎤</button>
+      <button type="button" onclick="toggleLiveVideoTrack()" id="liveCamToggleBtn" title="Toggle Cam" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">📹</button>
+      <button type="button" onclick="sendLiveHeartReaction()" title="Heart" style="background:linear-gradient(135deg,#ff1744,#ff007f);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px">❤️</button>
+    </div>
+  </div>
+</div>
+
+<!-- Agora.io Audience Live Viewer Modal -->
+<div class="live-stream-overlay" id="liveAudienceViewerModal" style="display:none;position:fixed;inset:0;background:#000;z-index:100080;flex-direction:column">
+  <!-- Top Viewer Bar -->
+  <div style="position:absolute;top:0;left:0;right:0;padding:16px;display:flex;align-items:center;justify-content:space-between;z-index:12;background:linear-gradient(180deg,rgba(0,0,0,0.85),transparent)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img id="liveAudienceHostPhoto" src="icon.svg" style="width:34px;height:34px;border-radius:50%;border:2px solid #ff1744;object-fit:cover" alt="Host">
+      <div>
+        <div id="liveAudienceHostName" style="color:#fff;font-weight:800;font-size:13px">Host</div>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span style="background:#ff1744;color:#fff;font-size:9px;font-weight:900;padding:1px 5px;border-radius:4px">LIVE</span>
+          <span id="liveAudienceViewersNum" style="color:#aaa;font-size:11px">1 watching</span>
+        </div>
+      </div>
+    </div>
+    <button type="button" onclick="closeLiveAudienceViewer()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+  </div>
+
+  <!-- Remote Video Stage -->
+  <div id="remoteLiveVideoPlayer" style="width:100%;height:100%;background:#111;position:relative;display:flex;align-items:center;justify-content:center">
+    <div id="remoteLiveVideoPlaceholder" style="text-align:center;color:#888;font-size:14px">
+      <div class="spinner" style="margin:0 auto 12px"></div>
+      <div>Loading Host Live Broadcast...</div>
+    </div>
+  </div>
+
+  <!-- Bottom Floating Chat for Audience -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(0,0,0,0.9),transparent);z-index:12">
+    <div id="liveAudienceCommentsList" style="max-height:180px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:6px"></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="text" id="liveAudienceCommentInput" placeholder="Send comment..." style="flex:1;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:9px 14px;color:#fff;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')sendLiveAudienceComment()">
+      <button type="button" onclick="sendLiveAudienceComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800">➤</button>
+      <button type="button" onclick="sendLiveHeartReaction()" title="Heart" style="background:linear-gradient(135deg,#ff1744,#ff007f);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px">❤️</button>
+    </div>
+  </div>
+</div>
 <div class="ig-sheet-overlay" id="photoViewerModal" style="align-items:center" onclick="if(event.target===this)closePhotoViewer()">
   <div style="max-width:380px;width:92%;background:#111;border-radius:20px;overflow:hidden;text-align:center;position:relative;padding:22px 16px;box-shadow:0 24px 70px rgba(0,0,0,.7)">
     <button type="button" onclick="closePhotoViewer()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
@@ -5903,7 +6079,7 @@ img.logo-profile.zyro-header-logo {
 
 <nav class="bottom-nav" id="bottomNav">
   <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use href="#i-home"></use></svg></span><span>Home</span></button>
-  <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico nav-reels-svg"><use href="#i-reels"></use></svg></span><span class="nav-reels-label">Reels</span></button>
+  <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico nav-reels-svg"><use href="#i-reels-clapper"></use></svg></span><span class="nav-reels-label">Reels</span></button>
   <button type="button" id="createUploadBtn" class="nav-create-btn" aria-label="Create"><span class="nav-create-pill"><svg class="nav-create-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="nav-create-label">Create</span></button>
   <button type="button" id="funZoneNavBtn" data-tab="funzone"><span class="icon"><svg class="ico"><use href="#i-gamepad"></use></svg></span><span>Fun Zone</span></button>
   <button type="button" data-tab="profile"><span class="icon"><svg class="ico"><use href="#i-user"></use></svg></span><span>Profile</span></button>
@@ -6347,6 +6523,8 @@ img.logo-profile.zyro-header-logo {
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js" crossorigin="anonymous"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js" crossorigin="anonymous"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js" crossorigin="anonymous"></script>
+<!-- Agora.io WebRTC Live Streaming SDK -->
+<script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.22.0.js"></script>
 <script>
 window.addEventListener("error", function(e) {
   const msg = e && (e.message || "");
@@ -6449,6 +6627,45 @@ async function uploadImageToCloudinary(fileOrBlob, opts) {
 window.uploadImageToCloudinary = uploadImageToCloudinary;
 window.CLOUDINARY_CONFIG = CLOUDINARY_CONFIG;
 window.isCloudinaryConfigured = isCloudinaryConfigured;
+
+/* ========== BUNNY.NET STORAGE ARCHITECTURE (Production Target) ==========
+   Bunny.net Stream / Storage Zone integration for UPComedyHub videos.
+   Currently in testing mode: Cloudinary video upload is active.
+*/
+const BUNNY_STORAGE_CONFIG = {
+  enabled: false, // Set to true once Bunny.net credentials are added
+  storageZoneName: "",
+  accessKey: "",
+  pullZoneUrl: "",
+  streamLibraryId: ""
+};
+window.BUNNY_STORAGE_CONFIG = BUNNY_STORAGE_CONFIG;
+
+async function uploadVideoToCloudinary(fileOrBlob, opts) {
+  opts = opts || {};
+  if (!isCloudinaryConfigured()) throw new Error("CLOUDINARY_NOT_CONFIGURED");
+  const folder = opts.folder || "upcomedyhub/reels";
+  const form = new FormData();
+  form.append("file", fileOrBlob);
+  form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+  if (folder) form.append("folder", folder);
+  if (opts.publicId) form.append("public_id", opts.publicId);
+
+  const endpoint = "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/video/upload";
+  const res = await fetch(endpoint, { method: "POST", body: form });
+  const data = await res.json().catch(function(){ return {}; });
+  if (!res.ok || !data.secure_url) {
+    var msg = (data && data.error && data.error.message) || ("HTTP " + res.status);
+    throw new Error("Cloudinary video upload failed: " + msg);
+  }
+  return {
+    videoUrl: data.secure_url,
+    thumbnailUrl: data.secure_url ? data.secure_url.replace(/\.[^.]+$/, ".jpg") : "",
+    duration: data.duration || 0,
+    publicId: data.public_id
+  };
+}
+window.uploadVideoToCloudinary = uploadVideoToCloudinary;
 
 
 try {
@@ -7301,7 +7518,239 @@ navButtons.forEach(btn=>{
   }
 });
 const createUploadBtn = document.getElementById("createUploadBtn");
-if(createUploadBtn) createUploadBtn.addEventListener("click", ()=>openStoryCreator());
+if(createUploadBtn) createUploadBtn.addEventListener("click", () => openCreateActionSheet());
+
+function openCreateActionSheet(){
+  const sheet = document.getElementById("createActionSheetOverlay");
+  if(sheet) sheet.style.display = "flex";
+}
+window.openCreateActionSheet = openCreateActionSheet;
+
+function closeCreateActionSheet(){
+  const sheet = document.getElementById("createActionSheetOverlay");
+  if(sheet) sheet.style.display = "none";
+}
+window.closeCreateActionSheet = closeCreateActionSheet;
+
+async function checkLiveStreamEligibility(){
+  // Check Admin first
+  const isAdmin = typeof isCurrentUserAdmin === "function" ? isCurrentUserAdmin() : false;
+  if(isAdmin){
+    return { eligible: true, isAdmin: true, followersCount: 999 };
+  }
+
+  // Check Follower count (50 followers requirement)
+  let followersCount = 0;
+  try {
+    if(currentUser && db){
+      const snap = await db.collection("user_followers").where("targetUid", "==", currentUser.uid).get();
+      followersCount = snap.size;
+    }
+  } catch(e){
+    console.warn("Follower check notice:", e);
+  }
+
+  if(followersCount >= 50){
+    return { eligible: true, isAdmin: false, followersCount };
+  } else {
+    return { eligible: false, isAdmin: false, followersCount };
+  }
+}
+window.checkLiveStreamEligibility = checkLiveStreamEligibility;
+
+async function startLiveStreamFlow(){
+  const status = await checkLiveStreamEligibility();
+  const isAdmin = status.isAdmin;
+  const followersCount = status.followersCount;
+
+  if(!status.eligible){
+    const modal = document.getElementById("liveEligibilityModal");
+    const countEl = document.getElementById("liveFollowersProgressText");
+    const barEl = document.getElementById("liveFollowersProgressBar");
+    const needEl = document.getElementById("liveFollowersNeededText");
+    if(countEl) countEl.textContent = followersCount + " / 50";
+    if(barEl) barEl.style.width = Math.min(100, Math.round((followersCount / 50) * 100)) + "%";
+    if(needEl) needEl.textContent = "Live Stream unlock karne ke liye aur " + Math.max(0, 50 - followersCount) + " followers banayein!";
+    if(modal) modal.style.display = "flex";
+    return;
+  }
+
+  // Eligible! Launch Agora Live Broadcast
+  openLiveBroadcastModal(isAdmin);
+}
+window.startLiveStreamFlow = startLiveStreamFlow;
+
+function closeLiveEligibilityModal(){
+  const modal = document.getElementById("liveEligibilityModal");
+  if(modal) modal.style.display = "none";
+}
+window.closeLiveEligibilityModal = closeLiveEligibilityModal;
+
+let agoraLiveClient = null;
+let liveLocalAudioTrack = null;
+let liveLocalVideoTrack = null;
+let liveDurationTimerInterval = null;
+let liveStartTime = null;
+let activeLiveCommentsUnsub = null;
+
+async function openLiveBroadcastModal(isAdmin){
+  const modal = document.getElementById("liveBroadcastModal");
+  if(modal) modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  liveStartTime = Date.now();
+  const timerEl = document.getElementById("liveHostDurationTimer");
+  if(liveDurationTimerInterval) clearInterval(liveDurationTimerInterval);
+  liveDurationTimerInterval = setInterval(() => {
+    const elapsedSec = Math.floor((Date.now() - liveStartTime) / 1000);
+    const m = String(Math.floor(elapsedSec / 60)).padStart(2, "0");
+    const s = String(elapsedSec % 60).padStart(2, "0");
+    if(timerEl) timerEl.textContent = `${m}:${s}`;
+  }, 1000);
+
+  // Initialize Agora WebRTC Client
+  try {
+    if(typeof AgoraRTC !== "undefined"){
+      agoraLiveClient = AgoraRTC.createClient({ mode: "live", codec: "vp8" });
+      await agoraLiveClient.setClientRole("host");
+      
+      const placeholder = document.getElementById("localLiveVideoPlaceholder");
+      const playerContainer = document.getElementById("localLiveVideoPlayer");
+
+      try {
+        [liveLocalAudioTrack, liveLocalVideoTrack] = await AgoraRTC.createMicrophoneAndCameraTracks();
+        if(placeholder) placeholder.style.display = "none";
+        liveLocalVideoTrack.play(playerContainer);
+      } catch(mediaErr){
+        console.warn("Camera/Mic device notice:", mediaErr);
+        if(placeholder) placeholder.innerHTML = '<div style="color:#f59e0b;font-weight:700">⚠️ Camera/Mic active nahi hua (permission check karein)</div><div style="font-size:12px;color:#888;margin-top:6px">Stream is broadcasting in Agora Live Mode</div>';
+      }
+    }
+  } catch(e){
+    console.warn("Agora client init notice:", e);
+  }
+
+  // Register in Firestore active_live_streams
+  try {
+    if(db && currentUser){
+      await db.collection("active_live_streams").doc(currentUser.uid).set({
+        hostUid: currentUser.uid,
+        hostName: currentUser.displayName || "Zyro Creator",
+        hostPhoto: currentProfilePhotoURL || currentUser.photoURL || "icon.svg",
+        isAdmin: !!isAdmin,
+        viewersCount: 1,
+        startedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        status: "live"
+      });
+
+      // Realtime live comments
+      activeLiveCommentsUnsub = db.collection("active_live_streams")
+        .doc(currentUser.uid)
+        .collection("comments")
+        .orderBy("createdAt", "asc")
+        .limitToLast(25)
+        .onSnapshot(snap => {
+          const list = document.getElementById("liveHostCommentsList");
+          if(!list) return;
+          list.innerHTML = snap.docs.map(doc => {
+            const c = doc.data();
+            return `<div style="background:rgba(0,0,0,0.65);padding:4px 10px;border-radius:12px;color:#fff;font-size:12px;backdrop-filter:blur(4px);display:inline-block;max-width:85%;margin-bottom:3px">
+              <b style="color:#ff2d55">${escapeHtml(c.authorName||'User')}:</b> ${escapeHtml(c.text||'')}
+            </div>`;
+          }).join("");
+          list.scrollTop = list.scrollHeight;
+        });
+    }
+  } catch(e){
+    console.warn("Active stream register notice:", e);
+  }
+}
+window.openLiveBroadcastModal = openLiveBroadcastModal;
+
+async function confirmEndLiveStream(){
+  if(confirm("Kya aap sach me Live Stream end karna chahte hain?")){
+    if(liveDurationTimerInterval) clearInterval(liveDurationTimerInterval);
+    if(liveLocalAudioTrack){ liveLocalAudioTrack.close(); liveLocalAudioTrack = null; }
+    if(liveLocalVideoTrack){ liveLocalVideoTrack.close(); liveLocalVideoTrack = null; }
+    if(agoraLiveClient){ try { await agoraLiveClient.leave(); } catch(e){} agoraLiveClient = null; }
+    if(activeLiveCommentsUnsub){ activeLiveCommentsUnsub(); activeLiveCommentsUnsub = null; }
+    
+    try {
+      if(db && currentUser){
+        await db.collection("active_live_streams").doc(currentUser.uid).delete();
+      }
+    } catch(e){}
+
+    const modal = document.getElementById("liveBroadcastModal");
+    if(modal) modal.style.display = "none";
+    document.body.style.overflow = "";
+    showToast("🏁 Live Stream safalta se end ho gayi!");
+  }
+}
+window.confirmEndLiveStream = confirmEndLiveStream;
+
+function toggleLiveCameraMute(){
+  if(liveLocalAudioTrack){
+    const enabled = liveLocalAudioTrack.enabled;
+    liveLocalAudioTrack.setEnabled(!enabled);
+    const btn = document.getElementById("liveMuteBtn");
+    if(btn) btn.textContent = enabled ? "🔇" : "🎤";
+    showToast(enabled ? "Muted 🔇" : "Unmuted 🎤");
+  }
+}
+window.toggleLiveCameraMute = toggleLiveCameraMute;
+
+function toggleLiveVideoTrack(){
+  if(liveLocalVideoTrack){
+    const enabled = liveLocalVideoTrack.enabled;
+    liveLocalVideoTrack.setEnabled(!enabled);
+    const btn = document.getElementById("liveCamToggleBtn");
+    if(btn) btn.textContent = enabled ? "🚫" : "📹";
+    showToast(enabled ? "Camera Off 🚫" : "Camera On 📹");
+  }
+}
+window.toggleLiveVideoTrack = toggleLiveVideoTrack;
+
+async function sendLiveHostComment(){
+  const input = document.getElementById("liveHostCommentInput");
+  if(!input) return;
+  const txt = input.value.trim();
+  if(!txt) return;
+  input.value = "";
+
+  try {
+    if(db && currentUser){
+      await db.collection("active_live_streams").doc(currentUser.uid).collection("comments").add({
+        authorId: currentUser.uid,
+        authorName: (currentUser.displayName || "Host") + " (Host)",
+        text: txt,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+  } catch(e){}
+}
+window.sendLiveHostComment = sendLiveHostComment;
+
+function sendLiveHeartReaction(){
+  const heart = document.createElement("div");
+  heart.className = "reels-heart-particle";
+  heart.textContent = "❤️";
+  heart.style.left = (window.innerWidth - 60 + (Math.random() - 0.5) * 30) + "px";
+  heart.style.top = (window.innerHeight - 100) + "px";
+  heart.style.setProperty("--dx", ((Math.random() - 0.5) * 60) + "px");
+  heart.style.setProperty("--dy", (70 + Math.random() * 50) + "px");
+  heart.style.setProperty("--rot", ((Math.random() - 0.5) * 40) + "deg");
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 850);
+}
+window.sendLiveHeartReaction = sendLiveHeartReaction;
+
+function closeLiveAudienceViewer(){
+  const modal = document.getElementById("liveAudienceViewerModal");
+  if(modal) modal.style.display = "none";
+  document.body.style.overflow = "";
+}
+window.closeLiveAudienceViewer = closeLiveAudienceViewer;
 /* Fun Zone nav handled via data-tab="funzone" in switchTab */
 
 /* ---------- THEME ---------- */
@@ -8680,14 +9129,15 @@ async function publishNewUserPost(){
     // Upload to Cloudinary if available
     if(typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured() && selectedPostFile){
       try {
-        showToast("Uploading media to Cloudinary...");
         if(selectedPostFile.type.startsWith("image/")){
+          showToast("Uploading photo to Cloudinary...");
           mediaUrl = await uploadImageToCloudinary(selectedPostFile, { folder: "upcomedyhub/posts" });
           thumbnail = mediaUrl;
-        } else if(selectedPostFile.type.startsWith("video/")){
-          // Videos go via Cloudflare R2 / Cloudinary
-          mediaUrl = await uploadImageToCloudinary(selectedPostFile, { folder: "upcomedyhub/reels" });
-          thumbnail = mediaUrl;
+        } else if(selectedPostFile.type.startsWith("video/") || currentCreateType === "reel"){
+          showToast("⏳ Video Cloudinary par upload ho raha hai...");
+          const vRes = await uploadVideoToCloudinary(selectedPostFile, { folder: "upcomedyhub/reels" });
+          mediaUrl = vRes.videoUrl;
+          thumbnail = vRes.thumbnailUrl || mediaUrl;
         }
       } catch(cErr){
         console.warn("Cloudinary upload failed, using optimized data URL:", cErr);
@@ -8713,9 +9163,29 @@ async function publishNewUserPost(){
     if(typeof db !== "undefined" && db){
       const ref = await db.collection("user_posts").add(postDoc);
       postDoc.id = ref.id;
+
+      if(currentCreateType === "reel"){
+        const reelDoc = {
+          userId: currentUser.uid,
+          authorName: currentUser.displayName || "User",
+          authorUsername: (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "user",
+          authorPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
+          videoUrl: mediaUrl,
+          thumbnail: thumbnail || mediaUrl,
+          title: caption || "Reel",
+          caption: caption,
+          location: location,
+          likesCount: 0,
+          viewsCount: 1,
+          commentsCount: 0,
+          createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+        };
+        await db.collection("reels").add(reelDoc);
+        if(typeof loadPlatformReels === "function") loadPlatformReels();
+      }
     }
 
-    showToast("🚀 Post published successfully!");
+    showToast(currentCreateType === "reel" ? "🎬 Reel published successfully!" : "🚀 Post published successfully!");
     closeCreatePostModal();
 
     // Refresh profile grid instantly
@@ -9605,61 +10075,71 @@ function buildChannelReelItem(vid, title, thumb, boostBadgeHtml = ""){
   el.innerHTML = boostBadgeHtml + '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(title)+'" loading="lazy">' + viewsOverlayHtml + '<div class="video-play"><span>▶</span></div></div>';
   return el;
 }
-(function fetchReels(){
-  const CHANNEL_ID = "UCVZgUX5-li8xln9JQKZifqA";
+/* ---------- PLATFORM UPLOADED REELS (YouTube Auto-Fetch Removed) ---------- */
+async function loadPlatformReels(){
   const grid = document.getElementById("channelReelsGrid");
   const mainGrid = document.getElementById("mainTabReelsGrid");
-  if(grid) grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
   if(mainGrid) mainGrid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
+  if(grid && !grid.children.length) grid.innerHTML = '<div class="ig-reels-empty">⏳ Loading Reels...</div>';
 
-  function renderReelList(items){
-    if(grid) grid.innerHTML = "";
+  try {
+    const snap = await db.collection("reels").orderBy("createdAt", "desc").limit(50).get();
+    if(snap.empty){
+      const emptyHtml = '<div class="ig-reels-empty-box" style="text-align:center;padding:50px 20px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.12);border-radius:18px;max-width:420px;margin:30px auto">' +
+        '<div style="font-size:48px;margin-bottom:12px">🎬</div>' +
+        '<h3 style="font-size:18px;font-weight:800;margin-bottom:8px">Abhi koi Reel upload nahi hai</h3>' +
+        '<p style="font-size:13px;color:#888;margin-bottom:18px;line-height:1.5">YouTube ki auto-fetched reels remove kar di gayi hain. Aap apni pehli comedy video/reel upload karein!</p>' +
+        '<button type="button" class="btn" onclick="openCreatePostModal(\'reel\')" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:24px;background:linear-gradient(135deg,#ff2d55,#ff8a00);color:#fff;font-weight:800;border:none;cursor:pointer">' +
+        '<span>+ Upload New Reel</span></button></div>';
+      if(mainGrid) mainGrid.innerHTML = emptyHtml;
+      if(grid) grid.innerHTML = emptyHtml;
+      return;
+    }
+
     if(mainGrid) mainGrid.innerHTML = "";
-    const ranked = rankReelsByAlgorithm(items);
-    ranked.forEach(item => {
-      const vid = item.videoId;
-      const title = item.title;
-      allVideos[vid] = { title, category: "shorts" };
-      const thumb = item.thumb || ("https://i.ytimg.com/vi/" + vid + "/hqdefault.jpg");
-      const boostData = cachedBoostedReels[vid];
-      let boostBadgeHtml = "";
-      if (boostData) {
-        const lbl = boostData.label || "🔥 Boosted";
-        boostBadgeHtml = '<div class="reel-boost-badge"><svg class="ico"><use href="#i-rocket"></use></svg><span>'+escapeHtml(lbl)+'</span></div>';
-      }
-      if(grid) grid.appendChild(buildChannelReelItem(vid, title, thumb, boostBadgeHtml));
-      if(mainGrid) mainGrid.appendChild(buildChannelReelItem(vid, title, thumb, boostBadgeHtml));
+    if(grid) grid.innerHTML = "";
+
+    snap.docs.forEach(doc => {
+      const data = doc.data();
+      const reelEl = buildUploadedReelItem(doc.id, data);
+      if(mainGrid) mainGrid.appendChild(reelEl.cloneNode(true));
+      if(grid) grid.appendChild(reelEl);
     });
-    refreshAllVideoActions();
-    refreshLikesLinks();
-    createNewVideoNotifications();
-    updateNotificationBadge();
-    appendManualShortsToReels();
+
+    document.querySelectorAll(".channel-reel-item").forEach(item => {
+      item.onclick = () => {
+        const vid = item.getAttribute("data-video-id");
+        if(typeof window.openReelViewer === "function") window.openReelViewer(vid);
+      };
+    });
+  } catch(e) {
+    console.warn("Load platform reels notice:", e);
+    if(mainGrid) mainGrid.innerHTML = '<div class="ig-reels-empty-box" style="text-align:center;padding:40px 14px"><p style="color:#888;font-size:13px">Reels load nahi ho payi.</p><button type="button" class="btn btn-outline" onclick="loadPlatformReels()" style="margin-top:10px">Dobara koshish karein</button></div>';
   }
+}
+window.loadPlatformReels = loadPlatformReels;
 
-  const UPCH_DEFAULT_REELS = [
-    { videoId: "qmyXXyjSkHw", title: "Dance Trend 💀😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/qmyXXyjSkHw/hqdefault.jpg" },
-    { videoId: "dyslbW099Is", title: "UP Bihar Ke Rangdar 😂💪 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/dyslbW099Is/hqdefault.jpg" },
-    { videoId: "s-koiVHxUVM", title: "Sasta Bewafa 😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/s-koiVHxUVM/hqdefault.jpg" },
-    { videoId: "Djoupq4W0sY", title: "Money Follows 😂 #upcomedyhub #funnyvideo #shorts", thumb: "https://i.ytimg.com/vi/Djoupq4W0sY/hqdefault.jpg" },
-    { videoId: "5qiy3TVjrPY", title: "Hawabaji Gone Wrong 😂🔥 #shorts #funny", thumb: "https://i.ytimg.com/vi/5qiy3TVjrPY/hqdefault.jpg" },
-    { videoId: "ox0J_29FG1c", title: "Money Follows My Brother 😂💸 #shorts #funny", thumb: "https://i.ytimg.com/vi/ox0J_29FG1c/hqdefault.jpg" }
-  ];
+function buildUploadedReelItem(docId, data){
+  const el = document.createElement("div");
+  el.className = "channel-reel-item";
+  el.setAttribute("data-video-id", docId);
+  el.setAttribute("data-video-url", data.videoUrl || "");
+  el.setAttribute("data-title", data.title || data.caption || "Reel");
 
-  fetch(getApiUrl("/api/youtube/reels"))
-    .catch(() => null)
-    .then(r => (r && r.ok) ? r.json().catch(() => null) : null)
-    .then(data => {
-      if(data && data.success && Array.isArray(data.items) && data.items.length){
-        renderReelList(data.items);
-      } else {
-        renderReelList(UPCH_DEFAULT_REELS);
-      }
-    })
-    .catch(() => {
-      renderReelList(UPCH_DEFAULT_REELS);
-    });
-})();
+  const views = data.viewsCount || getReelViewsCount(docId);
+  const viewsFormatted = formatViewsCount(views);
+  const thumb = data.thumbnail || data.videoUrl || "IMG_20261002_053016.png";
+
+  const viewsOverlayHtml = '<div class="reel-views-overlay"><svg class="ico" style="width:11px;height:11px;fill:currentColor"><use href="#i-play"></use></svg><span class="reel-views-count-text">' + escapeHtml(viewsFormatted) + '</span></div>';
+  el.innerHTML = '<div class="channel-reel-thumb"><img src="'+escapeAttr(thumb)+'" alt="'+escapeAttr(data.title||"Reel")+'" loading="lazy" onerror="this.src=\'IMG_20261002_053016.png\'">' + viewsOverlayHtml + '<div class="video-play"><span>▶</span></div></div>';
+  return el;
+}
+window.buildUploadedReelItem = buildUploadedReelItem;
+
+// Auto-run platform reels loader on start
+setTimeout(() => {
+  loadPlatformReels();
+}, 600);
 
 async function appendManualShortsToReels(){
   try{
@@ -9828,17 +10308,22 @@ document.addEventListener("click",(e)=>{
     });
     document.querySelectorAll(".channel-reel-item").forEach(t=>{
       const vid = t.getAttribute("data-video-id");
-      if(!vid) return;
+      const videoUrl = t.getAttribute("data-video-url") || "";
+      if(!vid && !videoUrl) return;
       const img = t.querySelector("img");
-      const label = (img?.getAttribute("alt") || "Reel").trim();
-      list.push({vid:vid, title:label, thumb:img?img.src:""});
+      const label = (img?.getAttribute("alt") || t.getAttribute("data-title") || "Reel").trim();
+      list.push({vid:vid, videoUrl:videoUrl, title:label, thumb:img?img.src:""});
     });
     return list;
   }
 
   function render(){
     const r = reels[index]; if(!r) return;
-    frame.innerHTML = '<iframe src="https://www.youtube.com/embed/'+r.vid+'?autoplay=1&rel=0&playsinline=1&loop=1&playlist='+r.vid+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen" allowfullscreen></iframe>';
+        if(r.videoUrl){
+      frame.innerHTML = '<video src="'+escapeAttr(r.videoUrl)+'" autoplay loop playsinline controls style="width:100%;height:100%;object-fit:contain;background:#000;border:none"></video>';
+    } else {
+      frame.innerHTML = '<iframe src="https://www.youtube.com/embed/'+r.vid+'?autoplay=1&rel=0&playsinline=1&loop=1&playlist='+r.vid+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen" allowfullscreen></iframe>';
+    }
     titleEl.textContent = r.title || "Reel";
     countEl.textContent = (index+1)+" / "+reels.length;
     btnPrev.disabled = index<=0;

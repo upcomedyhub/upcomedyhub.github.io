@@ -1,6 +1,8 @@
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
+import multer from 'multer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +13,35 @@ const app = express();
 app.disable('x-powered-by');
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(rootDir));
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(rootDir, 'uploads', 'videos');
+try {
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+  }
+} catch (e) {
+  console.warn('Uploads directory warning:', e?.message || e);
+}
+app.use('/uploads', express.static(path.join(rootDir, 'uploads')));
+
+// Configure Multer for Video Uploads (up to 120MB)
+const videoStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadsDir);
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname || '') || '.mp4';
+    const cleanExt = ext.toLowerCase();
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, 'upch-video-' + uniqueSuffix + cleanExt);
+  }
+});
+
+const videoUpload = multer({
+  storage: videoStorage,
+  limits: { fileSize: 120 * 1024 * 1024 } // 120MB max
+});
 
 // =====================================================
 // CORS
@@ -851,6 +882,50 @@ app.get('/api/youtube/reels', async (req, res) => {
       mode: 'offline'
     });
   }
+});
+
+// =====================================================
+// VIDEO UPLOAD ENDPOINT (YouTube/Instagram Workflow)
+// =====================================================
+
+app.post('/api/upload/video', (req, res) => {
+  videoUpload.single('video')(req, res, (err) => {
+    if (err) {
+      console.error('Video upload multer error:', err);
+      const isSize = err.code === 'LIMIT_FILE_SIZE';
+      return res.status(400).json({
+        success: false,
+        error: isSize ? 'Video size exceeds 120MB limit' : (err.message || 'File upload error')
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        error: 'No video file provided'
+      });
+    }
+
+    const title = cleanText(req.body.title || 'Untitled Video', 200);
+    const description = cleanText(req.body.description || '', 2000);
+    const isPublic = req.body.isPublic !== 'false' && req.body.isPublic !== false;
+    const category = cleanText(req.body.category || 'reel', 50);
+
+    const videoUrl = `/uploads/videos/${req.file.filename}`;
+
+    return res.json({
+      success: true,
+      videoUrl: videoUrl,
+      filename: req.file.filename,
+      size: req.file.size,
+      mimetype: req.file.mimetype,
+      title: title,
+      description: description,
+      isPublic: isPublic,
+      category: category,
+      timestamp: new Date().toISOString()
+    });
+  });
 });
 
 // =====================================================

@@ -1849,6 +1849,44 @@ body.messages-open .bottom-nav{display:none !important}
 .ig-create-mode-btn.active { background: #0095f6; color: #fff; box-shadow: 0 4px 12px rgba(0,149,246,0.3); }
 .ig-create-mode-btn.live-btn { color: #ff3b30; }
 .ig-create-mode-btn.live-btn.active { background: #ff3b30; color: #fff; box-shadow: 0 4px 12px rgba(255,59,48,0.3); }
+
+/* YouTube/Instagram-like Video Preview & Editor Studio */
+.video-editor-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); z-index: 100095; display: none; align-items: center; justify-content: center; padding: 12px; box-sizing: border-box; }
+.video-editor-box { background: #18191c; color: #fff; border-radius: 22px; width: 100%; max-width: 840px; max-height: 94vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.85); border: 1px solid rgba(255,255,255,0.12); animation: veSlideUp .25s ease-out; }
+@keyframes veSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.ve-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.1); background: #121316; }
+.ve-header h3 { margin: 0; font-size: 16px; font-weight: 800; letter-spacing: 0.3px; display: flex; align-items: center; gap: 8px; color: #fff; }
+.ve-body { display: grid; grid-template-columns: 1fr 1.25fr; gap: 20px; padding: 18px; overflow-y: auto; max-height: calc(94vh - 130px); }
+@media (max-width: 720px) { .ve-body { grid-template-columns: 1fr; gap: 16px; padding: 14px; } }
+.ve-player-card { background: #0b0c0e; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; border: 1px solid rgba(255,255,255,0.08); }
+.ve-video-player { width: 100%; max-height: 380px; background: #000; border-radius: 12px 12px 0 0; object-fit: contain; display: block; }
+.ve-meta-badge-row { display: flex; gap: 8px; padding: 8px 12px; width: 100%; box-sizing: border-box; background: rgba(18,19,22,0.95); font-size: 11px; color: #aaa; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
+.ve-form-col { display: flex; flex-direction: column; gap: 14px; }
+.ve-form-group { display: flex; flex-direction: column; gap: 6px; }
+.ve-form-label { font-size: 11px; font-weight: 800; color: #8e8e93; text-transform: uppercase; letter-spacing: 0.5px; }
+.ve-input { background: #23242a; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 10px 14px; color: #fff; font-family: inherit; font-size: 14px; outline: none; transition: border-color .15s, background .15s; }
+.ve-input:focus { border-color: #0095f6; background: #2a2b32; }
+.ve-textarea { min-height: 75px; resize: vertical; }
+.ve-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: #23242a; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); }
+.ve-toggle-info { display: flex; flex-direction: column; gap: 2px; }
+.ve-toggle-title { font-weight: 700; font-size: 13px; color: #fff; }
+.ve-toggle-desc { font-size: 11px; color: #8e8e93; }
+.ve-switch { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0; }
+.ve-switch input { opacity: 0; width: 0; height: 0; }
+.ve-slider { position: absolute; cursor: pointer; inset: 0; background-color: #444; transition: .25s; border-radius: 26px; }
+.ve-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .25s; border-radius: 50%; }
+.ve-switch input:checked + .ve-slider { background-color: #0095f6; }
+.ve-switch input:checked + .ve-slider:before { transform: translateX(22px); }
+.ve-progress-card { background: #101114; border-radius: 12px; padding: 12px 14px; border: 1px solid rgba(0,149,246,0.4); display: none; margin-top: 4px; }
+.ve-progress-bar-bg { width: 100%; height: 8px; background: #2a2a2e; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+.ve-progress-bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #0095f6, #00d2ff); transition: width .2s ease; }
+.ve-footer { padding: 12px 18px; border-top: 1px solid rgba(255,255,255,0.1); background: #121316; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ve-btn { padding: 11px 20px; border-radius: 12px; font-weight: 800; font-size: 14px; border: none; cursor: pointer; font-family: inherit; transition: all .15s ease; }
+.ve-btn-primary { background: linear-gradient(135deg, #0095f6, #0077e6); color: #fff; flex: 1; box-shadow: 0 4px 14px rgba(0,149,246,0.35); }
+.ve-btn-primary:hover { filter: brightness(1.1); }
+.ve-btn-secondary { background: rgba(255,255,255,0.1); color: #ddd; }
+.ve-btn-secondary:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
 .blocked-user-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
 .dark-mode .blocked-user-row { border-bottom-color: #262626; }
 .blocked-user-info { display: flex; align-items: center; gap: 10px; }
@@ -5665,15 +5703,15 @@ img.logo-profile.zyro-header-logo {
       <button type="button" onclick="closeCreateActionSheet()" style="background:transparent;border:none;color:#aaa;font-size:18px;cursor:pointer">✕</button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;text-align:center">
-      <!-- 1. Reel Upload -->
-      <div onclick="closeCreateActionSheet();openCreatePostModal('reel')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+      <!-- 1. Reel Upload (Native Gallery Picker -> Preview/Editor Screen) -->
+      <div onclick="closeCreateActionSheet();triggerVideoFilePicker('reel')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
         <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#ff007f,#ff1744);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(255,23,68,0.4)">
           <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2"><use href="#i-reels-clapper"></use></svg>
         </div>
         <span style="font-size:12px;font-weight:700;color:#fff">Reel</span>
       </div>
-      <!-- 2. Video Upload (Long / Comedy Video next to Reel) -->
-      <div onclick="closeCreateActionSheet();openCreatePostModal('video')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+      <!-- 2. Video Upload (Native Gallery Picker -> Preview/Editor Screen) -->
+      <div onclick="closeCreateActionSheet();triggerVideoFilePicker('video')" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
         <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#8b5cf6,#6366f1);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(139,92,246,0.4)">
           <svg style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
@@ -5868,6 +5906,102 @@ img.logo-profile.zyro-header-logo {
       <button type="button" class="ig-create-mode-btn" id="createModeReel" onclick="switchCreateType('reel')">REEL</button>
       <button type="button" class="ig-create-mode-btn" id="createModeVideo" onclick="switchCreateType('video')">VIDEO</button>
       <button type="button" class="ig-create-mode-btn live-btn" id="createModeLive" onclick="switchToLiveMode()">LIVE</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Direct Video File Picker Input (Triggers Native Device Video Gallery) -->
+<input type="file" id="upchVideoFileInput" accept="video/*" style="display:none" onchange="handleVideoSelectedForEditor(this.files[0])">
+
+<!-- YouTube/Instagram-like Video Preview / Editor Screen Modal -->
+<div class="video-editor-overlay" id="videoEditorModal" onclick="if(event.target===this)confirmCloseVideoEditor()">
+  <div class="video-editor-box">
+    <!-- Header -->
+    <div class="ve-header">
+      <button type="button" onclick="confirmCloseVideoEditor()" style="background:none;border:none;color:#aaa;font-size:18px;cursor:pointer;padding:4px" aria-label="Close">✕</button>
+      <h3 id="veModalHeaderTitle">
+        <span>🎬</span>
+        <span id="veHeaderTitleText">Video Preview &amp; Editor</span>
+      </h3>
+      <button type="button" class="ig-create-next-btn" id="veTopShareBtn" onclick="startVideoPublishWorkflow()">Publish</button>
+    </div>
+
+    <!-- Body (2-Column Studio: Video Player on left, Settings on right) -->
+    <div class="ve-body">
+      <!-- Left Column: Video Loop Preview Card -->
+      <div class="ve-player-card">
+        <video id="veVideoPlayer" class="ve-video-player" autoplay loop muted playsinline controls></video>
+        <div class="ve-meta-badge-row">
+          <span id="veVideoDurationBadge">⏱️ 0:00</span>
+          <span id="veVideoSizeBadge">💾 0 MB</span>
+          <span id="veVideoTypeBadge">🎥 MP4</span>
+        </div>
+      </div>
+
+      <!-- Right Column: Video Details & Controls -->
+      <div class="ve-form-col">
+        <!-- Title Field -->
+        <div class="ve-form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <label class="ve-form-label" for="veTitleInput">Title *</label>
+            <span style="font-size:11px;color:#888" id="veTitleCharCount">0/100</span>
+          </div>
+          <input type="text" id="veTitleInput" class="ve-input" placeholder="Give your video a catchy title..." maxlength="100" oninput="updateVeTitleCharCount(this.value)">
+        </div>
+
+        <!-- Description / Caption Field -->
+        <div class="ve-form-group">
+          <label class="ve-form-label" for="veDescInput">Description &amp; Comedy Punchlines</label>
+          <textarea id="veDescInput" class="ve-input ve-textarea" rows="3" placeholder="Add description, jokes, tags..."></textarea>
+          <!-- Quick Hashtags -->
+          <div class="ig-tags-pills" style="margin-top:2px">
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#UPComedyHub')">#UPComedyHub</span>
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#Zyro')">#Zyro</span>
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#DesiComedy')">#DesiComedy</span>
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#FunnyVideo')">#FunnyVideo</span>
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#StandUp')">#StandUp</span>
+          </div>
+        </div>
+
+        <!-- Category / Format Selector -->
+        <div class="ve-form-group">
+          <label class="ve-form-label">Format / Category</label>
+          <div style="display:flex;gap:8px">
+            <button type="button" class="category-chip active" id="veCategoryReelBtn" onclick="setVeCategory('reel')" style="flex:1;text-align:center">📱 Reel / Shorts (9:16)</button>
+            <button type="button" class="category-chip" id="veCategoryVideoBtn" onclick="setVeCategory('video')" style="flex:1;text-align:center">🖥️ Video (16:9 / Long)</button>
+          </div>
+        </div>
+
+        <!-- Public / Private Toggle (YouTube / Instagram-like) -->
+        <div class="ve-toggle-row">
+          <div class="ve-toggle-info">
+            <div class="ve-toggle-title" id="veVisibilityLabel">🌐 Public Video</div>
+            <div class="ve-toggle-desc" id="veVisibilityDesc">Anyone on Zyro and feed can view and share this video</div>
+          </div>
+          <label class="ve-switch">
+            <input type="checkbox" id="veVisibilityToggle" checked onchange="handleVeVisibilityChange(this.checked)">
+            <span class="ve-slider"></span>
+          </label>
+        </div>
+
+        <!-- Real-Time In-Modal Upload Progress Card -->
+        <div class="ve-progress-card" id="veProgressCard">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700">
+            <span id="veProgressStatusText" style="color:#0095f6">⏳ Uploading video to server...</span>
+            <span id="veProgressPercentText" style="color:#fff">0%</span>
+          </div>
+          <div class="ve-progress-bar-bg">
+            <div class="ve-progress-bar-fill" id="veProgressBarFill"></div>
+          </div>
+          <div style="font-size:11px;color:#888" id="veProgressSubText">Please don't close this window until upload completes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Controls -->
+    <div class="ve-footer">
+      <button type="button" class="ve-btn ve-btn-secondary" onclick="triggerVideoFilePicker(currentVeCategory)" title="Choose a different video file">🔄 Change Video</button>
+      <button type="button" class="ve-btn ve-btn-primary" id="vePublishBtn" onclick="startVideoPublishWorkflow()">🚀 Publish Now</button>
     </div>
   </div>
 </div>
@@ -6827,8 +6961,24 @@ async function uploadVideoToCloudinary(fileOrBlob, opts) {
       secureUrl = dataRaw.secure_url;
       publicId = dataRaw.public_id || "";
     } else {
-      const errM = (dataRaw && dataRaw.error && dataRaw.error.message) || ("HTTP " + resRaw.status);
-      throw new Error("Video upload failed: " + errM);
+      // 3. Fallback to server endpoint (/api/upload/video)
+      try {
+        const serverForm = new FormData();
+        serverForm.append("video", fileOrBlob);
+        serverForm.append("category", folder.includes("reel") ? "reel" : "video");
+        const sRes = await fetch("/api/upload/video", { method: "POST", body: serverForm });
+        const sData = await sRes.json().catch(() => ({}));
+        if (sRes.ok && sData.videoUrl) {
+          secureUrl = sData.videoUrl;
+          publicId = sData.filename || "";
+        }
+      } catch(sErr) {
+        console.warn("Backend video upload fallback notice:", sErr);
+      }
+      if (!secureUrl) {
+        const errM = (dataRaw && dataRaw.error && dataRaw.error.message) || ("HTTP " + resRaw.status);
+        throw new Error("Video upload failed: " + errM);
+      }
     }
   }
 
@@ -9251,10 +9401,426 @@ function switchToLiveMode(){
 }
 window.switchToLiveMode = switchToLiveMode;
 
+/* =======================================================================
+   YOUTUBE / INSTAGRAM VIDEO UPLOAD WORKFLOW & STATE MANAGEMENT
+   ======================================================================= */
+let currentVeFile = null;
+let currentVeObjectUrl = null;
+let currentVeCategory = "reel"; // "reel" | "video"
+let currentVeIsPublic = true;
+let isVeUploading = false;
+
+function triggerVideoFilePicker(category) {
+  currentVeCategory = category || "reel";
+  const input = document.getElementById("upchVideoFileInput");
+  if (input) {
+    input.value = "";
+    input.click();
+  }
+}
+window.triggerVideoFilePicker = triggerVideoFilePicker;
+
+function handleVideoSelectedForEditor(file, category) {
+  if (!file) return;
+  if (!file.type.startsWith("video/") && !/\.(mp4|mov|webm|mkv|3gp|m4v)$/i.test(file.name)) {
+    showToast("⚠️ Kripya valid video file chunein (MP4, WEBM, MOV)");
+    return;
+  }
+
+  // 1. Close any other open modals
+  if (typeof closeCreateActionSheet === "function") closeCreateActionSheet();
+  if (typeof closeCreatePostModal === "function") closeCreatePostModal();
+
+  // 2. DO NOT UPLOAD YET! Revoke prior object URL and save state
+  if (currentVeObjectUrl) {
+    try { URL.revokeObjectURL(currentVeObjectUrl); } catch(e) {}
+  }
+  currentVeFile = file;
+  currentVeObjectUrl = URL.createObjectURL(file);
+  currentVeCategory = category || currentVeCategory || "reel";
+  currentVeIsPublic = true;
+  isVeUploading = false;
+
+  // 3. Populate Editor Elements
+  const modal = document.getElementById("videoEditorModal");
+  const player = document.getElementById("veVideoPlayer");
+  const titleInput = document.getElementById("veTitleInput");
+  const descInput = document.getElementById("veDescInput");
+  const toggle = document.getElementById("veVisibilityToggle");
+  const sizeBadge = document.getElementById("veVideoSizeBadge");
+  const typeBadge = document.getElementById("veVideoTypeBadge");
+  const durationBadge = document.getElementById("veVideoDurationBadge");
+  const progressCard = document.getElementById("veProgressCard");
+  const publishBtn = document.getElementById("vePublishBtn");
+  const topShareBtn = document.getElementById("veTopShareBtn");
+
+  // Reset Progress Card & Buttons
+  if (progressCard) progressCard.style.display = "none";
+  if (publishBtn) {
+    publishBtn.disabled = false;
+    publishBtn.textContent = "🚀 Publish Now";
+  }
+  if (topShareBtn) {
+    topShareBtn.disabled = false;
+    topShareBtn.textContent = "Publish";
+  }
+
+  // Generate clean title from filename
+  const rawName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+  const cleanTitle = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+  if (titleInput) {
+    titleInput.value = cleanTitle;
+    updateVeTitleCharCount(cleanTitle);
+  }
+  if (descInput) descInput.value = "";
+  if (toggle) toggle.checked = true;
+  handleVeVisibilityChange(true);
+  setVeCategory(currentVeCategory);
+
+  // File metadata badges
+  const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+  if (sizeBadge) sizeBadge.textContent = "💾 " + sizeMb + " MB";
+  const ext = (file.name.split('.').pop() || "MP4").toUpperCase();
+  if (typeBadge) typeBadge.textContent = "🎥 " + ext;
+
+  // Setup loop preview player
+  if (player) {
+    player.src = currentVeObjectUrl;
+    player.muted = true; // start muted for compliant autoplay
+    player.loop = true;
+    player.playsInline = true;
+    player.onloadedmetadata = function() {
+      const mins = Math.floor(player.duration / 60);
+      const secs = Math.floor(player.duration % 60);
+      const timeStr = mins + ":" + (secs < 10 ? "0" : "") + secs;
+      if (durationBadge) durationBadge.textContent = "⏱️ " + timeStr;
+    };
+    player.play().catch(function() {});
+  }
+
+  // 4. Reveal Editor Screen
+  if (modal) modal.style.display = "flex";
+}
+window.handleVideoSelectedForEditor = handleVideoSelectedForEditor;
+
+function updateVeTitleCharCount(val) {
+  const countEl = document.getElementById("veTitleCharCount");
+  if (countEl) countEl.textContent = (val || "").length + "/100";
+}
+window.updateVeTitleCharCount = updateVeTitleCharCount;
+
+function appendVeHashtag(tag) {
+  const desc = document.getElementById("veDescInput");
+  if (!desc) return;
+  const cur = desc.value.trim();
+  if (!cur.includes(tag)) {
+    desc.value = cur ? (cur + " " + tag) : tag;
+  }
+  desc.focus();
+}
+window.appendVeHashtag = appendVeHashtag;
+
+function setVeCategory(cat) {
+  currentVeCategory = cat === "video" ? "video" : "reel";
+  const reelBtn = document.getElementById("veCategoryReelBtn");
+  const videoBtn = document.getElementById("veCategoryVideoBtn");
+  const headerText = document.getElementById("veHeaderTitleText");
+  if (currentVeCategory === "reel") {
+    if (reelBtn) reelBtn.classList.add("active");
+    if (videoBtn) videoBtn.classList.remove("active");
+    if (headerText) headerText.textContent = "New Reel / Short (9:16)";
+  } else {
+    if (videoBtn) videoBtn.classList.add("active");
+    if (reelBtn) reelBtn.classList.remove("active");
+    if (headerText) headerText.textContent = "New Comedy Video (16:9)";
+  }
+}
+window.setVeCategory = setVeCategory;
+
+function handleVeVisibilityChange(isPublic) {
+  currentVeIsPublic = isPublic;
+  const label = document.getElementById("veVisibilityLabel");
+  const desc = document.getElementById("veVisibilityDesc");
+  if (isPublic) {
+    if (label) label.textContent = "🌐 Public Video";
+    if (desc) desc.textContent = "Anyone on Zyro and feed can view and share this video";
+  } else {
+    if (label) label.textContent = "🔒 Private Video";
+    if (desc) desc.textContent = "Only you can see this video in your profile library";
+  }
+}
+window.handleVeVisibilityChange = handleVeVisibilityChange;
+
+function confirmCloseVideoEditor() {
+  if (isVeUploading) {
+    if (!confirm("Video upload ho rahi hai. Kya aap cancel karna chahte hain?")) return;
+  }
+  closeVideoEditorModal();
+}
+window.confirmCloseVideoEditor = confirmCloseVideoEditor;
+
+function closeVideoEditorModal() {
+  const modal = document.getElementById("videoEditorModal");
+  const player = document.getElementById("veVideoPlayer");
+  if (player) {
+    player.pause();
+    player.src = "";
+  }
+  if (currentVeObjectUrl) {
+    try { URL.revokeObjectURL(currentVeObjectUrl); } catch(e) {}
+    currentVeObjectUrl = null;
+  }
+  currentVeFile = null;
+  isVeUploading = false;
+  if (modal) modal.style.display = "none";
+}
+window.closeVideoEditorModal = closeVideoEditorModal;
+
+async function startVideoPublishWorkflow() {
+  if (isVeUploading) return;
+  if (!currentVeFile) {
+    showToast("⚠️ Kripya video select karein");
+    return;
+  }
+
+  const titleInput = document.getElementById("veTitleInput");
+  const descInput = document.getElementById("veDescInput");
+  const title = (titleInput?.value || "").trim() || "Untitled Video";
+  const description = (descInput?.value || "").trim();
+
+  const progressCard = document.getElementById("veProgressCard");
+  const progressBar = document.getElementById("veProgressBarFill");
+  const percentText = document.getElementById("veProgressPercentText");
+  const statusText = document.getElementById("veProgressStatusText");
+  const publishBtn = document.getElementById("vePublishBtn");
+  const topShareBtn = document.getElementById("veTopShareBtn");
+
+  isVeUploading = true;
+  if (progressCard) progressCard.style.display = "block";
+  if (publishBtn) { publishBtn.disabled = true; publishBtn.textContent = "⏳ Uploading..."; }
+  if (topShareBtn) { topShareBtn.disabled = true; topShareBtn.textContent = "⏳..."; }
+
+  function setProgress(pct, msg) {
+    if (progressBar) progressBar.style.width = pct + "%";
+    if (percentText) percentText.textContent = pct + "%";
+    if (statusText) statusText.textContent = msg;
+  }
+
+  setProgress(5, "⏳ Preparing video file...");
+
+  try {
+    let uploadedVideoUrl = "";
+    let uploadedThumbnailUrl = "";
+
+    // 1. Progress-tracked Upload: Try Cloudinary first, fallback to Backend /api/upload/video
+    try {
+      uploadedVideoUrl = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        const form = new FormData();
+
+        if (typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()) {
+          form.append("file", currentVeFile);
+          form.append("upload_preset", CLOUDINARY_CONFIG.uploadPreset);
+          form.append("folder", currentVeCategory === "reel" ? "upcomedyhub/reels" : "upcomedyhub/videos");
+          xhr.open("POST", "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CONFIG.cloudName + "/video/upload");
+        } else {
+          form.append("video", currentVeFile);
+          form.append("title", title);
+          form.append("description", description);
+          form.append("category", currentVeCategory);
+          form.append("isPublic", String(currentVeIsPublic));
+          xhr.open("POST", "/api/upload/video");
+        }
+
+        xhr.upload.onprogress = function(e) {
+          if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 75) + 5; // 5% to 80%
+            setProgress(pct, "🚀 Uploading: " + pct + "%");
+          }
+        };
+
+        xhr.onload = function() {
+          try {
+            const resp = JSON.parse(xhr.responseText || "{}");
+            if (xhr.status >= 200 && xhr.status < 300) {
+              const url = resp.secure_url || resp.videoUrl || resp.url;
+              if (url) resolve(url);
+              else reject(new Error(resp.error?.message || "No URL in response"));
+            } else {
+              reject(new Error(resp.error?.message || ("HTTP " + xhr.status)));
+            }
+          } catch(err) {
+            reject(err);
+          }
+        };
+
+        xhr.onerror = function() { reject(new Error("Network connection error")); };
+        xhr.ontimeout = function() { reject(new Error("Upload timed out")); };
+        xhr.timeout = 180000;
+        xhr.send(form);
+      });
+    } catch(primaryErr) {
+      console.warn("Primary upload fallback to /api/upload/video:", primaryErr);
+      setProgress(50, "🔄 Retrying with server backend...");
+
+      uploadedVideoUrl = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        const form = new FormData();
+        form.append("video", currentVeFile);
+        form.append("title", title);
+        form.append("description", description);
+        form.append("category", currentVeCategory);
+        form.append("isPublic", String(currentVeIsPublic));
+
+        xhr.upload.onprogress = function(e) {
+          if (e.lengthComputable) {
+            const pct = Math.round((e.loaded / e.total) * 35) + 50; // 50% to 85%
+            setProgress(pct, "🚀 Uploading to server: " + pct + "%");
+          }
+        };
+
+        xhr.open("POST", "/api/upload/video");
+        xhr.onload = function() {
+          try {
+            const resp = JSON.parse(xhr.responseText || "{}");
+            if (xhr.status === 200 && resp.videoUrl) resolve(resp.videoUrl);
+            else reject(new Error(resp.error || "Server upload failed"));
+          } catch(e) { reject(e); }
+        };
+        xhr.onerror = function() { reject(new Error("Server offline")); };
+        xhr.send(form);
+      });
+    }
+
+    setProgress(85, "🖼️ Extracting first-frame thumbnail...");
+
+    // 2. Extract genuine thumbnail
+    try {
+      const thumbBlob = await extractVideoThumbnailBlob(currentVeFile);
+      if (thumbBlob && typeof uploadImageToCloudinary === "function" && isCloudinaryConfigured()) {
+        uploadedThumbnailUrl = await uploadImageToCloudinary(thumbBlob, { folder: "upcomedyhub/thumbnails" });
+      }
+    } catch(tErr) {
+      console.warn("Thumbnail notice:", tErr);
+    }
+    if (!uploadedThumbnailUrl) uploadedThumbnailUrl = uploadedVideoUrl;
+
+    setProgress(92, "💾 Saving to feed & profile...");
+
+    // 3. User profile metadata
+    const authorUser = (typeof currentUser !== "undefined" && currentUser) ? currentUser : {
+      uid: "user_" + Math.random().toString(36).substring(2, 9),
+      displayName: "Creator",
+      photoURL: "IMG_20260917_172912.jpg"
+    };
+    const authorName = authorUser.displayName || "Zyro Creator";
+    const authorUsername = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "creator";
+    const authorPhoto = (typeof currentProfilePhotoURL !== "undefined" && currentProfilePhotoURL) || authorUser.photoURL || "IMG_20260917_172912.jpg";
+
+    const postDoc = {
+      userId: authorUser.uid,
+      authorName: authorName,
+      authorUsername: authorUsername,
+      authorPhoto: authorPhoto,
+      mediaUrl: uploadedVideoUrl,
+      thumbnail: uploadedThumbnailUrl,
+      title: title,
+      caption: description || title,
+      description: description,
+      type: currentVeCategory,
+      isPublic: currentVeIsPublic,
+      visibility: currentVeIsPublic ? "public" : "private",
+      likesCount: 0,
+      commentsCount: 0,
+      viewsCount: 1,
+      createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+    };
+
+    // 4. Save to Firestore Collections
+    if (typeof db !== "undefined" && db) {
+      try {
+        const ref = await db.collection("user_posts").add(postDoc);
+        postDoc.id = ref.id;
+
+        if (currentVeCategory === "reel") {
+          const reelDoc = {
+            userId: authorUser.uid,
+            authorName: authorName,
+            authorUsername: authorUsername,
+            authorPhoto: authorPhoto,
+            videoUrl: uploadedVideoUrl,
+            thumbnail: uploadedThumbnailUrl,
+            title: title,
+            caption: description || title,
+            likesCount: 0,
+            viewsCount: 1,
+            commentsCount: 0,
+            isPublic: currentVeIsPublic,
+            createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+          };
+          await db.collection("reels").add(reelDoc);
+          if (typeof loadPlatformReels === "function") loadPlatformReels();
+        } else {
+          const videoDoc = {
+            userId: authorUser.uid,
+            authorName: authorName,
+            authorUsername: authorUsername,
+            authorPhoto: authorPhoto,
+            videoUrl: uploadedVideoUrl,
+            thumbnail: uploadedThumbnailUrl,
+            title: title,
+            description: description,
+            category: "long",
+            likesCount: 0,
+            viewsCount: 1,
+            commentsCount: 0,
+            isPublic: currentVeIsPublic,
+            createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+          };
+          await db.collection("manualVideos").add(videoDoc).catch(() => null);
+        }
+      } catch(dbErr) {
+        console.warn("Firestore save notice:", dbErr);
+      }
+    }
+
+    // 5. Update local feed cache & Profile counts
+    if (Array.isArray(cachedUserPosts)) {
+      cachedUserPosts.unshift(postDoc);
+      if (typeof updateProfilePostsCount === "function") updateProfilePostsCount(cachedUserPosts.length);
+    }
+
+    setProgress(100, "🎉 Published successfully!");
+    showToast(currentVeCategory === "reel" ? "🎬 Reel Published Successfully!" : "📹 Video Published Successfully!");
+
+    setTimeout(() => {
+      closeVideoEditorModal();
+      const targetTab = currentVeCategory === "reel" ? "reels" : "videos";
+      if (typeof switchIgTab === "function") switchIgTab(targetTab);
+    }, 500);
+
+  } catch(err) {
+    console.error("Video publish error:", err);
+    showToast("❌ " + (err.message || "Upload fail ho gaya"));
+    if (statusText) statusText.textContent = "❌ " + (err.message || "Failed");
+    if (publishBtn) { publishBtn.disabled = false; publishBtn.textContent = "🚀 Retry Publish"; }
+    if (topShareBtn) { topShareBtn.disabled = false; topShareBtn.textContent = "Publish"; }
+    isVeUploading = false;
+  }
+}
+window.startVideoPublishWorkflow = startVideoPublishWorkflow;
+
+/* Media Selection for standard Post / Photos */
 function handlePostMediaSelected(file){
   if(!file) return;
-  selectedPostFile = file;
 
+  // If a video is chosen, route directly into the YouTube/Instagram Video Editor screen!
+  if(file.type.startsWith("video/") || /\.(mp4|mov|webm|mkv|3gp|m4v)$/i.test(file.name)){
+    handleVideoSelectedForEditor(file, currentCreateType || "reel");
+    return;
+  }
+
+  selectedPostFile = file;
   const dropBox = document.getElementById("mediaDropBox");
   const previewWrap = document.getElementById("mediaPreviewWrap");
   const previewImg = document.getElementById("mediaPreviewImg");
@@ -9265,19 +9831,10 @@ function handlePostMediaSelected(file){
     selectedPostDataUrl = e.target.result;
     if(dropBox) dropBox.style.display = "none";
     if(previewWrap) previewWrap.style.display = "block";
-
-    if(file.type.startsWith("video/")){
-      if(previewImg) previewImg.style.display = "none";
-      if(previewVid){
-        previewVid.style.display = "block";
-        previewVid.src = selectedPostDataUrl;
-      }
-    } else {
-      if(previewVid) previewVid.style.display = "none";
-      if(previewImg){
-        previewImg.style.display = "block";
-        previewImg.src = selectedPostDataUrl;
-      }
+    if(previewVid) previewVid.style.display = "none";
+    if(previewImg){
+      previewImg.style.display = "block";
+      previewImg.src = selectedPostDataUrl;
     }
   };
   r.readAsDataURL(file);

@@ -318,3 +318,10 @@
   .ze-sheet{ left:auto; right:14px; bottom:14px; width:420px; border-radius:18px; max-height:70vh; }
   .ze-timeline{ left:auto; right:14px; bottom:14px; width:min(680px,94vw); border-radius:16px; }
 }
+
+
+/* --- mobile touch fixes: drag text/stickers + scrub timeline --- */
+.ze-text-layer,.ze-sticker-layer,.ze-text-item,.ze-sticker-item,
+.ze-tl-wrap,.ze-tl-trackwrap,.ze-tl-strip,.ze-tl-seg,.ze-tl-handle{touch-action:none;}
+.ze-text-item,.ze-sticker-item{pointer-events:auto;}
+.ze-sound-list{max-height:220px;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:8px;}

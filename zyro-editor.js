@@ -706,9 +706,19 @@
       '<div class="ze-chips"><button class="ze-chip' + (S.muted ? " active" : "") + '" id="zeMuteChip">' + (S.muted ? "\uD83D\uDD07 Muted" : "\uD83D\uDD0A Sound on") + "</button></div>";
     html += '<div class="ze-panel-title">Music</div>';
     if (S.music) {
-      html += '<div class="ze-sound-row active"><div class="ze-sound-ic">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '</div>' +
+      html += '<div class="ze-sound-row active" id="zeCurMusic"><div class="ze-sound-ic">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '</div>' +
         '<div class="ze-sound-meta"><b>' + escapeHtml(S.music.name) + '</b><small>Added \u00b7 tap to remove</small></div></div>';
       html += sliderRow("zeMusicVol", "Music vol", Math.round(S.musicVol * 100), 0, 100, "%");
+    }
+    var lib = (window.CURATED_COMEDY_SOUNDS && window.CURATED_COMEDY_SOUNDS.length) ? window.CURATED_COMEDY_SOUNDS : [];
+    if (lib.length) {
+      html += '<div class="ze-panel-title">Suggested sounds</div><div class="ze-sound-list">';
+      for (var li = 0; li < lib.length; li++) {
+        var s = lib[li];
+        html += '<div class="ze-sound-row" data-si="' + li + '"><div class="ze-sound-ic">' + (s.icon || "\uD83C\uDFB5") + '</div>' +
+          '<div class="ze-sound-meta"><b>' + escapeHtml(s.title) + '</b><small>' + escapeHtml(s.artist || "") + '</small></div></div>';
+      }
+      html += '</div>';
     }
     html += '<div style="height:10px"></div><button class="ze-btn ze-btn-ghost" id="zeAddMusic">&#65291; Add music from device</button>' +
       '<input type="file" id="zeMusicFile" accept="audio/*" hidden>';
@@ -717,12 +727,23 @@
     bindSlider("zeVol", function (v) { S.volume = v / 100; el.vid.volume = S.volume; if (S.volume > 0 && S.muted) { S.muted = false; el.vid.muted = false; el.volBtn.classList.remove("on"); } });
     if ($("zeMusicVol")) bindSlider("zeMusicVol", function (v) { S.musicVol = v / 100; if (S.music && S.music.el) S.music.el.volume = S.musicVol; });
     $("zeMuteChip").addEventListener("click", function () { toggleMute(); renderSoundSheet(); });
-    if (S.music) {
-      qs(".ze-sound-row", el.sheetBody).addEventListener("click", function () {
-        try { S.music.el.pause(); } catch (e) {}
-        S.music = null; renderSoundSheet(); updateSoundLabel();
+    if ($("zeCurMusic")) $("zeCurMusic").addEventListener("click", function () {
+      try { S.music.el.pause(); } catch (e) {}
+      S.music = null; renderSoundSheet(); updateSoundLabel();
+    });
+    qsa(".ze-sound-row[data-si]", el.sheetBody).forEach(function (row) {
+      row.addEventListener("click", function () {
+        var s = lib[parseInt(row.getAttribute("data-si"), 10)];
+        if (!s) return;
+        if (S.music && S.music.el) { try { S.music.el.pause(); } catch (e) {} }
+        var au = new Audio(s.previewUrl); au.loop = true; au.volume = S.musicVol;
+        S.music = { name: s.title, url: s.previewUrl, el: au };
+        updateSoundLabel();
+        try { au.play(); } catch (e) {}
+        renderSoundSheet();
+        toast("\uD83C\uDFB5 " + s.title);
       });
-    }
+    });
     $("zeAddMusic").addEventListener("click", function () { $("zeMusicFile").click(); });
     $("zeMusicFile").addEventListener("change", function () {
       var f = this.files && this.files[0]; if (!f) return;
@@ -735,7 +756,6 @@
       toast("\uD83C\uDFB5 Music added");
     });
   }
-
   function toggleMute() {
     S.muted = !S.muted;
     el.vid.muted = S.muted;
@@ -794,6 +814,7 @@
     if (S.kind !== "video") return;
     var segs = activeSegments();
     var cur = el.vid.currentTime;
+    S.playhead = cur;
     var hit = segAt(cur);
     if (hit && cur >= hit.seg.end - 0.06) {
       var next = segs[hit.i + 1];
@@ -860,6 +881,7 @@
   function scrubTo(e) {
     var r = el.tlWrap.getBoundingClientRect();
     var t = clamp((e.clientX - r.left) / r.width, 0, 1) * (S.trim.duration || 0);
+    S.playhead = t;
     try { el.vid.currentTime = t; } catch (er) {}
     updatePlayhead();
   }
@@ -896,8 +918,8 @@
     if (tool === "mute") { toggleMute(); }
   }
   function splitAt() {
-    var cur = el.vid.currentTime || 0;
     var segs = S.segments;
+    var cur = (typeof S.playhead === "number" && S.playhead > 0) ? S.playhead : (el.vid.currentTime || 0);
     for (var i = 0; i < segs.length; i++) {
       if (cur > segs[i].start + 0.15 && cur < segs[i].end - 0.15) {
         var end = segs[i].end;
@@ -909,7 +931,17 @@
         return;
       }
     }
-    toast("Move the playhead inside a clip to split");
+    var sel = segs[S.selSeg] || segs[0];
+    if (sel && (sel.end - sel.start) > 0.4) {
+      var mid = sel.start + (sel.end - sel.start) / 2;
+      var e2 = sel.end; sel.end = mid;
+      segs.splice(S.selSeg + 1, 0, { start: mid, end: e2 });
+      S.selSeg = S.selSeg + 1; S.dirty = true;
+      renderTimeline();
+      toast("\u2702\uFE0F Split at " + fmt(mid));
+      return;
+    }
+    toast("Clip is too short to split");
   }
   function deleteSeg() {
     if (S.segments.length <= 1) { toast("Can't delete the only clip"); return; }

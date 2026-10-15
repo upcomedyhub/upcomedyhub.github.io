@@ -11,8 +11,17 @@ const rootDir = path.join(__dirname, '..');
 const app = express();
 
 app.disable('x-powered-by');
-app.use(express.json({ limit: '10mb' }));
-app.use(express.static(rootDir));
+app.use(express.static(rootDir, {
+  etag: false,
+  lastModified: false,
+  setHeaders: (res, filepath) => {
+    if (filepath.endsWith('.html') || filepath.endsWith('.js') || filepath.endsWith('.css')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 // Ensure uploads directory exists
 const uploadsDir = path.join(rootDir, 'uploads', 'videos');
@@ -964,6 +973,9 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   res.sendFile(path.join(rootDir, 'index.html'));
 });
 

@@ -496,8 +496,116 @@
 }
 .ze-toast.show { opacity: 1; bottom: 96px; }
 
+/* Clean & Professional Music Sheet */
+.ze-cur-music-card {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px; background: #1c1c24; border: 1px solid #2c2c3a;
+  border-radius: 14px; margin-bottom: 10px;
+}
+.ze-cur-music-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+.ze-cur-music-remove {
+  border: 1px solid rgba(230,57,70,0.5); background: rgba(230,57,70,0.15);
+  color: #ff6b77; font-size: 11px; font-weight: 700; padding: 6px 12px;
+  border-radius: 8px; cursor: pointer; flex: 0 0 auto; transition: background .15s;
+}
+.ze-cur-music-remove:hover { background: #e63946; color: #fff; }
+.ze-search-wrap { position: relative; width: 100%; margin-bottom: 8px; }
+.ze-search-wrap .ze-input { padding-left: 36px; padding-right: 32px; border-radius: 12px; background: #181820; border-color: #2b2b38; }
+.ze-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; pointer-events: none; color: #777; }
+.ze-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: #888; font-size: 14px; cursor: pointer; padding: 4px; }
+.ze-sound-use-btn.in-use { background: #22c55e !important; color: #fff !important; }
+
+/* CapCut Voiceover Recording Console */
+.ze-vo-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100250;
+  display: flex; align-items: flex-end; backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none; transition: opacity .25s ease;
+}
+.ze-vo-overlay.show { opacity: 1; pointer-events: auto; }
+.ze-vo-panel {
+  width: 100%; background: #14141a; border-top: 1px solid #282836;
+  border-radius: 24px 24px 0 0; padding: 20px 20px 32px;
+  display: flex; flex-direction: column; align-items: center; box-sizing: border-box;
+  transform: translateY(100%); transition: transform .25s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.ze-vo-overlay.show .ze-vo-panel { transform: translateY(0); }
+.ze-vo-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.ze-vo-title { font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+.ze-vo-close { width: 32px; height: 32px; border-radius: 50%; background: #20202a; border: 0; color: #ccc; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.ze-vo-sub { font-size: 12px; color: #8c8c9a; text-align: center; margin-bottom: 10px; }
+.ze-vo-timer { font-size: 32px; font-weight: 900; color: #fff; font-variant-numeric: tabular-nums; letter-spacing: 1px; margin: 4px 0 10px; }
+.ze-vo-meter { display: flex; gap: 3.5px; height: 34px; align-items: center; justify-content: center; width: 100%; max-width: 280px; margin-bottom: 18px; }
+.ze-vo-meter-bar { width: 3.5px; height: 6px; background: #2a2a36; border-radius: 2px; transition: height .08s ease, background .08s ease; }
+.ze-vo-meter-bar.active { background: linear-gradient(180deg, #ff5a5f, #e63946); }
+.ze-vo-mic-btn {
+  width: 76px; height: 76px; border-radius: 50%;
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  border: 4px solid rgba(255,255,255,0.18); color: #fff;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  box-shadow: 0 8px 24px rgba(230,57,70,0.45); transition: transform .12s, box-shadow .2s;
+}
+.ze-vo-mic-btn:active { transform: scale(0.92); }
+.ze-vo-mic-btn.recording {
+  background: #e63946; border-color: #fff;
+  animation: zePulseMic 1.2s infinite;
+}
+.ze-vo-mic-btn svg { width: 32px; height: 32px; stroke: currentColor; fill: none; stroke-width: 2.2; }
+@keyframes zePulseMic {
+  0% { box-shadow: 0 0 0 0 rgba(230,57,70,0.7); }
+  70% { box-shadow: 0 0 0 20px rgba(230,57,70,0); }
+  100% { box-shadow: 0 0 0 0 rgba(230,57,70,0); }
+}
+.ze-vo-mute-toggle {
+  display: flex; align-items: center; gap: 8px; font-size: 12px; color: #a0a0ae;
+  margin-top: 16px; cursor: pointer; user-select: none;
+}
+.ze-vo-mute-toggle input { accent-color: #e63946; }
+.ze-vo-actions { display: flex; gap: 10px; width: 100%; max-width: 380px; margin-top: 18px; }
+.ze-vo-btn {
+  flex: 1; padding: 12px 14px; border-radius: 12px; font-size: 13px; font-weight: 700;
+  border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: transform .1s, opacity .15s;
+}
+.ze-vo-btn:active { transform: scale(0.96); }
+.ze-vo-btn-primary { background: #e63946; color: #fff; }
+.ze-vo-btn-secondary { background: #22222c; color: #ddd; border: 1px solid #333342; }
+
+/* CapCut Audio Extraction & Export Tools Panel */
+.ze-at-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100250;
+  display: flex; align-items: flex-end; backdrop-filter: blur(8px);
+  opacity: 0; pointer-events: none; transition: opacity .25s ease;
+}
+.ze-at-overlay.show { opacity: 1; pointer-events: auto; }
+.ze-at-panel {
+  width: 100%; background: #14141a; border-top: 1px solid #282836;
+  border-radius: 24px 24px 0 0; padding: 20px 20px 32px;
+  display: flex; flex-direction: column; gap: 10px; box-sizing: border-box;
+  transform: translateY(100%); transition: transform .25s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.ze-at-overlay.show .ze-at-panel { transform: translateY(0); }
+.ze-at-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.ze-at-title { font-size: 16px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+.ze-at-card {
+  display: flex; align-items: center; gap: 14px; padding: 13px 14px;
+  background: #1c1c24; border: 1px solid #2b2b3a; border-radius: 14px;
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.ze-at-card:hover, .ze-at-card:active { background: #232330; border-color: #e63946; }
+.ze-at-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: linear-gradient(135deg, #2b2b3a, #1d1d28);
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  flex: 0 0 auto; border: 1px solid #383848;
+}
+.ze-at-info { flex: 1; min-width: 0; }
+.ze-at-info b { display: block; font-size: 13.5px; font-weight: 700; color: #fff; }
+.ze-at-info small { display: block; font-size: 11.5px; color: #8e8e9c; margin-top: 2px; }
+
 @media (min-width: 700px) {
   .ze-rail { right: 16px; gap: 16px; }
   .ze-sheet { left: auto; right: 16px; bottom: 16px; width: 420px; border-radius: 20px; max-height: 72vh; }
   .ze-timeline { left: auto; right: 16px; bottom: 16px; width: min(680px, 94vw); border-radius: 20px; }
+  .ze-vo-panel, .ze-at-panel { max-width: 480px; margin: 0 auto; border-radius: 24px; bottom: 20px; position: relative; }
+  .ze-vo-overlay, .ze-at-overlay { align-items: center; justify-content: center; }
 }

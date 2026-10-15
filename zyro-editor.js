@@ -214,6 +214,54 @@
           '<div class="ze-tl-tools" id="zeTlTools"></div>' +
           '<div class="ze-speed-row" id="zeSpeedRow" style="display:none"></div>' +
         '</div>' +
+        '<!-- Hidden file inputs for CapCut Timeline Audio -->' +
+        '<input type="file" id="zeDeviceAudioFile" accept="audio/*" style="display:none">' +
+        '<input type="file" id="zeExtractVideoFile" accept="video/*" style="display:none">' +
+        '<!-- CapCut Voiceover Console -->' +
+        '<div class="ze-vo-overlay" id="zeVoiceoverOverlay">' +
+          '<div class="ze-vo-panel">' +
+            '<div class="ze-vo-header">' +
+              '<div class="ze-vo-title">' + ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>') + '<span>Voiceover Studio</span></div>' +
+              '<button class="ze-vo-close" id="zeVoClose">✕</button>' +
+            '</div>' +
+            '<div class="ze-vo-sub" id="zeVoSub">Tap the microphone to record your voice over the video</div>' +
+            '<div class="ze-vo-timer" id="zeVoTimer">0:00.0</div>' +
+            '<div class="ze-vo-meter" id="zeVoMeter"></div>' +
+            '<button class="ze-vo-mic-btn" id="zeVoMicBtn" title="Record Voiceover">' +
+              ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>') +
+            '</button>' +
+            '<label class="ze-vo-mute-toggle">' +
+              '<input type="checkbox" id="zeVoMuteVideo" checked> Mute video audio while recording' +
+            '</label>' +
+            '<div class="ze-vo-actions" id="zeVoActions" style="display:none">' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoPlayBtn">▶ Play</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoRetakeBtn">🔄 Retake</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-primary" id="zeVoAddBtn">✓ Add to Timeline</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoSaveBtn" title="Save audio to phone">💾 Save</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<!-- CapCut Audio Extraction & Export Tools -->' +
+        '<div class="ze-at-overlay" id="zeAudioToolsOverlay">' +
+          '<div class="ze-at-panel">' +
+            '<div class="ze-at-header">' +
+              '<div class="ze-at-title">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '<span>Audio Options (CapCut)</span></div>' +
+              '<button class="ze-vo-close" id="zeAtClose">✕</button>' +
+            '</div>' +
+            '<div class="ze-at-card" id="zeAtExtractDeviceVideoBtn">' +
+              '<div class="ze-at-icon">📱</div>' +
+              '<div class="ze-at-info"><b>Extract Audio from Device Video</b><small>Pick any video from your phone to extract its soundtrack</small></div>' +
+            '</div>' +
+            '<div class="ze-at-card" id="zeAtExtractCurrentVideoBtn">' +
+              '<div class="ze-at-icon">🎬</div>' +
+              '<div class="ze-at-info"><b>Extract Current Video Audio</b><small>Separate this video sound into an editable timeline track</small></div>' +
+            '</div>' +
+            '<div class="ze-at-card" id="zeAtExportProjectAudioBtn">' +
+              '<div class="ze-at-icon">💾</div>' +
+              '<div class="ze-at-info"><b>Export Audio to Device</b><small>Download project music / voiceover mix as an audio file</small></div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
         '<div class="ze-render" id="zeRender">' +
           '<div class="ze-spinner"></div>' +
           '<div class="ze-render-text" id="zeRenderText">Processing&hellip;</div>' +
@@ -1215,55 +1263,50 @@
   var activeAudioPreview = null;
 
   function renderSoundSheet() {
-    setSheetTitle("Add Music & Audio");
-    var html = '<div class="ze-panel-title">Volume Control</div>' +
-      sliderRow("zeVol", "Video Sound", Math.round(S.volume * 100), 0, 100, "%") +
-      '<div class="ze-chips"><button class="ze-chip' + (S.muted ? " active" : "") + '" id="zeMuteChip">' + (S.muted ? "🔇 Muted" : "🔊 Sound On") + '</button></div>';
+    setSheetTitle("Add Music");
+    var html = "";
 
+    // Sleek Active Music Banner (when a song/audio is selected)
     if (S.music) {
-      html += '<div class="ze-panel-title">Selected Music</div>' +
-        '<div class="ze-sound-row active" id="zeCurMusic">' +
+      html += '<div class="ze-cur-music-card">' +
+        '<div class="ze-cur-music-left">' +
           '<div class="ze-sound-ic">🎵</div>' +
-          '<div class="ze-sound-meta"><b>' + escapeHtml(S.music.name) + '</b><small>' + (S.music.artist ? escapeHtml(S.music.artist) + ' · ' : '') + 'Tap to remove</small></div>' +
-          '<button class="ze-btn-danger" style="width:auto;padding:6px 10px;font-size:11px;border-radius:8px">Remove</button>' +
+          '<div class="ze-sound-meta">' +
+            '<b>' + escapeHtml(S.music.name) + '</b>' +
+            '<small>' + (S.music.artist ? escapeHtml(S.music.artist) : 'Active Soundtrack') + '</small>' +
+          '</div>' +
         '</div>' +
-        sliderRow("zeMusicVol", "Music Vol", Math.round(S.musicVol * 100), 0, 100, "%");
+        '<button class="ze-cur-music-remove" id="zeCurMusicRemove">Remove</button>' +
+      '</div>' +
+      sliderRow("zeMusicVol", "Music Volume", Math.round(S.musicVol * 100), 0, 100, "%");
     }
 
-    // Prominent "Import Audio from Device" button (User Requirement!)
-    html += '<div class="ze-panel-title">Import Audio</div>' +
-      '<button class="ze-btn ze-btn-primary" id="zeImportDeviceBtn" style="margin-bottom:12px">' +
-        ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"') +
-        '<span>📁 Import Audio from Device (MP3 / Audio)</span>' +
-      '</button>' +
-      '<input type="file" id="zeDeviceAudioFile" accept="audio/*" style="display:none">';
+    // Clean, professional Search Bar with icon and clear button
+    html += '<div class="ze-search-wrap">' +
+      '<span class="ze-search-icon">🔍</span>' +
+      '<input type="text" class="ze-input" id="zeSoundSearch" placeholder="Search Bollywood, Punjabi, Comedy sounds...">' +
+      '<button class="ze-search-clear" id="zeSoundSearchClear" style="display:none">✕</button>' +
+    '</div>';
 
-    // Story Songs & Search
-    html += '<div class="ze-panel-title">App Story Songs & Beats</div>' +
-      '<input type="text" class="ze-input" id="zeSoundSearch" placeholder="🔍 Search Bollywood, Punjabi, Comedy sounds...">' +
-      '<div class="ze-sound-tabs" style="margin-top:8px">' +
-        '<button class="ze-sound-tab active" data-scat="trending">🔥 Trending</button>' +
-        '<button class="ze-sound-tab" data-scat="story">😂 Story Sounds</button>' +
-        '<button class="ze-sound-tab" data-scat="bollywood">🎬 Bollywood</button>' +
-        '<button class="ze-sound-tab" data-scat="punjabi">⚡ Punjabi</button>' +
-        '<button class="ze-sound-tab" data-scat="desi">🎶 Desi Hits</button>' +
-      '</div>' +
-      '<div class="ze-sound-list" id="zeSoundListContainer">' +
-        '<div style="text-align:center;padding:16px;color:#888">Loading songs...</div>' +
-      '</div>';
+    // Modern horizontal genre/category pill tabs
+    html += '<div class="ze-sound-tabs">' +
+      '<button class="ze-sound-tab active" data-scat="trending">🔥 Trending</button>' +
+      '<button class="ze-sound-tab" data-scat="story">😂 Comedy & Story</button>' +
+      '<button class="ze-sound-tab" data-scat="bollywood">🎬 Bollywood</button>' +
+      '<button class="ze-sound-tab" data-scat="punjabi">⚡ Punjabi</button>' +
+      '<button class="ze-sound-tab" data-scat="desi">🎶 Desi Hits</button>' +
+      '<button class="ze-sound-tab" data-scat="lofi">🎷 Lo-Fi / Chill</button>' +
+      '<button class="ze-sound-tab" data-scat="meme">💥 Memes</button>' +
+    '</div>';
+
+    // Song List Container
+    html += '<div class="ze-sound-list" id="zeSoundListContainer">' +
+      '<div style="text-align:center;padding:24px 16px;color:#8e8e9c"><div class="ze-spinner" style="margin:0 auto 10px;width:24px;height:24px;border-width:2px"></div>Loading songs...</div>' +
+    '</div>';
 
     el.sheetBody.innerHTML = html;
 
-    bindSlider("zeVol", function (v) {
-      S.volume = v / 100;
-      el.vid.volume = S.volume;
-      if (S.volume > 0 && S.muted) {
-        S.muted = false;
-        el.vid.muted = false;
-        el.volBtn.classList.remove("on");
-      }
-    });
-
+    // Music Volume slider
     if ($("zeMusicVol")) {
       bindSlider("zeMusicVol", function (v) {
         S.musicVol = v / 100;
@@ -1271,57 +1314,47 @@
       });
     }
 
-    $("zeMuteChip").addEventListener("click", function () {
-      toggleMute();
-      renderSoundSheet();
-    });
-
-    if ($("zeCurMusic")) {
-      $("zeCurMusic").addEventListener("click", function () {
+    // Remove active music
+    if ($("zeCurMusicRemove")) {
+      $("zeCurMusicRemove").addEventListener("click", function () {
         if (S.music && S.music.el) { try { S.music.el.pause(); } catch (e) {} }
         S.music = null;
         updateSoundLabel();
+        if (S.timelineOpen) renderTimeline();
         renderSoundSheet();
         toast("Audio removed");
       });
     }
 
-    // Device audio import
-    $("zeImportDeviceBtn").addEventListener("click", function () {
-      $("zeDeviceAudioFile").click();
-    });
-    $("zeDeviceAudioFile").addEventListener("change", function () {
-      var f = this.files && this.files[0];
-      if (!f) return;
-      var url = URL.createObjectURL(f);
-      var au = new Audio(url);
-      au.loop = true;
-      au.volume = S.musicVol;
-      S.music = {
-        name: f.name.replace(/\.[^.]+$/, ""),
-        artist: "Device Storage",
-        url: url,
-        el: au,
-        isLocal: true
-      };
-      updateSoundLabel();
-      try { if (!el.vid.paused) au.play(); } catch (e) {}
-      renderSoundSheet();
-      toast("📁 " + S.music.name + " imported!");
-    });
-
-    // Sound Search & Categories
+    // Clean Sound Search with instant debounce & clear button
     var searchInput = $("zeSoundSearch");
+    var clearBtn = $("zeSoundSearchClear");
     var searchTimer = null;
-    searchInput.addEventListener("input", function () {
-      clearTimeout(searchTimer);
-      var q = (this.value || "").trim();
-      searchTimer = setTimeout(function () {
-        if (!q) loadSoundCategory("trending");
-        else fetchItunesSounds(q);
-      }, 400);
-    });
 
+    if (searchInput) {
+      searchInput.addEventListener("input", function () {
+        var q = (this.value || "").trim();
+        if (clearBtn) clearBtn.style.display = q ? "block" : "none";
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () {
+          if (!q) loadSoundCategory("trending");
+          else fetchItunesSounds(q);
+        }, 350);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        if (searchInput) {
+          searchInput.value = "";
+          searchInput.focus();
+        }
+        clearBtn.style.display = "none";
+        loadSoundCategory("trending");
+      });
+    }
+
+    // Genre pill tab clicks
     qsa(".ze-sound-tab", el.sheetBody).forEach(function (tab) {
       tab.addEventListener("click", function () {
         qsa(".ze-sound-tab", el.sheetBody).forEach(function (t) { t.classList.remove("active"); });
@@ -1617,14 +1650,17 @@
     // Text lane blocks
     updateTimelineTextBlocks();
 
-    // Instagram Reel Action Toolbar
+    // CapCut & Instagram Reel Action Toolbar with complete Audio Suite
     el.tlTools.innerHTML =
       tlTool("split", "Split", ic('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')) +
       tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>')) +
+      tlTool("voiceover", "Voiceover", ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>')) +
+      tlTool("importaudio", "Import Audio", ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>')) +
+      tlTool("exportaudio", "Audio Tools", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
+      tlTool("sound", "Music", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
       tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
       tlTool("dup", "Duplicate", ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>')) +
       tlTool("flip", "Flip", ic('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>')) +
-      tlTool("sound", "Sound", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
       tlTool("addclip", "Add Clip", ic('<path d="M12 5v14M5 12h14"/>'));
 
     qsa(".ze-tl-tool", el.tlTools).forEach(function (b) {
@@ -1717,8 +1753,413 @@
     if (tool === "dup") return dupSeg();
     if (tool === "flip") return flipClip();
     if (tool === "speed") return toggleSpeedMenu();
+    if (tool === "voiceover") return openVoiceoverModal();
+    if (tool === "importaudio") return triggerImportAudio();
+    if (tool === "exportaudio") return openAudioToolsModal();
     if (tool === "sound") { openSheet("sound"); return; }
     if (tool === "addclip") return triggerAddClip();
+  }
+
+  /* ---------------- CapCut Timeline Audio Actions ---------------- */
+  function triggerImportAudio() {
+    var inp = $("zeDeviceAudioFile");
+    if (!inp) return;
+    inp.onchange = function () {
+      var f = inp.files && inp.files[0];
+      if (!f) return;
+      var url = URL.createObjectURL(f);
+      var au = new Audio(url);
+      au.loop = true;
+      au.volume = S.musicVol;
+      S.music = {
+        name: f.name.replace(/\.[^.]+$/, ""),
+        artist: "Imported from Device",
+        url: url,
+        el: au,
+        isLocal: true
+      };
+      updateSoundLabel();
+      renderTimeline();
+      try { if (!el.vid.paused) au.play(); } catch (e) {}
+      toast("📁 Audio imported: " + S.music.name);
+      inp.value = "";
+    };
+    inp.click();
+  }
+
+  /* ---------------- CapCut Voiceover Recording System ---------------- */
+  var voStream = null;
+  var voRecorder = null;
+  var voChunks = [];
+  var voAudioCtx = null;
+  var voAnalyser = null;
+  var voTimerInterval = null;
+  var voMeterAnim = null;
+  var isVoRecording = false;
+  var voStartTime = 0;
+  var voDuration = 0;
+  var voBlob = null;
+  var voUrl = "";
+  var voAudio = null;
+  var voPrevMuted = false;
+  var voEventsWired = false;
+
+  function openVoiceoverModal() {
+    var overlay = $("zeVoiceoverOverlay");
+    if (!overlay) return;
+    overlay.classList.add("show");
+
+    var meter = $("zeVoMeter");
+    if (meter) {
+      var barsHtml = "";
+      for (var b = 0; b < 18; b++) {
+        barsHtml += '<div class="ze-vo-meter-bar" style="height:6px"></div>';
+      }
+      meter.innerHTML = barsHtml;
+    }
+
+    var sub = $("zeVoSub");
+    if (sub) sub.textContent = "Start at " + fmt(el.vid.currentTime) + " · Tap mic to record voiceover";
+    var timer = $("zeVoTimer");
+    if (timer) timer.textContent = "0:00.0";
+    var act = $("zeVoActions");
+    if (act) act.style.display = "none";
+    var mic = $("zeVoMicBtn");
+    if (mic) {
+      mic.classList.remove("recording");
+      mic.innerHTML = ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>');
+    }
+
+    wireVoEventsOnce();
+  }
+
+  function closeVoiceoverModal() {
+    if (isVoRecording) stopVoiceoverRecording();
+    if (voAudio) { try { voAudio.pause(); } catch (e) {} }
+    var overlay = $("zeVoiceoverOverlay");
+    if (overlay) overlay.classList.remove("show");
+  }
+
+  function wireVoEventsOnce() {
+    if (voEventsWired) return;
+    voEventsWired = true;
+
+    var closeBtn = $("zeVoClose");
+    if (closeBtn) closeBtn.addEventListener("click", closeVoiceoverModal);
+
+    var micBtn = $("zeVoMicBtn");
+    if (micBtn) {
+      micBtn.addEventListener("click", function () {
+        if (!isVoRecording) startVoiceoverRecording();
+        else stopVoiceoverRecording();
+      });
+    }
+
+    var playBtn = $("zeVoPlayBtn");
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (!voAudio) return;
+        if (!voAudio.paused) {
+          voAudio.pause();
+          playBtn.textContent = "▶ Play";
+        } else {
+          voAudio.currentTime = 0;
+          voAudio.play().then(function () {
+            playBtn.textContent = "⏸ Pause";
+          }).catch(function () {});
+          voAudio.onended = function () { playBtn.textContent = "▶ Play"; };
+        }
+      });
+    }
+
+    var retakeBtn = $("zeVoRetakeBtn");
+    if (retakeBtn) {
+      retakeBtn.addEventListener("click", function () {
+        if (voAudio) { try { voAudio.pause(); } catch (e) {} }
+        voBlob = null;
+        voUrl = "";
+        voAudio = null;
+        $("zeVoActions").style.display = "none";
+        $("zeVoTimer").textContent = "0:00.0";
+        $("zeVoSub").textContent = "Ready to re-record. Tap mic to start";
+        var bars = qsa(".ze-vo-meter-bar", $("zeVoMeter"));
+        bars.forEach(function (bar) { bar.style.height = "6px"; bar.classList.remove("active"); });
+      });
+    }
+
+    var addBtn = $("zeVoAddBtn");
+    if (addBtn) {
+      addBtn.addEventListener("click", function () {
+        if (!voBlob || !voUrl) {
+          toast("No voiceover recorded yet");
+          return;
+        }
+        var au = new Audio(voUrl);
+        au.loop = true;
+        au.volume = S.musicVol;
+        S.music = {
+          name: "Voiceover (" + fmt(voDuration) + ")",
+          artist: "Recorded Voiceover",
+          url: voUrl,
+          el: au,
+          isLocal: true,
+          blob: voBlob
+        };
+        updateSoundLabel();
+        if (S.timelineOpen) renderTimeline();
+        closeVoiceoverModal();
+        toast("🎙️ Voiceover added to timeline!");
+      });
+    }
+
+    var saveBtn = $("zeVoSaveBtn");
+    if (saveBtn) {
+      saveBtn.addEventListener("click", function () {
+        if (!voBlob) {
+          toast("No voiceover to save");
+          return;
+        }
+        downloadBlob(voBlob, "upcomedyhub_voiceover_" + Date.now() + ".webm");
+        toast("💾 Voiceover audio saved to device!");
+      });
+    }
+  }
+
+  function startVoiceoverRecording() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      toast("⚠️ Audio recording not supported in browser");
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+      voStream = stream;
+      try {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) {
+          voAudioCtx = new AC();
+          var src = voAudioCtx.createMediaStreamSource(stream);
+          voAnalyser = voAudioCtx.createAnalyser();
+          voAnalyser.fftSize = 64;
+          src.connect(voAnalyser);
+        }
+      } catch (e) {}
+
+      voChunks = [];
+      try {
+        voRecorder = new MediaRecorder(stream);
+      } catch (e) {
+        toast("⚠️ MediaRecorder not available");
+        return;
+      }
+
+      voRecorder.ondataavailable = function (e) {
+        if (e.data && e.data.size > 0) voChunks.push(e.data);
+      };
+
+      voRecorder.onstop = function () {
+        voBlob = new Blob(voChunks, { type: "audio/webm" });
+        voUrl = URL.createObjectURL(voBlob);
+        voAudio = new Audio(voUrl);
+        voDuration = (Date.now() - voStartTime) / 1000;
+        showVoFinishedState();
+      };
+
+      voRecorder.start(80);
+      isVoRecording = true;
+      voStartTime = Date.now();
+
+      var muteCheck = $("zeVoMuteVideo");
+      voPrevMuted = el.vid.muted;
+      if (muteCheck && muteCheck.checked) {
+        el.vid.muted = true;
+      }
+      try { el.vid.play(); } catch (e) {}
+
+      var mic = $("zeVoMicBtn");
+      mic.classList.add("recording");
+      mic.innerHTML = '<span style="font-size:22px">⏹</span>';
+      $("zeVoSub").textContent = "🔴 Recording Voiceover... Tap to stop";
+      $("zeVoActions").style.display = "none";
+
+      clearInterval(voTimerInterval);
+      voTimerInterval = setInterval(updateVoTimer, 80);
+      animateVoMeter();
+    }).catch(function (err) {
+      toast("⚠️ Microphone permission needed for Voiceover");
+    });
+  }
+
+  function stopVoiceoverRecording() {
+    if (!isVoRecording) return;
+    isVoRecording = false;
+    clearInterval(voTimerInterval);
+    if (voMeterAnim) cancelAnimationFrame(voMeterAnim);
+
+    if (voRecorder && voRecorder.state !== "inactive") {
+      try { voRecorder.stop(); } catch (e) {}
+    }
+    if (voStream) {
+      voStream.getTracks().forEach(function (t) { try { t.stop(); } catch (e) {} });
+    }
+    if (voAudioCtx) {
+      try { voAudioCtx.close(); } catch (e) {}
+    }
+
+    try { el.vid.pause(); } catch (e) {}
+    el.vid.muted = voPrevMuted;
+
+    var mic = $("zeVoMicBtn");
+    if (mic) {
+      mic.classList.remove("recording");
+      mic.innerHTML = ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>');
+    }
+  }
+
+  function updateVoTimer() {
+    var elapsed = (Date.now() - voStartTime) / 1000;
+    var t = $("zeVoTimer");
+    if (t) t.textContent = fmt(elapsed);
+  }
+
+  function animateVoMeter() {
+    if (!isVoRecording) return;
+    var bars = qsa(".ze-vo-meter-bar", $("zeVoMeter"));
+    if (voAnalyser && bars.length) {
+      var arr = new Uint8Array(voAnalyser.frequencyBinCount);
+      voAnalyser.getByteFrequencyData(arr);
+      bars.forEach(function (bar, idx) {
+        var val = arr[idx % arr.length] || 0;
+        var h = Math.max(6, Math.min(32, Math.round(val / 8)));
+        bar.style.height = h + "px";
+        bar.classList.toggle("active", h > 12);
+      });
+    } else if (bars.length) {
+      bars.forEach(function (bar) {
+        var h = 6 + Math.round(Math.random() * 22);
+        bar.style.height = h + "px";
+        bar.classList.toggle("active", h > 14);
+      });
+    }
+    voMeterAnim = requestAnimationFrame(animateVoMeter);
+  }
+
+  function showVoFinishedState() {
+    $("zeVoSub").textContent = "✓ Voiceover recorded (" + fmt(voDuration) + ") · Review & apply below";
+    $("zeVoActions").style.display = "flex";
+    var bars = qsa(".ze-vo-meter-bar", $("zeVoMeter"));
+    bars.forEach(function (bar) { bar.style.height = "8px"; bar.classList.remove("active"); });
+  }
+
+  /* ---------------- CapCut Audio Tools (Extract & Export) ---------------- */
+  var atEventsWired = false;
+  function openAudioToolsModal() {
+    var overlay = $("zeAudioToolsOverlay");
+    if (!overlay) return;
+    overlay.classList.add("show");
+    wireAudioToolsEventsOnce();
+  }
+
+  function closeAudioToolsModal() {
+    var overlay = $("zeAudioToolsOverlay");
+    if (overlay) overlay.classList.remove("show");
+  }
+
+  function wireAudioToolsEventsOnce() {
+    if (atEventsWired) return;
+    atEventsWired = true;
+
+    var closeBtn = $("zeAtClose");
+    if (closeBtn) closeBtn.addEventListener("click", closeAudioToolsModal);
+
+    var extractDevBtn = $("zeAtExtractDeviceVideoBtn");
+    var extractInput = $("zeExtractVideoFile");
+    if (extractDevBtn && extractInput) {
+      extractDevBtn.addEventListener("click", function () {
+        extractInput.click();
+      });
+      extractInput.addEventListener("change", function () {
+        var f = extractInput.files && extractInput.files[0];
+        if (!f) return;
+        var vUrl = URL.createObjectURL(f);
+        var au = new Audio(vUrl);
+        au.loop = true;
+        au.volume = S.musicVol;
+        S.music = {
+          name: f.name.replace(/\.[^.]+$/, "") + " (Audio)",
+          artist: "Extracted from Video",
+          url: vUrl,
+          el: au,
+          isLocal: true
+        };
+        updateSoundLabel();
+        if (S.timelineOpen) renderTimeline();
+        try { if (!el.vid.paused) au.play(); } catch (e) {}
+        closeAudioToolsModal();
+        toast("🔊 Extracted audio from " + f.name);
+        extractInput.value = "";
+      });
+    }
+
+    var extractCurBtn = $("zeAtExtractCurrentVideoBtn");
+    if (extractCurBtn) {
+      extractCurBtn.addEventListener("click", function () {
+        var src = el.vid.currentSrc || el.vid.src;
+        if (!src && (!S.segments || !S.segments.length)) {
+          toast("No active video found to extract audio from");
+          return;
+        }
+        var au = new Audio(src);
+        au.loop = true;
+        au.volume = S.musicVol;
+        S.music = {
+          name: "Original Video Soundtrack",
+          artist: "Extracted Audio Track",
+          url: src,
+          el: au,
+          isLocal: true
+        };
+        updateSoundLabel();
+        if (S.timelineOpen) renderTimeline();
+        closeAudioToolsModal();
+        toast("🔊 Current video audio separated to audio track!");
+      });
+    }
+
+    var exportProjBtn = $("zeAtExportProjectAudioBtn");
+    if (exportProjBtn) {
+      exportProjBtn.addEventListener("click", function () {
+        if (S.music && S.music.blob) {
+          downloadBlob(S.music.blob, (S.music.name.replace(/[^a-zA-Z0-9_-]/g, "_") || "audio_export") + ".webm");
+          closeAudioToolsModal();
+          toast("💾 Audio saved to device!");
+        } else if (S.music && S.music.url) {
+          fetch(S.music.url).then(function (r) { return r.blob(); }).then(function (blob) {
+            downloadBlob(blob, (S.music.name.replace(/[^a-zA-Z0-9_-]/g, "_") || "soundtrack") + ".mp3");
+            closeAudioToolsModal();
+            toast("💾 Audio saved to device!");
+          }).catch(function () {
+            var a = document.createElement("a");
+            a.href = S.music.url;
+            a.download = (S.music.name || "soundtrack") + ".mp3";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            closeAudioToolsModal();
+            toast("💾 Audio downloaded to device!");
+          });
+        } else if (el.vid.src) {
+          fetch(el.vid.src).then(function (r) { return r.blob(); }).then(function (blob) {
+            downloadBlob(blob, "video_soundtrack.webm");
+            closeAudioToolsModal();
+            toast("💾 Video audio saved to device!");
+          }).catch(function () {
+            toast("Unable to export video audio directly");
+          });
+        } else {
+          toast("No audio or video found in project to export");
+        }
+      });
+    }
   }
 
   function splitAt() {

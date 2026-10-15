@@ -457,6 +457,13 @@
 .ze-tl-tool:active .ze-tl-tool-ic { transform: scale(0.92); }
 .ze-tl-tool.on .ze-tl-tool-ic { background: #e63946; color: #fff; border-color: transparent; }
 .ze-tl-tool[disabled] { opacity: 0.4; }
+.ze-tl-tool { position: relative; }
+.ze-tl-badge {
+  position: absolute; top: -2px; left: 50%; margin-left: 4px; min-width: 16px; height: 16px;
+  padding: 0 4px; border-radius: 8px; background: #e63946; color: #fff; font-size: 9px;
+  font-weight: 800; line-height: 16px; text-align: center; letter-spacing: .2px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.45); pointer-events: none;
+}
 
 /* Speed Row */
 .ze-speed-row {

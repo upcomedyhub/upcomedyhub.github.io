@@ -2027,8 +2027,9 @@
     // CapCut & Instagram Reel Action Toolbar with complete Audio Suite
     el.tlTools.innerHTML =
       tlTool("split", "Split", ic('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')) +
-      tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>')) +
+      tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'), (S.speed && S.speed !== 1 ? S.speed + "x" : "")) +
       tlTool("flip", "Flip", ic('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>')) +
+      tlTool("rotate", "Rotate", ic('<path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>')) +
       tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
       tlTool("dup", "Duplicate", ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>')) +
       tlTool("addclip", "Add Clip", ic('<path d="M12 5v14M5 12h14"/>')) +
@@ -2078,8 +2079,8 @@
     updatePlayhead();
   }
 
-  function tlTool(tool, label, inner) {
-    return '<button class="ze-tl-tool" data-tool="' + tool + '"><span class="ze-tl-tool-ic">' + inner + '</span><span>' + label + '</span></button>';
+  function tlTool(tool, label, inner, badge) {
+    return '<button class="ze-tl-tool" data-tool="' + tool + '"><span class="ze-tl-tool-ic">' + inner + '</span><span>' + label + '</span>' + (badge ? '<span class="ze-tl-badge">' + badge + '</span>' : '') + '</button>';
   }
 
   function scrubTo(e) {
@@ -2131,6 +2132,7 @@
     if (tool === "delete") return deleteSeg();
     if (tool === "dup") return dupSeg();
     if (tool === "flip") return flipClip();
+    if (tool === "rotate") return rotateClip();
     if (tool === "speed") return toggleSpeedMenu();
     if (tool === "voiceover") return openVoiceoverModal();
     if (tool === "importaudio") return triggerImportAudio();
@@ -2592,6 +2594,13 @@
     toast("⇄ Video flipped");
   }
 
+  function rotateClip() {
+    S.transform.rotate = (((S.transform.rotate || 0) + 90) % 360 + 360) % 360;
+    S.dirty = true;
+    applyPreview();
+    toast("🔄 Rotated " + S.transform.rotate + "°");
+  }
+
   function toggleSpeedMenu() {
     var row = el.speedRow;
     if (!row) return;
@@ -2612,7 +2621,8 @@
         el.vid.playbackRate = sp;
         S.dirty = true;
         toast("⚡ Speed set to " + sp + "x");
-        toggleSpeedMenu();
+        if (el.speedRow) el.speedRow.style.display = "none";
+        if (typeof renderTimeline === "function") renderTimeline();
       });
     });
   }

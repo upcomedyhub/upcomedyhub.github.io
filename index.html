@@ -3382,6 +3382,30 @@ img.logo-profile.zyro-header-logo {
   background: transparent !important;
 }
 
+/* POINT 8 — YouTube-style full-screen video preview (for videos longer than 3 minutes) */
+.reel-preview-overlay{position:fixed;inset:0;background:#000;z-index:100098;display:none;flex-direction:column;align-items:center;justify-content:center}
+.reel-preview-overlay.show{display:flex}
+.rp-back{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));left:14px;width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.55);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3}
+.rp-back svg{width:22px;height:22px}
+.rp-video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.rp-bottom{position:absolute;left:0;right:0;bottom:0;padding:14px 16px calc(20px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,rgba(0,0,0,.94),rgba(0,0,0,0));z-index:3}
+.rp-progress{display:flex;align-items:center;gap:10px;margin-bottom:14px;color:#fff;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.rp-bar{flex:1;height:4px;border-radius:3px;background:rgba(255,255,255,.3);overflow:hidden}
+.rp-fill{height:100%;width:0%;background:#ff2d55;border-radius:3px;transition:width .12s linear}
+.rp-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.rp-edit-btn{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-weight:700;font-size:14px;padding:11px 16px;border-radius:24px;cursor:pointer;font-family:inherit;transition:transform .15s ease,background .15s ease}
+.rp-edit-btn:hover{background:rgba(255,255,255,.2)}
+.rp-edit-btn svg{width:18px;height:18px}
+.rp-edit-btn:active{transform:scale(.96)}
+.rp-next-btn{background:#fff;color:#111;border:none;font-weight:800;font-size:15px;padding:12px 34px;border-radius:24px;cursor:pointer;font-family:inherit;transition:transform .15s ease}
+.rp-next-btn:active{transform:scale(.96)}
+@media (min-width:700px){.rp-bottom{max-width:760px;margin:0 auto;left:50%;transform:translateX(-50%);right:auto;width:100%}}
+
+/* POINT 5 — inline SVG icon helper for buttons (replaces emoji) */
+.ve-ico{width:15px;height:15px;flex-shrink:0;vertical-align:-2px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ve-ico.lg{width:20px;height:20px}
+.ve-ico.sm{width:13px;height:13px}
+
 </style>
 <link rel="stylesheet" href="zyro-editor.css?v=2.6.2">
 </head>
@@ -3511,12 +3535,12 @@ img.logo-profile.zyro-header-logo {
 <div class="announcement-bar" id="announcementBar">
   <span id="announcementText">🔥 New Comedy Video Coming Soon!</span>
   <a href="#home" id="announcementLink">Watch Shorts</a>
-  <button type="button" id="closeAnnouncement">✕</button>
+  <button type="button" id="closeAnnouncement"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
 </div>
 
 <div class="cookie-notice" id="cookieNotice">
   <p>🍪 Ye website basic cookies ka use kar sakti hai.</p>
-  <button type="button" id="cookieAccept">Got It 👍</button>
+  <button type="button" id="cookieAccept">Got It <svg class="ve-ico sm"><use href="#i-check"></use></svg></button>
 </div>
 
 <header>
@@ -3541,11 +3565,11 @@ img.logo-profile.zyro-header-logo {
   <div class="notifications-box">
     <div class="social-header">
       <h3>🔔 Notifications</h3>
-      <button type="button" class="social-close" id="notificationsClose" aria-label="Close">✕</button>
+      <button type="button" class="social-close" id="notificationsClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <div class="notif-toolbar">
-      <button type="button" class="social-mini-btn" id="markAllNotifBtn">✓ Mark all read</button>
-      <button type="button" class="social-mini-btn" id="clearOldNotifBtn">🗑️ Clear old</button>
+      <button type="button" class="social-mini-btn" id="markAllNotifBtn"><svg class="ve-ico"><use href="#i-check"></use></svg> Mark all read</button>
+      <button type="button" class="social-mini-btn" id="clearOldNotifBtn"><svg class="ve-ico"><use href="#i-trash"></use></svg> Clear old</button>
     </div>
     <div class="notif-full-list" id="notifList"></div>
   </div>
@@ -3639,6 +3663,12 @@ img.logo-profile.zyro-header-logo {
   <path fill="#ffffff" d="M10.2 16.2 6.5 12.5l1.4-1.4 2.3 2.3 5.9-5.9 1.4 1.4z"/>
 </symbol>
 <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
+<symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+<symbol id="i-skip-back" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="19 20 9 12 19 4 19 20"/><rect x="5" y="4" width="2" height="16" rx="1"/></symbol>
+<symbol id="i-skip-fwd" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 4 15 12 5 20 5 4"/><rect x="17" y="4" width="2" height="16" rx="1"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></symbol>
 <symbol id="i-hash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></symbol>
 <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
 <symbol id="i-zap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
@@ -3805,14 +3835,14 @@ img.logo-profile.zyro-header-logo {
     <div class="cards">
       <div class="card" style="text-align:center">
         <h3>📧 Email</h3>
-        <p><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> <button type="button" class="copy-btn" data-copy-text="upcomedyhub@gmail.com">📋 Copy</button></p>
+        <p><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> <button type="button" class="copy-btn" data-copy-text="upcomedyhub@gmail.com"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button></p>
         <p style="margin-top:8px">📍 <strong>Location:</strong> Uttar Pradesh, India</p>
         <br>
         <a class="btn" href="mailto:upcomedyhub@gmail.com">✉️ Send Email</a>
       </div>
       <div class="card" style="text-align:center">
         <h3>💬 WhatsApp</h3>
-        <p>Directly humse WhatsApp par contact karein. <button type="button" class="copy-btn" data-copy-text="+91 92369 94154">📋 Copy Number</button></p>
+        <p>Directly humse WhatsApp par contact karein. <button type="button" class="copy-btn" data-copy-text="+91 92369 94154"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy Number</button></p>
         <br>
         <a class="btn" href="https://wa.me/919236994154?text=Hello%20Zyro" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
       </div>
@@ -3826,7 +3856,7 @@ img.logo-profile.zyro-header-logo {
         <h3>🔗 Website Link</h3>
         <p>Ye link kisi ko bhi share karne ke liye copy karein.</p>
         <br>
-        <button type="button" class="btn" data-copy-text="https://upcomedyhub.github.io/" style="border:none;cursor:pointer">🔗 Copy Website Link</button>
+        <button type="button" class="btn" data-copy-text="https://upcomedyhub.github.io/" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-link"></use></svg> Copy Website Link</button>
       </div>
     </div>
   </section>
@@ -3859,7 +3889,7 @@ img.logo-profile.zyro-header-logo {
         </select>
         <label for="vMsg">💬 Requirements / Message</label>
         <textarea id="vMsg" name="Requirements / Message" placeholder="Aapko kis type ki website chahiye?" rows="5" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;resize:vertical"></textarea>
-        <button type="submit" class="btn" style="border:none;cursor:pointer">🚀 Send Enquiry</button>
+        <button type="submit" class="btn" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Send Enquiry</button>
       </form>
       <p style="font-size:12px;margin-top:15px;color:#777">🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.</p>
     </div>
@@ -3926,7 +3956,7 @@ img.logo-profile.zyro-header-logo {
         <input type="hidden" name="_template" value="table">
         <label for="newsEmail">📧 Email Address</label>
         <input type="email" id="newsEmail" name="Email" placeholder="Apna email address" required>
-        <button type="submit" class="btn">🚀 Subscribe to Updates</button>
+        <button type="submit" class="btn"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Subscribe to Updates</button>
       </form>
       <p class="newsletter-note">🔒 Aapka email sirf Zyro updates aur reply ke purpose ke liye use kiya jayega.</p>
       <div style="margin-top:20px;padding-top:20px;border-top:1px dashed #ddd;text-align:center">
@@ -3949,11 +3979,11 @@ img.logo-profile.zyro-header-logo {
         <button type="button" class="amount-btn" data-amount="500">₹500</button>
         <button type="button" class="amount-btn" data-amount="">Custom</button>
       </div>
-      <button type="button" id="upiPayBtn" class="support-main-btn">💳 Pay ₹100 via UPI</button>
+      <button type="button" id="upiPayBtn" class="support-main-btn"><svg class="ve-ico"><use href="#i-card"></use></svg> Pay ₹100 via UPI</button>
       <div class="support-divider"><span>OR</span></div>
       <div class="support-upi-row">
         <div class="upi-info"><small>UPI ID</small><strong>9236994154@axl</strong></div>
-        <button type="button" class="copy-btn" data-copy-text="9236994154@axl">📋 Copy</button>
+        <button type="button" class="copy-btn" data-copy-text="9236994154@axl"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button>
       </div>
       <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:280px;height:280px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
       <p style="font-size:13px;color:#777;margin:0 0 16px">📱 Scan this QR with any UPI app</p>
@@ -4186,9 +4216,9 @@ img.logo-profile.zyro-header-logo {
         <div id="userName" class="ig-name">User</div>
         <div class="ig-category-badge" id="profileCategoryBadge" style="display:none">🎬 Comedy Creator · Entertainer</div>
         <div id="profileBio" class="ig-bio">No bio yet.</div>
-        <a id="profileBioLink" class="ig-bio-link" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">
+        <a id="profileBioLink" class="ig-bio-link" href="#" target="_blank" rel="noopener" style="display:none">
           <svg class="ico" style="width:13px;height:13px"><use href="#i-link"></use></svg>
-          <span id="profileBioLinkText">youtube.com/@up_comedyhub</span>
+          <span id="profileBioLinkText"></span>
         </a>
       </div>
 
@@ -4585,13 +4615,13 @@ img.logo-profile.zyro-header-logo {
         <div class="admin-stat"><div class="admin-stat-num" id="statTotalLikes">-</div><div class="admin-stat-label">Likes</div></div>
         <div class="admin-stat"><div class="admin-stat-num" id="statTotalSaves">-</div><div class="admin-stat-label">Saves</div></div>
       </div>
-      <button type="button" class="admin-btn" id="refreshStats">🔄 Refresh Stats</button>
+      <button type="button" class="admin-btn" id="refreshStats"><svg class="ve-ico sm"><use href="#i-refresh"></use></svg> Refresh Stats</button>
     </div>
 
     <div class="admin-card">
       <h3>❤️ Likes Management (Per Video)</h3>
       <p style="font-size:13px;color:#888;margin-bottom:12px">Har video ke liye kitne aur kaun log ne like kiya — pura breakdown.</p>
-      <button type="button" class="admin-btn" id="loadLikesBtn">🔄 Load Likes</button>
+      <button type="button" class="admin-btn" id="loadLikesBtn"><svg class="ve-ico sm"><use href="#i-refresh"></use></svg> Load Likes</button>
       <div id="adminLikesList" style="margin-top:16px"></div>
     </div>
 
@@ -4605,7 +4635,7 @@ img.logo-profile.zyro-header-logo {
       <textarea class="admin-textarea" id="adminFanMessage" placeholder="Fan ka message"></textarea>
       <label class="admin-label">Date</label>
       <input type="text" class="admin-input" id="adminFanDate" placeholder="Week of 21 Sept 2026">
-      <button type="button" class="admin-btn green" id="saveFanBtn">💾 Save Fan of Week</button>
+      <button type="button" class="admin-btn green" id="saveFanBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Fan of Week</button>
     </div>
 
     <div class="admin-card">
@@ -4614,7 +4644,7 @@ img.logo-profile.zyro-header-logo {
       <input type="text" class="admin-input" id="adminAnnounceText" placeholder="🔥 New Comedy Video Coming Soon!">
       <label class="admin-label">Button Text (optional)</label>
       <input type="text" class="admin-input" id="adminAnnounceBtn" placeholder="Watch Shorts">
-      <button type="button" class="admin-btn green" id="saveAnnounceBtn">💾 Save Announcement</button>
+      <button type="button" class="admin-btn green" id="saveAnnounceBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Announcement</button>
     </div>
 
     <div class="admin-card">
@@ -4628,7 +4658,7 @@ img.logo-profile.zyro-header-logo {
         <option value="false">❌ Hidden</option>
         <option value="true">✅ Visible to all users</option>
       </select>
-      <button type="button" class="admin-btn green" id="saveNoticeBtn">💾 Save Notice</button>
+      <button type="button" class="admin-btn green" id="saveNoticeBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Notice</button>
     </div>
 
     <div class="admin-card">
@@ -4856,7 +4886,7 @@ img.logo-profile.zyro-header-logo {
           <option value="oldest">Oldest</option>
           <option value="most_liked">Most Liked</option>
         </select>
-        <button type="button" class="comments-close" id="commentsClose" aria-label="Close">✕</button>
+        <button type="button" class="comments-close" id="commentsClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       </div>
     </div>
     <div class="comments-list" id="commentsList"></div>
@@ -4866,7 +4896,7 @@ img.logo-profile.zyro-header-logo {
 
 <div class="likes-overlay" id="likesOverlay">
   <div class="likes-box">
-    <div class="likes-header"><h3>❤️ Liked by</h3><button type="button" class="likes-close" id="likesClose" aria-label="Close">✕</button></div>
+    <div class="likes-header"><h3>❤️ Liked by</h3><button type="button" class="likes-close" id="likesClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button></div>
     <div class="likes-list" id="likesList"></div>
   </div>
 </div>
@@ -5232,13 +5262,13 @@ img.logo-profile.zyro-header-logo {
             <span class="mobile-cc">+91</span>
             <input id="mobileNumberInput" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number" autocomplete="tel">
           </div>
-          <button type="button" id="mobileSendOtpBtn" class="settings-open-btn" style="width:100%;margin-top:14px">📲 Send OTP</button>
+          <button type="button" id="mobileSendOtpBtn" class="settings-open-btn" style="width:100%;margin-top:14px"><svg class="ve-ico"><use href="#i-phone"></use></svg> Send OTP</button>
 
           <div id="mobileOtpWrap" style="display:none;margin-top:18px">
             <label for="mobileOtpInput" style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Enter OTP</label>
             <input id="mobileOtpInput" type="tel" inputmode="numeric" maxlength="6" placeholder="6-digit OTP" autocomplete="one-time-code" class="mobile-otp-input">
             <p id="mobileOtpHint" style="font-size:12px;color:#888;margin:8px 0 0"></p>
-            <button type="button" id="mobileVerifyBtn" class="settings-open-btn" style="width:100%;margin-top:12px">✅ Verify &amp; Save</button>
+            <button type="button" id="mobileVerifyBtn" class="settings-open-btn" style="width:100%;margin-top:12px"><svg class="ve-ico"><use href="#i-check"></use></svg> Verify &amp; Save</button>
             <button type="button" id="mobileResendBtn" class="mobile-link-btn">Resend OTP</button>
           </div>
         </div>
@@ -5316,7 +5346,7 @@ img.logo-profile.zyro-header-logo {
         <p style="color:#888;font-size:14px;margin-bottom:14px">Koi problem, galat content ya suggestion? Humein batayein — aapki report seedha humari Gmail par jayegi.</p>
         <label for="reportText" style="font-size:13px;font-weight:700;display:block;margin-bottom:6px">Aapki Report</label>
         <textarea id="reportText" rows="5" placeholder="Yahan apni report ya problem likhein..." style="width:100%;border:1px solid #ddd;border-radius:12px;padding:12px;font-family:inherit;font-size:14px;resize:vertical;background:#f7f7f7;color:#111;outline:none"></textarea>
-        <button type="button" id="reportSendBtn" class="settings-open-btn" style="width:100%;margin-top:14px">📧 Send Report via Gmail</button>
+        <button type="button" id="reportSendBtn" class="settings-open-btn" style="width:100%;margin-top:14px"><svg class="ve-ico"><use href="#i-mail"></use></svg> Send Report via Gmail</button>
       </div>
 
       <div class="settings-subpage" id="subDonate" style="display:none">
@@ -5331,11 +5361,11 @@ img.logo-profile.zyro-header-logo {
           <button type="button" class="amount-btn" data-amount="200">₹200</button>
           <button type="button" class="amount-btn" data-amount="500">₹500</button>
         </div>
-        <button type="button" id="settingsUpiPayBtn" class="support-main-btn">💳 Pay ₹100 via UPI</button>
+        <button type="button" id="settingsUpiPayBtn" class="support-main-btn"><svg class="ve-ico"><use href="#i-card"></use></svg> Pay ₹100 via UPI</button>
         <div class="support-divider"><span>OR</span></div>
         <div class="support-upi-row">
           <div class="upi-info"><small>UPI ID</small><strong>9236994154@axl</strong></div>
-          <button type="button" class="copy-btn" data-copy-text="9236994154@axl">📋 Copy</button>
+          <button type="button" class="copy-btn" data-copy-text="9236994154@axl"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button>
         </div>
         <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:240px;height:240px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
         <p style="font-size:13px;color:#777;margin:0 0 16px;text-align:center">📱 Scan this QR with any UPI app</p>
@@ -5415,12 +5445,12 @@ img.logo-profile.zyro-header-logo {
           <label style="font-size:12px;font-weight:700;display:block;margin-bottom:4px">New Password</label>
           <div style="position:relative;margin-bottom:10px">
             <input type="password" id="newPasswordInput" placeholder="Min 6 characters" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 38px 10px 12px;font-size:14px;outline:none;background:#fff;color:#111">
-            <button type="button" onclick="togglePasswordVisibility('newPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;font-size:15px;color:#888">👁️</button>
+            <button type="button" onclick="togglePasswordVisibility('newPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;color:#888;display:flex"><svg class="ve-ico"><use href="#i-eye"></use></svg></button>
           </div>
           <label style="font-size:12px;font-weight:700;display:block;margin-bottom:4px">Confirm New Password</label>
           <div style="position:relative;margin-bottom:14px">
             <input type="password" id="confirmPasswordInput" placeholder="Re-enter new password" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 38px 10px 12px;font-size:14px;outline:none;background:#fff;color:#111">
-            <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;font-size:15px;color:#888">👁️</button>
+            <button type="button" onclick="togglePasswordVisibility('confirmPasswordInput', this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);border:none;background:none;cursor:pointer;color:#888;display:flex"><svg class="ve-ico"><use href="#i-eye"></use></svg></button>
           </div>
           <button type="button" id="updatePasswordBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff" onclick="updateUserPassword()">Update Password</button>
         </div>
@@ -5428,7 +5458,7 @@ img.logo-profile.zyro-header-logo {
         <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px;margin-bottom:16px" class="dark-box">
           <h4 style="font-size:14px;font-weight:800;margin:0 0 6px">Reset Password via Email</h4>
           <p style="font-size:12px;color:#777;margin:0 0 12px">Aapke registered email par single-click password reset link bheja jayega.</p>
-          <button type="button" class="settings-open-btn" style="width:100%" onclick="sendPasswordResetEmailCurrent()">📧 Send Reset Email</button>
+          <button type="button" class="settings-open-btn" style="width:100%" onclick="sendPasswordResetEmailCurrent()"><svg class="ve-ico"><use href="#i-mail"></use></svg> Send Reset Email</button>
         </div>
 
         <div style="background:#fafafa;border:1px solid #eee;border-radius:16px;padding:16px" class="dark-box">
@@ -5639,7 +5669,7 @@ img.logo-profile.zyro-header-logo {
 
           <div class="chat-replying" id="chatReplying" style="display:none">
             <span id="chatReplyText"></span>
-            <button type="button" class="chat-tool" id="cancelReply" aria-label="Cancel reply">✕</button>
+            <button type="button" class="chat-tool" id="cancelReply" aria-label="Cancel reply"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
           </div>
 
           <div class="chat-composer" id="chatComposer">
@@ -5661,8 +5691,8 @@ img.logo-profile.zyro-header-logo {
             <div class="recording-bar" id="recordingBar">
               <div class="rec-dot"></div>
               <span class="rec-timer" id="recTimer">0:00</span>
-              <button type="button" class="chat-tool" id="cancelRecBtn" aria-label="Cancel recording">✕</button>
-              <button type="button" class="chat-tool" id="sendRecBtn" aria-label="Send voice">➤</button>
+              <button type="button" class="chat-tool" id="cancelRecBtn" aria-label="Cancel recording"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
+              <button type="button" class="chat-tool" id="sendRecBtn" aria-label="Send voice"><svg class="ve-ico"><use href="#i-send"></use></svg></button>
             </div>
 
             <button type="button" class="chat-send" id="sendMessageBtn" aria-label="Send">
@@ -5681,7 +5711,7 @@ img.logo-profile.zyro-header-logo {
   <div class="ig-list-box">
     <div class="ig-list-header">
       <h3 id="igListTitle">Followers</h3>
-      <button type="button" id="igListClose" aria-label="Close">✕</button>
+      <button type="button" id="igListClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <div class="ig-list-tabs" id="igListTabs">
       <button type="button" class="ig-list-tab active" id="igTabFollowers" onclick="switchIgListTab('followers')">Followers (<span id="igListFollowersCount">0</span>)</button>
@@ -5721,7 +5751,7 @@ img.logo-profile.zyro-header-logo {
     <div style="width:36px;height:4px;background:#555;border-radius:2px;margin:0 auto 16px"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
       <h3 style="margin:0;font-size:17px;font-weight:800;color:#fff">Create on Zyro</h3>
-      <button type="button" onclick="closeCreateActionSheet()" style="background:transparent;border:none;color:#aaa;font-size:18px;cursor:pointer">✕</button>
+      <button type="button" onclick="closeCreateActionSheet()" style="background:transparent;border:none;color:#aaa;font-size:18px;cursor:pointer"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;text-align:center">
       <!-- 1. Reel Upload (Native Gallery Picker -> Preview/Editor Screen) -->
@@ -5786,7 +5816,7 @@ img.logo-profile.zyro-header-logo {
     <div style="background:rgba(255,255,255,0.06);padding:10px;border-radius:10px;font-size:11px;color:#bbb;margin-bottom:18px;border-radius:10px;line-height:1.4">
       👑 <b>Admin Note:</b> Admin ke liye 50 followers ki shart nahi hai, admin kisi bhi samay directly Live Stream chala sakte hain.
     </div>
-    <button type="button" class="btn" onclick="closeLiveEligibilityModal()" style="width:100%;padding:11px;background:#ff2d55;border-radius:14px;color:#fff;font-weight:700;border:none;cursor:pointer">Samajh Gaya 👍</button>
+    <button type="button" class="btn" onclick="closeLiveEligibilityModal()" style="width:100%;padding:11px;background:#ff2d55;border-radius:14px;color:#fff;font-weight:700;border:none;cursor:pointer">Samajh Gaya <svg class="ve-ico sm"><use href="#i-check"></use></svg></button>
   </div>
 </div>
 
@@ -5803,7 +5833,7 @@ img.logo-profile.zyro-header-logo {
       </div>
       <div id="liveHostDurationTimer" style="color:#eee;font-size:12px;font-weight:700">00:00</div>
     </div>
-    <button type="button" onclick="confirmEndLiveStream()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;backdrop-filter:blur(6px)">End Live ✕</button>
+    <button type="button" onclick="confirmEndLiveStream()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;backdrop-filter:blur(6px)">End Live <svg class="ve-ico sm"><use href="#i-close"></use></svg></button>
   </div>
 
   <!-- Local Video Camera Stage -->
@@ -5819,9 +5849,9 @@ img.logo-profile.zyro-header-logo {
     <div id="liveHostCommentsList" style="max-height:180px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:6px"></div>
     <div style="display:flex;align-items:center;gap:8px">
       <input type="text" id="liveHostCommentInput" placeholder="Comment on your stream..." style="flex:1;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:9px 14px;color:#fff;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')sendLiveHostComment()">
-      <button type="button" onclick="sendLiveHostComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800">➤</button>
-      <button type="button" onclick="toggleLiveCameraMute()" id="liveMuteBtn" title="Mute Mic" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">🎤</button>
-      <button type="button" onclick="toggleLiveVideoTrack()" id="liveCamToggleBtn" title="Toggle Cam" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:16px">📹</button>
+      <button type="button" onclick="sendLiveHostComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg class="ve-ico"><use href="#i-send"></use></svg></button>
+      <button type="button" onclick="toggleLiveCameraMute()" id="liveMuteBtn" title="Mute Mic" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg class="ve-ico"><use href="#i-mic"></use></svg></button>
+      <button type="button" onclick="toggleLiveVideoTrack()" id="liveCamToggleBtn" title="Toggle Cam" style="background:rgba(255,255,255,0.2);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg class="ve-ico"><use href="#i-video-cam"></use></svg></button>
       <button type="button" onclick="sendLiveHeartReaction()" title="Heart" style="background:linear-gradient(135deg,#ff1744,#ff007f);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px">❤️</button>
     </div>
   </div>
@@ -5841,7 +5871,7 @@ img.logo-profile.zyro-header-logo {
         </div>
       </div>
     </div>
-    <button type="button" onclick="closeLiveAudienceViewer()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+    <button type="button" onclick="closeLiveAudienceViewer()" style="background:rgba(255,255,255,0.25);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
   </div>
 
   <!-- Remote Video Stage -->
@@ -5857,14 +5887,14 @@ img.logo-profile.zyro-header-logo {
     <div id="liveAudienceCommentsList" style="max-height:180px;overflow-y:auto;margin-bottom:12px;display:flex;flex-direction:column;gap:6px"></div>
     <div style="display:flex;align-items:center;gap:8px">
       <input type="text" id="liveAudienceCommentInput" placeholder="Send comment..." style="flex:1;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:20px;padding:9px 14px;color:#fff;font-size:13px;outline:none" onkeydown="if(event.key==='Enter')sendLiveAudienceComment()">
-      <button type="button" onclick="sendLiveAudienceComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800">➤</button>
+      <button type="button" onclick="sendLiveAudienceComment()" style="background:#ff2d55;border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg class="ve-ico"><use href="#i-send"></use></svg></button>
       <button type="button" onclick="sendLiveHeartReaction()" title="Heart" style="background:linear-gradient(135deg,#ff1744,#ff007f);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px">❤️</button>
     </div>
   </div>
 </div>
 <div class="ig-sheet-overlay" id="photoViewerModal" style="align-items:center" onclick="if(event.target===this)closePhotoViewer()">
   <div style="max-width:380px;width:92%;background:#111;border-radius:20px;overflow:hidden;text-align:center;position:relative;padding:22px 16px;box-shadow:0 24px 70px rgba(0,0,0,.7)">
-    <button type="button" onclick="closePhotoViewer()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px">✕</button>
+    <button type="button" onclick="closePhotoViewer()" style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,.2);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:16px"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     <h4 style="color:#fff;margin:0 0 16px;font-size:15px" id="photoViewerTitle">Profile Picture</h4>
     <img id="photoViewerImg" src="" alt="Profile Picture" style="width:240px;height:240px;border-radius:50%;object-fit:cover;border:3px solid #fff;margin:0 auto 16px;display:block;background:#222">
     <div style="display:flex;gap:10px;justify-content:center">
@@ -5878,7 +5908,7 @@ img.logo-profile.zyro-header-logo {
 <div class="ig-create-overlay" id="createPostModal" onclick="if(event.target===this)closeCreatePostModal()">
   <div class="ig-create-box">
     <div class="ig-create-header">
-      <button type="button" onclick="closeCreatePostModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888;padding:4px" aria-label="Cancel">✕</button>
+      <button type="button" onclick="closeCreatePostModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888;padding:4px" aria-label="Cancel"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       <h3 id="createPostModalTitle">Create new post</h3>
       <button type="button" class="ig-create-next-btn" id="createModalShareTopBtn" onclick="publishNewUserPost()">Share</button>
     </div>
@@ -5895,7 +5925,7 @@ img.logo-profile.zyro-header-logo {
       <div class="ig-media-preview-wrap" id="mediaPreviewWrap">
         <img id="mediaPreviewImg" src="" alt="Preview" style="display:none">
         <video id="mediaPreviewVideo" controls playsinline style="display:none"></video>
-        <button type="button" class="ig-media-remove-btn" onclick="clearSelectedPostMedia()" title="Remove media">✕</button>
+        <button type="button" class="ig-media-remove-btn" onclick="clearSelectedPostMedia()" title="Remove media"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       </div>
 
       <!-- Caption -->
@@ -5917,7 +5947,7 @@ img.logo-profile.zyro-header-logo {
       <label for="postLocationInput" style="font-size:13px;font-weight:700;display:block;margin:10px 0 6px">📍 Add Location (Optional)</label>
       <input type="text" id="postLocationInput" placeholder="e.g. Lucknow, Delhi, Varanasi, Mumbai..." style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;background:#fafafa">
 
-      <button type="button" id="publishPostBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff;margin-top:16px;padding:12px" onclick="publishNewUserPost()">🚀 Publish to Profile</button>
+      <button type="button" id="publishPostBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff;margin-top:16px;padding:12px" onclick="publishNewUserPost()"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Publish to Profile</button>
     </div>
 
     <!-- Instagram Create Bottom Mode Switcher Carousel -->
@@ -5934,14 +5964,36 @@ img.logo-profile.zyro-header-logo {
 <!-- Hidden Direct Video File Picker Input (Triggers Native Device Video Gallery) -->
 <input type="file" id="upchVideoFileInput" accept="video/*" style="display:none" onchange="handleVideoSelectedForEditor(this.files[0])">
 
+<!-- POINT 8: YouTube-style Video Preview screen (shown for videos longer than 3 minutes) -->
+<div class="reel-preview-overlay" id="reelPreviewModal">
+  <button type="button" class="rp-back" id="reelPreviewBack" aria-label="Back" onclick="closeReelPreview()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <video id="reelPreviewVideo" class="rp-video" playsinline controls></video>
+  <div class="rp-bottom">
+    <div class="rp-progress">
+      <span id="reelPreviewCur">0:00</span>
+      <div class="rp-bar"><div class="rp-fill" id="reelPreviewFill"></div></div>
+      <span id="reelPreviewDur">0:00</span>
+    </div>
+    <div class="rp-actions">
+      <button type="button" class="rp-edit-btn" id="reelPreviewEditBtn" onclick="reelPreviewEditIntoReel()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Edit into a Reel</span>
+      </button>
+      <button type="button" class="rp-next-btn" id="reelPreviewNextBtn" onclick="reelPreviewNext()">Next</button>
+    </div>
+  </div>
+</div>
+
 <!-- YouTube/Instagram-like Video Preview / Editor Screen Modal -->
 <div class="video-editor-overlay" id="videoEditorModal" onclick="if(event.target===this)confirmCloseVideoEditor()">
   <div class="video-editor-box">
     <!-- Header -->
     <div class="ve-header">
-      <button type="button" onclick="confirmCloseVideoEditor()" style="background:none;border:none;color:#aaa;font-size:18px;cursor:pointer;padding:4px" aria-label="Close">✕</button>
+      <button type="button" onclick="confirmCloseVideoEditor()" style="background:none;border:none;color:#aaa;font-size:18px;cursor:pointer;padding:4px;display:flex;align-items:center" aria-label="Close"><svg class="ve-ico lg"><use href="#i-close"></use></svg></button>
       <h3 id="veModalHeaderTitle">
-        <span>🎬</span>
+        <svg class="ve-ico lg"><use href="#i-film"></use></svg>
         <span id="veHeaderTitleText">Video Preview &amp; Editor</span>
       </h3>
       <button type="button" class="ig-create-next-btn" id="veTopShareBtn" onclick="startVideoPublishWorkflow()">Publish</button>
@@ -5953,16 +6005,16 @@ img.logo-profile.zyro-header-logo {
       <div class="ve-player-card">
         <video id="veVideoPlayer" class="ve-video-player" autoplay muted playsinline controls></video>
         <div class="ve-meta-badge-row">
-          <span id="veVideoDurationBadge">⏱️ 0:00</span>
-          <span id="veVideoSizeBadge">💾 0 MB</span>
-          <span id="veVideoTypeBadge">🎥 MP4</span>
+          <span id="veVideoDurationBadge"><svg class="ve-ico sm"><use href="#i-clock"></use></svg> 0:00</span>
+          <span id="veVideoSizeBadge"><svg class="ve-ico sm"><use href="#i-save"></use></svg> 0 MB</span>
+          <span id="veVideoTypeBadge"><svg class="ve-ico sm"><use href="#i-video"></use></svg> MP4</span>
         </div>
 
         <!-- Integrated Video Trimmer Component -->
         <div class="ve-trimmer-card" id="veTrimmerComponent">
           <div class="ve-trimmer-header">
-            <span class="ve-trimmer-title">✂️ Video Trimmer (Loop Range)</span>
-            <button type="button" class="ve-trim-reset-btn" onclick="resetVideoTrimmer()" title="Reset to original video length">🔄 Reset Trim</button>
+            <span class="ve-trimmer-title"><svg class="ve-ico sm"><use href="#i-scissors"></use></svg> Video Trimmer (Loop Range)</span>
+            <button type="button" class="ve-trim-reset-btn" onclick="resetVideoTrimmer()" title="Reset to original video length"><svg class="ve-ico sm"><use href="#i-refresh"></use></svg> Reset Trim</button>
           </div>
 
           <!-- Trimmed Range Indicators -->
@@ -5998,15 +6050,15 @@ img.logo-profile.zyro-header-logo {
 
           <!-- Dedicated Play Trimmer Button -->
           <button type="button" class="ve-play-trimmer-btn" id="vePlayTrimmerBtn" onclick="playTrimmerLoop()" title="Plays video strictly from selected start to end point in a loop">
-            <span id="vePlayTrimmerIcon">▶️</span>
+            <span id="vePlayTrimmerIcon"><svg class="ve-ico sm"><use href="#i-play"></use></svg></span>
             <span id="vePlayTrimmerBtnText">Play Trimmer</span>
           </button>
 
           <!-- Quick Preview Actions -->
           <div class="ve-trim-quick-actions">
-            <button type="button" class="ve-trim-action-btn" onclick="seekTrimStart()" title="Preview trimmed start frame">⏮️ Start Frame</button>
-            <button type="button" class="ve-trim-action-btn" onclick="seekTrimEnd()" title="Preview trimmed end frame">⏭️ End Frame</button>
-            <button type="button" class="ve-trim-action-btn" onclick="resetVideoTrimmer()" title="Reset to full length">🔄 Full Video</button>
+            <button type="button" class="ve-trim-action-btn" onclick="seekTrimStart()" title="Preview trimmed start frame"><svg class="ve-ico sm"><use href="#i-skip-back"></use></svg> Start Frame</button>
+            <button type="button" class="ve-trim-action-btn" onclick="seekTrimEnd()" title="Preview trimmed end frame"><svg class="ve-ico sm"><use href="#i-skip-fwd"></use></svg> End Frame</button>
+            <button type="button" class="ve-trim-action-btn" onclick="resetVideoTrimmer()" title="Reset to full length"><svg class="ve-ico sm"><use href="#i-refresh"></use></svg> Full Video</button>
           </div>
         </div>
       </div>
@@ -6040,15 +6092,15 @@ img.logo-profile.zyro-header-logo {
         <div class="ve-form-group">
           <label class="ve-form-label">Format / Category</label>
           <div style="display:flex;gap:8px">
-            <button type="button" class="category-chip active" id="veCategoryReelBtn" onclick="setVeCategory('reel')" style="flex:1;text-align:center">📱 Reel / Shorts (9:16)</button>
-            <button type="button" class="category-chip" id="veCategoryVideoBtn" onclick="setVeCategory('video')" style="flex:1;text-align:center">🖥️ Video (16:9 / Long)</button>
+            <button type="button" class="category-chip active" id="veCategoryReelBtn" onclick="setVeCategory('reel')" style="flex:1;text-align:center"><svg class="ve-ico sm"><use href="#i-phone"></use></svg> Reel / Shorts (9:16)</button>
+            <button type="button" class="category-chip" id="veCategoryVideoBtn" onclick="setVeCategory('video')" style="flex:1;text-align:center"><svg class="ve-ico sm"><use href="#i-laptop"></use></svg> Video (16:9 / Long)</button>
           </div>
         </div>
 
         <!-- Public / Private Toggle (YouTube / Instagram-like) -->
         <div class="ve-toggle-row">
           <div class="ve-toggle-info">
-            <div class="ve-toggle-title" id="veVisibilityLabel">🌐 Public Video</div>
+            <div class="ve-toggle-title" id="veVisibilityLabel"><svg class="ve-ico sm"><use href="#i-globe"></use></svg> Public Video</div>
             <div class="ve-toggle-desc" id="veVisibilityDesc">Anyone on Zyro and feed can view and share this video</div>
           </div>
           <label class="ve-switch">
@@ -6073,8 +6125,8 @@ img.logo-profile.zyro-header-logo {
 
     <!-- Footer Controls -->
     <div class="ve-footer">
-      <button type="button" class="ve-btn ve-btn-secondary" onclick="triggerVideoFilePicker(currentVeCategory)" title="Choose a different video file">🔄 Change Video</button>
-      <button type="button" class="ve-btn ve-btn-primary" id="vePublishBtn" onclick="startVideoPublishWorkflow()">🚀 Publish Now</button>
+      <button type="button" class="ve-btn ve-btn-secondary" onclick="triggerVideoFilePicker(currentVeCategory)" title="Choose a different video file"><svg class="ve-ico sm"><use href="#i-refresh"></use></svg> Change Video</button>
+      <button type="button" class="ve-btn ve-btn-primary" id="vePublishBtn" onclick="startVideoPublishWorkflow()"><svg class="ve-ico sm"><use href="#i-rocket"></use></svg> Publish Now</button>
     </div>
   </div>
 </div>
@@ -6094,7 +6146,7 @@ img.logo-profile.zyro-header-logo {
         <button type="button" id="pvDeleteBtn" style="display:none;background:none;border:none;color:#e63946;cursor:pointer;padding:4px" title="Delete Post" onclick="deleteCurrentViewedPost()">
           <svg class="ico" style="width:18px;height:18px"><use href="#i-trash"></use></svg>
         </button>
-        <button type="button" onclick="closePostViewer()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+        <button type="button" onclick="closePostViewer()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       </div>
     </div>
 
@@ -6136,7 +6188,7 @@ img.logo-profile.zyro-header-logo {
 <!-- Instagram Share Profile Card Modal (QR & Link) -->
 <div class="ig-sheet-overlay" id="shareProfileCardModal" style="align-items:center" onclick="if(event.target===this)closeShareProfileCard()">
   <div style="max-width:380px;width:92%;background:#111;border-radius:24px;overflow:hidden;position:relative;padding:16px;box-shadow:0 24px 70px rgba(0,0,0,.6)">
-    <button type="button" onclick="closeShareProfileCard()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2">✕</button>
+    <button type="button" onclick="closeShareProfileCard()" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:16px;z-index:2"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     
     <div class="ig-qr-card" id="shareQrCard" style="background:linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)">
       <img id="shareQrAvatar" class="ig-qr-avatar" src="" alt="Avatar">
@@ -6168,7 +6220,7 @@ img.logo-profile.zyro-header-logo {
   <div style="max-width:440px;width:92%;background:#fff;border-radius:24px;overflow:hidden;position:relative;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)" class="dark-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
       <h3 style="margin:0;font-size:17px;font-weight:800;display:flex;align-items:center;gap:6px">📊 Professional Dashboard</h3>
-      <button type="button" onclick="closeProDashboardModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+      <button type="button" onclick="closeProDashboardModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <p style="font-size:12px;color:#777;margin:0 0 14px">Insights and performance summary for the last 30 days.</p>
 
@@ -6211,7 +6263,7 @@ img.logo-profile.zyro-header-logo {
   <div style="max-width:380px;width:92%;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)" class="dark-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <h3 style="margin:0;font-size:16px;font-weight:800">New Story Highlight</h3>
-      <button type="button" onclick="closeCreateHighlightModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888">✕</button>
+      <button type="button" onclick="closeCreateHighlightModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <label for="highlightNameInput" style="font-size:12px;font-weight:700;display:block;margin-bottom:6px">Highlight Name</label>
     <input type="text" id="highlightNameInput" maxlength="15" placeholder="e.g. Best Moments, Fun" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa">
@@ -6316,7 +6368,7 @@ img.logo-profile.zyro-header-logo {
   <div class="msg-search-modal">
     <div class="msg-search-header">
       <input type="text" id="msgSearchOverlayInput" placeholder="Search users...">
-      <button type="button" class="social-close" id="msgSearchClose" aria-label="Close">✕</button>
+      <button type="button" class="social-close" id="msgSearchClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <div class="msg-search-results" id="msgSearchResults"></div>
   </div>
@@ -6338,7 +6390,7 @@ img.logo-profile.zyro-header-logo {
       <span class="chat-lightbox-title" id="chatLightboxTitle">📷 Photo</span>
       <div class="chat-lightbox-actions">
         <a id="chatLightboxDownload" class="chat-lightbox-btn" download="upcomedyhub-photo.jpg" href="" target="_blank" title="Save Photo">💾</a>
-        <button type="button" class="chat-lightbox-btn" id="chatLightboxClose" aria-label="Close">✕</button>
+        <button type="button" class="chat-lightbox-btn" id="chatLightboxClose" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       </div>
     </div>
     <div class="chat-lightbox-img-wrap">
@@ -6399,7 +6451,7 @@ img.logo-profile.zyro-header-logo {
   <div class="ig-story-gallery-wrap">
     <!-- Top Bar -->
     <div class="ig-story-top-header">
-      <button type="button" class="ig-icon-btn" onclick="closeStoryCreator()" aria-label="Close">✕</button>
+      <button type="button" class="ig-icon-btn" onclick="closeStoryCreator()" aria-label="Close"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       <div class="ig-story-title">Add to story</div>
       <button type="button" class="ig-icon-btn" onclick="showToast('Story tips: 24h me auto expire hogi 🔥')" aria-label="Settings">⚙️</button>
     </div>
@@ -6457,7 +6509,7 @@ img.logo-profile.zyro-header-logo {
 
   <!-- Camera Top Bar (Image 4) -->
   <div class="camera-top-bar">
-    <button type="button" class="camera-tool-btn" onclick="closeLiveStoryCamera()" aria-label="Close Camera">✕</button>
+    <button type="button" class="camera-tool-btn" onclick="closeLiveStoryCamera()" aria-label="Close Camera"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     <button type="button" class="camera-tool-btn" id="cameraFlashBtn" onclick="toggleCameraFlash()" aria-label="Flash">⚡</button>
     <button type="button" class="camera-tool-btn" onclick="showToast('Camera Ready • Tap for photo, Hold for video!')" aria-label="Settings">⚙️</button>
   </div>
@@ -6635,7 +6687,7 @@ img.logo-profile.zyro-header-logo {
       <div class="story-viewer-actions">
         <button type="button" class="story-viewer-btn" id="storyHighlightBtn" onclick="addCurrentStoryToHighlight()" title="Add to Highlights" aria-label="Highlight">⭐</button>
         <button type="button" class="story-viewer-btn" id="storyDeleteBtn" onclick="deleteCurrentStory()" style="display:none;color:#ef4444" title="Delete your story" aria-label="Delete story">🗑️</button>
-        <button type="button" class="story-viewer-btn" onclick="closeStoryViewer()" aria-label="Close story">✕</button>
+        <button type="button" class="story-viewer-btn" onclick="closeStoryViewer()" aria-label="Close story"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
       </div>
     </div>
 
@@ -8625,13 +8677,15 @@ async function loadProfileIdentity(){
     const bioLinkEl = document.getElementById("profileBioLink");
     const bioLinkText = document.getElementById("profileBioLinkText");
     if(bioLinkEl && bioLinkText){
-      const linkVal = data.websiteLink || "";
+      const linkVal = (data.websiteLink || "").trim();
       if(linkVal){
         bioLinkEl.href = linkVal.startsWith("http") ? linkVal : "https://" + linkVal;
         bioLinkText.textContent = linkVal.replace(/^https?:\/\//, "");
+        bioLinkEl.style.display = "";
       } else {
-        bioLinkEl.href = "https://youtube.com/@up_comedyhub";
-        bioLinkText.textContent = "youtube.com/@up_comedyhub";
+        // No personal website link set — hide the bio link (no forced YouTube link)
+        bioLinkEl.style.display = "none";
+        bioLinkText.textContent = "";
       }
     }
 
@@ -9731,6 +9785,107 @@ function triggerVideoFilePicker(category) {
 }
 window.triggerVideoFilePicker = triggerVideoFilePicker;
 
+/* ============================================================
+   POINT 8 — Video duration rule + YouTube-style preview screen
+   * Any selected video <= 3 minutes  -> opens the Reel editor directly
+   * Any selected video  > 3 minutes  -> shows this preview screen with
+     "Edit into a Reel" (opens Reel editor) + "Next" (skips editor, like YouTube)
+   ============================================================ */
+var REEL_MAX_SECONDS = 180; // 3 minutes
+var _reelPreviewFile = null;
+var _reelPreviewCategory = "video";
+var _reelPreviewUrl = null;
+
+function _rpFmtTime(sec) {
+  sec = Math.max(0, Math.floor(sec || 0));
+  var m = Math.floor(sec / 60);
+  var s = sec % 60;
+  return m + ":" + (s < 10 ? "0" : "") + s;
+}
+
+// Probe a video file's duration without uploading it.
+function probeVideoDuration(file, cb) {
+  if (!file) { cb(0); return; }
+  var url = null;
+  try {
+    url = URL.createObjectURL(file);
+    var v = document.createElement("video");
+    v.preload = "metadata";
+    var done = false;
+    function finish(dur) {
+      if (done) return; done = true;
+      try { URL.revokeObjectURL(url); } catch (e) {}
+      cb(dur || 0);
+    }
+    v.onloadedmetadata = function () { finish(v.duration || 0); };
+    v.onerror = function () { finish(0); };
+    setTimeout(function () { finish(v.duration || 0); }, 4000);
+    v.src = url;
+  } catch (e) { cb(0); }
+}
+window.probeVideoDuration = probeVideoDuration;
+
+function showReelPreview(file, category) {
+  if (!file) return;
+  _reelPreviewFile = file;
+  _reelPreviewCategory = category || "video";
+  var modal = document.getElementById("reelPreviewModal");
+  var vid = document.getElementById("reelPreviewVideo");
+  if (!modal || !vid) return;
+  if (typeof closeCreateActionSheet === "function") closeCreateActionSheet();
+  if (typeof closeCreatePostModal === "function") closeCreatePostModal();
+  if (_reelPreviewUrl) { try { URL.revokeObjectURL(_reelPreviewUrl); } catch (e) {} }
+  _reelPreviewUrl = URL.createObjectURL(file);
+  vid.src = _reelPreviewUrl;
+  vid.muted = false;
+  vid.currentTime = 0;
+  vid.ontimeupdate = function () {
+    var d = vid.duration || 0, c = vid.currentTime || 0;
+    var cur = document.getElementById("reelPreviewCur");
+    var dur = document.getElementById("reelPreviewDur");
+    var fill = document.getElementById("reelPreviewFill");
+    if (cur) cur.textContent = _rpFmtTime(c);
+    if (dur) dur.textContent = _rpFmtTime(d);
+    if (fill) fill.style.width = d ? Math.min(100, (c / d) * 100) + "%" : "0%";
+  };
+  modal.classList.add("show");
+  modal.style.display = "flex";
+  vid.play().catch(function () {});
+}
+window.showReelPreview = showReelPreview;
+
+function closeReelPreview() {
+  var modal = document.getElementById("reelPreviewModal");
+  var vid = document.getElementById("reelPreviewVideo");
+  if (vid) { try { vid.pause(); } catch (e) {} try { vid.removeAttribute("src"); vid.load(); } catch (e) {} }
+  if (modal) { modal.classList.remove("show"); modal.style.display = "none"; }
+  if (_reelPreviewUrl) { try { URL.revokeObjectURL(_reelPreviewUrl); } catch (e) {} _reelPreviewUrl = null; }
+}
+window.closeReelPreview = closeReelPreview;
+
+function reelPreviewEditIntoReel() {
+  var file = _reelPreviewFile;
+  closeReelPreview();
+  if (file && typeof window.zyroOpenEditor === "function") {
+    window.zyroOpenEditor(file, "video", "reel");
+  } else if (file && typeof window.__zeOrigVideoEditor === "function") {
+    window.__zeOrigVideoEditor(file, "reel");
+  }
+}
+window.reelPreviewEditIntoReel = reelPreviewEditIntoReel;
+
+function reelPreviewNext() {
+  var file = _reelPreviewFile;
+  var cat = _reelPreviewCategory || "video";
+  closeReelPreview();
+  if (file && typeof window.__zeOrigVideoEditor === "function") {
+    window.__zeOrigVideoEditor(file, cat);
+  } else if (file && typeof window.handleVideoSelectedForEditor === "function") {
+    window.handleVideoSelectedForEditor(file, cat);
+  }
+}
+window.reelPreviewNext = reelPreviewNext;
+
 function handleVideoSelectedForEditor(file, category) {
   if (!file) return;
   if (!file.type.startsWith("video/") && !/\.(mp4|mov|webm|mkv|3gp|m4v)$/i.test(file.name)) {
@@ -9769,7 +9924,7 @@ function handleVideoSelectedForEditor(file, category) {
   if (progressCard) progressCard.style.display = "none";
   if (publishBtn) {
     publishBtn.disabled = false;
-    publishBtn.textContent = "🚀 Publish Now";
+    publishBtn.innerHTML = '<svg class="ve-ico sm"><use href="#i-rocket"></use></svg> Publish Now';
   }
   if (topShareBtn) {
     topShareBtn.disabled = false;
@@ -9790,9 +9945,9 @@ function handleVideoSelectedForEditor(file, category) {
 
   // File metadata badges
   const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
-  if (sizeBadge) sizeBadge.textContent = "💾 " + sizeMb + " MB";
+  if (sizeBadge) sizeBadge.innerHTML = '<svg class="ve-ico sm"><use href="#i-save"></use></svg> ' + sizeMb + " MB";
   const ext = (file.name.split('.').pop() || "MP4").toUpperCase();
-  if (typeBadge) typeBadge.textContent = "🎥 " + ext;
+  if (typeBadge) typeBadge.innerHTML = '<svg class="ve-ico sm"><use href="#i-video"></use></svg> ' + ext;
 
   // Setup loop preview player with video trimmer controller
   if (player) {
@@ -9804,7 +9959,7 @@ function handleVideoSelectedForEditor(file, category) {
       const mins = Math.floor(player.duration / 60);
       const secs = Math.floor(player.duration % 60);
       const timeStr = mins + ":" + (secs < 10 ? "0" : "") + secs;
-      if (durationBadge) durationBadge.textContent = "⏱️ " + timeStr;
+      if (durationBadge) durationBadge.innerHTML = '<svg class="ve-ico sm"><use href="#i-clock"></use></svg> ' + timeStr;
       initTrimmerComponent(player.duration);
     };
     player.ontimeupdate = function() {
@@ -9877,10 +10032,10 @@ function handleVeVisibilityChange(isPublic) {
   const label = document.getElementById("veVisibilityLabel");
   const desc = document.getElementById("veVisibilityDesc");
   if (isPublic) {
-    if (label) label.textContent = "🌐 Public Video";
+    if (label) label.innerHTML = '<svg class="ve-ico sm"><use href="#i-globe"></use></svg> Public Video';
     if (desc) desc.textContent = "Anyone on Zyro and feed can view and share this video";
   } else {
-    if (label) label.textContent = "🔒 Private Video";
+    if (label) label.innerHTML = '<svg class="ve-ico sm"><use href="#i-lock"></use></svg> Private Video';
     if (desc) desc.textContent = "Only you can see this video in your profile library";
   }
 }
@@ -14837,7 +14992,7 @@ async function openCallHistory() {
       ov.id = "callHistoryOverlay";
       ov.style.cssText = "position:fixed;inset:0;z-index:100100;background:rgba(0,0,0,0.85);display:flex;align-items:flex-end;justify-content:center";
       ov.innerHTML = `<div style="background:#111;width:100%;max-width:480px;border-radius:16px 16px 0 0;color:#fff;position:relative">
-        <button onclick="document.getElementById('callHistoryOverlay').remove()" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer">✕</button>
+        <button onclick="document.getElementById('callHistoryOverlay').remove()" style="position:absolute;top:10px;right:14px;background:none;border:none;color:#fff;font-size:22px;cursor:pointer"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
         <div id="callHistoryBody"></div>
       </div>`;
       document.body.appendChild(ov);

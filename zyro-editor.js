@@ -131,11 +131,118 @@
     "🤯 Mind blown"
   ];
 
-  var STICKERS = [
-    "😂","🤣","❤️","🔥","😍","👍","🙌","🎉","💯","✨",
-    "😎","🥺","👑","🎵","⚡","💖","😊","🙏","💪","🎯",
-    "🌟","😱","🤯","😭","😡","🍿","🚀","🏆","🥳","🤙"
+  /* ---------------- Sticker & Overlay Packs (Instagram / YouTube style) ---------------- */
+  function _svg(vb, inner) { return '<svg viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">' + inner + '</svg>'; }
+
+  var STICKER_PACKS = [
+    { id: "trending", name: "Trending", items: [
+      { id: "sub",    kind: "svg", svg: _svg("0 0 220 84", '<rect x="4" y="6" width="212" height="72" rx="36" fill="#ff0033"/><text x="110" y="54" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#ffffff" text-anchor="middle">SUBSCRIBE</text>') },
+      { id: "like",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 88C20 66 8 50 8 33 8 18 20 8 33 8c8 0 14 4 17 10 3-6 9-10 17-10 13 0 25 10 25 25 0 17-12 33-42 55z" fill="#ff2d55"/><path d="M50 88C20 66 8 50 8 33 8 18 20 8 33 8c8 0 14 4 17 10 3-6 9-10 17-10 13 0 25 10 25 25 0 17-12 33-42 55z" fill="none" stroke="#ffffff" stroke-width="5"/>') },
+      { id: "new",    kind: "svg", svg: _svg("0 0 170 84", '<g transform="rotate(-8 85 42)"><rect x="6" y="8" width="158" height="68" rx="16" fill="#ff3d00"/><text x="85" y="56" font-family="Arial,sans-serif" font-size="42" font-weight="800" fill="#ffffff" text-anchor="middle">NEW</text></g>') },
+      { id: "live",   kind: "svg", svg: _svg("0 0 150 80", '<rect x="4" y="10" width="142" height="60" rx="14" fill="#e60023"/><circle cx="34" cy="40" r="9" fill="#ffffff"/><text x="92" y="53" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle">LIVE</text>') },
+      { id: "trend",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M14 62l22-24 16 16 34-34" fill="none" stroke="#00e676" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M64 20h22v22" fill="none" stroke="#00e676" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "fire",   kind: "emoji", ch: "🔥" },
+      { id: "viral",  kind: "emoji", ch: "🚀" },
+      { id: "crown",  kind: "emoji", ch: "👑" }
+    ]},
+    { id: "youtube", name: "YouTube", items: [
+      { id: "yt-play",    kind: "svg", svg: _svg("0 0 100 100", '<rect x="6" y="20" width="88" height="60" rx="18" fill="#ff0000"/><path d="M42 36l24 14-24 14z" fill="#ffffff"/>') },
+      { id: "yt-bell",    kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 12a20 20 0 0 0-20 20v14l-8 14h56l-8-14V32a20 20 0 0 0-20-20z" fill="#ffca28"/><path d="M42 66a8 8 0 0 0 16 0z" fill="#ffca28"/>') },
+      { id: "yt-comment", kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 20h76v44H40L22 84V64H12z" fill="#ffffff" stroke="#0f0f0f" stroke-width="5" stroke-linejoin="round"/>') },
+      { id: "yt-share",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M18 74c0-24 16-38 40-38V18l30 26-30 26V52c-18 0-28 6-40 22z" fill="#0f9d58"/>') },
+      { id: "yt-subs",    kind: "svg", svg: _svg("0 0 210 72", '<rect x="4" y="6" width="202" height="60" rx="30" fill="#ffffff" stroke="#0f0f0f" stroke-width="4"/><text x="105" y="46" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#0f0f0f" text-anchor="middle">Subscribed</text>') },
+      { id: "yt-views",   kind: "svg", svg: _svg("0 0 200 72", '<rect x="4" y="6" width="192" height="60" rx="12" fill="rgba(0,0,0,0.72)"/><text x="100" y="46" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">1.2M views</text>') },
+      { id: "yt-mic",     kind: "emoji", ch: "🎤" },
+      { id: "yt-cam",     kind: "emoji", ch: "🎬" }
+    ]},
+    { id: "badges", name: "Badges", items: [
+      { id: "verified", kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 6l10 10 14-2 4 14 14 6-6 14 6 14-14 6-4 14-14-2-10 10-10-10-14 2-4-14-14-6 6-14-6-14 14-6 4-14 14 2z" fill="#1da1f2"/><path d="M34 52l12 12 22-24" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "pin",      kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 6a28 28 0 0 0-28 28c0 20 28 60 28 60s28-40 28-60A28 28 0 0 0 50 6z" fill="#e63946"/><circle cx="50" cy="34" r="11" fill="#ffffff"/>') },
+      { id: "hashtag",  kind: "svg", svg: _svg("0 0 100 100", '<text x="50" y="74" font-family="Arial,sans-serif" font-size="80" font-weight="800" fill="#00d2ff" text-anchor="middle">#</text>') },
+      { id: "mention",  kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="30" fill="none" stroke="#b388ff" stroke-width="8"/><circle cx="50" cy="50" r="12" fill="none" stroke="#b388ff" stroke-width="8"/><path d="M62 50v8a12 12 0 0 0 24 0" fill="none" stroke="#b388ff" stroke-width="8" stroke-linecap="round"/>') },
+      { id: "gif",      kind: "svg", svg: _svg("0 0 140 72", '<rect x="4" y="8" width="132" height="56" rx="12" fill="#111111"/><text x="70" y="48" font-family="Arial,sans-serif" font-size="32" font-weight="800" fill="#ffffff" text-anchor="middle">GIF</text>') },
+      { id: "poll",     kind: "emoji", ch: "📊" },
+      { id: "star",     kind: "emoji", ch: "⭐" },
+      { id: "100",      kind: "emoji", ch: "💯" }
+    ]},
+    { id: "shapes", name: "Shapes", items: [
+      { id: "circle", kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="44" fill="#ff007f"/>') },
+      { id: "square", kind: "svg", svg: _svg("0 0 100 100", '<rect x="8" y="8" width="84" height="84" rx="14" fill="#00d2ff"/>') },
+      { id: "heart",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 86C22 66 10 51 10 35 10 21 21 11 34 11c7 0 13 3 16 9 3-6 9-9 16-9 13 0 24 10 24 24 0 16-12 31-40 51z" fill="#ff2d55"/>') },
+      { id: "arrow",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 50h58M52 30l22 20-22 20" fill="none" stroke="#ffd700" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "bubble", kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 16h76v52H44L24 88V68H12z" fill="#ffffff"/>') },
+      { id: "frame",  kind: "svg", svg: _svg("0 0 100 100", '<rect x="6" y="6" width="88" height="88" rx="10" fill="none" stroke="#ffffff" stroke-width="6"/>') },
+      { id: "spark",  kind: "emoji", ch: "✨" },
+      { id: "burst",  kind: "emoji", ch: "💥" }
+    ]},
+    { id: "emoji", name: "Emoji", items: [
+      "😂","🤣","❤️","🔥","😍","👍","🙌","🎉","💯","✨",
+      "😎","🥺","👑","🎵","⚡","💖","😊","🙏","💪","🎯",
+      "🌟","😱","🤯","😭","😡","🍿","🚀","🏆","🥳","🤙"
+    ].map(function (ch, i) { return { id: "em" + i, kind: "emoji", ch: ch }; }) }
   ];
+
+  var OVERLAY_PACKS = [
+    { id: "frames", name: "Frames", items: [
+      { id: "ov-frame-white",  kind: "svg", svg: _svg("0 0 100 100", '<rect x="4" y="4" width="92" height="92" rx="4" fill="none" stroke="#ffffff" stroke-width="3"/>') },
+      { id: "ov-frame-neon",   kind: "svg", svg: _svg("0 0 100 100", '<rect x="4" y="4" width="92" height="92" rx="14" fill="none" stroke="#00e5ff" stroke-width="3.5"/><rect x="4" y="4" width="92" height="92" rx="14" fill="none" stroke="#ff00e5" stroke-width="1.4"/>') },
+      { id: "ov-polaroid",     kind: "svg", svg: _svg("0 0 100 120", '<rect x="4" y="4" width="92" height="112" rx="3" fill="#ffffff"/><rect x="10" y="10" width="80" height="80" fill="#c9c9c9"/>') },
+      { id: "ov-filmstrip",    kind: "svg", svg: _svg("0 0 100 100", '<rect x="0" y="0" width="100" height="100" fill="none"/><rect x="0" y="0" width="100" height="12" fill="#111"/><rect x="0" y="88" width="100" height="12" fill="#111"/><g fill="#f2f2f2"><rect x="6" y="3" width="8" height="6" rx="1"/><rect x="22" y="3" width="8" height="6" rx="1"/><rect x="38" y="3" width="8" height="6" rx="1"/><rect x="54" y="3" width="8" height="6" rx="1"/><rect x="70" y="3" width="8" height="6" rx="1"/><rect x="86" y="3" width="8" height="6" rx="1"/><rect x="6" y="91" width="8" height="6" rx="1"/><rect x="22" y="91" width="8" height="6" rx="1"/><rect x="38" y="91" width="8" height="6" rx="1"/><rect x="54" y="91" width="8" height="6" rx="1"/><rect x="70" y="91" width="8" height="6" rx="1"/><rect x="86" y="91" width="8" height="6" rx="1"/></g>') },
+      { id: "ov-vignette",     kind: "svg", svg: _svg("0 0 100 100", '<defs><radialGradient id="ovv" cx="50%" cy="50%" r="72%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.72"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#ovv)"/>') },
+      { id: "ov-gradient",     kind: "svg", svg: _svg("0 0 100 100", '<defs><linearGradient id="ovg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff2d55" stop-opacity="0.55"/><stop offset="100%" stop-color="#7b2ff7" stop-opacity="0.55"/></linearGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#ovg)"/>') }
+    ]},
+    { id: "light", name: "Light", items: [
+      { id: "ov-leak-warm", kind: "svg", svg: _svg("0 0 100 100", '<defs><radialGradient id="ovlw" cx="82%" cy="18%" r="70%"><stop offset="0%" stop-color="#ffb347" stop-opacity="0.9"/><stop offset="100%" stop-color="#ffb347" stop-opacity="0"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#ovlw)"/>') },
+      { id: "ov-leak-pink", kind: "svg", svg: _svg("0 0 100 100", '<defs><radialGradient id="ovlp" cx="18%" cy="82%" r="70%"><stop offset="0%" stop-color="#ff2d9b" stop-opacity="0.85"/><stop offset="100%" stop-color="#ff2d9b" stop-opacity="0"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#ovlp)"/>') },
+      { id: "ov-glow",      kind: "svg", svg: _svg("0 0 100 100", '<defs><radialGradient id="ovgc" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.6"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></radialGradient></defs><rect x="0" y="0" width="100" height="100" fill="url(#ovgc)"/>') },
+      { id: "ov-bokeh",     kind: "svg", svg: _svg("0 0 100 100", '<g fill="#fff" opacity="0.55"><circle cx="20" cy="26" r="7"/><circle cx="72" cy="18" r="4"/><circle cx="84" cy="62" r="9"/><circle cx="34" cy="76" r="5"/><circle cx="56" cy="48" r="3"/></g>') },
+      { id: "ov-sun",       kind: "svg", svg: _svg("0 0 100 100", '<g stroke="#ffd54f" stroke-width="4" stroke-linecap="round" opacity="0.85"><path d="M50 4v14M50 82v14M4 50h14M82 50h14M18 18l10 10M72 72l10 10M82 18l-10 10M28 72l-10 10"/></g><circle cx="50" cy="50" r="12" fill="#ffca28" opacity="0.9"/>') }
+    ]},
+    { id: "shapes", name: "Shapes", items: [
+      { id: "ov-blob",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M74 16c12 8 20 24 16 40s-20 30-38 30S14 72 12 54 22 20 38 14s24-6 36 2z" fill="#7b2ff7" opacity="0.85"/>') },
+      { id: "ov-tri",    kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 10l44 76H6z" fill="#ff9800" opacity="0.9"/>') },
+      { id: "ov-ring",   kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="38" fill="none" stroke="#00e5ff" stroke-width="10"/>') },
+      { id: "ov-dots",   kind: "svg", svg: _svg("0 0 100 100", '<g fill="#fff" opacity="0.7"><circle cx="16" cy="16" r="3"/><circle cx="38" cy="16" r="3"/><circle cx="60" cy="16" r="3"/><circle cx="82" cy="16" r="3"/><circle cx="16" cy="38" r="3"/><circle cx="38" cy="38" r="3"/><circle cx="60" cy="38" r="3"/><circle cx="82" cy="38" r="3"/><circle cx="16" cy="60" r="3"/><circle cx="38" cy="60" r="3"/><circle cx="60" cy="60" r="3"/><circle cx="82" cy="60" r="3"/><circle cx="16" cy="82" r="3"/><circle cx="38" cy="82" r="3"/><circle cx="60" cy="82" r="3"/><circle cx="82" cy="82" r="3"/></g>') },
+      { id: "ov-wave",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M4 60c14-22 30-22 44 0s30 22 44 0" fill="none" stroke="#ffd700" stroke-width="6" stroke-linecap="round"/>') },
+      { id: "ov-star",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 8l12 26 28 3-21 19 6 28-25-14-25 14 6-28-21-19 28-3z" fill="#ffd700"/>') }
+    ]},
+    { id: "text", name: "Text", items: [
+      { id: "ov-swipeup", kind: "svg", svg: _svg("0 0 220 90", '<rect x="4" y="6" width="212" height="78" rx="18" fill="rgba(0,0,0,0.72)"/><text x="110" y="46" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">SWIPE UP</text><path d="M104 62l6-8 6 8" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "ov-linkbio", kind: "svg", svg: _svg("0 0 240 84", '<rect x="4" y="6" width="232" height="72" rx="36" fill="#ffffff"/><text x="120" y="52" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#111111" text-anchor="middle">Link in Bio</text>') },
+      { id: "ov-follow",  kind: "svg", svg: _svg("0 0 220 84", '<rect x="4" y="6" width="212" height="72" rx="36" fill="#ff2d55"/><text x="110" y="52" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">Follow Me</text>') },
+      { id: "ov-dm",      kind: "svg", svg: _svg("0 0 200 84", '<rect x="4" y="6" width="192" height="72" rx="36" fill="#00d2ff"/><text x="100" y="52" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#062b33" text-anchor="middle">DM Me</text>') },
+      { id: "ov-tag",     kind: "svg", svg: _svg("0 0 260 84", '<rect x="4" y="6" width="252" height="72" rx="36" fill="#7b2ff7"/><text x="130" y="52" font-family="Arial,sans-serif" font-size="28" font-weight="800" fill="#ffffff" text-anchor="middle">Tag a Friend</text>') },
+      { id: "ov-newpost", kind: "svg", svg: _svg("0 0 220 84", '<rect x="4" y="6" width="212" height="72" rx="36" fill="#111111"/><text x="110" y="52" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#ffffff" text-anchor="middle">NEW POST</text>') }
+    ]}
+  ];
+
+  // Flatten packs into a lookup array; compute aspect ratio from viewBox
+  var STICKERS = [];
+  function _flattenPacks(packs, layer, out) {
+    packs.forEach(function (p) {
+      p.items.forEach(function (it) {
+        it.pack = p.id;
+        it.layer = layer;
+        it.ar = 1;
+        if (it.kind === "svg") {
+          var m = /viewBox="([^"]+)"/.exec(it.svg);
+          if (m) {
+            var parts = m[1].split(/\s+/);
+            var vw = parseFloat(parts[2]), vh = parseFloat(parts[3]);
+            if (vw && vh) it.ar = vw / vh;
+          }
+        }
+        out.push(it);
+      });
+    });
+  }
+  _flattenPacks(STICKER_PACKS, "sticker", STICKERS);
+  _flattenPacks(OVERLAY_PACKS, "overlay", STICKERS);
+
+  function stickerById(id) {
+    for (var i = 0; i < STICKERS.length; i++) { if (STICKERS[i].id === id) return STICKERS[i]; }
+    return null;
+  }
 
   var CAPTION_STYLES = [
     { id: "hormozi",  name: "Hormozi Pop", desc: "Yellow Bold Outline" },
@@ -152,6 +259,8 @@
     return '<button class="ze-rail-btn" data-tool="' + tool + '"><span class="ze-rail-ic">' + inner + '</span><span>' + label + '</span></button>';
   }
   function ic(path, extra) { return '<svg viewBox="0 0 24 24"' + (extra || "") + '>' + path + '</svg>'; }
+  var SVG_PLAY = ic('<polygon points="6 4 20 12 6 20 6 4"/>', ' style="width:15px;height:15px;fill:currentColor;stroke:none;"');
+  var SVG_PAUSE = ic('<rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/>', ' style="width:15px;height:15px;fill:currentColor;stroke:none;"');
 
   function buildUI() {
     if (domReady) return;
@@ -163,9 +272,14 @@
             '<img class="ze-media" id="zeImg" alt="preview" style="display:none">' +
             '<video class="ze-media" id="zeVid" playsinline webkit-playsinline style="display:none"></video>' +
             '<div class="ze-fx-layer" id="zeFxLayer"></div>' +
+            '<div class="ze-overlay-layer" id="zeOverlayLayer"></div>' +
             '<div class="ze-text-layer" id="zeTextLayer"></div>' +
             '<div class="ze-sticker-layer" id="zeStickerLayer"></div>' +
           '</div>' +
+        '</div>' +
+        '<div class="ze-trash-zone" id="zeTrashZone" aria-hidden="true">' +
+          ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>', ' style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"') +
+          '<span>Delete</span>' +
         '</div>' +
         '<div class="ze-topbar">' +
           '<button class="ze-icon-btn" id="zeCancel" aria-label="Close">' + ic('<path d="M18 6 6 18M6 6l12 12"/>') + '</button>' +
@@ -178,7 +292,7 @@
           railBtn("effects", "Effects", ic('<path d="m12 3-1.9 5.8L4 10.7l5.8 1.9L12 18l1.9-5.4L20 10.7l-6.1-1.9Z"/>')) +
           railBtn("captions", "Captions", ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 12h3M14 12h3"/>')) +
           railBtn("stickers", "Stickers", ic('<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>')) +
-          railBtn("more", "More", ic('<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>', ' fill="currentColor" stroke="none"')) +
+          railBtn("save", "Save", ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>')) +
         '</div>' +
         '<div class="ze-swipe" id="zeSwipe">' + ic('<path d="m18 15-6-6-6 6"/>') + '<span>Swipe up to edit</span></div>' +
         '<div class="ze-bottombar">' +
@@ -193,7 +307,7 @@
         '</div>' +
         '<div class="ze-timeline" id="zeTimeline">' +
           '<div class="ze-tl-head">' +
-            '<button class="ze-tl-playhead-btn" id="zeTlPlayToggle" title="Play/Pause">▶</button>' +
+            '<button class="ze-tl-playhead-btn" id="zeTlPlayToggle" title="Play/Pause">' + SVG_PLAY + '</button>' +
             '<div class="ze-tl-title">Reel Editor</div>' +
             '<div class="ze-tl-time" id="zeTlTime">0:00.0 / 0:00.0</div>' +
             '<button class="ze-tl-close" id="zeTlClose">' + ic('<path d="M18 6 6 18M6 6l12 12"/>') + '</button>' +
@@ -206,23 +320,40 @@
             '</div>' +
             '<div class="ze-tl-ruler" id="zeTlRuler"></div>' +
             '<div class="ze-tl-audio-lane" id="zeTlAudioLane" title="Tap to adjust music">' +
-              '<span>🎵 ' + ic('<path d="M9 18V5l12-2v13"/>', ' style="width:12px;height:12px;display:inline;stroke:currentColor;fill:none;"') + ' <span id="zeTlAudioName">No audio added</span></span>' +
+              '<span>' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:12px;height:12px;display:inline;stroke:currentColor;fill:none;vertical-align:-1px;"') + ' <span id="zeTlAudioName">No audio added</span></span>' +
               '<div class="ze-tl-audio-wave"><div class="ze-tl-wave-bar" style="height:6px"></div><div class="ze-tl-wave-bar" style="height:12px"></div><div class="ze-tl-wave-bar" style="height:8px"></div><div class="ze-tl-wave-bar" style="height:14px"></div></div>' +
             '</div>' +
+            '<div class="ze-tl-overlay-lane" id="zeTlOverlayLane"></div>' +
             '<div class="ze-tl-text-lane" id="zeTlTextLane"></div>' +
           '</div>' +
           '<div class="ze-tl-tools" id="zeTlTools"></div>' +
           '<div class="ze-speed-row" id="zeSpeedRow" style="display:none"></div>' +
         '</div>' +
-        '<!-- Hidden file inputs for CapCut Timeline Audio -->' +
+        '<!-- Full-screen Sound Picker -->' +
+        '<div class="ze-sound-picker" id="zeSoundPicker">' +
+          '<div class="ze-sp-header">' +
+            '<button class="ze-sp-back" id="zeSoundPickerBack" aria-label="Back">' + ic('<path d="M19 12H5M12 19l-7-7 7-7"/>') + '</button>' +
+            '<div class="ze-sp-title">Sounds</div>' +
+            '<button class="ze-sp-create" id="zeSoundPickerCreate">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Create</button>' +
+          '</div>' +
+          '<div class="ze-sp-body" id="zeSoundPickerBody"></div>' +
+        '</div>' +
+        '<!-- Master Volume Popover -->' +
+        '<div class="ze-vol-pop" id="zeVolPop">' +
+          '<div class="ze-vol-head">' + ic('<path d="M11 5 6 9H2v6h4l5 4V5Z"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;"') + '<span>Volume</span></div>' +
+          '<div class="ze-vol-row"><span>Video</span><input type="range" id="zeVolVideo" min="0" max="100" value="100"><b id="zeVolVideoV">100%</b></div>' +
+          '<div class="ze-vol-row"><span>Music</span><input type="range" id="zeVolMusic" min="0" max="100" value="80"><b id="zeVolMusicV">80%</b></div>' +
+          '<button class="ze-vol-mute" id="zeVolMute">Mute all</button>' +
+        '</div>' +
+        '<!-- Hidden file inputs -->' +
         '<input type="file" id="zeDeviceAudioFile" accept="audio/*" style="display:none">' +
         '<input type="file" id="zeExtractVideoFile" accept="video/*" style="display:none">' +
-        '<!-- CapCut Voiceover Console -->' +
+        '<!-- Voiceover Console -->' +
         '<div class="ze-vo-overlay" id="zeVoiceoverOverlay">' +
           '<div class="ze-vo-panel">' +
             '<div class="ze-vo-header">' +
               '<div class="ze-vo-title">' + ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>') + '<span>Voiceover Studio</span></div>' +
-              '<button class="ze-vo-close" id="zeVoClose">✕</button>' +
+              '<button class="ze-vo-close" id="zeVoClose">' + ic('<path d="M18 6 6 18M6 6l12 12"/>', ' style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4;"') + '</button>' +
             '</div>' +
             '<div class="ze-vo-sub" id="zeVoSub">Tap the microphone to record your voice over the video</div>' +
             '<div class="ze-vo-timer" id="zeVoTimer">0:00.0</div>' +
@@ -234,30 +365,30 @@
               '<input type="checkbox" id="zeVoMuteVideo" checked> Mute video audio while recording' +
             '</label>' +
             '<div class="ze-vo-actions" id="zeVoActions" style="display:none">' +
-              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoPlayBtn">▶ Play</button>' +
-              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoRetakeBtn">🔄 Retake</button>' +
-              '<button class="ze-vo-btn ze-vo-btn-primary" id="zeVoAddBtn">✓ Add to Timeline</button>' +
-              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoSaveBtn" title="Save audio to phone">💾 Save</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoPlayBtn">' + ic('<polygon points="6 4 20 12 6 20 6 4"/>', ' style="width:13px;height:13px;fill:currentColor;stroke:none;vertical-align:-2px;margin-right:4px;"') + 'Play</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoRetakeBtn">' + ic('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:4px;"') + 'Retake</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-primary" id="zeVoAddBtn">' + ic('<path d="M20 6 9 17l-5-5"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.6;vertical-align:-2px;margin-right:4px;"') + 'Add to Timeline</button>' +
+              '<button class="ze-vo-btn ze-vo-btn-secondary" id="zeVoSaveBtn" title="Save audio to phone">' + ic('<path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:4px;"') + 'Save</button>' +
             '</div>' +
           '</div>' +
         '</div>' +
-        '<!-- CapCut Audio Extraction & Export Tools -->' +
+        '<!-- Audio Extraction & Export Tools -->' +
         '<div class="ze-at-overlay" id="zeAudioToolsOverlay">' +
           '<div class="ze-at-panel">' +
             '<div class="ze-at-header">' +
-              '<div class="ze-at-title">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '<span>Audio Options (CapCut)</span></div>' +
-              '<button class="ze-vo-close" id="zeAtClose">✕</button>' +
+              '<div class="ze-at-title">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '<span>Audio Options</span></div>' +
+              '<button class="ze-vo-close" id="zeAtClose">' + ic('<path d="M18 6 6 18M6 6l12 12"/>', ' style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.4;"') + '</button>' +
             '</div>' +
             '<div class="ze-at-card" id="zeAtExtractDeviceVideoBtn">' +
-              '<div class="ze-at-icon">📱</div>' +
+              '<div class="ze-at-icon">' + ic('<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>', ' style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;"') + '</div>' +
               '<div class="ze-at-info"><b>Extract Audio from Device Video</b><small>Pick any video from your phone to extract its soundtrack</small></div>' +
             '</div>' +
             '<div class="ze-at-card" id="zeAtExtractCurrentVideoBtn">' +
-              '<div class="ze-at-icon">🎬</div>' +
+              '<div class="ze-at-icon">' + ic('<rect x="2" y="5" width="14" height="14" rx="2"/><path d="m22 8-6 4 6 4V8z"/>', ' style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;"') + '</div>' +
               '<div class="ze-at-info"><b>Extract Current Video Audio</b><small>Separate this video sound into an editable timeline track</small></div>' +
             '</div>' +
             '<div class="ze-at-card" id="zeAtExportProjectAudioBtn">' +
-              '<div class="ze-at-icon">💾</div>' +
+              '<div class="ze-at-icon">' + ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>', ' style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;"') + '</div>' +
               '<div class="ze-at-info"><b>Export Audio to Device</b><small>Download project music / voiceover mix as an audio file</small></div>' +
             '</div>' +
           '</div>' +
@@ -277,11 +408,15 @@
     el.img = $("zeImg");
     el.vid = $("zeVid");
     el.fx = $("zeFxLayer");
+    el.overlayLayer = $("zeOverlayLayer");
     el.textLayer = $("zeTextLayer");
     el.stickerLayer = $("zeStickerLayer");
     el.soundBtn = $("zeSoundBtn");
     el.soundLabel = $("zeSoundLabel");
     el.volBtn = $("zeVolBtn");
+    el.trashZone = $("zeTrashZone");
+    el.soundPicker = $("zeSoundPicker");
+    el.volPop = $("zeVolPop");
     el.cancel = $("zeCancel");
     el.editBtn = $("zeEditBtn");
     el.next = $("zeNext");
@@ -304,6 +439,7 @@
     el.tlAudioLane = $("zeTlAudioLane");
     el.tlAudioName = $("zeTlAudioName");
     el.tlTextLane = $("zeTlTextLane");
+    el.tlOverlayLane = $("zeTlOverlayLane");
     el.speedRow = $("zeSpeedRow");
     el.render = $("zeRender");
     el.renderText = $("zeRenderText");
@@ -333,21 +469,28 @@
     el.cancel.addEventListener("click", closeEditor);
     el.next.addEventListener("click", onNext);
     el.editBtn.addEventListener("click", onEditBtn);
-    el.soundBtn.addEventListener("click", function () { openSheet("sound"); });
-    el.volBtn.addEventListener("click", toggleMute);
+    el.soundBtn.addEventListener("click", function () { openSoundPicker(); });
+    el.volBtn.addEventListener("click", openVolumeControl);
     el.sheetClose.addEventListener("click", closeSheet);
     el.tlClose.addEventListener("click", closeTimeline);
 
     if (el.tlAudioLane) {
-      el.tlAudioLane.addEventListener("click", function () { openSheet("sound"); });
+      el.tlAudioLane.addEventListener("click", function () { openSoundPicker(); });
     }
     if (el.tlPlayToggle) {
       el.tlPlayToggle.addEventListener("click", togglePlayback);
     }
 
+    if ($("zeSoundPickerBack")) $("zeSoundPickerBack").addEventListener("click", closeSoundPicker);
+    if ($("zeSoundPickerCreate")) $("zeSoundPickerCreate").addEventListener("click", function () {
+      var si = $("zeSoundSearch"); if (si) si.focus();
+    });
+    wireVolumePopover();
+
     qsa(".ze-rail-btn", el.rail).forEach(function (btn) {
       btn.addEventListener("click", function () {
         var tool = btn.getAttribute("data-tool");
+        if (tool === "save") { saveMediaToDevice(); return; }
         openSheet(tool);
       });
     });
@@ -367,13 +510,13 @@
     // Video events
     el.vid.addEventListener("timeupdate", onTimeUpdate);
     el.vid.addEventListener("play", function () {
-      if (el.tlPlayToggle) el.tlPlayToggle.textContent = "⏸";
+      if (el.tlPlayToggle) el.tlPlayToggle.innerHTML = SVG_PAUSE;
       if (S.music && S.music.el && S.music.el.paused) {
         try { S.music.el.play(); } catch (e) {}
       }
     });
     el.vid.addEventListener("pause", function () {
-      if (el.tlPlayToggle) el.tlPlayToggle.textContent = "▶";
+      if (el.tlPlayToggle) el.tlPlayToggle.innerHTML = SVG_PLAY;
       if (S.music && S.music.el && !S.music.el.paused) {
         try { S.music.el.pause(); } catch (e) {}
       }
@@ -592,16 +735,52 @@
     updateTimelineTextBlocks();
   }
 
+  function stickerInner(st) {
+    if (st.kind === "emoji") return '<span class="ze-sticker-glyph">' + st.ch + '</span>';
+    return '<span class="ze-sticker-glyph ze-sticker-svg">' + st.svg + '</span>';
+  }
+
   function renderStickers() {
     var boxW = el.canvas.clientWidth || 300;
-    var html = "";
+    var stickerHtml = "", overlayHtml = "";
     S.stickers.forEach(function (s) {
       var fs = Math.max(20, s.size * boxW);
-      var st = "left:" + (s.x * 100) + "%;top:" + (s.y * 100) + "%;font-size:" + fs + "px;";
-      var cls = "ze-sticker-item" + (s.id === S.selectedStickerId ? " selected" : "");
-      html += '<div class="' + cls + '" data-id="' + s.id + '" style="' + st + '">' + s.emoji + '</div>';
+      var st = "left:" + (s.x * 100) + "%;top:" + (s.y * 100) + "%;";
+      if (s.kind === "emoji") st += "font-size:" + fs + "px;";
+      else st += "width:" + fs + "px;height:" + (fs / (s.ar || 1)) + "px;";
+      var isOv = s.layer === "overlay";
+      var cls = "ze-sticker-item" + (isOv ? " ze-overlay-item" : "") + (s.id === S.selectedStickerId ? " selected" : "");
+      var node = '<div class="' + cls + '" data-id="' + s.id + '" style="' + st + '">' + stickerInner(s) + '</div>';
+      if (isOv) overlayHtml += node; else stickerHtml += node;
     });
-    el.stickerLayer.innerHTML = html;
+    if (el.stickerLayer) el.stickerLayer.innerHTML = stickerHtml;
+    if (el.overlayLayer) el.overlayLayer.innerHTML = overlayHtml;
+  }
+
+  function svgDataUrl(svg) { return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); }
+
+  function preloadStickerImage(item) {
+    if (!item || item.kind !== "svg" || item.img) return;
+    var img = new Image();
+    img.onload = function () { item._loaded = true; };
+    img.src = svgDataUrl(item.svg);
+    item.img = img;
+  }
+
+  function preloadAllStickerImages() {
+    var pending = [];
+    S.stickers.forEach(function (s) {
+      if (s.kind === "svg") {
+        if (!s.img) preloadStickerImage(s);
+        if (s.img && !s._loaded) {
+          pending.push(new Promise(function (res) {
+            s.img.addEventListener("load", res, { once: true });
+            s.img.addEventListener("error", res, { once: true });
+          }));
+        }
+      }
+    });
+    return Promise.all(pending);
   }
 
   function updateTimelineTextBlocks() {
@@ -619,6 +798,31 @@
         S.selectedTextId = tid;
         renderTexts();
         openSheet("text");
+      });
+    });
+  }
+
+  function overlayItems() {
+    return S.stickers.filter(function (s) { return s.layer === "overlay"; });
+  }
+
+  function updateTimelineOverlayBlocks() {
+    if (!el.tlOverlayLane) return;
+    var ovs = overlayItems();
+    if (!ovs.length) {
+      el.tlOverlayLane.innerHTML = '<span style="font-size:10.5px;color:#6d6d78;padding-left:4px">No overlay added</span>';
+      return;
+    }
+    el.tlOverlayLane.innerHTML = ovs.map(function (o) {
+      var label = o.kind === "emoji" ? o.ch : (stickerById(o.id) ? (stickerById(o.id).pack || "overlay") : "overlay");
+      return '<div class="ze-tl-overlay-block" data-oid="' + o.id + '">' + escapeHtml(String(label)) + '</div>';
+    }).join("");
+    qsa(".ze-tl-overlay-block", el.tlOverlayLane).forEach(function (b) {
+      b.addEventListener("click", function () {
+        S.selectedStickerId = b.getAttribute("data-oid");
+        S.selectedTextId = null;
+        renderStickers();
+        openSheet("overlay");
       });
     });
   }
@@ -681,10 +885,46 @@
       try { item.setPointerCapture(e.pointerId); } catch (err) {}
     }
     e.preventDefault();
+    showTrash(true);
 
     if (S.activeSheet === "text" && !drag.sticker) {
       renderSheet();
     }
+  }
+
+  /* ---------------- Drag-to-Delete (Instagram style) ---------------- */
+  function showTrash(show) {
+    if (!el.trashZone) return;
+    el.trashZone.classList.toggle("show", !!show);
+    if (!show) el.trashZone.classList.remove("hot");
+  }
+  function isOverTrash(cx, cy) {
+    if (!el.trashZone || !el.trashZone.classList.contains("show")) return false;
+    var r = el.trashZone.getBoundingClientRect();
+    var pad = 18;
+    return cx >= r.left - pad && cx <= r.right + pad && cy >= r.top - pad && cy <= r.bottom + pad;
+  }
+  function deleteDecorById(id) {
+    var before = S.stickers.length;
+    S.stickers = S.stickers.filter(function (k) { return k.id !== id; });
+    if (S.stickers.length !== before) {
+      if (S.selectedStickerId === id) S.selectedStickerId = null;
+      S.dirty = true;
+      renderStickers();
+      updateTimelineOverlayBlocks();
+      toast("Deleted");
+      return true;
+    }
+    var b2 = S.texts.length;
+    S.texts = S.texts.filter(function (k) { return k.id !== id; });
+    if (S.texts.length !== b2) {
+      if (S.selectedTextId === id) S.selectedTextId = null;
+      S.dirty = true;
+      renderTexts();
+      toast("Deleted");
+      return true;
+    }
+    return false;
   }
 
   function onPointerMove(e) {
@@ -693,11 +933,14 @@
     var x = clamp((e.clientX - r.left) / r.width, 0.04, 0.96);
     var y = clamp((e.clientY - r.top) / r.height, 0.04, 0.96);
 
+    var overTrash = isOverTrash(e.clientX, e.clientY);
+    if (el.trashZone) el.trashZone.classList.toggle("hot", overTrash);
+
     if (drag.sticker) {
       var s = S.stickers.filter(function (k) { return k.id === drag.id; })[0];
       if (s) {
         s.x = x; s.y = y;
-        var node = el.stickerLayer.querySelector('[data-id="' + s.id + '"]');
+        var node = el.canvas.querySelector('[data-id="' + s.id + '"]');
         if (node) { node.style.left = (x * 100) + "%"; node.style.top = (y * 100) + "%"; }
       }
     } else {
@@ -713,10 +956,16 @@
     }
   }
 
-  function onPointerUp() {
+  function onPointerUp(e) {
     if (drag) {
+      var d = drag;
       drag = null;
-      S.dirty = true;
+      var overTrash = e ? isOverTrash(e.clientX, e.clientY) : false;
+      showTrash(false);
+      if (overTrash) { deleteDecorById(d.id); }
+      else { S.dirty = true; }
+    } else {
+      showTrash(false);
     }
   }
 
@@ -732,6 +981,7 @@
         else { S.selectedTextId = id; S.selectedStickerId = null; }
         renderTexts(); renderStickers();
         drag = { id: id, rect: el.canvas.getBoundingClientRect(), sticker: isSticker };
+        showTrash(true);
         e.preventDefault();
       }
     }
@@ -743,11 +993,12 @@
       var r = drag.rect;
       var x = clamp((touch.clientX - r.left) / r.width, 0.04, 0.96);
       var y = clamp((touch.clientY - r.top) / r.height, 0.04, 0.96);
+      if (el.trashZone) el.trashZone.classList.toggle("hot", isOverTrash(touch.clientX, touch.clientY));
       if (drag.sticker) {
         var s = S.stickers.filter(function (k) { return k.id === drag.id; })[0];
         if (s) {
           s.x = x; s.y = y;
-          var node = el.stickerLayer.querySelector('[data-id="' + s.id + '"]');
+          var node = el.canvas.querySelector('[data-id="' + s.id + '"]');
           if (node) { node.style.left = (x * 100) + "%"; node.style.top = (y * 100) + "%"; }
         }
       } else {
@@ -762,8 +1013,14 @@
     }
   }
 
-  function onTouchEnd() {
-    if (drag) { drag = null; S.dirty = true; }
+  function onTouchEnd(e) {
+    if (drag) {
+      var d = drag; drag = null;
+      var t = e && e.changedTouches && e.changedTouches[0];
+      var overTrash = t ? isOverTrash(t.clientX, t.clientY) : false;
+      showTrash(false);
+      if (overTrash) deleteDecorById(d.id); else S.dirty = true;
+    } else { showTrash(false); }
   }
 
   /* ---------------- Sheets Controller ---------------- */
@@ -795,7 +1052,11 @@
     else if (n === "effects") renderEffectsSheet();
     else if (n === "captions") renderCaptionsSheet();
     else if (n === "stickers") renderStickersSheet();
-    else if (n === "more") renderMoreSheet();
+    else if (n === "overlay") renderOverlaySheet();
+    else if (n === "adjust") renderAdjustSheet();
+    else if (n === "ratio") renderRatioSheet();
+    else if (n === "transform") renderTransformSheet();
+    else if (n === "save") renderSaveSheet();
     else if (n === "sound") renderSoundSheet();
   }
 
@@ -838,7 +1099,7 @@
       el.sheetBody.innerHTML =
         '<div class="ze-empty">Add text, subtitles or hooks to your reel.<br>Drag anywhere, pinch or style.' +
         '<div style="height:14px"></div>' +
-        '<button class="ze-btn ze-btn-primary" id="zeAddTextBtn">➕ Add Text</button></div>';
+        '<button class="ze-btn ze-btn-primary" id="zeAddTextBtn">' + ic('<path d="M12 5v14M5 12h14"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;vertical-align:-2px;margin-right:5px;"') + 'Add Text</button></div>';
       $("zeAddTextBtn").addEventListener("click", function () { addText(); });
       return;
     }
@@ -865,11 +1126,11 @@
       '</div>' +
       sliderRow("zeTextSize", "Font Size", Math.round(t.size * 500), 15, 80, "px") +
       '<div style="display:flex;gap:8px;margin-top:10px">' +
-        '<button class="ze-btn ze-btn-ghost" id="zeDupTextBtn">📋 Duplicate</button>' +
-        '<button class="ze-btn ze-btn-danger" id="zeDelTextBtn">🗑️ Delete</button>' +
+        '<button class="ze-btn ze-btn-ghost" id="zeDupTextBtn">' + ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Duplicate</button>' +
+        '<button class="ze-btn ze-btn-danger" id="zeDelTextBtn">' + ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Delete</button>' +
       '</div>' +
       '<div style="height:8px"></div>' +
-      '<button class="ze-btn ze-btn-ghost" id="zeAddNewTextBtn">➕ Add Another Text</button>' +
+      '<button class="ze-btn ze-btn-ghost" id="zeAddNewTextBtn">' + ic('<path d="M12 5v14M5 12h14"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;vertical-align:-2px;margin-right:5px;"') + 'Add Another Text</button>' +
     '</div>';
 
     el.sheetBody.innerHTML = html;
@@ -1069,7 +1330,7 @@
         }).join("") +
       '</div>' +
       '<div style="height:14px"></div>' +
-      '<button class="ze-btn ze-btn-primary" id="zeCreateCustomCap">➕ Add Custom Caption</button>';
+      '<button class="ze-btn ze-btn-primary" id="zeCreateCustomCap">' + ic('<path d="M12 5v14M5 12h14"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;vertical-align:-2px;margin-right:5px;"') + 'Add Custom Caption</button>';
 
     el.sheetBody.innerHTML = html;
 
@@ -1094,41 +1355,70 @@
   }
 
   /* ---------------- 5. STICKERS ---------------- */
-  function addSticker(emoji) {
-    var id = "s_" + Date.now();
-    S.stickers.push({ id: id, emoji: emoji, x: 0.5, y: 0.5, size: 0.22 });
+  function addSticker(st) {
+    if (typeof st === "string") st = stickerById(st) || { id: "x", kind: "emoji", ch: st };
+    var id = "s_" + Date.now() + "_" + Math.floor(Math.random() * 999);
+    var isOv = st.layer === "overlay";
+    var item = {
+      id: id, kind: st.kind, ch: st.ch, svg: st.svg, ar: st.ar || 1,
+      layer: isOv ? "overlay" : "sticker",
+      x: 0.5, y: 0.5,
+      size: isOv ? 0.55 : (st.kind === "emoji" ? 0.22 : 0.32)
+    };
+    S.stickers.push(item);
     S.selectedStickerId = id;
     S.selectedTextId = null;
     S.dirty = true;
+    if (item.kind === "svg") preloadStickerImage(item);
     renderStickers();
-    toast("Sticker added — drag anywhere");
+    updateTimelineOverlayBlocks();
+    toast((isOv ? "Overlay" : "Sticker") + " added — drag anywhere");
   }
 
-  function renderStickersSheet() {
-    setSheetTitle("Stickers");
-    var html = '<div class="ze-sticker-grid">' +
-      STICKERS.map(function (s) {
-        return '<button class="ze-sticker-btn" data-s="' + s + '">' + s + '</button>';
-      }).join("") +
-      '</div>';
-    el.sheetBody.innerHTML = html;
-    qsa(".ze-sticker-btn", el.sheetBody).forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        addSticker(btn.getAttribute("data-s"));
+  function _renderDecorSheet(packs, isOverlay) {
+    var tabs = packs.map(function (p, i) {
+      return '<button class="ze-sticker-cat' + (i === 0 ? " active" : "") + '" data-cat="' + p.id + '">' + p.name + '</button>';
+    }).join("");
+    el.sheetBody.innerHTML =
+      '<div class="ze-sticker-tabs" id="zeStickerTabs">' + tabs + '</div>' +
+      '<div class="ze-sticker-grid" id="zeStickerGrid"></div>';
+    var grid = $("#zeStickerGrid");
+    function paint(catId) {
+      var pack = packs.filter(function (p) { return p.id === catId; })[0] || packs[0];
+      grid.innerHTML = pack.items.map(function (it) {
+        return '<button class="ze-sticker-btn' + (isOverlay ? " ze-overlay-btn" : "") + '" data-sid="' + it.id + '">' + stickerInner(it) + '</button>';
+      }).join("");
+      qsa(".ze-sticker-btn", grid).forEach(function (btn) {
+        btn.addEventListener("click", function () { addSticker(stickerById(btn.getAttribute("data-sid"))); });
+      });
+    }
+    paint(packs[0].id);
+    qsa(".ze-sticker-cat", el.sheetBody).forEach(function (b) {
+      b.addEventListener("click", function () {
+        qsa(".ze-sticker-cat", el.sheetBody).forEach(function (x) { x.classList.remove("active"); });
+        b.classList.add("active");
+        paint(b.getAttribute("data-cat"));
       });
     });
   }
 
-  /* ---------------- 6. MORE SHEET (SAVE TO DEVICE AT VERY TOP) ---------------- */
-  function renderMoreSheet() {
-    setSheetTitle("More Options");
-    var a = S.adjust;
+  function renderStickersSheet() {
+    setSheetTitle("Stickers");
+    _renderDecorSheet(STICKER_PACKS, false);
+  }
 
-    // SAVE TO DEVICE HERO CARD AT THE VERY TOP (User Requirement!)
+  function renderOverlaySheet() {
+    setSheetTitle("Overlay");
+    _renderDecorSheet(OVERLAY_PACKS, true);
+  }
+
+  /* ---------------- 6. MORE SHEET (SAVE TO DEVICE AT VERY TOP) ---------------- */
+  function renderSaveSheet() {
+    setSheetTitle("Save to Device");
     var html =
       '<div class="ze-save-device-card" id="zeSaveCard">' +
         '<div class="ze-save-device-top">' +
-          '<span class="ze-save-device-badge">📥 GALLERY EXPORT</span>' +
+          '<span class="ze-save-device-badge">' + ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4;"') + ' GALLERY EXPORT</span>' +
         '</div>' +
         '<div class="ze-save-device-title">Save to Device / Gallery</div>' +
         '<div class="ze-save-device-sub">Export full-quality video/reel with all your edits, filters, text & audio directly to your phone gallery</div>' +
@@ -1137,61 +1427,65 @@
           '<span>Save to Phone Gallery / Download</span>' +
         '</button>' +
       '</div>';
+    el.sheetBody.innerHTML = html;
+    $("zeSaveToDeviceBtn").addEventListener("click", function () { saveMediaToDevice(); });
+  }
 
-    html += '<div class="ze-panel-title">Fine Adjustments</div>' +
+  function renderAdjustSheet() {
+    setSheetTitle("Adjust");
+    var a = S.adjust;
+    var html = '<div class="ze-panel-title">Fine Adjustments</div>' +
       sliderRow("zeBright", "Brightness", a.brightness, 50, 150, "%") +
       sliderRow("zeContrast", "Contrast", a.contrast, 50, 150, "%") +
       sliderRow("zeSat", "Saturation", a.saturation, 0, 200, "%") +
       sliderRow("zeWarm", "Warmth", a.warmth, -100, 100, "") +
-      sliderRow("zeFade", "Fade", a.fade, 0, 100, "%");
-
-    html += '<div class="ze-panel-title">Transform</div><div class="ze-chips">' +
-      '<button class="ze-chip" data-tr="rot">⟳ Rotate 90°</button>' +
-      '<button class="ze-chip' + (S.transform.flipH ? " active" : "") + '" data-tr="fliph">⇄ Flip H</button>' +
-      '<button class="ze-chip' + (S.transform.flipV ? " active" : "") + '" data-tr="flipv">⇅ Flip V</button>' +
-      '<button class="ze-chip" data-tr="reset">Reset</button></div>';
-
-    html += '<div class="ze-panel-title">Aspect Ratio</div><div class="ze-chips">' +
-      ASPECTS.map(function (x) {
-        return '<button class="ze-chip' + (x.id === S.aspect ? " active" : "") + '" data-asp="' + x.id + '">' + x.name + '</button>';
-      }).join("") +
-      '</div>';
-
+      sliderRow("zeFade", "Fade", a.fade, 0, 100, "%") +
+      '<div class="ze-chips" style="margin-top:12px"><button class="ze-chip" id="zeAdjustReset">' +
+      ic('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') +
+      'Reset Adjustments</button></div>';
     el.sheetBody.innerHTML = html;
-
-    // Save to Device handler
-    $("zeSaveToDeviceBtn").addEventListener("click", function () {
-      saveMediaToDevice();
-    });
-
     bindSlider("zeBright", function (v) { a.brightness = v; S.dirty = true; applyPreview(); });
     bindSlider("zeContrast", function (v) { a.contrast = v; S.dirty = true; applyPreview(); });
     bindSlider("zeSat", function (v) { a.saturation = v; S.dirty = true; applyPreview(); });
     bindSlider("zeWarm", function (v) { a.warmth = v; S.dirty = true; applyPreview(); });
     bindSlider("zeFade", function (v) { a.fade = v; S.dirty = true; applyPreview(); });
+    $("#zeAdjustReset").addEventListener("click", function () {
+      S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0 };
+      S.dirty = true; applyPreview(); renderAdjustSheet();
+    });
+  }
 
+  function renderRatioSheet() {
+    setSheetTitle("Aspect Ratio");
+    var html = '<div class="ze-panel-title">Aspect Ratio</div><div class="ze-chips">' +
+      ASPECTS.map(function (x) {
+        return '<button class="ze-chip' + (x.id === S.aspect ? " active" : "") + '" data-asp="' + x.id + '">' + x.name + '</button>';
+      }).join("") + '</div>';
+    el.sheetBody.innerHTML = html;
+    qsa("[data-asp]", el.sheetBody).forEach(function (n) {
+      n.addEventListener("click", function () {
+        S.aspect = n.getAttribute("data-asp");
+        S.dirty = true; applyAspect(); renderTexts(); renderStickers(); renderRatioSheet();
+      });
+    });
+  }
+
+  function renderTransformSheet() {
+    setSheetTitle("Transform");
+    var html = '<div class="ze-panel-title">Transform</div><div class="ze-chips">' +
+      '<button class="ze-chip" data-tr="rot">' + ic('<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') + 'Rotate 90°</button>' +
+      '<button class="ze-chip' + (S.transform.flipH ? " active" : "") + '" data-tr="fliph">' + ic('<path d="M12 3v18M7 8l-4 4 4 4M17 8l4 4-4 4"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') + 'Flip H</button>' +
+      '<button class="ze-chip' + (S.transform.flipV ? " active" : "") + '" data-tr="flipv">' + ic('<path d="M3 12h18M8 7l4-4 4 4M8 17l4 4 4-4"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') + 'Flip V</button>' +
+      '<button class="ze-chip" data-tr="reset">' + ic('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') + 'Reset</button></div>';
+    el.sheetBody.innerHTML = html;
     qsa("[data-tr]", el.sheetBody).forEach(function (n) {
       n.addEventListener("click", function () {
         var k = n.getAttribute("data-tr");
         if (k === "rot") S.transform.rotate = (S.transform.rotate + 90) % 360;
         else if (k === "fliph") S.transform.flipH = !S.transform.flipH;
         else if (k === "flipv") S.transform.flipV = !S.transform.flipV;
-        else { S.transform = { rotate: 0, flipH: false, flipV: false }; S.aspect = "original"; }
-        S.dirty = true;
-        applyAspect();
-        applyPreview();
-        renderMoreSheet();
-      });
-    });
-
-    qsa("[data-asp]", el.sheetBody).forEach(function (n) {
-      n.addEventListener("click", function () {
-        S.aspect = n.getAttribute("data-asp");
-        S.dirty = true;
-        applyAspect();
-        renderTexts();
-        renderStickers();
-        renderMoreSheet();
+        else { S.transform = { rotate: 0, flipH: false, flipV: false }; }
+        S.dirty = true; applyAspect(); applyPreview(); renderTransformSheet();
       });
     });
   }
@@ -1262,15 +1556,18 @@
   var storySoundsCache = [];
   var activeAudioPreview = null;
 
-  function renderSoundSheet() {
-    setSheetTitle("Add Music");
+  function _tabSvg(path) {
+    return ic(path, ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"');
+  }
+
+  function buildSoundUI(container) {
     var html = "";
 
-    // Sleek Active Music Banner (when a song/audio is selected)
+    // Active music banner
     if (S.music) {
       html += '<div class="ze-cur-music-card">' +
         '<div class="ze-cur-music-left">' +
-          '<div class="ze-sound-ic">🎵</div>' +
+          '<div class="ze-sound-ic">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"') + '</div>' +
           '<div class="ze-sound-meta">' +
             '<b>' + escapeHtml(S.music.name) + '</b>' +
             '<small>' + (S.music.artist ? escapeHtml(S.music.artist) : 'Active Soundtrack') + '</small>' +
@@ -1281,32 +1578,31 @@
       sliderRow("zeMusicVol", "Music Volume", Math.round(S.musicVol * 100), 0, 100, "%");
     }
 
-    // Clean, professional Search Bar with icon and clear button
+    // Search bar
     html += '<div class="ze-search-wrap">' +
-      '<span class="ze-search-icon">🔍</span>' +
+      '<span class="ze-search-icon">' + ic('<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>', ' style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;"') + '</span>' +
       '<input type="text" class="ze-input" id="zeSoundSearch" placeholder="Search Bollywood, Punjabi, Comedy sounds...">' +
-      '<button class="ze-search-clear" id="zeSoundSearchClear" style="display:none">✕</button>' +
+      '<button class="ze-search-clear" id="zeSoundSearchClear" style="display:none">' + ic('<path d="M18 6 6 18M6 6l12 12"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;"') + '</button>' +
     '</div>';
 
-    // Modern horizontal genre/category pill tabs
+    // Genre pill tabs (SVG icons)
     html += '<div class="ze-sound-tabs">' +
-      '<button class="ze-sound-tab active" data-scat="trending">🔥 Trending</button>' +
-      '<button class="ze-sound-tab" data-scat="story">😂 Comedy & Story</button>' +
-      '<button class="ze-sound-tab" data-scat="bollywood">🎬 Bollywood</button>' +
-      '<button class="ze-sound-tab" data-scat="punjabi">⚡ Punjabi</button>' +
-      '<button class="ze-sound-tab" data-scat="desi">🎶 Desi Hits</button>' +
-      '<button class="ze-sound-tab" data-scat="lofi">🎷 Lo-Fi / Chill</button>' +
-      '<button class="ze-sound-tab" data-scat="meme">💥 Memes</button>' +
+      '<button class="ze-sound-tab active" data-scat="trending">' + _tabSvg('<path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1 0-2-1-3 3 1 5 4 5 7a7 7 0 1 1-14 0c0-5 4-6 4-10 0-1 1-2 3-3z"/>') + 'Trending</button>' +
+      '<button class="ze-sound-tab" data-scat="story">' + _tabSvg('<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>') + 'Comedy</button>' +
+      '<button class="ze-sound-tab" data-scat="bollywood">' + _tabSvg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>') + 'Bollywood</button>' +
+      '<button class="ze-sound-tab" data-scat="punjabi">' + _tabSvg('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>') + 'Punjabi</button>' +
+      '<button class="ze-sound-tab" data-scat="desi">' + _tabSvg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + 'Desi Hits</button>' +
+      '<button class="ze-sound-tab" data-scat="lofi">' + _tabSvg('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/>') + 'Lo-Fi</button>' +
+      '<button class="ze-sound-tab" data-scat="meme">' + _tabSvg('<path d="m12 3-1.9 5.8L4 10.7l5.8 1.9L12 18l1.9-5.4L20 10.7l-6.1-1.9Z"/>') + 'Memes</button>' +
     '</div>';
 
-    // Song List Container
+    // Song list container
     html += '<div class="ze-sound-list" id="zeSoundListContainer">' +
       '<div style="text-align:center;padding:24px 16px;color:#8e8e9c"><div class="ze-spinner" style="margin:0 auto 10px;width:24px;height:24px;border-width:2px"></div>Loading songs...</div>' +
     '</div>';
 
-    el.sheetBody.innerHTML = html;
+    container.innerHTML = html;
 
-    // Music Volume slider
     if ($("zeMusicVol")) {
       bindSlider("zeMusicVol", function (v) {
         S.musicVol = v / 100;
@@ -1314,19 +1610,17 @@
       });
     }
 
-    // Remove active music
     if ($("zeCurMusicRemove")) {
       $("zeCurMusicRemove").addEventListener("click", function () {
         if (S.music && S.music.el) { try { S.music.el.pause(); } catch (e) {} }
         S.music = null;
         updateSoundLabel();
         if (S.timelineOpen) renderTimeline();
-        renderSoundSheet();
+        buildSoundUI(container);
         toast("Audio removed");
       });
     }
 
-    // Clean Sound Search with instant debounce & clear button
     var searchInput = $("zeSoundSearch");
     var clearBtn = $("zeSoundSearchClear");
     var searchTimer = null;
@@ -1334,7 +1628,7 @@
     if (searchInput) {
       searchInput.addEventListener("input", function () {
         var q = (this.value || "").trim();
-        if (clearBtn) clearBtn.style.display = q ? "block" : "none";
+        if (clearBtn) clearBtn.style.display = q ? "flex" : "none";
         clearTimeout(searchTimer);
         searchTimer = setTimeout(function () {
           if (!q) loadSoundCategory("trending");
@@ -1345,26 +1639,39 @@
 
     if (clearBtn) {
       clearBtn.addEventListener("click", function () {
-        if (searchInput) {
-          searchInput.value = "";
-          searchInput.focus();
-        }
+        if (searchInput) { searchInput.value = ""; searchInput.focus(); }
         clearBtn.style.display = "none";
         loadSoundCategory("trending");
       });
     }
 
-    // Genre pill tab clicks
-    qsa(".ze-sound-tab", el.sheetBody).forEach(function (tab) {
+    qsa(".ze-sound-tab", container).forEach(function (tab) {
       tab.addEventListener("click", function () {
-        qsa(".ze-sound-tab", el.sheetBody).forEach(function (t) { t.classList.remove("active"); });
+        qsa(".ze-sound-tab", container).forEach(function (t) { t.classList.remove("active"); });
         tab.classList.add("active");
-        var cat = tab.getAttribute("data-scat");
-        loadSoundCategory(cat);
+        loadSoundCategory(tab.getAttribute("data-scat"));
       });
     });
 
     loadSoundCategory("trending");
+  }
+
+  function renderSoundSheet() {
+    setSheetTitle("Add Music");
+    buildSoundUI(el.sheetBody);
+  }
+
+  function openSoundPicker() {
+    if (!el.soundPicker) return;
+    closeSheet();
+    el.sheetBody.innerHTML = "";
+    el.soundPicker.classList.add("open");
+    buildSoundUI($("zeSoundPickerBody"));
+  }
+
+  function closeSoundPicker() {
+    if (el.soundPicker) el.soundPicker.classList.remove("open");
+    if (activeAudioPreview) { try { activeAudioPreview.pause(); } catch (e) {} }
   }
 
   function loadSoundCategory(cat) {
@@ -1441,8 +1748,8 @@
     items.forEach(function (s, idx) {
       var isCur = S.music && S.music.url === s.previewUrl;
       html += '<div class="ze-sound-row' + (isCur ? " active" : "") + '">' +
-        '<button class="ze-audio-play-btn" data-play-idx="' + idx + '" title="Preview">▶</button>' +
-        '<div class="ze-sound-ic">' + (s.icon || "🎵") + '</div>' +
+        '<button class="ze-audio-play-btn" data-play-idx="' + idx + '" title="Preview">' + SVG_PLAY + '</button>' +
+        '<div class="ze-sound-ic">' + (s.icon ? s.icon : ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"')) + '</div>' +
         '<div class="ze-sound-meta"><b>' + escapeHtml(s.title) + '</b><small>' + escapeHtml(s.artist || "UPComedyHub Audio") + '</small></div>' +
         '<button class="ze-sound-use-btn" data-use-idx="' + idx + '">+ Use</button>' +
       '</div>';
@@ -1458,25 +1765,25 @@
 
         if (activeAudioPreview && activeAudioPreview._url === s.previewUrl && !activeAudioPreview.paused) {
           activeAudioPreview.pause();
-          btn.textContent = "▶";
+          btn.innerHTML = SVG_PLAY;
           btn.classList.remove("playing");
           return;
         }
 
         if (activeAudioPreview) {
           try { activeAudioPreview.pause(); } catch (er) {}
-          qsa(".ze-audio-play-btn", container).forEach(function (b) { b.textContent = "▶"; b.classList.remove("playing"); });
+          qsa(".ze-audio-play-btn", container).forEach(function (b) { b.innerHTML = SVG_PLAY; b.classList.remove("playing"); });
         }
 
         activeAudioPreview = new Audio(s.previewUrl);
         activeAudioPreview._url = s.previewUrl;
         activeAudioPreview.volume = 0.9;
         activeAudioPreview.play().then(function () {
-          btn.textContent = "⏸";
+          btn.innerHTML = SVG_PAUSE;
           btn.classList.add("playing");
         }).catch(function () {});
         activeAudioPreview.onended = function () {
-          btn.textContent = "▶";
+          btn.innerHTML = SVG_PLAY;
           btn.classList.remove("playing");
         };
       });
@@ -1514,12 +1821,76 @@
     });
   }
 
+  function syncVolLabels() {
+    var vv = $("zeVolVideo"), vm = $("zeVolMusic");
+    if ($("zeVolVideoV")) $("zeVolVideoV").textContent = (vv ? vv.value : 100) + "%";
+    if ($("zeVolMusicV")) $("zeVolMusicV").textContent = (vm ? vm.value : 0) + "%";
+  }
+
+  function applyMasterVolume() {
+    el.vid.volume = S.volume;
+    el.vid.muted = S.muted || S.volume === 0;
+    if (S.music && S.music.el) {
+      S.music.el.volume = S.musicVol;
+      S.music.el.muted = S.musicVol === 0;
+    }
+    el.volBtn.classList.toggle("on", S.muted || S.volume === 0);
+  }
+
+  function wireVolumePopover() {
+    var vv = $("zeVolVideo"), vm = $("zeVolMusic"), muteBtn = $("zeVolMute");
+    if (vv) {
+      vv.addEventListener("input", function () {
+        S.volume = vv.value / 100;
+        S.muted = S.volume === 0;
+        applyMasterVolume();
+        syncVolLabels();
+      });
+    }
+    if (vm) {
+      vm.addEventListener("input", function () {
+        S.musicVol = vm.value / 100;
+        applyMasterVolume();
+        syncVolLabels();
+      });
+    }
+    if (muteBtn) {
+      muteBtn.addEventListener("click", function () {
+        var anyOn = (S.volume > 0) || (S.musicVol > 0);
+        if (anyOn) {
+          S._prevVol = S.volume; S._prevMusicVol = S.musicVol;
+          S.volume = 0; S.musicVol = 0; S.muted = true;
+        } else {
+          S.volume = S._prevVol != null ? S._prevVol : 1;
+          S.musicVol = S._prevMusicVol != null ? S._prevMusicVol : 0.8;
+          S.muted = false;
+        }
+        applyMasterVolume();
+        if (vv) vv.value = Math.round(S.volume * 100);
+        if (vm) vm.value = Math.round(S.musicVol * 100);
+        syncVolLabels();
+        toast(anyOn ? "Muted all" : "Sound on");
+      });
+    }
+  }
+
+  function openVolumeControl() {
+    var pop = el.volPop;
+    if (!pop) return;
+    var open = pop.classList.toggle("open");
+    if (open) {
+      var vv = $("zeVolVideo"), vm = $("zeVolMusic");
+      if (vv) vv.value = Math.round(S.volume * 100);
+      if (vm) vm.value = Math.round(S.musicVol * 100);
+      syncVolLabels();
+    }
+    el.volBtn.classList.toggle("on", open);
+  }
+
   function toggleMute() {
     S.muted = !S.muted;
-    el.vid.muted = S.muted;
-    el.volBtn.classList.toggle("on", S.muted);
-    if (S.music && S.music.el) S.music.el.muted = S.muted;
-    toast(S.muted ? "🔇 Muted" : "🔊 Sound on");
+    applyMasterVolume();
+    toast(S.muted ? "Muted" : "Sound on");
   }
 
   function updateSoundLabel() {
@@ -1650,18 +2021,26 @@
     // Text lane blocks
     updateTimelineTextBlocks();
 
+    // Overlay lane blocks (above text)
+    updateTimelineOverlayBlocks();
+
     // CapCut & Instagram Reel Action Toolbar with complete Audio Suite
     el.tlTools.innerHTML =
       tlTool("split", "Split", ic('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')) +
       tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>')) +
+      tlTool("flip", "Flip", ic('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>')) +
+      tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
+      tlTool("dup", "Duplicate", ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>')) +
+      tlTool("addclip", "Add Clip", ic('<path d="M12 5v14M5 12h14"/>')) +
+      tlTool("text", "Text", ic('<path d="M4 7V5h16v2M9 19h6M12 5v14"/>')) +
+      tlTool("overlay", "Overlay", ic('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/>')) +
+      tlTool("adjust", "Adjust", ic('<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>')) +
+      tlTool("ratio", "Ratio", ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M16 5v14"/>')) +
+      tlTool("transform", "Transform", ic('<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>')) +
       tlTool("voiceover", "Voiceover", ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>')) +
       tlTool("importaudio", "Import Audio", ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>')) +
       tlTool("exportaudio", "Audio Tools", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
-      tlTool("sound", "Music", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
-      tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
-      tlTool("dup", "Duplicate", ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>')) +
-      tlTool("flip", "Flip", ic('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>')) +
-      tlTool("addclip", "Add Clip", ic('<path d="M12 5v14M5 12h14"/>'));
+      tlTool("sound", "Music", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'));
 
     qsa(".ze-tl-tool", el.tlTools).forEach(function (b) {
       b.addEventListener("click", function () {
@@ -1758,6 +2137,11 @@
     if (tool === "exportaudio") return openAudioToolsModal();
     if (tool === "sound") { openSheet("sound"); return; }
     if (tool === "addclip") return triggerAddClip();
+    if (tool === "text") { openSheet("text"); return; }
+    if (tool === "overlay") { openSheet("overlay"); return; }
+    if (tool === "adjust") { openSheet("adjust"); return; }
+    if (tool === "ratio") { openSheet("ratio"); return; }
+    if (tool === "transform") { openSheet("transform"); return; }
   }
 
   /* ---------------- CapCut Timeline Audio Actions ---------------- */
@@ -1861,13 +2245,13 @@
         if (!voAudio) return;
         if (!voAudio.paused) {
           voAudio.pause();
-          playBtn.textContent = "▶ Play";
+          playBtn.innerHTML = SVG_PLAY + "<span>Play</span>";
         } else {
           voAudio.currentTime = 0;
           voAudio.play().then(function () {
-            playBtn.textContent = "⏸ Pause";
+            playBtn.innerHTML = SVG_PAUSE + "<span>Pause</span>";
           }).catch(function () {});
-          voAudio.onended = function () { playBtn.textContent = "▶ Play"; };
+          voAudio.onended = function () { playBtn.innerHTML = SVG_PLAY + "<span>Play</span>"; };
         }
       });
     }
@@ -1977,7 +2361,7 @@
 
       var mic = $("zeVoMicBtn");
       mic.classList.add("recording");
-      mic.innerHTML = '<span style="font-size:22px">⏹</span>';
+      mic.innerHTML = ic('<rect x="6" y="6" width="12" height="12" rx="2"/>', ' style="width:22px;height:22px;fill:currentColor;stroke:none;"');
       $("zeVoSub").textContent = "🔴 Recording Voiceover... Tap to stop";
       $("zeVoActions").style.display = "none";
 
@@ -2491,31 +2875,40 @@
   function drawStickers(ctx, W, H) {
     S.stickers.forEach(function (s) {
       var fs = Math.max(14, s.size * W);
-      ctx.save();
-      ctx.font = fs + "px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(s.emoji, s.x * W, s.y * H);
-      ctx.restore();
+      if (s.kind === "emoji") {
+        ctx.save();
+        ctx.font = fs + "px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(s.ch, s.x * W, s.y * H);
+        ctx.restore();
+      } else if (s.img && s.img.complete && s.img.naturalWidth) {
+        var w = fs, h = fs / (s.ar || 1);
+        ctx.save();
+        ctx.drawImage(s.img, s.x * W - w / 2, s.y * H - h / 2, w, h);
+        ctx.restore();
+      }
     });
   }
 
   /* ---------------- EXPORT (Images & Videos) ---------------- */
   function exportImage() {
-    return new Promise(function (resolve, reject) {
-      try {
-        var flat = flattenMedia();
-        var sz = targetSize(flat.width, flat.height);
-        var c = document.createElement("canvas"); c.width = sz.w; c.height = sz.h;
-        var ctx = c.getContext("2d");
-        ctx.filter = buildFilter() || "none";
-        drawCover(ctx, flat, sz.w, sz.h);
-        ctx.filter = "none";
-        drawEffects(ctx, sz.w, sz.h);
-        drawTexts(ctx, sz.w, sz.h);
-        drawStickers(ctx, sz.w, sz.h);
-        c.toBlob(function (b) { b ? resolve(b) : reject(new Error("blob")); }, "image/jpeg", 0.94);
-      } catch (e) { reject(e); }
+    return preloadAllStickerImages().then(function () {
+      return new Promise(function (resolve, reject) {
+        try {
+          var flat = flattenMedia();
+          var sz = targetSize(flat.width, flat.height);
+          var c = document.createElement("canvas"); c.width = sz.w; c.height = sz.h;
+          var ctx = c.getContext("2d");
+          ctx.filter = buildFilter() || "none";
+          drawCover(ctx, flat, sz.w, sz.h);
+          ctx.filter = "none";
+          drawEffects(ctx, sz.w, sz.h);
+          drawTexts(ctx, sz.w, sz.h);
+          drawStickers(ctx, sz.w, sz.h);
+          c.toBlob(function (b) { b ? resolve(b) : reject(new Error("blob")); }, "image/jpeg", 0.94);
+        } catch (e) { reject(e); }
+      });
     });
   }
 
@@ -2540,6 +2933,7 @@
   }
 
   function exportVideo(onProgress) {
+    return preloadAllStickerImages().then(function () {
     return new Promise(function (resolve, reject) {
       try {
         var v = el.vid;
@@ -2628,6 +3022,7 @@
         }
         playSeg();
       } catch (e) { reject(e); }
+    });
     });
   }
 
@@ -2793,7 +3188,22 @@
     if (typeof window.handleVideoSelectedForEditor === "function" && !window.__zeOrigVideoEditor) {
       window.__zeOrigVideoEditor = window.handleVideoSelectedForEditor;
       window.handleVideoSelectedForEditor = function (file, category) {
-        openEditor(file, "video", category || window.currentVeCategory || "reel");
+        if (!file) return;
+        var cat = category || window.currentVeCategory || "reel";
+        // POINT 8: Any video <= 3 minutes opens the Reel editor directly.
+        // Videos longer than 3 minutes first show the YouTube-style preview
+        // screen ("Edit into a Reel" + "Next") before any editor is opened.
+        if (typeof window.probeVideoDuration === "function") {
+          window.probeVideoDuration(file, function (dur) {
+            if (dur > 180 && typeof window.showReelPreview === "function") {
+              window.showReelPreview(file, cat);
+            } else {
+              openEditor(file, "video", "reel");
+            }
+          });
+        } else {
+          openEditor(file, "video", "reel");
+        }
       };
     }
     if (typeof window.handlePostMediaSelected === "function" && !window.__zeOrigPostMedia) {

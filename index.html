@@ -4229,6 +4229,7 @@ img.logo-profile.zyro-header-logo {
       <div class="ig-actions">
         <button type="button" id="editProfileBtn" class="ig-btn" onclick="openEditProfileModal()"><svg class="ico" style="width:14px;height:14px"><use href="#i-edit"></use></svg>Edit Profile</button>
         <button type="button" id="shareProfileBtn" class="ig-btn" onclick="openShareProfileCard()"><svg class="ico" style="width:14px;height:14px"><use href="#i-send"></use></svg>Share Profile</button>
+        <button type="button" id="profileAdminBtn" class="ig-btn" style="display:none;background:rgba(230,57,70,0.15);color:#ff4d4f;border:1px solid rgba(230,57,70,0.4);font-weight:700" onclick="switchTab('admin')"><svg class="ico" style="width:14px;height:14px"><use href="#i-settings"></use></svg>Admin Panel</button>
       </div>
 
       <!-- Highlights Tray (Hidden by default, can be toggled/managed via Settings) -->
@@ -7127,6 +7128,23 @@ try {
   console.warn("Firestore persistence notice:", e);
 }
 const ADMIN_UID = "r0RaLtN45wgsTt5CDFkkXeiW43c2";
+const ADMIN_UIDS = ["r0RaLtN45wgsTt5CDFkkXeiW43c2"];
+const ADMIN_EMAILS = [
+  "raveendrasingn@gmail.com",
+  "raveendrasingh@gmail.com",
+  "admin@upcomedyhub.com",
+  "upcomedyhub@gmail.com"
+];
+
+function isCurrentUserAdmin() {
+  if (!currentUser) return false;
+  if (window.__isCurrentUserAdmin) return true;
+  if (currentUser.uid && (currentUser.uid === ADMIN_UID || ADMIN_UIDS.includes(currentUser.uid))) return true;
+  if (currentUser.email && ADMIN_EMAILS.includes(currentUser.email.toLowerCase().trim())) return true;
+  if (window.currentUserProfile && (window.currentUserProfile.isAdmin === true || window.currentUserProfile.role === "admin")) return true;
+  return false;
+}
+window.isCurrentUserAdmin = isCurrentUserAdmin;
 
 const VERCEL_API_BASE = "https://upcomedyhub.vercel.app";
 
@@ -7426,7 +7444,7 @@ async function submitCelebrityVerificationRequest(){
 
 /* ---------- ADMIN VERIFICATION MANAGEMENT ---------- */
 async function adminGrantVerification(targetIdentifier, tier, durationDays, note){
-  if(!currentUser || currentUser.uid !== ADMIN_UID){
+  if(!isCurrentUserAdmin()){
     showToast("🔒 Admin only");
     return;
   }
@@ -7511,7 +7529,7 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
 }
 
 async function adminRevokeVerification(targetIdentifier){
-  if(!currentUser || currentUser.uid !== ADMIN_UID){
+  if(!isCurrentUserAdmin()){
     showToast("🔒 Admin only");
     return;
   }
@@ -7745,7 +7763,7 @@ async function unblockUser(uid){
 window.unblockUser = unblockUser;
 
 async function loadAdminReportsQueue(){
-  if(!currentUser || currentUser.uid !== ADMIN_UID) return;
+  if(!isCurrentUserAdmin()) return;
   const listEl = document.getElementById("adminReportsList");
   if(!listEl) return;
   listEl.innerHTML = '<div style="font-size:12px;color:#888">⏳ Loading reports...</div>';
@@ -7868,7 +7886,7 @@ function stopAllVideos(){
 }
 
 function switchTab(name){
-  if(name === "admin" && (!currentUser || currentUser.uid !== ADMIN_UID)){ showToast("🔒 Admin only"); return; }
+  if(name === "admin" && !isCurrentUserAdmin()){ showToast("🔒 Admin only"); return; }
   stopAllVideos();
   tabPanes.forEach(p=>p.classList.remove("active"));
   const pane = document.getElementById("tab-"+name);
@@ -8957,6 +8975,11 @@ async function removeProfilePhoto(){
 function updateProfileUI(){
   const lo = document.getElementById("profileLoggedOut");
   const li = document.getElementById("profileLoggedIn");
+  const atb = document.getElementById("adminTabBtn");
+  const pab = document.getElementById("profileAdminBtn");
+  const isAdm = isCurrentUserAdmin();
+  if(atb) atb.style.display = isAdm ? "flex" : "none";
+  if(pab) pab.style.display = isAdm ? "inline-flex" : "none";
   if(currentUser){
     if(lo) lo.style.display="none";
     if(li) li.style.display="block";
@@ -11796,7 +11819,7 @@ function renderSortedComments(){
   
   list.innerHTML = "";
   sorted.forEach(c => {
-    const canDel = currentUser && (currentUser.uid === c.userId || currentUser.uid === ADMIN_UID);
+    const canDel = currentUser && (currentUser.uid === c.userId || isCurrentUserAdmin());
     const t = c.createdAt ? (c.createdAt.toDate ? formatTimeAgo(c.createdAt.toDate()) : (c.createdAt.seconds ? formatTimeAgo(new Date(c.createdAt.seconds * 1000)) : "just now")) : "just now";
     const isLiked = (currentUser && Array.isArray(c.likedBy) && c.likedBy.includes(currentUser.uid)) || userLikedComments.has(c.id);
     const likesCount = Math.max(0, Number(c.likesCount || 0));
@@ -12714,7 +12737,7 @@ async function loadAdminConfig(){
 }
 
 async function broadcastAdminNotification(type,title,text,extra={}){
-  if(!currentUser || currentUser.uid !== ADMIN_UID) return;
+  if(!isCurrentUserAdmin()) return;
   try{
     const snap = await db.collection("users").get();
     let b = db.batch(), c = 0;
@@ -12803,7 +12826,7 @@ async function loadBoostedReels() {
 window.loadBoostedReels = loadBoostedReels;
 
 async function applyReelBoost() {
-  if (!currentUser || currentUser.uid !== ADMIN_UID) {
+  if (!isCurrentUserAdmin()) {
     showToast("🔒 Admin only");
     return;
   }
@@ -12849,7 +12872,7 @@ async function applyReelBoost() {
 window.applyReelBoost = applyReelBoost;
 
 async function removeReelBoost(vid) {
-  if (!currentUser || currentUser.uid !== ADMIN_UID) {
+  if (!isCurrentUserAdmin()) {
     showToast("🔒 Admin only");
     return;
   }
@@ -18054,6 +18077,15 @@ auth.onAuthStateChanged(async (user)=>{
   if(user){
     try{
       await db.collection("users").doc(user.uid).set({name:user.displayName||"User",email:user.email,photo:user.photoURL||"",lastSeen:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
+      try {
+        const uDoc = await db.collection("users").doc(user.uid).get();
+        if (uDoc.exists) {
+          const ud = uDoc.data();
+          if (ud.isAdmin === true || ud.role === "admin" || (ud.email && ADMIN_EMAILS.includes(ud.email.toLowerCase().trim()))) {
+            window.__isCurrentUserAdmin = true;
+          }
+        }
+      } catch(e) {}
       await ensurePublicProfile(user);
       await loadUserLikesAndSaves(user.uid);
       await loadFollowCounts();
@@ -18062,14 +18094,18 @@ auth.onAuthStateChanged(async (user)=>{
       startUserStatusHeartbeat();
       setTimeout(createNewVideoNotifications, 1200);
     }catch(e){ console.warn("Auth state sync notice:", e?.message || e); }
-    const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = user.uid === ADMIN_UID ? "flex" : "none";
+    const isAdm = isCurrentUserAdmin();
+    const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = isAdm ? "flex" : "none";
+    const pab = document.getElementById("profileAdminBtn"); if(pab) pab.style.display = isAdm ? "inline-flex" : "none";
     const ls = document.getElementById("loginScreen"); if(ls) ls.classList.remove("show");
   } else {
+    window.__isCurrentUserAdmin = false;
     if(notificationsUnsubscribe){ notificationsUnsubscribe(); notificationsUnsubscribe = null; }
     notificationsCache = []; updateNotificationBadge();
     const mb = document.getElementById("messageBadge"); if(mb) mb.style.display = "none";
     userLikedVideos.clear(); userSavedVideos.clear();
     const atb = document.getElementById("adminTabBtn"); if(atb) atb.style.display = "none";
+    const pab = document.getElementById("profileAdminBtn"); if(pab) pab.style.display = "none";
     const ap = document.getElementById("tab-admin"); if(ap && ap.classList.contains("active")) switchTab("home");
     if(!window.__loginScreenAutoShown){ window.__loginScreenAutoShown = true; if(typeof window.openLoginScreen === "function") window.openLoginScreen(); }
   }

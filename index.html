@@ -4343,14 +4343,14 @@ img.logo-profile.zyro-header-logo {
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <h3 style="display:flex;align-items:center;gap:8px">
           <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-shield"></use></svg>
-          <span>Verification &amp; Crimson Tick Manager</span>
+          <span>Verification &amp; Blue Tick Manager</span>
         </h3>
         <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
           <svg class="ico" style="width:12px;height:12px"><use href="#i-sliders"></use></svg> Admin Authority
         </span>
       </div>
       <p style="font-size:13px;color:#888;margin-bottom:14px">
-        Admin Control: Aap jisko chaho use Crimson Red verified badge de sakte ho. Celebrities ko free me aur creators ko subscription plans (₹49, ₹99, ₹299/mo) ke anusaar verify karein.
+        Admin Control: Aap jisko chaho use Official Blue verified badge de sakte ho. Celebrities ko free me aur creators ko subscription plans (₹49, ₹99, ₹299/mo) ke anusaar verify karein.
       </p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px">
@@ -4361,7 +4361,7 @@ img.logo-profile.zyro-header-logo {
         <div>
           <label class="admin-label">Verification Tier / Badge Type</label>
           <select class="admin-input" id="adminVerifyTierSelect">
-            <option value="crimson" selected>Crimson Red Verified (Standard)</option>
+            <option value="crimson" selected>Official Blue Verified (Standard)</option>
             <option value="celebrity_free">Celebrity / Public Figure (100% Free)</option>
             <option value="creator_starter">Starter Creator (₹49/mo)</option>
             <option value="creator_pro">Pro Creator (₹99/mo)</option>
@@ -4512,11 +4512,11 @@ img.logo-profile.zyro-header-logo {
           <svg viewBox="0 0 24 24" style="width:20px;height:20px"><use href="#i-verified-crimson"></use></svg>
           <span id="activeVerifiedPlanTitle">Your Account is Verified!</span>
         </div>
-        <p id="activeVerifiedDetails" style="font-size:12px;color:#666;margin:6px 0 0">Crimson Red Verified Badge active on your profile.</p>
+        <p id="activeVerifiedDetails" style="font-size:12px;color:#666;margin:6px 0 0">Official Blue Verified Badge active on your profile.</p>
       </div>
 
       <div style="text-align:center;margin-bottom:14px">
-        <h4 style="font-size:18px;font-weight:900;margin:0 0 6px">Get the Crimson Red Tick</h4>
+        <h4 style="font-size:18px;font-weight:900;margin:0 0 6px">Get the Official Blue Tick</h4>
         <p style="font-size:13px;color:#888;margin:0">
           Official creator verification, algorithm discovery push aur brand recognition.
         </p>
@@ -4553,7 +4553,7 @@ img.logo-profile.zyro-header-logo {
               <div class="plan-renewal">Agla renewal: ₹98/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Crimson Red Tick</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Official Blue Tick</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>1.5x Algorithm Reach Push</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Badge in comments &amp; search</span></li>
             </ul>
@@ -4575,7 +4575,7 @@ img.logo-profile.zyro-header-logo {
               <div class="plan-renewal">Agla renewal: ₹198/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Crimson Red Tick</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Official Blue Tick</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>2.5x Algorithm Super Boost</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Suggested Creators priority</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>HD Video upload support</span></li>
@@ -4597,7 +4597,7 @@ img.logo-profile.zyro-header-logo {
               <div class="plan-renewal">Agla renewal: ₹598/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Crimson Red / VIP Badge</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Electric Blue / VIP Badge</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>5x Mega Viral Push on Explore</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Direct Admin priority support</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Top Featured Reel badge</span></li>
@@ -6925,7 +6925,7 @@ function openVerificationModal(){
   if(profile.isVerified && banner){
     banner.style.display = "block";
     const isGold = profile.verifiedType === "gold" || profile.verifiedType === "celebrity" || profile.verifiedType === "celebrity_free";
-    if(titleEl) titleEl.textContent = isGold ? "VIP Celebrity Verified Account 👑" : "Crimson Red Verified Account 🔴";
+    if(titleEl) titleEl.textContent = isGold ? "VIP Celebrity Verified Account 👑" : "Official Blue Verified Account 🔴";
     if(detEl) {
       const planName = profile.verifiedPlan || (isGold ? "Celebrity Free" : "Creator Verified");
       const duration = profile.verifiedDuration ? " · Validity: " + profile.verifiedDuration : "";
@@ -7003,7 +7003,7 @@ function prepareCreatorPlanApplication(planId, planName, price, renewal){
   if(cText) {
     cText.innerHTML = `Pehle mahine ka offer: <strong>₹${price} / month</strong>.<br>` +
       `Iske baad agla renewal do-guna: <strong>₹${renewal} / month (2x)</strong> hoga.<br>` +
-      `Admin review karke aapka Crimson Red Verified badge activate karega.`;
+      `Admin review karke aapka Official Blue Verified badge activate karega.`;
   }
   if(cBox) {
     cBox.style.display = "block";
@@ -7144,7 +7144,7 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
       return;
     }
 
-    let planLabel = "Crimson Red Verified";
+    let planLabel = "Official Blue Verified";
     if(tierVal === "celebrity_free") planLabel = "Celebrity VIP (100% Free)";
     else if(tierVal === "creator_starter") planLabel = "Starter Creator (₹49/mo)";
     else if(tierVal === "creator_pro") planLabel = "Pro Creator (₹99/mo)";
@@ -8293,7 +8293,7 @@ async function loadProfileIdentity(){
     allAvatarEls.forEach(function(el){ try { if(currentProfilePhotoURL) el.src = currentProfilePhotoURL; } catch(e){} });
 
     const isV = !!data.isVerified;
-    const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
+    const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
     const un = document.getElementById("profileUsername"); 
     if(un) un.textContent = "@"+(data.username||"user");
     
@@ -8310,7 +8310,7 @@ async function loadProfileIdentity(){
     const vBtnLabel = document.getElementById("profileVerifiedBtnLabel");
     if(vBtnLabel) vBtnLabel.textContent = isV ? "Verified ✓" : "Get Verified";
     const vSetStatus = document.getElementById("settingsVerifiedStatus");
-    if(vSetStatus) vSetStatus.textContent = isV ? "Active (Crimson)" : "Get Verified";
+    if(vSetStatus) vSetStatus.textContent = isV ? "Active (Blue Tick)" : "Get Verified";
     
     const pb = document.getElementById("profileBio");
     if(pb) pb.textContent = data.bio || "No bio yet.";
@@ -8376,7 +8376,7 @@ function updateUIProfileIdentity(data){
   allAvatarEls.forEach(function(el){ try { if(photo) el.src = photo; } catch(e){} });
 
   const isV = !!data.isVerified;
-  const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
+  const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
   const un = document.getElementById("profileUsername"); 
   if(un) un.textContent = "@"+(data.username||"guest");
 
@@ -9070,19 +9070,65 @@ function updateProfilePostsCount(count){
   if(el) el.textContent = String(count || 0);
 }
 
-async function loadUserPostsCount(uid){
+async function loadUserPostsCount(uid){  if(!uid) return;  try {    if(typeof db !== "undefined" && db){      const snap = await db.collection("user_posts").where("userId", "==", uid).get();      cachedUserPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));      updateProfilePostsCount(snap.size);    }  } catch(e) {    console.warn("loadUserPostsCount error:", e);  }  loadUserProfileMedia(uid);}window.loadUserPostsCount = loadUserPostsCount;
+
+async function loadUserProfileMedia(uid){
   if(!uid) return;
+  const gridPosts = document.getElementById("profileGrid");
+  const gridReels = document.getElementById("profileReelsGrid");
+  const gridSaved = document.getElementById("profileSavedGrid");
+  if(!gridPosts && !gridReels && !gridSaved) return;
   try {
+    let posts = [];
+    let reels = [];
+    let saved = [];
     if(typeof db !== "undefined" && db){
-      const snap = await db.collection("user_posts").where("userId", "==", uid).get();
-      cachedUserPosts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-      updateProfilePostsCount(snap.size);
+      const [pSnap, rSnap, sSnap] = await Promise.all([
+        db.collection("user_posts").where("userId", "==", uid).get().catch(()=>({docs:[]})),
+        db.collection("reels").where("userId", "==", uid).get().catch(()=>({docs:[]})),
+        db.collection("saves").where("userId", "==", uid).get().catch(()=>({docs:[]}))
+      ]);
+      if(pSnap.docs) posts = pSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if(rSnap.docs) reels = rSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      if(sSnap.docs) saved = sSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+    }
+    if(gridPosts){
+      if(posts.length === 0){
+        gridPosts.innerHTML = '<div class="rp-empty" style="grid-column:1/-1;text-align:center;padding:40px 16px;color:#888"><span style="font-size:36px;display:block;margin-bottom:8px">📷</span>No posts uploaded yet.<br><button type="button" class="ig-btn primary" onclick="switchTab('create')" style="margin-top:12px;padding:8px 18px;font-size:13px;border-radius:20px">+ Create Post</button></div>';
+      } else {
+        gridPosts.innerHTML = posts.map(item => {
+          const thumb = item.thumbnailURL || item.photoURL || item.videoURL || "IMG_20260917_172912.jpg";
+          const likes = item.likesCount || 0;
+          return '<div class="rp-item" onclick="openMediaViewer('' + escapeAttr(item.id) + '', '' + escapeAttr(item.videoURL||item.photoURL||'') + '')" style="position:relative;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#181822;cursor:pointer"><img src="' + thumb + '" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='IMG_20260917_172912.jpg'"><div style="position:absolute;bottom:6px;left:6px;right:6px;display:flex;align-items:center;justify-content:space-between;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.8)"><span>❤️ ' + likes + '</span><span>📷</span></div></div>';
+        }).join('');
+      }
+    }
+    if(gridReels){
+      if(reels.length === 0){
+        gridReels.innerHTML = '<div class="rp-empty" style="grid-column:1/-1;text-align:center;padding:40px 16px;color:#888"><span style="font-size:36px;display:block;margin-bottom:8px">🎬</span>No reels created yet.<br><button type="button" class="ig-btn primary" onclick="switchTab('create')" style="margin-top:12px;padding:8px 18px;font-size:13px;border-radius:20px">+ Create Reel</button></div>';
+      } else {
+        gridReels.innerHTML = reels.map(item => {
+          const thumb = item.thumbnailURL || item.videoURL || "IMG_20260917_172912.jpg";
+          const views = item.viewsCount || item.likesCount || 0;
+          return '<div class="rp-item" onclick="playReelById('' + escapeAttr(item.id) + '')" style="position:relative;aspect-ratio:9/16;border-radius:8px;overflow:hidden;background:#181822;cursor:pointer"><img src="' + thumb + '" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='IMG_20260917_172912.jpg'"><div style="position:absolute;bottom:6px;left:6px;right:6px;display:flex;align-items:center;justify-content:space-between;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,0.8)"><span>▶️ ' + views + '</span></div></div>';
+        }).join('');
+      }
+    }
+    if(gridSaved){
+      if(saved.length === 0){
+        gridSaved.innerHTML = '<div class="rp-empty" style="grid-column:1/-1;text-align:center;padding:40px 16px;color:#888"><span style="font-size:36px;display:block;margin-bottom:8px">🔖</span>No saved posts or videos.</div>';
+      } else {
+        gridSaved.innerHTML = saved.map(item => {
+          const thumb = item.thumbnailURL || item.photoURL || "IMG_20260917_172912.jpg";
+          return '<div class="rp-item" onclick="openMediaViewer('' + escapeAttr(item.videoId||item.id) + '', '' + escapeAttr(item.videoURL||'') + '')" style="position:relative;aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#181822;cursor:pointer"><img src="' + thumb + '" style="width:100%;height:100%;object-fit:cover;display:block" onerror="this.src='IMG_20260917_172912.jpg'"></div>';
+        }).join('');
+      }
     }
   } catch(e) {
-    console.warn("loadUserPostsCount error:", e);
+    console.warn("loadUserProfileMedia error:", e);
   }
 }
-window.loadUserPostsCount = loadUserPostsCount;
+window.loadUserProfileMedia = loadUserProfileMedia;
 
 /* ---------- AVATAR ACTION SHEET & PHOTO VIEWER ---------- */
 function openAvatarActionSheet(){
@@ -11904,7 +11950,7 @@ async function buildSuggestedCreatorsUI(creators, container){
     const avatar = avatarFor(c);
     const name = c.displayName || "Comedy Creator";
     const uname = c.username || "creator";
-    const verifiedBadge = getVerifiedBadge(c.isVerified, c.verifiedType || "crimson", 14);
+    const verifiedBadge = getVerifiedBadge(c.isVerified, c.verifiedType || "blue", 14);
     
     let isFollowing = false;
     let isFollowedByThem = false;
@@ -12188,7 +12234,7 @@ async function buildCreatorSpotlightCard(user){
   const name = user.displayName || "Creator";
   const uname = user.username || "creator";
   const bio = user.bio || "Creator on UPComedyHub";
-  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 15);
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "blue", 15);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -12265,7 +12311,7 @@ async function buildAccountResultRow(user){
   const name = user.displayName || "User";
   const uname = user.username || "user";
   const bio = user.bio || "";
-  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 14);
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "blue", 14);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -13603,7 +13649,7 @@ async function showUserProfileModal(userOrUid){
     +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "crimson", 16) + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "blue", 16) + '<span id="rpFollowsYouSlot"></span></div>'
     + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + '</div>'
     + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
     + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
@@ -17698,7 +17744,7 @@ window.addEventListener("DOMContentLoaded",()=>{
       list.innerHTML = snap.docs.map(doc=>{ 
         const d = doc.data(); 
         const isV = !!d.isVerified;
-        const vBadge = getVerifiedBadge(isV, d.verifiedType || "crimson", 14);
+        const vBadge = getVerifiedBadge(isV, d.verifiedType || "blue", 14);
         const vChip = isV ? `<span class="verified-chip" style="margin-left:6px">${vBadge} ${escapeHtml(d.verifiedPlan || 'Verified')}</span>` : '';
         return '<div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px">' +
           '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">' +

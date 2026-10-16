@@ -155,11 +155,53 @@
 .ze-swipe {
   position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
   display: flex; align-items: center; justify-content: center; gap: 6px;
-  font-size: 12px; opacity: 0.75; z-index: 19; pointer-events: none;
-  transition: opacity .3s;
+  font-size: 13px; font-weight: 700; color: #fff; z-index: 19; pointer-events: auto; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  transition: opacity .3s, transform .2s;
+  animation: zeBounceUp 2s infinite ease-in-out;
 }
-.ze-swipe svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
-.ze-swipe.hide { opacity: 0; }
+.ze-swipe svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.4; }
+.ze-swipe:active { transform: translateY(-4px) scale(0.97); }
+.ze-swipe.hide { opacity: 0; pointer-events: none; }
+
+@keyframes zeBounceUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Video Tap Play/Pause Ripple Flash */
+.ze-play-flash {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  width: 74px; height: 74px; border-radius: 50%;
+  background: rgba(0,0,0,0.65); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; pointer-events: none; z-index: 35;
+  opacity: 0; transition: opacity .25s ease, transform .25s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.ze-play-flash svg { width: 34px; height: 34px; stroke: currentColor; fill: currentColor; }
+.ze-play-flash.active {
+  opacity: 1; transform: translate(-50%, -50%) scale(1);
+}
+
+/* Sticker Search Bar */
+.ze-sticker-search-wrap {
+  position: relative; width: 100%; margin-bottom: 10px;
+}
+.ze-sticker-search-wrap .ze-input {
+  width: 100%; padding: 10px 36px 10px 38px; border-radius: 12px;
+  background: #181822; border: 1px solid #2e2e3d; color: #fff;
+  font-size: 13px; font-family: inherit; box-sizing: border-box;
+}
+.ze-sticker-search-wrap .ze-search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: #8e8e9c; pointer-events: none; display: flex;
+}
+.ze-sticker-search-wrap .ze-search-clear {
+  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; color: #8e8e9c; cursor: pointer; padding: 4px; display: flex;
+}
 
 .ze-btn-edit {
   flex: 1; height: 48px; border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;

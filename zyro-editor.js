@@ -1,7 +1,7 @@
 /* ============================================================
-   ZYRO MEDIA EDITOR v2.5 — Instagram Reels & Shorts Editor
+   ZYRO MEDIA EDITOR v2.5 — Reels & Shorts Editor
    Full-screen preview + right tool rail + top sound bar
-   + bottom Edit/Next + multi-track Instagram Reels timeline.
+   + bottom Edit/Next + multi-track Reels timeline.
    ============================================================ */
 
 (function () {
@@ -131,55 +131,59 @@
     "🤯 Mind blown"
   ];
 
-  /* ---------------- Sticker & Overlay Packs (Instagram / YouTube style) ---------------- */
+  /* ---------------- Sticker & Overlay Packs (Creator style) ---------------- */
   function _svg(vb, inner) { return '<svg viewBox="' + vb + '" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">' + inner + '</svg>'; }
 
   var STICKER_PACKS = [
     { id: "trending", name: "Trending", items: [
-      { id: "sub",    kind: "svg", svg: _svg("0 0 220 84", '<rect x="4" y="6" width="212" height="72" rx="36" fill="#ff0033"/><text x="110" y="54" font-family="Arial,Helvetica,sans-serif" font-size="36" font-weight="700" fill="#ffffff" text-anchor="middle">SUBSCRIBE</text>') },
+      { id: "sub",    kind: "svg", svg: _svg("0 0 220 84", '<rect x="4" y="6" width="212" height="72" rx="36" fill="#e63946"/><text x="110" y="54" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle">SUBSCRIBE</text>') },
       { id: "like",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 88C20 66 8 50 8 33 8 18 20 8 33 8c8 0 14 4 17 10 3-6 9-10 17-10 13 0 25 10 25 25 0 17-12 33-42 55z" fill="#ff2d55"/><path d="M50 88C20 66 8 50 8 33 8 18 20 8 33 8c8 0 14 4 17 10 3-6 9-10 17-10 13 0 25 10 25 25 0 17-12 33-42 55z" fill="none" stroke="#ffffff" stroke-width="5"/>') },
       { id: "new",    kind: "svg", svg: _svg("0 0 170 84", '<g transform="rotate(-8 85 42)"><rect x="6" y="8" width="158" height="68" rx="16" fill="#ff3d00"/><text x="85" y="56" font-family="Arial,sans-serif" font-size="42" font-weight="800" fill="#ffffff" text-anchor="middle">NEW</text></g>') },
       { id: "live",   kind: "svg", svg: _svg("0 0 150 80", '<rect x="4" y="10" width="142" height="60" rx="14" fill="#e60023"/><circle cx="34" cy="40" r="9" fill="#ffffff"/><text x="92" y="53" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="#ffffff" text-anchor="middle">LIVE</text>') },
       { id: "trend",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M14 62l22-24 16 16 34-34" fill="none" stroke="#00e676" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M64 20h22v22" fill="none" stroke="#00e676" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>') },
       { id: "fire",   kind: "emoji", ch: "🔥" },
       { id: "viral",  kind: "emoji", ch: "🚀" },
-      { id: "crown",  kind: "emoji", ch: "👑" }
+      { id: "crown",  kind: "emoji", ch: "👑" },
+      { id: "100",    kind: "emoji", ch: "💯" },
+      { id: "star",   kind: "emoji", ch: "⭐" },
+      { id: "boom",   kind: "emoji", ch: "💥" }
     ]},
-    { id: "youtube", name: "YouTube", items: [
-      { id: "yt-play",    kind: "svg", svg: _svg("0 0 100 100", '<rect x="6" y="20" width="88" height="60" rx="18" fill="#ff0000"/><path d="M42 36l24 14-24 14z" fill="#ffffff"/>') },
-      { id: "yt-bell",    kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 12a20 20 0 0 0-20 20v14l-8 14h56l-8-14V32a20 20 0 0 0-20-20z" fill="#ffca28"/><path d="M42 66a8 8 0 0 0 16 0z" fill="#ffca28"/>') },
-      { id: "yt-comment", kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 20h76v44H40L22 84V64H12z" fill="#ffffff" stroke="#0f0f0f" stroke-width="5" stroke-linejoin="round"/>') },
-      { id: "yt-share",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M18 74c0-24 16-38 40-38V18l30 26-30 26V52c-18 0-28 6-40 22z" fill="#0f9d58"/>') },
-      { id: "yt-subs",    kind: "svg", svg: _svg("0 0 210 72", '<rect x="4" y="6" width="202" height="60" rx="30" fill="#ffffff" stroke="#0f0f0f" stroke-width="4"/><text x="105" y="46" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#0f0f0f" text-anchor="middle">Subscribed</text>') },
-      { id: "yt-views",   kind: "svg", svg: _svg("0 0 200 72", '<rect x="4" y="6" width="192" height="60" rx="12" fill="rgba(0,0,0,0.72)"/><text x="100" y="46" font-family="Arial,sans-serif" font-size="27" font-weight="700" fill="#ffffff" text-anchor="middle">1.2M views</text>') },
-      { id: "yt-mic",     kind: "emoji", ch: "🎤" },
-      { id: "yt-cam",     kind: "emoji", ch: "🎬" }
+    { id: "creator", name: "Creator", items: [
+      { id: "c-sub",    kind: "svg", svg: _svg("0 0 210 72", '<rect x="4" y="6" width="202" height="60" rx="30" fill="#e63946"/><text x="105" y="46" font-family="Arial,sans-serif" font-size="26" font-weight="800" fill="#ffffff" text-anchor="middle">+ Follow</text>') },
+      { id: "c-bell",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 12a20 20 0 0 0-20 20v14l-8 14h56l-8-14V32a20 20 0 0 0-20-20z" fill="#ffca28"/><path d="M42 66a8 8 0 0 0 16 0z" fill="#ffca28"/>') },
+      { id: "c-like",   kind: "svg", svg: _svg("0 0 220 76", '<rect x="4" y="6" width="212" height="64" rx="32" fill="#22222d" stroke="#e63946" stroke-width="3"/><text x="110" y="48" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">❤️ Like &amp; Share</text>') },
+      { id: "c-sound",  kind: "svg", svg: _svg("0 0 210 72", '<rect x="4" y="6" width="202" height="60" rx="30" fill="#181822" stroke="#3b82f6" stroke-width="3"/><text x="105" y="46" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">🔊 Sound On</text>') },
+      { id: "c-save",   kind: "svg", svg: _svg("0 0 190 72", '<rect x="4" y="6" width="182" height="60" rx="14" fill="#181822" stroke="#f59e0b" stroke-width="3"/><text x="95" y="46" font-family="Arial,sans-serif" font-size="24" font-weight="800" fill="#ffffff" text-anchor="middle">🔖 Save This</text>') },
+      { id: "c-link",   kind: "svg", svg: _svg("0 0 200 72", '<rect x="4" y="6" width="192" height="60" rx="30" fill="#3b82f6"/><text x="100" y="46" font-family="Arial,sans-serif" font-size="25" font-weight="800" fill="#ffffff" text-anchor="middle">🔗 Link in Bio</text>') },
+      { id: "verified", kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 6l10 10 14-2 4 14 14 6-6 14 6 14-14 6-4 14-14-2-10 10-10-10-14 2-4-14-14-6 6-14-6-14 14-6 4-14 14 2z" fill="#00b4d8"/><path d="M34 52l12 12 22-24" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "c-comment",kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 20h76v44H40L22 84V64H12z" fill="#ffffff" stroke="#222" stroke-width="4" stroke-linejoin="round"/>') }
     ]},
-    { id: "badges", name: "Badges", items: [
-      { id: "verified", kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 6l10 10 14-2 4 14 14 6-6 14 6 14-14 6-4 14-14-2-10 10-10-10-14 2-4-14-14-6 6-14-6-14 14-6 4-14 14 2z" fill="#1da1f2"/><path d="M34 52l12 12 22-24" fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>') },
-      { id: "pin",      kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 6a28 28 0 0 0-28 28c0 20 28 60 28 60s28-40 28-60A28 28 0 0 0 50 6z" fill="#e63946"/><circle cx="50" cy="34" r="11" fill="#ffffff"/>') },
-      { id: "hashtag",  kind: "svg", svg: _svg("0 0 100 100", '<text x="50" y="74" font-family="Arial,sans-serif" font-size="80" font-weight="800" fill="#00d2ff" text-anchor="middle">#</text>') },
-      { id: "mention",  kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="30" fill="none" stroke="#b388ff" stroke-width="8"/><circle cx="50" cy="50" r="12" fill="none" stroke="#b388ff" stroke-width="8"/><path d="M62 50v8a12 12 0 0 0 24 0" fill="none" stroke="#b388ff" stroke-width="8" stroke-linecap="round"/>') },
-      { id: "gif",      kind: "svg", svg: _svg("0 0 140 72", '<rect x="4" y="8" width="132" height="56" rx="12" fill="#111111"/><text x="70" y="48" font-family="Arial,sans-serif" font-size="32" font-weight="800" fill="#ffffff" text-anchor="middle">GIF</text>') },
-      { id: "poll",     kind: "emoji", ch: "📊" },
-      { id: "star",     kind: "emoji", ch: "⭐" },
-      { id: "100",      kind: "emoji", ch: "💯" }
-    ]},
-    { id: "shapes", name: "Shapes", items: [
-      { id: "circle", kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="44" fill="#ff007f"/>') },
-      { id: "square", kind: "svg", svg: _svg("0 0 100 100", '<rect x="8" y="8" width="84" height="84" rx="14" fill="#00d2ff"/>') },
-      { id: "heart",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 86C22 66 10 51 10 35 10 21 21 11 34 11c7 0 13 3 16 9 3-6 9-9 16-9 13 0 24 10 24 24 0 16-12 31-40 51z" fill="#ff2d55"/>') },
-      { id: "arrow",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 50h58M52 30l22 20-22 20" fill="none" stroke="#ffd700" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>') },
-      { id: "bubble", kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 16h76v52H44L24 88V68H12z" fill="#ffffff"/>') },
-      { id: "frame",  kind: "svg", svg: _svg("0 0 100 100", '<rect x="6" y="6" width="88" height="88" rx="10" fill="none" stroke="#ffffff" stroke-width="6"/>') },
-      { id: "spark",  kind: "emoji", ch: "✨" },
-      { id: "burst",  kind: "emoji", ch: "💥" }
-    ]},
-    { id: "emoji", name: "Emoji", items: [
+    { id: "reactions", name: "Reactions", items: [
       "😂","🤣","❤️","🔥","😍","👍","🙌","🎉","💯","✨",
       "😎","🥺","👑","🎵","⚡","💖","😊","🙏","💪","🎯",
-      "🌟","😱","🤯","😭","😡","🍿","🚀","🏆","🥳","🤙"
-    ].map(function (ch, i) { return { id: "em" + i, kind: "emoji", ch: ch }; }) }
+      "🌟","😱","🤯","😭","💀","🤡","🤫","🤩","🍿","🚀","🏆","🥳","🤙","😈","👀","💣"
+    ].map(function (ch, i) { return { id: "em" + i, kind: "emoji", ch: ch }; }) },
+    { id: "shapes", name: "Shapes & Arrows", items: [
+      { id: "arr-down", kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 14v56M24 50l26 26 26-26" fill="none" stroke="#e63946" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "arr-up",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 86V30M24 50l26-26 26 26" fill="none" stroke="#22c55e" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "arr-right",kind: "svg", svg: _svg("0 0 100 100", '<path d="M14 50h56M50 24l26 26-26 26" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "curv-arr", kind: "svg", svg: _svg("0 0 100 100", '<path d="M18 24c0 36 24 54 54 54M52 64l20 14-14 20" fill="none" stroke="#00e5ff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>') },
+      { id: "circle-hl",kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="40" fill="none" stroke="#ff0055" stroke-width="8" stroke-dasharray="14 6"/>') },
+      { id: "target",   kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="44" fill="none" stroke="#e63946" stroke-width="6"/><circle cx="50" cy="50" r="28" fill="none" stroke="#ffffff" stroke-width="6"/><circle cx="50" cy="50" r="14" fill="#e63946"/>') },
+      { id: "heart-n",  kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 86C22 66 10 51 10 35 10 21 21 11 34 11c7 0 13 3 16 9 3-6 9-9 16-9 13 0 24 10 24 24 0 16-12 31-40 51z" fill="#ff2d55"/>') },
+      { id: "bubble",   kind: "svg", svg: _svg("0 0 100 100", '<path d="M12 16h76v52H44L24 88V68H12z" fill="#ffffff"/>') },
+      { id: "alert-tri",kind: "svg", svg: _svg("0 0 100 100", '<path d="M50 10l44 76H6z" fill="#ffca28"/><text x="50" y="74" font-family="Arial,sans-serif" font-size="52" font-weight="900" fill="#111111" text-anchor="middle">!</text>') },
+      { id: "question", kind: "svg", svg: _svg("0 0 100 100", '<circle cx="50" cy="50" r="44" fill="#8b5cf6"/><text x="50" y="74" font-family="Arial,sans-serif" font-size="64" font-weight="900" fill="#ffffff" text-anchor="middle">?</text>') }
+    ]},
+    { id: "tags", name: "Viral Tags", items: [
+      { id: "tag-omg",   kind: "svg", svg: _svg("0 0 180 76", '<rect x="4" y="6" width="172" height="64" rx="14" fill="#ffeb3b"/><text x="90" y="52" font-family="Impact,Arial,sans-serif" font-size="44" font-weight="900" fill="#111111" text-anchor="middle">OMG!!</text>') },
+      { id: "tag-lol",   kind: "svg", svg: _svg("0 0 170 76", '<rect x="4" y="6" width="162" height="64" rx="14" fill="#ff007f"/><text x="85" y="52" font-family="Impact,Arial,sans-serif" font-size="44" font-weight="900" fill="#ffffff" text-anchor="middle">LOL 😂</text>') },
+      { id: "tag-facts", kind: "svg", svg: _svg("0 0 190 76", '<rect x="4" y="6" width="182" height="64" rx="14" fill="#00e5ff"/><text x="95" y="52" font-family="Impact,Arial,sans-serif" font-size="40" font-weight="900" fill="#0b2027" text-anchor="middle">FACTS 💯</text>') },
+      { id: "tag-wait",  kind: "svg", svg: _svg("0 0 240 76", '<rect x="4" y="6" width="232" height="64" rx="14" fill="#f59e0b"/><text x="120" y="50" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#111111" text-anchor="middle">WAIT FOR END 🍿</text>') },
+      { id: "tag-watch", kind: "svg", svg: _svg("0 0 230 76", '<rect x="4" y="6" width="222" height="64" rx="14" fill="#e63946"/><text x="110" y="50" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">MUST WATCH 🚨</text>') },
+      { id: "tag-op",    kind: "svg", svg: _svg("0 0 180 76", '<rect x="4" y="6" width="172" height="64" rx="14" fill="#7c3aed"/><text x="90" y="52" font-family="Impact,Arial,sans-serif" font-size="40" font-weight="900" fill="#ffffff" text-anchor="middle">OP BHAI 🔥</text>') },
+      { id: "tag-real",  kind: "svg", svg: _svg("0 0 160 76", '<rect x="4" y="6" width="152" height="64" rx="14" fill="#181822" stroke="#ffffff" stroke-width="3"/><text x="80" y="50" font-family="Arial,sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle">REAL 🗿</text>') }
+    ]}
   ];
 
   var OVERLAY_PACKS = [
@@ -296,7 +300,7 @@
         '</div>' +
         '<div class="ze-swipe" id="zeSwipe">' + ic('<path d="m18 15-6-6-6 6"/>') + '<span>Swipe up to edit</span></div>' +
         '<div class="ze-bottombar">' +
-          '<button class="ze-btn-edit" id="zeEditBtn">' + ic('<path d="m18 2 4 4-14 14H4v-4L18 2z"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"') + '<span>Edit Timeline</span></button>' +
+          '<button class="ze-btn-edit" id="zeEditBtn">' + ic('<path d="m18 2 4 4-14 14H4v-4L18 2z"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"') + '<span>Edit</span></button>' +
           '<button class="ze-btn-next" id="zeNext">Next</button>' +
         '</div>' +
         '<div class="ze-sheet" id="zeSheet">' +
@@ -504,6 +508,87 @@
       }
     });
 
+    // 1. Swipe up to edit (on stage, canvas, and zeSwipe element)
+    var swipeStartY = 0, swipeStartX = 0, swipeStartTime = 0;
+    function onTouchSwipeStart(e) {
+      if (e.touches && e.touches.length === 1) {
+        swipeStartY = e.touches[0].clientY;
+        swipeStartX = e.touches[0].clientX;
+        swipeStartTime = Date.now();
+      }
+    }
+    function onTouchSwipeEnd(e) {
+      if (!swipeStartTime) return;
+      var t = (e.changedTouches && e.changedTouches[0]) || e;
+      var dy = swipeStartY - t.clientY;
+      var dx = Math.abs(swipeStartX - t.clientX);
+      var dt = Date.now() - swipeStartTime;
+      swipeStartTime = 0;
+      if (dy > 35 && dy > dx && dt < 650) {
+        if (!S.timelineOpen) {
+          onEditBtn();
+        }
+      }
+    }
+
+    el.stage.addEventListener("touchstart", onTouchSwipeStart, { passive: true });
+    el.stage.addEventListener("touchend", onTouchSwipeEnd, { passive: true });
+
+    if (el.swipe) {
+      el.swipe.addEventListener("click", function () {
+        if (!S.timelineOpen) onEditBtn();
+      });
+      el.swipe.addEventListener("touchstart", onTouchSwipeStart, { passive: true });
+      el.swipe.addEventListener("touchend", onTouchSwipeEnd, { passive: true });
+    }
+
+    // 2. Video Screen Tap (Pause/Play video) & 3. Empty Space Tap (Close open function)
+    var tapStartX = 0, tapStartY = 0, tapStartTime = 0;
+    el.stage.addEventListener("pointerdown", function (e) {
+      tapStartX = e.clientX;
+      tapStartY = e.clientY;
+      tapStartTime = Date.now();
+    });
+
+    el.stage.addEventListener("pointerup", function (e) {
+      if (drag) return;
+      if (e.target.closest && e.target.closest("#zeRail, #zeTopBar, #zeBottomBar, .ze-sheet, .ze-timeline, .ze-text-item, .ze-sticker-item, #zeCancel, #zeNext, #zeSoundBtn, #zeVolBtn, #zeEditBtn")) {
+        return;
+      }
+      var dist = Math.hypot(e.clientX - tapStartX, e.clientY - tapStartY);
+      var dt = Date.now() - tapStartTime;
+      if (dist > 12 || dt > 400) return;
+
+      // Close open function / sheet if tapped outside on empty space
+      if (S.sheetOpen || el.sheet.classList.contains("open")) {
+        closeSheet();
+        return;
+      }
+      if (el.soundPicker && el.soundPicker.classList.contains("open")) {
+        closeSoundPicker();
+        return;
+      }
+
+      // Deselect selected items
+      if (S.selectedTextId || S.selectedStickerId) {
+        S.selectedTextId = null;
+        S.selectedStickerId = null;
+        renderTexts();
+        renderStickers();
+        return;
+      }
+
+      // Toggle video playback on tap
+      togglePlayback();
+    });
+
+    el.overlay.addEventListener("click", function (e) {
+      if (e.target === el.overlay) {
+        if (S.sheetOpen || el.sheet.classList.contains("open")) closeSheet();
+        if (el.soundPicker && el.soundPicker.classList.contains("open")) closeSoundPicker();
+      }
+    });
+
     // Unified pointer & touch drag on canvas
     initDragHandling();
 
@@ -523,12 +608,31 @@
     });
   }
 
+  function showPlaybackFlash(isPaused) {
+    var flash = $("zePlayFlash");
+    if (!flash) {
+      flash = document.createElement("div");
+      flash.id = "zePlayFlash";
+      flash.className = "ze-play-flash";
+      el.stage.appendChild(flash);
+    }
+    flash.innerHTML = isPaused ? SVG_PAUSE : SVG_PLAY;
+    flash.classList.add("active");
+    clearTimeout(flash._timer);
+    flash._timer = setTimeout(function () {
+      flash.classList.remove("active");
+    }, 380);
+  }
+
   function togglePlayback() {
     if (S.kind !== "video") return;
     if (el.vid.paused) {
-      el.vid.play().catch(function () {});
+      el.vid.play().then(function () {
+        showPlaybackFlash(false);
+      }).catch(function () {});
     } else {
       el.vid.pause();
+      showPlaybackFlash(true);
     }
   }
 
@@ -892,7 +996,7 @@
     }
   }
 
-  /* ---------------- Drag-to-Delete (Instagram style) ---------------- */
+  /* ---------------- Drag-to-Delete (Creator style) ---------------- */
   function showTrash(show) {
     if (!el.trashZone) return;
     el.trashZone.classList.toggle("show", !!show);
@@ -1201,7 +1305,7 @@
     });
   }
 
-  /* ---------------- 2. FILTERS SHEET (Instagram Presets) ---------------- */
+  /* ---------------- 2. FILTERS SHEET (Presets) ---------------- */
   var _thumbSrc = null;
   function getThumbSrc() {
     if (_thumbSrc) return _thumbSrc;
@@ -1380,26 +1484,82 @@
       return '<button class="ze-sticker-cat' + (i === 0 ? " active" : "") + '" data-cat="' + p.id + '">' + p.name + '</button>';
     }).join("");
     el.sheetBody.innerHTML =
+      '<div class="ze-sticker-search-wrap">' +
+        '<span class="ze-search-icon">' + ic('<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;"') + '</span>' +
+        '<input type="text" class="ze-input" id="zeDecorSearch" placeholder="' + (isOverlay ? 'Search overlays...' : 'Search stickers, emojis, badges...') + '">' +
+        '<button class="ze-search-clear" id="zeDecorSearchClear" style="display:none">' + ic('<path d="M18 6 6 18M6 6l12 12"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.4;"') + '</button>' +
+      '</div>' +
       '<div class="ze-sticker-tabs" id="zeStickerTabs">' + tabs + '</div>' +
       '<div class="ze-sticker-grid" id="zeStickerGrid"></div>';
+
     var grid = $("#zeStickerGrid");
-    function paint(catId) {
-      var pack = packs.filter(function (p) { return p.id === catId; })[0] || packs[0];
-      grid.innerHTML = pack.items.map(function (it) {
+    var activeCat = packs[0].id;
+    var searchInput = $("#zeDecorSearch");
+    var clearBtn = $("#zeDecorSearchClear");
+
+    function renderItems(items) {
+      if (!items || !items.length) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:32px 12px;color:#888;font-size:13px">No stickers found</div>';
+        return;
+      }
+      grid.innerHTML = items.map(function (it) {
         return '<button class="ze-sticker-btn' + (isOverlay ? " ze-overlay-btn" : "") + '" data-sid="' + it.id + '">' + stickerInner(it) + '</button>';
       }).join("");
       qsa(".ze-sticker-btn", grid).forEach(function (btn) {
-        btn.addEventListener("click", function () { addSticker(stickerById(btn.getAttribute("data-sid"))); });
+        btn.addEventListener("click", function () {
+          addSticker(stickerById(btn.getAttribute("data-sid")));
+        });
       });
     }
+
+    function paint(catId) {
+      activeCat = catId;
+      var pack = packs.filter(function (p) { return p.id === catId; })[0] || packs[0];
+      renderItems(pack.items);
+    }
+
     paint(packs[0].id);
+
     qsa(".ze-sticker-cat", el.sheetBody).forEach(function (b) {
       b.addEventListener("click", function () {
+        if (searchInput) searchInput.value = "";
+        if (clearBtn) clearBtn.style.display = "none";
         qsa(".ze-sticker-cat", el.sheetBody).forEach(function (x) { x.classList.remove("active"); });
         b.classList.add("active");
         paint(b.getAttribute("data-cat"));
       });
     });
+
+    if (searchInput) {
+      searchInput.addEventListener("input", function () {
+        var q = searchInput.value.toLowerCase().trim();
+        if (clearBtn) clearBtn.style.display = q ? "flex" : "none";
+        if (!q) {
+          paint(activeCat);
+          return;
+        }
+        var allItems = [];
+        packs.forEach(function (p) {
+          p.items.forEach(function (it) {
+            var match = (it.id && it.id.toLowerCase().includes(q)) ||
+                        (it.ch && it.ch.includes(q)) ||
+                        (p.name && p.name.toLowerCase().includes(q));
+            if (match && !allItems.some(function(x){ return x.id === it.id; })) {
+              allItems.push(it);
+            }
+          });
+        });
+        renderItems(allItems);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", function () {
+        if (searchInput) { searchInput.value = ""; searchInput.focus(); }
+        clearBtn.style.display = "none";
+        paint(activeCat);
+      });
+    }
   }
 
   function renderStickersSheet() {
@@ -1921,7 +2081,7 @@
     });
   }
 
-  /* ---------------- 8. INSTAGRAM REELS TIMELINE EDITOR ---------------- */
+  /* ---------------- 8. REELS TIMELINE EDITOR ---------------- */
   function onEditBtn() {
     if (S.kind !== "video") { openSheet("more"); return; }
     openTimeline();
@@ -1992,7 +2152,7 @@
       el.tlStrip.innerHTML = "";
     }
 
-    // Segments with yellow Instagram handles
+    // Segments with Reel handles
     var html = "";
     S.segments.forEach(function (seg, i) {
       var l = seg.start / dur * 100, w = (seg.end - seg.start) / dur * 100;
@@ -2024,7 +2184,7 @@
     // Overlay lane blocks (above text)
     updateTimelineOverlayBlocks();
 
-    // CapCut & Instagram Reel Action Toolbar with complete Audio Suite
+    // CapCut & Reel Action Toolbar with complete Audio Suite
     el.tlTools.innerHTML =
       tlTool("split", "Split", ic('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')) +
       tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'), (S.speed && S.speed !== 1 ? S.speed + "x" : "")) +
@@ -3201,7 +3361,7 @@
         if (!file) return;
         var cat = category || window.currentVeCategory || "reel";
         // POINT 8: Any video <= 3 minutes opens the Reel editor directly.
-        // Videos longer than 3 minutes first show the YouTube-style preview
+        // Videos longer than 3 minutes first show the Full preview
         // screen ("Edit into a Reel" + "Next") before any editor is opened.
         if (typeof window.probeVideoDuration === "function") {
           window.probeVideoDuration(file, function (dur) {

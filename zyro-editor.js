@@ -1506,8 +1506,12 @@
         return '<button class="ze-sticker-btn' + (isOverlay ? " ze-overlay-btn" : "") + '" data-sid="' + it.id + '">' + stickerInner(it) + '</button>';
       }).join("");
       qsa(".ze-sticker-btn", grid).forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          addSticker(stickerById(btn.getAttribute("data-sid")));
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          var sid = btn.getAttribute("data-sid");
+          var st = stickerById(sid);
+          if (st) addSticker(st);
+          closeSheet();
         });
       });
     }
@@ -1713,7 +1717,92 @@
   }
 
   /* ---------------- 7. SOUND SHEET (Story Music + Device Import) ---------------- */
-  var storySoundsCache = [];
+  /* ---------------- Real Hit Songs Default Library ---------------- */
+  var DEFAULT_HIT_SONGS = [
+    {
+      id: "s_tauba",
+      title: "Tauba Tauba (From \"Bad Newz\")",
+      artist: "Karan Aujla",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/79/d2/01/79d201d2-e54d-5604-81fb-313f30db7219/198588533581.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/34/8d/63/348d6342-2c35-bf31-8131-2c8b3cfe3c09/mzaf_15374551219149804677.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "trending"
+    },
+    {
+      id: "s_kesariya",
+      title: "Kesariya (From \"Brahmastra\")",
+      artist: "Pritam, Arijit Singh & Amitabh Bhattacharya",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/9f/13/ca/9f13ca3b-e533-03e0-f19a-f0aaa774581d/196589311191.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/38/4c/5c/384c5c8f-3ff8-e457-b2f7-3158ce108649/mzaf_12389299033886433185.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "bollywood"
+    },
+    {
+      id: "s_lover",
+      title: "Lover",
+      artist: "Diljit Dosanjh",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/8a/89/e4/8a89e445-d2c6-f8ac-a828-27818b0c1afe/859749638209_cover.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/38/d5/7a/38d57a99-39fc-e901-7c45-fa6260ec83c1/mzaf_8083696285926392389.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "punjabi"
+    },
+    {
+      id: "s_apna",
+      title: "Apna Bana Le (From \"Bhediya\")",
+      artist: "Arijit Singh, Sachin-Jigar & Amitabh Bhattacharya",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/2e/0b/c0/2e0bc070-112f-a827-6ad8-6bc64f7caaff/840214460180.png/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/eb/27/61/eb2761c7-d606-0912-dff0-2dc6b69974bd/mzaf_2023722930851223219.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "bollywood"
+    },
+    {
+      id: "s_heeriye",
+      title: "Heeriye",
+      artist: "Jasleen Royal & Arijit Singh",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/f0/8c/2a/f08c2aeb-3903-8738-d0a5-8c2e4547eed7/5054197711039.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/14/9b/ac/149bac62-12f1-2f55-a742-f38429b94c83/mzaf_17225240189976438593.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "lofi"
+    },
+    {
+      id: "s_maan",
+      title: "Maan Meri Jaan",
+      artist: "King",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/90/9d/aa/909daa9a-3a47-9314-2855-39f5a157f1e3/5054197407734.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/49/c8/c0/49c8c0eb-6a72-d639-02d2-d55fa0034b89/mzaf_6556689839136809010.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "trending"
+    },
+    {
+      id: "s_chaleya",
+      title: "Chaleya (From \"Jawan\")",
+      artist: "Anirudh Ravichander, Arijit Singh & Shilpa Rao",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/bb/f4/f5/bbf4f511-3c12-c25e-a475-b6d06faa8c13/8902894362047_cover.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/76/05/d9/7605d905-f631-517d-df7f-e162affcd414/mzaf_9976541859961700749.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "bollywood"
+    },
+    {
+      id: "s_raataan",
+      title: "Raataan Lambiyan (From \"Shershaah\")",
+      artist: "Tanishk Bagchi, Jubin Nautiyal & Asees Kaur",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/c3/df/e7/c3dfe71e-d532-458e-9c1c-32d40f8d9123/886449472222.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ff/7a/7a/ff7a7a63-9947-cefa-e269-ad9602fb1ca3/mzaf_14039909875904828823.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "lofi"
+    },
+    {
+      id: "s_goat",
+      title: "G.O.A.T.",
+      artist: "Diljit Dosanjh",
+      artwork: "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d2/89/ac/d289ac98-749e-3822-6b6e-b06aa4815715/859740651597_cover.jpg/300x300bb.jpg",
+      previewUrl: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ba/5c/57/ba5c5769-536b-1884-dfbf-5930cab13332/mzaf_7745269360294572986.plus.aac.p.m4a",
+      duration: "0:30",
+      cat: "punjabi"
+    }
+  ];
+
+  var storySoundsCache = DEFAULT_HIT_SONGS;
   var activeAudioPreview = null;
 
   function _tabSvg(path) {
@@ -1727,7 +1816,9 @@
     if (S.music) {
       html += '<div class="ze-cur-music-card">' +
         '<div class="ze-cur-music-left">' +
-          '<div class="ze-sound-ic">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"') + '</div>' +
+          '<div class="ze-sound-thumb-wrap" style="width:42px;height:42px;flex:0 0 42px;">' +
+            '<img src="' + escapeHtml(S.music.artwork || "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/9f/13/ca/9f13ca3b-e533-03e0-f19a-f0aaa774581d/196589311191.jpg/300x300bb.jpg") + '" class="ze-sound-thumb-img" alt="Current Track">' +
+          '</div>' +
           '<div class="ze-sound-meta">' +
             '<b>' + escapeHtml(S.music.name) + '</b>' +
             '<small>' + (S.music.artist ? escapeHtml(S.music.artist) : 'Active Soundtrack') + '</small>' +
@@ -1741,19 +1832,18 @@
     // Search bar
     html += '<div class="ze-search-wrap">' +
       '<span class="ze-search-icon">' + ic('<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>', ' style="width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;"') + '</span>' +
-      '<input type="text" class="ze-input" id="zeSoundSearch" placeholder="Search Bollywood, Punjabi, Comedy sounds...">' +
+      '<input type="text" class="ze-input" id="zeSoundSearch" placeholder="Search Bollywood, Punjabi, Trending songs...">' +
       '<button class="ze-search-clear" id="zeSoundSearchClear" style="display:none">' + ic('<path d="M18 6 6 18M6 6l12 12"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;"') + '</button>' +
     '</div>';
 
     // Genre pill tabs (SVG icons)
     html += '<div class="ze-sound-tabs">' +
       '<button class="ze-sound-tab active" data-scat="trending">' + _tabSvg('<path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1 0-2-1-3 3 1 5 4 5 7a7 7 0 1 1-14 0c0-5 4-6 4-10 0-1 1-2 3-3z"/>') + 'Trending</button>' +
-      '<button class="ze-sound-tab" data-scat="story">' + _tabSvg('<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>') + 'Comedy</button>' +
       '<button class="ze-sound-tab" data-scat="bollywood">' + _tabSvg('<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>') + 'Bollywood</button>' +
       '<button class="ze-sound-tab" data-scat="punjabi">' + _tabSvg('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>') + 'Punjabi</button>' +
-      '<button class="ze-sound-tab" data-scat="desi">' + _tabSvg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + 'Desi Hits</button>' +
-      '<button class="ze-sound-tab" data-scat="lofi">' + _tabSvg('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/>') + 'Lo-Fi</button>' +
-      '<button class="ze-sound-tab" data-scat="meme">' + _tabSvg('<path d="m12 3-1.9 5.8L4 10.7l5.8 1.9L12 18l1.9-5.4L20 10.7l-6.1-1.9Z"/>') + 'Memes</button>' +
+      '<button class="ze-sound-tab" data-scat="lofi">' + _tabSvg('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="7" rx="2"/><rect x="17" y="14" width="5" height="7" rx="2"/>') + 'Romantic & Lo-Fi</button>' +
+      '<button class="ze-sound-tab" data-scat="desi">' + _tabSvg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + 'Desi Pop</button>' +
+      '<button class="ze-sound-tab" data-scat="device">' + _tabSvg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>') + 'Device File</button>' +
     '</div>';
 
     // Song list container
@@ -1809,7 +1899,12 @@
       tab.addEventListener("click", function () {
         qsa(".ze-sound-tab", container).forEach(function (t) { t.classList.remove("active"); });
         tab.classList.add("active");
-        loadSoundCategory(tab.getAttribute("data-scat"));
+        var scat = tab.getAttribute("data-scat");
+        if (scat === "device") {
+          triggerImportAudio();
+        } else {
+          loadSoundCategory(scat);
+        }
       });
     });
 
@@ -1817,8 +1912,7 @@
   }
 
   function renderSoundSheet() {
-    setSheetTitle("Add Music");
-    buildSoundUI(el.sheetBody);
+    openSoundPicker();
   }
 
   function openSoundPicker() {
@@ -1835,35 +1929,24 @@
   }
 
   function loadSoundCategory(cat) {
-    if (cat === "story") {
-      var curated = (window.CURATED_COMEDY_SOUNDS && window.CURATED_COMEDY_SOUNDS.length)
-        ? window.CURATED_COMEDY_SOUNDS
-        : [];
-      renderSoundList(curated);
-    } else if (cat === "bollywood") {
+    if (cat === "bollywood") {
       fetchItunesSounds("bollywood hit songs");
     } else if (cat === "punjabi") {
       fetchItunesSounds("punjabi top beat");
+    } else if (cat === "lofi") {
+      fetchItunesSounds("bollywood lofi romantic");
     } else if (cat === "desi") {
-      fetchItunesSounds("desi comedy background music");
+      fetchItunesSounds("desi pop hit songs");
     } else {
-      // Trending: combine curated + trending
-      var cur = (window.CURATED_COMEDY_SOUNDS && window.CURATED_COMEDY_SOUNDS.length)
-        ? window.CURATED_COMEDY_SOUNDS
-        : [];
-      if (cur.length) {
-        renderSoundList(cur);
-      } else {
-        fetchItunesSounds("indian viral reel songs");
-      }
+      renderSoundList(DEFAULT_HIT_SONGS);
     }
   }
 
   async function fetchItunesSounds(term) {
     var c = $("zeSoundListContainer");
-    if (c) c.innerHTML = '<div style="text-align:center;padding:16px;color:#888">⏳ Searching audio...</div>';
+    if (c) c.innerHTML = '<div style="text-align:center;padding:24px 16px;color:#888"><div class="ze-spinner" style="margin:0 auto 10px;width:24px;height:24px;border-width:2px"></div>Searching audio...</div>';
     try {
-      var res = await fetch("https://itunes.apple.com/search?term=" + encodeURIComponent(term) + "&entity=song&limit=15").catch(function () { return null; });
+      var res = await fetch("https://itunes.apple.com/search?term=" + encodeURIComponent(term) + "&entity=song&limit=18").catch(function () { return null; });
       if (!res || !res.ok) {
         fallbackSounds();
         return;
@@ -1871,12 +1954,16 @@
       var data = await res.json().catch(function () { return {}; });
       if (data && Array.isArray(data.results) && data.results.length) {
         var items = data.results.filter(function (r) { return r.previewUrl; }).map(function (r) {
+          var ms = r.trackTimeMillis || 30000;
+          var mins = Math.floor(ms / 60000);
+          var secs = String(Math.floor((ms % 60000) / 1000)).padStart(2, "0");
           return {
             id: "itunes_" + r.trackId,
             title: r.trackName,
             artist: r.artistName,
-            icon: "🎵",
-            previewUrl: r.previewUrl
+            artwork: r.artworkUrl100 ? r.artworkUrl100.replace("100x100bb", "300x300bb") : "",
+            previewUrl: r.previewUrl,
+            duration: mins + ":" + secs
           };
         });
         renderSoundList(items);
@@ -1889,17 +1976,14 @@
   }
 
   function fallbackSounds() {
-    var cur = (window.CURATED_COMEDY_SOUNDS && window.CURATED_COMEDY_SOUNDS.length)
-      ? window.CURATED_COMEDY_SOUNDS
-      : [];
-    renderSoundList(cur);
+    renderSoundList(DEFAULT_HIT_SONGS);
   }
 
   function renderSoundList(items) {
     var container = $("zeSoundListContainer");
     if (!container) return;
     if (!items || !items.length) {
-      container.innerHTML = '<div style="text-align:center;padding:16px;color:#888">No sounds found. Try searching.</div>';
+      container.innerHTML = '<div style="text-align:center;padding:24px 16px;color:#888">No songs found. Try searching.</div>';
       return;
     }
 
@@ -1907,16 +1991,26 @@
     var html = "";
     items.forEach(function (s, idx) {
       var isCur = S.music && S.music.url === s.previewUrl;
-      html += '<div class="ze-sound-row' + (isCur ? " active" : "") + '">' +
-        '<button class="ze-audio-play-btn" data-play-idx="' + idx + '" title="Preview">' + SVG_PLAY + '</button>' +
-        '<div class="ze-sound-ic">' + (s.icon ? s.icon : ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;"')) + '</div>' +
-        '<div class="ze-sound-meta"><b>' + escapeHtml(s.title) + '</b><small>' + escapeHtml(s.artist || "UPComedyHub Audio") + '</small></div>' +
-        '<button class="ze-sound-use-btn" data-use-idx="' + idx + '">+ Use</button>' +
+      var artworkTag = s.artwork
+        ? '<img src="' + escapeHtml(s.artwork) + '" class="ze-sound-thumb-img" alt="' + escapeHtml(s.title) + '" onerror="this.style.display=\'none\'">'
+        : '<div style="width:100%;height:100%;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:18px">🎵</div>';
+
+      html += '<div class="ze-sound-row' + (isCur ? " active" : "") + '" data-row-idx="' + idx + '">' +
+        '<div class="ze-sound-thumb-wrap">' +
+          artworkTag +
+          '<div class="ze-sound-thumb-play" data-play-idx="' + idx + '" title="Preview">' + SVG_PLAY + '</div>' +
+        '</div>' +
+        '<div class="ze-sound-meta">' +
+          '<b>' + escapeHtml(s.title) + '</b>' +
+          '<small>' + escapeHtml(s.artist || "Top Hit Artist") + (s.duration ? ' • ' + s.duration : '') + '</small>' +
+        '</div>' +
+        '<button class="ze-sound-use-btn' + (isCur ? " in-use" : "") + '" data-use-idx="' + idx + '">' + (isCur ? 'Selected' : '+ Use') + '</button>' +
       '</div>';
     });
     container.innerHTML = html;
 
-    qsa(".ze-audio-play-btn", container).forEach(function (btn) {
+    // Handle preview play/pause
+    qsa(".ze-sound-thumb-play", container).forEach(function (btn) {
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
         var idx = parseInt(btn.getAttribute("data-play-idx"), 10);
@@ -1932,7 +2026,7 @@
 
         if (activeAudioPreview) {
           try { activeAudioPreview.pause(); } catch (er) {}
-          qsa(".ze-audio-play-btn", container).forEach(function (b) { b.innerHTML = SVG_PLAY; b.classList.remove("playing"); });
+          qsa(".ze-sound-thumb-play", container).forEach(function (b) { b.innerHTML = SVG_PLAY; b.classList.remove("playing"); });
         }
 
         activeAudioPreview = new Audio(s.previewUrl);
@@ -1949,6 +2043,7 @@
       });
     });
 
+    // Handle + Use click
     qsa(".ze-sound-use-btn", container).forEach(function (btn) {
       btn.addEventListener("click", function (e) {
         e.stopPropagation();
@@ -1970,12 +2065,14 @@
           name: s.title,
           artist: s.artist || "UPComedyHub Sound",
           url: s.previewUrl,
+          artwork: s.artwork,
           el: au,
           isLocal: false
         };
         updateSoundLabel();
         try { if (!el.vid.paused) au.play(); } catch (er) {}
-        renderSoundSheet();
+        if (S.timelineOpen) renderTimeline();
+        closeSoundPicker();
         toast("🎵 Added: " + s.title);
       });
     });
@@ -2297,7 +2394,7 @@
     if (tool === "voiceover") return openVoiceoverModal();
     if (tool === "importaudio") return triggerImportAudio();
     if (tool === "exportaudio") return openAudioToolsModal();
-    if (tool === "sound") { openSheet("sound"); return; }
+    if (tool === "sound") { openSoundPicker(); return; }
     if (tool === "addclip") return triggerAddClip();
     if (tool === "text") { openSheet("text"); return; }
     if (tool === "overlay") { openSheet("overlay"); return; }

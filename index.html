@@ -3709,7 +3709,552 @@ img.logo-profile.zyro-header-logo {
   <div class="home-surface-clean" id="homeCleanSurface"></div>
 
 </div>
+<div class="channel-profile-overlay" id="channelProfileOverlay">
+  <div class="channel-profile-header">
+    <button type="button" class="channel-profile-back" id="channelProfileClose" aria-label="Back">‹</button>
+    <span>Channel Profile</span>
+    <span style="width:36px"></span>
+  </div>
+  <div class="channel-profile-search">
+    <input type="text" id="channelSearchInput" placeholder="🔍 Channel profile me dhundho (Team, Gallery, FAQ...)">
+    <div class="channel-search-results" id="channelSearchResults"></div>
+  </div>
+  <nav class="channel-profile-nav" id="channelProfileNav">
+    <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
+    <a href="#fan-of-week"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</a>
+    <a href="#channel-reels"><svg class="ico"><use href="#i-reels"></use></svg> Reels</a>
+    <a href="#channel-videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</a>
+    <a href="#channel-guidelines"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</a>
+    <a href="#website-enquiry"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</a>
+    <a href="#faq"><svg class="ico"><use href="#i-help"></use></svg> FAQ</a>
+    <a href="#visitor-counter"><svg class="ico"><use href="#i-eye"></use></svg> Visitors</a>
+    <a href="#contact"><svg class="ico"><use href="#i-mail"></use></svg> Contact</a>
+    <a href="#newsletter"><svg class="ico"><use href="#i-mail"></use></svg> Newsletter</a>
+    <a href="#support"><svg class="ico"><use href="#i-coffee"></use></svg> Support</a>
+  </nav>
+  <div class="channel-profile-body">
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="hero-badge">By Cobra The God</span>
+      <h1>Zyro</h1>
+      <p>Aapki Hansi, Hamari Pehchaan — Zyro 🔥</p>
+      <p>Desi comedy, funny Shorts aur entertainment ka ek hi adda.</p>
+      <div class="buttons">
+        <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ Watch Shorts</a>
+        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
+        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
+      </div>
+    </div>
+  </section>
 
+  <section id="fan-of-week">
+    <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
+    <div class="card fan-card">
+      <span class="fan-badge">⭐ STAR FAN</span>
+      <img src="IMG_20260917_172912.jpg" alt="Fan of the Week" class="fan-photo">
+      <div class="fan-name">Aapka Naam Yahan</div>
+      <div class="fan-date">📅 Week of 21 Sept 2026</div>
+      <p class="fan-message">Zyro ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂</p>
+      <div class="fan-selected">— Selected by Zyro Team</div>
+    </div>
+  </section>
+
+  <section id="channel-reels">
+    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
+    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Latest Shorts &amp; Reels 🔥</p>
+    <div class="channel-reels-grid" id="channelReelsGrid">
+      <div class="ig-reels-empty">⏳ Loading Reels...</div>
+    </div>
+  </section>
+
+  <section id="channel-videos">
+    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
+    <div class="video-grid home-feed" id="videosGrid">
+      <div class="card"><p>⏳ Loading videos...</p></div>
+    </div>
+  </section>
+
+  <section id="channel-guidelines">
+    <h2 class="section-title"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</h2>
+    <div class="channel-guidelines-wrap">
+      <p><strong>Zyro ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.</strong></p>
+      <h3>Hamara Maqsad</h3>
+      <p>Zyro ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.</p>
+      <h3>Hum Kya Zyada Aage Badhate Hain</h3>
+      <p>Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.</p>
+      <h3>Feed Kaise Kaam Karta Hai</h3>
+      <p>Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.</p>
+      <h3>Sexual Content Allowed Nahi</h3>
+      <p>Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.</p>
+      <h3>Hinsa aur Nuksaan Pahunchana</h3>
+      <p>Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.</p>
+      <h3>Khud ko Nuksaan Pahunchana (Self-Harm)</h3>
+      <p>Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).</p>
+      <h3>Bachchon ki Suraksha (Zero Tolerance)</h3>
+      <p>18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.</p>
+      <h3>Pareshan Karna aur Nafrat</h3>
+      <p>Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.</p>
+      <h3>Jhooth, Fraud aur Spam</h3>
+      <p>Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.</p>
+      <h3>Report Kaise Karein</h3>
+      <p>Kisi bhi galat content ko report karne ke liye Settings mein "Report" use karein ya <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.</p>
+      <h3>Rules Todne par Kya Hoga</h3>
+      <p>Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.</p>
+      <h3>Madad ke Liye</h3>
+      <p>Agar aap ya koi aur takleef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.</p>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-inner">
+      <h2 class="section-title"><svg class="ico"><use href="#i-heart"></use></svg> About Zyro</h2>
+      <p>Zyro ek desi comedy aur entertainment platform hai, jahan hum funny Shorts, comedy videos aur entertaining moments ke through aapke face par smile lane ki koshish karte hain.</p>
+      <br>
+      <h3>📖 Our Story</h3>
+      <p>Zyro ki shuruaat ek simple idea ke saath hui — desi style mein clean, relatable aur entertaining comedy banana jo har kisi ko enjoy ho.</p>
+      <br>
+      <h3>😂 Why Zyro?</h3>
+      <p>Kyunki hansi sabke liye hai! Hamara goal simple hai: relatable situations, desi characters aur funny moments ko entertaining videos mein convert karna.</p>
+      <br>
+      <h3>🎯 Our Mission</h3>
+      <p>Hamara mission hai ki Zyro ko ek aisa entertainment platform banaya jaye jahan log apna stress bhoolkar kuch moments ke liye enjoy aur smile kar saken.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="section-title"><svg class="ico"><use href="#i-help"></use></svg> Frequently Asked Questions</h2>
+    <div class="card"><h3 class="faq-q">😂 Zyro क्या है?</h3><p class="faq-a" style="display:none">Zyro एक desi comedy और entertainment platform है, जहाँ आपको funny videos और Shorts देखने को मिलते हैं।</p></div>
+    <div class="card"><h3 class="faq-q">🎬 नए videos कहाँ मिलेंगे?</h3><p class="faq-a" style="display:none">हमारे latest Shorts और videos देखने के लिए Shorts और Videos sections पर जाएँ।</p></div>
+    <div class="card"><h3 class="faq-q">📱 Zyro को कहाँ follow करें?</h3><p class="faq-a" style="display:none">आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।</p></div>
+    <div class="card"><h3 class="faq-q">🤝 Collaboration के लिए कैसे contact करें?</h3><p class="faq-a" style="display:none">Collaboration या किसी भी business enquiry के लिए हमें email करें।</p></div>
+    <div class="card"><h3 class="faq-q">📧 Zyro का email क्या है?</h3><p class="faq-a" style="display:none"><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p></div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Contact Us</h2>
+    <div class="cards">
+      <div class="card" style="text-align:center">
+        <h3>📧 Email</h3>
+        <p><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> <button type="button" class="copy-btn" data-copy-text="upcomedyhub@gmail.com"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button></p>
+        <p style="margin-top:8px">📍 <strong>Location:</strong> Uttar Pradesh, India</p>
+        <br>
+        <a class="btn" href="mailto:upcomedyhub@gmail.com">✉️ Send Email</a>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>💬 WhatsApp</h3>
+        <p>Directly humse WhatsApp par contact karein. <button type="button" class="copy-btn" data-copy-text="+91 92369 94154"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy Number</button></p>
+        <br>
+        <a class="btn" href="https://wa.me/919236994154?text=Hello%20Zyro" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>🤝 Collaboration</h3>
+        <p>Collaboration ya business enquiry ke liye humein email karein.</p>
+        <br>
+        <a class="btn" href="mailto:upcomedyhub@gmail.com?subject=Zyro%20Collaboration">🤝 Collaborate</a>
+      </div>
+      <div class="card" style="text-align:center">
+        <h3>🔗 Website Link</h3>
+        <p>Ye link kisi ko bhi share karne ke liye copy karein.</p>
+        <br>
+        <button type="button" class="btn" data-copy-text="https://upcomedyhub.github.io/" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-link"></use></svg> Copy Website Link</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="website-enquiry">
+    <h2 class="section-title"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</h2>
+    <div class="card" style="max-width:700px;margin:0 auto;text-align:center">
+      <h3>🌐 Professional Website Development</h3>
+      <p style="margin-top:10px">Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.</p>
+      <p style="margin-top:15px">💰 <strong>Price:</strong> ₹10,000 – ₹2,00,000+</p>
+      <p style="font-size:14px;margin-top:5px;color:#777">Final price website ki requirements aur features ke according decide hoga.</p>
+      <form action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST" style="margin-top:25px;text-align:left">
+        <input type="hidden" name="_subject" value="New Website Development Enquiry - Zyro">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <label for="vName">👤 Name</label>
+        <input type="text" id="vName" name="Name" placeholder="Apna naam" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
+        <label for="vMob">📱 Mobile Number</label>
+        <input type="tel" id="vMob" name="Mobile Number" placeholder="Apna mobile number" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
+        <label for="vMail">📧 Email</label>
+        <input type="email" id="vMail" name="Email" placeholder="Apna email" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
+        <label for="vType">🌐 Website Type</label>
+        <select id="vType" name="Website Type" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;background:#fff">
+          <option value="">Select Website Type</option>
+          <option>Business Website</option>
+          <option>Portfolio Website</option>
+          <option>Creator / YouTuber Website</option>
+          <option>E-commerce Website</option>
+          <option>Other</option>
+        </select>
+        <label for="vMsg">💬 Requirements / Message</label>
+        <textarea id="vMsg" name="Requirements / Message" placeholder="Aapko kis type ki website chahiye?" rows="5" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;resize:vertical"></textarea>
+        <button type="submit" class="btn" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Send Enquiry</button>
+      </form>
+      <p style="font-size:12px;margin-top:15px;color:#777">🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.</p>
+    </div>
+  </section>
+
+  <section id="visitor-counter">
+    <h2 class="section-title"><svg class="ico"><use href="#i-eye"></use></svg> Website Visitors</h2>
+    <div class="card visitor-counter-card" style="text-align:center">
+      <h3>🔥 Zyro Family</h3>
+      <p style="margin-top:15px">Ab tak Zyro website par</p>
+      <div class="stats4u-counter" id="stats4uCounterBox">
+        <!-- Safely loaded visitor counter -->
+        <script>
+          (function(){
+            try {
+              var s = document.createElement("script");
+              s.src = "https://www.stats4u.net/s4u.js";
+              s.setAttribute("data-id", "7770253129");
+              s.setAttribute("data-style", "950");
+              s.setAttribute("data-params", "form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20");
+              s.setAttribute("data-screen", "1");
+              s.async = true;
+              s.onerror = function() { console.warn("Visitor counter script unavailable"); };
+              var box = document.getElementById("stats4uCounterBox");
+              if (box) box.appendChild(s);
+            } catch(e) {}
+          })();
+        </script>
+      </div>
+      <p style="margin-top:15px">visits record ho chuke hain ❤️</p>
+      <small>Aap bhi Zyro family ka hissa hain! 😎</small>
+    </div>
+  </section>
+
+  <section id="youtube-stats">
+    <h2 class="section-title"><svg class="ico"><use href="#i-chart"></use></svg> YouTube Stats</h2>
+    <div class="card" style="max-width:600px;margin:0 auto;text-align:center">
+      <h3>🔔 Zyro Subscribers</h3>
+      <strong id="youtubeSubscribers" style="display:block;color:#e63946;font-size:32px;font-weight:800;margin-top:5px">...</strong>
+      <p style="margin-top:10px">Hamari YouTube Family ❤️</p>
+    </div>
+  </section>
+
+  <section id="social">
+    <h2 class="section-title"><svg class="ico"><use href="#i-globe"></use></svg> Follow Zyro</h2>
+    <div class="buttons" style="text-align:center">
+      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ YouTube</a>
+      <a class="btn" href="https://www.instagram.com/up_comedyhub" target="_blank" rel="noopener">📸 Instagram</a>
+      <a class="btn" href="https://www.facebook.com/share/1CiwRbmKbq/" target="_blank" rel="noopener">👍 Facebook</a>
+      <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
+    </div>
+    <p style="margin-top:20px;text-align:center">📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India</p>
+  </section>
+
+  <section id="newsletter">
+    <div style="text-align:center"><span class="newsletter-badge">🔥 Never Miss an Update</span></div>
+    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Stay Connected</h2>
+    <div class="card newsletter-card">
+      <h3>🔥 Zyro Updates</h3>
+      <p style="margin-top:8px">Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.</p>
+      <form class="newsletter-form" action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New Zyro Newsletter Subscriber">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <label for="newsEmail">📧 Email Address</label>
+        <input type="email" id="newsEmail" name="Email" placeholder="Apna email address" required>
+        <button type="submit" class="btn"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Subscribe to Updates</button>
+      </form>
+      <p class="newsletter-note">🔒 Aapka email sirf Zyro updates aur reply ke purpose ke liye use kiya jayega.</p>
+      <div style="margin-top:20px;padding-top:20px;border-top:1px dashed #ddd;text-align:center">
+        <p style="font-size:14px;color:#666;margin-bottom:12px">Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡</p>
+        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener" style="margin:0">💬 Join WhatsApp Channel</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="support">
+    <h2 class="section-title"><svg class="ico"><use href="#i-coffee"></use></svg> Support Zyro</h2>
+    <div class="card support-card">
+      <span class="support-badge">❤️ Aapka Support, Hamari Taakat</span>
+      <h3>Ek Chai Pilao ☕</h3>
+      <p>Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️</p>
+      <div class="support-amounts">
+        <button type="button" class="amount-btn" data-amount="50">₹50</button>
+        <button type="button" class="amount-btn active" data-amount="100">₹100</button>
+        <button type="button" class="amount-btn" data-amount="200">₹200</button>
+        <button type="button" class="amount-btn" data-amount="500">₹500</button>
+        <button type="button" class="amount-btn" data-amount="">Custom</button>
+      </div>
+      <button type="button" id="upiPayBtn" class="support-main-btn"><svg class="ve-ico"><use href="#i-card"></use></svg> Pay ₹100 via UPI</button>
+      <div class="support-divider"><span>OR</span></div>
+      <div class="support-upi-row">
+        <div class="upi-info"><small>UPI ID</small><strong>9236994154@axl</strong></div>
+        <button type="button" class="copy-btn" data-copy-text="9236994154@axl"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button>
+      </div>
+      <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:280px;height:280px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
+      <p style="font-size:13px;color:#777;margin:0 0 16px">📱 Scan this QR with any UPI app</p>
+      <p class="support-note">🔒 100% secure. Payment directly humare UPI par aata hai.</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>😂 Haste Raho, Connected Raho!</h2>
+    <p style="margin-top:10px">Zyro ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.</p>
+    <div class="buttons"><a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe Now</a></div>
+  </section>
+
+  <section id="privacy">
+    <div class="container">
+      <h2>🔒 Privacy Policy</h2>
+      <p>Zyro आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
+      <p>Zyro app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
+      <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
+      <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
+      <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
+      <p>Stats4U Privacy Policy: <a href="https://www.stats4u.net/privacy" target="_blank" rel="noopener">https://www.stats4u.net/privacy</a></p>
+      <p>किसी भी सवाल के लिए आप हमसे <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> पर contact कर सकते हैं।</p>
+    </div>
+  </section>
+
+  <section id="terms">
+    <div class="container">
+      <h2>📋 Terms &amp; Conditions</h2>
+      <p>Zyro app/website par available content ka purpose entertainment aur information provide karna hai.</p>
+      <p>App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.</p>
+      <p>App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.</p>
+      <p>Kisi bhi question ke liye contact karein: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer class="channel-footer">
+    <p>© 2026 Zyro. All Rights Reserved.</p>
+    <p style="margin-top:8px">Aapki Hansi, Hamari Pehchaan — Zyro 🔥</p>
+    <p style="margin-top:8px">Made with ❤️ by Zyro</p>
+    <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
+  </footer>
+
+  </div>
+
+  <div class="quick-actions" id="quickActions">
+    <div class="quick-actions-menu">
+      <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20Zyro%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
+      <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
+    </div>
+    <button id="quickActionsToggle" type="button" aria-label="Quick actions"><svg class="ico"><use href="#i-message"></use></svg></button>
+  </div>
+  <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website"><svg class="ico"><use href="#i-link"></use></svg></a>
+</div>
+<div id="tab-reels" class="tab-pane">
+  <section style="padding:20px 14px">
+    <h2 class="section-title"><svg class="ico" style="width:24px;height:24px;vertical-align:middle"><use href="#i-reels"></use></svg> Reels</h2>
+    <div class="channel-reels-grid" id="mainTabReelsGrid">
+      <div class="ig-reels-empty">⏳ Loading Reels...</div>
+    </div>
+  </section>
+</div>
+
+<div id="tab-search" class="tab-pane">
+  <div class="search-page-container">
+    <!-- Search Bar with Dynamic Icon & Clear Button -->
+    <div class="search-bar-wrap">
+      <div class="search-input-box">
+        <svg class="search-input-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="tabSearchInput" placeholder="Dhoondho accounts, videos ya reels..." autocomplete="off">
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear Search" style="display:none"><svg viewBox="0 0 24 24"><use href="#i-close"></use></svg></button>
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs with Clean SVG Icons -->
+    <div class="search-tabs-bar" id="searchCategoryTabs">
+      <button type="button" class="search-tab-pill active" data-search-cat="top">
+        <svg class="search-pill-ico"><use href="#i-flame"></use></svg>
+        <span>Top</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="accounts">
+        <svg class="search-pill-ico"><use href="#i-user"></use></svg>
+        <span>Accounts</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="videos">
+        <svg class="search-pill-ico"><use href="#i-video"></use></svg>
+        <span>Videos</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="reels"><svg class="ico" style="width:16px;height:16px;margin-right:4px;vertical-align:middle"><use href="#i-reels"></use></svg>
+        <span>Reels</span>
+      </button>
+      <button type="button" class="search-tab-pill" data-search-cat="tags">
+        <svg class="search-pill-ico"><use href="#i-hash"></use></svg>
+        <span>Tags</span>
+      </button>
+    </div>
+
+    <!-- State 1: Discovery Screen (shown when search box is empty) -->
+    <div class="search-discovery-wrap" id="searchDiscoveryWrap">
+      <!-- Recent Searches -->
+      <div class="recent-searches-box" id="recentSearchesBox" style="display:none">
+        <div class="search-section-header">
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-clock"></use></svg> Recent Searches</span>
+          <button type="button" class="search-clear-all-btn" id="clearAllRecentSearchesBtn">Clear All</button>
+        </div>
+        <div class="recent-searches-list" id="recentSearchesList"></div>
+      </div>
+
+      <!-- Trending Comedy Topics / Hashtags -->
+      <div class="trending-topics-box">
+        <div class="search-section-header">
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-flame"></use></svg> Trending Topics</span>
+        </div>
+        <div class="trending-tags-row" id="trendingTagsRow">
+          <button type="button" class="trending-tag-pill" data-query="Stand Up Comedy"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>StandUpComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Desi Jokes"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>DesiJokes</button>
+          <button type="button" class="trending-tag-pill" data-query="Zyro"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>Zyro</button>
+          <button type="button" class="trending-tag-pill" data-query="Hasya Kavi"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>HasyaKavi</button>
+          <button type="button" class="trending-tag-pill" data-query="Comedy Roast"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>ComedyRoast</button>
+          <button type="button" class="trending-tag-pill" data-query="Funny Shorts"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>FunnyShorts</button>
+          <button type="button" class="trending-tag-pill" data-query="Bhojpuri Tadka"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>BhojpuriComedy</button>
+          <button type="button" class="trending-tag-pill" data-query="Memes"><svg class="tag-hash-ico"><use href="#i-hash"></use></svg>Memes</button>
+        </div>
+      </div>
+
+      <!-- Suggested Comedy Creators -->
+      <div class="suggested-creators-box">
+        <div class="search-section-header">
+          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-sparkles"></use></svg> Suggested Creators</span>
+        </div>
+        <div class="suggested-creators-list" id="suggestedCreatorsList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- State 2: Results Screen (shown when search query is entered) -->
+    <div class="search-results-wrap" id="searchResultsWrap" style="display:none">
+      <!-- Top Tab Pane -->
+      <div class="search-pane-cat" id="searchPaneTop">
+        <div id="searchTopSpotlight"></div>
+        <div id="searchTopVideos" class="search-youtube-list"></div>
+      </div>
+
+      <!-- Accounts Tab Pane (Pure Instagram Style) -->
+      <div class="search-pane-cat" id="searchPaneAccounts" style="display:none">
+        <div class="search-accounts-list" id="searchAccountsList"></div>
+      </div>
+
+      <!-- Videos Tab Pane (Pure YouTube Style) -->
+      <div class="search-pane-cat" id="searchPaneVideos" style="display:none">
+        <div class="search-youtube-list" id="searchVideosList"></div>
+      </div>
+
+      <!-- Reels Tab Pane (Shorts Grid) -->
+      <div class="search-pane-cat" id="searchPaneReels" style="display:none">
+        <div class="search-reels-grid" id="searchReelsList"></div>
+      </div>
+
+      <!-- Tags Tab Pane (Hashtag & Topic Discovery) -->
+      <div class="search-pane-cat" id="searchPaneTags" style="display:none">
+        <div id="searchTagsHeader" class="search-tags-header"></div>
+        <div class="trending-tags-grid" id="searchTagsGrid"></div>
+        <div id="searchTagVideos" class="search-youtube-list" style="margin-top:14px"></div>
+      </div>
+
+      <!-- No Results State -->
+      <div class="search-no-results" id="searchNoResults" style="display:none">
+        <div class="snr-icon"><svg style="width:48px;height:48px;stroke:currentColor;fill:none;stroke-width:1.8;color:#999"><use href="#i-search"></use></svg></div>
+        <div class="snr-title">Koi result nahi mila</div>
+        <div class="snr-subtitle">Kripya koi doosra shabd ya creator ka naam dhoondhein.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="tab-profile" class="tab-pane">
+  <section class="profile-section-ig">
+    <!-- Instagram Top Bar -->
+    <div class="ig-profile-header">
+      <div class="ig-header-identity" id="igHeaderIdentityBtn" role="button" tabindex="0">
+        <span class="ig-profile-username" id="profileHeaderUsername">username</span>
+        <svg class="ico ig-profile-chev"><use href="#i-chevron"></use></svg>
+      </div>
+      <div class="ig-header-actions">
+        <button type="button" id="profileCreateBtn" class="ig-header-btn" aria-label="Create content" title="Create" onclick="openCreatePostModal('photo')"><svg class="ico"><use href="#i-plus-square"></use></svg></button>
+        <button type="button" id="profileMenuBtn" class="ig-header-btn" aria-label="Settings & Activity" title="Settings"><svg class="ico"><use href="#i-menu"></use></svg></button>
+      </div>
+    </div>
+
+    <div id="profileLoggedOut" style="text-align:center;padding:40px 20px">
+      <p style="color:#888;margin-bottom:20px;font-size:15px">🔐 Login karke like, comment, save videos aur message friends.</p>
+      <button type="button" class="login-google" onclick="if(typeof window.openLoginScreen==='function')window.openLoginScreen()">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:20px"> Log in
+      </button>
+    </div>
+
+    <div id="profileLoggedIn" class="profile-ig" style="display:none">
+      <!-- Profile Header Row -->
+      <div class="ig-profile-top">
+        <div class="ig-avatar-wrap" id="profileAvatarWrap" title="Profile picture options" onclick="openAvatarActionSheet()">
+          <div class="ig-story-ring" id="profileStoryRing">
+            <img id="userPhoto" class="ig-avatar" src="" alt="Profile photo">
+          </div>
+          <div class="ig-avatar-edit" id="avatarEditBadge" title="Change Photo" onclick="event.stopPropagation();openAvatarActionSheet();"><svg class="ico" style="width:14px;height:14px"><use href="#i-camera"></use></svg></div>
+          <input id="profilePhotoInput" type="file" accept="image/*" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;opacity:0">
+        </div>
+        <div class="ig-stats-row">
+          <div class="ig-stat" id="statPostsClick" onclick="switchIgTab('posts')">
+            <div class="ig-stat-num" id="statPosts">0</div>
+            <div class="ig-stat-label">Posts</div>
+          </div>
+          <div class="ig-stat" id="statFollowersClick">
+            <div class="ig-stat-num" id="statFollowers">0</div>
+            <div class="ig-stat-label">Followers</div>
+          </div>
+          <div class="ig-stat" id="statFollowingClick">
+            <div class="ig-stat-num" id="statFollowing">0</div>
+            <div class="ig-stat-label">Following</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identity & Bio -->
+      <div class="ig-name-block">
+        <div id="userName" class="ig-name">User</div>
+        <div class="ig-category-badge" id="profileCategoryBadge" style="display:none">🎬 Comedy Creator · Entertainer</div>
+        <div id="profileBio" class="ig-bio">No bio yet.</div>
+        <a id="profileBioLink" class="ig-bio-link" href="#" target="_blank" rel="noopener" style="display:none">
+          <svg class="ico" style="width:13px;height:13px"><use href="#i-link"></use></svg>
+          <span id="profileBioLinkText"></span>
+        </a>
+      </div>
+
+      <!-- Instagram Action Buttons (Clean 2-button row fitting mobile perfectly) -->
+      <div class="ig-actions">
+        <button type="button" id="editProfileBtn" class="ig-btn" onclick="openEditProfileModal()"><svg class="ico" style="width:14px;height:14px"><use href="#i-edit"></use></svg>Edit Profile</button>
+        <button type="button" id="shareProfileBtn" class="ig-btn" onclick="openShareProfileCard()"><svg class="ico" style="width:14px;height:14px"><use href="#i-send"></use></svg>Share Profile</button>
+        <button type="button" id="profileAdminBtn" class="ig-btn" style="display:none;background:rgba(230,57,70,0.15);color:#ff4d4f;border:1px solid rgba(230,57,70,0.4);font-weight:700" onclick="switchTab('admin')"><svg class="ico" style="width:14px;height:14px"><use href="#i-settings"></use></svg>Admin Panel</button>
+      </div>
+
+      <!-- Highlights Tray (Hidden by default, can be toggled/managed via Settings) -->
+      <div class="ig-highlights-tray" id="profileHighlightsTray" style="display:none">
+        <div class="ig-highlight-item" id="newHighlightBtn" onclick="openCreateHighlightModal()">
+          <div class="igh-ring igh-add">
+            <svg class="ico" style="width:20px;height:20px"><use href="#i-plus"></use></svg>
+          </div>
+          <span class="igh-label">New</span>
+        </div>
+      </div>
+
+      <!-- Instagram Sticky Navigation Tabs: Posts | Reels | Videos | Playlist -->
+      <div class="ig-posts-tabs">
+        <button type="button" class="ig-tab active" data-ig-tab="posts"><svg class="ico"><use href="#i-grid"></use></svg><span>Posts</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="reels"><svg class="ico" style="width:18px;height:18px"><use href="#i-reels"></use></svg><span>Reels</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="videos"><svg class="ico"><use href="#i-video"></use></svg><span>Videos</span></button>
+        <button type="button" class="ig-tab" data-ig-tab="playlist"><svg class="ico"><use href="#i-film"></use></svg><span>Playlist</span></button>
+      </div>
+
+      <!-- Main Profile Grid -->
+      <div id="igPostsGrid" class="ig-posts-grid"></div>
+    </div>
+
+  </section>
+</div>
+
+<!-- Standalone Fullscreen / Dedicated Modal Window for Edit Profile ("alag window me khule") -->
 <div class="ig-sheet-overlay" id="editProfileModalOverlay" style="align-items:center" onclick="if(event.target===this)closeEditProfileModal()">
   <div class="ig-edit-modal-box">
     <div class="ig-edit-modal-header">
@@ -4603,7 +5148,7 @@ img.logo-profile.zyro-header-logo {
 
     <!-- MAIN SETTINGS VIEW -->
     <div class="settings-modal-body" id="settingsMainView">
-      <div class="settings-nav-row" data-settings-view="website"><svg class="snr-ico"><use href="#i-laptop"></use></svg><span class="snr-label">Website Banwani Hai? (Need a Website?)</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" id="channelProfileTrigger" onclick="openChannelProfile();closeSettings();"><svg class="snr-ico"><use href="#i-film"></use></svg><span class="snr-label">Channel Profile &amp; Reels</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -4617,12 +5162,12 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" id="settingsVerifyTickRow" onclick="openVerificationModal()"><svg class="snr-ico" style="color:#e63946"><use href="#i-verified-crimson"></use></svg><span class="snr-label">Creator Verification &amp; Tick</span><span class="snr-value" id="settingsVerifiedStatus" style="color:#e63946;font-weight:700">Get Verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
-      <!-- Settings Sections: "Your insights and tools" -->
+      <!-- Instagram Settings Sections: "Your insights and tools" -->
       <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#888;letter-spacing:0.5px;padding:12px 4px 6px">Your insights and tools</div>
       <div class="settings-nav-row" data-settings-view="proDashboard"><svg class="snr-ico"><use href="#i-grid"></use></svg><span class="snr-label">Professional dashboard</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="accountType"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Account type and tools</span><span class="snr-value" id="settingsAccountTypeBadge">Personal</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
-      <!-- Settings Section: "Who can see your content" -->
+      <!-- Instagram Settings Section: "Who can see your content" -->
       <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#888;letter-spacing:0.5px;padding:14px 4px 6px">Who can see your content</div>
       <div class="settings-nav-row" data-settings-view="privacySafety"><svg class="snr-ico"><use href="#i-lock"></use></svg><span class="snr-label">Account privacy</span><span class="snr-value" id="settingsPrivacyStatus">Public</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="passwordSecurity"><svg class="snr-ico"><use href="#i-shield"></use></svg><span class="snr-label">Password &amp; Security</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -4633,6 +5178,7 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-nav-row" data-settings-view="help"><svg class="snr-ico"><use href="#i-help"></use></svg><span class="snr-label">Help</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="donate"><svg class="snr-ico"><use href="#i-coffee2"></use></svg><span class="snr-label">Support &amp; Donate</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="about"><svg class="snr-ico"><use href="#i-info"></use></svg><span class="snr-label">About Zyro</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <!-- Also from Cobra -->
       <div class="also-from-cobra">
@@ -4682,56 +5228,6 @@ img.logo-profile.zyro-header-logo {
 
     <!-- SUB VIEWS -->
     <div class="settings-modal-body" id="settingsSubView" style="display:none">
-      <!-- SUBPAGE: NEED A WEBSITE -->
-      <div class="settings-subpage" id="subWebsite" style="display:none">
-        <div style="background:linear-gradient(135deg, rgba(230,57,70,0.15), rgba(255,255,255,0.03));border:1px solid rgba(230,57,70,0.3);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px">
-          <div style="font-size:32px;margin-bottom:6px">🌐</div>
-          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:4px">Professional Website Development</div>
-          <div style="font-size:12.5px;color:#a0a0b0;line-height:1.5">Apne business, brand, creator profile ya project ke liye custom website banwaye. Fast, responsive aur modern design.</div>
-          <div style="margin-top:10px;font-size:13px;font-weight:700;color:#e63946">💰 Starting from ₹10,000</div>
-        </div>
-        <form action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST" style="display:flex;flex-direction:column;gap:12px">
-          <input type="hidden" name="_subject" value="New Website Development Enquiry - UPComedyHub">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-
-          <div>
-            <label for="swName" style="display:block;font-size:12px;font-weight:700;color:#c0c0d0;margin-bottom:6px">👤 Aapka Naam (Full Name)</label>
-            <input type="text" id="swName" name="Name" placeholder="Apna naam likhein" required style="width:100%;padding:11px 14px;background:#181822;border:1px solid #2e2e3e;border-radius:10px;color:#fff;font-size:14px;box-sizing:border-box">
-          </div>
-
-          <div>
-            <label for="swMob" style="display:block;font-size:12px;font-weight:700;color:#c0c0d0;margin-bottom:6px">📱 Mobile Number (WhatsApp)</label>
-            <input type="tel" id="swMob" name="Mobile Number" placeholder="10-digit mobile number" required style="width:100%;padding:11px 14px;background:#181822;border:1px solid #2e2e3e;border-radius:10px;color:#fff;font-size:14px;box-sizing:border-box">
-          </div>
-
-          <div>
-            <label for="swMail" style="display:block;font-size:12px;font-weight:700;color:#c0c0d0;margin-bottom:6px">📧 Email Address</label>
-            <input type="email" id="swMail" name="Email" placeholder="name@example.com" required style="width:100%;padding:11px 14px;background:#181822;border:1px solid #2e2e3e;border-radius:10px;color:#fff;font-size:14px;box-sizing:border-box">
-          </div>
-
-          <div>
-            <label for="swType" style="display:block;font-size:12px;font-weight:700;color:#c0c0d0;margin-bottom:6px">🌐 Website Type</label>
-            <select id="swType" name="Website Type" required style="width:100%;padding:11px 14px;background:#181822;border:1px solid #2e2e3e;border-radius:10px;color:#fff;font-size:14px;box-sizing:border-box">
-              <option value="" style="background:#181822">Select Website Type</option>
-              <option value="Business Website" style="background:#181822">Business Website</option>
-              <option value="Portfolio / Personal" style="background:#181822">Portfolio / Personal Website</option>
-              <option value="Creator / Media" style="background:#181822">Creator / Media Platform</option>
-              <option value="E-Commerce Store" style="background:#181822">E-Commerce Store</option>
-              <option value="Custom Web App" style="background:#181822">Custom Web Application</option>
-              <option value="Other" style="background:#181822">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="swMsg" style="display:block;font-size:12px;font-weight:700;color:#c0c0d0;margin-bottom:6px">💬 Requirements / Details</label>
-            <textarea id="swMsg" name="Requirements" placeholder="Aapko website me kya kya features chahiye? Detail likhein..." rows="4" required style="width:100%;padding:11px 14px;background:#181822;border:1px solid #2e2e3e;border-radius:10px;color:#fff;font-size:14px;resize:vertical;box-sizing:border-box"></textarea>
-          </div>
-
-          <button type="submit" style="width:100%;padding:13px;background:#e63946;color:#fff;font-size:14px;font-weight:800;border:none;border-radius:12px;cursor:pointer;margin-top:6px">🚀 Send Website Enquiry</button>
-        </form>
-      </div>
-
       <div class="settings-subpage" id="subLanguage" style="display:none">
         <p style="color:#888;font-size:14px;margin-bottom:14px">Apni pasand ki language chunein. Poori app isi bhasha mein dikhegi.</p>
         <div class="settings-opt-list" id="languageOptList">
@@ -8659,18 +9155,20 @@ async function openIgList(kind, targetUid){
   }catch(e){ console.error(e); content.innerHTML='<p style="color:#e63946;text-align:center;padding:30px">List load karne me dikkat aayi.</p>'; }
 }
 
-/* ---------- SETTINGS ROUTING ALIAS ---------- */
+/* ---------- CHANNEL PROFILE (About/Team/Contact page) ---------- */
 function openChannelProfile(anchorId){
-  openSettings();
-  if(anchorId === "website" || anchorId === "website-enquiry"){
-    setTimeout(()=>{
-      const r = document.querySelector('[data-settings-view="website"]');
-      if(r) r.click();
-    }, 120);
+  const ov = document.getElementById("channelProfileOverlay");
+  if(!ov) return;
+  ov.classList.add("show");
+  document.body.classList.add("messages-open");
+  if(anchorId){
+    setTimeout(()=>{ const el = document.getElementById(anchorId); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }, 250);
   }
 }
 function closeChannelProfile(){
-  closeSettings();
+  const ov = document.getElementById("channelProfileOverlay");
+  if(ov) ov.classList.remove("show");
+  document.body.classList.remove("messages-open");
 }
 function shareWebsite(){
   const url = "https://upcomedyhub.github.io/";
@@ -17184,9 +17682,10 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {website:"🌐 Website Banwani Hai?", language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Account privacy", passwordSecurity:"🔑 Password & Security", proDashboard:"📊 Professional dashboard", accountType:"⚙️ Account type and tools", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Account privacy", passwordSecurity:"🔑 Password & Security", proDashboard:"📊 Professional dashboard", accountType:"⚙️ Account type and tools", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
+    if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
     if(view === "community"){ ov?.classList.remove("show"); openCommunity(); return; }
     if(view === "report"){ ov?.classList.remove("show"); openReportModal("general", "app", "UPComedyHub App"); return; }
     if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-heart"></use></svg></span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }

@@ -1987,6 +1987,11 @@ body.messages-open .bottom-nav{display:none !important}
 .settings-subpage h3{font-size:15px;font-weight:800;color:#111;margin:18px 0 8px}
 .dark-mode .settings-subpage h3{color:#fff}
 .settings-subpage a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
+.biz-services-form label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+.biz-services-form input,.biz-services-form select,.biz-services-form textarea{width:100%;box-sizing:border-box;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;font-family:inherit;background:#f7f7f7;color:#111;outline:none}
+.dark-mode .biz-services-form input,.dark-mode .biz-services-form select,.dark-mode .biz-services-form textarea{background:#1c1c1c;border-color:#333;color:#fff}
+.biz-services-form .biz-submit{border:none;cursor:pointer;width:100%;background:#111;color:#fff;padding:13px;border-radius:12px;font-weight:800;font-size:15px;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.dark-mode .biz-services-form .biz-submit{background:#fff;color:#111}
 .settings-help-btn{display:flex;align-items:center;gap:12px;padding:15px 18px;border-radius:14px;text-decoration:none;font-weight:700;font-size:15px;margin-bottom:12px;transition:transform .12s,opacity .15s}
 .settings-help-btn:active{transform:scale(.98)}
 .settings-help-btn .ico{width:22px;height:22px}
@@ -2735,27 +2740,6 @@ body.messages-open .bottom-nav{display:none !important}
 .channel-shortcut-text span{font-size:12px;color:#888;margin-top:2px}
 .channel-shortcut-arrow{font-size:22px;color:#bbb}
 
-/* Channel Profile Overlay (About/Team/Contact — moved out of Home) */
-.channel-profile-overlay{position:fixed;inset:0;background:#fff;display:none;z-index:99990;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.channel-profile-overlay.show{display:block}
-.dark-mode .channel-profile-overlay{background:#000;color:#fff}
-.channel-profile-header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#fff;border-bottom:1px solid #efefef;font-weight:800;font-size:16px}
-.dark-mode .channel-profile-header{background:#000;border-bottom-color:#262626}
-.channel-profile-back{width:36px;height:36px;border-radius:50%;border:none;background:#f1f1f1;font-size:22px;line-height:1;cursor:pointer}
-.dark-mode .channel-profile-back{background:#1c1c1c;color:#fff}
-.channel-profile-nav{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;background:#fafafa;border-bottom:1px solid #efefef;-webkit-overflow-scrolling:touch}
-.dark-mode .channel-profile-nav{background:#0a0a0a;border-bottom-color:#262626}
-.channel-profile-nav a{flex:0 0 auto;white-space:nowrap;font-size:13px;font-weight:700;text-decoration:none;color:#111;background:#fff;border:1px solid #eee;padding:7px 14px;border-radius:20px}
-.dark-mode .channel-profile-nav a{color:#fff;background:#141414;border-color:#262626}
-.channel-profile-body{padding-bottom:40px}
-.reels-moved-note{max-width:420px;margin:0 auto;text-align:center;padding:34px 24px;background:#fff;border:1px solid #eee;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
-.dark-mode .reels-moved-note{background:#141414;border-color:#262626}
-.reels-moved-note .rmn-icon{font-size:44px;margin-bottom:10px}
-.reels-moved-note .rmn-title{font-size:18px;font-weight:900;color:#111;margin:0 0 8px}
-.dark-mode .reels-moved-note .rmn-title{color:#fff}
-.reels-moved-note .rmn-text{font-size:14px;line-height:1.6;color:#666;margin:0 0 18px}
-.dark-mode .reels-moved-note .rmn-text{color:#bbb}
-.reels-moved-note .rmn-btn{background:#e63946;color:#fff;border:none;padding:12px 22px;border-radius:24px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit}
 .channel-reels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;max-width:900px;margin:0 auto;padding:0 14px}
 .channel-reel-item{border-radius:12px;overflow:hidden;background:#000}
 .channel-reel-thumb{position:relative;width:100%;aspect-ratio:9/16;background:#000;overflow:hidden;cursor:pointer;border-radius:12px}
@@ -2786,24 +2770,6 @@ body.messages-open .bottom-nav{display:none !important}
   height: 11px;
   fill: currentColor;
 }
-.channel-guidelines-wrap{max-width:760px;margin:0 auto;padding:0 16px}
-.channel-guidelines-wrap p{font-size:14px;line-height:1.7;color:#444;margin-bottom:14px}
-.dark-mode .channel-guidelines-wrap p{color:#ccc}
-.channel-guidelines-wrap h3{font-size:16px;font-weight:800;color:#111;margin:20px 0 8px}
-.dark-mode .channel-guidelines-wrap h3{color:#fff}
-.channel-guidelines-wrap a{color:#e63946;font-weight:700;text-decoration:none;word-break:break-word}
-.channel-profile-search{padding:10px 14px;background:#fff;border-bottom:1px solid #efefef;position:relative;z-index:15}
-.dark-mode .channel-profile-search{background:#0a0a0a;border-bottom-color:#262626}
-.channel-profile-search input{width:100%;padding:10px 16px;border:1px solid #eee;border-radius:22px;font-size:14px;font-family:inherit;background:#fafafa;box-sizing:border-box}
-.dark-mode .channel-profile-search input{background:#141414;border-color:#262626;color:#fff}
-.channel-search-results{position:absolute;left:14px;right:14px;top:100%;background:#fff;border:1px solid #eee;border-radius:12px;box-shadow:0 12px 34px rgba(0,0,0,.15);z-index:30;max-height:52vh;overflow:auto;display:none}
-.dark-mode .channel-search-results{background:#1b1b1b;border-color:#262626}
-.channel-search-results.show{display:block}
-.channel-search-item{padding:12px 15px;cursor:pointer;font-size:14px;font-weight:600;border-bottom:1px solid #f5f5f5}
-.dark-mode .channel-search-item{border-color:#262626}
-.channel-search-item:last-child{border-bottom:none}
-.channel-search-item:hover{background:rgba(0,0,0,.04)}
-.dark-mode .channel-search-item:hover{background:rgba(255,255,255,.06)}
 .channel-footer{text-align:center;padding:30px 20px 40px;background:#111;color:#fff;border-radius:16px;margin:24px 16px 10px}
 .ico{width:1em;height:1em;display:inline-block;vertical-align:-0.15em;flex-shrink:0}
 
@@ -3792,326 +3758,13 @@ img.logo-profile.zyro-header-logo {
   <!-- Clean surface ready for user posts upload -->
   <div class="home-surface-clean" id="homeCleanSurface"></div>
 
-</div>
-<div class="channel-profile-overlay" id="channelProfileOverlay">
-  <div class="channel-profile-header">
-    <button type="button" class="channel-profile-back" id="channelProfileClose" aria-label="Back">‹</button>
-    <span>Channel Profile</span>
-    <span style="width:36px"></span>
-  </div>
-  <div class="channel-profile-search">
-    <input type="text" id="channelSearchInput" placeholder="🔍 Channel profile me dhundho (Team, Gallery, FAQ...)">
-    <div class="channel-search-results" id="channelSearchResults"></div>
-  </div>
-  <nav class="channel-profile-nav" id="channelProfileNav">
-    <a href="#home"><svg class="ico"><use href="#i-home"></use></svg> Intro</a>
-    <a href="#fan-of-week"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</a>
-    <a href="#channel-reels"><svg class="ico"><use href="#i-reels"></use></svg> Reels</a>
-    <a href="#channel-videos"><svg class="ico"><use href="#i-video"></use></svg> Videos</a>
-    <a href="#channel-guidelines"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</a>
-    <a href="#website-enquiry"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</a>
-    <a href="#faq"><svg class="ico"><use href="#i-help"></use></svg> FAQ</a>
-    <a href="#visitor-counter"><svg class="ico"><use href="#i-eye"></use></svg> Visitors</a>
-    <a href="#contact"><svg class="ico"><use href="#i-mail"></use></svg> Contact</a>
-    <a href="#newsletter"><svg class="ico"><use href="#i-mail"></use></svg> Newsletter</a>
-    <a href="#support"><svg class="ico"><use href="#i-coffee"></use></svg> Support</a>
-  </nav>
-  <div class="channel-profile-body">
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <span class="hero-badge">By Cobra The God</span>
-      <h1>Zyro</h1>
-      <p>Aapki Hansi, Hamari Pehchaan — Zyro 🔥</p>
-      <p>Desi comedy, funny Shorts aur entertainment ka ek hi adda.</p>
-      <div class="buttons">
-        <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ Watch Shorts</a>
-        <a class="btn btn-outline" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
-        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener">💬 WhatsApp Channel</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="fan-of-week">
-    <h2 class="section-title"><svg class="ico"><use href="#i-trophy"></use></svg> Fan of the Week</h2>
-    <div class="card fan-card">
-      <span class="fan-badge">⭐ STAR FAN</span>
-      <img src="IMG_20260917_172912.jpg" alt="Fan of the Week" class="fan-photo">
-      <div class="fan-name">Aapka Naam Yahan</div>
-      <div class="fan-date">📅 Week of 21 Sept 2026</div>
-      <p class="fan-message">Zyro ka content sabse best hai! Har video dekhta hoon aur family ke saath share karta hoon. ❤️😂</p>
-      <div class="fan-selected">— Selected by Zyro Team</div>
-    </div>
-  </section>
-
-  <section id="channel-reels">
-    <h2 class="section-title"><svg class="ico"><use href="#i-film"></use></svg> Reels</h2>
-    <p style="text-align:center;margin-top:-20px;margin-bottom:20px;color:#777">Latest Shorts &amp; Reels 🔥</p>
-    <div class="channel-reels-grid" id="channelReelsGrid">
-      <div class="ig-reels-empty">⏳ Loading Reels...</div>
-    </div>
-  </section>
-
-  <section id="channel-videos">
-    <h2 class="section-title"><svg class="ico"><use href="#i-video"></use></svg> Videos</h2>
-    <div class="video-grid home-feed" id="videosGrid">
-      <div class="card"><p>⏳ Loading videos...</p></div>
-    </div>
-  </section>
-
-  <section id="channel-guidelines">
-    <h2 class="section-title"><svg class="ico"><use href="#i-users"></use></svg> Community Guidelines</h2>
-    <div class="channel-guidelines-wrap">
-      <p><strong>Zyro ka seedha maqsad aapki suvidha ko behtar banana hai — ye niyam isliye hai ki kisi bhi user ko kisi bhi samasya ka samna na karna pade.</strong></p>
-      <h3>Hamara Maqsad</h3>
-      <p>Zyro ek safe, mazedaar aur sabke liye khula platform hai. Yahan aisa content nahi chalega jo kisi ko nuksaan pahunchaye ya asurakshit mehsoos karaye.</p>
-      <h3>Hum Kya Zyada Aage Badhate Hain</h3>
-      <p>Hum saaf-suthri comedy, educational aur jaankari dene wale videos, aur original, mehnat se bane content ko zyada prathmikta dete hain. Aise content ko featured jagah ya Home mein upar dikhaya ja sakta hai.</p>
-      <h3>Feed Kaise Kaam Karta Hai</h3>
-      <p>Abhi Home feed mein zyadatar naya content pehle dikhta hai, aur kuch videos hum khud chunkar (Featured) dikhate hain. Hum apni marzi se kisi video ko upar ya neeche kar sakte hain. Future mein agar hum ranking ya recommendation lagate hain, to ye signals use ho sakte hain: likes, comments, save, dekhne ka samay, aur report ki sankhya. Jab aisa hoga, ye page update hoga.</p>
-      <h3>Sexual Content Allowed Nahi</h3>
-      <p>Nudity, sexual ya ashleel content, aur kisi ki bina permission ki private/intimate photo ya video (revenge porn) bilkul allowed nahi hai. Aise content ko turant hata diya jayega aur account band ho sakta hai.</p>
-      <h3>Hinsa aur Nuksaan Pahunchana</h3>
-      <p>Hinsa dikhane ya badhawa dene wala content, kisi ko maarne-peetne ki dhamki, khatarnak challenge, hathiyaar ya nashe ka badhawa, aur janwaron ke saath krurta allowed nahi hai.</p>
-      <h3>Khud ko Nuksaan Pahunchana (Self-Harm)</h3>
-      <p>Aatmahatya ya khud ko chot pahunchane ko badhawa dene, dikhane ya sikhane wala content allowed nahi hai. Agar aap ya aapka koi jaanne wala takleef mein hai, to kisi bharosemand insaan se baat karein ya madad lein (neeche diye helpline dekhein).</p>
-      <h3>Bachchon ki Suraksha (Zero Tolerance)</h3>
-      <p>18 saal se kam umar ke bachchon ko sexual roop mein dikhane wala ya unhe nuksaan pahunchane wala koi bhi content bilkul allowed nahi hai. Aisa content milte hi hata diya jayega, account band hoga, aur zaroorat padne par ise kanooni agencies ko report kiya ja sakta hai. Bachchon ki photo/video unke parents ki permission ke bina na daalein.</p>
-      <h3>Pareshan Karna aur Nafrat</h3>
-      <p>Kisi ko dhamkana, bullying, gaali-galoch, ya dharm, jaati, ling, region ya kisi bhi pehchaan ke aadhar par nafrat phailana allowed nahi hai. Comedy ke naam par bhi kisi ko nishana nahi banaya ja sakta.</p>
-      <h3>Jhooth, Fraud aur Spam</h3>
-      <p>Jhoothi khabar, dhokha dene wale links, fake giveaway, spam aur kisi ka naam/photo istemal karke fake account banana allowed nahi hai.</p>
-      <h3>Report Kaise Karein</h3>
-      <p>Kisi bhi galat content ko report karne ke liye Settings mein "Report" use karein ya <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> par bhejein. Bachchon ki suraksha ya khatre wali report ko hum sabse pehle dekhte hain.</p>
-      <h3>Rules Todne par Kya Hoga</h3>
-      <p>Galti ke hisaab se hum content hata sakte hain, chetavni de sakte hain, upload band kar sakte hain ya account hamesha ke liye band kar sakte hain. Gambhir cases mein bina chetavni ke bhi action ho sakta hai. Agar aapko lagta hai ki action galat hua, to email par apni baat bhejein, hum use dobara dekhenge.</p>
-      <h3>Madad ke Liye</h3>
-      <p>Agar aap ya koi aur takleef ya khatre mein hai, to Tele-MANAS (14416), Childline (1098) ya police (112) se sampark karein. Online fraud ya cyber apradh ke liye cybercrime.gov.in ya 1930 par shikayat karein.</p>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <div class="about-inner">
-      <h2 class="section-title"><svg class="ico"><use href="#i-heart"></use></svg> About Zyro</h2>
-      <p>Zyro ek desi comedy aur entertainment platform hai, jahan hum funny Shorts, comedy videos aur entertaining moments ke through aapke face par smile lane ki koshish karte hain.</p>
-      <br>
-      <h3>📖 Our Story</h3>
-      <p>Zyro ki shuruaat ek simple idea ke saath hui — desi style mein clean, relatable aur entertaining comedy banana jo har kisi ko enjoy ho.</p>
-      <br>
-      <h3>😂 Why Zyro?</h3>
-      <p>Kyunki hansi sabke liye hai! Hamara goal simple hai: relatable situations, desi characters aur funny moments ko entertaining videos mein convert karna.</p>
-      <br>
-      <h3>🎯 Our Mission</h3>
-      <p>Hamara mission hai ki Zyro ko ek aisa entertainment platform banaya jaye jahan log apna stress bhoolkar kuch moments ke liye enjoy aur smile kar saken.</p>
-    </div>
-  </section>
-
-  <section id="faq">
-    <h2 class="section-title"><svg class="ico"><use href="#i-help"></use></svg> Frequently Asked Questions</h2>
-    <div class="card"><h3 class="faq-q">😂 Zyro क्या है?</h3><p class="faq-a" style="display:none">Zyro एक desi comedy और entertainment platform है, जहाँ आपको funny videos और Shorts देखने को मिलते हैं।</p></div>
-    <div class="card"><h3 class="faq-q">🎬 नए videos कहाँ मिलेंगे?</h3><p class="faq-a" style="display:none">हमारे latest Shorts और videos देखने के लिए Shorts और Videos sections पर जाएँ।</p></div>
-    <div class="card"><h3 class="faq-q">📱 Zyro को कहाँ follow करें?</h3><p class="faq-a" style="display:none">आप हमें YouTube, Instagram और Facebook पर follow कर सकते हैं।</p></div>
-    <div class="card"><h3 class="faq-q">🤝 Collaboration के लिए कैसे contact करें?</h3><p class="faq-a" style="display:none">Collaboration या किसी भी business enquiry के लिए हमें email करें।</p></div>
-    <div class="card"><h3 class="faq-q">📧 Zyro का email क्या है?</h3><p class="faq-a" style="display:none"><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p></div>
-  </section>
-
-  <section id="contact">
-    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Contact Us</h2>
-    <div class="cards">
-      <div class="card" style="text-align:center">
-        <h3>📧 Email</h3>
-        <p><a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> <button type="button" class="copy-btn" data-copy-text="upcomedyhub@gmail.com"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button></p>
-        <p style="margin-top:8px">📍 <strong>Location:</strong> Uttar Pradesh, India</p>
-        <br>
-        <a class="btn" href="mailto:upcomedyhub@gmail.com">✉️ Send Email</a>
-      </div>
-      <div class="card" style="text-align:center">
-        <h3>💬 WhatsApp</h3>
-        <p>Directly humse WhatsApp par contact karein. <button type="button" class="copy-btn" data-copy-text="+91 92369 94154"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy Number</button></p>
-        <br>
-        <a class="btn" href="https://wa.me/919236994154?text=Hello%20Zyro" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
-      </div>
-      <div class="card" style="text-align:center">
-        <h3>🤝 Collaboration</h3>
-        <p>Collaboration ya business enquiry ke liye humein email karein.</p>
-        <br>
-        <a class="btn" href="mailto:upcomedyhub@gmail.com?subject=Zyro%20Collaboration">🤝 Collaborate</a>
-      </div>
-      <div class="card" style="text-align:center">
-        <h3>🔗 Website Link</h3>
-        <p>Ye link kisi ko bhi share karne ke liye copy karein.</p>
-        <br>
-        <button type="button" class="btn" data-copy-text="https://upcomedyhub.github.io/" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-link"></use></svg> Copy Website Link</button>
-      </div>
-    </div>
-  </section>
-
-  <section id="website-enquiry">
-    <h2 class="section-title"><svg class="ico"><use href="#i-laptop"></use></svg> Website Banwani Hai?</h2>
-    <div class="card" style="max-width:700px;margin:0 auto;text-align:center">
-      <h3>🌐 Professional Website Development</h3>
-      <p style="margin-top:10px">Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.</p>
-      <p style="margin-top:15px">💰 <strong>Price:</strong> ₹10,000 – ₹2,00,000+</p>
-      <p style="font-size:14px;margin-top:5px;color:#777">Final price website ki requirements aur features ke according decide hoga.</p>
-      <form action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST" style="margin-top:25px;text-align:left">
-        <input type="hidden" name="_subject" value="New Website Development Enquiry - Zyro">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <label for="vName">👤 Name</label>
-        <input type="text" id="vName" name="Name" placeholder="Apna naam" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
-        <label for="vMob">📱 Mobile Number</label>
-        <input type="tel" id="vMob" name="Mobile Number" placeholder="Apna mobile number" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
-        <label for="vMail">📧 Email</label>
-        <input type="email" id="vMail" name="Email" placeholder="Apna email" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px">
-        <label for="vType">🌐 Website Type</label>
-        <select id="vType" name="Website Type" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;background:#fff">
-          <option value="">Select Website Type</option>
-          <option>Business Website</option>
-          <option>Portfolio Website</option>
-          <option>Creator / YouTuber Website</option>
-          <option>E-commerce Website</option>
-          <option>Other</option>
-        </select>
-        <label for="vMsg">💬 Requirements / Message</label>
-        <textarea id="vMsg" name="Requirements / Message" placeholder="Aapko kis type ki website chahiye?" rows="5" required style="width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ddd;border-radius:10px;font-size:15px;resize:vertical"></textarea>
-        <button type="submit" class="btn" style="border:none;cursor:pointer"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Send Enquiry</button>
-      </form>
-      <p style="font-size:12px;margin-top:15px;color:#777">🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.</p>
-    </div>
-  </section>
-
-  <section id="visitor-counter">
-    <h2 class="section-title"><svg class="ico"><use href="#i-eye"></use></svg> Website Visitors</h2>
-    <div class="card visitor-counter-card" style="text-align:center">
-      <h3>🔥 Zyro Family</h3>
-      <p style="margin-top:15px">Ab tak Zyro website par</p>
-      <div class="stats4u-counter" id="stats4uCounterBox">
-        <!-- Safely loaded visitor counter -->
-        <script>
-          (function(){
-            try {
-              var s = document.createElement("script");
-              s.src = "https://www.stats4u.net/s4u.js";
-              s.setAttribute("data-id", "7770253129");
-              s.setAttribute("data-style", "950");
-              s.setAttribute("data-params", "form=panel&pal=indigo&dark=auto&el=1,2,3,4&t=Visitors%20");
-              s.setAttribute("data-screen", "1");
-              s.async = true;
-              s.onerror = function() { console.warn("Visitor counter script unavailable"); };
-              var box = document.getElementById("stats4uCounterBox");
-              if (box) box.appendChild(s);
-            } catch(e) {}
-          })();
-        </script>
-      </div>
-      <p style="margin-top:15px">visits record ho chuke hain ❤️</p>
-      <small>Aap bhi Zyro family ka hissa hain! 😎</small>
-    </div>
-  </section>
-
-  <section id="youtube-stats">
-    <h2 class="section-title"><svg class="ico"><use href="#i-chart"></use></svg> YouTube Stats</h2>
-    <div class="card" style="max-width:600px;margin:0 auto;text-align:center">
-      <h3>🔔 Zyro Subscribers</h3>
-      <strong id="youtubeSubscribers" style="display:block;color:#e63946;font-size:32px;font-weight:800;margin-top:5px">...</strong>
-      <p style="margin-top:10px">Hamari YouTube Family ❤️</p>
-    </div>
-  </section>
-
-  <section id="social">
-    <h2 class="section-title"><svg class="ico"><use href="#i-globe"></use></svg> Follow Zyro</h2>
-    <div class="buttons" style="text-align:center">
-      <a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">▶ YouTube</a>
-      <a class="btn" href="https://www.instagram.com/up_comedyhub" target="_blank" rel="noopener">📸 Instagram</a>
-      <a class="btn" href="https://www.facebook.com/share/1CiwRbmKbq/" target="_blank" rel="noopener">👍 Facebook</a>
-      <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
-    </div>
-    <p style="margin-top:20px;text-align:center">📍Jajpur, Ghatampur, Kanpur, Uttar Pradesh, India</p>
-  </section>
-
-  <section id="newsletter">
-    <div style="text-align:center"><span class="newsletter-badge">🔥 Never Miss an Update</span></div>
-    <h2 class="section-title"><svg class="ico"><use href="#i-mail"></use></svg> Stay Connected</h2>
-    <div class="card newsletter-card">
-      <h3>🔥 Zyro Updates</h3>
-      <p style="margin-top:8px">Naye comedy videos, Shorts aur important updates ke baare mein email par updates paane ke liye subscribe karein.</p>
-      <form class="newsletter-form" action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New Zyro Newsletter Subscriber">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <label for="newsEmail">📧 Email Address</label>
-        <input type="email" id="newsEmail" name="Email" placeholder="Apna email address" required>
-        <button type="submit" class="btn"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Subscribe to Updates</button>
-      </form>
-      <p class="newsletter-note">🔒 Aapka email sirf Zyro updates aur reply ke purpose ke liye use kiya jayega.</p>
-      <div style="margin-top:20px;padding-top:20px;border-top:1px dashed #ddd;text-align:center">
-        <p style="font-size:14px;color:#666;margin-bottom:12px">Ya phir WhatsApp Channel join karein — sabse fast updates! ⚡</p>
-        <a class="btn wa-btn" href="https://whatsapp.com/channel/0029VbDO8hAK5cDC4x9gHw1O" target="_blank" rel="noopener" style="margin:0">💬 Join WhatsApp Channel</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="support">
-    <h2 class="section-title"><svg class="ico"><use href="#i-coffee"></use></svg> Support Zyro</h2>
-    <div class="card support-card">
-      <span class="support-badge">❤️ Aapka Support, Hamari Taakat</span>
-      <h3>Ek Chai Pilao ☕</h3>
-      <p>Agar aapko hamari comedy pasand hai, to ek chhoti si chai pila kar support karein. Aapka har contribution naye videos banane mein madad karta hai! ❤️</p>
-      <div class="support-amounts">
-        <button type="button" class="amount-btn" data-amount="50">₹50</button>
-        <button type="button" class="amount-btn active" data-amount="100">₹100</button>
-        <button type="button" class="amount-btn" data-amount="200">₹200</button>
-        <button type="button" class="amount-btn" data-amount="500">₹500</button>
-        <button type="button" class="amount-btn" data-amount="">Custom</button>
-      </div>
-      <button type="button" id="upiPayBtn" class="support-main-btn"><svg class="ve-ico"><use href="#i-card"></use></svg> Pay ₹100 via UPI</button>
-      <div class="support-divider"><span>OR</span></div>
-      <div class="support-upi-row">
-        <div class="upi-info"><small>UPI ID</small><strong>9236994154@axl</strong></div>
-        <button type="button" class="copy-btn" data-copy-text="9236994154@axl"><svg class="ve-ico sm"><use href="#i-copy"></use></svg> Copy</button>
-      </div>
-      <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:280px;height:280px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
-      <p style="font-size:13px;color:#777;margin:0 0 16px">📱 Scan this QR with any UPI app</p>
-      <p class="support-note">🔒 100% secure. Payment directly humare UPI par aata hai.</p>
-    </div>
-  </section>
-
-  <section class="cta">
-    <h2>😂 Haste Raho, Connected Raho!</h2>
-    <p style="margin-top:10px">Zyro ko support karein aur naye comedy videos ke liye YouTube par subscribe karein.</p>
-    <div class="buttons"><a class="btn" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener">🔔 Subscribe Now</a></div>
-  </section>
-
-  <section id="privacy">
-    <div class="container">
-      <h2>🔒 Privacy Policy</h2>
-      <p>Zyro आपके privacy का सम्मान करता है। यह app/website किसी भी personal information को बिना आपकी permission के sell या share नहीं करती।</p>
-      <p>Zyro app/website visitor count और basic audience measurement के लिए Stats4U visitor counter का उपयोग करती है। Page खुलने पर browser technical रूप से IP address, browser identification और viewed page address Stats4U को भेजता है।</p>
-      <p>Stats4U के अनुसार IP address statistics में store नहीं होता। इसका उपयोग approximate country/city और daily visitor counting के लिए salted daily hash बनाने में होता है। Counter cookies set नहीं करता।</p>
-      <p>Stats4U के अनुसार daily statistics 400 दिनों तक रखे जाते हैं और processing Poland में होती है।</p>
-      <p>इस counter में screen information measurement enabled है। इसलिए counter script screen resolution, browser window width और pixel ratio जैसी तीन values भी पढ़ सकती है।</p>
-      <p>Stats4U Privacy Policy: <a href="https://www.stats4u.net/privacy" target="_blank" rel="noopener">https://www.stats4u.net/privacy</a></p>
-      <p>किसी भी सवाल के लिए आप हमसे <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a> पर contact कर सकते हैं।</p>
-    </div>
-  </section>
-
-  <section id="terms">
-    <div class="container">
-      <h2>📋 Terms &amp; Conditions</h2>
-      <p>Zyro app/website par available content ka purpose entertainment aur information provide karna hai.</p>
-      <p>App/website par diye gaye videos, images aur other content ko bina permission ke commercial purpose ke liye use ya redistribute na karein.</p>
-      <p>App/website use karte waqt applicable laws aur dusron ke rights ka respect karna zaroori hai.</p>
-      <p>Kisi bhi question ke liye contact karein: <a href="mailto:upcomedyhub@gmail.com">upcomedyhub@gmail.com</a></p>
-    </div>
-  </section>
-
   <footer class="channel-footer">
     <p>© 2026 Zyro. All Rights Reserved.</p>
     <p style="margin-top:8px">Aapki Hansi, Hamari Pehchaan — Zyro 🔥</p>
     <p style="margin-top:8px">Made with ❤️ by Zyro</p>
     <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
   </footer>
-
-  </div>
+</div>
 
   <div class="quick-actions" id="quickActions">
     <div class="quick-actions-menu">
@@ -5232,7 +4885,7 @@ img.logo-profile.zyro-header-logo {
 
     <!-- MAIN SETTINGS VIEW -->
     <div class="settings-modal-body" id="settingsMainView">
-      <div class="settings-nav-row" id="channelProfileTrigger" onclick="openChannelProfile();closeSettings();"><svg class="snr-ico"><use href="#i-film"></use></svg><span class="snr-label">Channel Profile &amp; Reels</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" data-settings-view="businessServices"><svg class="snr-ico"><use href="#i-laptop"></use></svg><span class="snr-label">Business Services</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="language"><svg class="snr-ico"><use href="#i-globe"></use></svg><span class="snr-label">Language</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="appearance"><svg class="snr-ico"><use href="#i-moon"></use></svg><span class="snr-label">Appearance</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="community"><svg class="snr-ico"><use href="#i-users"></use></svg><span class="snr-label">Community &amp; Messages</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -5269,7 +4922,6 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-nav-row" data-settings-view="help"><svg class="snr-ico"><use href="#i-help"></use></svg><span class="snr-label">Help</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="report"><svg class="snr-ico"><use href="#i-flag"></use></svg><span class="snr-label">Report</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="donate"><svg class="snr-ico"><use href="#i-coffee2"></use></svg><span class="snr-label">Support &amp; Donate</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-      <div class="settings-nav-row" data-settings-view="about"><svg class="snr-ico"><use href="#i-info"></use></svg><span class="snr-label">About Zyro</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <!-- Also from Cobra -->
       <div class="also-from-cobra">
@@ -5461,6 +5113,41 @@ img.logo-profile.zyro-header-logo {
         <img src="Screenshot_2026-09-20-13-08-11-14_40deb401b9ffe8e1df2f1cc5ba480b12.jpg" alt="UPI QR" style="width:240px;height:240px;max-width:100%;background:#000;border-radius:14px;object-fit:cover;display:block;margin:0 auto 12px">
         <p style="font-size:13px;color:#777;margin:0 0 16px;text-align:center">📱 Scan this QR with any UPI app</p>
         <p class="support-note" style="text-align:center">🔒 100% secure. Payment directly humare UPI par aata hai.</p>
+      </div>
+
+      <!-- Business Services Subpage (Point 3) -->
+      <div class="settings-subpage" id="subBusinessServices" style="display:none">
+        <div style="text-align:center;margin-bottom:18px">
+          <span class="support-badge">🌐 Website Banwani Hai?</span>
+          <h3 style="font-size:20px;margin:12px 0 8px">Professional Website Development</h3>
+          <p style="color:#666;font-size:14px;margin:0 0 6px">Apne business, brand, creator profile ya project ke liye professional website banwane ke liye enquiry bhejein.</p>
+          <p style="margin-top:10px">💰 <strong>Price:</strong> ₹10,000 – ₹2,00,000+</p>
+          <p style="font-size:13px;margin-top:4px;color:#777">Final price website ki requirements aur features ke according decide hoga.</p>
+        </div>
+        <form class="biz-services-form" action="https://formsubmit.co/upcomedyhub@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Website Development Enquiry - Zyro">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <label for="bizName">👤 Name</label>
+          <input type="text" id="bizName" name="Name" placeholder="Apna naam" required>
+          <label for="bizMob">📱 Mobile Number</label>
+          <input type="tel" id="bizMob" name="Mobile Number" placeholder="Apna mobile number" required>
+          <label for="bizMail">📧 Email</label>
+          <input type="email" id="bizMail" name="Email" placeholder="Apna email" required>
+          <label for="bizType">🌐 Website Type</label>
+          <select id="bizType" name="Website Type" required>
+            <option value="">Select Website Type</option>
+            <option>Business Website</option>
+            <option>Portfolio Website</option>
+            <option>Creator / YouTuber Website</option>
+            <option>E-commerce Website</option>
+            <option>Other</option>
+          </select>
+          <label for="bizMsg">💬 Requirements / Message</label>
+          <textarea id="bizMsg" name="Requirements / Message" placeholder="Aapko kis type ki website chahiye?" rows="5" required></textarea>
+          <button type="submit" class="biz-submit"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Send Enquiry</button>
+        </form>
+        <p style="font-size:12px;margin-top:15px;color:#777;text-align:center">🔒 Aapki contact details sirf enquiry aur reply ke purpose ke liye use ki jayengi.</p>
       </div>
 
       <!-- Feature 5: Privacy & Safety Subpage -->
@@ -9245,21 +8932,6 @@ async function openIgList(kind, targetUid){
   }catch(e){ console.error(e); content.innerHTML='<p style="color:#e63946;text-align:center;padding:30px">List load karne me dikkat aayi.</p>'; }
 }
 
-/* ---------- CHANNEL PROFILE (About/Team/Contact page) ---------- */
-function openChannelProfile(anchorId){
-  const ov = document.getElementById("channelProfileOverlay");
-  if(!ov) return;
-  ov.classList.add("show");
-  document.body.classList.add("messages-open");
-  if(anchorId){
-    setTimeout(()=>{ const el = document.getElementById(anchorId); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }, 250);
-  }
-}
-function closeChannelProfile(){
-  const ov = document.getElementById("channelProfileOverlay");
-  if(ov) ov.classList.remove("show");
-  document.body.classList.remove("messages-open");
-}
 function shareWebsite(){
   const url = "https://upcomedyhub.github.io/";
   const txt = "UPComedyHub — Desi comedy, funny Shorts aur entertainment ka ek hi adda 🔥";
@@ -11619,14 +11291,14 @@ function buildHomeFeedCard(vid, title, thumb){
   return card;
 }
 async function loadManualVideos(){
-  const grid = document.getElementById("videosGrid"); if(!grid) return;
-  grid.innerHTML = "";
+  /* Videos feed removed (Point 3). Still register video metadata + refresh actions/notifications. */
+  const grid = document.getElementById("videosGrid");
+  if(grid) grid.innerHTML = "";
   const hardcoded = [{title:"UPComedyHub Video 1",videoId:"Hmmgh9V8tmM",category:"long"},{title:"UPComedyHub Video 2",videoId:"YdM3e4HICew",category:"long"}];
   hardcoded.forEach(d=>{
     const vid = d.videoId;
     allVideos[vid] = {title:d.title,category:d.category};
-    const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-    grid.appendChild(buildHomeFeedCard(vid, d.title, thumb));
+    if(grid){ const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg"; grid.appendChild(buildHomeFeedCard(vid, d.title, thumb)); }
   });
   try{
     const snap = await db.collection("manualVideos").where("category","==","long").get();
@@ -11635,8 +11307,7 @@ async function loadManualVideos(){
       docs.forEach(doc=>{
         const d = doc.data(); const vid = d.videoId; if(!vid) return;
         allVideos[vid] = {title:d.title,category:d.category};
-        const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg";
-        grid.appendChild(buildHomeFeedCard(vid, d.title, thumb));
+        if(grid){ const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg"; grid.appendChild(buildHomeFeedCard(vid, d.title, thumb)); }
       });
     }
   }catch(e){ console.warn(e); }
@@ -12906,7 +12577,7 @@ function updateRV(){
   rv.forEach(item=>{
     const b = document.createElement("button");
     b.type = "button"; b.className = "recent-view-item"; b.textContent = "👀 "+item.title;
-    b.addEventListener("click",()=>{ const t = document.getElementById(item.id); if(!t) return; if(document.getElementById("channelProfileOverlay")?.contains(t)) openChannelProfile(item.id); else t.scrollIntoView({behavior:"smooth",block:"start"}); });
+    b.addEventListener("click",()=>{ const t = document.getElementById(item.id); if(!t) return; t.scrollIntoView({behavior:"smooth",block:"start"}); });
     rvList.appendChild(b);
   });
 }
@@ -17772,10 +17443,9 @@ window.addEventListener("DOMContentLoaded",()=>{
   const pmb = document.getElementById("profileMenuBtn"); if(pmb) pmb.addEventListener("click", openSettings);
   const sbk = document.getElementById("settingsBack"); if(sbk) sbk.addEventListener("click", settingsGoHome);
 
-  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Account privacy", passwordSecurity:"🔑 Password & Security", proDashboard:"📊 Professional dashboard", accountType:"⚙️ Account type and tools", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate"};
+  const subTitles = {language:"🌐 Language", appearance:"🎨 Appearance", liked:"❤️ Liked Videos", saved:"🔖 Saved Videos", mobile:"📱 Mobile Verification", privacySafety:"🔒 Account privacy", passwordSecurity:"🔑 Password & Security", proDashboard:"📊 Professional dashboard", accountType:"⚙️ Account type and tools", privacy:"🔒 Privacy Policy", guidelines:"📜 Community Guidelines", terms:"📋 Terms & Conditions", help:"❓ Help", report:"🚩 Report", donate:"☕ Support & Donate", businessServices:"🌐 Business Services"};
   document.querySelectorAll("[data-settings-view]").forEach(row=>row.addEventListener("click", ()=>{
     const view = row.getAttribute("data-settings-view");
-    if(view === "about"){ ov?.classList.remove("show"); openChannelProfile(); return; }
     if(view === "community"){ ov?.classList.remove("show"); openCommunity(); return; }
     if(view === "report"){ ov?.classList.remove("show"); openReportModal("general", "app", "UPComedyHub App"); return; }
     if(view === "liked"){ renderIgVideoGrid(Array.from(userLikedVideos), '<span class="ig-empty-icon"><svg class="ico" style="width:36px;height:36px"><use href="#i-heart"></use></svg></span>Abhi tak koi video like nahi kiya.', "settingsLikedGrid"); }
@@ -17917,52 +17587,18 @@ window.addEventListener("DOMContentLoaded",()=>{
   const mab = document.getElementById("markAllNotifBtn"); if(mab) mab.addEventListener("click", markAllNotificationsRead);
   const cob = document.getElementById("clearOldNotifBtn"); if(cob) cob.addEventListener("click", clearOldNotifications);
 
-  const cpt = document.getElementById("channelProfileTrigger");
-  if(cpt){
-    cpt.addEventListener("click", ()=>openChannelProfile());
-    cpt.addEventListener("keydown", e=>{ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); openChannelProfile(); } });
-  }
-  const cpc = document.getElementById("channelProfileClose");
-  if(cpc) cpc.addEventListener("click", closeChannelProfile);
-  const cpn = document.getElementById("channelProfileNav");
-  if(cpn) cpn.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); const id = a.getAttribute("href").slice(1); const el = document.getElementById(id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); }));
-
-  /* Point 5: Channel Profile ka apna search — sirf isi ke sections dhundhta hai */
-  const csi = document.getElementById("channelSearchInput");
-  if(csi){
-    const csr = document.getElementById("channelSearchResults");
-    csi.addEventListener("input", ()=>{
-      const q = csi.value.toLowerCase().trim();
-      if(!csr) return;
-      if(q.length < 1){ csr.classList.remove("show"); csr.innerHTML = ""; return; }
-      const matches = [];
-      document.querySelectorAll("#channelProfileOverlay .channel-profile-body section").forEach(sec=>{
-        const h = sec.querySelector("h1,h2,h3"); if(!h) return;
-        if(sec.textContent.toLowerCase().includes(q)) matches.push({title: h.textContent.trim(), el: sec});
-      });
-      csr.innerHTML = "";
-      if(!matches.length){ csr.innerHTML = '<div class="channel-search-item" style="color:#888">Kuch nahi mila</div>'; csr.classList.add("show"); return; }
-      matches.slice(0,12).forEach(m=>{
-        const d = document.createElement("div");
-        d.className = "channel-search-item";
-        d.textContent = m.title;
-        d.addEventListener("click", ()=>{
-          m.el.scrollIntoView({behavior:"smooth", block:"start"});
-          csr.classList.remove("show"); csi.value = "";
-        });
-        csr.appendChild(d);
-      });
-      csr.classList.add("show");
-    });
-    csi.addEventListener("keydown", e=>{ if(e.key === "Escape"){ csr?.classList.remove("show"); } });
-  }
-
+  /* Announcement bar "Watch Shorts" -> Reels tab */
   const annLink = document.getElementById("announcementLink");
-  if(annLink) annLink.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("home"); });
-  document.querySelectorAll('.footer-legal a[href="#privacy"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("privacy"); }));
-  document.querySelectorAll('.footer-legal a[href="#terms"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openChannelProfile("terms"); }));
-  const csc = document.getElementById("channelShortcutCard");
-  if(csc) csc.addEventListener("click", ()=>openChannelProfile());
+  if(annLink) annLink.addEventListener("click", e=>{ e.preventDefault(); switchTab("reels"); });
+  /* Footer legal links -> Settings subpages */
+  function openSettingsViewFromFooter(view){
+    const s = document.getElementById("settingsOverlay");
+    if(s && !s.classList.contains("show") && typeof openSettings === "function") openSettings();
+    const row = document.querySelector('[data-settings-view="'+view+'"]');
+    if(row) row.click();
+  }
+  document.querySelectorAll('.footer-legal a[href="#privacy"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openSettingsViewFromFooter("privacy"); }));
+  document.querySelectorAll('.footer-legal a[href="#terms"]').forEach(a=>a.addEventListener("click", e=>{ e.preventDefault(); openSettingsViewFromFooter("terms"); }));
 
   const mt = document.getElementById("menuToggle"), tn = document.querySelector(".top-nav"), mb = document.getElementById("menuBackdrop");
   function om(){ tn?.classList.add("show-menu"); mb?.classList.add("show"); }
@@ -18003,7 +17639,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   });
 
   const rvObs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) addRV(e.target); }); }, {threshold:0.45});
-  document.querySelectorAll("#tab-home section[id], #channelProfileOverlay section[id]").forEach(s=>rvObs.observe(s));
+  document.querySelectorAll("#tab-home section[id]").forEach(s=>rvObs.observe(s));
   updateRV();
 
   const glb = document.getElementById("googleLoginBtn");

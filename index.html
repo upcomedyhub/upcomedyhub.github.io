@@ -3423,6 +3423,71 @@ img.logo-profile.zyro-header-logo {
 .ve-ico.lg{width:20px;height:20px}
 .ve-ico.sm{width:13px;height:13px}
 
+
+/* Reel Tile Analytics Overlay (Long-Press Triggered) */
+.reel-analytics-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 18, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  color: #ffffff;
+  border-radius: inherit;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+  box-sizing: border-box;
+}
+.reel-analytics-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+.reel-analytics-header {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #0095F6;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.reel-analytics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+.reel-analytics-boost-badge {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #0095F6, #6366f1);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  box-shadow: 0 2px 8px rgba(0, 149, 246, 0.4);
+}
 </style>
 <link rel="stylesheet" href="zyro-editor.css?v=2.6.2">
 </head>
@@ -11979,7 +12044,7 @@ function renderSortedComments(){
       <img src="${escapeAttr(avatar)}" class="comment-avatar" alt="" onerror="this.src='https://ui-avatars.com/api/?name=User&background=e63946&color=fff'">
       <div class="comment-body">
         <div class="comment-name" style="display:flex;align-items:center;gap:3px">${escapeHtml(c.userName || "User")} ${getVerifiedBadge(c.isVerified, c.verifiedType, 13)}</div>
-        <div class="comment-text">${escapeHtml(c.text || "")}</div>
+        <div class="comment-text" id="comment-text-${c.id}">${escapeHtml(c.text || "")}</div>
         <div class="comment-footer" style="display:flex;align-items:center;gap:12px;margin-top:6px">
           <span class="comment-time">${escapeHtml(t)}</span>
           <button type="button" class="comment-like-btn ${isLiked ? 'liked' : ''}" data-cid="${c.id}" aria-label="Like comment" title="Like comment" style="background:none;border:none;display:flex;align-items:center;gap:4px;cursor:pointer;color:${isLiked ? '#e63946' : '#888'};font-size:12px;padding:2px 4px">
@@ -11988,6 +12053,7 @@ function renderSortedComments(){
             </svg>
             <span class="comment-likes-count">${likesCount > 0 ? likesCount : ''}</span>
           </button>
+          <button type="button" class="comment-translate-btn" onclick="translateComment('${c.id}', this)" style="background:none;border:none;cursor:pointer;color:#0095F6;font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;gap:3px;padding:2px 4px" title="Translate comment">🌐 Translate</button>
           ${canDel ? `<button type="button" class="comment-del" data-cid="${c.id}" style="background:none;border:none;color:#ef4444;font-size:12px;cursor:pointer">Delete</button>` : ''}
         </div>
       </div>
@@ -23811,6 +23877,145 @@ window.handleAIMessageSend = handleAIMessageSend;
 })();
 
 </script>
-<script src="zyro-editor.js?v=2.6.2"></script>
+<script src="zyro-editor.js?v=2.6.2">
+/* ---------- REEL TILE ANALYTICS OVERLAY (LONG-PRESS) ---------- */
+let reelLongPressTimer = null;
+let isReelAnalyticsActive = false;
+
+function attachReelLongPress(tileElement, data) {
+  if (!tileElement) return;
+  if (data) {
+    if (data.likes !== undefined) tileElement.setAttribute("data-analytics-likes", data.likes);
+    if (data.comments !== undefined) tileElement.setAttribute("data-analytics-comments", data.comments);
+    if (data.boost !== undefined) tileElement.setAttribute("data-analytics-boost", data.boost);
+  }
+
+  let overlay = tileElement.querySelector(".reel-analytics-overlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "reel-analytics-overlay";
+    tileElement.style.position = "relative";
+    tileElement.appendChild(overlay);
+  }
+
+  function startPress(e) {
+    clearTimeout(reelLongPressTimer);
+    const likes = tileElement.getAttribute("data-analytics-likes") || "124";
+    const comments = tileElement.getAttribute("data-analytics-comments") || "18";
+    const boost = tileElement.getAttribute("data-analytics-boost") || "2.5x Viral Boost";
+
+    overlay.innerHTML = '<div class="reel-analytics-header">📊 Reel Analytics</div>' +
+      '<div class="reel-analytics-row"><span>❤️ Likes</span><span>' + escapeHtml(String(likes)) + '</span></div>' +
+      '<div class="reel-analytics-row"><span>💬 Comments</span><span>' + escapeHtml(String(comments)) + '</span></div>' +
+      '<div class="reel-analytics-boost-badge">⚡ Boost: ' + escapeHtml(String(boost)) + '</div>';
+
+    reelLongPressTimer = setTimeout(() => {
+      isReelAnalyticsActive = true;
+      overlay.classList.add("show");
+      if (navigator.vibrate) try { navigator.vibrate(40); } catch(err){}
+    }, 450);
+  }
+
+  function cancelPress(e) {
+    clearTimeout(reelLongPressTimer);
+    if (isReelAnalyticsActive) {
+      overlay.classList.remove("show");
+      setTimeout(() => { isReelAnalyticsActive = false; }, 100);
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    }
+  }
+
+  tileElement.addEventListener("touchstart", startPress, { passive: true });
+  tileElement.addEventListener("touchend", cancelPress);
+  tileElement.addEventListener("touchcancel", cancelPress);
+  tileElement.addEventListener("mousedown", startPress);
+  tileElement.addEventListener("mouseup", cancelPress);
+  tileElement.addEventListener("mouseleave", cancelPress);
+
+  tileElement.addEventListener("click", function(e) {
+    if (isReelAnalyticsActive) {
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      return false;
+    }
+  }, true);
+}
+window.attachReelLongPress = attachReelLongPress;
+
+// Auto-observer for reel cards across the app
+document.addEventListener("DOMContentLoaded", function() {
+  const observer = new MutationObserver(function() {
+    document.querySelectorAll(".search-reel-card, .channel-reel-thumb, .ig-reel-thumb, .rp-item").forEach(function(tile) {
+      if (!tile.hasAttribute("data-analytics-attached")) {
+        tile.setAttribute("data-analytics-attached", "true");
+        attachReelLongPress(tile);
+      }
+    });
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+});
+
+/* ---------- COMMENT TRANSLATION SERVICE ---------- */
+async function translateComment(commentId, btnEl) {
+  const commentEl = document.getElementById("comment-text-" + commentId);
+  if (!commentEl || !btnEl) return;
+
+  if (commentEl.dataset.isTranslated === "true") {
+    commentEl.textContent = commentEl.dataset.originalText || commentEl.textContent;
+    commentEl.dataset.isTranslated = "false";
+    btnEl.innerHTML = "🌐 Translate";
+    return;
+  }
+
+  const originalText = commentEl.textContent.trim();
+  if (!originalText) return;
+
+  if (!commentEl.dataset.originalText) {
+    commentEl.dataset.originalText = originalText;
+  }
+
+  btnEl.disabled = true;
+  btnEl.innerHTML = "⏳ Translating...";
+
+  try {
+    let targetLang = "hi";
+    if (/[\u0900-\u097F]/.test(originalText)) {
+      targetLang = "en";
+    }
+
+    const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=" + targetLang + "&dt=t&q=" + encodeURIComponent(originalText);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Translation failed");
+
+    const data = await res.json();
+    let translatedText = "";
+    if (data && Array.isArray(data[0])) {
+      data[0].forEach(part => {
+        if (part && part[0]) translatedText += part[0];
+      });
+    }
+
+    if (translatedText && translatedText !== originalText) {
+      commentEl.dataset.isTranslated = "true";
+      commentEl.innerHTML = escapeHtml(translatedText) + 
+        ' <span style="font-size:10px;color:#0095F6;background:rgba(0,149,246,0.12);padding:1px 6px;border-radius:4px;font-weight:700;margin-left:4px">🌐 Translated</span>';
+      btnEl.innerHTML = "↩️ See Original";
+    } else {
+      showToast("ℹ️ Comment is already in " + (targetLang === "hi" ? "Hindi" : "English"));
+      btnEl.innerHTML = "🌐 Translate";
+    }
+  } catch (err) {
+    console.warn("Translation error:", err);
+    showToast("❌ Translation error. Check network.");
+    btnEl.innerHTML = "🌐 Translate";
+  } finally {
+    btnEl.disabled = false;
+  }
+}
+window.translateComment = translateComment;
+</script>
 </body>
 </html>

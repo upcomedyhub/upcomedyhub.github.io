@@ -1492,10 +1492,10 @@
       '<div class="ze-sticker-tabs" id="zeStickerTabs">' + tabs + '</div>' +
       '<div class="ze-sticker-grid" id="zeStickerGrid"></div>';
 
-    var grid = $("#zeStickerGrid");
+    var grid = $("zeStickerGrid");
     var activeCat = packs[0].id;
-    var searchInput = $("#zeDecorSearch");
-    var clearBtn = $("#zeDecorSearchClear");
+    var searchInput = $("zeDecorSearch");
+    var clearBtn = $("zeDecorSearchClear");
 
     function renderItems(items) {
       if (!items || !items.length) {
@@ -1613,7 +1613,7 @@
     bindSlider("zeSat", function (v) { a.saturation = v; S.dirty = true; applyPreview(); });
     bindSlider("zeWarm", function (v) { a.warmth = v; S.dirty = true; applyPreview(); });
     bindSlider("zeFade", function (v) { a.fade = v; S.dirty = true; applyPreview(); });
-    $("#zeAdjustReset").addEventListener("click", function () {
+    $("zeAdjustReset").addEventListener("click", function () {
       S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0 };
       S.dirty = true; applyPreview(); renderAdjustSheet();
     });

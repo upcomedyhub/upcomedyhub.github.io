@@ -65,7 +65,7 @@
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Zyro — Aapki Hansi, Hamari Pehchaan 🔥</title>
-<link rel="icon" type="image/png" href="/zyro-logo.png">
+<link rel="icon" type="image/png" href="/zyro-z-logo.png">
 <link rel="canonical" href="https://upcomedyhub.github.io/">
 <meta name="description" content="Zyro — Desi comedy, funny Shorts aur entertainment ka ek hi adda. Dekhein trending reels, funny videos aur banein creator Zyro par.">
 <meta name="theme-color" content="#111111">
@@ -78,14 +78,14 @@
 <meta property="og:site_name" content="Zyro">
 <meta property="og:title" content="Zyro — Aapki Hansi, Hamari Pehchaan 🔥">
 <meta property="og:description" content="Zyro — Desi comedy, funny Shorts aur entertainment ka ek hi adda. Dekhein trending reels, funny videos aur banein creator Zyro par.">
-<meta property="og:image" content="https://upcomedyhub.github.io/zyro-logo.png">
+<meta property="og:image" content="https://upcomedyhub.github.io/zyro-z-logo.png">
 
 <!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:url" content="https://upcomedyhub.github.io/">
 <meta name="twitter:title" content="Zyro — Aapki Hansi, Hamari Pehchaan 🔥">
 <meta name="twitter:description" content="Zyro — Desi comedy, funny Shorts aur entertainment ka ek hi adda.">
-<meta name="twitter:image" content="https://upcomedyhub.github.io/zyro-logo.png">
+<meta name="twitter:image" content="https://upcomedyhub.github.io/zyro-z-logo.png">
 
 <!-- Google Search Structured Data (JSON-LD) -->
 <script type="application/ld+json">
@@ -110,7 +110,7 @@
       "@id": "https://upcomedyhub.github.io/#organization",
       "name": "Zyro",
       "url": "https://upcomedyhub.github.io/",
-      "logo": "https://upcomedyhub.github.io/zyro-logo.png",
+      "logo": "https://upcomedyhub.github.io/zyro-z-logo.png",
       "sameAs": [
         "https://www.youtube.com/@upcomedyhub"
       ]
@@ -8842,6 +8842,8 @@ async function openIgList(kind, targetUid){
   const content = document.getElementById("igListContent");
   const searchInput = document.getElementById("igListSearchInput");
   if(!overlay || !title || !content) return;
+  /* Remember which profile we're viewing so the Followers/Following tabs stay on it */
+  window.__igListTargetUid = uidToInspect;
   overlay.classList.add("show");
   if(searchInput){ searchInput.value = ""; }
   title.textContent = kind === "followers" ? "Followers" : "Following";
@@ -22882,12 +22884,12 @@ window.handleAIMessageSend = handleAIMessageSend;
       tray.innerHTML = `
         <div class="sl-dice-cube" id="ludoDice">🎲 <b>6</b></div>
         <div style="font-size:12px;color:#aaa">Roll 6 to open token!</div>
-        <button type="button" class="sl-roll-btn" id="ludoRollBtn">Roll Dice</button>
+        <button type="button" class="sl-roll-btn" id="slLudoRollBtn">Roll Dice</button>
       `;
       this.wrap.appendChild(tray);
       this.container.appendChild(this.wrap);
 
-      tray.querySelector('#ludoRollBtn').onclick = () => this.rollPlayerDice();
+      tray.querySelector('#slLudoRollBtn').onclick = () => this.rollPlayerDice();
       tray.querySelector('#ludoDice').onclick = () => this.rollPlayerDice();
 
       this.render();
@@ -23680,6 +23682,63 @@ async function translateComment(commentId, btnEl) {
   }
 }
 window.translateComment = translateComment;
+</script>
+<script>
+/* ---------- SETTINGS CLOSE (B8) ---------- */
+function closeSettings(){
+  const ov = document.getElementById("settingsOverlay");
+  if(ov) ov.classList.remove("show");
+}
+window.closeSettings = closeSettings;
+
+/* ---------- LIVE AUDIENCE COMMENT (B9) ---------- */
+async function sendLiveAudienceComment(){
+  const input = document.getElementById("liveAudienceCommentInput");
+  if(!input) return;
+  const txt = input.value.trim();
+  if(!txt) return;
+  input.value = "";
+  const myName = (currentUser && (currentUser.displayName || "You")) || "You";
+  const list = document.getElementById("liveAudienceCommentsList");
+  if(list){
+    const row = document.createElement("div");
+    row.style.cssText = "background:rgba(255,255,255,0.12);border-radius:14px;padding:6px 12px;color:#fff;font-size:13px;word-break:break-word";
+    row.innerHTML = '<b style="color:#4FB2FF">' + escapeHtml(myName) + '</b> ' + escapeHtml(txt);
+    list.appendChild(row);
+    list.scrollTop = list.scrollHeight;
+  }
+  try{
+    const hostUid = window.__activeLiveHostUid || window.activeLiveHostUid || null;
+    if(db && currentUser && hostUid){
+      await db.collection("active_live_streams").doc(hostUid).collection("comments").add({
+        authorId: currentUser.uid,
+        authorName: myName,
+        text: txt,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+  }catch(e){}
+}
+window.sendLiveAudienceComment = sendLiveAudienceComment;
+
+/* ---------- IG LIST TABS (B10) ---------- */
+function switchIgListTab(kind){
+  const fTab = document.getElementById("igTabFollowers");
+  const gTab = document.getElementById("igTabFollowing");
+  if(fTab) fTab.classList.toggle("active", kind === "followers");
+  if(gTab) gTab.classList.toggle("active", kind === "following");
+  if(typeof openIgList === "function") openIgList(kind, window.__igListTargetUid || undefined);
+}
+window.switchIgListTab = switchIgListTab;
+
+/* ---------- SERVICE WORKER (B7) ---------- */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("/service-worker.js").catch(function (err) {
+      console.warn("Service worker registration failed:", err);
+    });
+  });
+}
 </script>
 </body>
 </html>

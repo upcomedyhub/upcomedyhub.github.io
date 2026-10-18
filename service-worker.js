@@ -4,12 +4,10 @@ const FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/manifest.json",
-  "/IMG_20260917_172912.jpg",
-  "/IMG_20261002_053016.png",
-  "/IMG_20261002_052601.png",
-  "/upcomedyhub-logo.svg",
-  "/upcomedyhub-logo.png",
-  "/cobra_logo.png"
+  "/zyro-z-logo.png",
+  "/icon.svg",
+  "/cobra_logo.png",
+  "/reels-clapperboard.svg"
 ];
 
 self.addEventListener("install", function (event) {

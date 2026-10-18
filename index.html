@@ -1937,8 +1937,14 @@ body.messages-open .bottom-nav{display:none !important}
   transform: scale(1.1);
   filter: drop-shadow(0 0 8px rgba(0, 149, 246, 0.7));
 }
+.verified-badge-wrap.gold svg {
+  filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
+}
+.verified-badge-wrap.gold:hover svg {
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.75));
+}
 .verified-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(0,149,246,0.12);color:#0095F6;border:1px solid rgba(0,149,246,0.3);padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700}
-.dark-mode .verified-chip{background:rgba(230,57,70,0.2);border-color:rgba(230,57,70,0.4);color:#ff6b77}
+.dark-mode .verified-chip{background:rgba(0,149,246,0.2);border-color:rgba(0,149,246,0.45);color:#4FB2FF}
 .verified-chip.gold{background:rgba(245,158,11,0.12);color:#d97706;border-color:rgba(245,158,11,0.3)}
 .dark-mode .verified-chip.gold{background:rgba(245,158,11,0.2);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
 .verification-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:10035;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
@@ -3703,14 +3709,16 @@ img.logo-profile.zyro-header-logo {
 <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
 <symbol id="i-verified-blue" viewBox="0 0 24 24">
-  <!-- Custom 8-Point Smooth Shield Starburst Badge (Electric Blue #0095F6) -->
-  <path fill="#0095F6" d="M12 2c.8 0 1.5.4 2 1l1.5 1.5c.5.5 1.2.7 1.9.5l2.1-.4c.8-.1 1.6.3 2 1l1 1.9c.3.6.9 1.1 1.5 1.2l2.1.6c.8.2 1.3.9 1.3 1.7v2.1c0 .7.4 1.4.9 1.9l1.4 1.6c.5.6.5 1.5 0 2.1l-1.4 1.6c-.5.5-.9 1.2-.9 1.9v2.1c0 .8-.5 1.5-1.3 1.7l-2.1.6c-.6.1-1.2.6-1.5 1.2l-1 1.9c-.4.7-1.2 1.1-2 1l-2.1-.4c-.7-.2-1.4 0-1.9.5L14 21c-.5.6-1.2 1-2 1s-1.5-.4-2-1l-1.5-1.5c-.5-.5-1.2-.7-1.9-.5l-2.1.4c-.8.1-1.6-.3-2-1l-1-1.9c-.3-.6-.9-1.1-1.5-1.2l-2.1-.6c-.8-.2-1.3-.9-1.3-1.7v-2.1c0-.7-.4-1.4-.9-1.9L.5 13.1c-.5-.6-.5-1.5 0-2.1l1.4-1.6c.5-.5.9-1.2.9-1.9V5.4c0-.8.5-1.5 1.3-1.7l2.1-.6c.6-.1 1.2-.6 1.5-1.2l1-1.9c.4-.7 1.2-1.1 2-1l2.1.4c.7.2 1.4 0 1.9-.5L10 3c.5-.6 1.2-1 2-1z"/>
-  <!-- Clean white checkmark -->
-  <path fill="#ffffff" d="M10 15.5l-3.5-3.5 1.4-1.4 2.1 2.1 5.6-5.6 1.4 1.4z"/>
+  <!-- Zyro Premium Verified Seal - original design (Electric Blue #0095F6) -->
+  <circle cx="12" cy="12" r="11" fill="#0074CC"/>
+  <circle cx="12" cy="12" r="9.2" fill="#0095F6"/>
+  <path fill="#ffffff" d="M10.4 16.4 6.2 12.2 7.75 10.65 10.4 13.3 16.35 7.35 17.9 8.9 Z"/>
 </symbol>
 <symbol id="i-verified-gold" viewBox="0 0 24 24">
-  <path fill="#f59e0b" d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.354-1.513-.21-3.13-1.455-4.004-1.246-.875-2.905-.724-4.004.354C14.243 4.375 12.873 3.5 11.293 3.5c-1.58 0-2.95.875-3.6 2.148-1.513-.354-3.13.21-4.004 1.455-.875 1.246-.724 2.905.354 4.004C3.167 11.957 2.292 13.327 2.292 14.907c0 1.58.875 2.95 2.148 3.6-.354 1.513.21 3.13 1.455 4.004 1.246.875 2.905-.724 4.004-.354.85 1.125 2.22 2 3.8 2 1.58 0 2.95-.875 3.6-2.148 1.513.354 3.13-.21 4.004-1.455.875-1.246.724-2.905-.354-4.004 1.273-.65 2.148-2.02 2.148-3.6z"/>
-  <path fill="#ffffff" d="M10.2 16.2 6.5 12.5l1.4-1.4 2.3 2.3 5.9-5.9 1.4 1.4z"/>
+  <!-- Zyro Premium Verified Seal - gold variant (original design) -->
+  <circle cx="12" cy="12" r="11" fill="#D97706"/>
+  <circle cx="12" cy="12" r="9.2" fill="#F59E0B"/>
+  <path fill="#ffffff" d="M10.4 16.4 6.2 12.2 7.75 10.65 10.4 13.3 16.35 7.35 17.9 8.9 Z"/>
 </symbol>
 <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
 <symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
@@ -7036,9 +7044,10 @@ function avatarFor(data){ return (data && (data.photoURL||data.photo||data.userP
 let cachedCurrentUserProfile = null;
 function getVerifiedBadge(isVerified, type = "blue", size = 15) {
   if (!isVerified) return "";
-  const iconId = "i-verified-blue";
-  const title = "Official Verified Account ✔️";
-  return `<span class="verified-badge-wrap" title="${title}" aria-label="${title}">` +
+  const isGold = type === "gold" || type === "celebrity" || type === "celebrity_free";
+  const iconId = isGold ? "i-verified-gold" : "i-verified-blue";
+  const title = isGold ? "Celebrity Verified ⭐" : "Official Verified Account ✔️";
+  return `<span class="verified-badge-wrap${isGold ? " gold" : ""}" title="${title}" aria-label="${title}">` +
     `<svg viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle" aria-hidden="true">` +
     `<use href="#${iconId}"></use>` +
     `</svg>` +

@@ -1917,10 +1917,27 @@ body.messages-open .bottom-nav{display:none !important}
 .blocked-user-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 .unblock-btn { background: #efefef; color: #e63946; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
 .dark-mode .unblock-btn { background: #262626; color: #ff6b77; }
-/* Crimson Verification & Creator Badges */
-.verified-badge-wrap{display:inline-flex;align-items:center;vertical-align:middle;margin-left:4px;flex-shrink:0}
-.verified-badge-wrap svg{display:block}
-.verified-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(230,57,70,0.1);color:#e63946;border:1px solid rgba(230,57,70,0.25);padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700}
+/* Electric Blue (#0095F6) Verified Badge Component */
+.verified-badge-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-left: 4px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.verified-badge-wrap svg {
+  display: block;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 5px rgba(0, 149, 246, 0.45));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.verified-badge-wrap:hover svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(0, 149, 246, 0.7));
+}
+.verified-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(0,149,246,0.12);color:#0095F6;border:1px solid rgba(0,149,246,0.3);padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700}
 .dark-mode .verified-chip{background:rgba(230,57,70,0.2);border-color:rgba(230,57,70,0.4);color:#ff6b77}
 .verified-chip.gold{background:rgba(245,158,11,0.12);color:#d97706;border-color:rgba(245,158,11,0.3)}
 .dark-mode .verified-chip.gold{background:rgba(245,158,11,0.2);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
@@ -3654,7 +3671,7 @@ img.logo-profile.zyro-header-logo {
 <symbol id="i-sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
 <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
-<symbol id="i-verified-crimson" viewBox="0 0 24 24">
+<symbol id="i-verified-blue" viewBox="0 0 24 24">
   <path fill="#e63946" d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.354-1.513-.21-3.13-1.455-4.004-1.246-.875-2.905-.724-4.004.354C14.243 4.375 12.873 3.5 11.293 3.5c-1.58 0-2.95.875-3.6 2.148-1.513-.354-3.13.21-4.004 1.455-.875 1.246-.724 2.905.354 4.004C3.167 11.957 2.292 13.327 2.292 14.907c0 1.58.875 2.95 2.148 3.6-.354 1.513.21 3.13 1.455 4.004 1.246.875 2.905.724 4.004-.354.85 1.125 2.22 2 3.8 2 1.58 0 2.95-.875 3.6-2.148 1.513.354 3.13-.21 4.004-1.455.875-1.246.724-2.905-.354-4.004 1.273-.65 2.148-2.02 2.148-3.6z"/>
   <path fill="#ffffff" d="M10.2 16.2 6.5 12.5l1.4-1.4 2.3 2.3 5.9-5.9 1.4 1.4z"/>
 </symbol>
@@ -4683,7 +4700,7 @@ img.logo-profile.zyro-header-logo {
           <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-rocket"></use></svg>
           <span>Reel Boost &amp; Algorithm Manager</span>
         </h3>
-        <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
+        <span style="background:rgba(0,149,246,0.15);color:#0095F6;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
           <svg class="ico" style="width:12px;height:12px"><use href="#i-sliders"></use></svg> Live Control
         </span>
       </div>
@@ -4752,7 +4769,7 @@ img.logo-profile.zyro-header-logo {
           <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-shield"></use></svg>
           <span>Verification &amp; Crimson Tick Manager</span>
         </h3>
-        <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
+        <span style="background:rgba(0,149,246,0.15);color:#0095F6;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
           <svg class="ico" style="width:12px;height:12px"><use href="#i-sliders"></use></svg> Admin Authority
         </span>
       </div>
@@ -4906,7 +4923,7 @@ img.logo-profile.zyro-header-logo {
   <div class="verification-modal">
     <div class="verification-modal-header">
       <div style="display:flex;align-items:center;gap:8px">
-        <svg viewBox="0 0 24 24" style="width:24px;height:24px;flex-shrink:0"><use href="#i-verified-crimson"></use></svg>
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px;flex-shrink:0"><use href="#i-verified-blue"></use></svg>
         <span style="font-weight:900;font-size:17px">Zyro Verified</span>
       </div>
       <button type="button" class="likes-close" id="closeVerificationBtn" aria-label="Close" style="cursor:pointer;background:none;border:none;font-size:18px"><svg class="ico" style="width:18px;height:18px"><use href="#i-close"></use></svg></button>
@@ -4916,7 +4933,7 @@ img.logo-profile.zyro-header-logo {
       <!-- Status Card if already verified -->
       <div id="verifiedActiveBanner" style="display:none;background:linear-gradient(135deg,rgba(230,57,70,0.12),rgba(255,122,89,0.08));border:1.5px solid #e63946;border-radius:16px;padding:14px;margin-bottom:16px;text-align:center">
         <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;color:#e63946;font-size:16px">
-          <svg viewBox="0 0 24 24" style="width:20px;height:20px"><use href="#i-verified-crimson"></use></svg>
+          <svg viewBox="0 0 24 24" style="width:20px;height:20px"><use href="#i-verified-blue"></use></svg>
           <span id="activeVerifiedPlanTitle">Your Account is Verified!</span>
         </div>
         <p id="activeVerifiedDetails" style="font-size:12px;color:#666;margin:6px 0 0">Crimson Red Verified Badge active on your profile.</p>
@@ -5160,7 +5177,7 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="saved"><svg class="snr-ico"><use href="#i-bookmark"></use></svg><span class="snr-label">Saved Videos</span><span class="snr-value" id="statSaves">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="mobile"><svg class="snr-ico"><use href="#i-phone"></use></svg><span class="snr-label">Mobile Verification</span><span class="snr-value" id="mobileVerifyStatus">Not verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
-      <div class="settings-nav-row" id="settingsVerifyTickRow" onclick="openVerificationModal()"><svg class="snr-ico" style="color:#e63946"><use href="#i-verified-crimson"></use></svg><span class="snr-label">Creator Verification &amp; Tick</span><span class="snr-value" id="settingsVerifiedStatus" style="color:#e63946;font-weight:700">Get Verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" id="settingsVerifyTickRow" onclick="openVerificationModal()"><svg class="snr-ico" style="color:#0095F6"><use href="#i-verified-blue"></use></svg><span class="snr-label">Creator Verification &amp; Tick</span><span class="snr-value" id="settingsVerifiedStatus" style="color:#e63946;font-weight:700">Get Verified</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <!-- Instagram Settings Sections: "Your insights and tools" -->
       <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:#888;letter-spacing:0.5px;padding:12px 4px 6px">Your insights and tools</div>
@@ -5626,7 +5643,7 @@ img.logo-profile.zyro-header-logo {
           <div id="peopleSearchResults"></div>
         </div>
                  <!-- Floating AI Button inside Messages -->
-        <button type="button" class="chat-ai-fab" id="chatAiFabBtn" onclick="openAIChat()" title="Chat with UPComedyHub AI" aria-label="AI Assistant">🤖</button>
+        <button type="button" class="chat-ai-fab" id="chatAiFabBtn" onclick="openAIChat()" title="Chat with Zyro AI Assistant" aria-label="AI Assistant">🤖</button>
 
       </aside>
 
@@ -6749,14 +6766,14 @@ img.logo-profile.zyro-header-logo {
         <div class="call-pulse-ring" style="border-color:#ffd166"></div>
         <img src="IMG_20260917_172912.jpg" id="aiVideoAvatarImg" style="width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 30px rgba(255,209,102,.5);border:3px solid #fff">
       </div>
-      <h2 style="font-size:24px;font-weight:900;color:#fff;margin-bottom:6px">UPComedyHub AI Assistant 🤖</h2>
+      <h2 style="font-size:24px;font-weight:900;color:#fff;margin-bottom:6px">Zyro AI Assistant 🤖</h2>
       <p style="color:#ffd166;font-size:14px;font-weight:700">Desi Video Call Mode Live 🔥</p>
     </div>
   </div>
 
   <!-- Header Info -->
   <div class="call-header-info">
-    <h2 id="activeCallName">UPComedyHub AI</h2>
+    <h2 id="activeCallName">Zyro AI Assistant</h2>
     <div class="call-status-pill">
       <span id="callStatusIndicator" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e"></span>
       <span id="activeCallStatus">Calling...</span>
@@ -7256,11 +7273,11 @@ function pairId(a,b){ return [a,b].sort().join("_"); }
 function followId(from,to){ return from+"_"+to; }
 function avatarFor(data){ return (data && (data.photoURL||data.photo||data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
 let cachedCurrentUserProfile = null;
-function getVerifiedBadge(isVerified, type = "crimson", size = 15) {
+function getVerifiedBadge(isVerified, type = "blue", size = 15) {
   if (!isVerified) return "";
   const isGold = type === "gold" || type === "celebrity" || type === "celebrity_free";
-  const iconId = isGold ? "i-verified-gold" : "i-verified-crimson";
-  const title = isGold ? "VIP Celebrity Verified" : "Crimson Verified Creator";
+  const iconId = isGold ? "i-verified-gold" : "i-verified-blue";
+  const title = isGold ? "VIP Celebrity Verified" : "Official Verified Account";
   return `<span class="verified-badge-wrap" title="${title}" aria-label="${title}">` +
     `<svg viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle" aria-hidden="true">` +
     `<use href="#${iconId}"></use>` +
@@ -7606,7 +7623,7 @@ async function loadPendingVerificationRequests(){
       const isCeleb = d.type === "celebrity_free";
       const planName = d.planName || (isCeleb ? "Celebrity (Free)" : "Creator Plan");
       const priceText = isCeleb ? "100% FREE" : "Intro: ₹" + d.price + " (Renewal: ₹" + (d.renewalPrice || d.price*2) + ")";
-      const proofHtml = d.proofUrl ? `<div style="font-size:11px;margin-top:2px"><a href="${escapeAttr(d.proofUrl)}" target="_blank" rel="noopener" style="color:#e63946">🔗 View Social Proof / Link</a></div>` : "";
+      const proofHtml = d.proofUrl ? `<div style="font-size:11px;margin-top:2px"><a href="${escapeAttr(d.proofUrl)}" target="_blank" rel="noopener" style="color:#0095F6">🔗 View Social Proof / Link</a></div>` : "";
       const noteHtml = d.note ? `<div style="font-size:11px;color:#666;font-style:italic">"${escapeHtml(d.note)}"</div>` : "";
       
       return `
@@ -8613,7 +8630,7 @@ async function loadProfileIdentity(){
         username: "guest_user",
         displayName: "Guest Creator",
         bio: "Exploring Zyro! 🚀 Log in to save your posts & reels.",
-        photoURL: "IMG_20260917_172912.jpg"
+        photoURL: "zyro-z-logo.png"
       };
     }
     cachedCurrentUserProfile = guestData;
@@ -8633,7 +8650,7 @@ async function loadProfileIdentity(){
     allAvatarEls.forEach(function(el){ try { if(currentProfilePhotoURL) el.src = currentProfilePhotoURL; } catch(e){} });
 
     const isV = !!data.isVerified;
-    const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
+    const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
     const un = document.getElementById("profileUsername"); 
     if(un) un.textContent = "@"+(data.username||"user");
     
@@ -8716,7 +8733,7 @@ function updateUIProfileIdentity(data){
   allAvatarEls.forEach(function(el){ try { if(photo) el.src = photo; } catch(e){} });
 
   const isV = !!data.isVerified;
-  const vBadge = getVerifiedBadge(isV, data.verifiedType || "crimson", 16);
+  const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
   const un = document.getElementById("profileUsername"); 
   if(un) un.textContent = "@"+(data.username||"guest");
 
@@ -10207,7 +10224,7 @@ async function startVideoPublishWorkflow() {
     const authorUser = (typeof currentUser !== "undefined" && currentUser) ? currentUser : {
       uid: "user_" + Math.random().toString(36).substring(2, 9),
       displayName: "Creator",
-      photoURL: "IMG_20260917_172912.jpg"
+      photoURL: "zyro-z-logo.png"
     };
     const authorName = authorUser.displayName || "Zyro Creator";
     const authorUsername = (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || "creator";
@@ -12246,7 +12263,7 @@ async function buildSuggestedCreatorsUI(creators, container){
     const avatar = avatarFor(c);
     const name = c.displayName || "Comedy Creator";
     const uname = c.username || "creator";
-    const verifiedBadge = getVerifiedBadge(c.isVerified, c.verifiedType || "crimson", 14);
+    const verifiedBadge = getVerifiedBadge(c.isVerified, c.verifiedType || "blue", 14);
     
     let isFollowing = false;
     let isFollowedByThem = false;
@@ -12530,7 +12547,7 @@ async function buildCreatorSpotlightCard(user){
   const name = user.displayName || "Creator";
   const uname = user.username || "creator";
   const bio = user.bio || "Creator on UPComedyHub";
-  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 15);
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "blue", 15);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -12607,7 +12624,7 @@ async function buildAccountResultRow(user){
   const name = user.displayName || "User";
   const uname = user.username || "user";
   const bio = user.bio || "";
-  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "crimson", 14);
+  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "blue", 14);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -12929,7 +12946,7 @@ async function loadBoostedReels() {
           <div style="font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px">
             <svg class="ico" style="width:14px;height:14px;color:#e63946"><use href="#i-rocket"></use></svg>
             <span>${escapeHtml(b.videoId)}</span>
-            <span style="background:rgba(230,57,70,0.15);color:#e63946;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:800">${escapeHtml(b.multiplier)}x Boost</span>
+            <span style="background:rgba(0,149,246,0.15);color:#0095F6;font-size:10px;padding:2px 8px;border-radius:8px;font-weight:800">${escapeHtml(b.multiplier)}x Boost</span>
           </div>
           <div style="font-size:11px;color:#888;margin-top:3px">Badge: "${escapeHtml(b.label || 'Trending')}"</div>
         </div>
@@ -13216,7 +13233,7 @@ async function loadInbox(){
       it.addEventListener("click",()=>openChat({uid:oid,...p}));
       list.appendChild(it);
     }
-  }catch(e){ console.error(e); list.innerHTML = '<p class="inbox-empty" style="color:#e63946">Inbox load nahi hua.</p>'; }
+  }catch(e){ console.error(e); list.innerHTML = '<p class="inbox-empty" style="color:#0095F6">Inbox load nahi hua.</p>'; }
 }
 
 /* ---------- REQUESTS ---------- */
@@ -13247,7 +13264,7 @@ async function loadRequests(){
       if(!confirm("Delete?")) return;
       try{ await db.collection("messageRequests").doc(b.getAttribute("data-reject")).delete(); showToast("🗑️"); loadRequests(); }catch(err){ showToast("❌"); }
     }));
-  }catch(e){ console.error(e); list.innerHTML = '<p class="inbox-empty" style="color:#e63946">Requests load nahi hui.</p>'; }
+  }catch(e){ console.error(e); list.innerHTML = '<p class="inbox-empty" style="color:#0095F6">Requests load nahi hui.</p>'; }
 }
 
 /* ---------- GENERAL TAB ---------- */
@@ -13684,7 +13701,7 @@ async function sendImageFile(file){
   if(!isImage){ showToast("❌ Kripya photo chunein"); return; }
   if(file.size > 25*1024*1024){ showToast("❌ 25 MB se chhoti photo chunein"); return; }
 
-  // 1. Sending image to UPComedyHub AI Assistant
+  // 1. Sending image to Zyro AI Assistant
   if(currentChatFriend && currentChatFriend.uid === AI_BOT_UID){
     showToast("📷 AI photo load ho rahi hai...");
     try{
@@ -13945,7 +13962,7 @@ async function showUserProfileModal(userOrUid){
     +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "crimson", 16) + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "blue", 16) + '<span id="rpFollowsYouSlot"></span></div>'
     + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + '</div>'
     + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
     + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
@@ -14549,8 +14566,8 @@ async function startCall(isVideo = false) {
       startCallTimer();
       startAICallSpeechRecognition();
       const welcome = isVideo
-        ? "अरे भाई! राम-राम! UPComedyHub AI वीडियो कॉल पर आपका स्वागत है! क्या मस्त दिख रहे हो भाई! बताओ आज क्या मौज करनी है? 😂🔥"
-        : "अरे भाई! राम-राम! UPComedyHub AI ऑडियो कॉल कनेक्ट हो गई है! बताओ आज चेहरे पर हँसी कैसे लानी है! 🎙️🔥";
+        ? "अरे भाई! राम-राम! Zyro AI वीडियो कॉल पर आपका स्वागत है! क्या मस्त दिख रहे हो भाई! बताओ आज क्या मौज करनी है? 😂🔥"
+        : "अरे भाई! राम-राम! Zyro AI ऑडियो कॉल कनेक्ट हो गई है! बताओ आज चेहरे पर हँसी कैसे लानी है! 🎙️🔥";
       speakAICall(welcome);
     }, 1400);
 
@@ -17279,7 +17296,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const p = $('funCarPanel'); if(!p) return;
     p.innerHTML = '<div class="car-wrap">' +
       '<div style="display:flex;justify-content:space-between;font-weight:800;margin-bottom:6px">' +
-        '<span>SCORE: <b id="carScore" style="color:#e63946">0</b></span>' +
+        '<span>SCORE: <b id="carScore" style="color:#0095F6">0</b></span>' +
         '<span>BEST: <b id="carBest">0</b></span>' +
       '</div>' +
       '<canvas class="car-canvas" id="carCanvas" width="300" height="340"></canvas>' +
@@ -18041,7 +18058,7 @@ window.addEventListener("DOMContentLoaded",()=>{
       list.innerHTML = snap.docs.map(doc=>{ 
         const d = doc.data(); 
         const isV = !!d.isVerified;
-        const vBadge = getVerifiedBadge(isV, d.verifiedType || "crimson", 14);
+        const vBadge = getVerifiedBadge(isV, d.verifiedType || "blue", 14);
         const vChip = isV ? `<span class="verified-chip" style="margin-left:6px">${vBadge} ${escapeHtml(d.verifiedPlan || 'Verified')}</span>` : '';
         return '<div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px">' +
           '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">' +
@@ -18357,13 +18374,13 @@ console.log("✅ UPComedyHub — All loaded with fixes");
 const AI_BOT_UID = "upch_ai_bot";
 const UPCH_AI_BOT = {
   uid: AI_BOT_UID,
-  displayName: "UPComedyHub AI Assistant 🤖",
-  username: "ai_assistant",
-  photoURL: "IMG_20260917_172912.jpg"
+  displayName: "Zyro AI Assistant 🤖",
+  username: "zyro_ai",
+  photoURL: "zyro-z-logo.png"
 };
 
 const UPCH_SYSTEM_PROMPT = `
-तुम "UPComedyHub AI Assistant" हो। तुम UPComedyHub ऐप के ऑफिशियल स्मार्ट, देसी और बेहद मिलनसार साथी हो।
+तुम "Zyro AI Assistant" हो। तुम UPComedyHub ऐप के ऑफिशियल स्मार्ट, देसी और बेहद मिलनसार साथी हो।
 
 1. बोलने का अंदाज़:
 - हमेशा देसी, मीठी और दोस्ताना हिंदी/हिंग्लिश में बात करो।
@@ -18583,7 +18600,7 @@ function renderAIHistory(){
   if(!h.length){
     box.innerHTML =
       '<div class="chat-bubble-row"><div class="chat-bubble"><div class="chat-message-text">' +
-      'अरे भाई! राम-राम 🙏<br>मैं <b>UPComedyHub AI Assistant</b> हूँ। कुछ भी पूछो, या फोटो बनवाने के लिए लिखो: ' +
+      'अरे भाई! राम-राम 🙏<br>मैं <b>Zyro AI Assistant</b> हूँ। कुछ भी पूछो, या फोटो बनवाने के लिए लिखो: ' +
       '<b>Create Image: funny desi comedy stage</b> 🎨</div></div></div>';
     return;
   }
@@ -18678,7 +18695,7 @@ async function handleAIMessageSend(){
                          lower.includes("generate image");
 
   const typingId = "ai-loading-" + Date.now();
-  const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "UPComedyHub AI सोच रहा है... 🤖";
+  const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "Zyro AI Assistant सोच रहा है... 🤖";
   if(box){
     box.insertAdjacentHTML("beforeend",
       '<div class="chat-bubble-row" id="' + typingId + '"><div class="chat-bubble">' +

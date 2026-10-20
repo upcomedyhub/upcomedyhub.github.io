@@ -1930,7 +1930,7 @@ body.messages-open .bottom-nav{display:none !important}
 .blocked-user-info img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 .unblock-btn { background: #efefef; color: #e63946; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
 .dark-mode .unblock-btn { background: #262626; color: #ff6b77; }
-/* Electric Blue (#0095F6) Verified Badge Component */
+/* Zyro Verified (#0095F6) & Cobra Verified (Admin Cyber-Shield) Badge Component */
 .verified-badge-wrap {
   display: inline-flex;
   align-items: center;
@@ -1943,12 +1943,19 @@ body.messages-open .bottom-nav{display:none !important}
 .verified-badge-wrap svg {
   display: block;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 5px rgba(0, 149, 246, 0.45));
+  filter: drop-shadow(0 0 5px rgba(0, 149, 246, 0.5));
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 .verified-badge-wrap:hover svg {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 8px rgba(0, 149, 246, 0.7));
+  transform: scale(1.12);
+  filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+}
+.verified-badge-wrap.cobra svg {
+  filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.55)) drop-shadow(0 0 8px rgba(217, 70, 239, 0.35));
+}
+.verified-badge-wrap.cobra:hover svg {
+  transform: scale(1.14);
+  filter: drop-shadow(0 0 9px rgba(0, 240, 255, 0.85)) drop-shadow(0 0 11px rgba(217, 70, 239, 0.6));
 }
 .verified-badge-wrap.gold svg {
   filter: drop-shadow(0 0 5px rgba(245, 158, 11, 0.5));
@@ -1958,8 +1965,13 @@ body.messages-open .bottom-nav{display:none !important}
 }
 .verified-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(0,149,246,0.12);color:#0095F6;border:1px solid rgba(0,149,246,0.3);padding:3px 8px;border-radius:12px;font-size:11px;font-weight:700}
 .dark-mode .verified-chip{background:rgba(0,149,246,0.2);border-color:rgba(0,149,246,0.45);color:#4FB2FF}
+.verified-chip.cobra{background:linear-gradient(135deg,rgba(0,240,255,0.14),rgba(217,70,239,0.14));color:#0284c7;border:1px solid rgba(0,210,255,0.45)}
+.dark-mode .verified-chip.cobra{background:linear-gradient(135deg,rgba(0,240,255,0.2),rgba(217,70,239,0.22));color:#38bdf8;border-color:rgba(56,189,248,0.55)}
 .verified-chip.gold{background:rgba(245,158,11,0.12);color:#d97706;border-color:rgba(245,158,11,0.3)}
 .dark-mode .verified-chip.gold{background:rgba(245,158,11,0.2);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
+.cobra-verified-pill{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#071426,#130d26);color:#38bdf8;border:1px solid rgba(56,189,248,0.5);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:0.2px;box-shadow:0 2px 10px rgba(0,149,246,0.2);margin-top:4px;width:fit-content}
+.cobra-verified-pill.zyro{background:rgba(0,149,246,0.12);color:#0095F6;border-color:rgba(0,149,246,0.35);box-shadow:none}
+.dark-mode .cobra-verified-pill.zyro{background:rgba(0,149,246,0.2);color:#38bdf8;border-color:rgba(56,189,248,0.45)}
 .verification-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:10035;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .verification-overlay.show{display:flex}
 .verification-modal{width:min(640px,100%);max-height:92vh;background:#fff;color:#111;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45);display:flex;flex-direction:column}
@@ -3728,16 +3740,72 @@ img.logo-profile.zyro-header-logo {
 <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
 <symbol id="i-verified-blue" viewBox="0 0 24 24">
-  <!-- Zyro Premium Verified Seal - original design (Electric Blue #0095F6) -->
-  <circle cx="12" cy="12" r="11" fill="#0074CC"/>
-  <circle cx="12" cy="12" r="9.2" fill="#0095F6"/>
-  <path fill="#ffffff" d="M10.4 16.4 6.2 12.2 7.75 10.65 10.4 13.3 16.35 7.35 17.9 8.9 Z"/>
+  <!-- Zyro Verified - 3D 8-Wave Scalloped Electric Blue Seal (Guide Design) -->
+  <defs>
+    <linearGradient id="zyroBlueRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7DD3FC"/>
+      <stop offset="45%" stop-color="#0095F6"/>
+      <stop offset="100%" stop-color="#0044CC"/>
+    </linearGradient>
+    <linearGradient id="zyroBlueCore" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#0084FF"/>
+      <stop offset="100%" stop-color="#0051E6"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#zyroBlueRim)" d="M12.0,0.8 L13.07,1.13 L14.0,1.95 L14.78,2.83 L15.56,3.41 L16.52,3.55 L17.69,3.48 L18.93,3.56 L19.92,4.08 L20.44,5.07 L20.52,6.31 L20.45,7.48 L20.59,8.44 L21.17,9.22 L22.05,10.0 L22.87,10.93 L23.2,12.0 L22.87,13.07 L22.05,14.0 L21.17,14.78 L20.59,15.56 L20.45,16.52 L20.52,17.69 L20.44,18.93 L19.92,19.92 L18.93,20.44 L17.69,20.52 L16.52,20.45 L15.56,20.59 L14.78,21.17 L14.0,22.05 L13.07,22.87 L12.0,23.2 L10.93,22.87 L10.0,22.05 L9.22,21.17 L8.44,20.59 L7.48,20.45 L6.31,20.52 L5.07,20.44 L4.08,19.92 L3.56,18.93 L3.48,17.69 L3.55,16.52 L3.41,15.56 L2.83,14.78 L1.95,14.0 L1.13,13.07 L0.8,12.0 L1.13,10.93 L1.95,10.0 L2.83,9.22 L3.41,8.44 L3.55,7.48 L3.48,6.31 L3.56,5.07 L4.08,4.08 L5.07,3.56 L6.31,3.48 L7.48,3.55 L8.44,3.41 L9.22,2.83 L10.0,1.95 L10.93,1.13 Z"/>
+  <path fill="url(#zyroBlueCore)" d="M12.0,2.27 L12.93,2.54 L13.75,3.22 L14.44,3.96 L15.13,4.45 L15.96,4.59 L16.97,4.56 L18.03,4.66 L18.88,5.12 L19.34,5.97 L19.44,7.03 L19.41,8.04 L19.55,8.87 L20.04,9.56 L20.78,10.25 L21.46,11.07 L21.73,12.0 L21.46,12.93 L20.78,13.75 L20.04,14.44 L19.55,15.13 L19.41,15.96 L19.44,16.97 L19.34,18.03 L18.88,18.88 L18.03,19.34 L16.97,19.44 L15.96,19.41 L15.13,19.55 L14.44,20.04 L13.75,20.78 L12.93,21.46 L12.0,21.73 L11.07,21.46 L10.25,20.78 L9.56,20.04 L8.87,19.55 L8.04,19.41 L7.03,19.44 L5.97,19.34 L5.12,18.88 L4.66,18.03 L4.56,16.97 L4.59,15.96 L4.45,15.13 L3.96,14.44 L3.22,13.75 L2.54,12.93 L2.27,12.0 L2.54,11.07 L3.22,10.25 L3.96,9.56 L4.45,8.87 L4.59,8.04 L4.56,7.03 L4.66,5.97 L5.12,5.12 L5.97,4.66 L7.03,4.56 L8.04,4.59 L8.87,4.45 L9.56,3.96 L10.25,3.22 L11.07,2.54 Z"/>
+  <path fill="#FFFFFF" d="M10.35 16.15 C10.05 16.15 9.78 16.03 9.57 15.82 L6.35 12.6 C5.92 12.17 5.92 11.47 6.35 11.04 L7.18 10.21 C7.61 9.78 8.31 9.78 8.74 10.21 L10.35 11.82 L15.26 6.91 C15.69 6.48 16.39 6.48 16.82 6.91 L17.65 7.74 C18.08 8.17 18.08 8.87 17.65 9.3 L11.13 15.82 C10.92 16.03 10.65 16.15 10.35 16.15 Z"/>
 </symbol>
 <symbol id="i-verified-gold" viewBox="0 0 24 24">
-  <!-- Zyro Premium Verified Seal - gold variant (original design) -->
-  <circle cx="12" cy="12" r="11" fill="#D97706"/>
-  <circle cx="12" cy="12" r="9.2" fill="#F59E0B"/>
-  <path fill="#ffffff" d="M10.4 16.4 6.2 12.2 7.75 10.65 10.4 13.3 16.35 7.35 17.9 8.9 Z"/>
+  <!-- Zyro Verified - Gold Celebrity 8-Wave Seal -->
+  <path fill="#FBBF24" d="M12.0,0.8 L13.07,1.13 L14.0,1.95 L14.78,2.83 L15.56,3.41 L16.52,3.55 L17.69,3.48 L18.93,3.56 L19.92,4.08 L20.44,5.07 L20.52,6.31 L20.45,7.48 L20.59,8.44 L21.17,9.22 L22.05,10.0 L22.87,10.93 L23.2,12.0 L22.87,13.07 L22.05,14.0 L21.17,14.78 L20.59,15.56 L20.45,16.52 L20.52,17.69 L20.44,18.93 L19.92,19.92 L18.93,20.44 L17.69,20.52 L16.52,20.45 L15.56,20.59 L14.78,21.17 L14.0,22.05 L13.07,22.87 L12.0,23.2 L10.93,22.87 L10.0,22.05 L9.22,21.17 L8.44,20.59 L7.48,20.45 L6.31,20.52 L5.07,20.44 L4.08,19.92 L3.56,18.93 L3.48,17.69 L3.55,16.52 L3.41,15.56 L2.83,14.78 L1.95,14.0 L1.13,13.07 L0.8,12.0 L1.13,10.93 L1.95,10.0 L2.83,9.22 L3.41,8.44 L3.55,7.48 L3.48,6.31 L3.56,5.07 L4.08,4.08 L5.07,3.56 L6.31,3.48 L7.48,3.55 L8.44,3.41 L9.22,2.83 L10.0,1.95 L10.93,1.13 Z"/>
+  <path fill="#D97706" d="M12.0,2.27 L12.93,2.54 L13.75,3.22 L14.44,3.96 L15.13,4.45 L15.96,4.59 L16.97,4.56 L18.03,4.66 L18.88,5.12 L19.34,5.97 L19.44,7.03 L19.41,8.04 L19.55,8.87 L20.04,9.56 L20.78,10.25 L21.46,11.07 L21.73,12.0 L21.46,12.93 L20.78,13.75 L20.04,14.44 L19.55,15.13 L19.41,15.96 L19.44,16.97 L19.34,18.03 L18.88,18.88 L18.03,19.34 L16.97,19.44 L15.96,19.41 L15.13,19.55 L14.44,20.04 L13.75,20.78 L12.93,21.46 L12.0,21.73 L11.07,21.46 L10.25,20.78 L9.56,20.04 L8.87,19.55 L8.04,19.41 L7.03,19.44 L5.97,19.34 L5.12,18.88 L4.66,18.03 L4.56,16.97 L4.59,15.96 L4.45,15.13 L3.96,14.44 L3.22,13.75 L2.54,12.93 L2.27,12.0 L2.54,11.07 L3.22,10.25 L3.96,9.56 L4.45,8.87 L4.59,8.04 L4.56,7.03 L4.66,5.97 L5.12,5.12 L5.97,4.66 L7.03,4.56 L8.04,4.59 L8.87,4.45 L9.56,3.96 L10.25,3.22 L11.07,2.54 Z"/>
+  <path fill="#FFFFFF" d="M10.35 16.15 C10.05 16.15 9.78 16.03 9.57 15.82 L6.35 12.6 C5.92 12.17 5.92 11.47 6.35 11.04 L7.18 10.21 C7.61 9.78 8.31 9.78 8.74 10.21 L10.35 11.82 L15.26 6.91 C15.69 6.48 16.39 6.48 16.82 6.91 L17.65 7.74 C18.08 8.17 18.08 8.87 17.65 9.3 L11.13 15.82 C10.92 16.03 10.65 16.15 10.35 16.15 Z"/>
+</symbol>
+<symbol id="i-verified-cobra" viewBox="0 0 24 24">
+  <!-- Cobra Verified - Exclusive Admin Award Cyber-Cobra Shield Badge -->
+  <defs>
+    <linearGradient id="cobraShieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF"/>
+      <stop offset="42%" stop-color="#0095F6"/>
+      <stop offset="72%" stop-color="#D946EF"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="cobraShieldMagenta" x1="0%" y1="20%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2E93"/>
+      <stop offset="50%" stop-color="#D946EF"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="cobraHeadCyan" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#67E8F9"/>
+      <stop offset="55%" stop-color="#00D2FF"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer Cyber Shield Armor -->
+  <path fill="url(#cobraShieldBorder)" d="M12 0.8 L21.4 4.6 L21.8 10.2 L19.8 16.6 L12 23.2 L4.2 16.6 L2.2 10.2 L2.6 4.6 Z"/>
+  <!-- Neon Magenta Lower Wing Trim -->
+  <path fill="url(#cobraShieldMagenta)" d="M2.5 9.5 L4.2 16.6 L12 23.2 L19.8 16.6 L21.5 9.5 L19.9 10.2 L18.4 15.6 L12 21.3 L5.6 15.6 L4.1 10.2 Z"/>
+  <!-- Dark Obsidian Shield Core -->
+  <path fill="#070B19" d="M12 2.3 L19.9 5.5 L20.2 10.1 L18.4 15.7 L12 21.2 L5.6 15.7 L3.8 10.1 L4.1 5.5 Z"/>
+  <!-- Inner Cyan Top Rim -->
+  <path fill="none" stroke="#00F0FF" stroke-width="0.65" stroke-opacity="0.85" d="M4.6 6.0 L12 3.0 L19.4 6.0"/>
+  <!-- Cyber Cobra Flared Hood (Magenta & Cyan Scales) -->
+  <path fill="url(#cobraShieldMagenta)" d="M12 4.3 C7.4 4.3 4.7 7.1 5.0 10.8 C5.2 12.8 6.8 14.5 8.5 15.6 L12 17.6 L15.5 15.6 C17.2 14.5 18.8 12.8 19.0 10.8 C19.3 7.1 16.6 4.3 12 4.3 Z"/>
+  <!-- Sculpted Cyan Cobra Head & Horns -->
+  <path fill="url(#cobraHeadCyan)" d="M8.2 3.7 L9.8 5.1 L12 4.4 L14.2 5.1 L15.8 3.7 L15.3 6.2 C16.9 7.3 17.6 9.1 17.1 11.1 C16.6 12.8 15.2 13.9 13.9 14.8 L12 13.5 L10.1 14.8 C8.8 13.9 7.4 12.8 6.9 11.1 C6.4 9.1 7.1 7.3 8.7 6.2 Z"/>
+  <!-- Dark Crown Scale Lines -->
+  <path fill="#070B19" d="M12 5.4 L13.4 7.2 L12 8.8 L10.6 7.2 Z"/>
+  <!-- Fierce Glowing Amber-Gold Eyes -->
+  <polygon fill="#FBBF24" points="8.2,9.2 11.0,10.3 9.7,11.1"/>
+  <polygon fill="#FBBF24" points="15.8,9.2 13.0,10.3 14.3,11.1"/>
+  <!-- Open Jaw & Fangs -->
+  <path fill="#9D174D" d="M9.3 12.2 L12 11.4 L14.7 12.2 L13.8 15.4 L12 16.5 L10.2 15.4 Z"/>
+  <polygon fill="#FFFFFF" points="9.8,12.2 10.5,14.5 11.0,12.4"/>
+  <polygon fill="#FFFFFF" points="14.2,12.2 13.5,14.5 13.0,12.4"/>
+  <!-- Glowing Cyan V-Chevron at Bottom of Shield -->
+  <path fill="#00F0FF" d="M7.6 15.7 L12 19.8 L16.4 15.7 L15.1 14.8 L12 17.7 L8.9 14.8 Z"/>
 </symbol>
 <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
 <symbol id="i-scissors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></symbol>
@@ -3784,22 +3852,6 @@ img.logo-profile.zyro-header-logo {
 
   <!-- Clean surface ready for user posts upload -->
   <div class="home-surface-clean" id="homeCleanSurface"></div>
-
-  <footer class="channel-footer">
-    <p>© 2026 Zyro. All Rights Reserved.</p>
-    <p style="margin-top:8px">Made with ❤️ by Zyro</p>
-    <div class="footer-legal"><a href="#privacy">Privacy Policy</a><span>•</span><a href="#terms">Terms &amp; Conditions</a></div>
-  </footer>
-</div>
-
-  <div class="quick-actions" id="quickActions">
-    <div class="quick-actions-menu">
-      <a class="quick-action-item qa-whatsapp" href="https://wa.me/919236994154?text=Hello%20Zyro%2C%20mujhe%20aapse%20help%20chahiye" target="_blank" rel="noopener"><svg class="ico"><use href="#i-message"></use></svg> WhatsApp</a>
-      <a class="quick-action-item qa-subscribe" href="https://youtube.com/@up_comedyhub" target="_blank" rel="noopener"><svg class="ico"><use href="#i-bell"></use></svg> Subscribe</a>
-    </div>
-    <button id="quickActionsToggle" type="button" aria-label="Quick actions"><svg class="ico"><use href="#i-message"></use></svg></button>
-  </div>
-  <a class="share-float" href="javascript:void(0)" onclick="shareWebsite()" aria-label="Share website"><svg class="ico"><use href="#i-link"></use></svg></a>
 </div>
 <div id="tab-reels" class="tab-pane">
   <section style="padding:20px 14px">
@@ -3977,6 +4029,7 @@ img.logo-profile.zyro-header-logo {
       <!-- Identity & Bio -->
       <div class="ig-name-block">
         <div id="userName" class="ig-name">User</div>
+        <div id="profileVerifiedPillSlot" style="display:none"></div>
         <div class="ig-category-badge" id="profileCategoryBadge" style="display:none">🎬 Comedy Creator · Entertainer</div>
         <div id="profileBio" class="ig-bio">No bio yet.</div>
         <a id="profileBioLink" class="ig-bio-link" href="#" target="_blank" rel="noopener" style="display:none">
@@ -4508,19 +4561,19 @@ img.logo-profile.zyro-header-logo {
       </div>
     </div>
 
-    <!-- Verification & Blue/Red Tick Manager (Admin Control) -->
+    <!-- Verification Manager: Zyro Verified (Blue Tick) & Cobra Verified (Admin Control) -->
     <div class="admin-card" id="adminVerificationCard">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <h3 style="display:flex;align-items:center;gap:8px">
-          <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-shield"></use></svg>
-          <span>Verification &amp; Official Blue Tick Manager</span>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px">
+        <h3 style="display:flex;align-items:center;gap:8px;margin:0">
+          <svg viewBox="0 0 24 24" style="width:22px;height:22px;flex-shrink:0"><use href="#i-verified-cobra"></use></svg>
+          <span>Zyro Verified &amp; Cobra Verified Manager</span>
         </h3>
-        <span style="background:rgba(0,149,246,0.15);color:#0095F6;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px">
+        <span style="background:linear-gradient(135deg,rgba(0,240,255,0.16),rgba(217,70,239,0.16));color:#0095F6;font-size:11px;padding:3px 10px;border-radius:12px;font-weight:800;display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(0,149,246,0.3)">
           <svg class="ico" style="width:12px;height:12px"><use href="#i-sliders"></use></svg> Admin Authority
         </span>
       </div>
       <p style="font-size:13px;color:#888;margin-bottom:14px">
-        Admin Control: Aap jisko chaho use Electric Blue verified badge de sakte ho. Celebrities ko free me aur creators ko subscription plans (₹49, ₹99, ₹299/mo) ke anusaar verify karein.
+        Admin Control: Kisi bhi user ko <strong>Zyro Verified (Blue Tick)</strong> ya exclusive <strong>Cobra Verified (Admin Award 🛡️🐍)</strong> badge grant ya revoke karein.
       </p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:12px">
@@ -4529,13 +4582,15 @@ img.logo-profile.zyro-header-logo {
           <input type="text" class="admin-input" id="adminVerifyUserInput" placeholder="e.g. UID ya @username">
         </div>
         <div>
-          <label class="admin-label">Verification Tier / Badge Type</label>
+          <label class="admin-label">Badge Type / Verification Tier</label>
           <select class="admin-input" id="adminVerifyTierSelect">
-            <option value="blue" selected>Electric Blue Verified (#0095F6)</option>
-            <option value="celebrity_free">Celebrity / Public Figure (100% Free)</option>
-            <option value="creator_starter">Starter Creator (₹49/mo)</option>
-            <option value="creator_pro">Pro Creator (₹99/mo)</option>
-            <option value="creator_elite">Elite VIP Creator (₹299/mo)</option>
+            <option value="blue" selected>🔵 Zyro Verified (Blue Tick — Standard)</option>
+            <option value="cobra">🐍 Cobra Verified (Exclusive Admin Award)</option>
+            <option value="both">⚡ Both: Zyro Verified + Cobra Verified</option>
+            <option value="celebrity_free">⭐ Celebrity / Public Figure (Free Zyro Verified)</option>
+            <option value="creator_starter">🚀 Starter Creator (₹49/mo — Zyro Verified)</option>
+            <option value="creator_pro">💎 Pro Creator (₹99/mo — Zyro Verified)</option>
+            <option value="creator_elite">👑 Elite VIP Creator (₹299/mo — Zyro Verified)</option>
           </select>
         </div>
       </div>
@@ -4553,18 +4608,22 @@ img.logo-profile.zyro-header-logo {
         </div>
         <div>
           <label class="admin-label">Custom Admin Note (Optional)</label>
-          <input type="text" class="admin-input" id="adminVerifyNoteInput" placeholder="e.g. Official Comedian / Special Partner">
+          <input type="text" class="admin-input" id="adminVerifyNoteInput" placeholder="e.g. Trusted Creator / Cobra Award">
         </div>
       </div>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <button type="button" class="admin-btn green" id="adminGrantVerifyBtn" style="display:inline-flex;align-items:center;gap:6px">
-          <svg class="ico" style="width:15px;height:15px"><use href="#i-check"></use></svg>
-          <span>Grant Verified Tick</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="admin-btn green" id="adminGrantVerifyBtn" style="display:inline-flex;align-items:center;gap:6px;background:#0095F6">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px"><use href="#i-verified-blue"></use></svg>
+          <span>Grant Selected Badge</span>
+        </button>
+        <button type="button" class="admin-btn" id="adminGrantCobraDirectBtn" style="background:linear-gradient(135deg,#0284c7,#9333ea);color:#fff;display:inline-flex;align-items:center;gap:6px">
+          <svg viewBox="0 0 24 24" style="width:16px;height:16px"><use href="#i-verified-cobra"></use></svg>
+          <span>Grant Cobra Verified</span>
         </button>
         <button type="button" class="admin-btn" id="adminRevokeVerifyBtn" style="background:#dc2626;display:inline-flex;align-items:center;gap:6px">
           <svg class="ico" style="width:15px;height:15px"><use href="#i-trash"></use></svg>
-          <span>Revoke Tick</span>
+          <span>Revoke Badge</span>
         </button>
       </div>
 
@@ -4572,7 +4631,7 @@ img.logo-profile.zyro-header-logo {
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
           <div style="font-size:13px;font-weight:800;display:flex;align-items:center;gap:6px">
             <svg class="ico" style="width:14px;height:14px;color:#e63946"><use href="#i-users"></use></svg>
-            <span>Pending Creator &amp; Celebrity Requests:</span>
+            <span>Pending Zyro Verification Requests:</span>
           </div>
           <button type="button" class="admin-btn" id="refreshVerifyReqsBtn" style="padding:4px 10px;font-size:11px;display:inline-flex;align-items:center;gap:4px">
             <svg class="ico" style="width:12px;height:12px"><use href="#i-refresh"></use></svg>
@@ -4664,48 +4723,61 @@ img.logo-profile.zyro-header-logo {
   </div>
 </div>
 
-<!-- Creator Verification & Subscription Modal -->
+<!-- Zyro Verified (Blue Tick) & Cobra Verified (Admin Award) Modal -->
 <div class="verification-overlay" id="verificationModal">
   <div class="verification-modal">
     <div class="verification-modal-header">
       <div style="display:flex;align-items:center;gap:8px">
         <svg viewBox="0 0 24 24" style="width:24px;height:24px;flex-shrink:0"><use href="#i-verified-blue"></use></svg>
-        <span style="font-weight:900;font-size:17px">Cobra Verified</span>
+        <svg viewBox="0 0 24 24" style="width:24px;height:24px;flex-shrink:0"><use href="#i-verified-cobra"></use></svg>
+        <span style="font-weight:900;font-size:16px">Zyro Verified &amp; Cobra Verified</span>
       </div>
       <button type="button" class="likes-close" id="closeVerificationBtn" aria-label="Close" style="cursor:pointer;background:none;border:none;font-size:18px"><svg class="ico" style="width:18px;height:18px"><use href="#i-close"></use></svg></button>
     </div>
     
     <div class="verification-modal-body">
       <!-- Status Card if already verified -->
-      <div id="verifiedActiveBanner" style="display:none;background:linear-gradient(135deg,rgba(0,149,246,0.12),rgba(0,149,246,0.05));border:1.5px solid #0095F6;border-radius:16px;padding:14px;margin-bottom:16px;text-align:center">
-        <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;color:#e63946;font-size:16px">
-          <svg viewBox="0 0 24 24" style="width:20px;height:20px"><use href="#i-verified-blue"></use></svg>
+      <div id="verifiedActiveBanner" style="display:none;background:linear-gradient(135deg,rgba(0,149,246,0.12),rgba(147,51,234,0.08));border:1.5px solid #0095F6;border-radius:16px;padding:14px;margin-bottom:16px;text-align:center">
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;color:#0095F6;font-size:16px">
+          <span id="activeVerifiedBadgeIcon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;vertical-align:middle"><use href="#i-verified-blue"></use></svg></span>
           <span id="activeVerifiedPlanTitle">Your Account is Verified!</span>
         </div>
-        <p id="activeVerifiedDetails" style="font-size:12px;color:#666;margin:6px 0 0">Official Electric Blue Badge active on your profile.</p>
+        <p id="activeVerifiedDetails" style="font-size:12px;color:#666;margin:6px 0 0">Official badge active on your profile.</p>
       </div>
 
-      <div style="text-align:center;margin-bottom:14px">
-        <h4 style="font-size:18px;font-weight:900;margin:0 0 6px">Get the Electric Blue Tick</h4>
-        <p style="font-size:13px;color:#888;margin:0">
-          Official creator verification, algorithm discovery push aur brand recognition.
-        </p>
-      </div>
-
-      <!-- Mode Selector Tabs -->
-      <div style="display:flex;background:rgba(0,0,0,0.05);border-radius:12px;padding:4px;gap:4px;margin-bottom:16px">
-        <button type="button" id="tabVerifyCreators" class="ig-btn" style="flex:1;background:#fff;border:none;box-shadow:0 2px 6px rgba(0,0,0,.08);font-weight:800;font-size:13px;padding:8px">
-          <svg class="ico" style="width:13px;height:13px;color:#e63946"><use href="#i-rocket"></use></svg>
-          <span>Creator Plans</span>
+      <!-- Mode Selector Tabs (3 Tabs: Zyro Verified | Cobra Verified | Celebrity Free) -->
+      <div style="display:flex;background:rgba(128,128,128,0.1);border-radius:12px;padding:4px;gap:4px;margin-bottom:16px;flex-wrap:wrap">
+        <button type="button" id="tabVerifyCreators" class="ig-btn" style="flex:1;min-width:110px;background:#fff;color:#111;border:none;box-shadow:0 2px 6px rgba(0,0,0,.08);font-weight:800;font-size:12px;padding:8px 6px;display:inline-flex;align-items:center;justify-content:center;gap:5px">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0"><use href="#i-verified-blue"></use></svg>
+          <span>Zyro Verified</span>
         </button>
-        <button type="button" id="tabVerifyCelebrity" class="ig-btn" style="flex:1;background:transparent;border:none;font-weight:700;font-size:13px;padding:8px;color:#666">
+        <button type="button" id="tabVerifyCobra" class="ig-btn" style="flex:1;min-width:110px;background:transparent;color:#666;border:none;font-weight:800;font-size:12px;padding:8px 6px;display:inline-flex;align-items:center;justify-content:center;gap:5px">
+          <svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0"><use href="#i-verified-cobra"></use></svg>
+          <span>Cobra Verified</span>
+        </button>
+        <button type="button" id="tabVerifyCelebrity" class="ig-btn" style="flex:1;min-width:100px;background:transparent;border:none;font-weight:700;font-size:12px;padding:8px 6px;color:#666;display:inline-flex;align-items:center;justify-content:center;gap:4px">
           <svg class="ico" style="width:13px;height:13px;color:#f59e0b"><use href="#i-star"></use></svg>
           <span>Celebrity (Free)</span>
         </button>
       </div>
 
-      <!-- Section 1: Creator Subscription Plans -->
+      <!-- Section 1: Zyro Verified (Blue Tick) Creator Subscription Plans -->
       <div id="verifyCreatorPlansSection">
+        <div style="background:linear-gradient(135deg,#071326,#0c1e3a);color:#fff;border:1px solid rgba(56,189,248,0.35);border-radius:16px;padding:16px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;justify-content:center;width:58px;height:58px;border-radius:16px;background:rgba(0,149,246,0.15);border:1px solid rgba(56,189,248,0.4);flex-shrink:0">
+            <svg viewBox="0 0 24 24" style="width:42px;height:42px;filter:drop-shadow(0 0 8px rgba(56,189,248,0.7))"><use href="#i-verified-blue"></use></svg>
+          </div>
+          <div style="flex:1;min-width:180px">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <span style="font-size:17px;font-weight:900;color:#fff">Zyro Verified (Blue Tick)</span>
+              <span style="font-size:10px;font-weight:800;background:rgba(0,149,246,0.28);color:#7dd3fc;padding:2px 8px;border-radius:999px;border:1px solid rgba(56,189,248,0.4)">Purchase Available</span>
+            </div>
+            <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;line-height:1.45">
+              Standard verification for eligible creators. Username ke samne sleek 3D Electric Blue seal, algorithm reach boost aur official creator identity.
+            </p>
+          </div>
+        </div>
+
         <div style="background:rgba(128,128,128,0.08);border:1px dashed #9a9a9a;border-radius:12px;padding:8px 12px;font-size:12px;color:#888;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px">
           <svg class="ico" style="width:14px;height:14px;flex-shrink:0"><use href="#i-flame"></use></svg>
           <span>Launch Offer: Pehle mahine special introductory price, iske baad agla renewal 2x hoga.</span>
@@ -4715,6 +4787,7 @@ img.logo-profile.zyro-header-logo {
           <!-- Plan 1: Starter -->
           <div class="verification-plan-card">
             <div class="plan-name">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px"><use href="#i-verified-blue"></use></svg>
               <span>Starter Creator</span>
             </div>
             <div class="plan-price-wrap">
@@ -4723,11 +4796,11 @@ img.logo-profile.zyro-header-logo {
               <div class="plan-renewal">Agla renewal: ₹98/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Electric Blue Tick</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Zyro Verified Blue Tick</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>1.5x Algorithm Reach Push</span></li>
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Badge in comments &amp; search</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Badge on username &amp; comments</span></li>
             </ul>
-            <button type="button" class="plan-action-btn" data-plan-id="creator_starter" data-plan-name="Starter Creator" data-price="49" data-renewal="98">
+            <button type="button" class="plan-action-btn" data-plan-id="creator_starter" data-plan-name="Starter Creator (Zyro Verified)" data-price="49" data-renewal="98" style="background:#0095F6">
               <svg class="ico"><use href="#i-check"></use></svg>
               <span>Apply (₹49)</span>
             </button>
@@ -4735,22 +4808,23 @@ img.logo-profile.zyro-header-logo {
 
           <!-- Plan 2: Pro (Featured) -->
           <div class="verification-plan-card featured">
-            <span class="plan-popular-tag">POPULAR</span>
+            <span class="plan-popular-tag" style="background:#0095F6">POPULAR</span>
             <div class="plan-name">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px"><use href="#i-verified-blue"></use></svg>
               <span>Pro Creator</span>
             </div>
             <div class="plan-price-wrap">
-              <span class="plan-price">₹99</span>
+              <span class="plan-price" style="color:#0095F6">₹99</span>
               <span class="plan-period">/ 1st month</span>
               <div class="plan-renewal">Agla renewal: ₹198/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Official Electric Blue Tick</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Zyro Verified Blue Tick</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>2.5x Algorithm Super Boost</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Suggested Creators priority</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>HD Video upload support</span></li>
             </ul>
-            <button type="button" class="plan-action-btn" data-plan-id="creator_pro" data-plan-name="Pro Creator" data-price="99" data-renewal="198" style="background:#e63946">
+            <button type="button" class="plan-action-btn" data-plan-id="creator_pro" data-plan-name="Pro Creator (Zyro Verified)" data-price="99" data-renewal="198" style="background:#0095F6">
               <svg class="ico"><use href="#i-rocket"></use></svg>
               <span>Apply (₹99)</span>
             </button>
@@ -4759,6 +4833,7 @@ img.logo-profile.zyro-header-logo {
           <!-- Plan 3: Elite -->
           <div class="verification-plan-card">
             <div class="plan-name">
+              <svg viewBox="0 0 24 24" style="width:18px;height:18px"><use href="#i-verified-blue"></use></svg>
               <span>Elite VIP Creator</span>
             </div>
             <div class="plan-price-wrap">
@@ -4767,12 +4842,12 @@ img.logo-profile.zyro-header-logo {
               <div class="plan-renewal">Agla renewal: ₹598/month (2x)</div>
             </div>
             <ul class="plan-features">
-              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Electric Blue / VIP Badge</span></li>
+              <li><svg class="ico"><use href="#i-check"></use></svg> <span>Zyro Verified VIP Blue Tick</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>5x Mega Viral Push on Explore</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Direct Admin priority support</span></li>
               <li><svg class="ico"><use href="#i-check"></use></svg> <span>Top Featured Reel badge</span></li>
             </ul>
-            <button type="button" class="plan-action-btn" data-plan-id="creator_elite" data-plan-name="Elite VIP Creator" data-price="299" data-renewal="598">
+            <button type="button" class="plan-action-btn" data-plan-id="creator_elite" data-plan-name="Elite VIP Creator (Zyro Verified)" data-price="299" data-renewal="598" style="background:#0095F6">
               <svg class="ico"><use href="#i-star"></use></svg>
               <span>Apply (₹299)</span>
             </button>
@@ -4780,7 +4855,104 @@ img.logo-profile.zyro-header-logo {
         </div>
       </div>
 
-      <!-- Section 2: Celebrity Free Verification Request -->
+      <!-- Section 2: Cobra Verified (Exclusive Admin Award Showcase & Guide) -->
+      <div id="verifyCobraSection" style="display:none">
+        <div style="background:linear-gradient(145deg,#050914 0%,#0b132b 55%,#1b0c2e 100%);color:#fff;border:1.5px solid rgba(0,240,255,0.4);border-radius:18px;padding:18px;box-shadow:0 12px 32px rgba(0,0,0,0.45)">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+            <div style="width:76px;height:76px;border-radius:20px;background:radial-gradient(circle,rgba(0,240,255,0.22) 0%,rgba(217,70,239,0.12) 70%,transparent 100%);border:1px solid rgba(0,240,255,0.45);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <svg viewBox="0 0 24 24" style="width:58px;height:58px;filter:drop-shadow(0 0 10px rgba(0,240,255,0.65))"><use href="#i-verified-cobra"></use></svg>
+            </div>
+            <div style="flex:1;min-width:200px">
+              <div style="font-size:11px;font-weight:800;color:#38bdf8;letter-spacing:0.6px;text-transform:uppercase">UPComedyHub Exclusive</div>
+              <div style="font-size:22px;font-weight:900;background:linear-gradient(90deg,#38bdf8,#c084fc,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:2px 0">Cobra Verified</div>
+              <div style="font-size:12px;font-weight:700;color:#67e8f9">Trusted Creators &nbsp;|&nbsp; Admin Award</div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;line-height:1.55;color:#cbd5e1;margin:0 0 16px">
+            <strong>Cobra Verified</strong> ek exclusive badge hai jo un trusted creators ko diya jata hai jinhone community me apna positive impact, authenticity and consistency prove kiya hai.
+          </p>
+
+          <!-- 4 Pillars Row -->
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:12px 8px;margin-bottom:16px">
+            <div>
+              <div style="color:#38bdf8;font-size:18px;margin-bottom:3px">🛡️</div>
+              <div style="font-size:11px;font-weight:800;color:#e2e8f0">Trust</div>
+            </div>
+            <div>
+              <div style="color:#38bdf8;font-size:18px;margin-bottom:3px">⭐</div>
+              <div style="font-size:11px;font-weight:800;color:#e2e8f0">Authenticity</div>
+            </div>
+            <div>
+              <div style="color:#38bdf8;font-size:18px;margin-bottom:3px">👥</div>
+              <div style="font-size:11px;font-weight:800;color:#e2e8f0">Community Impact</div>
+            </div>
+            <div>
+              <div style="color:#38bdf8;font-size:18px;margin-bottom:3px">👑</div>
+              <div style="font-size:11px;font-weight:800;color:#e2e8f0">Exclusive Recognition</div>
+            </div>
+          </div>
+
+          <!-- How It Will Work (4 Steps) -->
+          <div style="font-size:14px;font-weight:900;color:#7dd3fc;margin-bottom:10px">How It Will Work</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:16px">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(56,189,248,0.22);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(0,149,246,0.25);border:1px solid #38bdf8;color:#38bdf8;font-weight:900;font-size:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">1</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#fff">Admin Review</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">Content, behaviour &amp; community contribution ke basis par.</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(192,132,252,0.25);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(168,85,247,0.25);border:1px solid #c084fc;color:#c084fc;font-weight:900;font-size:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">2</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#fff">Selected Creators</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">Sirf trusted aur valuable creators ko admin se diya jayega.</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(45,212,191,0.25);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(20,184,166,0.25);border:1px solid #2dd4bf;color:#2dd4bf;font-weight:900;font-size:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">3</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#fff">Cannot Be Purchased</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">Ye badge paise dekar directly nahi mil sakta.</div>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(244,63,94,0.28);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start">
+              <span style="width:24px;height:24px;border-radius:50%;background:rgba(244,63,94,0.25);border:1px solid #fb7185;color:#fb7185;font-weight:900;font-size:12px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0">4</span>
+              <div>
+                <div style="font-size:12px;font-weight:800;color:#fff">Can Be Revoked</div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:2px">Misconduct ya rule violation par admin ise remove kar sakta hai.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison: Zyro Verified vs Cobra Verified -->
+          <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px">
+            <div style="background:rgba(0,149,246,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center">
+              <svg viewBox="0 0 24 24" style="width:36px;height:36px;flex-shrink:0"><use href="#i-verified-blue"></use></svg>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                  <strong style="font-size:13px;color:#fff">Zyro Verified</strong>
+                  <span style="font-size:9px;font-weight:800;background:rgba(0,149,246,0.3);color:#7dd3fc;padding:2px 6px;border-radius:999px">Purchase Available</span>
+                </div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:3px">Standard verification for eligible users. Available through creator plans.</div>
+              </div>
+            </div>
+            <div style="background:rgba(168,85,247,0.12);border:1px solid rgba(217,70,239,0.35);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center">
+              <svg viewBox="0 0 24 24" style="width:36px;height:36px;flex-shrink:0"><use href="#i-verified-cobra"></use></svg>
+              <div>
+                <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                  <strong style="font-size:13px;color:#fff">Cobra Verified</strong>
+                  <span style="font-size:9px;font-weight:800;background:rgba(168,85,247,0.35);color:#e9d5ff;padding:2px 6px;border-radius:999px">Admin Only</span>
+                </div>
+                <div style="font-size:11px;color:#94a3b8;margin-top:3px">Exclusive badge for trusted creators. Given by admin based on authenticity &amp; value.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Celebrity Free Verification Request -->
       <div id="verifyCelebritySection" style="display:none">
         <div class="celebrity-banner">
           <div style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#d97706;margin-bottom:6px">
@@ -4814,11 +4986,11 @@ img.logo-profile.zyro-header-logo {
       </div>
 
       <!-- Application Confirmation Box -->
-      <div id="verifyConfirmBox" style="display:none;background:#fafafa;border:1.5px solid #e63946;border-radius:16px;padding:16px;margin-top:14px">
-        <h5 style="font-size:15px;font-weight:800;margin:0 0 6px;color:#e63946" id="confirmPlanTitle">Confirm Plan</h5>
+      <div id="verifyConfirmBox" style="display:none;background:#fafafa;border:1.5px solid #0095F6;border-radius:16px;padding:16px;margin-top:14px">
+        <h5 style="font-size:15px;font-weight:800;margin:0 0 6px;color:#0095F6" id="confirmPlanTitle">Confirm Plan</h5>
         <p style="font-size:13px;margin:0 0 12px;color:#555" id="confirmPlanText"></p>
         <div style="display:flex;gap:10px">
-          <button type="button" class="plan-action-btn" id="confirmApplyBtn">
+          <button type="button" class="plan-action-btn" id="confirmApplyBtn" style="background:#0095F6">
             <svg class="ico"><use href="#i-check"></use></svg>
             <span>Confirm &amp; Send Request to Admin</span>
           </button>
@@ -4927,7 +5099,7 @@ img.logo-profile.zyro-header-logo {
   <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;flex-shrink:0">
     <svg viewBox="0 0 24 24" style="width:22px;height:22px;display:block"><use href="#i-verified-blue"></use></svg>
   </span>
-  <span class="snr-label" style="font-weight:700">Cobra Verified</span>
+  <span class="snr-label" style="font-weight:700">Zyro &amp; Cobra Verified</span>
   <span class="snr-value" id="settingsVerifiedStatus" style="color:#0095F6;font-weight:700">Get Verified</span>
   <svg class="snr-chev"><use href="#i-chevron"></use></svg>
 </div>
@@ -7061,21 +7233,58 @@ function followId(from,to){ return from+"_"+to; }
 function avatarFor(data){ return (data && (data.photoURL||data.photo||data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
 let cachedCurrentUserProfile = null;
 function getVerifiedBadge(isVerified, type = "blue", size = 15) {
-  if (!isVerified) return "";
-  const isGold = type === "gold" || type === "celebrity" || type === "celebrity_free";
-  const iconId = isGold ? "i-verified-gold" : "i-verified-blue";
-  const title = isGold ? "Celebrity Verified ⭐" : "Official Verified Account ✔️";
-  return `<span class="verified-badge-wrap${isGold ? " gold" : ""}" title="${title}" aria-label="${title}">` +
-    `<svg viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle" aria-hidden="true">` +
-    `<use href="#${iconId}"></use>` +
-    `</svg>` +
-    `</span>`;
+  if (!isVerified && type !== "cobra" && type !== "both") return "";
+  const t = String(type || "blue").toLowerCase();
+  const hasCobra = t === "cobra" || t === "both" || t === "cobra_verified";
+  const hasBlue = t === "blue" || t === "both" || t === "zyro" || t === "zyro_verified" || t === "creator_starter" || t === "creator_pro" || t === "creator_elite" || t === "celebrity_free" || t === "celebrity" || t === "gold";
+  let html = "";
+  if (hasBlue || (!hasCobra && isVerified)) {
+    const titleBlue = "Zyro Verified ✔️";
+    html += `<span class="verified-badge-wrap" title="${titleBlue}" aria-label="${titleBlue}">` +
+      `<svg viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle" aria-hidden="true">` +
+      `<use href="#i-verified-blue"></use>` +
+      `</svg>` +
+      `</span>`;
+  }
+  if (hasCobra) {
+    const cobraSize = Math.round(size * 1.08);
+    const titleCobra = "Cobra Verified — Trusted Creator | Admin Award";
+    html += `<span class="verified-badge-wrap cobra" title="${titleCobra}" aria-label="${titleCobra}">` +
+      `<svg viewBox="0 0 24 24" style="width:${cobraSize}px;height:${cobraSize}px;vertical-align:middle" aria-hidden="true">` +
+      `<use href="#i-verified-cobra"></use>` +
+      `</svg>` +
+      `</span>`;
+  }
+  return html;
+}
+
+function getVerifiedPillHtml(data) {
+  if (!data) return "";
+  const isV = !!data.isVerified || !!data.cobraVerified;
+  if (!isV) return "";
+  const t = String(data.verifiedType || (data.cobraVerified ? "cobra" : "blue")).toLowerCase();
+  const hasCobra = !!data.cobraVerified || t === "cobra" || t === "both" || t === "cobra_verified";
+  const hasBlue = t === "blue" || t === "both" || t === "zyro" || t.startsWith("creator_") || t.startsWith("celebrity") || (!hasCobra && isV);
+  let pills = "";
+  if (hasCobra) {
+    pills += `<span class="cobra-verified-pill" onclick="openVerificationModal('cobra')" style="cursor:pointer" title="Trusted Creator | Exclusive Admin Award">` +
+      `<svg viewBox="0 0 24 24"><use href="#i-verified-cobra"></use></svg>` +
+      `<span>Cobra Verified</span>` +
+      `</span>`;
+  }
+  if (hasBlue) {
+    pills += `<span class="zyro-verified-pill" onclick="openVerificationModal('creators')" style="cursor:pointer;margin-left:${hasCobra ? '6px' : '0'}" title="Zyro Verified Official Account">` +
+      `<svg viewBox="0 0 24 24"><use href="#i-verified-blue"></use></svg>` +
+      `<span>Zyro Verified</span>` +
+      `</span>`;
+  }
+  return pills;
 }
 
 /* ---------- VERIFICATION MODAL & PLANS LOGIC ---------- */
 let pendingPlanApplication = null;
 
-function openVerificationModal(){
+function openVerificationModal(defaultTab){
   const modal = document.getElementById("verificationModal");
   if(!modal) return;
   modal.classList.add("show");
@@ -7084,20 +7293,30 @@ function openVerificationModal(){
   const banner = document.getElementById("verifiedActiveBanner");
   const titleEl = document.getElementById("activeVerifiedPlanTitle");
   const detEl = document.getElementById("activeVerifiedDetails");
-  if(profile.isVerified && banner){
+  const iconEl = document.getElementById("activeVerifiedBadgeIcon");
+  const isV = !!profile.isVerified || !!profile.cobraVerified;
+  if(isV && banner){
     banner.style.display = "block";
-    const isGold = profile.verifiedType === "gold" || profile.verifiedType === "celebrity" || profile.verifiedType === "celebrity_free";
-    if(titleEl) titleEl.textContent = isGold ? "VIP Celebrity Verified Account 👑" : "Electric Blue Verified Account 🔴";
+    const t = String(profile.verifiedType || (profile.cobraVerified ? "cobra" : "blue")).toLowerCase();
+    const isCobra = !!profile.cobraVerified || t === "cobra" || t === "both";
+    if(iconEl) {
+      iconEl.innerHTML = getVerifiedBadge(true, isCobra ? (t === "both" ? "both" : "cobra") : "blue", 22);
+    }
+    if(titleEl) {
+      titleEl.textContent = t === "both"
+        ? "Zyro Verified + Cobra Verified Account ⚡"
+        : (isCobra ? "Cobra Verified — Trusted Creator 🛡️" : "Zyro Verified Account ✔️");
+    }
     if(detEl) {
-      const planName = profile.verifiedPlan || (isGold ? "Celebrity Free" : "Creator Verified");
+      const planName = profile.verifiedPlan || (isCobra ? "Cobra Verified (Admin Award)" : "Zyro Verified");
       const duration = profile.verifiedDuration ? " · Validity: " + profile.verifiedDuration : "";
-      detEl.textContent = planName + duration + " · Official badge active across UPComedyHub.";
+      detEl.textContent = planName + duration + " · Official badge active on your username.";
     }
   } else if(banner) {
     banner.style.display = "none";
   }
 
-  switchVerificationTab("creators");
+  switchVerificationTab(defaultTab || "creators");
   const cBox = document.getElementById("verifyConfirmBox");
   if(cBox) cBox.style.display = "none";
 }
@@ -7110,39 +7329,28 @@ function closeVerificationModal(){
 
 function switchVerificationTab(tab){
   const creatorsSec = document.getElementById("verifyCreatorPlansSection");
+  const cobraSec = document.getElementById("verifyCobraSection");
   const celebSec = document.getElementById("verifyCelebritySection");
   const tabCr = document.getElementById("tabVerifyCreators");
+  const tabCo = document.getElementById("tabVerifyCobra");
   const tabCe = document.getElementById("tabVerifyCelebrity");
   const cBox = document.getElementById("verifyConfirmBox");
   if(cBox) cBox.style.display = "none";
 
-  if(tab === "creators"){
-    if(creatorsSec) creatorsSec.style.display = "block";
-    if(celebSec) celebSec.style.display = "none";
-    if(tabCr){
-      tabCr.style.background = "#fff";
-      tabCr.style.color = "#111";
-      tabCr.style.boxShadow = "0 2px 6px rgba(0,0,0,.08)";
-    }
-    if(tabCe){
-      tabCe.style.background = "transparent";
-      tabCe.style.color = "#666";
-      tabCe.style.boxShadow = "none";
-    }
-  } else {
-    if(creatorsSec) creatorsSec.style.display = "none";
-    if(celebSec) celebSec.style.display = "block";
-    if(tabCe){
-      tabCe.style.background = "#fff";
-      tabCe.style.color = "#111";
-      tabCe.style.boxShadow = "0 2px 6px rgba(0,0,0,.08)";
-    }
-    if(tabCr){
-      tabCr.style.background = "transparent";
-      tabCr.style.color = "#666";
-      tabCr.style.boxShadow = "none";
-    }
-  }
+  if(creatorsSec) creatorsSec.style.display = tab === "creators" ? "block" : "none";
+  if(cobraSec) cobraSec.style.display = tab === "cobra" ? "block" : "none";
+  if(celebSec) celebSec.style.display = tab === "celebrity" ? "block" : "none";
+
+  [
+    [tabCr, tab === "creators"],
+    [tabCo, tab === "cobra"],
+    [tabCe, tab === "celebrity"]
+  ].forEach(([btn, active]) => {
+    if(!btn) return;
+    btn.style.background = active ? "#fff" : "transparent";
+    btn.style.color = active ? "#111" : "#666";
+    btn.style.boxShadow = active ? "0 2px 6px rgba(0,0,0,.08)" : "none";
+  });
 }
 
 function prepareCreatorPlanApplication(planId, planName, price, renewal){
@@ -7165,7 +7373,7 @@ function prepareCreatorPlanApplication(planId, planName, price, renewal){
   if(cText) {
     cText.innerHTML = `Pehle mahine ka offer: <strong>₹${price} / month</strong>.<br>` +
       `Iske baad agla renewal do-guna: <strong>₹${renewal} / month (2x)</strong> hoga.<br>` +
-      `Admin review karke aapka Electric Blue Verified badge activate karega.`;
+      `Admin review karke aapka <strong>Zyro Verified (Blue Tick)</strong> badge activate karega.`;
   }
   if(cBox) {
     cBox.style.display = "block";
@@ -7195,7 +7403,7 @@ async function submitCreatorPlanApplication(){
     };
     await db.collection("verificationRequests").add(reqData);
     if(typeof createNotification === "function") {
-      await createNotification(ADMIN_UID, "verification", "🎖️ New Creator Verification Application", 
+      await createNotification(ADMIN_UID, "verification", "🎖️ New Zyro Verified Application", 
         (currentUser.displayName || "Creator") + " applied for " + pendingPlanApplication.planName + " (₹" + pendingPlanApplication.price + "/mo)", 
         { userId: currentUser.uid, planId: pendingPlanApplication.planId }
       );
@@ -7251,11 +7459,11 @@ async function submitCelebrityVerificationRequest(){
     await db.collection("verificationRequests").add(reqData);
     if(typeof createNotification === "function") {
       await createNotification(ADMIN_UID, "verification", "👑 Celebrity Free Verification Request", 
-        (currentUser.displayName || "Celebrity") + " requested Free Verification (" + category + ")", 
+        (currentUser.displayName || "Celebrity") + " requested Free Zyro Verification (" + category + ")", 
         { userId: currentUser.uid, proofUrl }
       );
     }
-    showToast("✅ Celebrity request sent! Admin verify karke FREE badge grant karega.");
+    showToast("✅ Celebrity request sent! Admin verify karke FREE Zyro Verified badge grant karega.");
     closeVerificationModal();
   } catch(e) {
     console.error("Celebrity apply error:", e);
@@ -7306,21 +7514,25 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
       return;
     }
 
-    let planLabel = "Electric Blue Verified";
-    if(tierVal === "celebrity_free") planLabel = "Celebrity VIP (100% Free)";
-    else if(tierVal === "creator_starter") planLabel = "Starter Creator (₹49/mo)";
-    else if(tierVal === "creator_pro") planLabel = "Pro Creator (₹99/mo)";
-    else if(tierVal === "creator_elite") planLabel = "Elite VIP Creator (₹299/mo)";
+    let planLabel = "Zyro Verified (Blue Tick)";
+    if(tierVal === "cobra") planLabel = "Cobra Verified (Trusted Creator Award)";
+    else if(tierVal === "both") planLabel = "Zyro Verified + Cobra Verified";
+    else if(tierVal === "celebrity_free") planLabel = "Celebrity VIP (Free Zyro Verified)";
+    else if(tierVal === "creator_starter") planLabel = "Starter Creator (Zyro Verified)";
+    else if(tierVal === "creator_pro") planLabel = "Pro Creator (Zyro Verified)";
+    else if(tierVal === "creator_elite") planLabel = "Elite VIP Creator (Zyro Verified)";
 
     const durationLabel = durVal === 0 ? "Lifetime / Permanent" : durVal + " Days";
+    const isCobraAward = tierVal === "cobra" || tierVal === "both";
 
     const updatePayload = {
       isVerified: true,
+      cobraVerified: isCobraAward,
       verifiedType: tierVal,
       verifiedPlan: planLabel,
       verifiedDuration: durationLabel,
       verifiedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      verifiedNote: note || "Granted by Admin"
+      verifiedNote: note || (isCobraAward ? "Cobra Verified Admin Award" : "Zyro Verified by Admin")
     };
 
     const batch = db.batch();
@@ -7336,14 +7548,14 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
 
     // Send notification to user
     if(typeof createNotification === "function"){
-      await createNotification(targetUid, "verification", "🎉 Congratulations! Account Verified", 
-        "Aapka UPComedyHub official " + planLabel + " activate ho gaya hai!", 
+      await createNotification(targetUid, "verification", isCobraAward ? "🐍🛡️ Cobra Verified Awarded!" : "🎉 Account Zyro Verified!", 
+        "Aapka UPComedyHub official " + planLabel + " badge activate ho gaya hai!", 
         { tier: tierVal }
       );
     }
 
-    showToast("✅ Verified tick grant kiya gaya!");
-    if(currentUser.uid === targetUid) await loadProfileIdentity();
+    showToast(isCobraAward ? "🐍 Cobra Verified badge grant kiya gaya!" : "✅ Zyro Verified badge grant kiya gaya!");
+    if(currentUser && currentUser.uid === targetUid) await loadProfileIdentity();
     loadPendingVerificationRequests();
   } catch(e) {
     console.error("Grant error:", e);
@@ -7376,6 +7588,7 @@ async function adminRevokeVerification(targetIdentifier){
     }
     const updatePayload = {
       isVerified: false,
+      cobraVerified: false,
       verifiedType: null,
       verifiedPlan: null,
       verifiedDuration: null,
@@ -7386,8 +7599,8 @@ async function adminRevokeVerification(targetIdentifier){
     batch.set(db.collection("publicProfiles").doc(targetUid), updatePayload, { merge: true });
     await batch.commit();
 
-    showToast("🗑️ Verified tick revoke kar diya gaya");
-    if(currentUser.uid === targetUid) await loadProfileIdentity();
+    showToast("🗑️ Verification badge revoke kar diya gaya");
+    if(currentUser && currentUser.uid === targetUid) await loadProfileIdentity();
     loadPendingVerificationRequests();
   } catch(e) {
     console.error("Revoke error:", e);
@@ -8436,8 +8649,9 @@ async function loadProfileIdentity(){
     const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
     allAvatarEls.forEach(function(el){ try { if(currentProfilePhotoURL) el.src = currentProfilePhotoURL; } catch(e){} });
 
-    const isV = !!data.isVerified;
-    const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
+    const isV = !!data.isVerified || !!data.cobraVerified;
+    const vType = data.verifiedType || (data.cobraVerified ? "cobra" : "blue");
+    const vBadge = getVerifiedBadge(isV, vType, 16);
     const un = document.getElementById("profileUsername"); 
     if(un) un.textContent = "@"+(data.username||"user");
     
@@ -8447,14 +8661,31 @@ async function loadProfileIdentity(){
     
     const uNameEl = document.getElementById("userName");
     if(uNameEl) uNameEl.textContent = data.displayName || (currentUser ? currentUser.displayName : "User");
+
+    const vPillSlot = document.getElementById("profileVerifiedPillSlot");
+    if(vPillSlot){
+      const pillHtml = getVerifiedPillHtml(data);
+      if(pillHtml){
+        vPillSlot.innerHTML = pillHtml;
+        vPillSlot.style.display = "block";
+      } else {
+        vPillSlot.innerHTML = "";
+        vPillSlot.style.display = "none";
+      }
+    }
     
     const epName = document.getElementById("editProfileNamePreview");
     if(epName) epName.textContent = data.displayName || currentUser.displayName || "User";
 
+    const isCobra = !!data.cobraVerified || vType === "cobra" || vType === "both";
+    const vStatusLabel = isV ? (isCobra ? "Cobra Verified 🛡️" : "Zyro Verified ✓") : "Get Verified";
     const vBtnLabel = document.getElementById("profileVerifiedBtnLabel");
-    if(vBtnLabel) vBtnLabel.textContent = isV ? "Verified ✓" : "Get Verified";
+    if(vBtnLabel) vBtnLabel.textContent = vStatusLabel;
     const vSetStatus = document.getElementById("settingsVerifiedStatus");
-    if(vSetStatus) vSetStatus.textContent = isV ? "Verified ✓" : "Get Verified"; if(vSetStatus) vSetStatus.style.color = "#0095F6";
+    if(vSetStatus) {
+      vSetStatus.textContent = vStatusLabel;
+      vSetStatus.style.color = isCobra ? "#a855f7" : "#0095F6";
+    }
     
     const pb = document.getElementById("profileBio");
     if(pb) pb.textContent = data.bio || "No bio yet.";
@@ -8519,8 +8750,9 @@ function updateUIProfileIdentity(data){
   const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
   allAvatarEls.forEach(function(el){ try { if(photo) el.src = photo; } catch(e){} });
 
-  const isV = !!data.isVerified;
-  const vBadge = getVerifiedBadge(isV, data.verifiedType || "blue", 16);
+  const isV = !!data.isVerified || !!data.cobraVerified;
+  const vType = data.verifiedType || (data.cobraVerified ? "cobra" : "blue");
+  const vBadge = getVerifiedBadge(isV, vType, 16);
   const un = document.getElementById("profileUsername"); 
   if(un) un.textContent = "@"+(data.username||"guest");
 
@@ -8529,6 +8761,18 @@ function updateUIProfileIdentity(data){
 
   const uNameEl = document.getElementById("userName");
   if(uNameEl) uNameEl.textContent = data.displayName || (currentUser ? currentUser.displayName : "Guest User");
+
+  const vPillSlot = document.getElementById("profileVerifiedPillSlot");
+  if(vPillSlot){
+    const pillHtml = getVerifiedPillHtml(data);
+    if(pillHtml){
+      vPillSlot.innerHTML = pillHtml;
+      vPillSlot.style.display = "block";
+    } else {
+      vPillSlot.innerHTML = "";
+      vPillSlot.style.display = "none";
+    }
+  }
 
   const epName = document.getElementById("editProfileNamePreview");
   if(epName) epName.textContent = data.displayName || (currentUser ? currentUser.displayName : "Guest User");
@@ -12058,8 +12302,8 @@ async function buildSuggestedCreatorsUI(creators, container){
 
     card.innerHTML = '<img class="suggested-creator-avatar" src="'+escapeAttr(avatar)+'">'
       + '<div class="suggested-creator-meta">'
-      +   '<div class="suggested-creator-name">'+escapeHtml(name)+verifiedBadge+followsYouBadge+'</div>'
-      +   '<div class="suggested-creator-user">@'+escapeHtml(uname)+'</div>'
+      +   '<div class="suggested-creator-name">'+escapeHtml(name)+followsYouBadge+'</div>'
+      +   '<div class="suggested-creator-user">@'+escapeHtml(uname)+verifiedBadge+'</div>'
       +   '<div class="suggested-creator-stats">'+(c.followersCount ? c.followersCount+' followers' : 'Comedy Creator')+'</div>'
       + '</div>'
       + (currentUser && c.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-creator-uid="'+escapeAttr(c.uid)+'">'+followBtnText+'</button>' : '');
@@ -12342,8 +12586,8 @@ async function buildCreatorSpotlightCard(user){
 
   card.innerHTML = '<img class="search-spotlight-avatar" src="'+escapeAttr(avatar)+'">'
     + '<div class="search-spotlight-info">'
-    +   '<div class="search-spotlight-name">'+escapeHtml(name)+verifiedBadge+followsYouBadge+'</div>'
-    +   '<div class="search-spotlight-user">@'+escapeHtml(uname)+'</div>'
+    +   '<div class="search-spotlight-name">'+escapeHtml(name)+followsYouBadge+'</div>'
+    +   '<div class="search-spotlight-user">@'+escapeHtml(uname)+verifiedBadge+'</div>'
     +   '<div class="search-spotlight-bio">'+escapeHtml(bio)+'</div>'
     +   '<div class="search-spotlight-actions">'
     +     (currentUser && user.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-spotlight-uid="'+escapeAttr(user.uid)+'">'+followBtnText+'</button>' : '')
@@ -12398,7 +12642,7 @@ async function buildAccountResultRow(user){
   const name = user.displayName || "User";
   const uname = user.username || "user";
   const bio = user.bio || "";
-  const verifiedBadge = getVerifiedBadge(user.isVerified, user.verifiedType || "blue", 14);
+  const verifiedBadge = getVerifiedBadge(user.isVerified || user.cobraVerified, user.verifiedType || (user.cobraVerified ? "cobra" : "blue"), 14);
 
   let isFollowing = false;
   let isFollowedByThem = false;
@@ -12419,8 +12663,8 @@ async function buildAccountResultRow(user){
 
   row.innerHTML = '<img class="search-account-avatar" src="'+escapeAttr(avatar)+'">'
     + '<div class="search-account-meta">'
-    +   '<div class="search-account-name">'+escapeHtml(name)+verifiedBadge+followsYouChip+'</div>'
-    +   '<div class="search-account-username">@'+escapeHtml(uname)+'</div>'
+    +   '<div class="search-account-name">'+escapeHtml(name)+followsYouChip+'</div>'
+    +   '<div class="search-account-username">@'+escapeHtml(uname)+verifiedBadge+'</div>'
     +   (bio ? '<div class="search-account-bio">'+escapeHtml(bio)+'</div>' : '')
     + '</div>'
     + (currentUser && user.uid !== currentUser.uid ? '<button type="button" class="btn-action-follow '+followBtnClass+'" data-follow-row>'+followBtnText+'</button>' : '');
@@ -13736,7 +13980,9 @@ async function showUserProfileModal(userOrUid){
     +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + '<span id="rpFollowsYouSlot"></span></div>' + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + getVerifiedBadge(userData.isVerified, userData.verifiedType || "blue", 15) + '</div>'
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + getVerifiedBadge(userData.isVerified || userData.cobraVerified, userData.verifiedType || (userData.cobraVerified ? "cobra" : "blue"), 15) + '</div>'
+    + (getVerifiedPillHtml(userData) ? '<div style="margin:4px 0">' + getVerifiedPillHtml(userData) + '</div>' : '')
     + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
     + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
     +   (isSelf ? '<button type="button" class="ig-btn" id="modalEditSelfBtn"><svg class="ico" style="width:13px;height:13px;margin-right:4px;vertical-align:-1px"><use href="#i-edit"></use></svg>Edit Profile</button>' : '<span style="font-size:12px;color:#888;padding:6px">Checking follow status...</span>')
@@ -17795,29 +18041,38 @@ window.addEventListener("DOMContentLoaded",()=>{
       if(snap.empty){ list.innerHTML = "<p style='color:#888;font-size:13px'>No users</p>"; return; }
       list.innerHTML = snap.docs.map(doc=>{ 
         const d = doc.data(); 
-        const isV = !!d.isVerified;
-        const vBadge = getVerifiedBadge(isV, d.verifiedType || "blue", 14);
-        const vChip = isV ? `<span class="verified-chip" style="margin-left:6px">${vBadge} ${escapeHtml(d.verifiedPlan || 'Verified')}</span>` : '';
-        return '<div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px">' +
+        const isV = !!d.isVerified || !!d.cobraVerified;
+        const vType = d.verifiedType || (d.cobraVerified ? "cobra" : "blue");
+        const isCobra = !!d.cobraVerified || vType === "cobra" || vType === "both";
+        const vBadge = getVerifiedBadge(isV, vType, 14);
+        const vChip = isV ? `<span class="verified-chip${isCobra ? ' cobra' : ''}" style="margin-left:6px">${vBadge} ${escapeHtml(d.verifiedPlan || (isCobra ? 'Cobra Verified' : 'Zyro Verified'))}</span>` : '';
+        return '<div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">' +
           '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">' +
             '<img src="'+escapeAttr(d.photo||"")+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0" onerror="this.src=\'icon.svg\'">' +
             '<div style="min-width:0;text-overflow:ellipsis;overflow:hidden">' +
-              '<strong>'+escapeHtml(d.name||"User")+'</strong>' + vChip +
+              '<strong>'+escapeHtml(d.name||"User")+'</strong>' + (d.username ? ' <span style="color:#666;font-size:12px">@'+escapeHtml(d.username)+'</span>' : '') + vChip +
               '<br><small style="color:#888">'+escapeHtml(d.email||"")+' · <code>'+doc.id.slice(0,10)+'...</code></small>' +
             '</div>' +
           '</div>' +
-          '<div style="display:flex;gap:4px;flex-shrink:0">' +
-            (isV 
-              ? '<button type="button" class="admin-mini-btn red" data-user-rev="'+doc.id+'" title="Revoke"><svg class="ico" style="width:12px;height:12px"><use href="#i-trash"></use></svg> Revoke</button>'
-              : '<button type="button" class="admin-mini-btn green" data-user-grant="'+doc.id+'" title="Grant Blue Tick"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"></use></svg> Verify Blue Tick</button>') +
+          '<div style="display:flex;gap:4px;flex-shrink:0;flex-wrap:wrap">' +
+            '<button type="button" class="admin-mini-btn green" style="background:#0095F6" data-user-grant-blue="'+doc.id+'" title="Grant Zyro Verified (Blue Tick)"><svg viewBox="0 0 24 24" style="width:12px;height:12px"><use href="#i-verified-blue"></use></svg> Zyro Tick</button>' +
+            '<button type="button" class="admin-mini-btn" style="background:linear-gradient(135deg,#0284c7,#9333ea);color:#fff" data-user-grant-cobra="'+doc.id+'" title="Grant Cobra Verified (Admin Award)"><svg viewBox="0 0 24 24" style="width:12px;height:12px"><use href="#i-verified-cobra"></use></svg> Cobra</button>' +
+            (isV ? '<button type="button" class="admin-mini-btn red" data-user-rev="'+doc.id+'" title="Revoke Badge"><svg class="ico" style="width:12px;height:12px"><use href="#i-trash"></use></svg> Revoke</button>' : '') +
           '</div>' +
         '</div>'; 
       }).join("");
 
-      list.querySelectorAll("[data-user-grant]").forEach(b => {
+      list.querySelectorAll("[data-user-grant-blue]").forEach(b => {
         b.addEventListener("click", async () => {
-          const uid = b.getAttribute("data-user-grant");
-          await adminGrantVerification(uid, "blue", 0, "Granted from Users list");
+          const uid = b.getAttribute("data-user-grant-blue");
+          await adminGrantVerification(uid, "blue", 0, "Zyro Verified granted from Users list");
+          luBtn.click();
+        });
+      });
+      list.querySelectorAll("[data-user-grant-cobra]").forEach(b => {
+        b.addEventListener("click", async () => {
+          const uid = b.getAttribute("data-user-grant-cobra");
+          await adminGrantVerification(uid, "cobra", 0, "Cobra Verified Admin Award from Users list");
           luBtn.click();
         });
       });
@@ -17841,6 +18096,14 @@ window.addEventListener("DOMContentLoaded",()=>{
     await adminGrantVerification(userInput, tier, dur, note);
   });
 
+  const grantCobraDirectBtn = document.getElementById("adminGrantCobraDirectBtn");
+  if(grantCobraDirectBtn) grantCobraDirectBtn.addEventListener("click", async () => {
+    const userInput = document.getElementById("adminVerifyUserInput")?.value;
+    const dur = document.getElementById("adminVerifyDurationSelect")?.value;
+    const note = document.getElementById("adminVerifyNoteInput")?.value || "Cobra Verified — Trusted Creator Admin Award";
+    await adminGrantVerification(userInput, "cobra", dur, note);
+  });
+
   const revokeVBtn = document.getElementById("adminRevokeVerifyBtn");
   if(revokeVBtn) revokeVBtn.addEventListener("click", async () => {
     const userInput = document.getElementById("adminVerifyUserInput")?.value;
@@ -17852,13 +18115,16 @@ window.addEventListener("DOMContentLoaded",()=>{
 
   /* ---------- VERIFICATION MODAL EVENT LISTENERS ---------- */
   const openVBtn = document.getElementById("profileGetVerifiedBtn");
-  if(openVBtn) openVBtn.addEventListener("click", openVerificationModal);
+  if(openVBtn) openVBtn.addEventListener("click", () => openVerificationModal("creators"));
 
   const closeVBtn = document.getElementById("closeVerificationBtn");
   if(closeVBtn) closeVBtn.addEventListener("click", closeVerificationModal);
 
   const tabVCreators = document.getElementById("tabVerifyCreators");
   if(tabVCreators) tabVCreators.addEventListener("click", () => switchVerificationTab("creators"));
+
+  const tabVCobra = document.getElementById("tabVerifyCobra");
+  if(tabVCobra) tabVCobra.addEventListener("click", () => switchVerificationTab("cobra"));
 
   const tabVCeleb = document.getElementById("tabVerifyCelebrity");
   if(tabVCeleb) tabVCeleb.addEventListener("click", () => switchVerificationTab("celebrity"));

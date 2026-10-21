@@ -2004,6 +2004,230 @@ body.messages-open .bottom-nav{display:none !important}
 .admin-mini-btn{border:none;padding:4px 8px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:inherit}
 .admin-mini-btn.green{background:#22c55e;color:#fff}
 .admin-mini-btn.red{background:#ef4444;color:#fff}
+
+/* YouTube-Style Home Feed (Shorts Shelf + Long Videos Grid) */
+.yt-home-feed {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6px 12px 90px;
+}
+.yt-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 2px 12px;
+  scrollbar-width: none;
+}
+.yt-filter-bar::-webkit-scrollbar { display: none; }
+.yt-filter-chip {
+  border: 1px solid rgba(128,128,128,0.22);
+  background: rgba(128,128,128,0.1);
+  color: inherit;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+.yt-filter-chip.active {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+body.dark-mode .yt-filter-chip.active {
+  background: #f8fafc;
+  color: #0f172a;
+  border-color: #f8fafc;
+}
+.yt-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 2px 10px;
+}
+.yt-section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 900;
+}
+.yt-shorts-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff0033, #ff5e00);
+  color: #fff;
+}
+.yt-shorts-shelf {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 2px 2px 14px;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+.yt-shorts-shelf::-webkit-scrollbar { display: none; }
+.yt-short-card {
+  position: relative;
+  flex: 0 0 148px;
+  aspect-ratio: 9 / 16;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0f172a;
+  cursor: pointer;
+  scroll-snap-align: start;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.16);
+  transition: transform 0.2s ease;
+}
+.yt-short-card:hover { transform: translateY(-2px); }
+.yt-short-card img,
+.yt-short-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.yt-short-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.12) 0%, transparent 45%, rgba(0,0,0,0.85) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 10px;
+  color: #fff;
+}
+.yt-short-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+.yt-short-views {
+  font-size: 11px;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  margin-top: 3px;
+}
+.yt-long-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 6px;
+}
+.yt-long-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(128,128,128,0.14);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+}
+body.dark-mode .yt-long-card {
+  background: #12161f;
+  border-color: rgba(255,255,255,0.08);
+}
+.yt-long-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  cursor: pointer;
+  overflow: hidden;
+}
+.yt-long-thumb img,
+.yt-long-thumb video,
+.yt-long-thumb iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+.yt-duration-chip {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.82);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.yt-long-meta {
+  display: flex;
+  gap: 11px;
+  padding: 12px 12px 10px;
+  align-items: flex-start;
+}
+.yt-channel-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: 1px solid rgba(128,128,128,0.2);
+}
+.yt-long-info {
+  flex: 1;
+  min-width: 0;
+}
+.yt-long-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+}
+.yt-long-sub {
+  font-size: 12px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.yt-long-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px 12px;
+  border-top: 1px solid rgba(128,128,128,0.1);
+  gap: 8px;
+}
+.yt-act-pill {
+  border: none;
+  background: rgba(128,128,128,0.1);
+  color: inherit;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.yt-act-pill:hover {
+  background: rgba(128,128,128,0.18);
+}
 .settings-opt-list{display:flex;flex-direction:column;gap:10px}
 .settings-opt{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:14px 16px;border:1.5px solid #e5e5e5;border-radius:14px;background:#fff;color:#111;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent}
 .settings-opt:hover{border-color:#e63946;background:#fff5f6}
@@ -4442,42 +4666,6 @@ img.logo-profile.zyro-header-logo {
     </div>
 
     <div class="admin-card">
-      <h3>🏆 Fan of the Week</h3>
-      <label class="admin-label">Fan Name</label>
-      <input type="text" class="admin-input" id="adminFanName" placeholder="Fan ka naam">
-      <label class="admin-label">Photo URL</label>
-      <input type="text" class="admin-input" id="adminFanPhoto" placeholder="https://... ya IMG_xxx.jpg">
-      <label class="admin-label">Message</label>
-      <textarea class="admin-textarea" id="adminFanMessage" placeholder="Fan ka message"></textarea>
-      <label class="admin-label">Date</label>
-      <input type="text" class="admin-input" id="adminFanDate" placeholder="Week of 21 Sept 2026">
-      <button type="button" class="admin-btn green" id="saveFanBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Fan of Week</button>
-    </div>
-
-    <div class="admin-card">
-      <h3>📢 Announcement Bar</h3>
-      <label class="admin-label">Announcement Text</label>
-      <input type="text" class="admin-input" id="adminAnnounceText" placeholder="🔥 New Comedy Video Coming Soon!">
-      <label class="admin-label">Button Text (optional)</label>
-      <input type="text" class="admin-input" id="adminAnnounceBtn" placeholder="Watch Shorts">
-      <button type="button" class="admin-btn green" id="saveAnnounceBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Announcement</button>
-    </div>
-
-    <div class="admin-card">
-      <h3>📌 Notice Board (Popup)</h3>
-      <label class="admin-label">Notice Title</label>
-      <input type="text" class="admin-input" id="adminNoticeTitle" placeholder="🎉 New Video Alert!">
-      <label class="admin-label">Notice Message</label>
-      <textarea class="admin-textarea" id="adminNoticeMsg" placeholder="Aaj shaam 6 baje naya video aayega!"></textarea>
-      <label class="admin-label">Show Notice?</label>
-      <select class="admin-input" id="adminNoticeEnabled">
-        <option value="false">❌ Hidden</option>
-        <option value="true">✅ Visible to all users</option>
-      </select>
-      <button type="button" class="admin-btn green" id="saveNoticeBtn"><svg class="ve-ico sm"><use href="#i-save"></use></svg> Save Notice</button>
-    </div>
-
-    <div class="admin-card">
       <h3>🎥 Manual Videos Management</h3>
       <label class="admin-label">Video Title</label>
       <input type="text" class="admin-input" id="adminVideoTitle" placeholder="Funny Desi Comedy 😂">
@@ -6236,16 +6424,16 @@ img.logo-profile.zyro-header-logo {
 
 <!-- Create Story Highlight Modal -->
 <div class="ig-sheet-overlay" id="createHighlightModal" style="align-items:center" onclick="if(event.target===this)closeCreateHighlightModal()">
-  <div style="max-width:380px;width:92%;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5)" class="dark-box">
+  <div style="max-width:400px;width:92%;background:#fff;border-radius:22px;padding:20px;box-shadow:0 24px 70px rgba(0,0,0,.5);max-height:86vh;overflow-y:auto" class="dark-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <h3 style="margin:0;font-size:16px;font-weight:800">New Story Highlight</h3>
       <button type="button" onclick="closeCreateHighlightModal()" style="border:none;background:none;font-size:18px;cursor:pointer;color:#888"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
     </div>
     <label for="highlightNameInput" style="font-size:12px;font-weight:700;display:block;margin-bottom:6px">Highlight Name</label>
-    <input type="text" id="highlightNameInput" maxlength="15" placeholder="e.g. Best Moments, Fun" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa">
+    <input type="text" id="highlightNameInput" maxlength="18" placeholder="e.g. Best Moments, Comedy, Fun" style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:10px 12px;font-size:14px;outline:none;background:#fafafa">
     
     <label style="font-size:12px;font-weight:700;display:block;margin:12px 0 6px">Pick Cover Emoji</label>
-    <div style="display:flex;gap:8px;font-size:22px;margin-bottom:16px" id="highlightEmojiPicker">
+    <div style="display:flex;gap:8px;font-size:22px;margin-bottom:14px;flex-wrap:wrap" id="highlightEmojiPicker">
       <span style="cursor:pointer;padding:6px;border-radius:8px;background:#efefef" onclick="selectHighlightEmoji('⭐', this)">⭐</span>
       <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('🔥', this)">🔥</span>
       <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('😂', this)">😂</span>
@@ -6254,7 +6442,15 @@ img.logo-profile.zyro-header-logo {
       <span style="cursor:pointer;padding:6px;border-radius:8px" onclick="selectHighlightEmoji('🎭', this)">🎭</span>
     </div>
 
-    <button type="button" class="ig-btn primary" style="width:100%" onclick="saveNewHighlight()">Add Highlight</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:8px 0 6px">
+      <label style="font-size:12px;font-weight:700">Select Stories / Posts to Include</label>
+      <span id="highlightSelectedCount" style="font-size:11px;color:#0095F6;font-weight:700">0 selected</span>
+    </div>
+    <div id="highlightStoryPickerGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-height:210px;overflow-y:auto;margin-bottom:16px;padding:4px;border:1px solid rgba(128,128,128,0.18);border-radius:12px">
+      <div style="grid-column:1/-1;text-align:center;padding:18px;font-size:12px;color:#888">Loading your stories &amp; posts...</div>
+    </div>
+
+    <button type="button" class="ig-btn primary" style="width:100%" onclick="saveNewHighlight()">Create Highlight</button>
   </div>
 </div>
 
@@ -7930,11 +8126,11 @@ function switchTab(name){
   navButtons.forEach(b=>b.classList.toggle("active", b.getAttribute("data-tab")===name));
   document.body.classList.toggle("on-home", name==="home");
   window.scrollTo({top:0, behavior:"smooth"});
-  if(name==="profile") updateProfileUI();
+  if(name==="home"){ if(typeof window.renderYouTubeHomeFeed === "function") window.renderYouTubeHomeFeed(); }
+  else if(name==="profile") updateProfileUI();
   else if(name==="search"){ if(typeof window.renderSearchDiscovery === "function") window.renderSearchDiscovery(); }
   if(name==="admin"){
     loadAdminStats();
-    loadAdminConfig();
     loadManualVideosList();
     if(typeof loadBoostedReels === "function") loadBoostedReels();
     if(typeof loadPendingVerificationRequests === "function") loadPendingVerificationRequests();
@@ -8699,11 +8895,12 @@ async function loadProfileIdentity(){
     const catTog = document.getElementById("showCategoryToggle");
     if(catTog) catTog.checked = showCat;
 
-    const showHigh = localStorage.getItem("upch_show_highlights_" + currentUser.uid) === "1" || data.showHighlights === true;
+    const showHigh = localStorage.getItem("upch_show_highlights_" + currentUser.uid) === "1" || data.showHighlights === true || (Array.isArray(data.highlights) && data.highlights.length > 0);
     const hTray = document.getElementById("profileHighlightsTray");
     if(hTray) hTray.style.display = showHigh ? "flex" : "none";
     const highTog = document.getElementById("showHighlightsToggle");
     if(highTog) highTog.checked = showHigh;
+    if(typeof renderProfileHighlightsTray === "function") renderProfileHighlightsTray(data.highlights);
 
     const accType = data.accountType || localStorage.getItem("upch_account_type_" + currentUser.uid) || "personal";
     const atBadge = document.getElementById("settingsAccountTypeBadge");
@@ -10804,10 +11001,144 @@ window.closeProDashboardModal = closeProDashboardModal;
 
 /* ---------- STORY HIGHLIGHTS ---------- */
 let selectedHighlightEmoji = "⭐";
+let highlightCandidateStories = [];
+let selectedHighlightStoryIds = new Set();
 
-function openCreateHighlightModal(){
+async function openCreateHighlightModal(){
   const modal = document.getElementById("createHighlightModal");
   if(modal) modal.classList.add("show");
+  selectedHighlightStoryIds.clear();
+  const countEl = document.getElementById("highlightSelectedCount");
+  if(countEl) countEl.textContent = "0 selected";
+  const grid = document.getElementById("highlightStoryPickerGrid");
+  if(!grid) return;
+
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:18px;font-size:12px;color:#888">⏳ Loading your stories &amp; posts...</div>';
+
+  const uid = currentUser ? currentUser.uid : "guest_user";
+  const items = [];
+  const seenUrls = new Set();
+
+  // 1. Active stories from userStoriesGrouped
+  if(typeof userStoriesGrouped !== "undefined" && userStoriesGrouped[uid]){
+    userStoriesGrouped[uid].forEach((s, idx) => {
+      if(s && s.mediaUrl && !seenUrls.has(s.mediaUrl)){
+        seenUrls.add(s.mediaUrl);
+        items.push({
+          id: s.id || ("st_" + idx),
+          mediaUrl: s.mediaUrl,
+          thumbnail: s.thumbnail || s.mediaUrl,
+          mediaType: s.mediaType || "image",
+          caption: s.caption || "",
+          userName: s.userName || (currentUser ? currentUser.displayName : "User"),
+          userPhoto: s.userPhoto || currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+        });
+      }
+    });
+  }
+
+  // 2. Fetch user stories and user_posts from Firestore
+  if(currentUser && typeof db !== "undefined" && db){
+    const [stSnap, upSnap] = await Promise.all([
+      db.collection("stories").where("userId", "==", currentUser.uid).limit(30).get().catch(()=>null),
+      db.collection("user_posts").where("userId", "==", currentUser.uid).limit(30).get().catch(()=>null)
+    ]);
+    if(stSnap && !stSnap.empty){
+      stSnap.forEach(doc => {
+        const d = doc.data();
+        if(d.mediaUrl && !seenUrls.has(d.mediaUrl)){
+          seenUrls.add(d.mediaUrl);
+          items.push({
+            id: doc.id,
+            mediaUrl: d.mediaUrl,
+            thumbnail: d.thumbnail || d.mediaUrl,
+            mediaType: d.mediaType || "image",
+            caption: d.caption || "",
+            userName: d.userName || currentUser.displayName || "User",
+            userPhoto: d.userPhoto || currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+          });
+        }
+      });
+    }
+    if(upSnap && !upSnap.empty){
+      upSnap.forEach(doc => {
+        const d = doc.data();
+        if(d.mediaUrl && !seenUrls.has(d.mediaUrl)){
+          seenUrls.add(d.mediaUrl);
+          items.push({
+            id: doc.id,
+            mediaUrl: d.mediaUrl,
+            thumbnail: d.thumbnail || d.mediaUrl,
+            mediaType: (d.type === "reel" || d.type === "video") ? "video" : "image",
+            caption: d.caption || d.title || "",
+            userName: d.authorName || currentUser.displayName || "User",
+            userPhoto: d.authorPhoto || currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+          });
+        }
+      });
+    }
+  }
+
+  // 3. Fallback to cachedUserPosts if needed
+  if(Array.isArray(cachedUserPosts)){
+    cachedUserPosts.forEach((p, idx) => {
+      if(p && p.mediaUrl && !seenUrls.has(p.mediaUrl)){
+        seenUrls.add(p.mediaUrl);
+        items.push({
+          id: p.id || ("post_" + idx),
+          mediaUrl: p.mediaUrl,
+          thumbnail: p.thumbnail || p.mediaUrl,
+          mediaType: (p.type === "reel" || p.type === "video") ? "video" : "image",
+          caption: p.caption || p.title || "",
+          userName: p.authorName || (currentUser ? currentUser.displayName : "User"),
+          userPhoto: p.authorPhoto || currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+        });
+      }
+    });
+  }
+
+  highlightCandidateStories = items;
+
+  if(!items.length){
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:16px;font-size:12px;color:#888">Abhi aapki koi story ya post nahi hai. Aap cover emoji aur naam ke sath highlight bana sakte hain, ya pehle story upload karein!</div>';
+    return;
+  }
+
+  grid.innerHTML = "";
+  items.forEach((item, idx) => {
+    const cell = document.createElement("div");
+    cell.style.cssText = "position:relative;aspect-ratio:9/16;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;background:#111";
+    const isVid = item.mediaType === "video";
+    const mediaThumb = isVid && item.thumbnail === item.mediaUrl
+      ? '<video src="' + escapeAttr(item.mediaUrl) + '" muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover"></video>'
+      : '<img src="' + escapeAttr(item.thumbnail || item.mediaUrl) + '" alt="" style="width:100%;height:100%;object-fit:cover">';
+    const checkBadge = '<span class="hl-pick-check" style="position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;border:2px solid #fff;background:rgba(0,0,0,0.45);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center"></span>';
+    cell.innerHTML = mediaThumb + checkBadge;
+
+    // Auto-select first item by default
+    if(idx === 0){
+      selectedHighlightStoryIds.add(item.id);
+      cell.style.borderColor = "#0095F6";
+      const cb = cell.querySelector(".hl-pick-check");
+      if(cb){ cb.style.background = "#0095F6"; cb.textContent = "✓"; }
+      if(countEl) countEl.textContent = "1 selected";
+    }
+
+    cell.onclick = () => {
+      const cb = cell.querySelector(".hl-pick-check");
+      if(selectedHighlightStoryIds.has(item.id)){
+        selectedHighlightStoryIds.delete(item.id);
+        cell.style.borderColor = "transparent";
+        if(cb){ cb.style.background = "rgba(0,0,0,0.45)"; cb.textContent = ""; }
+      } else {
+        selectedHighlightStoryIds.add(item.id);
+        cell.style.borderColor = "#0095F6";
+        if(cb){ cb.style.background = "#0095F6"; cb.textContent = "✓"; }
+      }
+      if(countEl) countEl.textContent = selectedHighlightStoryIds.size + " selected";
+    };
+    grid.appendChild(cell);
+  });
 }
 window.openCreateHighlightModal = openCreateHighlightModal;
 
@@ -10827,29 +11158,126 @@ function selectHighlightEmoji(emoji, el){
 }
 window.selectHighlightEmoji = selectHighlightEmoji;
 
-function saveNewHighlight(){
+async function saveNewHighlight(){
   const inp = document.getElementById("highlightNameInput");
-  const name = (inp ? inp.value : "").trim() || "Highlight";
+  const name = (inp ? inp.value : "").trim() || "Highlights";
+  const uid = currentUser ? currentUser.uid : "guest";
+
+  const chosenStories = highlightCandidateStories.filter(s => selectedHighlightStoryIds.has(s.id));
+  const firstChosen = chosenStories[0] || highlightCandidateStories[0] || null;
+  const coverUrl = firstChosen ? (firstChosen.thumbnail || firstChosen.mediaUrl || "") : "";
+
+  const hlObj = {
+    id: "hl_" + Date.now(),
+    title: name,
+    emoji: selectedHighlightEmoji || "⭐",
+    cover: coverUrl,
+    stories: chosenStories.length ? chosenStories : [{
+      id: "hl_default_" + Date.now(),
+      mediaUrl: currentProfilePhotoURL || "IMG_20260917_172912.jpg",
+      mediaType: "image",
+      caption: selectedHighlightEmoji + " " + name,
+      userName: (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || (currentUser ? currentUser.displayName : "Creator"),
+      userPhoto: currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+    }],
+    createdAt: Date.now()
+  };
+
+  let savedHighlights = [];
+  try {
+    savedHighlights = JSON.parse(localStorage.getItem("upch_highlights_" + uid) || "[]");
+    if(!Array.isArray(savedHighlights)) savedHighlights = [];
+  } catch(e){ savedHighlights = []; }
+
+  savedHighlights.push(hlObj);
+  try { localStorage.setItem("upch_highlights_" + uid, JSON.stringify(savedHighlights)); } catch(e){}
+
+  if(currentUser && typeof db !== "undefined" && db){
+    localStorage.setItem("upch_show_highlights_" + currentUser.uid, "1");
+    db.collection("publicProfiles").doc(currentUser.uid).set({
+      showHighlights: true,
+      highlights: savedHighlights.slice(-15)
+    }, { merge: true }).catch(()=>null);
+  }
+
+  renderProfileHighlightsTray(savedHighlights);
   const tray = document.getElementById("profileHighlightsTray");
-  if(!tray) return;
+  if(tray) tray.style.display = "flex";
 
-  const item = document.createElement("div");
-  item.className = "ig-highlight-item";
-  item.onclick = () => playStoryHighlight(name, selectedHighlightEmoji + " " + name);
-  item.innerHTML = '<div class="igh-ring" style="display:flex;align-items:center;justify-content:center;font-size:26px;background:#f5f5f5">' + selectedHighlightEmoji + '</div><span class="igh-label">' + escapeHtml(name) + '</span>';
-
-  // Insert before the last 2 items
-  tray.appendChild(item);
-  showToast("⭐ Highlight added to profile!");
+  showToast("⭐ Highlight '" + name + "' added to profile!");
   closeCreateHighlightModal();
   if(inp) inp.value = "";
 }
 window.saveNewHighlight = saveNewHighlight;
 
-function playStoryHighlight(id, title){
-  showToast("🎬 Playing " + title);
-  if(typeof window.openStoryViewer === "function"){
-    window.openStoryViewer(id);
+function renderProfileHighlightsTray(highlightsList){
+  const tray = document.getElementById("profileHighlightsTray");
+  if(!tray) return;
+  const uid = currentUser ? currentUser.uid : "guest";
+  let list = highlightsList;
+  if(!Array.isArray(list)){
+    try {
+      list = JSON.parse(localStorage.getItem("upch_highlights_" + uid) || "[]");
+    } catch(e){ list = []; }
+    if((!list || !list.length) && cachedCurrentUserProfile && Array.isArray(cachedCurrentUserProfile.highlights)){
+      list = cachedCurrentUserProfile.highlights;
+    }
+  }
+  if(!Array.isArray(list)) list = [];
+
+  // Remove old rendered highlight items except #newHighlightBtn
+  tray.querySelectorAll(".ig-highlight-item:not(#newHighlightBtn)").forEach(el => el.remove());
+
+  const newBtn = document.getElementById("newHighlightBtn");
+  list.forEach((h, idx) => {
+    const item = document.createElement("div");
+    item.className = "ig-highlight-item";
+    const hlId = h.id || ("hl_" + idx);
+    item.onclick = () => playStoryHighlight(hlId, h.title || "Highlight");
+    const hasCoverImg = h.cover && !h.cover.endsWith(".mp4") && !h.cover.endsWith(".webm");
+    const ringInner = hasCoverImg
+      ? '<img src="' + escapeAttr(h.cover) + '" alt="' + escapeAttr(h.title || "Highlight") + '" style="width:100%;height:100%;border-radius:50%;object-fit:cover">'
+      : '<span style="font-size:24px">' + escapeHtml(h.emoji || "⭐") + '</span>';
+    item.innerHTML = '<div class="igh-ring" style="display:flex;align-items:center;justify-content:center;background:#f5f5f5;overflow:hidden;padding:2px">' + ringInner + '</div><span class="igh-label">' + escapeHtml(h.title || "Highlight") + '</span>';
+    if(newBtn){
+      tray.insertBefore(item, newBtn);
+    } else {
+      tray.appendChild(item);
+    }
+  });
+}
+window.renderProfileHighlightsTray = renderProfileHighlightsTray;
+
+function playStoryHighlight(idOrTitle, title){
+  const uid = currentUser ? currentUser.uid : "guest";
+  let savedHighlights = [];
+  try {
+    savedHighlights = JSON.parse(localStorage.getItem("upch_highlights_" + uid) || "[]");
+  } catch(e){}
+  if((!savedHighlights || !savedHighlights.length) && cachedCurrentUserProfile && Array.isArray(cachedCurrentUserProfile.highlights)){
+    savedHighlights = cachedCurrentUserProfile.highlights;
+  }
+
+  const found = (savedHighlights || []).find(h => h.id === idOrTitle || h.title === idOrTitle || h.title === title);
+  let storiesToPlay = (found && Array.isArray(found.stories) && found.stories.length) ? found.stories : [];
+
+  if(!storiesToPlay.length && found){
+    storiesToPlay = [{
+      id: found.id || "hl_story",
+      mediaUrl: found.cover || currentProfilePhotoURL || "IMG_20260917_172912.jpg",
+      mediaType: "image",
+      caption: (found.emoji || "⭐") + " " + (found.title || title || "Highlight"),
+      userName: (cachedCurrentUserProfile && cachedCurrentUserProfile.username) || (currentUser ? currentUser.displayName : "User"),
+      userPhoto: currentProfilePhotoURL || "IMG_20260917_172912.jpg"
+    }];
+  }
+
+  if(storiesToPlay.length && typeof userStoriesGrouped !== "undefined" && typeof openStoryViewer === "function"){
+    const tempKey = "highlight_" + (idOrTitle || Date.now());
+    userStoriesGrouped[tempKey] = storiesToPlay;
+    openStoryViewer(tempKey, 0);
+  } else {
+    showToast("🎬 Playing " + (title || idOrTitle));
   }
 }
 window.playStoryHighlight = playStoryHighlight;
@@ -11564,10 +11992,13 @@ function buildHomeFeedCard(vid, title, thumb){
   return card;
 }
 async function loadManualVideos(){
-  /* Videos feed removed (Point 3). Still register video metadata + refresh actions/notifications. */
+  /* Register video metadata + refresh actions/notifications + render YouTube Home Feed */
   const grid = document.getElementById("videosGrid");
   if(grid) grid.innerHTML = "";
-  const hardcoded = [{title:"UPComedyHub Video 1",videoId:"Hmmgh9V8tmM",category:"long"},{title:"UPComedyHub Video 2",videoId:"YdM3e4HICew",category:"long"}];
+  const hardcoded = [
+    {title:"Desi Standup Comedy Special 😂 | UPComedyHub",videoId:"Hmmgh9V8tmM",category:"long"},
+    {title:"Funny Family Drama & Desi Jokes 🔥 | UPComedyHub",videoId:"YdM3e4HICew",category:"long"}
+  ];
   hardcoded.forEach(d=>{
     const vid = d.videoId;
     allVideos[vid] = {title:d.title,category:d.category};
@@ -11578,14 +12009,380 @@ async function loadManualVideos(){
     if(!snap.empty){
       const docs = snap.docs.sort((a,b)=>(b.data().createdAt?.seconds||0)-(a.data().createdAt?.seconds||0));
       docs.forEach(doc=>{
-        const d = doc.data(); const vid = d.videoId; if(!vid) return;
-        allVideos[vid] = {title:d.title,category:d.category};
-        if(grid){ const thumb = "https://i.ytimg.com/vi/"+vid+"/hqdefault.jpg"; grid.appendChild(buildHomeFeedCard(vid, d.title, thumb)); }
+        const d = doc.data(); const vid = d.videoId || doc.id; if(!vid) return;
+        allVideos[vid] = {title:d.title || "Comedy Video", category:d.category || "long", videoUrl: d.videoUrl || "", thumbnail: d.thumbnail || ""};
+        if(grid && d.videoId){ const thumb = "https://i.ytimg.com/vi/"+d.videoId+"/hqdefault.jpg"; grid.appendChild(buildHomeFeedCard(d.videoId, d.title, thumb)); }
       });
     }
   }catch(e){ console.warn(e); }
   refreshAllVideoActions(); refreshLikesLinks(); createNewVideoNotifications(); updateNotificationBadge();
+  if(typeof renderYouTubeHomeFeed === "function") renderYouTubeHomeFeed().catch(()=>{});
 }
+
+/* ============================================================
+   YOUTUBE-STYLE HOME FEED (SHORTS SHELF + LONG VIDEOS FEED)
+   ============================================================ */
+let currentYtHomeFilter = "all";
+
+async function renderYouTubeHomeFeed(filterMode){
+  if(filterMode) currentYtHomeFilter = filterMode;
+  const surface = document.getElementById("homeCleanSurface");
+  if(!surface) return;
+
+  // Render skeleton structure first if empty
+  if(!surface.querySelector(".yt-home-feed")){
+    surface.innerHTML = `
+      <div class="yt-home-feed">
+        <div class="yt-filter-bar" id="ytHomeFilterBar">
+          <button type="button" class="yt-filter-chip active" data-yt-filter="all">All</button>
+          <button type="button" class="yt-filter-chip" data-yt-filter="shorts">⚡ Shorts</button>
+          <button type="button" class="yt-filter-chip" data-yt-filter="long">🎬 Long Videos</button>
+          <button type="button" class="yt-filter-chip" data-yt-filter="comedy">😂 Standup &amp; Desi Comedy</button>
+        </div>
+
+        <section id="ytHomeShortsSection">
+          <div class="yt-section-head">
+            <div class="yt-section-title">
+              <span class="yt-shorts-badge"><svg class="ico" style="width:15px;height:15px"><use href="#i-reels"></use></svg></span>
+              <span>Shorts</span>
+            </div>
+            <button type="button" onclick="switchTab('reels')" style="border:none;background:none;color:#0095F6;font-size:12.5px;font-weight:800;cursor:pointer">View All ›</button>
+          </div>
+          <div class="yt-shorts-shelf" id="ytHomeShortsShelf">
+            <div style="padding:20px;color:#888;font-size:12.5px">⏳ Loading Shorts...</div>
+          </div>
+        </section>
+
+        <section id="ytHomeLongSection" style="margin-top:10px">
+          <div class="yt-section-head">
+            <div class="yt-section-title">
+              <svg class="ico" style="width:20px;height:20px;color:#e63946"><use href="#i-video"></use></svg>
+              <span>Recommended Long Videos</span>
+            </div>
+            <button type="button" onclick="openCreatePostModal('video')" style="border:none;background:rgba(230,57,70,0.12);color:#e63946;padding:5px 11px;border-radius:999px;font-size:11.5px;font-weight:800;cursor:pointer">+ Upload Video</button>
+          </div>
+          <div class="yt-long-grid" id="ytHomeLongGrid">
+            <div style="padding:20px;color:#888;font-size:12.5px">⏳ Loading Long Videos...</div>
+          </div>
+        </section>
+      </div>
+    `;
+
+    surface.querySelectorAll("[data-yt-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const f = btn.getAttribute("data-yt-filter") || "all";
+        currentYtHomeFilter = f;
+        surface.querySelectorAll("[data-yt-filter]").forEach(b => b.classList.toggle("active", b === btn));
+        const shSec = document.getElementById("ytHomeShortsSection");
+        const lgSec = document.getElementById("ytHomeLongSection");
+        if(shSec) shSec.style.display = (f === "long") ? "none" : "block";
+        if(lgSec) lgSec.style.display = (f === "shorts") ? "none" : "block";
+      });
+    });
+  }
+
+  const shortsShelf = document.getElementById("ytHomeShortsShelf");
+  const longGrid = document.getElementById("ytHomeLongGrid");
+  if(!shortsShelf || !longGrid) return;
+
+  const shortsList = [];
+  const longList = [];
+  const seenShorts = new Set();
+  const seenLong = new Set();
+
+  // 1. Fetch from Firestore: reels, manualVideos, and user_posts
+  if(typeof db !== "undefined" && db){
+    const [reelsSnap, manualSnap, postsSnap] = await Promise.all([
+      db.collection("reels").orderBy("createdAt", "desc").limit(25).get().catch(()=>null),
+      db.collection("manualVideos").limit(40).get().catch(()=>null),
+      db.collection("user_posts").limit(40).get().catch(()=>null)
+    ]);
+
+    if(reelsSnap && !reelsSnap.empty){
+      reelsSnap.forEach(doc => {
+        const d = doc.data();
+        const key = d.videoUrl || doc.id;
+        if(!seenShorts.has(key)){
+          seenShorts.add(key);
+          shortsList.push({
+            id: doc.id,
+            videoId: d.videoId || "",
+            videoUrl: d.videoUrl || "",
+            thumbnail: d.thumbnail || "",
+            title: d.title || d.caption || "Comedy Short 🔥",
+            authorName: d.authorName || "Creator",
+            authorUsername: d.authorUsername || "creator",
+            authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+            userId: d.userId || "",
+            viewsCount: d.viewsCount || getReelViewsCount(doc.id),
+            likesCount: d.likesCount || 0,
+            createdAt: d.createdAt
+          });
+        }
+      });
+    }
+
+    if(manualSnap && !manualSnap.empty){
+      manualSnap.forEach(doc => {
+        const d = doc.data();
+        const isShort = d.category === "shorts" || d.category === "reels";
+        const key = d.videoId || d.videoUrl || doc.id;
+        if(isShort){
+          if(!seenShorts.has(key)){
+            seenShorts.add(key);
+            shortsList.push({
+              id: doc.id,
+              videoId: d.videoId || "",
+              videoUrl: d.videoUrl || "",
+              thumbnail: d.thumbnail || (d.videoId ? "https://i.ytimg.com/vi/" + d.videoId + "/hqdefault.jpg" : ""),
+              title: d.title || "Comedy Short",
+              authorName: d.authorName || "UPComedyHub",
+              authorUsername: d.authorUsername || "upcomedyhub",
+              authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+              userId: d.userId || "",
+              viewsCount: d.viewsCount || getReelViewsCount(key),
+              likesCount: d.likesCount || 0,
+              createdAt: d.createdAt
+            });
+          }
+        } else {
+          if(!seenLong.has(key)){
+            seenLong.add(key);
+            longList.push({
+              id: doc.id,
+              videoId: d.videoId || "",
+              videoUrl: d.videoUrl || "",
+              thumbnail: d.thumbnail || (d.videoId ? "https://i.ytimg.com/vi/" + d.videoId + "/hqdefault.jpg" : ""),
+              title: d.title || d.description || "Comedy Video",
+              authorName: d.authorName || "UPComedyHub",
+              authorUsername: d.authorUsername || "upcomedyhub",
+              authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+              userId: d.userId || "",
+              viewsCount: d.viewsCount || getReelViewsCount(key),
+              likesCount: d.likesCount || 0,
+              duration: d.duration || "",
+              createdAt: d.createdAt
+            });
+          }
+        }
+      });
+    }
+
+    if(postsSnap && !postsSnap.empty){
+      postsSnap.forEach(doc => {
+        const d = doc.data();
+        const key = d.mediaUrl || doc.id;
+        if(d.type === "reel"){
+          if(!seenShorts.has(key)){
+            seenShorts.add(key);
+            shortsList.push({
+              id: doc.id,
+              videoId: "",
+              videoUrl: d.mediaUrl || "",
+              thumbnail: d.thumbnail || d.mediaUrl || "",
+              title: d.title || d.caption || "Comedy Short",
+              authorName: d.authorName || "Creator",
+              authorUsername: d.authorUsername || "creator",
+              authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+              userId: d.userId || "",
+              viewsCount: d.viewsCount || getReelViewsCount(doc.id),
+              likesCount: d.likesCount || 0,
+              createdAt: d.createdAt
+            });
+          }
+        } else if(d.type === "video" || d.category === "long"){
+          if(!seenLong.has(key)){
+            seenLong.add(key);
+            longList.push({
+              id: doc.id,
+              videoId: d.videoId || "",
+              videoUrl: d.mediaUrl || d.videoUrl || "",
+              thumbnail: d.thumbnail || d.mediaUrl || "",
+              title: d.title || d.caption || "Comedy Video",
+              authorName: d.authorName || "Creator",
+              authorUsername: d.authorUsername || "creator",
+              authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+              userId: d.userId || "",
+              viewsCount: d.viewsCount || getReelViewsCount(doc.id),
+              likesCount: d.likesCount || 0,
+              duration: d.trimmedDuration || d.duration || "",
+              createdAt: d.createdAt
+            });
+          }
+        }
+      });
+    }
+  }
+
+  // 2. Fallback / starter long videos from allVideos so Long Videos section is always rich
+  [
+    { videoId: "Hmmgh9V8tmM", title: "Desi Standup Comedy Special 😂 | UPComedyHub", authorName: "UPComedyHub", authorUsername: "upcomedyhub", authorPhoto: "IMG_20260917_172912.jpg" },
+    { videoId: "YdM3e4HICew", title: "Funny Family Drama & Desi Jokes 🔥 | UPComedyHub", authorName: "UPComedyHub", authorUsername: "upcomedyhub", authorPhoto: "IMG_20260917_172912.jpg" }
+  ].forEach(fb => {
+    if(!seenLong.has(fb.videoId)){
+      seenLong.add(fb.videoId);
+      longList.push({
+        id: fb.videoId,
+        videoId: fb.videoId,
+        videoUrl: "",
+        thumbnail: "https://i.ytimg.com/vi/" + fb.videoId + "/hqdefault.jpg",
+        title: fb.title,
+        authorName: fb.authorName,
+        authorUsername: fb.authorUsername,
+        authorPhoto: fb.authorPhoto,
+        viewsCount: getReelViewsCount(fb.videoId),
+        likesCount: (likesByVideo[fb.videoId] || []).length
+      });
+    }
+  });
+
+  // Render Shorts Shelf
+  shortsShelf.innerHTML = "";
+  if(!shortsList.length){
+    shortsShelf.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;padding:16px;border-radius:14px;background:rgba(128,128,128,0.08);border:1px dashed rgba(128,128,128,0.25)">
+        <div>
+          <div style="font-weight:800;font-size:14px">Abhi koi Short/Reel upload nahi hai 🎬</div>
+          <div style="font-size:12px;color:#888;margin-top:2px">Pehli comedy Short upload karein aur Home Shorts shelf par dikhayein!</div>
+        </div>
+        <button type="button" onclick="openCreatePostModal('reel')" style="background:linear-gradient(135deg,#ff0033,#ff5e00);color:#fff;border:none;padding:8px 14px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">+ Upload Short</button>
+      </div>
+    `;
+  } else {
+    shortsList.forEach(s => {
+      const card = document.createElement("div");
+      card.className = "yt-short-card channel-reel-item";
+      const vidKey = s.videoId || s.id;
+      card.setAttribute("data-video-id", vidKey);
+      if(s.videoUrl) card.setAttribute("data-video-url", s.videoUrl);
+      card.setAttribute("data-title", s.title || "Short");
+
+      const viewsFormatted = formatViewsCount(s.viewsCount || getReelViewsCount(vidKey));
+      const hasImgThumb = s.thumbnail && !s.thumbnail.endsWith(".mp4") && !s.thumbnail.endsWith(".webm");
+      const mediaHtml = hasImgThumb
+        ? `<img src="${escapeAttr(s.thumbnail)}" alt="${escapeAttr(s.title)}" loading="lazy" onerror="this.src='IMG_20261002_053016.png'">`
+        : (s.videoUrl
+            ? `<video src="${escapeAttr(s.videoUrl)}" muted playsinline preload="metadata"></video>`
+            : `<img src="IMG_20261002_053016.png" alt="${escapeAttr(s.title)}" loading="lazy">`);
+
+      card.innerHTML = `
+        ${mediaHtml}
+        <div class="yt-short-shade">
+          <div class="yt-short-title">${escapeHtml(s.title)}</div>
+          <div class="yt-short-views">▶ ${escapeHtml(viewsFormatted)} views</div>
+        </div>
+      `;
+      card.onclick = () => {
+        if(typeof window.openReelViewer === "function"){
+          window.openReelViewer(vidKey);
+        } else if(typeof openPostViewer === "function" && s.videoUrl){
+          openPostViewer({ id: s.id, mediaUrl: s.videoUrl, thumbnail: s.thumbnail, type: "reel", authorName: s.authorName, caption: s.title });
+        }
+      };
+      shortsShelf.appendChild(card);
+    });
+  }
+
+  // Render Long Videos Grid
+  longGrid.innerHTML = "";
+  longList.forEach(v => {
+    const vidKey = v.videoId || v.id;
+    const card = document.createElement("div");
+    card.className = "yt-long-card";
+    const viewsFormatted = formatViewsCount(v.viewsCount || getReelViewsCount(vidKey));
+    const likeCount = (likesByVideo[vidKey] || []).length || v.likesCount || 0;
+    const isLiked = userLikedVideos.has(vidKey);
+    const isSaved = userSavedVideos.has(vidKey);
+    const durBadge = v.duration ? `<span class="yt-duration-chip">${escapeHtml(v.duration)}s</span>` : `<span class="yt-duration-chip">HD</span>`;
+
+    const hasImgThumb = v.thumbnail && !v.thumbnail.endsWith(".mp4") && !v.thumbnail.endsWith(".webm");
+    const thumbInner = hasImgThumb
+      ? `<img src="${escapeAttr(v.thumbnail)}" alt="${escapeAttr(v.title)}" loading="lazy">`
+      : (v.videoUrl
+          ? `<video src="${escapeAttr(v.videoUrl)}" preload="metadata" muted playsinline></video>`
+          : `<img src="https://i.ytimg.com/vi/${escapeAttr(v.videoId || 'Hmmgh9V8tmM')}/hqdefault.jpg" alt="${escapeAttr(v.title)}" loading="lazy">`);
+
+    card.innerHTML = `
+      <div class="yt-long-thumb" data-yt-play="${escapeAttr(vidKey)}">
+        ${thumbInner}
+        <div class="video-play"><span>▶</span></div>
+        ${durBadge}
+      </div>
+      <div class="yt-long-meta">
+        <img class="yt-channel-avatar" src="${escapeAttr(v.authorPhoto || 'IMG_20260917_172912.jpg')}" alt="${escapeAttr(v.authorName)}" onerror="this.src='IMG_20260917_172912.jpg'">
+        <div class="yt-long-info">
+          <h3 class="yt-long-title">${escapeHtml(v.title)}</h3>
+          <div class="yt-long-sub">
+            <span>@${escapeHtml(v.authorUsername || 'upcomedyhub')}</span>
+            <span>•</span>
+            <span>${escapeHtml(viewsFormatted)} views</span>
+          </div>
+        </div>
+      </div>
+      <div class="yt-long-actions">
+        <button type="button" class="yt-act-pill" data-yt-like="${escapeAttr(vidKey)}" style="${isLiked ? 'color:#e63946;background:rgba(230,57,70,0.12)' : ''}">
+          <span>${isLiked ? '❤️' : '🤍'}</span>
+          <span class="yt-like-num">${likeCount || 'Like'}</span>
+        </button>
+        <button type="button" class="yt-act-pill" data-yt-comment="${escapeAttr(vidKey)}">
+          <span>💬</span>
+          <span>Comments</span>
+        </button>
+        <button type="button" class="yt-act-pill" data-yt-share="${escapeAttr(vidKey)}">
+          <span>📤</span>
+          <span>Share</span>
+        </button>
+        <button type="button" class="yt-act-pill" data-yt-save="${escapeAttr(vidKey)}" style="${isSaved ? 'color:#0095F6' : ''}">
+          <span>${isSaved ? '🔖 Saved' : '📑 Save'}</span>
+        </button>
+      </div>
+    `;
+
+    const thumbBox = card.querySelector("[data-yt-play]");
+    const playVideoInline = () => {
+      if(typeof incrementReelViews === "function") incrementReelViews(vidKey);
+      if(v.videoUrl){
+        thumbBox.innerHTML = `<video src="${escapeAttr(v.videoUrl)}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video>`;
+      } else if(v.videoId){
+        thumbBox.innerHTML = `<iframe src="https://www.youtube.com/embed/${escapeAttr(v.videoId)}?autoplay=1&rel=0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen" allowfullscreen></iframe>`;
+      }
+    };
+    if(thumbBox) thumbBox.onclick = playVideoInline;
+    const titleEl = card.querySelector(".yt-long-title");
+    if(titleEl) titleEl.onclick = playVideoInline;
+
+    const avEl = card.querySelector(".yt-channel-avatar");
+    if(avEl && v.userId){
+      avEl.onclick = () => showUserProfileModal(v.userId);
+    }
+
+    const likeBtn = card.querySelector("[data-yt-like]");
+    if(likeBtn){
+      likeBtn.onclick = async () => {
+        await toggleLike(vidKey);
+        renderYouTubeHomeFeed();
+      };
+    }
+    const commentBtn = card.querySelector("[data-yt-comment]");
+    if(commentBtn){
+      commentBtn.onclick = () => openComments(vidKey);
+    }
+    const shareBtn = card.querySelector("[data-yt-share]");
+    if(shareBtn){
+      shareBtn.onclick = () => openShareSheet(vidKey);
+    }
+    const saveBtn = card.querySelector("[data-yt-save]");
+    if(saveBtn){
+      saveBtn.onclick = async () => {
+        await toggleSave(vidKey);
+        renderYouTubeHomeFeed();
+      };
+    }
+
+    longGrid.appendChild(card);
+  });
+}
+window.renderYouTubeHomeFeed = renderYouTubeHomeFeed;
 
 /* ---------- LIKES LINKS + PLAY ---------- */
 function refreshLikesLinks(){
@@ -12868,31 +13665,6 @@ async function loadAdminStats(){
   }catch(e){ console.error(e); showToast("❌ Stats load failed"); }
 }
 
-async function loadAdminConfig(){
-  try{
-    const fan = await db.collection("admin_config").doc("fan_of_week").get();
-    if(fan.exists){
-      const d = fan.data();
-      const setv = (id,v)=>{ const el = document.getElementById(id); if(el) el.value = v || ""; };
-      setv("adminFanName", d.name); setv("adminFanPhoto", d.photo);
-      setv("adminFanMessage", d.message); setv("adminFanDate", d.date);
-    }
-    const ann = await db.collection("admin_config").doc("announcement").get();
-    if(ann.exists){
-      const d = ann.data();
-      const setv = (id,v)=>{ const el = document.getElementById(id); if(el) el.value = v || ""; };
-      setv("adminAnnounceText", d.text); setv("adminAnnounceBtn", d.btnText);
-    }
-    const ntc = await db.collection("admin_config").doc("notice").get();
-    if(ntc.exists){
-      const d = ntc.data();
-      const setv = (id,v)=>{ const el = document.getElementById(id); if(el) el.value = v || ""; };
-      setv("adminNoticeTitle", d.title); setv("adminNoticeMsg", d.message);
-      const e = document.getElementById("adminNoticeEnabled"); if(e) e.value = d.enabled ? "true" : "false";
-    }
-  }catch(e){ console.error(e); }
-}
-
 async function broadcastAdminNotification(type,title,text,extra={}){
   if(!isCurrentUserAdmin()) return;
   try{
@@ -13043,83 +13815,6 @@ async function removeReelBoost(vid) {
   if (typeof refreshManualShorts === "function") refreshManualShorts();
 }
 window.removeReelBoost = removeReelBoost;
-
-async function loadFanOfWeek(){
-  try{
-    const doc = await db.collection("admin_config").doc("fan_of_week").get();
-    if(doc.exists){
-      const d = doc.data();
-      const n = document.querySelector(".fan-name"), p = document.querySelector(".fan-photo"), m = document.querySelector(".fan-message"), dt = document.querySelector(".fan-date");
-      if(n && d.name) n.textContent = d.name;
-      if(p && d.photo) p.src = d.photo;
-      if(m && d.message) m.textContent = d.message;
-      if(dt && d.date) dt.textContent = "📅 "+d.date;
-    }
-  }catch(e){
-    console.warn("Fan of week load notice:", e?.message || e);
-    try{
-      const res = await fetch(getApiUrl("/api/app/config")).catch(() => null);
-      if(res && res.ok){
-        const data = await res.json().catch(() => ({}));
-        if(data?.fan_of_week){
-          const d = data.fan_of_week;
-          const n = document.querySelector(".fan-name"), p = document.querySelector(".fan-photo"), m = document.querySelector(".fan-message"), dt = document.querySelector(".fan-date");
-          if(n && d.name) n.textContent = d.name;
-          if(p && d.photo) p.src = d.photo;
-          if(m && d.message) m.textContent = d.message;
-          if(dt && d.date) dt.textContent = "📅 "+d.date;
-        }
-      }
-    }catch(err){}
-  }
-}
-
-async function loadAnnouncement(){
-  try{
-    const doc = await db.collection("admin_config").doc("announcement").get();
-    if(doc.exists){
-      const d = doc.data();
-      const t = document.getElementById("announcementText"), l = document.getElementById("announcementLink");
-      if(d.text && t) t.textContent = d.text;
-      if(d.btnText && l) l.textContent = d.btnText;
-    }
-  }catch(e){
-    console.warn("Announcement load notice:", e?.message || e);
-    try{
-      const res = await fetch(getApiUrl("/api/app/config")).catch(() => null);
-      if(res && res.ok){
-        const data = await res.json().catch(() => ({}));
-        if(data?.announcement){
-          const d = data.announcement;
-          const t = document.getElementById("announcementText"), l = document.getElementById("announcementLink");
-          if(d.text && t) t.textContent = d.text;
-          if(d.btnText && l) l.textContent = d.btnText;
-        }
-      }
-    }catch(err){}
-  }
-}
-
-async function loadNotice(){
-  try{
-    const doc = await db.collection("admin_config").doc("notice").get();
-    if(doc.exists){
-      const d = doc.data();
-      if(d.enabled && d.title && d.message){
-        const seen = sessionStorage.getItem("noticeSeen");
-        const ck = d.updatedAt?.seconds?.toString() || "1";
-        if(seen === ck) return;
-        const popup = document.createElement("div");
-        popup.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200000;display:flex;align-items:center;justify-content:center;padding:20px";
-        popup.innerHTML = '<div style="background:#fff;border-radius:20px;padding:30px;max-width:400px;text-align:center"><div style="font-size:48px;margin-bottom:12px">📢</div><h3 style="font-size:20px;margin-bottom:12px;color:#e63946">'+escapeHtml(d.title)+'</h3><p style="font-size:15px;color:#555;line-height:1.6;margin-bottom:20px">'+escapeHtml(d.message)+'</p><button type="button" style="background:#e63946;color:#fff;border:none;padding:12px 28px;border-radius:25px;font-weight:800;cursor:pointer">OK ✅</button></div>';
-        document.body.appendChild(popup);
-        popup.querySelector("button").addEventListener("click",()=>{ popup.remove(); sessionStorage.setItem("noticeSeen",ck); });
-      }
-    }
-  }catch(e){
-    console.warn("Notice load notice:", e?.message || e);
-  }
-}
 
 /* ---------- MESSAGES (FULL) ---------- */
 function showMobileChatPanel(){
@@ -14002,23 +14697,162 @@ async function showUserProfileModal(userOrUid){
   if(fClick) fClick.onclick = ()=>openIgList("followers", uid);
   if(gClick) gClick.onclick = ()=>openIgList("following", uid);
 
+  let modalUserPosts = [];
+  let modalUserPlaylists = [];
+  let activeModalTab = "posts";
+
+  function renderModalUserGrid(tabKey){
+    activeModalTab = tabKey || "posts";
+    const grid = document.getElementById("profileModalGrid");
+    if(!grid) return;
+
+    if(activeModalTab === "playlist"){
+      grid.className = "rp-grid";
+      if(!modalUserPlaylists.length){
+        grid.innerHTML = '<div class="rp-empty"><span>🔖</span>Abhi koi playlist nahi.</div>';
+        return;
+      }
+      grid.innerHTML = "";
+      modalUserPlaylists.forEach(pl => {
+        const card = document.createElement("div");
+        card.className = "ig-grid-item";
+        card.style.cursor = "pointer";
+        card.innerHTML = '<img src="' + escapeAttr(pl.cover || "IMG_20260917_172912.jpg") + '" alt="' + escapeAttr(pl.title) + '" loading="lazy">' +
+          '<div class="ig-grid-overlay" style="opacity:1;background:linear-gradient(0deg,rgba(0,0,0,0.8) 0%,transparent 65%);align-items:flex-end;padding:8px"><div style="color:#fff;font-size:11px;font-weight:800">' + escapeHtml(pl.title) + ' (' + (pl.count || 0) + ')</div></div>';
+        card.onclick = () => showToast("📂 Playlist: " + pl.title);
+        grid.appendChild(card);
+      });
+      return;
+    }
+
+    let filtered = modalUserPosts;
+    if(activeModalTab === "reels"){
+      filtered = modalUserPosts.filter(p => p.type === "reel" || p.category === "shorts");
+    } else if(activeModalTab === "videos"){
+      filtered = modalUserPosts.filter(p => p.type === "video" || p.category === "long");
+    }
+
+    if(!filtered.length){
+      const emptyMap = {
+        posts: '<span>📷</span>Abhi koi post upload nahi hai.',
+        reels: '<span>🎬</span>Abhi koi reel upload nahi hai.',
+        videos: '<span>📹</span>Abhi koi long video upload nahi hai.'
+      };
+      grid.innerHTML = '<div class="rp-empty">' + (emptyMap[activeModalTab] || emptyMap.posts) + '</div>';
+      return;
+    }
+
+    grid.innerHTML = "";
+    filtered.forEach(p => {
+      const itemEl = document.createElement("div");
+      itemEl.className = "ig-grid-item";
+      itemEl.style.cursor = "pointer";
+      const isReel = p.type === "reel" || p.category === "shorts";
+      const isVideo = p.type === "video" || p.category === "long";
+      const badgeHtml = isReel
+        ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>'
+        : (isVideo ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-video"></use></svg></span>' : '');
+      const mediaUrl = p.mediaUrl || p.videoUrl || "";
+      const thumbUrl = p.thumbnail || (p.videoId ? "https://i.ytimg.com/vi/" + p.videoId + "/hqdefault.jpg" : "");
+      const mediaHtml = (isReel || isVideo) && !thumbUrl && mediaUrl
+        ? '<video src="' + escapeAttr(mediaUrl) + '" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover"></video>'
+        : '<img src="' + escapeAttr(thumbUrl || mediaUrl || "IMG_20260917_172912.jpg") + '" alt="Post" loading="lazy" style="width:100%;height:100%;object-fit:cover">';
+
+      itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+      itemEl.addEventListener("click", () => {
+        if(typeof openPostViewer === "function"){
+          openPostViewer({
+            id: p.id,
+            userId: p.userId || uid,
+            authorName: p.authorName || userData.displayName || "User",
+            authorUsername: p.authorUsername || userData.username || "user",
+            authorPhoto: p.authorPhoto || avatarFor(userData),
+            mediaUrl: mediaUrl,
+            thumbnail: thumbUrl || mediaUrl,
+            type: isReel ? "reel" : (isVideo ? "video" : "photo"),
+            caption: p.caption || p.title || "",
+            location: p.location || "",
+            likesCount: p.likesCount || 0,
+            commentsCount: p.commentsCount || 0
+          });
+        }
+      });
+      grid.appendChild(itemEl);
+    });
+  }
+
   // Tab switching inside profile
   content.querySelectorAll(".rp-tab").forEach(tab=>{
     tab.addEventListener("click", ()=>{
       content.querySelectorAll(".rp-tab").forEach(x=>x.classList.remove("active"));
       tab.classList.add("active");
       const k = tab.getAttribute("data-rp-tab");
-      const grid = document.getElementById("profileModalGrid");
-      if(!grid) return;
-      const map = {
-        posts:'<span>📷</span>Abhi koi post nahi.',
-        reels:'<span>🎬</span>Abhi koi reel nahi.',
-        videos:'<span>📹</span>Abhi koi video nahi.',
-        playlist:'<span>🔖</span>Abhi koi playlist nahi.'
-      };
-      grid.innerHTML = '<div class="rp-empty">'+(map[k]||map.posts)+'</div>';
+      renderModalUserGrid(k);
     });
   });
+
+  // Load real user posts, reels, and videos from Firestore + local cache
+  (async ()=>{
+    const grid = document.getElementById("profileModalGrid");
+    if(grid) grid.innerHTML = '<div class="rp-empty">⏳ Loading posts...</div>';
+    const postMap = new Map();
+
+    try {
+      const local = JSON.parse(localStorage.getItem("upch_user_posts_" + uid) || "[]");
+      if(Array.isArray(local)){
+        local.forEach(item => { if(item && (item.id || item.mediaUrl)) postMap.set(item.id || item.mediaUrl, item); });
+      }
+    } catch(e){}
+
+    if(uid && typeof db !== "undefined" && db){
+      const [upSnap, reelSnap, vidSnap] = await Promise.all([
+        db.collection("user_posts").where("userId", "==", uid).limit(60).get().catch(()=>null),
+        db.collection("reels").where("userId", "==", uid).limit(40).get().catch(()=>null),
+        db.collection("manualVideos").where("userId", "==", uid).limit(40).get().catch(()=>null)
+      ]);
+      if(upSnap && !upSnap.empty){
+        upSnap.forEach(doc => {
+          const d = doc.data();
+          postMap.set(doc.id, { id: doc.id, ...d });
+        });
+      }
+      if(reelSnap && !reelSnap.empty){
+        reelSnap.forEach(doc => {
+          const d = doc.data();
+          const key = d.videoUrl || doc.id;
+          const already = Array.from(postMap.values()).some(x => (x.mediaUrl && x.mediaUrl === d.videoUrl));
+          if(!already){
+            postMap.set(key, { id: doc.id, type: "reel", mediaUrl: d.videoUrl, ...d });
+          }
+        });
+      }
+      if(vidSnap && !vidSnap.empty){
+        vidSnap.forEach(doc => {
+          const d = doc.data();
+          const key = d.videoUrl || d.videoId || doc.id;
+          const already = Array.from(postMap.values()).some(x => (x.mediaUrl && x.mediaUrl === d.videoUrl));
+          if(!already){
+            postMap.set(key, { id: doc.id, type: d.category === "shorts" ? "reel" : "video", mediaUrl: d.videoUrl, ...d });
+          }
+        });
+      }
+    }
+
+    modalUserPosts = Array.from(postMap.values()).sort((a, b) => {
+      const ta = (a.createdAt && a.createdAt.seconds) ? a.createdAt.seconds : 0;
+      const tb = (b.createdAt && b.createdAt.seconds) ? b.createdAt.seconds : 0;
+      return tb - ta;
+    });
+
+    try {
+      modalUserPlaylists = JSON.parse(localStorage.getItem("upch_user_playlists_" + uid) || "[]");
+    } catch(e){}
+
+    const rpPostsEl = document.getElementById("rpPostsCount");
+    if(rpPostsEl) rpPostsEl.textContent = String(modalUserPosts.length);
+
+    renderModalUserGrid(activeModalTab);
+  })();
 
   // Edit self profile if viewing own profile
   const editSelfBtn = document.getElementById("modalEditSelfBtn");
@@ -17975,33 +18809,6 @@ window.addEventListener("DOMContentLoaded",()=>{
   if(nsb) nsb.addEventListener("click", saveNote);
   if(nmo) nmo.addEventListener("click", e=>{ if(e.target === nmo) closeNotesModal(); });
 
-  const sfBtn = document.getElementById("saveFanBtn");
-  if(sfBtn) sfBtn.addEventListener("click", async ()=>{
-    try{
-      await db.collection("admin_config").doc("fan_of_week").set({name:document.getElementById("adminFanName").value.trim(),photo:document.getElementById("adminFanPhoto").value.trim(),message:document.getElementById("adminFanMessage").value.trim(),date:document.getElementById("adminFanDate").value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
-      showToast("✅ Saved!"); loadFanOfWeek();
-    }catch(e){ showToast("❌"); }
-  });
-  const saBtn = document.getElementById("saveAnnounceBtn");
-  if(saBtn) saBtn.addEventListener("click", async ()=>{
-    try{
-      const txt = document.getElementById("adminAnnounceText").value.trim();
-      await db.collection("admin_config").doc("announcement").set({text:txt,btnText:document.getElementById("adminAnnounceBtn").value.trim(),updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
-      await broadcastAdminNotification("announcement","📢 UPComedyHub Announcement",txt);
-      showToast("✅ Saved!"); loadAnnouncement();
-    }catch(e){ showToast("❌"); }
-  });
-  const snBtn = document.getElementById("saveNoticeBtn");
-  if(snBtn) snBtn.addEventListener("click", async ()=>{
-    try{
-      const en = document.getElementById("adminNoticeEnabled").value === "true";
-      const t = document.getElementById("adminNoticeTitle").value.trim();
-      const m = document.getElementById("adminNoticeMsg").value.trim();
-      await db.collection("admin_config").doc("notice").set({title:t,message:m,enabled:en,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
-      if(en) await broadcastAdminNotification("announcement", t, m);
-      showToast("✅ Saved!");
-    }catch(e){ showToast("❌"); }
-  });
   const avBtn = document.getElementById("addVideoBtn");
   if(avBtn) avBtn.addEventListener("click", async ()=>{
     const title = document.getElementById("adminVideoTitle").value.trim();
@@ -18014,6 +18821,7 @@ window.addEventListener("DOMContentLoaded",()=>{
       document.getElementById("adminVideoId").value = "";
       showToast("✅ Added!"); loadManualVideosList(); loadManualVideos();
       if(cat === "shorts") refreshManualShorts();
+      if(typeof window.renderYouTubeHomeFeed === "function") window.renderYouTubeHomeFeed();
     }catch(e){ showToast("❌"); }
   });
   const abBtn = document.getElementById("applyBoostBtn");
@@ -18206,13 +19014,11 @@ window.addEventListener("DOMContentLoaded",()=>{
 
   setTimeout(()=>{
     try {
-      if (typeof loadFanOfWeek === 'function') loadFanOfWeek().catch(() => {});
-      if (typeof loadAnnouncement === 'function') loadAnnouncement().catch(() => {});
-      if (typeof loadNotice === 'function') loadNotice().catch(() => {});
       if (typeof loadManualVideos === 'function') loadManualVideos().catch(() => {});
       if (typeof loadAllLikes === 'function') loadAllLikes().catch(() => {});
+      if (typeof renderYouTubeHomeFeed === 'function') renderYouTubeHomeFeed().catch(() => {});
     } catch(e) {}
-  }, 1500);
+  }, 900);
 });
 
 auth.onAuthStateChanged(async (user)=>{

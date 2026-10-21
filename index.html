@@ -1969,9 +1969,52 @@ body.messages-open .bottom-nav{display:none !important}
 .dark-mode .verified-chip.cobra{background:linear-gradient(135deg,rgba(0,240,255,0.2),rgba(217,70,239,0.22));color:#38bdf8;border-color:rgba(56,189,248,0.55)}
 .verified-chip.gold{background:rgba(245,158,11,0.12);color:#d97706;border-color:rgba(245,158,11,0.3)}
 .dark-mode .verified-chip.gold{background:rgba(245,158,11,0.2);color:#fbbf24;border-color:rgba(245,158,11,0.4)}
-.cobra-verified-pill{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#071426,#130d26);color:#38bdf8;border:1px solid rgba(56,189,248,0.5);padding:3px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:0.2px;box-shadow:0 2px 10px rgba(0,149,246,0.2);margin-top:4px;width:fit-content}
-.cobra-verified-pill.zyro{background:rgba(0,149,246,0.12);color:#0095F6;border-color:rgba(0,149,246,0.35);box-shadow:none}
-.dark-mode .cobra-verified-pill.zyro{background:rgba(0,149,246,0.2);color:#38bdf8;border-color:rgba(56,189,248,0.45)}
+.cobra-verified-pill,
+.zyro-verified-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3.5px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  white-space: nowrap;
+  width: fit-content;
+  vertical-align: middle;
+  user-select: none;
+}
+.cobra-verified-pill {
+  background: linear-gradient(135deg, #071426, #160d29);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  box-shadow: 0 2px 10px rgba(0, 149, 246, 0.22);
+}
+.zyro-verified-pill,
+.cobra-verified-pill.zyro {
+  background: linear-gradient(135deg, rgba(0, 149, 246, 0.14), rgba(56, 189, 248, 0.08));
+  color: #0095F6;
+  border: 1px solid rgba(0, 149, 246, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 149, 246, 0.14);
+}
+.dark-mode .zyro-verified-pill,
+.dark-mode .cobra-verified-pill.zyro {
+  background: linear-gradient(135deg, rgba(0, 149, 246, 0.22), rgba(56, 189, 248, 0.14));
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.5);
+}
+.cobra-verified-pill svg,
+.zyro-verified-pill svg {
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px;
+  min-height: 15px;
+  max-width: 15px;
+  max-height: 15px;
+  flex-shrink: 0;
+  display: block;
+}
 .verification-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;z-index:10035;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .verification-overlay.show{display:flex}
 .verification-modal{width:min(640px,100%);max-height:92vh;background:#fff;color:#111;border-radius:24px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.45);display:flex;flex-direction:column}
@@ -3884,19 +3927,12 @@ img.logo-profile.zyro-header-logo {
   </div>
 </div>
 
-<svg style="display:none" aria-hidden="true">
+<svg style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none" aria-hidden="true">
 <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h5v-6h4v6h5V9.5"/></symbol>
 <symbol id="i-film" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M3 16h4M17 8h4M17 16h4"/></symbol>
 <!-- Zyro Reels: brand Z logo -->
 <!-- Instagram-Style Reels Clapperboard Icon (Matching reels-clapperboard.svg & Screenshots) -->
 <symbol id="i-reels-clapper" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="reelsNeonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ff1744"/>
-      <stop offset="45%" stop-color="#ff007f"/>
-      <stop offset="100%" stop-color="#ff8a00"/>
-    </linearGradient>
-  </defs>
   <rect class="reels-svg-rect" x="4.5" y="8.5" width="23" height="19" rx="3.2" stroke="currentColor" stroke-width="2.2" fill="none"/>
   <path class="reels-svg-line" d="M5.5 8.8 8.8 3.7h18.1l-3.2 5.1M13.3 3.7l3.2 5.1M20.4 3.7l3.2 5.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
   <path class="reels-svg-play" d="m13 14.2 7.1 4.1-7.1 4.1z" fill="currentColor" stroke="currentColor" stroke-linejoin="round"/>
@@ -3964,21 +4000,16 @@ img.logo-profile.zyro-header-logo {
 <symbol id="i-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
 <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
 <symbol id="i-verified-blue" viewBox="0 0 24 24">
-  <!-- Zyro Verified - 3D 8-Wave Scalloped Electric Blue Seal (Guide Design) -->
-  <defs>
-    <linearGradient id="zyroBlueRim" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7DD3FC"/>
-      <stop offset="45%" stop-color="#0095F6"/>
-      <stop offset="100%" stop-color="#0044CC"/>
-    </linearGradient>
-    <linearGradient id="zyroBlueCore" x1="15%" y1="10%" x2="85%" y2="90%">
-      <stop offset="0%" stop-color="#38BDF8"/>
-      <stop offset="50%" stop-color="#0084FF"/>
-      <stop offset="100%" stop-color="#0051E6"/>
-    </linearGradient>
-  </defs>
-  <path fill="url(#zyroBlueRim)" d="M12.0,0.8 L13.07,1.13 L14.0,1.95 L14.78,2.83 L15.56,3.41 L16.52,3.55 L17.69,3.48 L18.93,3.56 L19.92,4.08 L20.44,5.07 L20.52,6.31 L20.45,7.48 L20.59,8.44 L21.17,9.22 L22.05,10.0 L22.87,10.93 L23.2,12.0 L22.87,13.07 L22.05,14.0 L21.17,14.78 L20.59,15.56 L20.45,16.52 L20.52,17.69 L20.44,18.93 L19.92,19.92 L18.93,20.44 L17.69,20.52 L16.52,20.45 L15.56,20.59 L14.78,21.17 L14.0,22.05 L13.07,22.87 L12.0,23.2 L10.93,22.87 L10.0,22.05 L9.22,21.17 L8.44,20.59 L7.48,20.45 L6.31,20.52 L5.07,20.44 L4.08,19.92 L3.56,18.93 L3.48,17.69 L3.55,16.52 L3.41,15.56 L2.83,14.78 L1.95,14.0 L1.13,13.07 L0.8,12.0 L1.13,10.93 L1.95,10.0 L2.83,9.22 L3.41,8.44 L3.55,7.48 L3.48,6.31 L3.56,5.07 L4.08,4.08 L5.07,3.56 L6.31,3.48 L7.48,3.55 L8.44,3.41 L9.22,2.83 L10.0,1.95 L10.93,1.13 Z"/>
-  <path fill="url(#zyroBlueCore)" d="M12.0,2.27 L12.93,2.54 L13.75,3.22 L14.44,3.96 L15.13,4.45 L15.96,4.59 L16.97,4.56 L18.03,4.66 L18.88,5.12 L19.34,5.97 L19.44,7.03 L19.41,8.04 L19.55,8.87 L20.04,9.56 L20.78,10.25 L21.46,11.07 L21.73,12.0 L21.46,12.93 L20.78,13.75 L20.04,14.44 L19.55,15.13 L19.41,15.96 L19.44,16.97 L19.34,18.03 L18.88,18.88 L18.03,19.34 L16.97,19.44 L15.96,19.41 L15.13,19.55 L14.44,20.04 L13.75,20.78 L12.93,21.46 L12.0,21.73 L11.07,21.46 L10.25,20.78 L9.56,20.04 L8.87,19.55 L8.04,19.41 L7.03,19.44 L5.97,19.34 L5.12,18.88 L4.66,18.03 L4.56,16.97 L4.59,15.96 L4.45,15.13 L3.96,14.44 L3.22,13.75 L2.54,12.93 L2.27,12.0 L2.54,11.07 L3.22,10.25 L3.96,9.56 L4.45,8.87 L4.59,8.04 L4.56,7.03 L4.66,5.97 L5.12,5.12 L5.97,4.66 L7.03,4.56 L8.04,4.59 L8.87,4.45 L9.56,3.96 L10.25,3.22 L11.07,2.54 Z"/>
+  <!-- Zyro Verified - 3D 8-Wave Scalloped Electric Blue Seal (Direct Hex Layers — 100% WebView Safe) -->
+  <!-- Layer 1: Deep Royal Blue 3D Lower-Right Bevel -->
+  <path fill="#0052D4" d="M12.0,1.1 L13.07,1.43 L14.0,2.25 L14.78,3.13 L15.56,3.71 L16.52,3.85 L17.69,3.78 L18.93,3.86 L19.92,4.38 L20.44,5.37 L20.52,6.61 L20.45,7.78 L20.59,8.74 L21.17,9.52 L22.05,10.3 L22.87,11.23 L23.2,12.3 L22.87,13.37 L22.05,14.3 L21.17,15.08 L20.59,15.86 L20.45,16.82 L20.52,17.99 L20.44,19.23 L19.92,20.22 L18.93,20.74 L17.69,20.82 L16.52,20.75 L15.56,20.89 L14.78,21.47 L14.0,22.35 L13.07,23.17 L12.0,23.5 L10.93,23.17 L10.0,22.35 L9.22,21.47 L8.44,20.89 L7.48,20.75 L6.31,20.82 L5.07,20.74 L4.08,20.22 L3.56,19.23 L3.48,17.99 L3.55,16.82 L3.41,15.86 L2.83,15.08 L1.95,14.3 L1.13,13.37 L0.8,12.3 L1.13,11.23 L1.95,10.3 L2.83,9.52 L3.41,8.74 L3.55,7.78 L3.48,6.61 L3.56,5.37 L4.08,4.38 L5.07,3.86 L6.31,3.78 L7.48,3.85 L8.44,3.71 L9.22,3.13 L10.0,2.25 L10.93,1.43 Z"/>
+  <!-- Layer 2: Bright Cyan-Sky Outer 3D Rim Highlight -->
+  <path fill="#38BDF8" d="M12.0,0.65 L13.07,0.98 L14.0,1.8 L14.78,2.68 L15.56,3.26 L16.52,3.4 L17.69,3.33 L18.93,3.41 L19.92,3.93 L20.44,4.92 L20.52,6.16 L20.45,7.33 L20.59,8.29 L21.17,9.07 L22.05,9.85 L22.87,10.78 L23.2,11.85 L22.87,12.92 L22.05,13.85 L21.17,14.63 L20.59,15.41 L20.45,16.37 L20.52,17.54 L20.44,18.78 L19.92,19.77 L18.93,20.29 L17.69,20.37 L16.52,20.3 L15.56,20.44 L14.78,21.02 L14.0,21.9 L13.07,22.72 L12.0,23.05 L10.93,22.72 L10.0,21.9 L9.22,21.02 L8.44,20.44 L7.48,20.3 L6.31,20.37 L5.07,20.29 L4.08,19.77 L3.56,18.78 L3.48,17.54 L3.55,16.37 L3.41,15.41 L2.83,14.63 L1.95,13.85 L1.13,12.92 L0.8,11.85 L1.13,10.78 L1.95,9.85 L2.83,9.07 L3.41,8.29 L3.55,7.33 L3.48,6.16 L3.56,4.92 L4.08,3.93 L5.07,3.41 L6.31,3.33 L7.48,3.4 L8.44,3.26 L9.22,2.68 L10.0,1.8 L10.93,0.98 Z"/>
+  <!-- Layer 3: Rich Electric Blue Main Seal Body (#0095F6) -->
+  <path fill="#0095F6" d="M12.0,2.1 L12.93,2.37 L13.75,3.05 L14.44,3.79 L15.13,4.28 L15.96,4.42 L16.97,4.39 L18.03,4.49 L18.88,4.95 L19.34,5.8 L19.44,6.86 L19.41,7.87 L19.55,8.7 L20.04,9.39 L20.78,10.08 L21.46,10.9 L21.73,11.85 L21.46,12.78 L20.78,13.6 L20.04,14.29 L19.55,14.98 L19.41,15.81 L19.44,16.82 L19.34,17.88 L18.88,18.73 L18.03,19.19 L16.97,19.29 L15.96,19.26 L15.13,19.4 L14.44,19.89 L13.75,20.63 L12.93,21.31 L12.0,21.58 L11.07,21.31 L10.25,20.63 L9.56,19.89 L8.87,19.4 L8.04,19.26 L7.03,19.29 L5.97,19.19 L5.12,18.73 L4.66,17.88 L4.56,16.82 L4.59,15.81 L4.45,14.98 L3.96,14.29 L3.22,13.6 L2.54,12.78 L2.27,11.85 L2.54,10.9 L3.22,10.08 L3.96,9.39 L4.45,8.7 L4.59,7.87 L4.56,6.86 L4.66,5.8 L5.12,4.95 L5.97,4.49 L7.03,4.39 L8.04,4.42 L8.87,4.28 L9.56,3.79 L10.25,3.05 L11.07,2.37 Z"/>
+  <!-- Layer 4: Subtle Checkmark Drop Bevel -->
+  <path fill="#0061C9" d="M10.35 16.75 C10.05 16.75 9.78 16.63 9.57 16.42 L6.35 13.2 C5.92 12.77 5.92 12.07 6.35 11.64 L7.18 10.81 C7.61 10.38 8.31 10.38 8.74 10.81 L10.35 12.42 L15.26 7.51 C15.69 7.08 16.39 7.08 16.82 7.51 L17.65 8.34 C18.08 8.77 18.08 9.47 17.65 9.9 L11.13 16.42 C10.92 16.63 10.65 16.75 10.35 16.75 Z"/>
+  <!-- Layer 5: Crisp Pure White 3D Checkmark -->
   <path fill="#FFFFFF" d="M10.35 16.15 C10.05 16.15 9.78 16.03 9.57 15.82 L6.35 12.6 C5.92 12.17 5.92 11.47 6.35 11.04 L7.18 10.21 C7.61 9.78 8.31 9.78 8.74 10.21 L10.35 11.82 L15.26 6.91 C15.69 6.48 16.39 6.48 16.82 6.91 L17.65 7.74 C18.08 8.17 18.08 8.87 17.65 9.3 L11.13 15.82 C10.92 16.03 10.65 16.15 10.35 16.15 Z"/>
 </symbol>
 <symbol id="i-verified-gold" viewBox="0 0 24 24">
@@ -3988,44 +4019,28 @@ img.logo-profile.zyro-header-logo {
   <path fill="#FFFFFF" d="M10.35 16.15 C10.05 16.15 9.78 16.03 9.57 15.82 L6.35 12.6 C5.92 12.17 5.92 11.47 6.35 11.04 L7.18 10.21 C7.61 9.78 8.31 9.78 8.74 10.21 L10.35 11.82 L15.26 6.91 C15.69 6.48 16.39 6.48 16.82 6.91 L17.65 7.74 C18.08 8.17 18.08 8.87 17.65 9.3 L11.13 15.82 C10.92 16.03 10.65 16.15 10.35 16.15 Z"/>
 </symbol>
 <symbol id="i-verified-cobra" viewBox="0 0 24 24">
-  <!-- Cobra Verified - Exclusive Admin Award Cyber-Cobra Shield Badge -->
-  <defs>
-    <linearGradient id="cobraShieldBorder" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#00F0FF"/>
-      <stop offset="42%" stop-color="#0095F6"/>
-      <stop offset="72%" stop-color="#D946EF"/>
-      <stop offset="100%" stop-color="#7C3AED"/>
-    </linearGradient>
-    <linearGradient id="cobraShieldMagenta" x1="0%" y1="20%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FF2E93"/>
-      <stop offset="50%" stop-color="#D946EF"/>
-      <stop offset="100%" stop-color="#6D28D9"/>
-    </linearGradient>
-    <linearGradient id="cobraHeadCyan" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#67E8F9"/>
-      <stop offset="55%" stop-color="#00D2FF"/>
-      <stop offset="100%" stop-color="#0284C7"/>
-    </linearGradient>
-  </defs>
-  <!-- Outer Cyber Shield Armor -->
-  <path fill="url(#cobraShieldBorder)" d="M12 0.8 L21.4 4.6 L21.8 10.2 L19.8 16.6 L12 23.2 L4.2 16.6 L2.2 10.2 L2.6 4.6 Z"/>
+  <!-- Cobra Verified - Exclusive Admin Award Cyber-Cobra Shield Badge (Direct Hex Layers — 100% WebView Safe) -->
+  <!-- Outer Cyber Shield Armor (Neon Cyan Top) -->
+  <path fill="#00E5FF" d="M12 0.8 L21.4 4.6 L21.8 10.2 L19.8 16.6 L12 23.2 L4.2 16.6 L2.2 10.2 L2.6 4.6 Z"/>
   <!-- Neon Magenta Lower Wing Trim -->
-  <path fill="url(#cobraShieldMagenta)" d="M2.5 9.5 L4.2 16.6 L12 23.2 L19.8 16.6 L21.5 9.5 L19.9 10.2 L18.4 15.6 L12 21.3 L5.6 15.6 L4.1 10.2 Z"/>
+  <path fill="#E11D8F" d="M2.4 9.2 L4.2 16.6 L12 23.2 L19.8 16.6 L21.6 9.2 L19.9 10.2 L18.4 15.6 L12 21.3 L5.6 15.6 L4.1 10.2 Z"/>
   <!-- Dark Obsidian Shield Core -->
   <path fill="#070B19" d="M12 2.3 L19.9 5.5 L20.2 10.1 L18.4 15.7 L12 21.2 L5.6 15.7 L3.8 10.1 L4.1 5.5 Z"/>
   <!-- Inner Cyan Top Rim -->
-  <path fill="none" stroke="#00F0FF" stroke-width="0.65" stroke-opacity="0.85" d="M4.6 6.0 L12 3.0 L19.4 6.0"/>
-  <!-- Cyber Cobra Flared Hood (Magenta & Cyan Scales) -->
-  <path fill="url(#cobraShieldMagenta)" d="M12 4.3 C7.4 4.3 4.7 7.1 5.0 10.8 C5.2 12.8 6.8 14.5 8.5 15.6 L12 17.6 L15.5 15.6 C17.2 14.5 18.8 12.8 19.0 10.8 C19.3 7.1 16.6 4.3 12 4.3 Z"/>
+  <path fill="none" stroke="#00F0FF" stroke-width="0.7" d="M4.6 6.0 L12 3.0 L19.4 6.0"/>
+  <!-- Cyber Cobra Flared Hood (Vibrant Neon Magenta & Violet Scales) -->
+  <path fill="#D946EF" d="M12 4.3 C7.4 4.3 4.7 7.1 5.0 10.8 C5.2 12.8 6.8 14.5 8.5 15.6 L12 17.6 L15.5 15.6 C17.2 14.5 18.8 12.8 19.0 10.8 C19.3 7.1 16.6 4.3 12 4.3 Z"/>
+  <!-- Inner Hood Cyan-Blue Accent -->
+  <path fill="#0284C7" d="M12 4.8 C8.2 4.8 5.9 7.2 6.2 10.5 C6.4 12.2 7.7 13.7 9.2 14.6 L12 16.4 L14.8 14.6 C16.3 13.7 17.6 12.2 17.8 10.5 C18.1 7.2 15.8 4.8 12 4.8 Z"/>
   <!-- Sculpted Cyan Cobra Head & Horns -->
-  <path fill="url(#cobraHeadCyan)" d="M8.2 3.7 L9.8 5.1 L12 4.4 L14.2 5.1 L15.8 3.7 L15.3 6.2 C16.9 7.3 17.6 9.1 17.1 11.1 C16.6 12.8 15.2 13.9 13.9 14.8 L12 13.5 L10.1 14.8 C8.8 13.9 7.4 12.8 6.9 11.1 C6.4 9.1 7.1 7.3 8.7 6.2 Z"/>
+  <path fill="#38BDF8" d="M8.2 3.7 L9.8 5.1 L12 4.4 L14.2 5.1 L15.8 3.7 L15.3 6.2 C16.9 7.3 17.6 9.1 17.1 11.1 C16.6 12.8 15.2 13.9 13.9 14.8 L12 13.5 L10.1 14.8 C8.8 13.9 7.4 12.8 6.9 11.1 C6.4 9.1 7.1 7.3 8.7 6.2 Z"/>
   <!-- Dark Crown Scale Lines -->
   <path fill="#070B19" d="M12 5.4 L13.4 7.2 L12 8.8 L10.6 7.2 Z"/>
   <!-- Fierce Glowing Amber-Gold Eyes -->
   <polygon fill="#FBBF24" points="8.2,9.2 11.0,10.3 9.7,11.1"/>
   <polygon fill="#FBBF24" points="15.8,9.2 13.0,10.3 14.3,11.1"/>
   <!-- Open Jaw & Fangs -->
-  <path fill="#9D174D" d="M9.3 12.2 L12 11.4 L14.7 12.2 L13.8 15.4 L12 16.5 L10.2 15.4 Z"/>
+  <path fill="#BE185D" d="M9.3 12.2 L12 11.4 L14.7 12.2 L13.8 15.4 L12 16.5 L10.2 15.4 Z"/>
   <polygon fill="#FFFFFF" points="9.8,12.2 10.5,14.5 11.0,12.4"/>
   <polygon fill="#FFFFFF" points="14.2,12.2 13.5,14.5 13.0,12.4"/>
   <!-- Glowing Cyan V-Chevron at Bottom of Shield -->
@@ -4773,8 +4788,9 @@ img.logo-profile.zyro-header-logo {
           <label class="admin-label">Badge Type / Verification Tier</label>
           <select class="admin-input" id="adminVerifyTierSelect">
             <option value="blue" selected>🔵 Zyro Verified (Blue Tick — Standard)</option>
-            <option value="cobra">🐍 Cobra Verified (Exclusive Admin Award)</option>
             <option value="both">⚡ Both: Zyro Verified + Cobra Verified</option>
+            <option value="cobra">🐍 Cobra Verified (Add Admin Award)</option>
+            <option value="cobra_only">🛡️ Cobra Verified Only (No Blue Tick)</option>
             <option value="celebrity_free">⭐ Celebrity / Public Figure (Free Zyro Verified)</option>
             <option value="creator_starter">🚀 Starter Creator (₹49/mo — Zyro Verified)</option>
             <option value="creator_pro">💎 Pro Creator (₹99/mo — Zyro Verified)</option>
@@ -7428,16 +7444,36 @@ function pairId(a,b){ return [a,b].sort().join("_"); }
 function followId(from,to){ return from+"_"+to; }
 function avatarFor(data){ return (data && (data.photoURL||data.photo||data.userPhoto)) || "https://ui-avatars.com/api/?name=User&background=e63946&color=fff"; }
 let cachedCurrentUserProfile = null;
+function resolveVerifiedType(data) {
+  if (!data || typeof data !== "object") return "blue";
+  const rawType = String(data.verifiedType || "").toLowerCase();
+  const hasCobra = !!data.cobraVerified || rawType === "cobra" || rawType === "both" || rawType === "cobra_only" || rawType === "cobra_verified";
+  const hasBlue = rawType === "cobra_only"
+    ? false
+    : (!!data.zyroVerified || !!data.isVerified || rawType === "blue" || rawType === "both" || rawType === "zyro" || rawType.startsWith("creator_") || rawType.startsWith("celebrity") || rawType === "gold");
+  if (hasBlue && hasCobra) return "both";
+  if (hasCobra) return "cobra_only";
+  if (hasBlue) return "blue";
+  return "";
+}
+
 function getVerifiedBadge(isVerified, type = "blue", size = 15) {
-  if (!isVerified && type !== "cobra" && type !== "both") return "";
+  if (isVerified && typeof isVerified === "object") {
+    const resolved = resolveVerifiedType(isVerified);
+    if (!resolved) return "";
+    return getVerifiedBadge(true, resolved, typeof type === "number" ? type : size);
+  }
   const t = String(type || "blue").toLowerCase();
-  const hasCobra = t === "cobra" || t === "both" || t === "cobra_verified";
-  const hasBlue = t === "blue" || t === "both" || t === "zyro" || t === "zyro_verified" || t === "creator_starter" || t === "creator_pro" || t === "creator_elite" || t === "celebrity_free" || t === "celebrity" || t === "gold";
+  if (!isVerified && t !== "cobra" && t !== "cobra_only" && t !== "both") return "";
+  const hasCobra = t === "cobra" || t === "cobra_only" || t === "both" || t === "cobra_verified";
+  const hasBlue = t === "cobra_only"
+    ? false
+    : (t === "blue" || t === "both" || t === "zyro" || t === "zyro_verified" || t === "creator_starter" || t === "creator_pro" || t === "creator_elite" || t === "celebrity_free" || t === "celebrity" || t === "gold" || (!!isVerified && t === "cobra") || (!hasCobra && !!isVerified));
   let html = "";
-  if (hasBlue || (!hasCobra && isVerified)) {
+  if (hasBlue) {
     const titleBlue = "Zyro Verified ✔️";
     html += `<span class="verified-badge-wrap" title="${titleBlue}" aria-label="${titleBlue}">` +
-      `<svg viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle" aria-hidden="true">` +
+      `<svg width="${size}" height="${size}" viewBox="0 0 24 24" style="width:${size}px;height:${size}px;vertical-align:middle;display:inline-block" aria-hidden="true">` +
       `<use href="#i-verified-blue"></use>` +
       `</svg>` +
       `</span>`;
@@ -7446,7 +7482,7 @@ function getVerifiedBadge(isVerified, type = "blue", size = 15) {
     const cobraSize = Math.round(size * 1.08);
     const titleCobra = "Cobra Verified — Trusted Creator | Admin Award";
     html += `<span class="verified-badge-wrap cobra" title="${titleCobra}" aria-label="${titleCobra}">` +
-      `<svg viewBox="0 0 24 24" style="width:${cobraSize}px;height:${cobraSize}px;vertical-align:middle" aria-hidden="true">` +
+      `<svg width="${cobraSize}" height="${cobraSize}" viewBox="0 0 24 24" style="width:${cobraSize}px;height:${cobraSize}px;vertical-align:middle;display:inline-block" aria-hidden="true">` +
       `<use href="#i-verified-cobra"></use>` +
       `</svg>` +
       `</span>`;
@@ -7456,22 +7492,21 @@ function getVerifiedBadge(isVerified, type = "blue", size = 15) {
 
 function getVerifiedPillHtml(data) {
   if (!data) return "";
-  const isV = !!data.isVerified || !!data.cobraVerified;
-  if (!isV) return "";
-  const t = String(data.verifiedType || (data.cobraVerified ? "cobra" : "blue")).toLowerCase();
-  const hasCobra = !!data.cobraVerified || t === "cobra" || t === "both" || t === "cobra_verified";
-  const hasBlue = t === "blue" || t === "both" || t === "zyro" || t.startsWith("creator_") || t.startsWith("celebrity") || (!hasCobra && isV);
+  const resolved = resolveVerifiedType(data);
+  if (!resolved) return "";
+  const hasBlue = resolved === "blue" || resolved === "both";
+  const hasCobra = resolved === "cobra_only" || resolved === "both";
   let pills = "";
-  if (hasCobra) {
-    pills += `<span class="cobra-verified-pill" onclick="openVerificationModal('cobra')" style="cursor:pointer" title="Trusted Creator | Exclusive Admin Award">` +
-      `<svg viewBox="0 0 24 24"><use href="#i-verified-cobra"></use></svg>` +
-      `<span>Cobra Verified</span>` +
+  if (hasBlue) {
+    pills += `<span class="zyro-verified-pill" onclick="openVerificationModal('creators')" style="cursor:pointer" title="Zyro Verified Official Account">` +
+      `<svg width="15" height="15" viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;display:block"><use href="#i-verified-blue"></use></svg>` +
+      `<span>Zyro Verified</span>` +
       `</span>`;
   }
-  if (hasBlue) {
-    pills += `<span class="zyro-verified-pill" onclick="openVerificationModal('creators')" style="cursor:pointer;margin-left:${hasCobra ? '6px' : '0'}" title="Zyro Verified Official Account">` +
-      `<svg viewBox="0 0 24 24"><use href="#i-verified-blue"></use></svg>` +
-      `<span>Zyro Verified</span>` +
+  if (hasCobra) {
+    pills += `<span class="cobra-verified-pill" onclick="openVerificationModal('cobra')" style="cursor:pointer;margin-left:${hasBlue ? '6px' : '0'}" title="Trusted Creator | Exclusive Admin Award">` +
+      `<svg width="15" height="15" viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;display:block"><use href="#i-verified-cobra"></use></svg>` +
+      `<span>Cobra Verified</span>` +
       `</span>`;
   }
   return pills;
@@ -7490,21 +7525,19 @@ function openVerificationModal(defaultTab){
   const titleEl = document.getElementById("activeVerifiedPlanTitle");
   const detEl = document.getElementById("activeVerifiedDetails");
   const iconEl = document.getElementById("activeVerifiedBadgeIcon");
-  const isV = !!profile.isVerified || !!profile.cobraVerified;
-  if(isV && banner){
+  const resolved = resolveVerifiedType(profile);
+  if(resolved && banner){
     banner.style.display = "block";
-    const t = String(profile.verifiedType || (profile.cobraVerified ? "cobra" : "blue")).toLowerCase();
-    const isCobra = !!profile.cobraVerified || t === "cobra" || t === "both";
     if(iconEl) {
-      iconEl.innerHTML = getVerifiedBadge(true, isCobra ? (t === "both" ? "both" : "cobra") : "blue", 22);
+      iconEl.innerHTML = getVerifiedBadge(true, resolved, 22);
     }
     if(titleEl) {
-      titleEl.textContent = t === "both"
+      titleEl.textContent = resolved === "both"
         ? "Zyro Verified + Cobra Verified Account ⚡"
-        : (isCobra ? "Cobra Verified — Trusted Creator 🛡️" : "Zyro Verified Account ✔️");
+        : (resolved === "cobra_only" ? "Cobra Verified — Trusted Creator 🛡️" : "Zyro Verified Account ✔️");
     }
     if(detEl) {
-      const planName = profile.verifiedPlan || (isCobra ? "Cobra Verified (Admin Award)" : "Zyro Verified");
+      const planName = profile.verifiedPlan || (resolved === "both" ? "Zyro Verified + Cobra Verified" : (resolved === "cobra_only" ? "Cobra Verified (Admin Award)" : "Zyro Verified"));
       const duration = profile.verifiedDuration ? " · Validity: " + profile.verifiedDuration : "";
       detEl.textContent = planName + duration + " · Official badge active on your username.";
     }
@@ -7710,25 +7743,54 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
       return;
     }
 
+    // Check existing profile so granting Cobra Verified preserves existing Zyro Verified (unless cobra_only is chosen)
+    const existingSnap = await db.collection("publicProfiles").doc(targetUid).get().catch(() => null);
+    const existingData = existingSnap && existingSnap.exists ? existingSnap.data() : {};
+    const alreadyHasZyro = !!existingData.zyroVerified || (!!existingData.isVerified && existingData.verifiedType !== "cobra_only");
+    const alreadyHasCobra = !!existingData.cobraVerified || existingData.verifiedType === "cobra" || existingData.verifiedType === "both" || existingData.verifiedType === "cobra_only";
+
+    let finalVerifiedType = tierVal;
+    let hasZyro = true;
+    let hasCobra = false;
+
+    if (tierVal === "both") {
+      hasZyro = true;
+      hasCobra = true;
+      finalVerifiedType = "both";
+    } else if (tierVal === "cobra") {
+      hasCobra = true;
+      hasZyro = alreadyHasZyro;
+      finalVerifiedType = hasZyro ? "both" : "cobra_only";
+    } else if (tierVal === "cobra_only") {
+      hasCobra = true;
+      hasZyro = false;
+      finalVerifiedType = "cobra_only";
+    } else {
+      // blue, celebrity_free, creator_*
+      hasZyro = true;
+      hasCobra = alreadyHasCobra && tierVal !== "blue";
+      finalVerifiedType = hasCobra ? "both" : tierVal;
+    }
+
     let planLabel = "Zyro Verified (Blue Tick)";
-    if(tierVal === "cobra") planLabel = "Cobra Verified (Trusted Creator Award)";
-    else if(tierVal === "both") planLabel = "Zyro Verified + Cobra Verified";
+    if(finalVerifiedType === "both") planLabel = "Zyro Verified + Cobra Verified";
+    else if(finalVerifiedType === "cobra_only" || tierVal === "cobra") planLabel = "Cobra Verified (Trusted Creator Award)";
     else if(tierVal === "celebrity_free") planLabel = "Celebrity VIP (Free Zyro Verified)";
     else if(tierVal === "creator_starter") planLabel = "Starter Creator (Zyro Verified)";
     else if(tierVal === "creator_pro") planLabel = "Pro Creator (Zyro Verified)";
     else if(tierVal === "creator_elite") planLabel = "Elite VIP Creator (Zyro Verified)";
 
     const durationLabel = durVal === 0 ? "Lifetime / Permanent" : durVal + " Days";
-    const isCobraAward = tierVal === "cobra" || tierVal === "both";
 
     const updatePayload = {
-      isVerified: true,
-      cobraVerified: isCobraAward,
-      verifiedType: tierVal,
+      isVerified: hasZyro,
+      zyroVerified: hasZyro,
+      cobraVerified: hasCobra,
+      verifiedType: finalVerifiedType,
       verifiedPlan: planLabel,
       verifiedDuration: durationLabel,
       verifiedAt: firebase.firestore.FieldValue.serverTimestamp(),
-      verifiedNote: note || (isCobraAward ? "Cobra Verified Admin Award" : "Zyro Verified by Admin")
+      verifiedNote: note || (hasCobra ? "Cobra Verified Admin Award" : "Zyro Verified by Admin")
     };
 
     const batch = db.batch();
@@ -7744,13 +7806,13 @@ async function adminGrantVerification(targetIdentifier, tier, durationDays, note
 
     // Send notification to user
     if(typeof createNotification === "function"){
-      await createNotification(targetUid, "verification", isCobraAward ? "🐍🛡️ Cobra Verified Awarded!" : "🎉 Account Zyro Verified!", 
+      await createNotification(targetUid, "verification", hasCobra ? "🐍🛡️ Cobra Verified Awarded!" : "🎉 Account Zyro Verified!", 
         "Aapka UPComedyHub official " + planLabel + " badge activate ho gaya hai!", 
-        { tier: tierVal }
+        { tier: finalVerifiedType }
       );
     }
 
-    showToast(isCobraAward ? "🐍 Cobra Verified badge grant kiya gaya!" : "✅ Zyro Verified badge grant kiya gaya!");
+    showToast(finalVerifiedType === "both" ? "⚡ Zyro Verified + Cobra Verified dono active ho gaye!" : (hasCobra ? "🐍 Cobra Verified badge grant kiya gaya!" : "✅ Zyro Verified (Blue Tick) badge grant kiya gaya!"));
     if(currentUser && currentUser.uid === targetUid) await loadProfileIdentity();
     loadPendingVerificationRequests();
   } catch(e) {
@@ -7784,6 +7846,7 @@ async function adminRevokeVerification(targetIdentifier){
     }
     const updatePayload = {
       isVerified: false,
+      zyroVerified: false,
       cobraVerified: false,
       verifiedType: null,
       verifiedPlan: null,
@@ -8845,9 +8908,9 @@ async function loadProfileIdentity(){
     const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
     allAvatarEls.forEach(function(el){ try { if(currentProfilePhotoURL) el.src = currentProfilePhotoURL; } catch(e){} });
 
-    const isV = !!data.isVerified || !!data.cobraVerified;
-    const vType = data.verifiedType || (data.cobraVerified ? "cobra" : "blue");
-    const vBadge = getVerifiedBadge(isV, vType, 16);
+    const resolved = resolveVerifiedType(data);
+    const isV = !!resolved;
+    const vBadge = getVerifiedBadge(isV, resolved, 16);
     const un = document.getElementById("profileUsername"); 
     if(un) un.textContent = "@"+(data.username||"user");
     
@@ -8856,14 +8919,18 @@ async function loadProfileIdentity(){
     if(uh) uh.innerHTML = escapeHtml(data.username||"user") + vBadge;
     
     const uNameEl = document.getElementById("userName");
-    if(uNameEl) uNameEl.textContent = data.displayName || (currentUser ? currentUser.displayName : "User");
+    if(uNameEl) uNameEl.innerHTML = escapeHtml(data.displayName || (currentUser ? currentUser.displayName : "User")) + vBadge;
 
     const vPillSlot = document.getElementById("profileVerifiedPillSlot");
     if(vPillSlot){
       const pillHtml = getVerifiedPillHtml(data);
       if(pillHtml){
         vPillSlot.innerHTML = pillHtml;
-        vPillSlot.style.display = "block";
+        vPillSlot.style.display = "flex";
+        vPillSlot.style.alignItems = "center";
+        vPillSlot.style.gap = "6px";
+        vPillSlot.style.flexWrap = "wrap";
+        vPillSlot.style.margin = "4px 0 6px";
       } else {
         vPillSlot.innerHTML = "";
         vPillSlot.style.display = "none";
@@ -8873,8 +8940,8 @@ async function loadProfileIdentity(){
     const epName = document.getElementById("editProfileNamePreview");
     if(epName) epName.textContent = data.displayName || currentUser.displayName || "User";
 
-    const isCobra = !!data.cobraVerified || vType === "cobra" || vType === "both";
-    const vStatusLabel = isV ? (isCobra ? "Cobra Verified 🛡️" : "Zyro Verified ✓") : "Get Verified";
+    const isCobra = resolved === "cobra_only" || resolved === "both";
+    const vStatusLabel = resolved === "both" ? "Zyro + Cobra Verified ⚡" : (resolved === "cobra_only" ? "Cobra Verified 🛡️" : (isV ? "Zyro Verified ✓" : "Get Verified"));
     const vBtnLabel = document.getElementById("profileVerifiedBtnLabel");
     if(vBtnLabel) vBtnLabel.textContent = vStatusLabel;
     const vSetStatus = document.getElementById("settingsVerifiedStatus");
@@ -8947,9 +9014,9 @@ function updateUIProfileIdentity(data){
   const allAvatarEls = document.querySelectorAll("#userPhoto, #myStoryTrayAvatar, #funPlayerAvatar, #editProfileAvatarPreview, #shareQrAvatar, #photoViewerImg, .user-avatar-live, #chatAvatarBtn img, .profile-avatar-img, .ig-avatar, .header-avatar");
   allAvatarEls.forEach(function(el){ try { if(photo) el.src = photo; } catch(e){} });
 
-  const isV = !!data.isVerified || !!data.cobraVerified;
-  const vType = data.verifiedType || (data.cobraVerified ? "cobra" : "blue");
-  const vBadge = getVerifiedBadge(isV, vType, 16);
+  const resolved = resolveVerifiedType(data);
+  const isV = !!resolved;
+  const vBadge = getVerifiedBadge(isV, resolved, 16);
   const un = document.getElementById("profileUsername"); 
   if(un) un.textContent = "@"+(data.username||"guest");
 
@@ -8957,14 +9024,18 @@ function updateUIProfileIdentity(data){
   if(uh) uh.innerHTML = escapeHtml(data.username||"guest") + vBadge;
 
   const uNameEl = document.getElementById("userName");
-  if(uNameEl) uNameEl.textContent = data.displayName || (currentUser ? currentUser.displayName : "Guest User");
+  if(uNameEl) uNameEl.innerHTML = escapeHtml(data.displayName || (currentUser ? currentUser.displayName : "Guest User")) + vBadge;
 
   const vPillSlot = document.getElementById("profileVerifiedPillSlot");
   if(vPillSlot){
     const pillHtml = getVerifiedPillHtml(data);
     if(pillHtml){
       vPillSlot.innerHTML = pillHtml;
-      vPillSlot.style.display = "block";
+      vPillSlot.style.display = "flex";
+      vPillSlot.style.alignItems = "center";
+      vPillSlot.style.gap = "6px";
+      vPillSlot.style.flexWrap = "wrap";
+      vPillSlot.style.margin = "4px 0 6px";
     } else {
       vPillSlot.innerHTML = "";
       vPillSlot.style.display = "none";
@@ -14675,9 +14746,9 @@ async function showUserProfileModal(userOrUid){
     +     '<div class="rp-stat" id="rpFollowingClick" style="cursor:pointer"><b id="rpFollowing">0</b><span>Following</span></div>'
     +   '</div>'
     + '</div>'
-    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + '<span id="rpFollowsYouSlot"></span></div>'
-    + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + getVerifiedBadge(userData.isVerified || userData.cobraVerified, userData.verifiedType || (userData.cobraVerified ? "cobra" : "blue"), 15) + '</div>'
-    + (getVerifiedPillHtml(userData) ? '<div style="margin:4px 0">' + getVerifiedPillHtml(userData) + '</div>' : '')
+    + '<div class="rp-name">' + escapeHtml(userData.displayName || "User") + getVerifiedBadge(userData, 15) + '<span id="rpFollowsYouSlot"></span></div>'
+    + '<div class="rp-username">@' + escapeHtml(userData.username || "user") + getVerifiedBadge(userData, 15) + '</div>'
+    + (getVerifiedPillHtml(userData) ? '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:5px 0">' + getVerifiedPillHtml(userData) + '</div>' : '')
     + '<div class="rp-bio">' + escapeHtml(userData.bio || "No bio yet.") + '</div>'
     + '<div class="profile-modal-actions" id="profileModalActions" style="display:flex;gap:8px;margin:14px 0 16px">'
     +   (isSelf ? '<button type="button" class="ig-btn" id="modalEditSelfBtn"><svg class="ico" style="width:13px;height:13px;margin-right:4px;vertical-align:-1px"><use href="#i-edit"></use></svg>Edit Profile</button>' : '<span style="font-size:12px;color:#888;padding:6px">Checking follow status...</span>')
@@ -18849,11 +18920,11 @@ window.addEventListener("DOMContentLoaded",()=>{
       if(snap.empty){ list.innerHTML = "<p style='color:#888;font-size:13px'>No users</p>"; return; }
       list.innerHTML = snap.docs.map(doc=>{ 
         const d = doc.data(); 
-        const isV = !!d.isVerified || !!d.cobraVerified;
-        const vType = d.verifiedType || (d.cobraVerified ? "cobra" : "blue");
-        const isCobra = !!d.cobraVerified || vType === "cobra" || vType === "both";
-        const vBadge = getVerifiedBadge(isV, vType, 14);
-        const vChip = isV ? `<span class="verified-chip${isCobra ? ' cobra' : ''}" style="margin-left:6px">${vBadge} ${escapeHtml(d.verifiedPlan || (isCobra ? 'Cobra Verified' : 'Zyro Verified'))}</span>` : '';
+        const resolved = resolveVerifiedType(d);
+        const isV = !!resolved;
+        const isCobra = resolved === "cobra_only" || resolved === "both";
+        const vBadge = getVerifiedBadge(isV, resolved, 14);
+        const vChip = isV ? `<span class="verified-chip${isCobra ? ' cobra' : ''}" style="margin-left:6px">${vBadge} ${escapeHtml(resolved === "both" ? "Zyro + Cobra Verified" : (d.verifiedPlan || (isCobra ? "Cobra Verified" : "Zyro Verified")))}</span>` : '';
         return '<div class="admin-item" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">' +
           '<div style="display:flex;align-items:center;gap:8px;min-width:0;flex:1">' +
             '<img src="'+escapeAttr(d.photo||"")+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0" onerror="this.src=\'icon.svg\'">' +

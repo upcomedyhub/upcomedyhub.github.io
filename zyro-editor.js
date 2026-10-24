@@ -36,14 +36,25 @@
     filterId: "none",
     filterIntensity: 0.85,  // 0 to 1
     effects: { vignette: 0, grain: 0, glow: 0, leak: 0, blur: 0, bars: 0, vhs: 0, rgb: 0 },
-    adjust: { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0 },
+    adjust: { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0, sharpen: 0 },
     transform: { rotate: 0, flipH: false, flipV: false },
-    texts: [],              // { id, text, x, y, size, font, color, weight, bg, bgColor, cap, align }
-    stickers: [],           // { id, emoji, x, y, size }
+    texts: [],              // { id, text, x, y, size, font, color, weight, bg, bgColor, cap, align, rotation, startTime, endTime }
+    stickers: [],           // { id, emoji, x, y, size, rotation, opacity, startTime, endTime }
+    drawStrokes: [],        // [{ points:[{x,y}], color, size, style }]
+    drawMode: false,
+    drawColor: "#ffeb3b",
+    drawSize: 6,
+    drawStyle: "neon",      // "solid" | "neon" | "highlighter" | "dashed"
+    sfxEvents: [],          // [{ id, sfxId, name, emoji, time }]
+    sfxVol: 0.9,
+    autoDuck: true,
+    fadeAudio: false,
+    undoStack: [],
+    redoStack: [],
     trim: { start: 0, end: 0, duration: 0 },
-    segments: [],           // [{ start, end }]
+    segments: [],           // [{ start, end, speed }]
     selSeg: 0,
-    speed: 1,               // 0.3, 0.5, 0.75, 1, 1.25, 1.5, 2
+    speed: 1,               // 0.3, 0.5, 0.75, 1, 1.25, 1.5, 2, 3
     loopTimeline: true,
     playhead: 0,
     volume: 1,
@@ -79,6 +90,7 @@
 
   var EFFECTS = [
     { id: "vhs",       name: "VHS Glitch" },
+    { id: "rgb",       name: "RGB Split" },
     { id: "grain",     name: "Film Grain" },
     { id: "vignette",  name: "Vignette" },
     { id: "leak",      name: "Light Leak" },
@@ -277,16 +289,20 @@
             '<video class="ze-media" id="zeVid" playsinline webkit-playsinline style="display:none"></video>' +
             '<div class="ze-fx-layer" id="zeFxLayer"></div>' +
             '<div class="ze-overlay-layer" id="zeOverlayLayer"></div>' +
+            '<canvas class="ze-draw-canvas" id="zeDrawCanvas"></canvas>' +
             '<div class="ze-text-layer" id="zeTextLayer"></div>' +
             '<div class="ze-sticker-layer" id="zeStickerLayer"></div>' +
           '</div>' +
         '</div>' +
+        '<div class="ze-item-inspector" id="zeItemInspector"></div>' +
         '<div class="ze-trash-zone" id="zeTrashZone" aria-hidden="true">' +
           ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>', ' style="width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"') +
           '<span>Delete</span>' +
         '</div>' +
         '<div class="ze-topbar">' +
           '<button class="ze-icon-btn" id="zeCancel" aria-label="Close">' + ic('<path d="M18 6 6 18M6 6l12 12"/>') + '</button>' +
+          '<button class="ze-icon-btn" id="zeUndoBtn" aria-label="Undo" title="Undo" disabled>' + ic('<path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/>') + '</button>' +
+          '<button class="ze-icon-btn" id="zeRedoBtn" aria-label="Redo" title="Redo" disabled>' + ic('<path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7"/>') + '</button>' +
           '<button class="ze-sound" id="zeSoundBtn">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>') + '<span id="zeSoundLabel">Add sound</span></button>' +
           '<button class="ze-icon-btn" id="zeVolBtn" aria-label="Volume">' + ic('<path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/>') + '</button>' +
         '</div>' +
@@ -296,6 +312,8 @@
           railBtn("effects", "Effects", ic('<path d="m12 3-1.9 5.8L4 10.7l5.8 1.9L12 18l1.9-5.4L20 10.7l-6.1-1.9Z"/>')) +
           railBtn("captions", "Captions", ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 12h3M14 12h3"/>')) +
           railBtn("stickers", "Stickers", ic('<circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>')) +
+          railBtn("draw", "Draw", ic('<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.5 7.5"/>')) +
+          railBtn("sfx", "SFX", ic('<path d="M11 5 6 9H2v6h4l5 4V5Z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>')) +
           railBtn("save", "Save", ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>')) +
         '</div>' +
         '<div class="ze-swipe" id="zeSwipe">' + ic('<path d="m18 15-6-6-6 6"/>') + '<span>Swipe up to edit</span></div>' +
@@ -312,7 +330,7 @@
         '<div class="ze-timeline" id="zeTimeline">' +
           '<div class="ze-tl-head">' +
             '<button class="ze-tl-playhead-btn" id="zeTlPlayToggle" title="Play/Pause">' + SVG_PLAY + '</button>' +
-            '<div class="ze-tl-title">Reel Editor</div>' +
+            '<div class="ze-tl-title">Reel Studio Pro</div>' +
             '<div class="ze-tl-time" id="zeTlTime">0:00.0 / 0:00.0</div>' +
             '<button class="ze-tl-close" id="zeTlClose">' + ic('<path d="M18 6 6 18M6 6l12 12"/>') + '</button>' +
           '</div>' +
@@ -337,16 +355,19 @@
         '<div class="ze-sound-picker" id="zeSoundPicker">' +
           '<div class="ze-sp-header">' +
             '<button class="ze-sp-back" id="zeSoundPickerBack" aria-label="Back">' + ic('<path d="M19 12H5M12 19l-7-7 7-7"/>') + '</button>' +
-            '<div class="ze-sp-title">Sounds</div>' +
-            '<button class="ze-sp-create" id="zeSoundPickerCreate">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Create</button>' +
+            '<div class="ze-sp-title">Sounds &amp; Music</div>' +
+            '<button class="ze-sp-create" id="zeSoundPickerCreate">' + ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Search</button>' +
           '</div>' +
           '<div class="ze-sp-body" id="zeSoundPickerBody"></div>' +
         '</div>' +
-        '<!-- Master Volume Popover -->' +
+        '<!-- Master Volume & Audio Mixer Popover -->' +
         '<div class="ze-vol-pop" id="zeVolPop">' +
-          '<div class="ze-vol-head">' + ic('<path d="M11 5 6 9H2v6h4l5 4V5Z"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;"') + '<span>Volume</span></div>' +
+          '<div class="ze-vol-head">' + ic('<path d="M11 5 6 9H2v6h4l5 4V5Z"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;"') + '<span>Studio Audio Mixer</span></div>' +
           '<div class="ze-vol-row"><span>Video</span><input type="range" id="zeVolVideo" min="0" max="100" value="100"><b id="zeVolVideoV">100%</b></div>' +
           '<div class="ze-vol-row"><span>Music</span><input type="range" id="zeVolMusic" min="0" max="100" value="80"><b id="zeVolMusicV">80%</b></div>' +
+          '<div class="ze-vol-row"><span>SFX</span><input type="range" id="zeVolSfx" min="0" max="100" value="90"><b id="zeVolSfxV">90%</b></div>' +
+          '<label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#b9b9c6;margin-bottom:8px;cursor:pointer"><input type="checkbox" id="zeAutoDuckCheck" checked style="accent-color:#e63946"> Auto-Duck Music on Speech</label>' +
+          '<label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#b9b9c6;margin-bottom:10px;cursor:pointer"><input type="checkbox" id="zeFadeAudioCheck" style="accent-color:#e63946"> Smooth Audio Fade In/Out</label>' +
           '<button class="ze-vol-mute" id="zeVolMute">Mute all</button>' +
         '</div>' +
         '<!-- Hidden file inputs -->' +
@@ -413,11 +434,15 @@
     el.vid = $("zeVid");
     el.fx = $("zeFxLayer");
     el.overlayLayer = $("zeOverlayLayer");
+    el.drawCanvas = $("zeDrawCanvas");
     el.textLayer = $("zeTextLayer");
     el.stickerLayer = $("zeStickerLayer");
+    el.inspector = $("zeItemInspector");
     el.soundBtn = $("zeSoundBtn");
     el.soundLabel = $("zeSoundLabel");
     el.volBtn = $("zeVolBtn");
+    el.undoBtn = $("zeUndoBtn");
+    el.redoBtn = $("zeRedoBtn");
     el.trashZone = $("zeTrashZone");
     el.soundPicker = $("zeSoundPicker");
     el.volPop = $("zeVolPop");
@@ -444,11 +469,16 @@
     el.tlAudioName = $("zeTlAudioName");
     el.tlTextLane = $("zeTlTextLane");
     el.tlOverlayLane = $("zeTlOverlayLane");
+    el.tlSfxLane = $("zeTlSfxLane");
     el.speedRow = $("zeSpeedRow");
     el.render = $("zeRender");
     el.renderText = $("zeRenderText");
     el.renderFill = $("zeRenderFill");
     el.renderSub = $("zeRenderSub");
+    el.drawCanvas = $("zeDrawCanvas");
+    el.itemInspector = $("zeItemInspector");
+    el.undoBtn = $("zeUndoBtn");
+    el.redoBtn = $("zeRedoBtn");
 
     wireEvents();
     domReady = true;
@@ -468,6 +498,190 @@
     toast._tm = setTimeout(function () { t.classList.remove("show"); }, 2400);
   }
 
+  /* ---------------- Undo / Redo Engine ---------------- */
+  function snapshotState() {
+    return JSON.stringify({
+      filterId: S.filterId,
+      filterIntensity: S.filterIntensity,
+      effects: S.effects,
+      adjust: S.adjust,
+      transform: S.transform,
+      texts: S.texts,
+      stickers: S.stickers.map(function (s) {
+        return {
+          id: s.id, kind: s.kind, ch: s.ch, svg: s.svg, ar: s.ar, pack: s.pack,
+          layer: s.layer, x: s.x, y: s.y, size: s.size, rot: s.rot || 0,
+          opacity: s.opacity != null ? s.opacity : 1,
+          startTime: s.startTime || 0, endTime: s.endTime || 0
+        };
+      }),
+      drawStrokes: S.drawStrokes,
+      sfxEvents: S.sfxEvents,
+      segments: S.segments,
+      speed: S.speed,
+      aspect: S.aspect
+    });
+  }
+
+  function pushHistory() {
+    try {
+      var snap = snapshotState();
+      if (S.undoStack.length && S.undoStack[S.undoStack.length - 1] === snap) return;
+      S.undoStack.push(snap);
+      if (S.undoStack.length > 30) S.undoStack.shift();
+      S.redoStack = [];
+      updateUndoUI();
+    } catch (e) {}
+  }
+
+  function restoreSnapshot(snapStr) {
+    try {
+      var d = JSON.parse(snapStr);
+      S.filterId = d.filterId || "none";
+      S.filterIntensity = d.filterIntensity != null ? d.filterIntensity : 0.85;
+      S.effects = d.effects || S.effects;
+      S.adjust = d.adjust || S.adjust;
+      S.transform = d.transform || S.transform;
+      S.texts = d.texts || [];
+      S.stickers = (d.stickers || []).map(function (s) {
+        if (s.kind === "svg") preloadStickerImage(s);
+        return s;
+      });
+      S.drawStrokes = d.drawStrokes || [];
+      S.sfxEvents = d.sfxEvents || [];
+      S.segments = d.segments || S.segments;
+      S.speed = d.speed || 1;
+      S.aspect = d.aspect || "original";
+      applyAspect();
+      applyPreview();
+      renderTexts();
+      renderStickers();
+      renderDrawStrokes();
+      renderInspector();
+      if (S.timelineOpen) renderTimeline();
+      if (S.activeSheet) renderSheet();
+      updateUndoUI();
+    } catch (e) {}
+  }
+
+  function undo() {
+    if (!S.undoStack.length) { toast("Nothing to undo"); return; }
+    var current = snapshotState();
+    S.redoStack.push(current);
+    var prev = S.undoStack.pop();
+    restoreSnapshot(prev);
+    toast("Undone");
+  }
+
+  function redo() {
+    if (!S.redoStack.length) { toast("Nothing to redo"); return; }
+    var current = snapshotState();
+    S.undoStack.push(current);
+    var next = S.redoStack.pop();
+    restoreSnapshot(next);
+    toast("Redone");
+  }
+
+  function updateUndoUI() {
+    if (el.undoBtn) el.undoBtn.disabled = S.undoStack.length === 0;
+    if (el.redoBtn) el.redoBtn.disabled = S.redoStack.length === 0;
+  }
+
+  /* ---------------- Freehand Draw Engine ---------------- */
+  var activeStroke = null;
+  function initDrawCanvas() {
+    if (!el.drawCanvas) return;
+    function getPt(e) {
+      var r = el.drawCanvas.getBoundingClientRect();
+      var cx = (e.touches && e.touches[0]) ? e.touches[0].clientX : e.clientX;
+      var cy = (e.touches && e.touches[0]) ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clamp((cx - r.left) / (r.width || 1), 0, 1),
+        y: clamp((cy - r.top) / (r.height || 1), 0, 1)
+      };
+    }
+    el.drawCanvas.addEventListener("pointerdown", function (e) {
+      if (!S.drawMode) return;
+      pushHistory();
+      var pt = getPt(e);
+      activeStroke = {
+        color: S.drawColor || "#ff2b67",
+        size: S.drawSize || 6,
+        style: S.drawStyle || "solid",
+        pts: [pt]
+      };
+      S.drawStrokes.push(activeStroke);
+      S.dirty = true;
+      renderDrawStrokes();
+      if (el.drawCanvas.setPointerCapture && e.pointerId != null) {
+        try { el.drawCanvas.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    el.drawCanvas.addEventListener("pointermove", function (e) {
+      if (!activeStroke || !S.drawMode) return;
+      activeStroke.pts.push(getPt(e));
+      renderDrawStrokes();
+      e.preventDefault();
+      e.stopPropagation();
+    });
+    function endStroke() {
+      if (activeStroke) {
+        activeStroke = null;
+        if (S.activeSheet === "draw") renderDrawSheet();
+      }
+    }
+    el.drawCanvas.addEventListener("pointerup", endStroke);
+    el.drawCanvas.addEventListener("pointercancel", endStroke);
+  }
+
+  function renderDrawStrokes() {
+    if (!el.drawCanvas) return;
+    var cw = el.canvas.clientWidth || 320;
+    var ch = el.canvas.clientHeight || 568;
+    if (el.drawCanvas.width !== cw || el.drawCanvas.height !== ch) {
+      el.drawCanvas.width = cw;
+      el.drawCanvas.height = ch;
+    }
+    var ctx = el.drawCanvas.getContext("2d");
+    ctx.clearRect(0, 0, cw, ch);
+    drawStrokesOnCtx(ctx, cw, ch);
+  }
+
+  function drawStrokesOnCtx(ctx, w, h) {
+    if (!S.drawStrokes || !S.drawStrokes.length) return;
+    var scale = w / 360;
+    S.drawStrokes.forEach(function (st) {
+      if (!st.pts || !st.pts.length) return;
+      ctx.save();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.strokeStyle = st.color || "#ff2b67";
+      ctx.lineWidth = Math.max(2, (st.size || 6) * scale);
+      if (st.style === "neon") {
+        ctx.shadowColor = st.color || "#00f2ea";
+        ctx.shadowBlur = 14 * scale;
+      } else if (st.style === "highlighter") {
+        ctx.globalAlpha = 0.42;
+        ctx.lineWidth = Math.max(8, (st.size || 6) * 2.4 * scale);
+      } else if (st.style === "dashed") {
+        ctx.setLineDash([10 * scale, 8 * scale]);
+      }
+      ctx.beginPath();
+      st.pts.forEach(function (p, idx) {
+        var px = p.x * w, py = p.y * h;
+        if (idx === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      });
+      if (st.pts.length === 1) {
+        ctx.arc(st.pts[0].x * w, st.pts[0].y * h, ctx.lineWidth / 2, 0, Math.PI * 2);
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+
   /* ---------------- Event Wiring ---------------- */
   function wireEvents() {
     el.cancel.addEventListener("click", closeEditor);
@@ -477,6 +691,9 @@
     el.volBtn.addEventListener("click", openVolumeControl);
     el.sheetClose.addEventListener("click", closeSheet);
     el.tlClose.addEventListener("click", closeTimeline);
+
+    if (el.undoBtn) el.undoBtn.addEventListener("click", undo);
+    if (el.redoBtn) el.redoBtn.addEventListener("click", redo);
 
     if (el.tlAudioLane) {
       el.tlAudioLane.addEventListener("click", function () { openSoundPicker(); });
@@ -490,6 +707,7 @@
       var si = $("zeSoundSearch"); if (si) si.focus();
     });
     wireVolumePopover();
+    initDrawCanvas();
 
     qsa(".ze-rail-btn", el.rail).forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -504,6 +722,7 @@
         applyAspect();
         renderTexts();
         renderStickers();
+        renderDrawStrokes();
         if (S.timelineOpen) renderTimeline();
       }
     });
@@ -511,6 +730,7 @@
     // 1. Swipe up to edit (on stage, canvas, and zeSwipe element)
     var swipeStartY = 0, swipeStartX = 0, swipeStartTime = 0;
     function onTouchSwipeStart(e) {
+      if (S.drawMode) return;
       if (e.touches && e.touches.length === 1) {
         swipeStartY = e.touches[0].clientY;
         swipeStartX = e.touches[0].clientX;
@@ -518,7 +738,7 @@
       }
     }
     function onTouchSwipeEnd(e) {
-      if (!swipeStartTime) return;
+      if (!swipeStartTime || S.drawMode) return;
       var t = (e.changedTouches && e.changedTouches[0]) || e;
       var dy = swipeStartY - t.clientY;
       var dx = Math.abs(swipeStartX - t.clientX);
@@ -551,8 +771,8 @@
     });
 
     el.stage.addEventListener("pointerup", function (e) {
-      if (drag) return;
-      if (e.target.closest && e.target.closest("#zeRail, #zeTopBar, #zeBottomBar, .ze-sheet, .ze-timeline, .ze-text-item, .ze-sticker-item, #zeCancel, #zeNext, #zeSoundBtn, #zeVolBtn, #zeEditBtn")) {
+      if (drag || S.drawMode) return;
+      if (e.target.closest && e.target.closest("#zeRail, #zeTopBar, #zeBottomBar, .ze-sheet, .ze-timeline, .ze-text-item, .ze-sticker-item, .ze-item-inspector, #zeCancel, #zeNext, #zeSoundBtn, #zeVolBtn, #zeEditBtn, #zeUndoBtn, #zeRedoBtn")) {
         return;
       }
       var dist = Math.hypot(e.clientX - tapStartX, e.clientY - tapStartY);
@@ -575,6 +795,7 @@
         S.selectedStickerId = null;
         renderTexts();
         renderStickers();
+        renderInspector();
         return;
       }
 
@@ -659,6 +880,7 @@
       el.img.onload = function () {
         applyAspect();
         applyPreview();
+        renderDrawStrokes();
       };
       el.img.src = url;
     } else {
@@ -675,16 +897,18 @@
         var d = el.vid.duration || 1;
         S.duration = d;
         S.trim = { start: 0, end: d, duration: d };
-        S.segments = [{ start: 0, end: d }];
+        S.segments = [{ start: 0, end: d, speed: 1 }];
         S.selSeg = 0;
         applyAspect();
         applyPreview();
+        renderDrawStrokes();
         captureThumbs();
         renderTimeline();
       };
       el.vid.play().catch(function () {});
     }
     updateSoundLabel();
+    updateUndoUI();
   }
 
   function closeEditor() {
@@ -704,10 +928,15 @@
     S.filterId = "none";
     S.filterIntensity = 0.85;
     S.effects = { vignette: 0, grain: 0, glow: 0, leak: 0, blur: 0, bars: 0, vhs: 0, rgb: 0 };
-    S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0 };
+    S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0, sharpen: 0 };
     S.transform = { rotate: 0, flipH: false, flipV: false };
     S.texts = [];
     S.stickers = [];
+    S.drawStrokes = [];
+    S.drawMode = false;
+    S.sfxEvents = [];
+    S.undoStack = [];
+    S.redoStack = [];
     S.segments = [];
     S.selSeg = 0;
     S.speed = 1;
@@ -719,12 +948,17 @@
     if (S.music && S.music.el) { try { S.music.el.pause(); } catch(e){} }
     S.music = null;
     S.musicVol = 0.8;
+    S.sfxVol = 0.9;
+    S.autoDuck = false;
+    S.fadeAudio = false;
     S.thumbs = [];
     S.selectedTextId = null;
     S.selectedStickerId = null;
     S.activeSheet = null;
     S.timelineOpen = false;
     if (el.soundBtn) el.soundBtn.classList.remove("active");
+    if (el.drawCanvas) el.drawCanvas.classList.remove("active");
+    if (el.itemInspector) el.itemInspector.classList.remove("show");
   }
 
   /* ---------------- Sizing & Aspect ---------------- */
@@ -759,18 +993,41 @@
     }
     el.canvas.style.width = Math.round(cw) + "px";
     el.canvas.style.height = Math.round(ch) + "px";
+    renderDrawStrokes();
   }
 
-  /* ---------------- Preview Filter / Effects ---------------- */
+  /* ---------------- Preview Filter / Effects (with Real Intensity Interpolation) ---------------- */
+  function interpolateFilterCss(rawCss, intensity) {
+    if (!rawCss) return "";
+    var k = clamp(intensity != null ? intensity : 1, 0, 1);
+    if (k <= 0.01) return "";
+    return rawCss.replace(/([a-z-]+)\(([^)]+)\)/gi, function (match, fn, valStr) {
+      var num = parseFloat(valStr);
+      if (isNaN(num)) return match;
+      var unit = valStr.replace(/[0-9.-]/g, "") || "";
+      var neutral = (fn === "brightness" || fn === "contrast" || fn === "saturate") ? 1 : 0;
+      var interp = neutral + (num - neutral) * k;
+      return fn + "(" + interp.toFixed(3) + unit + ")";
+    });
+  }
+
   function buildFilter() {
     var f = FILTERS.filter(function (x) { return x.id === S.filterId; })[0];
-    var fcss = (f && f.css) ? f.css : "";
+    var fcss = (f && f.css) ? interpolateFilterCss(f.css, S.filterIntensity) : "";
 
     var a = S.adjust;
     var parts = [];
     if (a.brightness !== 100) parts.push("brightness(" + (a.brightness / 100) + ")");
-    if (a.contrast !== 100) parts.push("contrast(" + (a.contrast / 100) + ")");
+    if (a.contrast !== 100 || a.sharpen > 0) {
+      var cVal = (a.contrast / 100) * (1 + (a.sharpen || 0) / 220);
+      parts.push("contrast(" + cVal.toFixed(3) + ")");
+    }
     if (a.saturation !== 100) parts.push("saturate(" + (a.saturation / 100) + ")");
+    if (a.warmth > 0) {
+      parts.push("sepia(" + (a.warmth / 180).toFixed(3) + ") saturate(" + (1 + a.warmth / 250).toFixed(3) + ")");
+    } else if (a.warmth < 0) {
+      parts.push("hue-rotate(" + Math.round(a.warmth * 0.45) + "deg)");
+    }
     if (a.fade > 0) parts.push("contrast(" + (1 - a.fade / 250) + ") brightness(" + (1 + a.fade / 500) + ")");
 
     var adj = parts.join(" ");
@@ -795,18 +1052,33 @@
     if (e.leak > 0) fxHtml += '<div class="ze-fx ze-fx-leak" style="opacity:' + (e.leak / 100) + '"></div>';
     if (e.bars > 0) fxHtml += '<div class="ze-fx ze-fx-bars"></div>';
     if (e.vhs > 0) fxHtml += '<div class="ze-fx ze-fx-vhs" style="opacity:' + (e.vhs / 100) + '"></div>';
+    if (e.rgb > 0) fxHtml += '<div class="ze-fx ze-fx-rgb" style="opacity:' + (e.rgb / 100) + '"></div>';
     if (e.blur > 0) m.style.filter += " blur(" + (e.blur / 20) + "px)";
 
     el.fx.innerHTML = fxHtml;
   }
 
-  /* ---------------- Text & Sticker Rendering ---------------- */
+  /* ---------------- Text & Sticker Rendering (with Rotation, Opacity & Timing) ---------------- */
+  function isItemVisibleAtTime(item, tNow) {
+    if (S.kind !== "video") return true;
+    var st = item.startTime || 0;
+    var et = item.endTime || 0;
+    if (et > st) {
+      return tNow >= st && tNow <= et;
+    }
+    return true;
+  }
+
   function renderTexts() {
     var boxW = el.canvas.clientWidth || 300;
+    var tNow = S.kind === "video" ? (el.vid.currentTime || 0) : 0;
     var html = "";
     S.texts.forEach(function (t) {
+      var vis = isItemVisibleAtTime(t, tNow) || t.id === S.selectedTextId;
       var fs = Math.max(12, t.size * boxW);
-      var st = "left:" + (t.x * 100) + "%;top:" + (t.y * 100) + "%;font-size:" + fs + "px;font-family:" + (t.font || "system-ui") + ";color:" + (t.color || "#ffffff") + ";";
+      var rot = t.rot || 0;
+      var op = vis ? (t.opacity != null ? t.opacity : 1) : 0;
+      var st = "left:" + (t.x * 100) + "%;top:" + (t.y * 100) + "%;font-size:" + fs + "px;font-family:" + (t.font || "system-ui") + ";color:" + (t.color || "#ffffff") + ";opacity:" + op + ";transform:translate(-50%,-50%) rotate(" + rot + "deg);" + (vis ? "" : "pointer-events:none;");
       if (t.align) st += "text-align:" + t.align + ";";
 
       var cls = "ze-text-item" + (t.id === S.selectedTextId ? " selected" : "");
@@ -846,10 +1118,14 @@
 
   function renderStickers() {
     var boxW = el.canvas.clientWidth || 300;
+    var tNow = S.kind === "video" ? (el.vid.currentTime || 0) : 0;
     var stickerHtml = "", overlayHtml = "";
     S.stickers.forEach(function (s) {
+      var vis = isItemVisibleAtTime(s, tNow) || s.id === S.selectedStickerId;
       var fs = Math.max(20, s.size * boxW);
-      var st = "left:" + (s.x * 100) + "%;top:" + (s.y * 100) + "%;";
+      var rot = s.rot || 0;
+      var op = vis ? (s.opacity != null ? s.opacity : 1) : 0;
+      var st = "left:" + (s.x * 100) + "%;top:" + (s.y * 100) + "%;opacity:" + op + ";transform:translate(-50%,-50%) rotate(" + rot + "deg);" + (vis ? "" : "pointer-events:none;");
       if (s.kind === "emoji") st += "font-size:" + fs + "px;";
       else st += "width:" + fs + "px;height:" + (fs / (s.ar || 1)) + "px;";
       var isOv = s.layer === "overlay";
@@ -859,6 +1135,91 @@
     });
     if (el.stickerLayer) el.stickerLayer.innerHTML = stickerHtml;
     if (el.overlayLayer) el.overlayLayer.innerHTML = overlayHtml;
+  }
+
+  /* ---------------- Floating Selected Item Inspector ---------------- */
+  function getSelectedItem() {
+    if (S.selectedTextId) {
+      return { kind: "text", item: S.texts.filter(function (x) { return x.id === S.selectedTextId; })[0] };
+    }
+    if (S.selectedStickerId) {
+      return { kind: "sticker", item: S.stickers.filter(function (x) { return x.id === S.selectedStickerId; })[0] };
+    }
+    return null;
+  }
+
+  function renderInspector() {
+    if (!el.itemInspector) return;
+    var sel = getSelectedItem();
+    if (!sel || !sel.item || S.sheetOpen || S.timelineOpen || S.drawMode) {
+      el.itemInspector.classList.remove("show");
+      return;
+    }
+    var it = sel.item;
+    el.itemInspector.classList.add("show");
+    el.itemInspector.innerHTML =
+      '<button class="ze-insp-btn" data-act="smaller" title="Smaller">A-</button>' +
+      '<button class="ze-insp-btn" data-act="bigger" title="Bigger">A+</button>' +
+      '<button class="ze-insp-btn" data-act="rotL" title="Rotate -15°">↺</button>' +
+      '<button class="ze-insp-btn" data-act="rotR" title="Rotate +15°">↻</button>' +
+      (S.kind === "video" ? '<button class="ze-insp-btn" data-act="timing" title="Set Clip Timing">⏱ ' + ((it.endTime > it.startTime) ? (it.startTime.toFixed(1) + "-" + it.endTime.toFixed(1) + "s") : "All") + '</button>' : '') +
+      '<button class="ze-insp-btn" data-act="dup" title="Duplicate">⧉ Copy</button>' +
+      (sel.kind === "text" ? '<button class="ze-insp-btn" data-act="edit" title="Edit Text">✎ Edit</button>' : '') +
+      '<button class="ze-insp-btn danger" data-act="del" title="Delete">🗑</button>';
+
+    qsa(".ze-insp-btn", el.itemInspector).forEach(function (b) {
+      b.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var act = b.getAttribute("data-act");
+        pushHistory();
+        if (act === "smaller") {
+          it.size = clamp((it.size || 0.1) * 0.88, 0.03, 0.65);
+        } else if (act === "bigger") {
+          it.size = clamp((it.size || 0.1) * 1.14, 0.03, 0.65);
+        } else if (act === "rotL") {
+          it.rot = ((it.rot || 0) - 15) % 360;
+        } else if (act === "rotR") {
+          it.rot = ((it.rot || 0) + 15) % 360;
+        } else if (act === "timing") {
+          var dur = S.duration || 10;
+          var curT = el.vid.currentTime || 0;
+          if (!it.endTime || it.endTime <= it.startTime) {
+            it.startTime = Math.max(0, curT);
+            it.endTime = Math.min(dur, curT + 3.0);
+            toast("Visible " + it.startTime.toFixed(1) + "s – " + it.endTime.toFixed(1) + "s");
+          } else {
+            it.startTime = 0;
+            it.endTime = 0;
+            toast("Visible for full video");
+          }
+        } else if (act === "dup") {
+          var copy = JSON.parse(JSON.stringify(it));
+          copy.id = (sel.kind === "text" ? "t_" : "s_") + Date.now();
+          copy.x = clamp((it.x || 0.5) + 0.06, 0.1, 0.9);
+          copy.y = clamp((it.y || 0.5) + 0.06, 0.1, 0.9);
+          if (sel.kind === "text") {
+            S.texts.push(copy);
+            S.selectedTextId = copy.id;
+          } else {
+            if (copy.kind === "svg") preloadStickerImage(copy);
+            S.stickers.push(copy);
+            S.selectedStickerId = copy.id;
+          }
+          toast("Duplicated");
+        } else if (act === "edit") {
+          openSheet("text");
+          return;
+        } else if (act === "del") {
+          deleteDecorById(it.id);
+          renderInspector();
+          return;
+        }
+        S.dirty = true;
+        renderTexts();
+        renderStickers();
+        renderInspector();
+      });
+    });
   }
 
   function svgDataUrl(svg) { return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); }
@@ -894,7 +1255,8 @@
       return;
     }
     el.tlTextLane.innerHTML = S.texts.map(function (t) {
-      return '<div class="ze-tl-text-block" data-tid="' + t.id + '">Aa: ' + escapeHtml(t.text.slice(0, 14)) + '</div>';
+      var timeTag = (t.endTime > t.startTime) ? ' (' + t.startTime.toFixed(1) + '-' + t.endTime.toFixed(1) + 's)' : '';
+      return '<div class="ze-tl-text-block" data-tid="' + t.id + '">Aa: ' + escapeHtml(t.text.slice(0, 14)) + timeTag + '</div>';
     }).join("");
     qsa(".ze-tl-text-block", el.tlTextLane).forEach(function (b) {
       b.addEventListener("click", function () {
@@ -938,8 +1300,9 @@
   }
   function escapeAttr(s) { return String(s).replace(/"/g, "&quot;"); }
 
-  /* ---------------- DRAG ENGINE (Pointer + Touch) ---------------- */
+  /* ---------------- DRAG & PINCH-ROTATE ENGINE (Pointer + Touch) ---------------- */
   var drag = null;
+  var pinch = null;
 
   function initDragHandling() {
     el.canvas.addEventListener("pointerdown", onPointerDown);
@@ -947,20 +1310,22 @@
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
 
-    // Fallback touch events for older mobile browsers
+    // Touch events including 2-finger pinch scale & rotate
     el.canvas.addEventListener("touchstart", onTouchStart, { passive: false });
     window.addEventListener("touchmove", onTouchMove, { passive: false });
     window.addEventListener("touchend", onTouchEnd);
   }
 
   function onPointerDown(e) {
+    if (S.drawMode) return;
     var item = e.target.closest ? e.target.closest(".ze-text-item,.ze-sticker-item") : null;
     if (!item) {
-      if (!e.target.closest("#zeRail, #zeTopBar, #zeBottomBar, .ze-sheet, .ze-timeline")) {
+      if (!e.target.closest("#zeRail, #zeTopBar, #zeBottomBar, .ze-sheet, .ze-timeline, .ze-item-inspector")) {
         S.selectedTextId = null;
         S.selectedStickerId = null;
         renderTexts();
         renderStickers();
+        renderInspector();
       }
       return;
     }
@@ -976,13 +1341,15 @@
     }
     renderTexts();
     renderStickers();
+    renderInspector();
 
     var rect = el.canvas.getBoundingClientRect();
     drag = {
       id: id,
       rect: rect,
       sticker: isSticker,
-      pointerId: e.pointerId
+      pointerId: e.pointerId,
+      moved: false
     };
 
     if (item.setPointerCapture && e.pointerId != null) {
@@ -1015,6 +1382,7 @@
       if (S.selectedStickerId === id) S.selectedStickerId = null;
       S.dirty = true;
       renderStickers();
+      renderInspector();
       updateTimelineOverlayBlocks();
       toast("Deleted");
       return true;
@@ -1025,6 +1393,7 @@
       if (S.selectedTextId === id) S.selectedTextId = null;
       S.dirty = true;
       renderTexts();
+      renderInspector();
       toast("Deleted");
       return true;
     }
@@ -1032,7 +1401,8 @@
   }
 
   function onPointerMove(e) {
-    if (!drag) return;
+    if (!drag || pinch) return;
+    if (!drag.moved) { pushHistory(); drag.moved = true; }
     var r = drag.rect;
     var x = clamp((e.clientX - r.left) / r.width, 0.04, 0.96);
     var y = clamp((e.clientY - r.top) / r.height, 0.04, 0.96);
@@ -1067,13 +1437,33 @@
       var overTrash = e ? isOverTrash(e.clientX, e.clientY) : false;
       showTrash(false);
       if (overTrash) { deleteDecorById(d.id); }
-      else { S.dirty = true; }
+      else { S.dirty = true; renderInspector(); }
     } else {
       showTrash(false);
     }
   }
 
   function onTouchStart(e) {
+    if (S.drawMode) return;
+    if (e.touches && e.touches.length === 2) {
+      var sel = getSelectedItem();
+      if (sel && sel.item) {
+        pushHistory();
+        drag = null;
+        showTrash(false);
+        var dx = e.touches[1].clientX - e.touches[0].clientX;
+        var dy = e.touches[1].clientY - e.touches[0].clientY;
+        pinch = {
+          item: sel.item,
+          startDist: Math.hypot(dx, dy) || 1,
+          startAngle: Math.atan2(dy, dx) * (180 / Math.PI),
+          initSize: sel.item.size || 0.1,
+          initRot: sel.item.rot || 0
+        };
+        e.preventDefault();
+        return;
+      }
+    }
     if (e.touches && e.touches.length === 1) {
       var touch = e.touches[0];
       var target = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -1083,8 +1473,8 @@
         var isSticker = item.classList.contains("ze-sticker-item");
         if (isSticker) { S.selectedStickerId = id; S.selectedTextId = null; }
         else { S.selectedTextId = id; S.selectedStickerId = null; }
-        renderTexts(); renderStickers();
-        drag = { id: id, rect: el.canvas.getBoundingClientRect(), sticker: isSticker };
+        renderTexts(); renderStickers(); renderInspector();
+        drag = { id: id, rect: el.canvas.getBoundingClientRect(), sticker: isSticker, moved: false };
         showTrash(true);
         e.preventDefault();
       }
@@ -1092,7 +1482,21 @@
   }
 
   function onTouchMove(e) {
+    if (pinch && e.touches && e.touches.length === 2) {
+      var dx = e.touches[1].clientX - e.touches[0].clientX;
+      var dy = e.touches[1].clientY - e.touches[0].clientY;
+      var dist = Math.hypot(dx, dy) || 1;
+      var angle = Math.atan2(dy, dx) * (180 / Math.PI);
+      pinch.item.size = clamp(pinch.initSize * (dist / pinch.startDist), 0.03, 0.65);
+      pinch.item.rot = Math.round(pinch.initRot + (angle - pinch.startAngle));
+      S.dirty = true;
+      renderTexts();
+      renderStickers();
+      e.preventDefault();
+      return;
+    }
     if (drag && e.touches && e.touches.length === 1) {
+      if (!drag.moved) { pushHistory(); drag.moved = true; }
       var touch = e.touches[0];
       var r = drag.rect;
       var x = clamp((touch.clientX - r.left) / r.width, 0.04, 0.96);
@@ -1118,22 +1522,30 @@
   }
 
   function onTouchEnd(e) {
+    if (pinch && (!e.touches || e.touches.length < 2)) {
+      pinch = null;
+      renderInspector();
+    }
     if (drag) {
       var d = drag; drag = null;
       var t = e && e.changedTouches && e.changedTouches[0];
       var overTrash = t ? isOverTrash(t.clientX, t.clientY) : false;
       showTrash(false);
-      if (overTrash) deleteDecorById(d.id); else S.dirty = true;
+      if (overTrash) deleteDecorById(d.id); else { S.dirty = true; renderInspector(); }
     } else { showTrash(false); }
   }
 
   /* ---------------- Sheets Controller ---------------- */
   function openSheet(name) {
     S.activeSheet = name;
+    S.sheetOpen = true;
+    S.drawMode = (name === "draw");
+    if (el.drawCanvas) el.drawCanvas.classList.toggle("active", S.drawMode);
     el.sheet.classList.add("open");
     el.overlay.classList.add("panel-open");
     el.swipe.classList.add("hide");
     if (S.timelineOpen) { S.timelineOpen = false; el.timeline.classList.remove("open"); }
+    renderInspector();
 
     qsa(".ze-rail-btn", el.rail).forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-tool") === name);
@@ -1144,9 +1556,13 @@
 
   function closeSheet() {
     S.activeSheet = null;
+    S.sheetOpen = false;
+    S.drawMode = false;
+    if (el.drawCanvas) el.drawCanvas.classList.remove("active");
     el.sheet.classList.remove("open");
     el.overlay.classList.remove("panel-open");
     qsa(".ze-rail-btn", el.rail).forEach(function (b) { b.classList.remove("active"); });
+    renderInspector();
   }
 
   function renderSheet() {
@@ -1157,6 +1573,8 @@
     else if (n === "captions") renderCaptionsSheet();
     else if (n === "stickers") renderStickersSheet();
     else if (n === "overlay") renderOverlaySheet();
+    else if (n === "draw") renderDrawSheet();
+    else if (n === "sfx") renderSfxSheet();
     else if (n === "adjust") renderAdjustSheet();
     else if (n === "ratio") renderRatioSheet();
     else if (n === "transform") renderTransformSheet();
@@ -1172,6 +1590,7 @@
   }
 
   function addText(initialStr) {
+    pushHistory();
     var id = "t_" + Date.now();
     var t = {
       id: id,
@@ -1179,6 +1598,10 @@
       x: 0.5,
       y: 0.45,
       size: 0.08,
+      rot: 0,
+      opacity: 1,
+      startTime: 0,
+      endTime: 0,
       font: "system-ui, sans-serif",
       color: "#ffffff",
       weight: "800",
@@ -1197,17 +1620,18 @@
   }
 
   function renderTextSheet() {
-    setSheetTitle("Text Editor");
+    setSheetTitle("Text Studio");
     var t = selectedText();
     if (!t) {
       el.sheetBody.innerHTML =
-        '<div class="ze-empty">Add text, subtitles or hooks to your reel.<br>Drag anywhere, pinch or style.' +
+        '<div class="ze-empty">Add text, subtitles or hooks to your reel.<br>Drag anywhere, 2-finger pinch/rotate, or set clip timing.' +
         '<div style="height:14px"></div>' +
         '<button class="ze-btn ze-btn-primary" id="zeAddTextBtn">' + ic('<path d="M12 5v14M5 12h14"/>', ' style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;vertical-align:-2px;margin-right:5px;"') + 'Add Text</button></div>';
       $("zeAddTextBtn").addEventListener("click", function () { addText(); });
       return;
     }
 
+    var dur = Math.max(1, Math.round(S.duration || 15));
     var html = '<div class="ze-text-tools">' +
       '<input type="text" class="ze-input" id="zeTextInput" value="' + escapeAttr(t.text) + '" placeholder="Type your text...">' +
       '<div class="ze-panel-title">Font Style</div>' +
@@ -1228,7 +1652,14 @@
           return '<span class="ze-swatch' + (c === t.color ? " active" : "") + '" data-c="' + c + '" style="background:' + c + '"></span>';
         }).join("") +
       '</div>' +
-      sliderRow("zeTextSize", "Font Size", Math.round(t.size * 500), 15, 80, "px") +
+      sliderRow("zeTextSize", "Font Size", Math.round(t.size * 500), 15, 95, "px") +
+      sliderRow("zeTextRot", "Rotation", Math.round(t.rot || 0), -180, 180, "°") +
+      sliderRow("zeTextOpacity", "Opacity", Math.round((t.opacity != null ? t.opacity : 1) * 100), 20, 100, "%") +
+      (S.kind === "video" ? (
+        '<div class="ze-panel-title">Text Timing on Video (0 = Full Video)</div>' +
+        sliderRow("zeTextStart", "Appear At", Math.round(t.startTime || 0), 0, dur, "s") +
+        sliderRow("zeTextEnd", "Hide At", Math.round(t.endTime || 0), 0, dur, "s")
+      ) : '') +
       '<div style="display:flex;gap:8px;margin-top:10px">' +
         '<button class="ze-btn ze-btn-ghost" id="zeDupTextBtn">' + ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Duplicate</button>' +
         '<button class="ze-btn ze-btn-danger" id="zeDelTextBtn">' + ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>', ' style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;vertical-align:-2px;margin-right:5px;"') + 'Delete</button>' +
@@ -1249,6 +1680,7 @@
 
     qsa(".ze-font-btn", el.sheetBody).forEach(function (btn) {
       btn.addEventListener("click", function () {
+        pushHistory();
         t.font = btn.getAttribute("data-font");
         S.dirty = true;
         renderTexts();
@@ -1258,6 +1690,7 @@
 
     qsa("[data-bg]", el.sheetBody).forEach(function (btn) {
       btn.addEventListener("click", function () {
+        pushHistory();
         t.bg = btn.getAttribute("data-bg");
         t.cap = null;
         S.dirty = true;
@@ -1268,6 +1701,7 @@
 
     qsa(".ze-swatch", el.sheetBody).forEach(function (sw) {
       sw.addEventListener("click", function () {
+        pushHistory();
         t.color = sw.getAttribute("data-c");
         S.dirty = true;
         renderTexts();
@@ -1280,8 +1714,32 @@
       S.dirty = true;
       renderTexts();
     });
+    bindSlider("zeTextRot", function (v) {
+      t.rot = v;
+      S.dirty = true;
+      renderTexts();
+    });
+    bindSlider("zeTextOpacity", function (v) {
+      t.opacity = v / 100;
+      S.dirty = true;
+      renderTexts();
+    });
+    if (S.kind === "video") {
+      bindSlider("zeTextStart", function (v) {
+        t.startTime = v;
+        if (t.endTime && t.endTime <= v) t.endTime = Math.min(S.duration || 15, v + 2);
+        S.dirty = true;
+        renderTexts();
+      });
+      bindSlider("zeTextEnd", function (v) {
+        t.endTime = v;
+        S.dirty = true;
+        renderTexts();
+      });
+    }
 
     $("zeDupTextBtn").addEventListener("click", function () {
+      pushHistory();
       var copy = Object.assign({}, t, { id: "t_" + Date.now(), y: clamp(t.y + 0.08, 0.1, 0.9) });
       S.texts.push(copy);
       S.selectedTextId = copy.id;
@@ -1292,6 +1750,7 @@
     });
 
     $("zeDelTextBtn").addEventListener("click", function () {
+      pushHistory();
       S.texts = S.texts.filter(function (x) { return x.id !== t.id; });
       S.selectedTextId = null;
       S.dirty = true;
@@ -1334,6 +1793,7 @@
 
     qsa(".ze-filter-thumb", el.sheetBody).forEach(function (th) {
       th.addEventListener("click", function () {
+        pushHistory();
         S.filterId = th.getAttribute("data-fid");
         S.dirty = true;
         applyPreview();
@@ -1367,12 +1827,15 @@
       sliderRow("zeGrain", "Film Grain", S.effects.grain, 0, 100, "%") +
       sliderRow("zeGlow", "Cinema Glow", S.effects.glow, 0, 100, "%") +
       sliderRow("zeLeak", "Light Leak", S.effects.leak, 0, 100, "%") +
+      sliderRow("zeVhs", "VHS Retro", S.effects.vhs || 0, 0, 100, "%") +
+      sliderRow("zeRgb", "RGB Glitch Split", S.effects.rgb || 0, 0, 100, "%") +
       sliderRow("zeBlur", "Soft Focus", S.effects.blur, 0, 100, "%");
 
     el.sheetBody.innerHTML = html;
 
     qsa(".ze-fx-card", el.sheetBody).forEach(function (card) {
       card.addEventListener("click", function () {
+        pushHistory();
         var k = card.getAttribute("data-fx");
         S.effects[k] = S.effects[k] > 0 ? 0 : 75;
         S.dirty = true;
@@ -1385,11 +1848,14 @@
     bindSlider("zeGrain", function (v) { S.effects.grain = v; S.dirty = true; applyPreview(); });
     bindSlider("zeGlow", function (v) { S.effects.glow = v; S.dirty = true; applyPreview(); });
     bindSlider("zeLeak", function (v) { S.effects.leak = v; S.dirty = true; applyPreview(); });
+    bindSlider("zeVhs", function (v) { S.effects.vhs = v; S.dirty = true; applyPreview(); });
+    bindSlider("zeRgb", function (v) { S.effects.rgb = v; S.dirty = true; applyPreview(); });
     bindSlider("zeBlur", function (v) { S.effects.blur = v; S.dirty = true; applyPreview(); });
   }
 
   /* ---------------- 4. CAPTIONS & VIRAL HOOKS ---------------- */
   function addCaption(styleId, initialText) {
+    pushHistory();
     var id = "cap_" + Date.now();
     var t = {
       id: id,
@@ -1397,6 +1863,10 @@
       x: 0.5,
       y: 0.78,
       size: 0.085,
+      rot: 0,
+      opacity: 1,
+      startTime: 0,
+      endTime: 0,
       font: styleId === "hormozi" ? "Impact, 'Arial Black', sans-serif" : "system-ui, sans-serif",
       color: styleId === "hormozi" ? "#ffeb3b" : "#ffffff",
       weight: "900",
@@ -1409,6 +1879,7 @@
     S.selectedTextId = id;
     S.dirty = true;
     renderTexts();
+    renderInspector();
     toast("🔥 Caption added! Drag anywhere to place.");
   }
 
@@ -1460,6 +1931,7 @@
 
   /* ---------------- 5. STICKERS ---------------- */
   function addSticker(st) {
+    pushHistory();
     if (typeof st === "string") st = stickerById(st) || { id: "x", kind: "emoji", ch: st };
     var id = "s_" + Date.now() + "_" + Math.floor(Math.random() * 999);
     var isOv = st.layer === "overlay";
@@ -1467,6 +1939,7 @@
       id: id, kind: st.kind, ch: st.ch, svg: st.svg, ar: st.ar || 1,
       layer: isOv ? "overlay" : "sticker",
       x: 0.5, y: 0.5,
+      rot: 0, opacity: 1, startTime: 0, endTime: 0,
       size: isOv ? 0.55 : (st.kind === "emoji" ? 0.22 : 0.32)
     };
     S.stickers.push(item);
@@ -1475,8 +1948,9 @@
     S.dirty = true;
     if (item.kind === "svg") preloadStickerImage(item);
     renderStickers();
+    renderInspector();
     updateTimelineOverlayBlocks();
-    toast((isOv ? "Overlay" : "Sticker") + " added — drag anywhere");
+    toast((isOv ? "Overlay" : "Sticker") + " added — drag or 2-finger pinch");
   }
 
   function _renderDecorSheet(packs, isOverlay) {
@@ -1576,6 +2050,268 @@
     _renderDecorSheet(OVERLAY_PACKS, true);
   }
 
+  /* ---------------- 5B. FREEHAND DRAW STUDIO ---------------- */
+  function renderDrawSheet() {
+    setSheetTitle("Draw & Doodle Studio");
+    S.drawMode = true;
+    if (el.drawCanvas) el.drawCanvas.classList.add("active");
+    var styles = [
+      { id: "solid", name: "✏️ Solid Pen" },
+      { id: "neon", name: "✨ Neon Glow" },
+      { id: "highlighter", name: "🖍️ Marker" },
+      { id: "dashed", name: "⚡ Dashed" }
+    ];
+    var html =
+      '<div style="font-size:12px;color:#b5b5c3;margin-bottom:10px">Draw directly on your video/photo canvas above! Close sheet when done.</div>' +
+      '<div class="ze-panel-title">Brush Type</div>' +
+      '<div class="ze-draw-toolbar">' +
+        styles.map(function (st) {
+          return '<button class="ze-brush-chip' + (S.drawStyle === st.id ? " active" : "") + '" data-bstyle="' + st.id + '">' + st.name + '</button>';
+        }).join("") +
+      '</div>' +
+      '<div class="ze-panel-title">Brush Color</div>' +
+      '<div class="ze-swatches">' +
+        TEXT_COLORS.map(function (c) {
+          return '<span class="ze-swatch' + (c === S.drawColor ? " active" : "") + '" data-dc="' + c + '" style="background:' + c + '"></span>';
+        }).join("") +
+      '</div>' +
+      sliderRow("zeDrawSize", "Brush Size", S.drawSize || 6, 2, 28, "px") +
+      '<div style="display:flex;gap:8px;margin-top:12px">' +
+        '<button class="ze-btn ze-btn-ghost" id="zeDrawUndoBtn">↩ Undo Stroke (' + S.drawStrokes.length + ')</button>' +
+        '<button class="ze-btn ze-btn-danger" id="zeDrawClearBtn">🗑 Clear All</button>' +
+      '</div>';
+
+    el.sheetBody.innerHTML = html;
+
+    qsa(".ze-brush-chip", el.sheetBody).forEach(function (b) {
+      b.addEventListener("click", function () {
+        S.drawStyle = b.getAttribute("data-bstyle");
+        renderDrawSheet();
+      });
+    });
+    qsa("[data-dc]", el.sheetBody).forEach(function (sw) {
+      sw.addEventListener("click", function () {
+        S.drawColor = sw.getAttribute("data-dc");
+        renderDrawSheet();
+      });
+    });
+    bindSlider("zeDrawSize", function (v) { S.drawSize = v; });
+    $("zeDrawUndoBtn").addEventListener("click", function () {
+      if (S.drawStrokes.length) {
+        pushHistory();
+        S.drawStrokes.pop();
+        renderDrawStrokes();
+        renderDrawSheet();
+      }
+    });
+    $("zeDrawClearBtn").addEventListener("click", function () {
+      if (S.drawStrokes.length) {
+        pushHistory();
+        S.drawStrokes = [];
+        renderDrawStrokes();
+        renderDrawSheet();
+        toast("Drawing cleared");
+      }
+    });
+  }
+
+  /* ---------------- 5C. COMEDY SOUND FX (SFX) SOUNDBOARD & SYNTH ---------------- */
+  var COMEDY_SFX = [
+    { id: "rimshot", icon: "🥁", name: "Ba-Dum-Tss", tag: "Classic Punchline" },
+    { id: "boom", icon: "💥", name: "Vine Boom", tag: "Meme Bass Drop" },
+    { id: "laugh", icon: "😂", name: "Sitcom Laugh", tag: "Crowd HaHa" },
+    { id: "horn", icon: "📯", name: "Desi Horn", tag: "Truck / Party" },
+    { id: "boing", icon: "🤪", name: "Cartoon Boing", tag: "Funny Jump" },
+    { id: "scratch", icon: "💿", name: "Record Scratch", tag: "Wait What?!" },
+    { id: "wow", icon: "🤩", name: "Anime Wow", tag: "Sparkle Chime" },
+    { id: "cricket", icon: "🦗", name: "Awkward Cricket", tag: "Pin-drop Silence" },
+    { id: "bell", icon: "🔔", name: "Mandir / Ding", tag: "Bright Bell" },
+    { id: "siren", icon: "🚨", name: "Meme Alert", tag: "Comedy Siren" },
+    { id: "slap", icon: "👋", name: "Comic Slap", tag: "240p Punch" },
+    { id: "applause", icon: "👏", name: "Clap & Cheer", tag: "Stage Bravo" }
+  ];
+
+  var _sfxCtx = null;
+  function getSfxContext() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!_sfxCtx || _sfxCtx.state === "closed") _sfxCtx = new AC();
+    if (_sfxCtx.state === "suspended") { try { _sfxCtx.resume(); } catch (e) {} }
+    return _sfxCtx;
+  }
+
+  function playSfxSynth(sfxId, targetCtx, destNode) {
+    try {
+      var ctx = targetCtx || getSfxContext();
+      if (!ctx) return;
+      var out = destNode || ctx.destination;
+      var now = ctx.currentTime;
+      var master = ctx.createGain();
+      master.gain.value = clamp(S.sfxVol != null ? S.sfxVol : 0.9, 0.05, 1);
+      master.connect(out);
+
+      function tone(freq, endFreq, startT, dur, type, vol) {
+        var o = ctx.createOscillator();
+        var g = ctx.createGain();
+        o.type = type || "sine";
+        o.frequency.setValueAtTime(freq, now + startT);
+        if (endFreq && endFreq !== freq) {
+          o.frequency.exponentialRampToValueAtTime(Math.max(20, endFreq), now + startT + dur);
+        }
+        g.gain.setValueAtTime(vol || 0.5, now + startT);
+        g.gain.exponentialRampToValueAtTime(0.001, now + startT + dur);
+        o.connect(g);
+        g.connect(master);
+        o.start(now + startT);
+        o.stop(now + startT + dur + 0.02);
+      }
+
+      function noise(startT, dur, vol, hpFreq) {
+        var bufLen = Math.max(1, Math.floor(ctx.sampleRate * dur));
+        var buf = ctx.createBuffer(1, bufLen, ctx.sampleRate);
+        var data = buf.getChannelData(0);
+        for (var i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufLen * 0.45));
+        var src = ctx.createBufferSource();
+        src.buffer = buf;
+        var flt = ctx.createBiquadFilter();
+        flt.type = "highpass";
+        flt.frequency.value = hpFreq || 800;
+        var g = ctx.createGain();
+        g.gain.setValueAtTime(vol || 0.4, now + startT);
+        g.gain.exponentialRampToValueAtTime(0.01, now + startT + dur);
+        src.connect(flt);
+        flt.connect(g);
+        g.connect(master);
+        src.start(now + startT);
+      }
+
+      if (sfxId === "boom") {
+        tone(130, 28, 0, 0.75, "sine", 0.95);
+        tone(90, 24, 0, 0.65, "triangle", 0.55);
+      } else if (sfxId === "rimshot") {
+        tone(160, 85, 0, 0.14, "triangle", 0.7);
+        tone(210, 110, 0.16, 0.16, "triangle", 0.75);
+        noise(0.34, 0.55, 0.65, 2200);
+      } else if (sfxId === "boing") {
+        tone(160, 680, 0, 0.42, "sine", 0.75);
+        tone(680, 240, 0.18, 0.28, "triangle", 0.5);
+      } else if (sfxId === "horn") {
+        tone(440, 587, 0, 0.12, "sawtooth", 0.45);
+        tone(587, 659, 0.12, 0.12, "sawtooth", 0.45);
+        tone(659, 880, 0.24, 0.32, "sawtooth", 0.55);
+      } else if (sfxId === "scratch") {
+        noise(0, 0.26, 0.7, 600);
+        tone(620, 95, 0, 0.25, "sawtooth", 0.5);
+      } else if (sfxId === "wow") {
+        [523, 659, 784, 1046, 1318].forEach(function (f, i) {
+          tone(f, f * 1.03, i * 0.055, 0.35, "sine", 0.4);
+        });
+      } else if (sfxId === "cricket") {
+        for (var c = 0; c < 6; c++) {
+          tone(4100, 4250, c * 0.11, 0.045, "sine", 0.35);
+        }
+      } else if (sfxId === "bell") {
+        tone(880, 875, 0, 0.9, "sine", 0.65);
+        tone(1760, 1750, 0, 0.55, "sine", 0.3);
+      } else if (sfxId === "siren") {
+        tone(480, 920, 0, 0.28, "square", 0.35);
+        tone(920, 480, 0.28, 0.28, "square", 0.35);
+      } else if (sfxId === "slap") {
+        noise(0, 0.14, 0.85, 1100);
+        tone(280, 60, 0, 0.1, "square", 0.6);
+      } else if (sfxId === "laugh") {
+        [0, 0.13, 0.26, 0.39, 0.52].forEach(function (t0, i) {
+          tone(380 - i * 22, 240 - i * 15, t0, 0.11, "triangle", 0.55);
+          noise(t0, 0.09, 0.25, 1200);
+        });
+      } else if (sfxId === "applause") {
+        for (var k = 0; k < 8; k++) {
+          noise(k * 0.07, 0.12, 0.35, 1400);
+        }
+      }
+    } catch (e) {}
+  }
+
+  function renderSfxSheet() {
+    setSheetTitle("Comedy Sound FX (SFX)");
+    var curT = S.kind === "video" ? (el.vid.currentTime || 0) : 0;
+    var html =
+      '<div style="font-size:12px;color:#b5b5c3;margin-bottom:10px">Tap any sound effect to preview & pin it at playhead (<b>' + curT.toFixed(1) + 's</b>) on your video!</div>' +
+      '<div class="ze-sfx-grid">' +
+        COMEDY_SFX.map(function (fx) {
+          return '<button class="ze-sfx-btn" data-sfx="' + fx.id + '">' +
+            '<span class="ze-sfx-icon">' + fx.icon + '</span>' +
+            '<div class="ze-sfx-meta"><b>' + fx.name + '</b><small>' + fx.tag + '</small></div>' +
+          '</button>';
+        }).join("") +
+      '</div>';
+
+    if (S.sfxEvents && S.sfxEvents.length) {
+      html += '<div class="ze-panel-title">Pinned SFX on Timeline (' + S.sfxEvents.length + ')</div>' +
+        '<div class="ze-chips">' +
+        S.sfxEvents.map(function (ev) {
+          return '<span class="ze-chip active" data-del-sfx="' + ev.id + '">' + ev.icon + ' ' + ev.name + ' @ ' + ev.time.toFixed(1) + 's ✕</span>';
+        }).join("") +
+        '</div>';
+    }
+
+    el.sheetBody.innerHTML = html;
+
+    qsa(".ze-sfx-btn", el.sheetBody).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var sfxId = btn.getAttribute("data-sfx");
+        var meta = COMEDY_SFX.filter(function (x) { return x.id === sfxId; })[0];
+        playSfxSynth(sfxId);
+        btn.classList.add("playing");
+        setTimeout(function () { btn.classList.remove("playing"); }, 350);
+        if (S.kind === "video" && meta) {
+          pushHistory();
+          var tAt = el.vid.currentTime || 0;
+          S.sfxEvents.push({
+            id: "sfx_" + Date.now() + "_" + Math.floor(Math.random() * 99),
+            sfxId: sfxId,
+            name: meta.name,
+            icon: meta.icon,
+            time: tAt
+          });
+          S.dirty = true;
+          updateTimelineSfxBlocks();
+          renderSfxSheet();
+          toast(meta.icon + " " + meta.name + " pinned at " + tAt.toFixed(1) + "s!");
+        }
+      });
+    });
+
+    qsa("[data-del-sfx]", el.sheetBody).forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var id = chip.getAttribute("data-del-sfx");
+        pushHistory();
+        S.sfxEvents = S.sfxEvents.filter(function (x) { return x.id !== id; });
+        S.dirty = true;
+        updateTimelineSfxBlocks();
+        renderSfxSheet();
+        toast("SFX removed");
+      });
+    });
+  }
+
+  function updateTimelineSfxBlocks() {
+    if (!el.tlSfxLane) return;
+    if (!S.sfxEvents || !S.sfxEvents.length) {
+      el.tlSfxLane.style.display = "none";
+      return;
+    }
+    el.tlSfxLane.style.display = "flex";
+    el.tlSfxLane.innerHTML = S.sfxEvents.map(function (ev) {
+      return '<div class="ze-tl-sfx-block" data-sfxid="' + ev.id + '">' + ev.icon + ' ' + escapeHtml(ev.name) + ' (' + ev.time.toFixed(1) + 's)</div>';
+    }).join("");
+    qsa(".ze-tl-sfx-block", el.tlSfxLane).forEach(function (b) {
+      b.addEventListener("click", function () {
+        openSheet("sfx");
+      });
+    });
+  }
+
   /* ---------------- 6. MORE SHEET (SAVE TO DEVICE AT VERY TOP) ---------------- */
   function renderSaveSheet() {
     setSheetTitle("Save to Device");
@@ -1598,12 +2334,13 @@
   function renderAdjustSheet() {
     setSheetTitle("Adjust");
     var a = S.adjust;
-    var html = '<div class="ze-panel-title">Fine Adjustments</div>' +
+    var html = '<div class="ze-panel-title">Fine Color & Clarity Grading</div>' +
       sliderRow("zeBright", "Brightness", a.brightness, 50, 150, "%") +
       sliderRow("zeContrast", "Contrast", a.contrast, 50, 150, "%") +
       sliderRow("zeSat", "Saturation", a.saturation, 0, 200, "%") +
-      sliderRow("zeWarm", "Warmth", a.warmth, -100, 100, "") +
-      sliderRow("zeFade", "Fade", a.fade, 0, 100, "%") +
+      sliderRow("zeWarm", "Warmth / Temp", a.warmth, -100, 100, "") +
+      sliderRow("zeSharpen", "Sharpen / Clarity", a.sharpen || 0, 0, 100, "%") +
+      sliderRow("zeFade", "Matte Fade", a.fade, 0, 100, "%") +
       '<div class="ze-chips" style="margin-top:12px"><button class="ze-chip" id="zeAdjustReset">' +
       ic('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>', ' style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;vertical-align:-2px;margin-right:5px;"') +
       'Reset Adjustments</button></div>';
@@ -1612,9 +2349,11 @@
     bindSlider("zeContrast", function (v) { a.contrast = v; S.dirty = true; applyPreview(); });
     bindSlider("zeSat", function (v) { a.saturation = v; S.dirty = true; applyPreview(); });
     bindSlider("zeWarm", function (v) { a.warmth = v; S.dirty = true; applyPreview(); });
+    bindSlider("zeSharpen", function (v) { a.sharpen = v; S.dirty = true; applyPreview(); });
     bindSlider("zeFade", function (v) { a.fade = v; S.dirty = true; applyPreview(); });
     $("zeAdjustReset").addEventListener("click", function () {
-      S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0 };
+      pushHistory();
+      S.adjust = { brightness: 100, contrast: 100, saturation: 100, warmth: 0, fade: 0, sharpen: 0 };
       S.dirty = true; applyPreview(); renderAdjustSheet();
     });
   }
@@ -2187,23 +2926,27 @@
   }
 
   function syncVolLabels() {
-    var vv = $("zeVolVideo"), vm = $("zeVolMusic");
+    var vv = $("zeVolVideo"), vm = $("zeVolMusic"), vs = $("zeVolSfx");
     if ($("zeVolVideoV")) $("zeVolVideoV").textContent = (vv ? vv.value : 100) + "%";
     if ($("zeVolMusicV")) $("zeVolMusicV").textContent = (vm ? vm.value : 0) + "%";
+    if ($("zeVolSfxV")) $("zeVolSfxV").textContent = (vs ? vs.value : 90) + "%";
   }
 
   function applyMasterVolume() {
-    el.vid.volume = S.volume;
+    el.vid.volume = clamp(S.volume, 0, 1);
     el.vid.muted = S.muted || S.volume === 0;
     if (S.music && S.music.el) {
-      S.music.el.volume = S.musicVol;
-      S.music.el.muted = S.musicVol === 0;
+      var mVol = S.musicVol;
+      if (S.autoDuck && !el.vid.muted && S.volume > 0.2) mVol = mVol * 0.35;
+      S.music.el.volume = clamp(mVol, 0, 1);
+      S.music.el.muted = mVol === 0;
     }
     el.volBtn.classList.toggle("on", S.muted || S.volume === 0);
   }
 
   function wireVolumePopover() {
-    var vv = $("zeVolVideo"), vm = $("zeVolMusic"), muteBtn = $("zeVolMute");
+    var vv = $("zeVolVideo"), vm = $("zeVolMusic"), vs = $("zeVolSfx"), muteBtn = $("zeVolMute");
+    var duckChk = $("zeAutoDuckCheck"), fadeChk = $("zeFadeAudioCheck");
     if (vv) {
       vv.addEventListener("input", function () {
         S.volume = vv.value / 100;
@@ -2217,6 +2960,25 @@
         S.musicVol = vm.value / 100;
         applyMasterVolume();
         syncVolLabels();
+      });
+    }
+    if (vs) {
+      vs.addEventListener("input", function () {
+        S.sfxVol = vs.value / 100;
+        syncVolLabels();
+      });
+    }
+    if (duckChk) {
+      duckChk.addEventListener("change", function () {
+        S.autoDuck = !!duckChk.checked;
+        applyMasterVolume();
+        toast(S.autoDuck ? "🔉 Auto-Duck Music enabled" : "Auto-Duck off");
+      });
+    }
+    if (fadeChk) {
+      fadeChk.addEventListener("change", function () {
+        S.fadeAudio = !!fadeChk.checked;
+        toast(S.fadeAudio ? "🎵 Audio Fade In/Out enabled" : "Audio Fade off");
       });
     }
     if (muteBtn) {
@@ -2244,9 +3006,12 @@
     if (!pop) return;
     var open = pop.classList.toggle("open");
     if (open) {
-      var vv = $("zeVolVideo"), vm = $("zeVolMusic");
+      var vv = $("zeVolVideo"), vm = $("zeVolMusic"), vs = $("zeVolSfx");
       if (vv) vv.value = Math.round(S.volume * 100);
       if (vm) vm.value = Math.round(S.musicVol * 100);
+      if (vs) vs.value = Math.round((S.sfxVol != null ? S.sfxVol : 0.9) * 100);
+      if ($("zeAutoDuckCheck")) $("zeAutoDuckCheck").checked = !!S.autoDuck;
+      if ($("zeFadeAudioCheck")) $("zeFadeAudioCheck").checked = !!S.fadeAudio;
       syncVolLabels();
     }
     el.volBtn.classList.toggle("on", open);
@@ -2272,29 +3037,31 @@
 
   function sliderRow(id, label, val, min, max, unit) {
     return '<div class="ze-row"><span class="ze-label">' + label + '</span>' +
-      '<input type="range" class="ze-range" id="' + id + '" min="' + min + '" max="' + max + '" step="1" value="' + val + '">' +
-      '<span class="ze-val" id="' + id + 'V">' + Math.round(val) + unit + '</span></div>';
+      '<input type="range" class="ze-range" id="' + id + '" min="' + min + '" max="' + max + '" step="1" value="' + val + '" data-unit="' + (unit || "") + '">' +
+      '<span class="ze-val" id="' + id + 'V">' + Math.round(val) + (unit || "") + '</span></div>';
   }
 
   function bindSlider(id, cb) {
     var input = $(id), out = $(id + "V");
     if (!input) return;
+    var unit = input.getAttribute("data-unit") || (id === "zeWarm" ? "" : "%");
     input.addEventListener("input", function () {
       var v = parseFloat(input.value);
-      if (out) out.textContent = Math.round(v) + (id === "zeWarm" ? "" : "%");
+      if (out) out.textContent = Math.round(v) + unit;
       cb(v);
     });
   }
 
   /* ---------------- 8. REELS TIMELINE EDITOR ---------------- */
   function onEditBtn() {
-    if (S.kind !== "video") { openSheet("more"); return; }
+    if (S.kind !== "video") { openSheet("adjust"); return; }
     openTimeline();
   }
 
   function openTimeline() {
     S.timelineOpen = true;
     closeSheet();
+    renderInspector();
     el.timeline.classList.add("open");
     el.overlay.classList.add("tl-open");
     el.swipe.classList.add("hide");
@@ -2307,10 +3074,11 @@
     el.timeline.classList.remove("open");
     el.overlay.classList.remove("tl-open");
     applyAspect();
+    renderInspector();
   }
 
   function activeSegments() {
-    return S.segments.length ? S.segments : [{ start: 0, end: S.trim.duration || S.duration || 1 }];
+    return S.segments.length ? S.segments : [{ start: 0, end: S.trim.duration || S.duration || 1, speed: 1 }];
   }
 
   function segAt(t) {
@@ -2321,20 +3089,58 @@
     return null;
   }
 
+  var _lastSfxTrig = {};
   function onTimeUpdate() {
     if (S.kind !== "video") return;
     var segs = activeSegments();
     var cur = el.vid.currentTime;
+    var prevT = S.playhead || 0;
     S.playhead = cur;
+
     var hit = segAt(cur);
-    if (hit && cur >= hit.seg.end - 0.05) {
-      var next = segs[hit.i + 1];
-      if (next) {
-        el.vid.currentTime = next.start + 0.01;
-      } else {
-        el.vid.currentTime = segs[0].start + 0.01;
+    if (hit) {
+      var targetSpd = hit.seg.speed || S.speed || 1;
+      if (Math.abs(el.vid.playbackRate - targetSpd) > 0.02) {
+        el.vid.playbackRate = targetSpd;
+      }
+      if (cur >= hit.seg.end - 0.05) {
+        var next = segs[hit.i + 1];
+        if (next) {
+          el.vid.currentTime = next.start + 0.01;
+        } else {
+          _lastSfxTrig = {};
+          el.vid.currentTime = segs[0].start + 0.01;
+        }
       }
     }
+
+    // Trigger pinned Comedy SFX events
+    if (S.sfxEvents && S.sfxEvents.length && !el.vid.paused) {
+      var nowMs = Date.now();
+      S.sfxEvents.forEach(function (ev) {
+        if (Math.abs(cur - ev.time) < 0.14 && (!(_lastSfxTrig[ev.id]) || nowMs - _lastSfxTrig[ev.id] > 900)) {
+          _lastSfxTrig[ev.id] = nowMs;
+          playSfxSynth(ev.sfxId);
+        }
+      });
+    }
+
+    // Refresh timed texts/stickers visibility when needed
+    if (S.texts.some(function (t) { return t.endTime > t.startTime; })) renderTexts();
+    if (S.stickers.some(function (s) { return s.endTime > s.startTime; })) renderStickers();
+
+    // Audio Fade In/Out
+    if (S.fadeAudio && S.duration > 1.5) {
+      var fadeGain = 1;
+      if (cur < 0.8) fadeGain = clamp(cur / 0.8, 0.1, 1);
+      else if (cur > S.duration - 0.8) fadeGain = clamp((S.duration - cur) / 0.8, 0.1, 1);
+      if (!S.muted) el.vid.volume = clamp(S.volume * fadeGain, 0, 1);
+      if (S.music && S.music.el) {
+        var baseM = S.autoDuck ? S.musicVol * 0.35 : S.musicVol;
+        S.music.el.volume = clamp(baseM * fadeGain, 0, 1);
+      }
+    }
+
     if (S.timelineOpen) updatePlayhead();
   }
 
@@ -2357,11 +3163,12 @@
       el.tlStrip.innerHTML = "";
     }
 
-    // Segments with Reel handles
+    // Segments with Reel handles & speed badge
     var html = "";
     S.segments.forEach(function (seg, i) {
       var l = seg.start / dur * 100, w = (seg.end - seg.start) / dur * 100;
-      html += '<div class="ze-tl-seg' + (i === S.selSeg ? " sel" : "") + '" data-i="' + i + '" style="left:' + l + '%;width:' + w + '%"></div>';
+      var spTag = (seg.speed && seg.speed !== 1) ? '<span class="ze-tl-seg-badge">' + seg.speed + 'x</span>' : '';
+      html += '<div class="ze-tl-seg' + (i === S.selSeg ? " sel" : "") + '" data-i="' + i + '" style="left:' + l + '%;width:' + w + '%">' + spTag + '</div>';
     });
 
     if (S.segments.length) {
@@ -2383,27 +3190,29 @@
     // Audio lane text
     updateSoundLabel();
 
-    // Text lane blocks
+    // Text, Overlay, and SFX lane blocks
     updateTimelineTextBlocks();
-
-    // Overlay lane blocks (above text)
     updateTimelineOverlayBlocks();
+    updateTimelineSfxBlocks();
 
-    // CapCut & Reel Action Toolbar with complete Audio Suite
+    // CapCut & Reel Action Toolbar with complete Audio & Comedy Suite
+    var curSeg = S.segments[S.selSeg] || {};
+    var dispSpd = curSeg.speed || S.speed || 1;
     el.tlTools.innerHTML =
       tlTool("split", "Split", ic('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')) +
-      tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'), (S.speed && S.speed !== 1 ? S.speed + "x" : "")) +
+      tlTool("speed", "Speed", ic('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'), (dispSpd !== 1 ? dispSpd + "x" : "")) +
+      tlTool("sfx", "Comedy SFX", ic('<path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>'), (S.sfxEvents.length ? String(S.sfxEvents.length) : "")) +
+      tlTool("voiceover", "Voiceover", ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>')) +
+      tlTool("punchzoom", "Punch Zoom", ic('<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>')) +
       tlTool("flip", "Flip", ic('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>')) +
       tlTool("rotate", "Rotate", ic('<path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>')) +
-      tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
       tlTool("dup", "Duplicate", ic('<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>')) +
-      tlTool("addclip", "Add Clip", ic('<path d="M12 5v14M5 12h14"/>')) +
+      tlTool("delete", "Delete", ic('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>')) +
       tlTool("text", "Text", ic('<path d="M4 7V5h16v2M9 19h6M12 5v14"/>')) +
+      tlTool("draw", "Draw", ic('<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>')) +
       tlTool("overlay", "Overlay", ic('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 15l5-5 4 4 3-3 6 6"/>')) +
       tlTool("adjust", "Adjust", ic('<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>')) +
       tlTool("ratio", "Ratio", ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14M16 5v14"/>')) +
-      tlTool("transform", "Transform", ic('<path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/>')) +
-      tlTool("voiceover", "Voiceover", ic('<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>')) +
       tlTool("importaudio", "Import Audio", ic('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>')) +
       tlTool("exportaudio", "Audio Tools", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>')) +
       tlTool("sound", "Music", ic('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'));
@@ -2434,12 +3243,12 @@
     });
 
     // Scrubber click on track
-    el.tlWrap.addEventListener("pointerdown", function (e) {
+    el.tlWrap.onpointerdown = function (e) {
       if (e.target.closest(".ze-tl-handle")) return;
       scrubTo(e);
       el.tlWrap.addEventListener("pointermove", scrubMove);
       window.addEventListener("pointerup", scrubEnd);
-    });
+    };
 
     updatePlayhead();
   }
@@ -2463,6 +3272,7 @@
 
   var hDrag = null;
   function startHandleDrag(e, which) {
+    pushHistory();
     hDrag = { which: which, rect: el.tlWrap.getBoundingClientRect() };
     window.addEventListener("pointermove", handleDragMove);
     window.addEventListener("pointerup", handleDragEnd);
@@ -2499,6 +3309,9 @@
     if (tool === "flip") return flipClip();
     if (tool === "rotate") return rotateClip();
     if (tool === "speed") return toggleSpeedMenu();
+    if (tool === "punchzoom") return addComedyPunchline();
+    if (tool === "sfx") { openSheet("sfx"); return; }
+    if (tool === "draw") { openSheet("draw"); return; }
     if (tool === "voiceover") return openVoiceoverModal();
     if (tool === "importaudio") return triggerImportAudio();
     if (tool === "exportaudio") return openAudioToolsModal();
@@ -2919,9 +3732,11 @@
     for (var i = 0; i < segs.length; i++) {
       var s = segs[i];
       if (cur > s.start + 0.3 && cur < s.end - 0.3) {
+        pushHistory();
         var oldEnd = s.end;
+        var spd = s.speed || S.speed || 1;
         s.end = cur;
-        segs.splice(i + 1, 0, { start: cur, end: oldEnd });
+        segs.splice(i + 1, 0, { start: cur, end: oldEnd, speed: spd });
         S.selSeg = i + 1;
         S.dirty = true;
         renderTimeline();
@@ -2929,11 +3744,12 @@
         return;
       }
     }
-    toast("Clip too short to split here");
+    toast("Move playhead inside a clip to split");
   }
 
   function deleteSeg() {
     if (S.segments.length <= 1) { toast("Can't delete the only clip"); return; }
+    pushHistory();
     S.segments.splice(S.selSeg, 1);
     S.selSeg = Math.max(0, S.selSeg - 1);
     S.dirty = true;
@@ -2944,7 +3760,8 @@
   function dupSeg() {
     var sel = S.segments[S.selSeg];
     if (!sel) return;
-    var copy = { start: sel.start, end: sel.end };
+    pushHistory();
+    var copy = { start: sel.start, end: sel.end, speed: sel.speed || 1 };
     S.segments.splice(S.selSeg + 1, 0, copy);
     S.selSeg = S.selSeg + 1;
     S.dirty = true;
@@ -2952,7 +3769,28 @@
     toast("🔁 Clip duplicated");
   }
 
+  function addComedyPunchline() {
+    pushHistory();
+    var cur = el.vid.currentTime || 0;
+    playSfxSynth("boom");
+    S.sfxEvents.push({
+      id: "sfx_" + Date.now(),
+      sfxId: "boom",
+      name: "Vine Boom",
+      icon: "💥",
+      time: cur
+    });
+    // Also add dramatic vignette + glow punch if none set
+    if (!S.effects.vignette) S.effects.vignette = 55;
+    if (!S.effects.rgb) S.effects.rgb = 35;
+    S.dirty = true;
+    applyPreview();
+    renderTimeline();
+    toast("💥 Comedy Punch + Vine Boom added at " + fmt(cur) + "!");
+  }
+
   function flipClip() {
+    pushHistory();
     S.transform.flipH = !S.transform.flipH;
     S.dirty = true;
     applyPreview();
@@ -2960,8 +3798,10 @@
   }
 
   function rotateClip() {
+    pushHistory();
     S.transform.rotate = (((S.transform.rotate || 0) + 90) % 360 + 360) % 360;
     S.dirty = true;
+    applyAspect();
     applyPreview();
     toast("🔄 Rotated " + S.transform.rotate + "°");
   }
@@ -2973,19 +3813,23 @@
       row.style.display = "none";
       return;
     }
-    var speeds = [0.3, 0.5, 0.75, 1, 1.25, 1.5, 2];
+    var curSeg = S.segments[S.selSeg];
+    var activeSpd = (curSeg && curSeg.speed) ? curSeg.speed : (S.speed || 1);
+    var speeds = [0.3, 0.5, 0.75, 1, 1.25, 1.5, 2, 3];
     row.innerHTML = speeds.map(function (sp) {
-      return '<button class="ze-speed-chip' + (S.speed === sp ? " active" : "") + '" data-sp="' + sp + '">' + sp + 'x</button>';
+      return '<button class="ze-speed-chip' + (activeSpd === sp ? " active" : "") + '" data-sp="' + sp + '">' + sp + 'x</button>';
     }).join("");
     row.style.display = "flex";
 
     qsa(".ze-speed-chip", row).forEach(function (chip) {
       chip.addEventListener("click", function () {
+        pushHistory();
         var sp = parseFloat(chip.getAttribute("data-sp"));
         S.speed = sp;
+        if (S.segments[S.selSeg]) S.segments[S.selSeg].speed = sp;
         el.vid.playbackRate = sp;
         S.dirty = true;
-        toast("⚡ Speed set to " + sp + "x");
+        toast("⚡ Clip speed set to " + sp + "x");
         if (el.speedRow) el.speedRow.style.display = "none";
         if (typeof renderTimeline === "function") renderTimeline();
       });
@@ -2993,27 +3837,15 @@
   }
 
   function triggerAddClip() {
-    var inp = $("zeAddClipInput");
-    if (!inp) {
-      inp = document.createElement("input");
-      inp.id = "zeAddClipInput";
-      inp.type = "file";
-      inp.accept = "video/*,image/*";
-      inp.style.display = "none";
-      document.body.appendChild(inp);
+    var sel = S.segments[S.selSeg] || S.segments[S.segments.length - 1];
+    if (sel) {
+      pushHistory();
+      S.segments.push({ start: sel.start, end: sel.end, speed: sel.speed || 1 });
+      S.selSeg = S.segments.length - 1;
+      S.dirty = true;
+      renderTimeline();
+      toast("➕ Segment added to timeline");
     }
-    inp.onchange = function () {
-      var f = inp.files && inp.files[0];
-      if (!f) return;
-      toast("➕ Clip added: " + f.name);
-      // Append a duplicate segment as placeholder
-      var last = S.segments[S.segments.length - 1];
-      if (last) {
-        S.segments.push({ start: 0, end: Math.min(5, S.duration) });
-        renderTimeline();
-      }
-    };
-    inp.click();
   }
 
   /* ---------------- Thumbnails ---------------- */
@@ -3123,13 +3955,13 @@
     var e = S.effects, a = S.adjust;
     if (a.warmth > 0) {
       ctx.globalCompositeOperation = "soft-light";
-      ctx.fillStyle = "rgba(255,140,0," + (a.warmth / 100 * 0.5) + ")";
+      ctx.fillStyle = "rgba(255,140,0," + (a.warmth / 100 * 0.45) + ")";
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = "source-over";
     }
     if (a.warmth < 0) {
       ctx.globalCompositeOperation = "soft-light";
-      ctx.fillStyle = "rgba(0,120,255," + (Math.abs(a.warmth) / 100 * 0.5) + ")";
+      ctx.fillStyle = "rgba(0,120,255," + (Math.abs(a.warmth) / 100 * 0.45) + ")";
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = "source-over";
     }
@@ -3159,6 +3991,25 @@
       ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = "source-over";
     }
+    if (e.rgb > 0) {
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      var rg = ctx.createLinearGradient(0, 0, W, 0);
+      rg.addColorStop(0, "rgba(255,0,80," + (e.rgb / 100 * 0.28) + ")");
+      rg.addColorStop(0.5, "rgba(0,0,0,0)");
+      rg.addColorStop(1, "rgba(0,242,234," + (e.rgb / 100 * 0.28) + ")");
+      ctx.fillStyle = rg;
+      ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+    }
+    if (e.vhs > 0) {
+      ctx.save();
+      ctx.fillStyle = "rgba(0,0,0," + (e.vhs / 100 * 0.22) + ")";
+      for (var sy = 0; sy < H; sy += 6) {
+        ctx.fillRect(0, sy, W, 2);
+      }
+      ctx.restore();
+    }
     if (e.grain > 0) {
       var n = noiseCanvas();
       ctx.globalAlpha = e.grain / 100 * 0.35;
@@ -3187,14 +4038,17 @@
     ctx.closePath();
   }
 
-  function drawTexts(ctx, W, H) {
+  function drawTexts(ctx, W, H, tNow) {
     S.texts.forEach(function (t) {
+      if (tNow != null && !isItemVisibleAtTime(t, tNow)) return;
       var fs = Math.max(10, t.size * W);
       ctx.save();
-      ctx.font = t.weight + " " + fs + "px " + (t.font || "system-ui, sans-serif");
+      ctx.globalAlpha = clamp(t.opacity != null ? t.opacity : 1, 0, 1);
+      ctx.translate(t.x * W, t.y * H);
+      if (t.rot) ctx.rotate(t.rot * Math.PI / 180);
+      ctx.font = (t.weight || "800") + " " + fs + "px " + (t.font || "system-ui, sans-serif");
       ctx.textAlign = t.align || "center";
       ctx.textBaseline = "middle";
-      var x = t.x * W, y = t.y * H;
       var lines = String(t.text).split("\n");
       var lineH = fs * 1.25, totalH = lineH * lines.length;
 
@@ -3204,65 +4058,79 @@
         ctx.lineWidth = Math.max(3, fs * 0.18);
         ctx.lineJoin = "round";
         lines.forEach(function (l, i) {
-          var ly = y - totalH / 2 + lineH * (i + 0.5);
-          ctx.strokeText(l, x, ly);
-          ctx.fillText(l, x, ly);
+          var ly = -totalH / 2 + lineH * (i + 0.5);
+          ctx.strokeText(l, 0, ly);
+          ctx.fillText(l, 0, ly);
         });
-      } else if (t.cap === "highlight" || t.bg === "pill") {
+      } else if (t.cap === "highlight" || t.bg === "pill" || t.bg === "gradient" || t.bg === "invert") {
         var mw = 0; lines.forEach(function (l) { mw = Math.max(mw, ctx.measureText(l).width); });
         var px = fs * 0.45, py = fs * 0.28;
-        ctx.fillStyle = t.bgColor || "#e63946";
-        roundRect(ctx, x - mw / 2 - px, y - totalH / 2 - py, mw + px * 2, totalH + py * 2, fs * 0.4);
+        if (t.bg === "gradient") {
+          var grd = ctx.createLinearGradient(-mw / 2 - px, -totalH / 2, mw / 2 + px, totalH / 2);
+          grd.addColorStop(0, "#ff2b67");
+          grd.addColorStop(1, "#ff8a00");
+          ctx.fillStyle = grd;
+        } else if (t.bg === "invert") {
+          ctx.fillStyle = "rgba(255,255,255,0.95)";
+        } else {
+          ctx.fillStyle = t.bgColor || "#e63946";
+        }
+        roundRect(ctx, -mw / 2 - px, -totalH / 2 - py, mw + px * 2, totalH + py * 2, fs * 0.4);
         ctx.fill();
-        ctx.fillStyle = t.color || "#ffffff";
+        ctx.fillStyle = (t.bg === "invert") ? "#0b0b10" : (t.color || "#ffffff");
         lines.forEach(function (l, i) {
-          ctx.fillText(l, x, y - totalH / 2 + lineH * (i + 0.5));
+          ctx.fillText(l, 0, -totalH / 2 + lineH * (i + 0.5));
         });
       } else if (t.bg === "solid" || t.cap === "minimal") {
         var mw2 = 0; lines.forEach(function (l) { mw2 = Math.max(mw2, ctx.measureText(l).width); });
         var px2 = fs * 0.35, py2 = fs * 0.22;
         ctx.fillStyle = "rgba(0,0,0,0.78)";
-        roundRect(ctx, x - mw2 / 2 - px2, y - totalH / 2 - py2, mw2 + px2 * 2, totalH + py2 * 2, fs * 0.25);
+        roundRect(ctx, -mw2 / 2 - px2, -totalH / 2 - py2, mw2 + px2 * 2, totalH + py2 * 2, fs * 0.25);
         ctx.fill();
         ctx.fillStyle = t.color || "#ffffff";
         lines.forEach(function (l, i) {
-          ctx.fillText(l, x, y - totalH / 2 + lineH * (i + 0.5));
+          ctx.fillText(l, 0, -totalH / 2 + lineH * (i + 0.5));
         });
       } else {
         lines.forEach(function (l, i) {
-          var ly = y - totalH / 2 + lineH * (i + 0.5);
+          var ly = -totalH / 2 + lineH * (i + 0.5);
           if (t.bg === "outline" || t.cap === "outline") {
             ctx.lineWidth = Math.max(2.5, fs * 0.12);
             ctx.strokeStyle = "#000000";
-            ctx.strokeText(l, x, ly);
+            ctx.strokeText(l, 0, ly);
+          } else if (t.bg === "neon" || t.cap === "neon") {
+            ctx.shadowColor = t.color || "#00f2ea";
+            ctx.shadowBlur = fs * 0.45;
           } else {
             ctx.shadowColor = "rgba(0,0,0,0.65)";
             ctx.shadowBlur = fs * 0.2;
           }
           ctx.fillStyle = t.color || "#ffffff";
-          ctx.fillText(l, x, ly);
+          ctx.fillText(l, 0, ly);
         });
       }
       ctx.restore();
     });
   }
 
-  function drawStickers(ctx, W, H) {
+  function drawStickers(ctx, W, H, tNow) {
     S.stickers.forEach(function (s) {
+      if (tNow != null && !isItemVisibleAtTime(s, tNow)) return;
       var fs = Math.max(14, s.size * W);
+      ctx.save();
+      ctx.globalAlpha = clamp(s.opacity != null ? s.opacity : 1, 0, 1);
+      ctx.translate(s.x * W, s.y * H);
+      if (s.rot) ctx.rotate(s.rot * Math.PI / 180);
       if (s.kind === "emoji") {
-        ctx.save();
         ctx.font = fs + "px system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText(s.ch, s.x * W, s.y * H);
-        ctx.restore();
+        ctx.fillText(s.ch, 0, 0);
       } else if (s.img && s.img.complete && s.img.naturalWidth) {
         var w = fs, h = fs / (s.ar || 1);
-        ctx.save();
-        ctx.drawImage(s.img, s.x * W - w / 2, s.y * H - h / 2, w, h);
-        ctx.restore();
+        ctx.drawImage(s.img, -w / 2, -h / 2, w, h);
       }
+      ctx.restore();
     });
   }
 
@@ -3275,12 +4143,15 @@
           var sz = targetSize(flat.width, flat.height);
           var c = document.createElement("canvas"); c.width = sz.w; c.height = sz.h;
           var ctx = c.getContext("2d");
-          ctx.filter = buildFilter() || "none";
+          var fStr = buildFilter() || "none";
+          if (S.effects.blur > 0) fStr = (fStr === "none" ? "" : fStr + " ") + "blur(" + (S.effects.blur / 20) + "px)";
+          ctx.filter = fStr;
           drawCover(ctx, flat, sz.w, sz.h);
           ctx.filter = "none";
           drawEffects(ctx, sz.w, sz.h);
-          drawTexts(ctx, sz.w, sz.h);
-          drawStickers(ctx, sz.w, sz.h);
+          drawStrokesOnCtx(ctx, sz.w, sz.h);
+          drawTexts(ctx, sz.w, sz.h, null);
+          drawStickers(ctx, sz.w, sz.h, null);
           c.toBlob(function (b) { b ? resolve(b) : reject(new Error("blob")); }, "image/jpeg", 0.94);
         } catch (e) { reject(e); }
       });
@@ -3338,25 +4209,39 @@
         var segs = activeSegments();
         var totalDur = segs.reduce(function (a, s) { return a + (s.end - s.start); }, 0) || 1;
         var doneDur = 0;
+        var expSfxTrig = {};
         v.loop = false;
         rec.start(100);
         v.muted = S.muted;
         v.volume = S.volume;
         if (S.music && S.music.el) {
-          try { S.music.el.currentTime = 0; S.music.el.volume = S.musicVol; S.music.el.play(); } catch (e) {}
+          try { S.music.el.currentTime = 0; S.music.el.volume = S.autoDuck ? (S.musicVol * 0.35) : S.musicVol; S.music.el.play(); } catch (e) {}
         }
 
         function drawFrame() {
+          var curT = v.currentTime || 0;
           var n = mediaNatural();
           var rot = ((S.transform.rotate % 360) + 360) % 360;
           var identity = rot === 0 && !S.transform.flipH && !S.transform.flipV;
-          octx.filter = buildFilter() || "none";
+          var fStr = buildFilter() || "none";
+          if (S.effects.blur > 0) fStr = (fStr === "none" ? "" : fStr + " ") + "blur(" + (S.effects.blur / 20) + "px)";
+          octx.filter = fStr;
           if (identity) drawCover(octx, v, sz.w, sz.h, n.w, n.h);
           else drawCover(octx, flattenMedia(), sz.w, sz.h);
           octx.filter = "none";
           drawEffects(octx, sz.w, sz.h);
-          drawTexts(octx, sz.w, sz.h);
-          drawStickers(octx, sz.w, sz.h);
+          drawStrokesOnCtx(octx, sz.w, sz.h);
+          drawTexts(octx, sz.w, sz.h, curT);
+          drawStickers(octx, sz.w, sz.h, curT);
+
+          if (S.sfxEvents && S.sfxEvents.length && graph) {
+            S.sfxEvents.forEach(function (ev) {
+              if (Math.abs(curT - ev.time) < 0.12 && !expSfxTrig[ev.id]) {
+                expSfxTrig[ev.id] = true;
+                playSfxSynth(ev.sfxId, graph.ac, graph.dest);
+              }
+            });
+          }
         }
 
         function finish() {
@@ -3371,6 +4256,7 @@
         function playSeg() {
           if (si >= segs.length) { finish(); return; }
           var seg = segs[si];
+          v.playbackRate = seg.speed || S.speed || 1;
           started = false;
           var begin = function () {
             if (started) return; started = true;

@@ -1,7 +1,8 @@
 /* ============================================================
-   ZYRO MEDIA EDITOR v2.5 — Instagram Reels & Shorts Editor
-   Full-screen preview + right tool rail + top sound bar
-   + bottom Edit/Next + multi-track Instagram Reels timeline.
+   ZYRO MEDIA EDITOR v3.0 PRO — Reels, Shorts & Photo Studio
+   Full-screen preview + right tool rail + top sound & undo/redo bar
+   + freehand draw layer + sticker/text timing & rotation inspector
+   + Comedy SFX board + multi-track Reels timeline.
    ============================================================ */
 
 .ze-overlay {
@@ -22,11 +23,16 @@
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; background: #000;
   padding: calc(env(safe-area-inset-top, 0px) + 6px) 6px calc(env(safe-area-inset-bottom, 0px) + 6px);
+  transition: padding .25s ease;
+}
+.ze-overlay.tl-open .ze-stage {
+  padding-bottom: min(48vh, 360px);
 }
 .ze-canvas {
   position: relative; overflow: hidden; flex: 0 0 auto;
   background: #000; border-radius: 12px; touch-action: none;
   box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  transition: width .2s ease, height .2s ease;
 }
 .ze-canvas.ze-no-round { border-radius: 0; }
 .ze-media {
@@ -37,7 +43,17 @@
 .ze-fx-layer, .ze-text-layer, .ze-sticker-layer {
   position: absolute; inset: 0; overflow: hidden; pointer-events: none;
 }
-.ze-fx-layer { pointer-events: none; }
+.ze-fx-layer { pointer-events: none; z-index: 2; }
+.ze-overlay-layer {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 3;
+}
+.ze-draw-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 3; pointer-events: none; touch-action: none;
+}
+.ze-draw-canvas.drawing-active {
+  pointer-events: auto; cursor: crosshair; z-index: 15;
+}
 .ze-text-layer, .ze-sticker-layer { z-index: 4; }
 
 /* Effects */
@@ -55,28 +71,61 @@
   box-shadow: inset 0 35px 0 #000, inset 0 -35px 0 #000;
 }
 .ze-fx-vhs {
-  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 2px, transparent 2px, transparent 4px);
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.22) 0px, rgba(0,0,0,0.22) 2px, rgba(255,0,80,0.06) 2px, rgba(0,255,255,0.06) 4px);
   mix-blend-mode: overlay;
 }
+.ze-fx-rgb {
+  box-shadow: inset 4px 0 0 rgba(255, 0, 85, 0.45), inset -4px 0 0 rgba(0, 229, 255, 0.45);
+  mix-blend-mode: screen;
+}
 
-/* ---------------- Text + Sticker Items (Draggable) ---------------- */
+/* ---------------- Text + Sticker Items (Draggable, Rotatable, Timed) ---------------- */
 .ze-text-item, .ze-sticker-item {
-  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) rotate(var(--ze-rot, 0deg));
   font-weight: 800; line-height: 1.25; white-space: pre-wrap; cursor: grab;
   user-select: none; -webkit-user-select: none; max-width: 92%; text-align: center;
   word-break: break-word; text-shadow: 0 2px 8px rgba(0,0,0,0.65);
   padding: 4px 10px; border-radius: 8px; pointer-events: auto; touch-action: none;
-  transition: transform .08s ease, outline .15s ease;
+  transition: outline .15s ease, opacity .15s ease;
+}
+.ze-text-item.ze-timed-hidden, .ze-sticker-item.ze-timed-hidden {
+  opacity: 0 !important; pointer-events: none !important;
 }
 .ze-text-item:active, .ze-sticker-item:active {
   cursor: grabbing;
-  transform: translate(-50%, -50%) scale(1.05);
 }
 .ze-text-item.selected, .ze-sticker-item.selected {
-  outline: 2px dashed rgba(255,255,255,0.95);
-  outline-offset: 4px;
-  box-shadow: 0 0 16px rgba(0,0,0,0.7);
+  outline: 2px dashed #ffcc00;
+  outline-offset: 5px;
+  box-shadow: 0 0 18px rgba(0,0,0,0.75);
 }
+
+/* Floating Quick Inspector Bar for Selected Sticker / Text */
+.ze-item-inspector {
+  position: absolute; left: 50%; top: calc(env(safe-area-inset-top, 0px) + 60px);
+  transform: translateX(-50%); z-index: 28;
+  background: rgba(16, 16, 24, 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 16px;
+  padding: 8px 12px; display: none; align-items: center; gap: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7); max-width: 94vw; overflow-x: auto; scrollbar-width: none;
+}
+.ze-item-inspector::-webkit-scrollbar { display: none; }
+.ze-item-inspector.show { display: flex; }
+.ze-insp-group {
+  display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #ccc;
+  flex-shrink: 0;
+}
+.ze-insp-group input[type="range"] {
+  width: 68px; accent-color: #ffcc00; cursor: pointer;
+}
+.ze-insp-btn {
+  border: 1px solid rgba(255,255,255,0.16); background: #222230; color: #fff;
+  border-radius: 8px; padding: 5px 9px; font-size: 11px; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+.ze-insp-btn:active { transform: scale(0.94); }
+.ze-insp-btn.danger { background: rgba(230,57,70,0.22); border-color: rgba(230,57,70,0.5); color: #ff6b77; }
 
 /* Text Background Styles */
 .ze-text-item.ze-bg-solid { background: rgba(0,0,0,0.78); border-radius: 8px; padding: 6px 14px; text-shadow: none; }
@@ -89,7 +138,7 @@
 .ze-sticker-item { font-size: 64px; text-shadow: 0 4px 14px rgba(0,0,0,0.5); padding: 0; }
 
 .ze-caption-item {
-  position: absolute; left: 50%; transform: translateX(-50%);
+  position: absolute; left: 50%;
   font-weight: 800; text-align: center; max-width: 90%; line-height: 1.25;
   padding: 6px 14px; border-radius: 10px; cursor: grab; pointer-events: auto; touch-action: none;
 }
@@ -97,51 +146,56 @@
 /* ---------------- Top Bar ---------------- */
 .ze-topbar {
   position: absolute; left: 0; right: 0; top: 0; z-index: 20;
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 8px;
   padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px 12px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0));
+  background: linear-gradient(180deg, rgba(0,0,0,0.78), rgba(0,0,0,0));
   pointer-events: none;
 }
 .ze-topbar > * { pointer-events: auto; }
 .ze-icon-btn {
-  width: 40px; height: 40px; flex: 0 0 auto; border: 0; border-radius: 50%;
-  background: rgba(0,0,0,0.45); color: #fff; display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; flex: 0 0 auto; border: 0; border-radius: 50%;
+  background: rgba(0,0,0,0.48); color: #fff; display: flex; align-items: center; justify-content: center;
   cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: transform .12s, background .15s, opacity .15s;
 }
-.ze-icon-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
-.ze-icon-btn:active { transform: scale(0.93); }
-.ze-icon-btn.on { background: #e63946; }
+.ze-icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2.1; }
+.ze-icon-btn:active { transform: scale(0.92); }
+.ze-icon-btn.on { background: #e63946; border-color: transparent; }
+.ze-icon-btn[disabled] { opacity: 0.35; pointer-events: none; }
 
 .ze-sound {
   margin: 0 auto; display: flex; align-items: center; gap: 8px;
-  height: 40px; padding: 0 16px; border: 0; border-radius: 999px;
-  background: rgba(0,0,0,0.5); color: #fff; font-size: 14px; font-weight: 600;
+  height: 38px; padding: 0 15px; border: 0; border-radius: 999px;
+  background: rgba(0,0,0,0.52); color: #fff; font-size: 13.5px; font-weight: 700;
   cursor: pointer; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  max-width: 62%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 48%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   border: 1px solid rgba(255,255,255,0.15);
 }
-.ze-sound svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; flex: 0 0 auto; }
+.ze-sound svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 2; flex: 0 0 auto; }
 .ze-sound.active { background: rgba(230,57,70,0.92); border-color: transparent; }
 
 /* ---------------- Right Tool Rail ---------------- */
 .ze-rail {
   position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-  z-index: 20; display: flex; flex-direction: column; gap: 12px;
+  z-index: 20; display: flex; flex-direction: column; gap: 10px;
+  max-height: 74vh; overflow-y: auto; scrollbar-width: none; padding: 4px 0;
 }
+.ze-rail::-webkit-scrollbar { display: none; }
 .ze-rail-btn {
-  width: 58px; border: 0; background: transparent; color: #fff;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  cursor: pointer; font-size: 10.5px; font-weight: 700; font-family: inherit;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.85);
+  width: 56px; border: 0; background: transparent; color: #fff;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  cursor: pointer; font-size: 10px; font-weight: 700; font-family: inherit;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.85); flex-shrink: 0;
 }
 .ze-rail-ic {
-  width: 44px; height: 44px; border-radius: 50%;
+  width: 42px; height: 42px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.48); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.14);
   transition: background .15s, transform .1s;
 }
-.ze-rail-btn svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; }
+.ze-rail-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
 .ze-rail-btn:active .ze-rail-ic { transform: scale(0.9); }
 .ze-rail-btn.active .ze-rail-ic { background: #e63946; border-color: transparent; }
 
@@ -150,7 +204,7 @@
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 20;
   display: flex; align-items: center; gap: 12px;
   padding: 12px 16px calc(env(safe-area-inset-bottom, 0px) + 14px);
-  background: linear-gradient(0deg, rgba(0,0,0,0.75), rgba(0,0,0,0));
+  background: linear-gradient(0deg, rgba(0,0,0,0.78), rgba(0,0,0,0));
 }
 .ze-swipe {
   position: absolute; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
@@ -211,7 +265,8 @@
 }
 .ze-btn-next {
   flex: 1; height: 48px; border: 0; border-radius: 12px;
-  background: #fff; color: #111; font-size: 15px; font-weight: 800; cursor: pointer; font-family: inherit;
+  background: linear-gradient(135deg, #0095f6, #0077e6); color: #fff; font-size: 15px; font-weight: 800;
+  cursor: pointer; font-family: inherit; box-shadow: 0 4px 16px rgba(0, 149, 246, 0.4);
 }
 .ze-btn-edit:active, .ze-btn-next:active { transform: scale(0.98); }
 .ze-btn-next[disabled] { opacity: 0.6; }
@@ -221,7 +276,7 @@
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 100;
   background: #111117; border-radius: 22px 22px 0 0; border-top: 1px solid rgba(255,255,255,0.12);
   transform: translateY(105%); transition: transform .26s cubic-bezier(.2,.8,.2,1);
-  height: 76vh; max-height: 88vh; display: flex; flex-direction: column;
+  height: 72vh; max-height: 86vh; display: flex; flex-direction: column;
   box-shadow: 0 -16px 48px rgba(0,0,0,0.85);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -249,8 +304,8 @@
 
 /* Sliders */
 .ze-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.ze-row .ze-label { font-size: 12px; font-weight: 700; color: #d0d0d8; width: 84px; flex: 0 0 auto; }
-.ze-row .ze-val { font-size: 11px; font-weight: 700; color: #8e8e98; width: 44px; text-align: right; flex: 0 0 auto; }
+.ze-row .ze-label { font-size: 12px; font-weight: 700; color: #d0d0d8; width: 92px; flex: 0 0 auto; }
+.ze-row .ze-val { font-size: 11px; font-weight: 700; color: #8e8e98; width: 46px; text-align: right; flex: 0 0 auto; }
 .ze-range {
   -webkit-appearance: none; appearance: none; flex: 1; height: 4px; border-radius: 4px;
   background: #2a2a34; outline: none; cursor: pointer;
@@ -280,6 +335,22 @@
 .ze-fx-card.active { border-color: #e63946; }
 .ze-fx-card.active span { color: #fff; }
 .ze-fx-badge { position: absolute; top: 6px; right: 6px; background: #e63946; color: #fff; font-size: 10px; font-weight: 800; border-radius: 999px; padding: 1px 6px; }
+
+/* Comedy SFX Soundboard Grid */
+.ze-sfx-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 9px;
+}
+.ze-sfx-btn {
+  background: linear-gradient(145deg, #1b1b26, #14141d);
+  border: 1.5px solid #2b2b3a; border-radius: 14px; padding: 11px 10px;
+  color: #fff; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; gap: 5px; text-align: center; transition: all .14s ease;
+  font-family: inherit;
+}
+.ze-sfx-btn:active { transform: scale(0.94); border-color: #ffcc00; background: #262218; }
+.ze-sfx-btn .ze-sfx-emo { font-size: 24px; line-height: 1; }
+.ze-sfx-btn b { font-size: 12px; font-weight: 800; color: #fff; }
+.ze-sfx-btn small { font-size: 10px; color: #8e8e9c; }
 
 /* Sticker Grid */
 .ze-sticker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 8px; }
@@ -371,31 +442,8 @@
 }
 .ze-sound-tab.active { background: #e63946; border-color: #e63946; color: #fff; }
 .ze-sound-list { max-height: 240px; overflow-y: auto; -webkit-overflow-scrolling: touch; display: flex; flex-direction: column; gap: 6px; }
-.ze-sound-row {
-  display: flex; align-items: center; gap: 10px; padding: 9px 10px;
-  background: #181820; border-radius: 12px; border: 1px solid #242430; cursor: pointer;
-}
-.ze-sound-row:hover { background: #20202a; }
-.ze-sound-row.active { background: rgba(230,57,70,0.15); border-color: #e63946; }
-.ze-sound-ic {
-  width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #e63946, #ff5a5f);
-  display: flex; align-items: center; justify-content: center; flex: 0 0 auto; font-size: 18px;
-}
-.ze-sound-meta { flex: 1; min-width: 0; }
-.ze-sound-meta b { font-size: 13px; font-weight: 700; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ze-sound-meta small { font-size: 11px; color: #90909c; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
-.ze-audio-play-btn {
-  width: 34px; height: 34px; border-radius: 50%; border: 0;
-  background: rgba(255,255,255,0.15); color: #fff; display: flex;
-  align-items: center; justify-content: center; cursor: pointer; flex: 0 0 auto;
-}
-.ze-audio-play-btn.playing { background: #e63946; }
-.ze-sound-use-btn {
-  border: 0; border-radius: 8px; background: #fff; color: #111; font-weight: 800; font-size: 11px;
-  padding: 6px 10px; cursor: pointer; flex: 0 0 auto;
-}
 
-/* ---------------- Instagram Reels Timeline Editor ---------------- */
+/* ---------------- Multi-Track Reels Timeline Editor ---------------- */
 .ze-timeline {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 31;
   background: #0d0d12; border-top: 1px solid #282833; border-radius: 20px 20px 0 0;
@@ -405,7 +453,7 @@
 }
 .ze-timeline.open { transform: translateY(0); }
 .ze-tl-head {
-  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
 }
 .ze-tl-playhead-btn {
   width: 36px; height: 36px; border-radius: 50%; border: 0;
@@ -424,13 +472,13 @@
 .ze-tl-multitrack { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
 
 /* Track 1: Video Strip */
-.ze-tl-trackwrap { position: relative; height: 70px; margin: 2px 0; touch-action: none; user-select: none; }
+.ze-tl-trackwrap { position: relative; height: 68px; margin: 2px 0; touch-action: none; user-select: none; }
 .ze-tl-track {
   position: absolute; inset: 0; background: #181820; border-radius: 10px; overflow: hidden;
   border: 1px solid #2c2c38;
 }
 .ze-tl-strip { position: absolute; inset: 0; display: flex; }
-.ze-tl-strip img { height: 100%; flex: 0 0 auto; object-fit: cover; opacity: 0.88; }
+.ze-tl-strip img { height: 100%; flex: 1 1 0; min-width: 0; object-fit: cover; opacity: 0.88; }
 
 .ze-tl-seg {
   position: absolute; top: 0; bottom: 0; border: 2px solid #e63946;
@@ -441,6 +489,11 @@
   border: 2.5px solid #ffcc00;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,0,0,0.6);
   background: rgba(255,204,0,0.12);
+}
+.ze-tl-seg-badge {
+  position: absolute; bottom: 4px; left: 6px; background: rgba(0,0,0,0.75);
+  color: #ffcc00; font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px;
+  pointer-events: none;
 }
 .ze-tl-handle {
   position: absolute; top: -1px; bottom: -1px; width: 22px; display: flex;
@@ -484,7 +537,7 @@
   padding: 0 8px; display: inline-flex; align-items: center; white-space: nowrap; cursor: pointer;
 }
 
-/* Instagram Action Toolbar */
+/* Action Toolbar */
 .ze-tl-tools {
   display: flex; gap: 10px; overflow-x: auto; padding: 10px 2px 2px; scrollbar-width: none;
 }
@@ -492,7 +545,7 @@
 .ze-tl-tool {
   flex: 0 0 auto; border: 0; background: transparent; color: #cfcfd8; cursor: pointer;
   display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 10.5px;
-  font-weight: 700; font-family: inherit; width: 58px;
+  font-weight: 700; font-family: inherit; width: 58px; position: relative;
 }
 .ze-tl-tool .ze-tl-tool-ic {
   width: 44px; height: 44px; border-radius: 50%; background: #1c1c24;
@@ -503,7 +556,6 @@
 .ze-tl-tool:active .ze-tl-tool-ic { transform: scale(0.92); }
 .ze-tl-tool.on .ze-tl-tool-ic { background: #e63946; color: #fff; border-color: transparent; }
 .ze-tl-tool[disabled] { opacity: 0.4; }
-.ze-tl-tool { position: relative; }
 .ze-tl-badge {
   position: absolute; top: -2px; left: 50%; margin-left: 4px; min-width: 16px; height: 16px;
   padding: 0 4px; border-radius: 8px; background: #e63946; color: #fff; font-size: 9px;
@@ -524,7 +576,7 @@
 
 /* ---------------- Rendering Overlay ---------------- */
 .ze-render {
-  position: absolute; inset: 0; z-index: 60; background: rgba(5,5,7,0.92);
+  position: absolute; inset: 0; z-index: 120; background: rgba(5,5,7,0.92);
   display: none; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
   backdrop-filter: blur(6px); text-align: center; padding: 24px;
 }
@@ -543,7 +595,7 @@
 .ze-toast {
   position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%);
   background: #1c1c22; color: #fff; font-size: 13px; font-weight: 700; padding: 11px 20px;
-  border-radius: 999px; z-index: 100300; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  border-radius: 999px; z-index: 100600; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
   opacity: 0; transition: opacity .25s, bottom .25s; pointer-events: none; max-width: 88vw; text-align: center;
   border: 1px solid rgba(255,255,255,0.15);
 }
@@ -568,7 +620,7 @@
 .ze-search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: 0; color: #888; font-size: 14px; cursor: pointer; padding: 4px; }
 .ze-sound-use-btn.in-use { background: #22c55e !important; color: #fff !important; }
 
-/* CapCut Voiceover Recording Console */
+/* Voiceover Recording Console */
 .ze-vo-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100250;
   display: flex; align-items: flex-end; backdrop-filter: blur(8px);
@@ -623,7 +675,7 @@
 .ze-vo-btn-primary { background: #e63946; color: #fff; }
 .ze-vo-btn-secondary { background: #22222c; color: #ddd; border: 1px solid #333342; }
 
-/* CapCut Audio Extraction & Export Tools Panel */
+/* Audio Extraction & Export Tools Panel */
 .ze-at-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100250;
   display: flex; align-items: flex-end; backdrop-filter: blur(8px);
@@ -656,18 +708,11 @@
 .ze-at-info small { display: block; font-size: 11.5px; color: #8e8e9c; margin-top: 2px; }
 
 @media (min-width: 700px) {
-  .ze-rail { right: 16px; gap: 16px; }
-  .ze-sheet { left: auto; right: 16px; bottom: 16px; width: 420px; border-radius: 20px; max-height: 72vh; }
+  .ze-rail { right: 16px; gap: 14px; }
+  .ze-sheet { left: auto; right: 16px; bottom: 16px; width: 420px; border-radius: 20px; max-height: 74vh; }
   .ze-timeline { left: auto; right: 16px; bottom: 16px; width: min(680px, 94vw); border-radius: 20px; }
   .ze-vo-panel, .ze-at-panel { max-width: 480px; margin: 0 auto; border-radius: 24px; bottom: 20px; position: relative; }
   .ze-vo-overlay, .ze-at-overlay { align-items: center; justify-content: center; }
-}
-
-/* ================= NEW: Overlay layer, Sticker packs, Drag-to-delete, Sound picker, Volume ================= */
-
-/* Overlay layer (between effects and text) */
-.ze-overlay-layer {
-  position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 3;
 }
 
 /* Sticker glyph rendering */
@@ -719,6 +764,11 @@
   border: 1px solid #7b2ff7; color: #fff; font-size: 10.5px; font-weight: 700;
   padding: 0 8px; display: inline-flex; align-items: center; white-space: nowrap; cursor: pointer;
   text-transform: capitalize;
+}
+.ze-tl-sfx-block {
+  height: 20px; border-radius: 6px; background: rgba(245, 158, 11, 0.28);
+  border: 1px solid #f59e0b; color: #fde68a; font-size: 10.5px; font-weight: 700;
+  padding: 0 8px; display: inline-flex; align-items: center; white-space: nowrap; cursor: pointer;
 }
 
 /* Full-screen sound picker */
@@ -782,14 +832,14 @@
 /* Master volume popover */
 .ze-vol-pop {
   position: absolute; top: calc(env(safe-area-inset-top, 0px) + 58px); right: 12px; z-index: 45;
-  width: 230px; background: #16161e; border: 1px solid #2a2a36; border-radius: 16px;
+  width: 245px; background: #16161e; border: 1px solid #2a2a36; border-radius: 16px;
   padding: 14px; box-shadow: 0 16px 40px rgba(0,0,0,0.6);
   opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all .18s ease;
 }
 .ze-vol-pop.open { opacity: 1; visibility: visible; transform: translateY(0); }
 .ze-vol-head { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 12px; }
 .ze-vol-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.ze-vol-row span { font-size: 12px; font-weight: 700; color: #b9b9c6; width: 44px; flex: 0 0 auto; }
+.ze-vol-row span { font-size: 12px; font-weight: 700; color: #b9b9c6; width: 48px; flex: 0 0 auto; }
 .ze-vol-row input[type="range"] { flex: 1; accent-color: #e63946; }
 .ze-vol-row b { font-size: 11px; font-weight: 700; color: #8e8e9c; width: 38px; text-align: right; flex: 0 0 auto; }
 .ze-vol-mute {

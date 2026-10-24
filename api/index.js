@@ -11,6 +11,8 @@ const rootDir = path.join(__dirname, '..');
 const app = express();
 
 app.disable('x-powered-by');
+app.use(express.json({ limit: '25mb' }));
+app.use(express.urlencoded({ extended: true, limit: '25mb' }));
 app.use(express.static(rootDir, {
   etag: false,
   lastModified: false,
@@ -980,21 +982,21 @@ app.get('/', (req, res) => {
 });
 
 // =====================================================
-// LOCAL DEVELOPMENT
+// LOCAL / CONTAINER SERVER STARTUP
 // =====================================================
 
-if (
-  process.env.NODE_ENV !== 'production'
-) {
+if (!process.env.VERCEL) {
   const PORT = Number(
-    process.env.PORT || 3000
+    process.env.DEFAULT_APP_PORT ||
+    (process.env.PORT && process.env.PORT !== '8080' ? process.env.PORT : 3000)
   );
 
   app.listen(
     PORT,
+    '0.0.0.0',
     () => {
       console.log(
-        `UPComedyHub local backend running at http://localhost:${PORT}`
+        `UPComedyHub backend running at http://0.0.0.0:${PORT}`
       );
     }
   );
@@ -1005,3 +1007,4 @@ if (
 // =====================================================
 
 export default app;
+

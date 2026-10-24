@@ -3776,7 +3776,7 @@ img.logo-profile.zyro-header-logo {
   box-shadow: 0 2px 8px rgba(0, 149, 246, 0.4);
 }
 </style>
-<link rel="stylesheet" href="zyro-editor.css?v=2.6.2">
+<link rel="stylesheet" href="zyro-editor.css?v=3.0.0">
 </head>
 <body class="on-home">
    <div class="menu-backdrop" id="menuBackdrop"></div>
@@ -6172,6 +6172,11 @@ img.logo-profile.zyro-header-logo {
           <span id="veVideoTypeBadge"><svg class="ve-ico sm"><use href="#i-video"></use></svg> MP4</span>
         </div>
 
+        <!-- Open Full Studio Editor Button -->
+        <button type="button" onclick="reopenFullZyroStudio()" style="width:100%;margin-top:8px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,43,103,0.45);background:linear-gradient(135deg,rgba(255,43,103,0.22),rgba(255,106,61,0.18));color:#fff;font-weight:800;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(255,43,103,0.2)">
+          <span>✨ Open Full Studio Editor (Filters, Text, SFX, Draw, Music)</span>
+        </button>
+
         <!-- Integrated Video Trimmer Component -->
         <div class="ve-trimmer-card" id="veTrimmerComponent">
           <div class="ve-trimmer-header">
@@ -6227,11 +6232,26 @@ img.logo-profile.zyro-header-logo {
 
       <!-- Right Column: Video Details & Controls -->
       <div class="ve-form-col">
+        <!-- Custom Cover / Frame Thumbnail Selector -->
+        <div class="ve-form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <label class="ve-form-label" style="margin:0">Cover / Thumbnail</label>
+            <button type="button" onclick="document.getElementById('veCustomCoverInput').click()" style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.16);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;cursor:pointer">🖼️ Upload Custom Cover</button>
+            <input type="file" id="veCustomCoverInput" accept="image/*" style="display:none" onchange="handleVeCustomCoverUpload(this)">
+          </div>
+          <div id="veCoverStrip" style="display:flex;gap:6px;overflow-x:auto;padding:4px 0;min-height:64px;align-items:center">
+            <span style="font-size:11px;color:#888">Generating frame covers...</span>
+          </div>
+        </div>
+
         <!-- Title Field -->
         <div class="ve-form-group">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <label class="ve-form-label" for="veTitleInput">Title *</label>
-            <span style="font-size:11px;color:#888" id="veTitleCharCount">0/100</span>
+            <div style="display:flex;align-items:center;gap:8px">
+              <button type="button" onclick="generateViralVeTitle()" style="background:linear-gradient(135deg,#ff2b67,#ff6a3d);border:none;color:#fff;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;cursor:pointer">🔥 Auto Viral Title</button>
+              <span style="font-size:11px;color:#888" id="veTitleCharCount">0/100</span>
+            </div>
           </div>
           <input type="text" id="veTitleInput" class="ve-input" placeholder="Give your video a catchy title..." maxlength="100" oninput="updateVeTitleCharCount(this.value)">
         </div>
@@ -6247,6 +6267,7 @@ img.logo-profile.zyro-header-logo {
             <span class="ig-tag-pill" onclick="appendVeHashtag('#DesiComedy')">#DesiComedy</span>
             <span class="ig-tag-pill" onclick="appendVeHashtag('#FunnyVideo')">#FunnyVideo</span>
             <span class="ig-tag-pill" onclick="appendVeHashtag('#StandUp')">#StandUp</span>
+            <span class="ig-tag-pill" onclick="appendVeHashtag('#ViralReels')">#ViralReels</span>
           </div>
         </div>
 
@@ -10248,6 +10269,7 @@ function handleVideoSelectedForEditor(file, category) {
       const timeStr = mins + ":" + (secs < 10 ? "0" : "") + secs;
       if (durationBadge) durationBadge.innerHTML = '<svg class="ve-ico sm"><use href="#i-clock"></use></svg> ' + timeStr;
       initTrimmerComponent(player.duration);
+      generateVeCoverStrip(file, player.duration);
     };
     player.ontimeupdate = function() {
       if (veTrimEnd > 0) {
@@ -10275,10 +10297,107 @@ function handleVideoSelectedForEditor(file, category) {
     }).catch(function() {});
   }
 
+  // Reset custom cover state
+  window.veSelectedCoverTime = 0;
+  window.veCustomCoverBlob = null;
+
   // 4. Reveal Editor Screen
   if (modal) modal.style.display = "flex";
 }
 window.handleVideoSelectedForEditor = handleVideoSelectedForEditor;
+
+function reopenFullZyroStudio() {
+  if (!currentVeFile) return;
+  const f = currentVeFile;
+  const cat = currentVeCategory || "reel";
+  closeVideoEditorModal();
+  if (typeof window.zyroOpenEditor === "function") {
+    window.zyroOpenEditor(f, "video", cat);
+  }
+}
+window.reopenFullZyroStudio = reopenFullZyroStudio;
+
+function generateViralVeTitle() {
+  const hooks = [
+    "Wait for the twist at the end 😂🔥",
+    "Desi jugaad level 9999 🤣💯",
+    "Tag your best friend who does this 💀😂",
+    "Jab dost bole 'Bas 5 minute me aaya' 😭🤣",
+    "UP style comedy hit — Hasi roke dikhao 😂🔥",
+    "POV: Ghar walo ke saamne polite bante hue 🤣✨",
+    "Ye sirf India me hi ho sakta hai 😂🇮🇳"
+  ];
+  const pick = hooks[Math.floor(Math.random() * hooks.length)];
+  const inp = document.getElementById("veTitleInput");
+  if (inp) {
+    inp.value = pick;
+    updateVeTitleCharCount(pick);
+  }
+  const desc = document.getElementById("veDescInput");
+  if (desc && !desc.value.trim()) {
+    desc.value = pick + " #UPComedyHub #Zyro #DesiComedy #ViralReels";
+  }
+}
+window.generateViralVeTitle = generateViralVeTitle;
+
+function generateVeCoverStrip(file, duration) {
+  const strip = document.getElementById("veCoverStrip");
+  if (!strip || !file || !duration) return;
+  strip.innerHTML = '<span style="font-size:11px;color:#888">Loading cover frames...</span>';
+  const count = 5;
+  const times = [];
+  for (let i = 0; i < count; i++) {
+    times.push(Math.min(duration - 0.1, Math.max(0.05, (duration * (i + 0.5)) / count)));
+  }
+  Promise.all(times.map(t => extractVideoThumbnailBlob(file, t).then(blob => ({
+    t,
+    url: blob ? URL.createObjectURL(blob) : ""
+  })))).then(frames => {
+    const valid = frames.filter(f => f.url);
+    if (!valid.length) {
+      strip.innerHTML = '<span style="font-size:11px;color:#888">Auto-frame cover active</span>';
+      return;
+    }
+    window.veSelectedCoverTime = valid[0].t;
+    strip.innerHTML = valid.map((f, idx) =>
+      `<div class="ve-cover-Item" data-t="${f.t}" onclick="selectVeCoverTime(${f.t}, this)" style="flex:0 0 54px;height:72px;border-radius:8px;overflow:hidden;border:2px solid ${idx === 0 ? '#ff2b67' : 'rgba(255,255,255,0.15)'};cursor:pointer;position:relative">
+        <img src="${f.url}" style="width:100%;height:100%;object-fit:cover;display:block">
+        <span style="position:absolute;bottom:2px;right:3px;font-size:9px;background:rgba(0,0,0,0.7);color:#fff;padding:1px 4px;border-radius:4px;font-weight:700">${f.t.toFixed(1)}s</span>
+      </div>`
+    ).join("");
+  }).catch(() => {});
+}
+
+function selectVeCoverTime(t, elNode) {
+  window.veSelectedCoverTime = t;
+  window.veCustomCoverBlob = null;
+  const strip = document.getElementById("veCoverStrip");
+  if (strip) {
+    strip.querySelectorAll(".ve-cover-Item").forEach(n => { n.style.borderColor = "rgba(255,255,255,0.15)"; });
+  }
+  if (elNode) elNode.style.borderColor = "#ff2b67";
+  const player = document.getElementById("veVideoPlayer");
+  if (player) { try { player.currentTime = t; } catch(e) {} }
+}
+window.selectVeCoverTime = selectVeCoverTime;
+
+function handleVeCustomCoverUpload(input) {
+  const f = input && input.files && input.files[0];
+  if (!f) return;
+  window.veCustomCoverBlob = f;
+  const url = URL.createObjectURL(f);
+  const strip = document.getElementById("veCoverStrip");
+  if (strip) {
+    strip.querySelectorAll(".ve-cover-Item").forEach(n => { n.style.borderColor = "rgba(255,255,255,0.15)"; });
+    const badge = document.createElement("div");
+    badge.className = "ve-cover-Item";
+    badge.style.cssText = "flex:0 0 54px;height:72px;border-radius:8px;overflow:hidden;border:2px solid #00f2ea;position:relative";
+    badge.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;display:block"><span style="position:absolute;bottom:2px;right:3px;font-size:8px;background:#00f2ea;color:#000;padding:1px 4px;border-radius:4px;font-weight:800">CUSTOM</span>`;
+    strip.prepend(badge);
+  }
+  if (typeof showToast === "function") showToast("🖼️ Custom cover selected!");
+}
+window.handleVeCustomCoverUpload = handleVeCustomCoverUpload;
 
 function updateVeTitleCharCount(val) {
   const countEl = document.getElementById("veTitleCharCount");
@@ -10477,9 +10596,9 @@ async function startVideoPublishWorkflow() {
 
     setProgress(85, "🖼️ Extracting trimmed-frame thumbnail...");
 
-    // 2. Extract genuine thumbnail from the trimmed start point
+    // 2. Extract genuine thumbnail from custom cover or selected cover frame
     try {
-      const thumbBlob = await extractVideoThumbnailBlob(currentVeFile, veTrimStart);
+      const thumbBlob = window.veCustomCoverBlob || await extractVideoThumbnailBlob(currentVeFile, (window.veSelectedCoverTime != null ? window.veSelectedCoverTime : veTrimStart));
       if (thumbBlob && typeof uploadImageToCloudinary === "function" && isCloudinaryConfigured()) {
         uploadedThumbnailUrl = await uploadImageToCloudinary(thumbBlob, { folder: "upcomedyhub/thumbnails" });
       }
@@ -24669,7 +24788,8 @@ window.handleAIMessageSend = handleAIMessageSend;
 })();
 
 </script>
-<script src="zyro-editor.js?v=2.6.2">
+<script src="zyro-editor.js?v=3.0.0"></script>
+<script>
 /* ---------- REEL TILE ANALYTICS OVERLAY (LONG-PRESS) ---------- */
 let reelLongPressTimer = null;
 let isReelAnalyticsActive = false;

@@ -900,19 +900,15 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 /* Bottom Nav */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;align-items:center;padding:8px 0;padding-bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:9999;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
 .dark-mode .bottom-nav{background:#000;border-top-color:#262626}
-.bottom-nav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;cursor:pointer;color:#777;font-size:11px;font-weight:700;font-family:inherit;transition:.2s}
+.bottom-nav button{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;cursor:pointer;color:#777777;font-size:11px;font-weight:700;font-family:inherit;transition:color .18s ease}
 .bottom-nav button .icon{font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;width:28px;height:28px}
-.bottom-nav button.active{color:#111111}
+.bottom-nav button .icon svg.ico{width:23px;height:23px;display:block;color:currentColor;filter:none !important}
+.bottom-nav button.active{color:#111111 !important}
 .dark-mode .bottom-nav button{color:#a1a1aa}
-.dark-mode .bottom-nav button.active{color:#ffffff}
+.dark-mode .bottom-nav button.active{color:#ffffff !important}
 body.messages-open .bottom-nav{display:none !important}
 
-/* Toggle outline vs filled SVG icons for Home & Reels */
-.bottom-nav button .ico-fill{display:none}
-.bottom-nav button.active .ico-outline{display:none}
-.bottom-nav button.active .ico-fill{display:block}
-
-/* Reels — Instagram-Style Rounded Video Play Icon */
+/* Reels — Instagram-Style Rounded Video Play Icon (Strictly Black & White) */
 .bottom-nav button.nav-reels-btn{
   position: relative;
 }
@@ -920,39 +916,395 @@ body.messages-open .bottom-nav{display:none !important}
   display:flex;align-items:center;justify-content:center;
   width:28px;
   height:28px;
+  color:inherit !important;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-svg{
-  width:23px;
-  height:23px;
-  color:currentColor;
-  display:block;
-  transition:transform .18s ease, color .18s ease;
-}
-.bottom-nav button.nav-reels-btn.active .nav-reels-svg{
-  display:none;
-}
-.bottom-nav button.nav-reels-btn.active .nav-reels-svg.ico-fill{
+  width:23px !important;
+  height:23px !important;
+  color:currentColor !important;
+  filter:none !important;
   display:block;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-label{
-  color:inherit;
+  color:inherit !important;
   font-weight:700;
   font-size:11px;
   letter-spacing:.2px;
 }
 
-/* Zyro AI — Samsung Galaxy AI / Fiesta AI style multi-star SVG button */
+/* Zyro AI — Clean Monochrome ChatGPT-Style SVG Button (Strictly Black & White) */
 .bottom-nav button.nav-ai-btn .nav-ai-svg{
-  width:24px;
-  height:24px;
+  width:23px !important;
+  height:23px !important;
   display:block;
-  transition:transform .22s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter .22s ease;
-  filter:drop-shadow(0 0 6px rgba(124,58,237,0.35));
+  color:currentColor !important;
+  filter:none !important;
+  transition:transform .2s ease;
 }
-.bottom-nav button.nav-ai-btn:hover .nav-ai-svg,
-.bottom-nav button.nav-ai-btn:active .nav-ai-svg{
-  transform:scale(1.12) rotate(6deg);
-  filter:drop-shadow(0 0 10px rgba(56,189,248,0.65));
+.bottom-nav button.nav-ai-btn.active .nav-ai-svg{
+  transform:scale(1.06);
+}
+
+/* ===== Dedicated Zyro AI Interface (ChatGPT / Gemini Clean Style) ===== */
+body.on-zyroai header{
+  display:none !important;
+}
+body.on-zyroai main.container{
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  max-width:100% !important;
+}
+#tab-zyroai.active{
+  display:flex;
+  flex-direction:column;
+  height:calc(100dvh - 62px - env(safe-area-inset-bottom,0px));
+  background:#ffffff;
+  color:#111111;
+  position:relative;
+  overflow:hidden;
+}
+.dark-mode #tab-zyroai.active{
+  background:#0a0a0a;
+  color:#f4f4f5;
+}
+.zai-topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 16px;
+  border-bottom:1px solid rgba(0,0,0,0.07);
+  background:rgba(255,255,255,0.92);
+  backdrop-filter:blur(12px);
+  flex-shrink:0;
+  z-index:10;
+}
+.dark-mode .zai-topbar{
+  border-bottom-color:rgba(255,255,255,0.08);
+  background:rgba(10,10,10,0.92);
+}
+.zai-icon-btn{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  border:none;
+  background:transparent;
+  color:inherit;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:background .15s ease;
+}
+.zai-icon-btn:hover{
+  background:rgba(128,128,128,0.12);
+}
+.zai-brand-pill{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:-0.2px;
+}
+.zai-brand-pill svg{
+  width:20px;
+  height:20px;
+  color:currentColor;
+}
+.zai-model-tag{
+  font-size:11px;
+  font-weight:600;
+  padding:2px 7px;
+  border-radius:999px;
+  background:rgba(0,0,0,0.06);
+  color:#52525b;
+}
+.dark-mode .zai-model-tag{
+  background:rgba(255,255,255,0.1);
+  color:#a1a1aa;
+}
+.zai-scroll-area{
+  flex:1;
+  overflow-y:auto;
+  padding:20px 16px 24px;
+  display:flex;
+  flex-direction:column;
+  scroll-behavior:smooth;
+}
+.zai-inner-col{
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+}
+.zai-welcome{
+  margin:auto 0;
+  text-align:center;
+  padding:24px 8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.zai-welcome-logo{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#111111;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:16px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+}
+.dark-mode .zai-welcome-logo{
+  background:#ffffff;
+  color:#0a0a0a;
+  box-shadow:0 6px 24px rgba(255,255,255,0.1);
+}
+.zai-welcome-logo svg{
+  width:28px;
+  height:28px;
+}
+.zai-welcome-title{
+  font-size:22px;
+  font-weight:700;
+  letter-spacing:-0.4px;
+  margin-bottom:6px;
+}
+.zai-welcome-sub{
+  font-size:13.5px;
+  color:#71717a;
+  margin-bottom:24px;
+  max-width:340px;
+  line-height:1.45;
+}
+.dark-mode .zai-welcome-sub{
+  color:#a1a1aa;
+}
+.zai-prompts-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  width:100%;
+  max-width:520px;
+}
+.zai-prompt-card{
+  text-align:left;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(0,0,0,0.09);
+  background:#fafafa;
+  color:inherit;
+  cursor:pointer;
+  transition:background .15s ease, transform .15s ease, border-color .15s ease;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+  font-family:inherit;
+}
+.dark-mode .zai-prompt-card{
+  background:#141417;
+  border-color:rgba(255,255,255,0.09);
+}
+.zai-prompt-card:hover{
+  background:#f0f0f2;
+  transform:translateY(-1px);
+}
+.dark-mode .zai-prompt-card:hover{
+  background:#1c1c21;
+  border-color:rgba(255,255,255,0.18);
+}
+.zai-prompt-card-title{
+  font-size:13px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.zai-prompt-card-desc{
+  font-size:11.5px;
+  color:#71717a;
+  line-height:1.35;
+}
+.dark-mode .zai-prompt-card-desc{
+  color:#9ca3af;
+}
+.zai-thread{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  padding-bottom:12px;
+}
+.zai-msg-user{
+  align-self:flex-end;
+  max-width:82%;
+  background:#f4f4f5;
+  color:#111111;
+  padding:11px 16px;
+  border-radius:20px 20px 4px 20px;
+  font-size:14.5px;
+  line-height:1.5;
+  word-break:break-word;
+}
+.dark-mode .zai-msg-user{
+  background:#27272a;
+  color:#f4f4f5;
+}
+.zai-msg-ai{
+  align-self:flex-start;
+  width:100%;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.zai-ai-avatar{
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:1px solid rgba(0,0,0,0.12);
+  background:#ffffff;
+  color:#111111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-top:2px;
+}
+.dark-mode .zai-ai-avatar{
+  border-color:rgba(255,255,255,0.16);
+  background:#141417;
+  color:#ffffff;
+}
+.zai-ai-avatar svg{
+  width:16px;
+  height:16px;
+}
+.zai-ai-body{
+  flex:1;
+  min-width:0;
+  font-size:14.5px;
+  line-height:1.6;
+  color:inherit;
+  word-break:break-word;
+}
+.zai-ai-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+.zai-action-btn{
+  background:none;
+  border:none;
+  color:#71717a;
+  font-size:12px;
+  font-weight:600;
+  padding:4px 8px;
+  border-radius:6px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-family:inherit;
+}
+.zai-action-btn:hover{
+  background:rgba(128,128,128,0.12);
+  color:inherit;
+}
+.zai-composer-wrap{
+  padding:8px 14px 12px;
+  background:linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.95) 25%);
+  flex-shrink:0;
+}
+.dark-mode .zai-composer-wrap{
+  background:linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 25%);
+}
+.zai-composer-box{
+  max-width:720px;
+  margin:0 auto;
+  display:flex;
+  align-items:flex-end;
+  gap:8px;
+  background:#f4f4f5;
+  border:1px solid rgba(0,0,0,0.08);
+  border-radius:26px;
+  padding:6px 8px 6px 10px;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.dark-mode .zai-composer-box{
+  background:#1c1c1f;
+  border-color:rgba(255,255,255,0.1);
+}
+.zai-composer-box:focus-within{
+  border-color:rgba(0,0,0,0.22);
+}
+.dark-mode .zai-composer-box:focus-within{
+  border-color:rgba(255,255,255,0.25);
+}
+.zai-tool-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:none;
+  background:transparent;
+  color:#52525b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:background .15s ease, color .15s ease;
+}
+.dark-mode .zai-tool-btn{
+  color:#a1a1aa;
+}
+.zai-tool-btn:hover{
+  background:rgba(128,128,128,0.15);
+  color:inherit;
+}
+.zai-input{
+  flex:1;
+  border:none;
+  background:transparent;
+  color:inherit;
+  font-family:inherit;
+  font-size:14.5px;
+  line-height:1.45;
+  padding:6px 4px;
+  max-height:120px;
+  resize:none;
+  outline:none;
+}
+.zai-input::placeholder{
+  color:#71717a;
+}
+.zai-send-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:none;
+  background:#111111;
+  color:#ffffff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.dark-mode .zai-send-btn{
+  background:#ffffff;
+  color:#0a0a0a;
+}
+.zai-send-btn:disabled{
+  opacity:0.35;
+  cursor:default;
+}
+.zai-send-btn:not(:disabled):active{
+  transform:scale(0.92);
 }
 
 /* Profile — Instagram-Style Circular Profile Pic in Bottom Nav */
@@ -3450,12 +3802,11 @@ body.dark-mode .yt-long-card {
 .dark-mode header{background:rgba(3,3,6,.97);border-bottom:1px solid rgba(255,255,255,.12);}
 .dark-mode .logo{color:#f7f7fb;letter-spacing:-.65px;}
 .dark-mode .bottom-nav{background:rgba(3,3,6,.98);border-top:1px solid rgba(255,255,255,.14);box-shadow:0 -8px 28px rgba(0,0,0,.28);}
-.dark-mode .bottom-nav button.active{color:#ff579e;}
-.dark-mode .bottom-nav button.nav-reels-btn .nav-reels-icon{color:#aeb4c2;}
-.dark-mode .bottom-nav button.nav-reels-btn.active .nav-reels-icon{color:#ff4c9a;}
-.bottom-nav button.nav-reels-btn .nav-reels-label{color:#aeb4c2;font-weight:750;}
-.bottom-nav button.nav-reels-btn.active .nav-reels-label{color:#ff4c9a;}
-.bottom-nav button.nav-reels-btn.heart-anim .nav-reels-logo-img{animation:reelsIconPulse .45s cubic-bezier(.175,.885,.32,1.275);}
+.dark-mode .bottom-nav button.active{color:#ffffff !important;}
+.dark-mode .bottom-nav button.nav-reels-btn .nav-reels-icon{color:inherit !important;}
+.dark-mode .bottom-nav button.nav-reels-btn.active .nav-reels-icon{color:#ffffff !important;}
+.bottom-nav button.nav-reels-btn .nav-reels-label{color:inherit !important;font-weight:700;}
+.bottom-nav button.nav-reels-btn.active .nav-reels-label{color:inherit !important;}
 @media(max-width:480px){.logo-profile{width:40px;height:40px}.logo{gap:9px;font-size:23px}.bottom-nav button.nav-reels-btn .nav-reels-icon{width:28px;height:28px}}
 
 
@@ -3468,24 +3819,25 @@ body.dark-mode .yt-long-card {
   box-shadow: 0 0 12px rgba(255, 45, 120, 0.45);
 }
 
-/* ===== Zyro Reels nav states ===== */
+/* ===== Zyro Reels nav states (Strictly Black & White) ===== */
 .bottom-nav button.nav-reels-btn .nav-reels-svg,
 .bottom-nav button.nav-reels-btn .ico {
-  width: 26px;
-  height: 26px;
-  color: #9a9a9a;
-  transition: color .2s, filter .25s, transform .2s;
+  width: 23px !important;
+  height: 23px !important;
+  color: currentColor !important;
+  filter: none !important;
+  transition: color .18s ease;
 }
 .bottom-nav button.nav-reels-btn .nav-reels-label {
-  transition: color .2s;
+  transition: color .18s ease;
 }
 .bottom-nav button.nav-reels-btn.active .nav-reels-svg,
 .bottom-nav button.nav-reels-btn.active .ico {
-  color: #ff2d95;
-  filter: drop-shadow(0 0 6px rgba(255, 45, 149, 0.75)) drop-shadow(0 0 12px rgba(180, 40, 255, 0.4));
+  color: currentColor !important;
+  filter: none !important;
 }
 .bottom-nav button.nav-reels-btn.active .nav-reels-label {
-  color: #ff2d95;
+  color: currentColor !important;
 }
 
 /* ===== Zyro splash launch animation ===== */
@@ -3890,18 +4242,9 @@ img.logo-profile.zyro-header-logo {
   <rect x="2.75" y="2.75" width="18.5" height="18.5" rx="5.5" stroke="currentColor" stroke-width="2.1"/>
   <path d="M9.8 8.35c0-.62.68-1 1.21-.68l6.05 3.65a.79.79 0 0 1 0 1.36l-6.05 3.65c-.53.32-1.21-.06-1.21-.68V8.35Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
 </symbol>
-<!-- Zyro AI — Samsung Galaxy AI / Fiesta AI Multi-Sparkle SVG Icon -->
-<symbol id="i-zyro-ai" viewBox="0 0 24 24">
-  <defs>
-    <linearGradient id="zyroAiSparkleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="50%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#e879f9"/>
-    </linearGradient>
-  </defs>
-  <path fill="url(#zyroAiSparkleGrad)" d="M10.5 2.2c.24-.66 1.18-.66 1.42 0l1.52 4.18a3.6 3.6 0 0 0 2.15 2.15l4.18 1.52c.66.24.66 1.18 0 1.42l-4.18 1.52a3.6 3.6 0 0 0-2.15 2.15l-1.52 4.18c-.24.66-1.18.66-1.42 0l-1.52-4.18a3.6 3.6 0 0 0-2.15-2.15L2.65 11.47c-.66-.24-.66-1.18 0-1.42l4.18-1.52a3.6 3.6 0 0 0 2.15-2.15L10.5 2.2Z"/>
-  <path fill="url(#zyroAiSparkleGrad)" d="M19.1 14.3c.15-.42.75-.42.9 0l.72 1.98a1.7 1.7 0 0 0 1.02 1.02l1.98.72c.42.15.42.75 0 .9l-1.98.72a1.7 1.7 0 0 0-1.02 1.02l-.72 1.98c-.15.42-.75.42-.9 0l-.72-1.98a1.7 1.7 0 0 0-1.02-1.02l-1.98-.72c-.42-.15-.42-.75 0-.9l1.98-.72a1.7 1.7 0 0 0 1.02-1.02l.72-1.98Z"/>
-  <path fill="url(#zyroAiSparkleGrad)" d="M4.8 15.8c.12-.34.6-.34.72 0l.5 1.38c.18.48.56.86 1.04 1.04l1.38.5c.34.12.34.6 0 .72l-1.38.5c-.48.18-.86.56-1.04 1.04l-.5 1.38c-.12.34-.6.34-.72 0l-.5-1.38a1.8 1.8 0 0 0-1.04-1.04l-1.38-.5c-.34-.12-.34-.6 0-.72l1.38-.5c.48-.18.86-.56 1.04-1.04l.5-1.38Z"/>
+<!-- Zyro AI — Clean Monochrome ChatGPT-Style Knot SVG Icon (Strictly Black & White) -->
+<symbol id="i-zyro-ai" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
 </symbol>
 
 
@@ -4582,6 +4925,50 @@ img.logo-profile.zyro-header-logo {
       </div>
     </div>
   </section>
+</div>
+
+<!-- =====================================================
+     DEDICATED ZYRO AI INTERFACE (CHATGPT / GEMINI CLEAN UI)
+     ===================================================== -->
+<div id="tab-zyroai" class="tab-pane">
+  <!-- Minimalist ChatGPT/Gemini Top Header -->
+  <div class="zai-topbar">
+    <button type="button" class="zai-icon-btn" onclick="switchTab('home')" title="Back to Home" aria-label="Back">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+    </button>
+
+    <div class="zai-brand-pill">
+      <svg><use href="#i-zyro-ai"></use></svg>
+      <span>Zyro AI</span>
+      <span class="zai-model-tag" id="zaiQuotaPill">2 Images Left</span>
+    </div>
+
+    <button type="button" class="zai-icon-btn" onclick="clearZyroAIHistory()" title="New Chat" aria-label="New Chat">
+      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+  </div>
+
+  <!-- Central Scrollable Conversation & Welcome Area -->
+  <div class="zai-scroll-area" id="zyroAiScrollArea">
+    <div class="zai-inner-col" id="zyroAiMessages"></div>
+  </div>
+
+  <!-- Bottom Floating ChatGPT/Gemini Prompt Composer -->
+  <div class="zai-composer-wrap">
+    <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
+    <div class="zai-composer-box">
+      <button type="button" class="zai-tool-btn" onclick="document.getElementById('zyroAiFileInput').click()" title="Upload Photo" aria-label="Upload Photo">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button type="button" class="zai-tool-btn" onclick="prefillZyroAIPrompt('Create Image: ')" title="Generate AI Image" aria-label="Generate AI Image">
+        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </button>
+      <textarea id="zyroAiInput" class="zai-input" rows="1" placeholder="Ask Zyro AI anything..." oninput="autoResizeZyroInput(this)" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendZyroAIMessage();}"></textarea>
+      <button type="button" id="zyroAiSendBtn" class="zai-send-btn" onclick="sendZyroAIMessage()" disabled aria-label="Send">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+      </button>
+    </div>
+  </div>
 </div>
 
 <div id="tab-admin" class="tab-pane">
@@ -5733,8 +6120,6 @@ img.logo-profile.zyro-header-logo {
         <div class="community-pane" id="community-general">
           <div id="peopleSearchResults"></div>
         </div>
-                 <!-- Floating AI Button inside Messages -->
-        <button type="button" class="chat-ai-fab" id="chatAiFabBtn" onclick="openAIChat()" title="Chat with Zyro AI Assistant" aria-label="AI Assistant">🤖</button>
 
       </aside>
 
@@ -6571,10 +6956,10 @@ img.logo-profile.zyro-header-logo {
 <button id="backToTop" type="button" aria-label="Back to top">↑</button>
 
 <nav class="bottom-nav" id="bottomNav">
-  <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico ico-outline"><use href="#i-home"></use></svg><svg class="ico ico-fill"><use href="#i-home-fill"></use></svg></span><span>Home</span></button>
-  <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico nav-reels-svg ico-outline"><use href="#i-reels-clapper"></use></svg><svg class="ico nav-reels-svg ico-fill"><use href="#i-reels-clapper-fill"></use></svg></span><span class="nav-reels-label">Reels</span></button>
+  <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use id="navHomeIconUse" href="#i-home-fill"></use></svg></span><span>Home</span></button>
+  <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico nav-reels-svg"><use id="navReelsIconUse" href="#i-reels-clapper"></use></svg></span><span class="nav-reels-label">Reels</span></button>
   <button type="button" id="createUploadBtn" class="nav-create-btn" aria-label="Create"><span class="nav-create-pill"><svg class="nav-create-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="nav-create-label">Create</span></button>
-  <button type="button" id="zyroAiNavBtn" class="nav-ai-btn" onclick="openAIChat()"><span class="icon"><svg class="ico nav-ai-svg"><use href="#i-zyro-ai"></use></svg></span><span>Zyro AI</span></button>
+  <button type="button" id="zyroAiNavBtn" data-tab="zyroai" class="nav-ai-btn"><span class="icon"><svg class="ico nav-ai-svg"><use href="#i-zyro-ai"></use></svg></span><span>Zyro AI</span></button>
   <button type="button" data-tab="profile"><span class="icon"><span class="nav-profile-avatar-wrap"><img id="navProfileAvatar" class="nav-profile-avatar user-avatar-live" src="IMG_20260917_172912.jpg" alt="Profile" onerror="this.onerror=null;this.src=typeof DEFAULT_USER_AVATAR!=='undefined'?DEFAULT_USER_AVATAR:'data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%2327272a%22/&gt;&lt;circle cx=%2250%22 cy=%2238%22 r=%2218%22 fill=%22%23a1a1aa%22/&gt;&lt;path d=%22M20 86c0-17 13-28 30-28s30 11 30 28%22 fill=%22%23a1a1aa%22/&gt;&lt;/svg&gt;'"/></span></span><span>Profile</span></button>
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
@@ -8118,11 +8503,20 @@ function switchTab(name){
   const pane = document.getElementById("tab-"+name);
   if(pane) pane.classList.add("active");
   navButtons.forEach(b=>b.classList.toggle("active", b.getAttribute("data-tab")===name));
+  const homeUse = document.getElementById("navHomeIconUse");
+  if(homeUse) homeUse.setAttribute("href", name === "home" ? "#i-home-fill" : "#i-home");
+  const reelsUse = document.getElementById("navReelsIconUse");
+  if(reelsUse) reelsUse.setAttribute("href", name === "reels" ? "#i-reels-clapper-fill" : "#i-reels-clapper");
   document.body.classList.toggle("on-home", name==="home");
+  document.body.classList.toggle("on-zyroai", name==="zyroai");
   window.scrollTo({top:0, behavior:"smooth"});
   if(name==="home"){ if(typeof window.renderYouTubeHomeFeed === "function") window.renderYouTubeHomeFeed(); }
   else if(name==="profile") updateProfileUI();
   else if(name==="search"){ if(typeof window.renderSearchDiscovery === "function") window.renderSearchDiscovery(); }
+  else if(name==="zyroai"){
+    if(typeof renderAIHistory === "function") renderAIHistory();
+    if(typeof refreshQuotaBadge === "function") refreshQuotaBadge();
+  }
   if(name==="admin"){
     loadAdminStats();
     loadManualVideosList();
@@ -13973,7 +14367,7 @@ async function loadInbox(){
     const convs = snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.lastMessageAt?.seconds||0)-(a.lastMessageAt?.seconds||0));
     list.innerHTML = "";
     for(const c of convs){
-      const oid = (c.members||[]).find(x=>x !== currentUser.uid); if(!oid) continue;
+      const oid = (c.members||[]).find(x=>x !== currentUser.uid); if(!oid || oid === "upch_ai_bot") continue;
       let p = null;
       try{ const ps = await db.collection("publicProfiles").doc(oid).get(); p = ps.exists ? ps.data() : {displayName:"User",username:"user"}; }catch(e){ p = {displayName:"User",username:"user"}; }
       const lastAt = c.lastMessageAt?.seconds ? formatTimeAgo(new Date(c.lastMessageAt.seconds*1000)) : "";
@@ -13985,6 +14379,7 @@ async function loadInbox(){
       it.addEventListener("click",()=>openChat({uid:oid,...p}));
       list.appendChild(it);
     }
+    if(!list.children.length){ list.innerHTML = '<div class="inbox-empty"><span class="big-icon">💬</span>Abhi koi chat nahi.</div>'; }
   }catch(e){ console.error(e); list.innerHTML = '<p class="inbox-empty" style="color:#0095F6">Inbox load nahi hua.</p>'; }
 }
 
@@ -14169,7 +14564,12 @@ async function updateChatUserStatus(fuid, isTyping){
 
 /* ---------- OPEN CHAT ---------- */
 async function openChat(friend){
-  if(!friend || !currentUser) return;
+  if(!friend) return;
+  if(friend.uid === "upch_ai_bot"){
+    if(typeof openAIChat === "function") openAIChat();
+    return;
+  }
+  if(!currentUser) return;
   currentChatFriend = friend;
   currentConversationId = pairId(currentUser.uid, friend.uid);
   showMobileChatPanel();
@@ -14182,15 +14582,6 @@ async function openChat(friend){
   document.getElementById("chatFriendUsername").textContent = "@"+(friend.username||"user");
   const st = document.getElementById("chatUserStatus"); if(st) st.textContent = "";
   if(chatUnsubscribe){ chatUnsubscribe(); chatUnsubscribe = null; }
-
-  // ---- AI Assistant: local history (no Firestore listener, messages wipe na ho) ----
-  if(friend.uid === "upch_ai_bot"){
-    const aiBox = document.getElementById("chatMessages");
-    if(aiBox) aiBox.innerHTML = "";
-    if(typeof renderAIHistory === "function") renderAIHistory();
-    updateComposerButtons();
-    return;
-  }
 
   const convRef = db.collection("conversations").doc(currentConversationId);
   try{
@@ -19393,6 +19784,8 @@ function getTodayDateStr(){ return new Date().toISOString().slice(0, 10); }
 function updateQuotaBadge(remaining){
   const badge = document.getElementById("aiQuotaText");
   if(badge) badge.textContent = remaining + " Left Today";
+  const zaiBadge = document.getElementById("zaiQuotaPill");
+  if(zaiBadge) zaiBadge.textContent = remaining + " Images Left";
 }
 function localQuotaGet(userId){
   try{
@@ -19432,8 +19825,8 @@ async function incrementPhotoCount(userId){
   return n;
 }
 async function refreshQuotaBadge(){
-  if(!currentUser) return;
-  const c = await getPhotoCount(currentUser.uid);
+  const activeUid = currentUser ? currentUser.uid : "guest_user";
+  const c = await getPhotoCount(activeUid);
   updateQuotaBadge(Math.max(0, 2 - c));
 }
 
@@ -19442,33 +19835,124 @@ function aiHistoryKey(){ return "upch_ai_history_" + (currentUser ? currentUser.
 function loadAIHistory(){ try{ return JSON.parse(localStorage.getItem(aiHistoryKey()) || "[]"); }catch(e){ return []; } }
 function saveAIHistory(h){ try{ localStorage.setItem(aiHistoryKey(), JSON.stringify(h.slice(-80))); }catch(e){} }
 
+function formatZyroAIText(raw){
+  if(!raw) return "";
+  let s = escapeHtml(raw);
+  s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/\n/g, "<br>");
+  return s;
+}
+
 function renderAIHistory(){
-  const box = document.getElementById("chatMessages");
+  const box = document.getElementById("zyroAiMessages");
+  const scrollArea = document.getElementById("zyroAiScrollArea");
   if(!box) return;
   const h = loadAIHistory();
   if(!h.length){
     box.innerHTML =
-      '<div class="chat-bubble-row"><div class="chat-bubble"><div class="chat-message-text">' +
-      'अरे भाई! राम-राम 🙏<br>मैं <b>Zyro AI Assistant</b> हूँ। कुछ भी पूछो, या फोटो बनवाने के लिए लिखो: ' +
-      '<b>Create Image: funny desi comedy stage</b> 🎨</div></div></div>';
+      '<div class="zai-welcome">' +
+        '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+        '<div class="zai-welcome-title">What can I help with?</div>' +
+        '<div class="zai-welcome-sub">Zyro AI से कुछ भी पूछें — कॉमेडी स्क्रिप्ट, आइडियाज़, सवाल-जवाब या AI फोटो जनरेशन।</div>' +
+        '<div class="zai-prompts-grid">' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek funny desi comedy reel ki script likho\')">' +
+            '<div class="zai-prompt-card-title">🎬 Comedy Script</div>' +
+            '<div class="zai-prompt-card-desc">Funny desi comedy reel script</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillZyroAIPrompt(\'Create Image: Funny desi comedy stage\')">' +
+            '<div class="zai-prompt-card-title">🎨 Create Image</div>' +
+            '<div class="zai-prompt-card-desc">Generate high-quality AI art</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek naya mast desi chutkula sunao\')">' +
+            '<div class="zai-prompt-card-title">😂 Desi Joke</div>' +
+            '<div class="zai-prompt-card-desc">Fresh desi comedy chutkula</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Viral comedy video ke 5 trending ideas batao\')">' +
+            '<div class="zai-prompt-card-title">💡 Viral Ideas</div>' +
+            '<div class="zai-prompt-card-desc">5 trending video concepts</div>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
     return;
   }
-  box.innerHTML = h.map(m => {
+
+  box.innerHTML = '<div class="zai-thread" id="zyroAiThreadList">' + h.map(m => {
     const mine = m.role === "user";
-    let inner;
-    const speakBtn = (!mine && m.text) ? `<button type="button" class="chat-speech-btn" onclick="speakAIText(this)" data-text="${escapeAttr(m.text)}" title="Aawaz me suno 🔊" aria-label="Listen">🔊</button>` : '';
-    if(m.image){
-      inner = '<img class="chat-image-msg" src="' + escapeAttr(m.image) + '" alt="AI image" ' +
-        'style="border-radius:12px;display:block;max-width:240px;margin-bottom:6px;cursor:pointer" ' +
-        'onclick="window.open(this.src,\'_blank\')">' +
-        (m.text ? '<div class="chat-message-text">' + escapeHtml(m.text) + speakBtn + '</div>' : '');
-    }else{
-      inner = '<div class="chat-message-text">' + escapeHtml(m.text || "") + speakBtn + '</div>';
+    if(mine){
+      let uInner = "";
+      if(m.image){
+        uInner += '<img src="' + escapeAttr(m.image) + '" alt="Uploaded" style="border-radius:14px;display:block;max-width:220px;margin-bottom:' + (m.text ? '8px' : '0') + ';cursor:pointer" onclick="openChatLightbox(this.src)">';
+      }
+      if(m.text){
+        uInner += '<div>' + formatZyroAIText(m.text) + '</div>';
+      }
+      return '<div class="zai-msg-user">' + uInner + '</div>';
+    } else {
+      let aiInner = "";
+      if(m.image){
+        aiInner += '<img src="' + escapeAttr(m.image) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(128,128,128,0.18)" onclick="openChatLightbox(this.src)">';
+      }
+      if(m.text){
+        aiInner += '<div>' + formatZyroAIText(m.text) + '</div>';
+      }
+      const actions = m.text ? (
+        '<div class="zai-ai-actions">' +
+          '<button type="button" class="zai-action-btn" onclick="copyZyroAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Copy">📋 Copy</button>' +
+          '<button type="button" class="zai-action-btn" onclick="speakAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Listen">🔊 Listen</button>' +
+        '</div>'
+      ) : '';
+      return '<div class="zai-msg-ai">' +
+        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+        '<div class="zai-ai-body">' + aiInner + actions + '</div>' +
+      '</div>';
     }
-    return '<div class="chat-bubble-row ' + (mine ? "mine" : "") + '"><div class="chat-bubble">' + inner + '</div></div>';
-  }).join("");
-  box.scrollTop = box.scrollHeight;
+  }).join("") + '</div>';
+
+  if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
 }
+
+function copyZyroAIText(btn){
+  const text = btn?.dataset?.text || "";
+  if(!text) return;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(() => showToast("✅ Copied to clipboard")).catch(() => {});
+  }
+}
+window.copyZyroAIText = copyZyroAIText;
+
+function clearZyroAIHistory(){
+  try{ localStorage.removeItem(aiHistoryKey()); }catch(e){}
+  renderAIHistory();
+  showToast("✨ New Zyro AI chat started");
+}
+window.clearZyroAIHistory = clearZyroAIHistory;
+
+function autoResizeZyroInput(el){
+  if(!el) return;
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 120) + "px";
+  const sendBtn = document.getElementById("zyroAiSendBtn");
+  if(sendBtn) sendBtn.disabled = !el.value.trim();
+}
+window.autoResizeZyroInput = autoResizeZyroInput;
+
+function prefillZyroAIPrompt(text){
+  const input = document.getElementById("zyroAiInput");
+  if(!input) return;
+  input.value = text;
+  autoResizeZyroInput(input);
+  input.focus();
+}
+window.prefillZyroAIPrompt = prefillZyroAIPrompt;
+
+function prefillAndSendZyroAI(text){
+  const input = document.getElementById("zyroAiInput");
+  if(!input) return;
+  input.value = text;
+  autoResizeZyroInput(input);
+  sendZyroAIMessage();
+}
+window.prefillAndSendZyroAI = prefillAndSendZyroAI;
 
 function speakAIText(btn) {
   if (!("speechSynthesis" in window)) {
@@ -19480,16 +19964,16 @@ function speakAIText(btn) {
 
   if (window.speechSynthesis.speaking) {
     window.speechSynthesis.cancel();
-    btn.textContent = "🔊";
+    btn.textContent = "🔊 Listen";
     return;
   }
 
   const u = new SpeechSynthesisUtterance(text);
   u.lang = "hi-IN";
   u.rate = 1.0;
-  u.onstart = () => { btn.textContent = "⏸️"; };
-  u.onend = () => { btn.textContent = "🔊"; };
-  u.onerror = () => { btn.textContent = "🔊"; };
+  u.onstart = () => { btn.textContent = "⏸️ Stop"; };
+  u.onend = () => { btn.textContent = "🔊 Listen"; };
+  u.onerror = () => { btn.textContent = "🔊 Listen"; };
   window.speechSynthesis.speak(u);
 }
 window.speakAIText = speakAIText;
@@ -19501,33 +19985,78 @@ function pushAIHistory(role, text, image){
   renderAIHistory();
 }
 
-// ---------- OPEN AI CHAT ----------
+// ---------- OPEN AI CHAT (Dedicated ChatGPT/Gemini Style Interface) ----------
 function openAIChat(){
   const settingsModal = document.getElementById("settingsOverlay");
   if(settingsModal) settingsModal.classList.remove("show");
-  showMessagesOverlay();
-  openChat(UPCH_AI_BOT);
+  const msgOverlay = document.getElementById("messagesOverlay");
+  if(msgOverlay) msgOverlay.classList.remove("show");
+  document.body.classList.remove("messages-open");
+  switchTab("zyroai");
   refreshQuotaBadge();
 }
+window.openAIChat = openAIChat;
+
 function openAIImageGenerator(){
   openAIChat();
   setTimeout(() => {
-    const ci = document.getElementById("chatInput");
-    if(ci){ ci.value = "Create Image: "; ci.focus(); updateComposerButtons(); }
-  }, 300);
+    prefillZyroAIPrompt("Create Image: ");
+  }, 150);
 }
+window.openAIImageGenerator = openAIImageGenerator;
+
+async function handleZyroAIImageUpload(file){
+  if(!file) return;
+  const isImage = (file.type && file.type.startsWith("image/")) || (file.name && /\.(jpg|jpeg|png|webp|heic|heif|gif)$/i.test(file.name));
+  if(!isImage){ showToast("❌ Kripya photo chunein"); return; }
+  if(file.size > 25*1024*1024){ showToast("❌ 25 MB se chhoti photo chunein"); return; }
+
+  showToast("📷 Uploading photo to Zyro AI...");
+  try{
+    const dataUrl = await compressChatImage(file);
+    pushAIHistory("user", "इस फोटो को देखो और बताओ कैसी है!", dataUrl);
+    const scrollArea = document.getElementById("zyroAiScrollArea");
+    const box = document.getElementById("zyroAiMessages");
+    const typingId = "zai-loading-" + Date.now();
+    if(box){
+      box.insertAdjacentHTML("beforeend",
+        '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
+          '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+          '<div class="zai-ai-body" style="color:#71717a;font-style:italic">Analyzing image...</div>' +
+        '</div>');
+      if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
+    }
+    let reply = "";
+    try{
+      const d = await callApiChat({
+        image: dataUrl,
+        prompt: "इस फोटो को देखो और एक मजेदार और स्मार्ट रिएक्शन दो!"
+      });
+      if(d && d.success && d.text) reply = d.text;
+    }catch(e){
+      console.warn("AI photo analysis error:", e);
+    }
+    if(!reply){
+      reply = "क्या बढ़िया फोटो है भाई! 📸✨ फ्रेम और डिटेल्स दोनों कमाल लग रहे हैं!";
+    }
+    document.getElementById(typingId)?.remove();
+    pushAIHistory("bot", reply);
+  }catch(err){
+    console.error(err);
+    showToast("❌ Photo load fail");
+  }
+}
+window.handleZyroAIImageUpload = handleZyroAIImageUpload;
 
 // ---------- AI ASSISTANT MESSAGE HANDLER ----------
-async function handleAIMessageSend(){
-  const input = document.getElementById("chatInput");
+async function sendZyroAIMessage(){
+  const input = document.getElementById("zyroAiInput");
   const text = input ? input.value.trim() : "";
   if(!text) return;
 
   input.value = "";
-  input.style.height = "auto";
-  updateComposerButtons();
+  autoResizeZyroInput(input);
 
-  const box = document.getElementById("chatMessages");
   pushAIHistory("user", text);
 
   const lower = text.toLowerCase();
@@ -19543,13 +20072,17 @@ async function handleAIMessageSend(){
                          lower.includes("generate photo") ||
                          lower.includes("generate image");
 
-  const typingId = "ai-loading-" + Date.now();
-  const loadingMsg = isImageRequest ? "फोटो तैयार की जा रही है... 🎨" : "Zyro AI Assistant सोच रहा है... 🤖";
+  const typingId = "zai-loading-" + Date.now();
+  const loadingMsg = isImageRequest ? "Generating image..." : "Thinking...";
+  const box = document.getElementById("zyroAiMessages");
+  const scrollArea = document.getElementById("zyroAiScrollArea");
   if(box){
     box.insertAdjacentHTML("beforeend",
-      '<div class="chat-bubble-row" id="' + typingId + '"><div class="chat-bubble">' +
-      '<div class="chat-message-text" style="font-style:italic;opacity:.8">' + loadingMsg + '</div></div></div>');
-    box.scrollTop = box.scrollHeight;
+      '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
+        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+        '<div class="zai-ai-body" style="color:#71717a;font-style:italic">' + loadingMsg + '</div>' +
+      '</div>');
+    if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
   }
 
   if(isImageRequest){
@@ -19557,7 +20090,7 @@ async function handleAIMessageSend(){
     const used = await getPhotoCount(activeUid);
     if(used >= 2){
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "⚠️ अरे भाई! आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा! 😄");
+      pushAIHistory("bot", "⚠️ आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा!");
       return;
     }
     const promptClean = text.replace(/create image:/i, "")
@@ -19566,11 +20099,11 @@ async function handleAIMessageSend(){
       const imageUrl = await generateImage(promptClean);
       const n = await incrementPhotoCount(activeUid);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "लो भाई, आपकी फोटो तैयार है! ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
+      pushAIHistory("bot", "यह रही आपकी AI जनरेटेड फोटो ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
     }catch(imgErr){
       console.warn("Image gen fail:", imgErr);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "😅 अरे भाई, फोटो बनाने में दिक्कत आ गई। थोड़ी देर बाद दोबारा try करो!");
+      pushAIHistory("bot", "फोटो जनरेट करने में अभी थोड़ा समय लग रहा है, कृपया दोबारा प्रयास करें।");
     }
     return;
   }
@@ -19582,9 +20115,11 @@ async function handleAIMessageSend(){
   }catch(err){
     console.warn("AI reply error:", err);
     document.getElementById(typingId)?.remove();
-    pushAIHistory("bot", "अरे भाई! हम तो एकदम लल्लनटॉप हैं! UPComedyHub में आपका स्वागत है। कोई जोक सुनना हो या टीम के बारे में जानना हो, बस बताओ! 😄🔥");
+    pushAIHistory("bot", getDesiComedySmartFallback(text));
   }
 }
+window.sendZyroAIMessage = sendZyroAIMessage;
+const handleAIMessageSend = sendZyroAIMessage;
 window.handleAIMessageSend = handleAIMessageSend;
 
 </script>  

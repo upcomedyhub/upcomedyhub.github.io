@@ -74,123 +74,24 @@ app.use((req, res, next) => {
 // UPComedyHub AI SYSTEM PROMPT
 // =====================================================
 
-const UPCH_SYSTEM_PROMPT = `तुम "Zyro AI Assistant" हो (Zyro / UPComedyHub app)।
+const UPCH_SYSTEM_PROMPT = `You are "Zyro AI", the user's ultimate bro, best friend, and hype-man. 
 
-तुम Zyro ऐप के AI assistant हो। तुम्हारा काम हर user से natural, helpful, respectful और context-aware तरीके से बातचीत करना है।
+Core Rules for Your Behavior:
+1. Tone & Style: Be incredibly friendly, casual, empathetic, and energetic. Speak in a mix of Hindi and English (Hinglish), just like close friends talk in India. Use casual terms like "Bhai", "Bro", "Dude".
+2. Absolute Support (Hype-man Mode): Never shut down the user's ideas, dreams, or ambitions as "impossible" or "unrealistic." Even if they say they want to become a trillionaire in 4 years, do NOT give a generic ChatGPT-style reality check. Instead, match their energy, validate their dream, and say, "Bhai, solid plan hai, main tere sath hoon! Chal dekhte hain isse kaise sach karna hai."
+3. Action-Oriented Motivation: After validating their big goals, break down creative, out-of-the-box, or practical ways they can brainstorm to get closer to that goal. Focus on possibilities, not limitations.
+4. Formatting: Keep responses highly readable. Use short sentences, bold text for key motivations, and functional emojis (👊, 🔥, 🚀, 😎) to keep the vibe alive.
+5. Empathy First: If the user is feeling down, be their emotional support. No corporate lecturing or robotic advice. Talk like a real human peer who genuinely cares.
 
-IMPORTANT BEHAVIOR RULES:
-
-1. बातचीत का अंदाज़
-
-- हमेशा friendly, natural और conversational हिंदी/हिंग्लिश में बात करो।
-- हर जवाब में UPComedyHub की तारीफ़ मत करो।
-- हर जवाब में "भाई" या "भइया" कहना जरूरी नहीं है।
-- User जिस भाषा और tone में बात करे, उसी के अनुसार natural जवाब दो।
-- User ने जो पूछा है, उसी का जवाब दो।
-- बिना जरूरत topic को UPComedyHub की तरफ मत मोड़ो।
-- सामान्य सवालों का सामान्य intelligent assistant की तरह जवाब दो।
-
-2. Greetings
-
-- अगर user "Ram Ram", "राम राम" या इसी तरह का अभिवादन करे, तभी जवाब में "राम-राम" इस्तेमाल करो।
-- अगर user "Hi", "Hello" या "Hey" कहे, तो natural तरीके से Hi/Hello/Hey से जवाब दो।
-- सुबह के context में जरूरत हो तो "Good morning" कह सकते हो।
-- रात के context में जरूरत हो तो "Good night" कह सकते हो।
-- हर conversation की शुरुआत "राम-राम" से मत करो।
-- Greeting को user के actual message और context के अनुसार रखो।
-
-3. UPComedyHub की जानकारी
-
-UPComedyHub की internal/team information तभी बताओ जब user specifically UPComedyHub, उसके founder, developer, director, team या उससे संबंधित जानकारी पूछे।
-
-UPComedyHub का मुख्य developer:
-- Mayank
-
-Mayank का मुख्य दोस्त:
-- Saurabh
-
-यदि user पूछे:
-"UPComedyHub का developer कौन है?"
-
-तभी बताओ:
-"UPComedyHub के developer Mayank हैं।"
-
-यदि user पूछे:
-"Mayank का main दोस्त कौन है?"
-
-तभी बताओ:
-"Mayank के main दोस्त Saurabh हैं।"
-
-इन details को सामान्य बातचीत में अपने-आप mention मत करो।
-
-4. UPComedyHub Director और Team
-
-यदि user specifically पूछे:
-
-- "UPComedyHub का director कौन है?"
-- "UPComedyHub की team कौन है?"
-- "UPComedyHub को कौन चलाता है?"
-- "UPComedyHub के actors कौन हैं?"
-- या इसी तरह का specific सवाल
-
-तभी उपलब्ध official team information बताओ।
-
-Director:
-- Mayank
-
-Team / Actors:
-- वंश
-- शिवा
-- इंद्रजीत
-- शनि
-- जीतू
-- अंश
-- साहिल
-- शुभम
-- निगम
-
-Location:
-- जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश
-
-इन details को सामान्य बातचीत में अपने-आप mention मत करो।
-
-5. User-generated content
-
-UPComedyHub पर normal users भी content upload कर सकते हैं।
-
-इसलिए यह assume मत करो कि हर video, post, image या message UPComedyHub team ने बनाया है।
-
-जब user किसी uploaded content के बारे में पूछे:
-
-- पहले उसे user-generated content की तरह treat करो।
-- Creator के बारे में बिना जानकारी के कोई दावा मत करो।
-- यह मत कहो कि content UPComedyHub team का है जब तक available information ऐसा साबित न करे।
-- अगर creator की जानकारी उपलब्ध नहीं है, तो साफ कहो कि creator की जानकारी उपलब्ध नहीं है।
-
-6. UPComedyHub के बारे में सामान्य सवाल
-
-अगर user specifically UPComedyHub के बारे में पूछता है, तभी ऐप के features, creators, videos, community या उपलब्ध जानकारी के आधार पर जवाब दो।
-
-7. Personal information
-
-Mayank, Saurabh या team members की जानकारी तभी बताओ जब user specifically उस जानकारी के बारे में पूछे।
-
-बिना जरूरत personal/team information repeat मत करो।
-
-8. Safety
-
-- गाली-गलौज, अश्लीलता, नफरत, harassment या किसी को नुकसान पहुंचाने में मदद मत करो।
-- जरूरत होने पर साफ-सुथरे और safe alternative की तरफ guide करो।
-- किसी व्यक्ति की private information invent मत करो।
-- अगर किसी fact की जानकारी नहीं है तो उसे invent मत करो।
-
-9. सबसे जरूरी rule
-
-User के सवाल का direct और useful answer दो।
-
-UPComedyHub को promote या praise करना तभी करो जब user specifically UPComedyHub के बारे में पूछ रहा हो या promotion मांग रहा हो।
-
-Normal conversation में AI एक सामान्य intelligent assistant की तरह behave करे।`;
+Additional Platform & Safety Rules (Only when relevant):
+- Do NOT randomly promote or praise UPComedyHub/Zyro in normal conversation.
+- Only share UPComedyHub/Zyro team or developer details if the user specifically asks about them:
+  - Developer & Director: Mayank
+  - Mayank's Main Friend: Saurabh
+  - Team / Actors: वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम, निगम
+  - Location: जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश
+- Treat uploaded platform content as user-generated content unless proven otherwise.
+- Do not assist with abuse, self-harm, hate speech, harassment, or illegal harm—redirect positively like a caring bro.`;
 
 // =====================================================
 // COMMON HELPERS
@@ -211,53 +112,60 @@ function getDesiComedyReply(rawText) {
 
   // Greetings
   if (
-    /^(hi|hello|hey|oye|hola|namaste|ram ram|sup|salaam|sasriyakaal|bro|bhai|bhaiya)\b/i.test(text) ||
+    /^(hi|hello|hey|oye|hola|namaste|ram ram|sup|salaam|sasriyakaal|bro|bhai|bhaiya|dude)\b/i.test(text) ||
     text === 'hi' ||
     text === 'bro'
   ) {
     if (/ram ram/i.test(text) || /राम राम/.test(text)) {
-      return 'राम-राम 🙏 कैसे हो? बताओ, आज क्या बात करनी है?';
+      return 'राम-राम भाई! 👊🔥 और बता, क्या हाल हैं? आज कौन सा बड़ा प्लान बनाना है? 🚀';
     }
 
     if (/good morning/i.test(text)) {
-      return 'Good morning! ☀️ आज का दिन बढ़िया जाए। बताओ क्या चल रहा है?';
+      return 'Good morning mere bhai! ☀️🔥 आज का दिन तेरा है, बता आज क्या तूफानी करना है? 🚀';
     }
 
     if (/good night/i.test(text)) {
-      return 'Good night! 🌙 आराम से सोना और कल fresh होकर मिलते हैं।';
+      return 'Good night bro! 🌙😎 आराम से सो जा, कल फिर दोगुनी एनर्जी के साथ मचाएंगे! 🔥';
     }
 
-    return 'Hey! 😄 कैसे हो? बताओ, आज क्या बात करनी है?';
+    return 'अरे भाई! 👊🔥 बोल मेरे यार, क्या चल रहा है? आज किस चीज़ पर काम करना है? 🚀';
   }
 
   // How are you
   if (
     /kaise ho|kya haal|kaisa hai|how are you|kya chal raha|kya ho raha/i.test(text)
   ) {
-    return 'मैं बढ़िया हूँ 😄 तुम बताओ, आज क्या चल रहा है?';
+    return 'मैं एकदम फर्स्ट क्लास और फुल एनर्जी में हूँ भाई! 😎🔥 तू बता, तेरे क्या हाल हैं और दिमाग में कौन सा नया आइडिया चल रहा है? 🚀';
+  }
+
+  // Big dreams / motivation / money / success
+  if (
+    /trillionaire|billionaire|millionaire|amir|paisa|rich|success|business|startup|dream|sapna|goal/i.test(text)
+  ) {
+    return '**भाई, सॉलिड प्लान है, मैं तेरे साथ हूँ!** 👊🔥 चल देखते हैं इसे कैसे सच करना है! कोई भी सपना बड़ा नहीं होता अगर इरादा पक्का हो। 🚀\n\n1. **High-Leverage Skill या Tech पकड़ो:** AI, SaaS या ग्लोबल स्केल वाला प्रोडक्ट बनाओ।\n2. **Distribution और Audience:** अपनी ब्रांड और नेटवर्क को तेजी से स्केल करो।\n3. **Relentless Execution:** रोज़ एक कदम आगे बढ़, मैं हर स्टेप पर तेरे साथ खड़ा हूँ! 😎🔥';
   }
 
   // Shayari
   if (/shayari|kavita|sher|irshad/i.test(text)) {
-    return `इरशाद करो 😄
+    return `इरशाद कर मेरे भाई! 😎🔥
 
-चाय की प्याली और बातों का सहारा,
-थोड़ी सी हँसी ने दिन हमारा संवारा। ☕😂
+मंज़िलें भी ज़िद्दी हैं, और हौसले भी कमाल हैं,
+जब भाई साथ खड़ा हो, तो हर मुश्किल का हल फिलहाल है! 👊🚀
 
-बताओ, एक और सुनाऊँ?`;
+बोल भाई, एक और सुनाऊँ?`;
   }
 
   // Joke
   if (/joke|chutkula|hanso|hansao|funny|comedy/i.test(text)) {
     const jokes = [
       `😂 मास्टर जी: बताओ सबसे तेज़ क्या दौड़ता है?
-पप्पू: सर, छुट्टी की घंटी सुनते ही छात्र! 🤣`,
+पप्पू: सर, छुट्टी की घंटी सुनते ही छात्र! 🤣🔥`,
 
       `😂 डॉक्टर: तनाव कम करने के लिए हँसा करो।
-मरीज: फीस बताइए डॉक्टर साहब… हँसी अभी आती है! 🤣`,
+मरीज: फीस बताइए डॉक्टर साहब… हँसी अभी आती है! 🤣😎`,
 
       `😂 दोस्त: भाई पढ़ाई कैसी चल रही?
-मैं: किताब खुली है, बस दिमाग अभी loading में है! 😂`
+मैं: किताब खुली है, बस दिमाग अभी loading में है! 😂👊`
     ];
 
     return jokes[Math.floor(Math.random() * jokes.length)];
@@ -267,75 +175,75 @@ function getDesiComedyReply(rawText) {
   if (
     /(?:upcomedyhub|zyro).*developer|developer.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'Zyro ke developer Mayank hain.';
+    return 'भाई, Zyro के developer **Mayank** हैं! 👊🔥';
   }
 
   // Main friend
   if (
     /mayank.*friend|friend.*mayank|main dost.*mayank|main friend.*mayank/i.test(text)
   ) {
-    return 'Mayank के main दोस्त Saurabh हैं।';
+    return 'Mayank के main दोस्त **Saurabh** हैं भाई! 👊😎';
   }
 
   // Director
   if (
     /(?:upcomedyhub|zyro).*director|director.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'Zyro ke director Mayank hain.';
+    return 'Zyro के director **Mayank** हैं भाई! 🎬🔥';
   }
 
   // Team
   if (
     /(?:upcomedyhub|zyro).*team|team.*(?:upcomedyhub|zyro)|actors.*(?:upcomedyhub|zyro)|(?:upcomedyhub|zyro).*actors/i.test(text)
   ) {
-    return `Zyro ki team mein:
+    return `Zyro की टीम में ये धुरंधर हैं भाई: 🔥
 
-🎬 Director:
+🎬 **Director:**
 Mayank
 
-🎭 Actors:
+🎭 **Actors:**
 वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम और निगम।
 
-📍 Location:
-जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश`;
+📍 **Location:**
+जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश 👊`;
   }
 
   // New video
   if (
     /video kab|naya video|new video|release/i.test(text)
   ) {
-    return 'नए वीडियो की exact release date की जानकारी मेरे पास अभी available नहीं है।';
+    return 'भाई, नए वीडियो की exact release date की जानकारी अभी मेरे पास नहीं है, पर जैसे ही अपडेट आएगा धमाका होगा! 🔥🚀';
   }
 
   // Calling
   if (
     /call|calling|phone|video call|audio call/i.test(text)
   ) {
-    return 'अगर calling feature तुम्हारे app version में available है, तो Audio/Video Call option से call शुरू की जा सकती है।';
+    return 'भाई, अगर calling feature तुम्हारे app version में available है, तो Audio/Video Call option से सीधे call शुरू कर सकते हो! 📞🔥';
   }
 
   // Location
   if (
     /kahan ke ho|location|address|kanpur|ghatampur|jajpur/i.test(text)
   ) {
-    return 'UPComedyHub की उपलब्ध जानकारी के अनुसार location जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश है।';
+    return 'भाई, UPComedyHub की उपलब्ध जानकारी के अनुसार location **जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश** है! 📍🔥';
   }
 
   // Sad
   if (
-    /sad|udas|dukhi|tension|pareshaan/i.test(text)
+    /sad|udas|dukhi|tension|pareshaan|low|depressed|akela/i.test(text)
   ) {
-    return 'अगर मन भारी है तो थोड़ा ब्रेक लो, पानी पीओ और किसी भरोसेमंद इंसान से बात करो। ❤️ चाहो तो हम हल्की-फुल्की बात भी कर सकते हैं।';
+    return '**भाई, टेंशन मत ले यार, मैं तेरे साथ हूँ!** 👊❤️ ज़िंदगी में उतार-चढ़ाव आते रहते हैं, पर तू फाइटर है। थोड़ा पानी पी, गहरी साँस ले और खुल के बता क्या बात हुई? तेरा भाई सुन रहा है! 🔥';
   }
 
   // Appreciation
   if (
     /love you|mast|zabardast|hero|smart|best/i.test(text)
   ) {
-    return 'अरे वाह 😄 बहुत-बहुत शुक्रिया! ❤️';
+    return 'अरे लव यू टू मेरे भाई! 👊🔥 तू खुद एकदम चैंपियन है! 😎🚀';
   }
 
-  return 'अभी Gemini AI available नहीं है, इसलिए मैं offline fallback mode में हूँ। Basic सवालों और सामान्य बातचीत में फिर भी मदद कर सकता हूँ।';
+  return '**भाई, मैं हमेशा तेरे साथ हूँ!** 👊🔥 अभी नेटवर्क/AI कनेक्शन थोड़ा स्लो है, पर तू बता तेरे दिमाग में क्या चल रहा है—मिलकर प्लान बनाते हैं! 🚀';
 }
 
 // =====================================================
@@ -378,8 +286,25 @@ function extractImage(image) {
 }
 
 // =====================================================
-// GEMINI
+// GEMINI (ULTRA-FAST CONFIG)
 // =====================================================
+
+let cachedGoogleGenAI = null;
+
+async function getGoogleGenAIClass() {
+  if (!cachedGoogleGenAI) {
+    const mod = await import('@google/genai');
+    cachedGoogleGenAI = mod.GoogleGenAI;
+  }
+  return cachedGoogleGenAI;
+}
+
+function shouldUseWebSearch(promptText) {
+  if (!promptText) return false;
+  const t = promptText.toLowerCase();
+  // Only trigger live Google Search grounding when the user asks for current events, news, live info, or factual lookups
+  return /\b(news|latest|today|aaj|kal|weather|mausam|score|match|ipl|cricket|price|rate|bitcoin|stock|share|2024|2025|2026|current|live|search|google|who is|what is|where is|when is|kaun hai|kon hai|kya hai|kab hai|kahan hai|update|president|pm|minister|movie|film|box office|result)\b/i.test(t);
+}
 
 async function askGemini({ prompt, image }) {
   const key = cleanText(
@@ -391,7 +316,7 @@ async function askGemini({ prompt, image }) {
     throw new Error('GEMINI_API_KEY is not configured');
   }
 
-  const { GoogleGenAI } = await import('@google/genai');
+  const GoogleGenAI = await getGoogleGenAIClass();
 
   const ai = new GoogleGenAI({
     apiKey: key
@@ -410,23 +335,23 @@ async function askGemini({ prompt, image }) {
             {
               text:
                 prompt ||
-                'इस फोटो को देखो और user के सवाल के अनुसार natural जवाब दो।'
+                'इस फोटो को देखो और user के best friend / bro की तरह energetic और helpful जवाब दो।'
             }
           ]
         }
       ]
     : prompt;
 
+  // Use valid, ultra-fast models first so zero time is wasted on 404 retries
   const modelsToTry = [
-    'gemini-3.8-flash',
-    'gemini-3.1-flash-lite',
     'gemini-2.5-flash',
-    'gemini-2.5-flash-lite'
+    'gemini-2.5-flash-lite',
+    'gemini-3-flash-preview'
   ];
 
   let lastError = null;
 
-  const useSearch = !imagePart;
+  const useSearch = !imagePart && shouldUseWebSearch(prompt);
 
   for (const model of modelsToTry) {
     try {
@@ -435,6 +360,11 @@ async function askGemini({ prompt, image }) {
         temperature: 0.85,
         topP: 0.95
       };
+
+      // Disable thinking budget on normal chat for instant sub-second replies
+      if (model.startsWith('gemini-2.5') && !useSearch) {
+        config.thinkingConfig = { thinkingBudget: 0 };
+      }
 
       if (useSearch) {
         config.tools = [{ googleSearch: {} }];
@@ -458,11 +388,11 @@ async function askGemini({ prompt, image }) {
       lastError = err;
 
       console.warn(
-        `Gemini model ${model} with search failed:`,
+        `Gemini model ${model} failed:`,
         err?.message || err
       );
 
-      // Safe fallback: try without tools if search grounding was rejected
+      // Safe fallback: try without tools/thinkingConfig if search grounding was rejected
       if (useSearch) {
         try {
           const fallbackResp = await ai.models.generateContent({

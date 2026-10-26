@@ -130,13 +130,8 @@ body.messages-open{padding-bottom:0 !important;overflow:hidden}
 img{max-width:100%;display:block}
 button{font-family:inherit}
 
-/* Announcement Bar */
-.announcement-bar{width:100%;background:#111;color:#fff;text-align:center;padding:9px 40px 9px 15px;font-size:13px;font-weight:600;position:relative}
-.announcement-bar a{color:#fff;text-decoration:underline;margin-left:5px}
-#closeAnnouncement{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:24px;height:24px;border:none;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.dark-mode .announcement-bar{background:#fff;color:#111}
-.dark-mode .announcement-bar a,.dark-mode #closeAnnouncement{color:#111}
-.dark-mode #closeAnnouncement{background:rgba(0,0,0,.1)}
+/* Announcement Bar Removed */
+.announcement-bar{display:none !important}
 
 /* ==================== YOUTUBE-STYLE ANIMATED LOADING SCREEN ==================== */
 #pageLoader {
@@ -529,11 +524,8 @@ button{font-family:inherit}
   }
 }
 
-/* Cookie */
-.cookie-notice{position:fixed;left:20px;right:20px;bottom:90px;max-width:650px;margin:auto;padding:15px 18px;background:#111;color:#fff;border-radius:14px;box-shadow:0 8px 25px rgba(0,0,0,.25);display:none;align-items:center;justify-content:space-between;gap:15px;z-index:9997}
-.cookie-notice p{font-size:14px;margin:0}
-.cookie-notice button{border:none;background:#e63946;color:#fff;padding:9px 16px;border-radius:20px;font-weight:700;cursor:pointer}
-@media(max-width:700px){.cookie-notice{flex-direction:column;align-items:stretch}.cookie-notice button{width:100%}}
+/* Cookie Notice Removed */
+.cookie-notice{display:none !important}
 
 /* Header */
 header{position:sticky;top:0;z-index:1000;background:#fff;border-bottom:1px solid #eee;padding:12px 6%;display:flex;justify-content:space-between;align-items:center}
@@ -826,7 +818,7 @@ footer{text-align:center;padding:30px;background:#111;color:#fff;padding-bottom:
 .dark-mode .recent-view-item{background:#1c1c1c;border-color:#333;color:#fff}
 
 /* Floating */
-#scrollProgress{position:fixed;top:0;left:0;width:0%;height:3px;background:#e63946;z-index:9999;transition:width .1s}
+#scrollProgress{display:none !important}
 .quick-actions{position:fixed;right:20px;bottom:80px;z-index:9998;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
 .quick-actions-menu{display:flex;flex-direction:column;align-items:flex-end;gap:10px;margin-bottom:4px;pointer-events:none}
 .quick-action-item{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:30px;color:#fff;text-decoration:none;font-size:14px;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;transform:translateY(10px) scale(.9);pointer-events:none;transition:opacity .25s,transform .25s}
@@ -4180,19 +4172,6 @@ img.logo-profile.zyro-header-logo {
   <button type="button" class="login-guest" id="loginGuestBtn">Explore without login →</button>
 </div>
 
-<div id="scrollProgress"></div>
-
-<div class="announcement-bar" id="announcementBar">
-  <span id="announcementText">🔥 New Comedy Video Coming Soon!</span>
-  <a href="#home" id="announcementLink">Watch Shorts</a>
-  <button type="button" id="closeAnnouncement"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
-</div>
-
-<div class="cookie-notice" id="cookieNotice">
-  <p>🍪 Ye website basic cookies ka use kar sakti hai.</p>
-  <button type="button" id="cookieAccept">Got It <svg class="ve-ico sm"><use href="#i-check"></use></svg></button>
-</div>
-
 <header>
   <div class="logo" onclick="switchTab('home')" role="button" tabindex="0" aria-label="Zyro Home">
     <img src="zyro-z-logo.png" alt="Zyro" class="logo-profile zyro-header-logo">
@@ -4389,6 +4368,15 @@ img.logo-profile.zyro-header-logo {
       </div>
     </div>
 
+    <!-- Recent Searches (Clickable Chips stored in localStorage) -->
+    <div class="recent-searches-box" id="recentSearchesBox" style="display:none;margin-bottom:10px">
+      <div class="search-section-header" style="margin:6px 0 8px">
+        <span class="ssh-title"><svg class="ssh-ico"><use href="#i-clock"></use></svg> Recent Searches</span>
+        <button type="button" class="search-clear-all-btn" id="clearAllRecentSearchesBtn">Clear All</button>
+      </div>
+      <div class="recent-searches-list" id="recentSearchesList"></div>
+    </div>
+
     <!-- Category Filter Tabs with Clean SVG Icons -->
     <div class="search-tabs-bar" id="searchCategoryTabs">
       <button type="button" class="search-tab-pill active" data-search-cat="top">
@@ -4414,14 +4402,6 @@ img.logo-profile.zyro-header-logo {
 
     <!-- State 1: Discovery Screen (shown when search box is empty) -->
     <div class="search-discovery-wrap" id="searchDiscoveryWrap">
-      <!-- Recent Searches -->
-      <div class="recent-searches-box" id="recentSearchesBox" style="display:none">
-        <div class="search-section-header">
-          <span class="ssh-title"><svg class="ssh-ico"><use href="#i-clock"></use></svg> Recent Searches</span>
-          <button type="button" class="search-clear-all-btn" id="clearAllRecentSearchesBtn">Clear All</button>
-        </div>
-        <div class="recent-searches-list" id="recentSearchesList"></div>
-      </div>
 
       <!-- Trending Comedy Topics / Hashtags -->
       <div class="trending-topics-box">
@@ -13428,9 +13408,13 @@ const ALL_COMEDY_TAGS = [
   { tag: "IndianStandup", label: "#IndianStandup", desc: "Hindi & Hinglish Stand Up Specials", count: 31, query: "Standup" }
 ];
 
+let searchSaveDebounceTimer = null;
+
 function getRecentSearches(){
   try{
-    return JSON.parse(localStorage.getItem("upch_recent_searches") || "[]");
+    const raw = localStorage.getItem("upch_recent_searches") || localStorage.getItem("recentSearches") || "[]";
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(x => typeof x === "string" && x.trim().length > 0) : [];
   }catch(e){ return []; }
 }
 function saveRecentSearch(q){
@@ -13438,17 +13422,28 @@ function saveRecentSearch(q){
   const clean = q.trim();
   let list = getRecentSearches().filter(x=>x.toLowerCase() !== clean.toLowerCase());
   list.unshift(clean);
-  if(list.length > 8) list = list.slice(0, 8);
-  try{ localStorage.setItem("upch_recent_searches", JSON.stringify(list)); }catch(e){}
+  if(list.length > 10) list = list.slice(0, 10);
+  try{
+    const serialized = JSON.stringify(list);
+    localStorage.setItem("upch_recent_searches", serialized);
+    localStorage.setItem("recentSearches", serialized);
+  }catch(e){}
   renderRecentSearches();
 }
 function removeRecentSearch(q){
   let list = getRecentSearches().filter(x=>x.toLowerCase() !== q.toLowerCase());
-  try{ localStorage.setItem("upch_recent_searches", JSON.stringify(list)); }catch(e){}
+  try{
+    const serialized = JSON.stringify(list);
+    localStorage.setItem("upch_recent_searches", serialized);
+    localStorage.setItem("recentSearches", serialized);
+  }catch(e){}
   renderRecentSearches();
 }
 function clearAllRecentSearches(){
-  try{ localStorage.removeItem("upch_recent_searches"); }catch(e){}
+  try{
+    localStorage.removeItem("upch_recent_searches");
+    localStorage.removeItem("recentSearches");
+  }catch(e){}
   renderRecentSearches();
 }
 
@@ -13457,13 +13452,14 @@ function renderRecentSearches(){
   const listEl = document.getElementById("recentSearchesList");
   if(!box || !listEl) return;
   const searches = getRecentSearches();
-  if(!searches.length){ box.style.display = "none"; return; }
+  if(!searches.length){ box.style.display = "none"; listEl.innerHTML = ""; return; }
   box.style.display = "block";
   listEl.innerHTML = "";
   searches.forEach(term => {
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "recent-search-chip";
+    chip.setAttribute("data-search-term", term);
     chip.innerHTML = '<svg class="chip-clock"><use href="#i-clock"></use></svg><span>'+escapeHtml(term)+'</span><span class="chip-del" title="Remove"><svg viewBox="0 0 24 24"><use href="#i-close"></use></svg></span>';
     chip.addEventListener("click", (e)=>{
       if(e.target.closest(".chip-del")){
@@ -13865,7 +13861,11 @@ async function buildCreatorSpotlightCard(user){
     });
   }
 
-  card.addEventListener("click", ()=>showUserProfileModal(user));
+  card.addEventListener("click", ()=>{
+    const inp = document.getElementById("tabSearchInput");
+    if(inp && inp.value && inp.value.trim().length >= 2) saveRecentSearch(inp.value.trim());
+    showUserProfileModal(user);
+  });
   return card;
 }
 
@@ -13931,7 +13931,11 @@ async function buildAccountResultRow(user){
     });
   }
 
-  row.addEventListener("click", ()=>showUserProfileModal(user));
+  row.addEventListener("click", ()=>{
+    const inp = document.getElementById("tabSearchInput");
+    if(inp && inp.value && inp.value.trim().length >= 2) saveRecentSearch(inp.value.trim());
+    showUserProfileModal(user);
+  });
   return row;
 }
 
@@ -13956,6 +13960,8 @@ function buildYouTubeVideoCard(v){
     + '</div>';
 
   card.addEventListener("click", ()=>{
+    const inp = document.getElementById("tabSearchInput");
+    if(inp && inp.value && inp.value.trim().length >= 2) saveRecentSearch(inp.value.trim());
     const targetTab = isShort ? "reels" : "home";
     switchTab(targetTab);
     setTimeout(()=>{
@@ -13981,6 +13987,8 @@ function buildSearchReelCard(v){
     + '</div>';
 
   card.addEventListener("click", ()=>{
+    const inp = document.getElementById("tabSearchInput");
+    if(inp && inp.value && inp.value.trim().length >= 2) saveRecentSearch(inp.value.trim());
     switchTab("reels");
     setTimeout(()=>{
       const el = document.querySelector('.video-card[data-video-id="'+v.vid+'"]');
@@ -14006,18 +14014,31 @@ function initSearchTabListeners(){
       const val = inp.value;
       if(clr) clr.style.display = val.length > 0 ? "flex" : "none";
       if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      if(searchSaveDebounceTimer) clearTimeout(searchSaveDebounceTimer);
       searchDebounceTimer = setTimeout(()=>runUnifiedSearch(val, false), 260);
+      if(val && val.trim().length >= 2){
+        searchSaveDebounceTimer = setTimeout(()=>saveRecentSearch(val.trim()), 900);
+      }
     });
     inp.addEventListener("keydown", (e)=>{
       if(e.key === "Enter"){
+        e.preventDefault();
         if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        if(searchSaveDebounceTimer) clearTimeout(searchSaveDebounceTimer);
         runUnifiedSearch(inp.value, true);
+      }
+    });
+    inp.addEventListener("change", ()=>{
+      if(inp.value && inp.value.trim().length >= 2){
+        saveRecentSearch(inp.value.trim());
       }
     });
   }
 
   if(clr){
     clr.addEventListener("click", ()=>{
+      if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+      if(searchSaveDebounceTimer) clearTimeout(searchSaveDebounceTimer);
       if(inp){ inp.value = ""; inp.focus(); }
       renderSearchDiscovery();
     });
@@ -14051,6 +14072,8 @@ function initSearchTabListeners(){
 
 window.initSearchTabListeners = initSearchTabListeners;
 window.renderSearchDiscovery = renderSearchDiscovery;
+window.saveRecentSearch = saveRecentSearch;
+window.renderRecentSearches = renderRecentSearches;
 
 
 /* ---------- UPI + YT + RECENTLY VIEWED ---------- */
@@ -19100,14 +19123,6 @@ window.addEventListener("DOMContentLoaded",()=>{
     window.location.href = link;
   });
 
-  const ab = document.getElementById("announcementBar"), ca = document.getElementById("closeAnnouncement");
-  if(ab && localStorage.getItem("announcementClosed") === "true") ab.style.display = "none";
-  if(ca) ca.addEventListener("click", ()=>{ if(ab) ab.style.display = "none"; localStorage.setItem("announcementClosed", "true"); });
-
-  const cn = document.getElementById("cookieNotice"), cc = document.getElementById("cookieAccept");
-  if(cn && !localStorage.getItem("cookieAccepted")) cn.style.display = "flex";
-  if(cc) cc.addEventListener("click", ()=>{ localStorage.setItem("cookieAccepted", "true"); if(cn) cn.style.display = "none"; });
-
   const bb = document.getElementById("bellBtn"); if(bb) bb.addEventListener("click", e=>{ e.stopPropagation(); openNotifications(); });
   const nc = document.getElementById("notificationsClose"), no = document.getElementById("notificationsOverlay");
   if(nc) nc.addEventListener("click", ()=>no.classList.remove("show"));
@@ -19130,9 +19145,6 @@ window.addEventListener("DOMContentLoaded",()=>{
   const mab = document.getElementById("markAllNotifBtn"); if(mab) mab.addEventListener("click", markAllNotificationsRead);
   const cob = document.getElementById("clearOldNotifBtn"); if(cob) cob.addEventListener("click", clearOldNotifications);
 
-  /* Announcement bar "Watch Shorts" -> Reels tab */
-  const annLink = document.getElementById("announcementLink");
-  if(annLink) annLink.addEventListener("click", e=>{ e.preventDefault(); switchTab("reels"); });
   /* Footer legal links -> Settings subpages */
   function openSettingsViewFromFooter(view){
     const s = document.getElementById("settingsOverlay");
@@ -19152,9 +19164,7 @@ window.addEventListener("DOMContentLoaded",()=>{
 
   const btt = document.getElementById("backToTop");
   window.addEventListener("scroll", ()=>{
-    const st = window.scrollY, dh = document.documentElement.scrollHeight - window.innerHeight;
-    const p = dh > 0 ? (st/dh)*100 : 0;
-    const sp = document.getElementById("scrollProgress"); if(sp) sp.style.width = p+"%";
+    const st = window.scrollY;
     if(btt) btt.style.display = st > 400 ? "flex" : "none";
   });
   if(btt) btt.addEventListener("click", ()=>window.scrollTo({top:0, behavior:"smooth"}));

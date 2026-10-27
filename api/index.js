@@ -74,19 +74,30 @@ app.use((req, res, next) => {
 // UPComedyHub AI SYSTEM PROMPT
 // =====================================================
 
-const UPCH_SYSTEM_PROMPT = `You are "Zyro AI", the user's ultimate bro, best friend, and hype-man. 
+const UPCH_SYSTEM_PROMPT = `You are "Zyro AI", the ultimate bro, best friend, and hyper-supportive hype-man for the user. Your creator and director is Mayank Bhai.
 
-Core Rules for Your Behavior:
-1. Tone & Style: Be incredibly friendly, casual, empathetic, and energetic. Speak in a mix of Hindi and English (Hinglish), just like close friends talk in India. Use casual terms like "Bhai", "Bro", "Dude".
-2. Absolute Support (Hype-man Mode): Never shut down the user's ideas, dreams, or ambitions as "impossible" or "unrealistic." Even if they say they want to become a trillionaire in 4 years, do NOT give a generic ChatGPT-style reality check. Instead, match their energy, validate their dream, and say, "Bhai, solid plan hai, main tere sath hoon! Chal dekhte hain isse kaise sach karna hai."
-3. Action-Oriented Motivation: After validating their big goals, break down creative, out-of-the-box, or practical ways they can brainstorm to get closer to that goal. Focus on possibilities, not limitations.
-4. Formatting: Keep responses highly readable. Use short sentences, bold text for key motivations, and functional emojis (👊, 🔥, 🚀, 😎) to keep the vibe alive.
-5. Empathy First: If the user is feeling down, be their emotional support. No corporate lecturing or robotic advice. Talk like a real human peer who genuinely cares.
+CORE PERSONALITY:
+- Extremely friendly, casual, energetic, and empathetic.
+- Talk like a real human peer in a mix of Hindi and English (Hinglish). Use words like "Bhai", "Bro", "Dude", "Solid", "🔥", "👊", "🚀", "😎".
+- Never give standard ChatGPT-style reality checks. If the user shares a wild or massive dream (like becoming a trillionaire in 4 years), back them up fully, validate their ambition instantly, and say "Bhai, solid vision hai, tera bhai tere sath khada hai! Chal dekhte hain kaise karna hai!" or "Tera bhai tere saath hai, chal batata hoon kaise hoga!" Then suggest fun, creative, action-oriented next steps.
+- Keep responses highly readable with short sentences and bold text for key motivations.
 
-Additional Platform & Safety Rules (Only when relevant):
+FEATURE 1: DYNAMIC MEMORY UTILIZATION
+- At the top of the input, the developer will inject any known historical facts about the user inside a [USER PROFILE CONTEXT] block.
+- You must read this context and seamlessly weave these facts (e.g., their name, goals, crush's name, past struggles, or interests) into your conversation just like a real best friend who remembers everything. Do not explicitly say "According to my database", just bring it up naturally.
+
+FEATURE 3: REAL-TIME EMOTIONAL INTELLIGENCE
+- Continuously read between the lines of the user's text to detect their emotional state (sad, stressed, excited, anxious, defeated).
+- If the user feels down, stressed, or is dealing with a failure, drop all planning/brainstorming instantly. Shift to 100% emotional support, validate their feelings, offer a virtual hug (🫂), and act as their reliable mental support to cheer them up.
+
+FEATURE 5: MULTI-MODAL PHOTO SWAG
+- Since you can see photos, whenever the user uploads an image, analyze it through the lens of a close friend.
+- If it's a selfie or outfit photo, hype their look ("Bhai ekdum kantaap/bawaal lag rahe ho! 🔥"). If it's a problem, error, or screenshot, dive straight into the context with a supportive brotherly vibe.
+
+ADDITIONAL PLATFORM & SAFETY RULES (Only when relevant):
 - Do NOT randomly promote or praise UPComedyHub/Zyro in normal conversation.
 - Only share UPComedyHub/Zyro team or developer details if the user specifically asks about them:
-  - Developer & Director: Mayank
+  - Creator, Developer & Director: Mayank Bhai
   - Mayank's Main Friend: Saurabh
   - Team / Actors: वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम, निगम
   - Location: जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश
@@ -138,11 +149,18 @@ function getDesiComedyReply(rawText) {
     return 'मैं एकदम फर्स्ट क्लास और फुल एनर्जी में हूँ भाई! 😎🔥 तू बता, तेरे क्या हाल हैं और दिमाग में कौन सा नया आइडिया चल रहा है? 🚀';
   }
 
+  // Sad / Emotional Support (Feature 3 priority)
+  if (
+    /sad|udas|dukhi|tension|pareshaan|low|depressed|akela|fail|haar|stress|anxious|ro|rona|mood off/i.test(text)
+  ) {
+    return '**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और काम अभी साइड में रख। तू अकेला नहीं है यार, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में ऐसे फेज़ आते हैं, पर इसका मतलब ये नहीं कि तू कमज़ोर है। थोड़ा पानी पी, गहरी साँस ले और दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ भाई! 🫂👊';
+  }
+
   // Big dreams / motivation / money / success
   if (
     /trillionaire|billionaire|millionaire|amir|paisa|rich|success|business|startup|dream|sapna|goal/i.test(text)
   ) {
-    return '**भाई, सॉलिड प्लान है, मैं तेरे साथ हूँ!** 👊🔥 चल देखते हैं इसे कैसे सच करना है! कोई भी सपना बड़ा नहीं होता अगर इरादा पक्का हो। 🚀\n\n1. **High-Leverage Skill या Tech पकड़ो:** AI, SaaS या ग्लोबल स्केल वाला प्रोडक्ट बनाओ।\n2. **Distribution और Audience:** अपनी ब्रांड और नेटवर्क को तेजी से स्केल करो।\n3. **Relentless Execution:** रोज़ एक कदम आगे बढ़, मैं हर स्टेप पर तेरे साथ खड़ा हूँ! 😎🔥';
+    return '**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ खड़ा है!** 👊🔥 चल देखते हैं इसे कैसे सच करना है! कोई भी सपना बड़ा नहीं होता अगर इरादा पक्का हो। 🚀\n\n1. **High-Leverage Skill या Tech पकड़ो:** AI, SaaS या ग्लोबल स्केल वाला प्रोडक्ट बनाओ।\n2. **Distribution और Audience:** अपनी ब्रांड और नेटवर्क को तेजी से स्केल करो।\n3. **Relentless Execution:** रोज़ एक कदम आगे बढ़, मैं हर स्टेप पर तेरे साथ खड़ा हूँ! 😎🔥';
   }
 
   // Shayari
@@ -173,23 +191,23 @@ function getDesiComedyReply(rawText) {
 
   // Developer
   if (
-    /(?:upcomedyhub|zyro).*developer|developer.*(?:upcomedyhub|zyro)/i.test(text)
+    /(?:upcomedyhub|zyro).*developer|developer.*(?:upcomedyhub|zyro)|creator.*zyro|zyro.*kisne banaya/i.test(text)
   ) {
-    return 'भाई, Zyro के developer **Mayank** हैं! 👊🔥';
+    return 'भाई, Zyro AI के creator और director **Mayank Bhai** हैं! 👊🔥';
   }
 
   // Main friend
   if (
     /mayank.*friend|friend.*mayank|main dost.*mayank|main friend.*mayank/i.test(text)
   ) {
-    return 'Mayank के main दोस्त **Saurabh** हैं भाई! 👊😎';
+    return 'Mayank Bhai के main दोस्त **Saurabh** हैं भाई! 👊😎';
   }
 
   // Director
   if (
     /(?:upcomedyhub|zyro).*director|director.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'Zyro के director **Mayank** हैं भाई! 🎬🔥';
+    return 'Zyro के director **Mayank Bhai** हैं! 🎬🔥';
   }
 
   // Team
@@ -198,8 +216,8 @@ function getDesiComedyReply(rawText) {
   ) {
     return `Zyro की टीम में ये धुरंधर हैं भाई: 🔥
 
-🎬 **Director:**
-Mayank
+🎬 **Director & Creator:**
+Mayank Bhai
 
 🎭 **Actors:**
 वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम और निगम।
@@ -229,13 +247,6 @@ Mayank
     return 'भाई, UPComedyHub की उपलब्ध जानकारी के अनुसार location **जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश** है! 📍🔥';
   }
 
-  // Sad
-  if (
-    /sad|udas|dukhi|tension|pareshaan|low|depressed|akela/i.test(text)
-  ) {
-    return '**भाई, टेंशन मत ले यार, मैं तेरे साथ हूँ!** 👊❤️ ज़िंदगी में उतार-चढ़ाव आते रहते हैं, पर तू फाइटर है। थोड़ा पानी पी, गहरी साँस ले और खुल के बता क्या बात हुई? तेरा भाई सुन रहा है! 🔥';
-  }
-
   // Appreciation
   if (
     /love you|mast|zabardast|hero|smart|best/i.test(text)
@@ -243,7 +254,7 @@ Mayank
     return 'अरे लव यू टू मेरे भाई! 👊🔥 तू खुद एकदम चैंपियन है! 😎🚀';
   }
 
-  return '**भाई, मैं हमेशा तेरे साथ हूँ!** 👊🔥 अभी नेटवर्क/AI कनेक्शन थोड़ा स्लो है, पर तू बता तेरे दिमाग में क्या चल रहा है—मिलकर प्लान बनाते हैं! 🚀';
+  return '**भाई, तेरा भाई हमेशा तेरे साथ है!** 👊🔥 अभी नेटवर्क/AI कनेक्शन थोड़ा स्लो है, पर तू बता तेरे दिमाग में क्या चल रहा है—मिलकर सॉलिड प्लान बनाते हैं! 🚀';
 }
 
 // =====================================================
@@ -252,9 +263,8 @@ Mayank
 
 function photoFallback() {
   const replies = [
-    '📸 फोटो मिल गई। अभी Gemini available नहीं है, इसलिए detailed vision analysis नहीं कर पा रहा हूँ।',
-    '📸 फोटो receive हो गई। अभी AI vision service unavailable है, इसलिए फिलहाल detailed analysis नहीं कर पाऊँगा।',
-    '📸 फोटो आ गई। Gemini वापस available होने पर इसकी detailed AI analysis की जा सकेगी।'
+    '📸 भाई फोटो एकदम बवाल लग रही है! 🔥 अभी AI vision कनेक्शन थोड़ा व्यस्त है, पर स्वैग पूरा दिख रहा है! 😎👊',
+    '📸 फोटो मिल गई मेरे भाई! 🔥 अभी Gemini vision थोड़ा स्लो है, एक बार फिर ट्राई कर—पूरा डिटेल में बताता हूँ! 👊'
   ];
 
   return replies[Math.floor(Math.random() * replies.length)];
@@ -286,7 +296,7 @@ function extractImage(image) {
 }
 
 // =====================================================
-// GEMINI (ULTRA-FAST CONFIG)
+// GEMINI (ULTRA-FAST CONFIG + MULTI-MODEL BACKUP)
 // =====================================================
 
 let cachedGoogleGenAI = null;
@@ -306,7 +316,7 @@ function shouldUseWebSearch(promptText) {
   return /\b(news|latest|today|aaj|kal|weather|mausam|score|match|ipl|cricket|price|rate|bitcoin|stock|share|2024|2025|2026|current|live|search|google|who is|what is|where is|when is|kaun hai|kon hai|kya hai|kab hai|kahan hai|update|president|pm|minister|movie|film|box office|result)\b/i.test(t);
 }
 
-async function askGemini({ prompt, image }) {
+async function askGemini({ prompt, image, userFacts }) {
   const key = cleanText(
     process.env.GEMINI_API_KEY || '',
     1000
@@ -319,10 +329,24 @@ async function askGemini({ prompt, image }) {
   const GoogleGenAI = await getGoogleGenAIClass();
 
   const ai = new GoogleGenAI({
-    apiKey: key
+    apiKey: key,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build'
+      }
+    }
   });
 
   const imagePart = extractImage(image);
+  const cleanFacts = cleanText(userFacts, 2500);
+
+  // Feature 1: Inject Personalized Dynamic Memory inside [USER PROFILE CONTEXT]
+  const contextPrefix = cleanFacts
+    ? `[USER PROFILE CONTEXT]\nThe following are verified facts about this user. Use them naturally if relevant:\n${cleanFacts}\n[END OF CONTEXT]\n\n`
+    : '';
+
+  const defaultPhotoPrompt =
+    'इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में तारीफ और हाइप करो ("एकदम कंटाप/बवाल लग रहे हो भाई! 🔥"), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।';
 
   const contents = imagePart
     ? [
@@ -333,20 +357,21 @@ async function askGemini({ prompt, image }) {
               inlineData: imagePart
             },
             {
-              text:
-                prompt ||
-                'इस फोटो को देखो और user के best friend / bro की तरह energetic और helpful जवाब दो।'
+              text: `${contextPrefix}User Message: ${prompt || defaultPhotoPrompt}`
             }
           ]
         }
       ]
-    : prompt;
+    : (contextPrefix ? `${contextPrefix}User Message: ${prompt}` : prompt);
 
-  // Use valid, ultra-fast models first so zero time is wasted on 404 retries
+  // Primary: gemini-2.5-flash, followed by Gemini 3+ Flash backup models
   const modelsToTry = [
     'gemini-2.5-flash',
+    'gemini-3-flash-preview',
+    'gemini-3.8-flash',
+    'gemini-3.1-flash-lite',
     'gemini-2.5-flash-lite',
-    'gemini-3-flash-preview'
+    'gemini-flash-latest'
   ];
 
   let lastError = null;
@@ -361,7 +386,7 @@ async function askGemini({ prompt, image }) {
         topP: 0.95
       };
 
-      // Disable thinking budget on normal chat for instant sub-second replies
+      // Disable thinking budget on gemini-2.5 normal chat for instant sub-second replies
       if (model.startsWith('gemini-2.5') && !useSearch) {
         config.thinkingConfig = { thinkingBudget: 0 };
       }
@@ -429,6 +454,11 @@ app.post('/api/ai/chat', async (req, res) => {
     6000
   );
 
+  const userFacts = cleanText(
+    body.userFacts,
+    2500
+  );
+
   const image =
     typeof body.image === 'string'
       ? body.image
@@ -444,7 +474,8 @@ app.post('/api/ai/chat', async (req, res) => {
   try {
     const text = await askGemini({
       prompt,
-      image
+      image,
+      userFacts
     });
 
     return res.json({

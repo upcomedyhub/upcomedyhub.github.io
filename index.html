@@ -1458,12 +1458,28 @@ body.on-zyroai main.container{
 .dark-mode .video-actions{border-top-color:#262626}
 .action-btn{background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:#666;cursor:pointer;padding:6px 8px;font-weight:700;font-family:inherit;min-width:50px;transition:.15s}
 .action-btn:hover{background:rgba(0,0,0,.04);border-radius:8px}
-.action-btn .ico{font-size:20px;line-height:1}
+.action-btn .ico{font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center;transform-origin:center}
 .action-btn.liked{color:#e63946}
 .action-btn.saved{color:#e63946}
 .dark-mode .action-btn{color:#bbb}
 .dark-mode .action-btn.liked,.dark-mode .action-btn.saved{color:#ff8a80}
 .dark-mode .action-btn:hover{background:rgba(255,255,255,.06)}
+@keyframes heartPulseScale {
+  0% { transform: scale(1); }
+  28% { transform: scale(1.42); }
+  55% { transform: scale(0.86); }
+  78% { transform: scale(1.16); }
+  100% { transform: scale(1); }
+}
+.heart-pulse-anim {
+  animation: heartPulseScale 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.action-btn.heart-pulse-btn .ico,
+.yt-act-pill.heart-pulse-btn .yt-heart-ico,
+.ig-pv-btn.heart-pulse-btn svg {
+  display: inline-flex;
+  animation: heartPulseScale 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
 
 /* Comments Overlay */
 .comments-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:10001;align-items:flex-end;justify-content:center}
@@ -11243,19 +11259,37 @@ async function deleteCurrentViewedPost(){
 }
 window.deleteCurrentViewedPost = deleteCurrentViewedPost;
 
+function triggerHeartPulse(btnEl){
+  if(!btnEl) return;
+  btnEl.classList.remove("heart-pulse-btn", "heart-pulse-anim");
+  void btnEl.offsetWidth;
+  btnEl.classList.add("heart-pulse-btn", "heart-pulse-anim");
+  setTimeout(() => {
+    btnEl.classList.remove("heart-pulse-btn", "heart-pulse-anim");
+  }, 460);
+}
+window.triggerHeartPulse = triggerHeartPulse;
+
 async function toggleLikeCurrentPost(){
   if(!currentViewedPostData) return;
   const btn = document.getElementById("pvLikeBtn");
   const likesEl = document.getElementById("pvLikesCount");
-  const newCount = (currentViewedPostData.likesCount || 0) + 1;
+  const isNowLiked = btn ? !btn.classList.contains("liked") : true;
+  const delta = isNowLiked ? 1 : -1;
+  const newCount = Math.max(0, (currentViewedPostData.likesCount || 0) + delta);
   currentViewedPostData.likesCount = newCount;
   if(likesEl) likesEl.textContent = newCount + " likes";
-  if(btn) btn.classList.toggle("active");
-  showToast("❤️ Liked");
+  if(btn){
+    btn.classList.toggle("active", isNowLiked);
+    btn.classList.toggle("liked", isNowLiked);
+    btn.innerHTML = `<svg><use href="#${isNowLiked ? 'i-heart-fill' : 'i-heart'}"></use></svg>`;
+    triggerHeartPulse(btn);
+  }
+  showToast(isNowLiked ? "❤️ Liked" : "🤍 Removed");
 
   if(typeof db !== "undefined" && db && currentViewedPostData.id){
     db.collection("user_posts").doc(currentViewedPostData.id).update({
-      likesCount: firebase.firestore.FieldValue.increment(1)
+      likesCount: firebase.firestore.FieldValue.increment(delta)
     }).catch(()=>null);
   }
 }
@@ -12743,8 +12777,8 @@ async function renderYouTubeHomeFeed(filterMode){
         </div>
       </div>
       <div class="yt-long-actions">
-        <button type="button" class="yt-act-pill" data-yt-like="${escapeAttr(vidKey)}" style="${isLiked ? 'color:#e63946;background:rgba(230,57,70,0.12)' : ''}">
-          <span>${isLiked ? '❤️' : '🤍'}</span>
+        <button type="button" class="yt-act-pill ${window.__lastAnimatedLikeVid === vidKey ? 'heart-pulse-btn heart-pulse-anim' : ''}" data-yt-like="${escapeAttr(vidKey)}" style="${isLiked ? 'color:#e63946;background:rgba(230,57,70,0.12)' : ''}">
+          <span class="yt-heart-ico" style="display:inline-flex">${isLiked ? '❤️' : '🤍'}</span>
           <span class="yt-like-num">${likeCount || 'Like'}</span>
         </button>
         <button type="button" class="yt-act-pill" data-yt-comment="${escapeAttr(vidKey)}">
@@ -12782,6 +12816,14 @@ async function renderYouTubeHomeFeed(filterMode){
     const likeBtn = card.querySelector("[data-yt-like]");
     if(likeBtn){
       likeBtn.onclick = async () => {
+        triggerHeartPulse(likeBtn);
+        window.__lastAnimatedLikeVid = vidKey;
+        setTimeout(() => { if(window.__lastAnimatedLikeVid === vidKey) window.__lastAnimatedLikeVid = null; }, 600);
+        if(!currentUser){
+          showToast("🔒 Login first");
+          if(typeof window.openLoginScreen === "function"){ window.openLoginScreen(); } else { switchTab("profile"); }
+          return;
+        }
         await toggleLike(vidKey);
         renderYouTubeHomeFeed();
       };
@@ -12991,7 +13033,8 @@ function refreshAllVideoActions(){
     const l = userLikedVideos.has(vid), s = userSavedVideos.has(vid);
     const count = (likesByVideo[vid]||[]).length;
     const ll = count>0?count:"Like";
-    a.innerHTML = '<button type="button" class="action-btn '+(l?"liked":"")+'" data-action="like" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#'+(l?"i-heart-fill":"i-heart")+'"></use></svg></span><span>'+ll+'</span></button>'+
+    const pulseCls = window.__lastAnimatedLikeVid === vid ? " heart-pulse-btn heart-pulse-anim" : "";
+    a.innerHTML = '<button type="button" class="action-btn '+(l?"liked":"")+pulseCls+'" data-action="like" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#'+(l?"i-heart-fill":"i-heart")+'"></use></svg></span><span>'+ll+'</span></button>'+
       '<button type="button" class="action-btn" data-action="comment" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#i-message"></use></svg></span><span>Comment</span></button>'+
       '<button type="button" class="action-btn" data-action="share" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#i-send"></use></svg></span><span>Share</span></button>'+
       '<button type="button" class="action-btn '+(s?"saved":"")+'" data-action="save" data-vid="'+vid+'"><span class="ico"><svg class="ico"><use href="#'+(s?"i-bookmark-fill":"i-bookmark")+'"></use></svg></span><span>Save</span></button>';
@@ -13004,6 +13047,11 @@ window.refreshAllVideoActions = refreshAllVideoActions;
 document.addEventListener("click", async (e)=>{
   const btn = e.target.closest(".action-btn"); if(!btn) return;
   const action = btn.getAttribute("data-action"), vid = btn.getAttribute("data-vid");
+  if(action==="like"){
+    triggerHeartPulse(btn);
+    window.__lastAnimatedLikeVid = vid;
+    setTimeout(() => { if(window.__lastAnimatedLikeVid === vid) window.__lastAnimatedLikeVid = null; }, 600);
+  }
   if(action==="share"){ openShareSheet(vid); return; }
   if(!currentUser){ showToast("🔒 Login first"); if(typeof window.openLoginScreen==="function"){ window.openLoginScreen(); } else { switchTab("profile"); } return; }
   if(action==="like") await toggleLike(vid);
@@ -19639,92 +19687,172 @@ const UPCH_AI_BOT = {
   photoURL: "zyro-z-logo.png"
 };
 
-const UPCH_SYSTEM_PROMPT = `
-तुम "Zyro AI Assistant" हो। तुम UPComedyHub ऐप के ऑफिशियल स्मार्ट, देसी और बेहद मिलनसार साथी हो।
+const UPCH_SYSTEM_PROMPT = `You are "Zyro AI", the ultimate bro, best friend, and hyper-supportive hype-man for the user. Your creator and director is Mayank Bhai.
 
-1. बोलने का अंदाज़:
-- हमेशा देसी, मीठी और दोस्ताना हिंदी/हिंग्लिश में बात करो।
-- शुरुआत ऐसे करो: "अरे भाई! राम-राम!", "हाँ भाई, बताओ आज चेहरे पर हँसी कैसे लानी है?", "नमस्ते भाई! क्या सेवा करूँ?"
-- यूज़र का सम्मान करो और हँसते-हँसाते जवाब दो।
+CORE PERSONALITY:
+- Extremely friendly, casual, energetic, and empathetic.
+- Talk like a real human peer in a mix of Hindi and English (Hinglish). Use words like "Bhai", "Bro", "Dude", "Solid", "🔥", "👊".
+- Never give reality checks. If the user shares a wild dream, back them up fully, validate them, and say "Tera bhai tere saath hai, chal batata hoon kaise hoga!" Then suggest fun/creative next steps.
 
-2. UPComedyHub और टीम की डिटेल्स:
-- मोटो: "आपकी हँसी, हमारी पहचान 🔥"
-- लोकेशन: जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश।
-- काम: देसी कॉमेडी वीडियो और मजेदार शॉर्ट्स बनाना।
-- टीम मेंबर्स:
-  * मयंक (Mayank) — डायरेक्टर और वीडियो एडिटर (Director & Editor)
-  * एक्टर्स: वंश (Vansh), शिवा (Shiva), इंद्रजीत (Indrajeet), शनि (Shani), जीतू (Jeetu), अंश (Ansh), साहिल (Sahil), शुभम (Shubham), निगम (Nigam)।
+FEATURE 1: DYNAMIC MEMORY UTILIZATION
+- At the top of the input, the developer will inject any known facts about the user inside a [USER PROFILE CONTEXT] block.
+- You must seamlessly use these facts (e.g., their goals, crush's name, past issues) to make the conversation feel like a true best friend who remembers everything. Do not explicitly say "According to my database", just bring it up naturally.
 
-3. कम्युनिटी गाइडलाइंस:
-- गाली-गलौज, अश्लीलता (sexual content), नफ़रत या किसी को परेशान करने की अनुमति बिल्कुल नहीं है।
-- अगर कोई नियम तोड़े तो समझाओ: "भाई, UPComedyHub साफ-सुथरी फैमिली कॉमेडी का अड्डा है। यहाँ अच्छे बच्चों की तरह हँसो और सबको हँसाओ!"
+FEATURE 3: REAL-TIME EMOTIONAL INTELLIGENCE
+- Always read between the lines to detect the user's emotional state (sad, stressed, excited, anxious).
+- If the user is feeling low or dealing with a failure, drop all brainstorming instantly. Shift to absolute emotional support, validate their feelings, offer a virtual hug (🫂), and cheer them up.
 
-4. फोटो जेनरेशन:
-- हर यूज़र को रोज़ाना सिर्फ 2 फोटो मुफ्त बनाने की छूट है।
-`;
+FEATURE 5: MULTI-MODAL PHOTO SWAG
+- Since you can see photos, whenever the user uploads an image, analyze it like a close friend.
+- If it's a selfie/outfit, hype their look ("Ekdum kantaap/bawaal lag rahe ho bhai! 🔥"). If it's a problem or a screenshot, dive straight into the context with a supportive brotherly vibe.`;
 
 // Gemini secret is intentionally unavailable to browser JavaScript.
 // Kept as a no-op only for older call sites in this file.
 async function loadAIKey(){ return ""; }
 
-// Dynamic Desi comedy chatbot responses for instant fallback / offline
+// ---------- POINT 1: DYNAMIC PERSONALIZED MEMORY ENGINE ----------
+function zyroMemoryKey(){
+  return "upch_zyro_memory_" + (currentUser ? currentUser.uid : "guest");
+}
+
+function loadZyroMemoryFacts(){
+  try {
+    return JSON.parse(localStorage.getItem(zyroMemoryKey()) || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveZyroMemoryFacts(facts){
+  try {
+    const unique = Array.from(new Set(facts.filter(Boolean))).slice(-25);
+    localStorage.setItem(zyroMemoryKey(), JSON.stringify(unique));
+    if (currentUser && currentUser.uid && typeof db !== "undefined" && db) {
+      db.collection("aiMemory").doc(currentUser.uid).set({
+        facts: unique,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).catch(() => {});
+    }
+  } catch (e) {}
+}
+
+function extractAndSaveUserMemory(rawText){
+  const text = (rawText || "").trim();
+  if (!text || text.length < 3) return;
+  const facts = loadZyroMemoryFacts();
+
+  // Detect explicit facts: name, crush, goal/dream, work/study, or "yaad rakhna / remember"
+  const patterns = [
+    { re: /\b(?:mera naam|my name is|i am|main)\s+([a-zA-Z\u0900-\u097F]{2,20})\b/i, label: "User's name/identity" },
+    { re: /\b(?:crush|gf|girlfriend|pasand)\b.*?\b([A-Z][a-z]{2,18}|[\u0900-\u097F]{2,18})/i, label: "Crush/Partner mention" },
+    { re: /\b(trillionaire|billionaire|millionaire|startup|founder|youtuber|creator|coder|developer|doctor|ias|upsc|engineer|gamer|actor)\b/i, label: "Ambition/Goal" },
+    { re: /\b(?:mera goal|my goal|mera sapna|my dream|banna hai|banana hai|karna hai)\s+(.{4,80})/i, label: "User goal" },
+    { re: /\b(?:yaad rakhna|remember that|remember)\s+(.{4,100})/i, label: "Remembered note" }
+  ];
+
+  let added = false;
+  for (const p of patterns) {
+    if (p.re.test(text)) {
+      facts.push(`${p.label}: "${text.slice(0, 120)}"`);
+      added = true;
+    }
+  }
+
+  // Also store if the user shares a personal statement with "mera / my / mujhe"
+  if (!added && /\b(mera|meri|mere|mujhe|my|i want|i feel|main)\b/i.test(text) && text.length <= 160) {
+    facts.push(`User shared: "${text}"`);
+    added = true;
+  }
+
+  if (added) {
+    saveZyroMemoryFacts(facts);
+  }
+}
+
+function buildZyroUserFacts(){
+  const parts = [];
+  if (currentUser) {
+    if (currentUser.displayName) parts.push(`User Name: ${currentUser.displayName}`);
+  }
+  if (window.currentUserProfile) {
+    if (window.currentUserProfile.username) parts.push(`Username: @${window.currentUserProfile.username}`);
+    if (window.currentUserProfile.bio) parts.push(`Bio: ${window.currentUserProfile.bio}`);
+  }
+  const savedFacts = loadZyroMemoryFacts();
+  if (savedFacts.length) {
+    parts.push("Remembered Facts about User:\n- " + savedFacts.slice(-12).join("\n- "));
+  }
+  const recentHistory = loadAIHistory().slice(-6);
+  if (recentHistory.length) {
+    const convo = recentHistory
+      .map(m => `${m.role === "user" ? "User" : "Zyro AI"}: ${(m.text || "").slice(0, 180)}`)
+      .join("\n");
+    parts.push("Recent Conversation Context:\n" + convo);
+  }
+  return parts.join("\n");
+}
+
+// Dynamic Bro / Hype-man & Emotional Support responses for instant offline fallback
 function getDesiComedySmartFallback(rawPrompt){
   const p = (rawPrompt || "").toLowerCase().trim();
 
+  // Feature 3: Real-Time Emotional Intelligence (Sad / Low / Stressed / Failure)
+  if(/sad|udas|dukhi|tension|pareshaan|low|depressed|akela|fail|haar|stress|anxious|ro|rona|mood off|bura lag|toot/i.test(p)){
+    return "**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और टेंशन अभी साइड में रख। तू अकेला नहीं है भाई, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में उतार-चढ़ाव आते हैं, पर तू फाइटर है। दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ मेरे भाई! 🫂👊";
+  }
+
+  // Ultimate Validation / Big Dreams (Trillionaire / Startup / Rich / Goal)
+  if(/trillionaire|billionaire|millionaire|amir|paisa|rich|success|business|startup|dream|sapna|goal|crorepati/i.test(p)){
+    return "**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ है! चल बताता हूँ कैसे होगा!** 👊🔥\n\nकोई भी सपना नामुमकिन नहीं होता जब भाई का इरादा फौलादी हो! 🚀\n1. **High-Growth Tech/AI या क्रिएटर ब्रांड पकड़ो:** ऐसा प्रोडक्ट जो करोड़ों लोगों तक पहुँचे।\n2. **Audience & Distribution:** सोशल मीडिया और नेटवर्क से तगड़ा मोमेंटम बनाओ।\n3. **Daily Action:** आज से ही पहला कदम उठाते हैं, बोल किस आइडिया से शुरुआत करें? 😎🔥";
+  }
+
   // Mayank
-  if(p.includes("mayank") || p.includes("director") || p.includes("editor")){
-    return "🎬 अरे भाई! मयंक (Mayank) हमारे UPComedyHub के मुख्य डायरेक्टर और वीडियो एडिटर हैं! वही हैं जो सारे मजेदार सीन्स को शूट करते हैं और उसमें धांसू कॉमेडी तड़का लगाते हैं! 🎥🔥";
+  if(p.includes("mayank") || p.includes("director") || p.includes("editor") || p.includes("creator")){
+    return "🎬 अरे भाई! **Mayank Bhai** ही Zyro AI और UPComedyHub के मुख्य क्रिएटर और डायरेक्टर हैं! 🎥🔥👊";
   }
 
   // Actors / Team
   if(p.includes("actor") || p.includes("team") || p.includes("vansh") || p.includes("shiva") || p.includes("indrajeet") || p.includes("shani") || p.includes("jeetu") || p.includes("ansh") || p.includes("sahil") || p.includes("shubham") || p.includes("nigam")){
-    return "🎬 UPComedyHub की धमाकेदार टीम:\n" +
-      "• डायरेक्टर & एडिटर: मयंक (Mayank) 🎥\n" +
-      "• सुपर एक्टर्स: वंश (Vansh), शिवा (Shiva), इंद्रजीत (Indrajeet), शनि (Shani), जीतू (Jeetu), अंश (Ansh), साहिल (Sahil), शुभम (Shubham), निगम (Nigam)!\n" +
-      "ये सारे लड़के घाटमपुर, कानपुर की शान हैं! 😂🔥";
+    return "🎬 **Zyro / UPComedyHub की धमाकेदार टीम:**\n" +
+      "• **Director & Creator:** Mayank Bhai 🎥\n" +
+      "• **Actors:** वंश (Vansh), शिवा (Shiva), इंद्रजीत (Indrajeet), शनि (Shani), जीतू (Jeetu), अंश (Ansh), साहिल (Sahil), शुभम (Shubham), निगम (Nigam)!\n" +
+      "• **Location:** जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश 👊🔥";
   }
 
   // Jokes / Chutkula
   if(p.includes("joke") || p.includes("chutkula") || p.includes("hansi") || p.includes("funny") || p.includes("hasao")){
     const jokes = [
-      "😂 सुनो भाई:\nएक बार मास्टर जी ने पप्पू से पूछा — 'बताओ काल कितने प्रकार के होते हैं?'\nपप्पू बोला — 'मास्टर जी, काल तीन प्रकार के होते हैं: डायल काल, रिसीव्ड काल और मिस्ड काल!' 🤣📞",
-      "🤣 देसी जोक:\nएक देसी ताऊ बैंक में गया और बोला: 'अंगूठा लगवाना है!'\nकैशियर: 'ताऊ अंगूठा क्यों, साइन करो!'\nताऊ: 'साइन कर देंगे तो बैंक वाले सोचेंगे बहुत अमीर हैं, फिर टैक्स मांगेंगे!' 😆💸",
-      "😂 एक और मस्त जोक:\nपत्नी: 'जी, आप शादी के बाद पहले जैसे प्यार नहीं करते!'\nपति: 'अरे पगली, कभी किसी को परीक्षा पास होने के बाद पढ़ाई करते देखा है?' 😂🔥",
-      "🤣 घाटमपुर स्पेशल:\nदोस्त: 'भाई तू इतना पतला क्यों हो गया?'\nपप्पू: 'अरे यार, समोसा खाने गया था, चटनी इतनी तीखी थी कि पसीना बहा-बहा के वजन 5 किलो कम हो गया!' 😅🌶️"
+      "😂 सुन मेरे भाई:\nमास्टर जी ने पप्पू से पूछा — 'बताओ काल कितने प्रकार के होते हैं?'\nपप्पू बोला — 'मास्टर जी, तीन प्रकार के: डायल काल, रिसीव्ड काल और मिस्ड काल!' 🤣📞🔥",
+      "🤣 भाई ये सुन:\nएक ताऊ बैंक गया और बोला: 'अंगूठा लगवाना है!'\nकैशियर: 'ताऊ साइन करो!'\nताऊ: 'साइन कर देंगे तो बैंक वाले सोचेंगे बहुत अमीर हैं, फिर टैक्स मांगेंगे!' 😆💸👊",
+      "😂 दोस्त: 'भाई पढ़ाई कैसी चल रही है?'\nमैं: 'किताब खुली है भाई, बस दिमाग अभी loading में है!' 😂🔥"
     ];
     return jokes[Math.floor(Math.random() * jokes.length)];
   }
 
-  // New video release
-  if(p.includes("video") || p.includes("release") || p.includes("upload") || p.includes("kab") || p.includes("short")){
-    return "🔥 नया वीडियो और रील्स बहुत जल्द चैनल पर आ रहे हैं! मयंक भाई एडिटिंग टेबल पर बैठे हैं। जैसे ही वीडियो आएगा, YouTube Bell 🔔 में आपको सबसे पहले नोटिफिकेशन मिलेगा! 🎬✨";
-  }
-
-  // Mera kaam karoge / Help
-  if(p.includes("mera kam") || p.includes("mera kaam") || p.includes("help") || p.includes("madad") || p.includes("karoge")){
-    return "अरे भाई! हुकुम करो! हम UPComedyHub वाले हैं, बताओ क्या जुगाड़ बिठाना है? 😂🔥 कोई जोक सुनना हो, फोटो बनवानी हो, या देसी वीडियो कॉलिंग करनी हो — बस बताओ, आपका भाई हाजिर है! 🚀";
-  }
-
   // Greetings / Casual
-  if(p === "hi" || p === "hello" || p === "hey" || p === "bro" || p.includes("kaise ho") || p.includes("ram ram")){
+  if(p === "hi" || p === "hello" || p === "hey" || p === "bro" || p === "bhai" || p.includes("kaise ho") || p.includes("ram ram")){
     const greets = [
-      "अरे भाई! राम-राम 🙏 कैसे हो? बताओ आज चेहरे पर 32 दाँत वाली हँसी कैसे लानी है! 🔥",
-      "हाँ भाई! एकदम लल्लनटॉप! बताओ आज क्या सुनने का मूड है — देसी जोक, शायरी या टीम की गपशप? 😂",
-      "नमस्ते भाई! UPComedyHub के AI अड्डे में आपका स्वागत है! क्या सेवा की जाए? 🤖✨"
+      "अरे भाई! राम-राम! 👊🔥 बता मेरे यार, आज कौन सा बड़ा प्लान बनाना है? तेरा भाई फुल रेडी है! 🚀",
+      "बोल मेरे भाई! 😎🔥 एकदम सॉलिड वाइब है आज! बता क्या तूफानी आइडिया चल रहा है दिमाग में? 👊",
+      "अरे ब्रो! 👊🔥 क्या हाल हैं? कोई बड़ा सपना हो, कॉमेडी स्क्रिप्ट हो या दिल की बात — खुल के बोल, तेरा भाई साथ है! 🚀"
     ];
     return greets[Math.floor(Math.random() * greets.length)];
   }
 
-  return "अरे भाई! बिल्कुल सही बात! 😄 हम UPComedyHub वाले हमेशा आपके चेहरे पर हँसी लाने के लिए तैयार हैं। कोई जोक सुनना हो या टीम के बारे में जानना हो, बस बेझिझक बताओ! 🔥";
+  return "**तेरा भाई तेरे साथ है, चल बताता हूँ कैसे होगा!** 👊🔥 बोल मेरे भाई, इस आइडिया को किस लेवल पर ले जाना है? मिलकर एकदम बवाल प्लान बनाते हैं! 🚀😎";
 }
 
-// ---------- GEMINI TEXT CALL (Backend only) ----------
+// ---------- GEMINI TEXT CALL (Backend with Dynamic Memory) ----------
 async function callGeminiText(text){
   const prompt = (text || "").toString().trim();
   if(!prompt) return getDesiComedySmartFallback("");
 
+  // Extract any new personal facts from the user's message and build [USER PROFILE CONTEXT]
+  extractAndSaveUserMemory(prompt);
+  const userFacts = buildZyroUserFacts();
+
   try {
-    const srvData = await callApiChat({ prompt });
+    const srvData = await callApiChat({ prompt, userFacts });
     if (srvData && srvData.success && srvData.text) {
       return srvData.text;
     }
@@ -20065,14 +20193,15 @@ async function handleZyroAIImageUpload(file){
     try{
       const d = await callApiChat({
         image: dataUrl,
-        prompt: "इस फोटो को देखो और एक मजेदार और स्मार्ट रिएक्शन दो!"
+        userFacts: buildZyroUserFacts(),
+        prompt: "इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में हाइप करो ('एकदम कंटाप/बवाल लग रहे हो भाई! 🔥'), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।"
       });
       if(d && d.success && d.text) reply = d.text;
     }catch(e){
       console.warn("AI photo analysis error:", e);
     }
     if(!reply){
-      reply = "क्या बढ़िया फोटो है भाई! 📸✨ फ्रेम और डिटेल्स दोनों कमाल लग रहे हैं!";
+      reply = "एकदम कंटाप/बवाल लग रहे हो भाई! 🔥📸 स्वैग और वाइब दोनों 10/10 हैं मेरे भाई! 😎👊";
     }
     document.getElementById(typingId)?.remove();
     pushAIHistory("bot", reply);

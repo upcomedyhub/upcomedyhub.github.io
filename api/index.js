@@ -694,7 +694,7 @@ app.post('/api/chat/memory-sync', async (req, res) => {
 // GOOGLE WORKSPACE CONFIG & SMART INTENT PARSER
 // =====================================================
 
-const DEFAULT_GOOGLE_CLIENT_ID = '159517744101-3040mh21s43m0m5mc9qg5ochteaos617.apps.googleusercontent.com';
+const DEFAULT_GOOGLE_CLIENT_ID = '1086774215519-mvh48afdn9dfuvva42ohbmmgj2bvr6uj.apps.googleusercontent.com';
 
 app.get('/api/workspace/config', (req, res) => {
   const clientId = cleanText(

@@ -21049,7 +21049,7 @@ async function pushAIHistory(role, text, image){
 // GOOGLE WORKSPACE INTEGRATION (CALENDAR, TASKS, DRIVE, DOCS)
 // =====================================================
 
-const ZYRO_GWS_CLIENT_ID = "159517744101-3040mh21s43m0m5mc9qg5ochteaos617.apps.googleusercontent.com";
+const ZYRO_GWS_CLIENT_ID = "1086774215519-mvh48afdn9dfuvva42ohbmmgj2bvr6uj.apps.googleusercontent.com";
 const ZYRO_GWS_SCOPES = [
   "https://www.googleapis.com/auth/calendar.events",
   "https://www.googleapis.com/auth/tasks",
@@ -21111,6 +21111,11 @@ async function connectGoogleWorkspace(interactiveNotice){
               if (interactiveNotice) showToast("⚠️ Google Workspace permission cancelled");
               resolve("");
             }
+          },
+          error_callback: (err) => {
+            console.warn("GIS OAuth error_callback:", err);
+            if (interactiveNotice) showToast("⚠️ Google login popup closed ya block ho gaya");
+            resolve("");
           }
         });
         tokenClient.requestAccessToken({ prompt: "consent" });

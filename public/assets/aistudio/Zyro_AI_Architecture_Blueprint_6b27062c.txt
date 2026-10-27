@@ -1,0 +1,79 @@
+# ==========================================
+# ZYRO AI - PROJECT ARCHITECTURE & SCHEMA
+# ==========================================
+# Prepared for: Mayank Bhai (Creator & Director)
+# Target Stack: Node.js (Express), MongoDB / Firebase, Gemini 1.5 API
+
+# 📁 PROJECT DIRECTORY STRUCTURE
+# ==========================================
+zyro-ai-backend/
+├── config/
+│   ├── db.js                # Database connection configuration
+│   └── gemini.js            # Gemini API initialization with System Prompt
+├── controllers/
+│   ├── authController.js    # User registration & management
+│   ├── chatController.js    # Sidebar operations & active chat history
+│   └── aiController.js      # Core Gemini API routing & token tracking
+├── models/
+│   ├── User.js              # User Schema (Includes Permanent Memory Array)
+│   ├── Chat.js              # Chat Schema (For sidebar items/session threads)
+│   └── Message.js           # Message Schema (Stores conversation history chunks)
+├── routes/
+│   ├── authRoutes.js        # Auth endpoint routing
+│   ├── chatRoutes.js        # Chat management endpoint routing
+│   └── aiRoutes.js          # Core AI payload routing
+├── middlewares/
+│   ├── authMiddleware.js    # Validates active user sessions
+│   └── errorHandler.js      # Global error handling mechanism
+├── utils/
+│   └── memoryEngine.js      # Background sync script for user facts extraction
+├── .env                     # Private environment variables (API keys, ports)
+├── package.json             # Engine dependencies mapping
+└── server.js                # Application bootstrapper and core layout logic
+
+# 🗄️ PRODUCTION DATABASE SCHEMAS (MONGOOSE / MONGODB)
+# ==========================================
+
+1. User Schema (models/User.js)
+------------------------------------------
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  permanent_memory: { 
+    type: [String], 
+    default: ["User name is Mayank Bhai. He is the creator/director of Zyro AI."] 
+  },
+  created_at: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('User', UserSchema);
+
+2. Chat Schema (models/Chat.js)
+------------------------------------------
+const mongoose = require('mongoose');
+
+const ChatSchema = new mongoose.Schema({
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  title: { type: String, default: 'Nayi Baatcheet 💬' },
+  created_at: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Chat', ChatSchema);
+
+3. Message Schema (models/Message.js)
+------------------------------------------
+const mongoose = require('mongoose');
+
+const MessageSchema = new mongoose.Schema({
+  chat_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Chat', required: true },
+  role: { type: String, enum: ['user', 'model'], required: true },
+  text: { type: String, required: true },
+  has_attachment: { type: Boolean, default: false },
+  attachment_url: { type: String, default: null },
+  timestamp: { type: Date, default: Date.now }
+});
+
+module.exports = mongoose.model('Message', MessageSchema);

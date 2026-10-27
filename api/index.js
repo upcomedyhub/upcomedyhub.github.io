@@ -60,7 +60,7 @@ const videoUpload = multer({
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
@@ -316,7 +316,62 @@ function shouldUseWebSearch(promptText) {
   return /\b(news|latest|today|aaj|kal|weather|mausam|score|match|ipl|cricket|price|rate|bitcoin|stock|share|2024|2025|2026|current|live|search|google|who is|what is|where is|when is|kaun hai|kon hai|kya hai|kab hai|kahan hai|update|president|pm|minister|movie|film|box office|result)\b/i.test(t);
 }
 
-async function askGemini({ prompt, image, userFacts }) {
+// =====================================================
+// ZYRO AI MULTI-SESSION STORE & TITLE GENERATOR (STEP 2 & 3)
+// =====================================================
+
+const zyroUserMemoryStore = new Map(); // user_id -> string[]
+const zyroChatsStore = new Map();      // chat_id -> { chat_id, user_id, title, created_at, updated_at }
+const zyroMessagesStore = new Map();   // chat_id -> Array<{ message_id, chat_id, role, text, has_attachment, attachment_url, timestamp }>
+
+function generateSmartChatTitle(rawMessage) {
+  const clean = cleanText(rawMessage, 120)
+    .replace(/^(hi|hello|hey|bro|bhai|oye|zyro|listen|sun|arre)\b[\s,!.:;-]*/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!clean || clean.length < 2) {
+    return 'Nayi Baatcheet 💬';
+  }
+
+  const words = clean.split(' ').slice(0, 5).join(' ');
+  const capitalized = words.charAt(0).toUpperCase() + words.slice(1);
+  return capitalized.length > 34 ? capitalized.slice(0, 34).trim() + '…' : capitalized;
+}
+
+function normalizeHistoryForGemini(rawHistory) {
+  if (!Array.isArray(rawHistory) || !rawHistory.length) return [];
+  const normalized = [];
+
+  for (const item of rawHistory.slice(-24)) {
+    if (!item || typeof item !== 'object') continue;
+    const text = cleanText(item.text || '', 2500);
+    if (!text) continue;
+    const role = (item.role === 'model' || item.role === 'bot' || item.role === 'assistant') ? 'model' : 'user';
+
+    // Ensure alternating or valid role structure for Gemini contents
+    if (normalized.length > 0 && normalized[normalized.length - 1].role === role) {
+      normalized[normalized.length - 1].parts[0].text += '\n' + text;
+    } else {
+      normalized.push({
+        role,
+        parts: [{ text }]
+      });
+    }
+  }
+
+  // Gemini multi-turn history should start with 'user' and end with 'model' before the new user turn
+  while (normalized.length > 0 && normalized[0].role !== 'user') {
+    normalized.shift();
+  }
+  while (normalized.length > 0 && normalized[normalized.length - 1].role !== 'model') {
+    normalized.pop();
+  }
+
+  return normalized;
+}
+
+async function askGemini({ prompt, image, userFacts, permanentMemory, history }) {
   const key = cleanText(
     process.env.GEMINI_API_KEY || '',
     1000
@@ -338,31 +393,47 @@ async function askGemini({ prompt, image, userFacts }) {
   });
 
   const imagePart = extractImage(image);
-  const cleanFacts = cleanText(userFacts, 2500);
 
-  // Feature 1: Inject Personalized Dynamic Memory inside [USER PROFILE CONTEXT]
-  const contextPrefix = cleanFacts
-    ? `[USER PROFILE CONTEXT]\nThe following are verified facts about this user. Use them naturally if relevant:\n${cleanFacts}\n[END OF CONTEXT]\n\n`
+  // Combine permanent_memory array + userFacts string into [USER PROFILE CONTEXT]
+  const memoryLines = [];
+  if (Array.isArray(permanentMemory) && permanentMemory.length) {
+    for (const m of permanentMemory.slice(-25)) {
+      const cl = cleanText(m, 300);
+      if (cl) memoryLines.push(`- ${cl}`);
+    }
+  }
+  const cleanFacts = cleanText(userFacts, 2500);
+  if (cleanFacts) {
+    memoryLines.push(cleanFacts);
+  }
+
+  const combinedMemory = memoryLines.join('\n').trim();
+
+  // Feature 1 & Step 4: Inject Personalized Dynamic Memory inside [USER PROFILE CONTEXT]
+  const contextPrefix = combinedMemory
+    ? `[USER PROFILE CONTEXT]\nThe following are verified facts about this user from their permanent memory. Use them naturally like a real best friend if relevant:\n${combinedMemory}\n[END OF CONTEXT]\n\n`
     : '';
 
   const defaultPhotoPrompt =
     'इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में तारीफ और हाइप करो ("एकदम कंटाप/बवाल लग रहे हो भाई! 🔥"), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।';
 
-  const contents = imagePart
-    ? [
-        {
-          role: 'user',
-          parts: [
-            {
-              inlineData: imagePart
-            },
-            {
-              text: `${contextPrefix}User Message: ${prompt || defaultPhotoPrompt}`
-            }
-          ]
-        }
-      ]
-    : (contextPrefix ? `${contextPrefix}User Message: ${prompt}` : prompt);
+  const priorTurns = normalizeHistoryForGemini(history);
+
+  const currentUserParts = [];
+  if (imagePart) {
+    currentUserParts.push({ inlineData: imagePart });
+  }
+  currentUserParts.push({
+    text: `${contextPrefix}User Message: ${prompt || defaultPhotoPrompt}`
+  });
+
+  const contents = [
+    ...priorTurns,
+    {
+      role: 'user',
+      parts: currentUserParts
+    }
+  ];
 
   // Primary: gemini-2.5-flash, followed by Gemini 3+ Flash backup models
   const modelsToTry = [
@@ -443,14 +514,191 @@ async function askGemini({ prompt, image, userFacts }) {
 }
 
 // =====================================================
-// AI CHAT ENDPOINT
+// STEP 5: BACKGROUND MEMORY EXTRACTION ENGINE
 // =====================================================
 
-app.post('/api/ai/chat', async (req, res) => {
+async function extractFactsWithGemini({ recentMessages, existingMemory }) {
+  const key = cleanText(process.env.GEMINI_API_KEY || '', 1000);
+  if (!key) return null;
+
+  const GoogleGenAI = await getGoogleGenAIClass();
+  const ai = new GoogleGenAI({
+    apiKey: key,
+    httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+  });
+
+  const convoText = (Array.isArray(recentMessages) ? recentMessages : [])
+    .slice(-10)
+    .map(m => `${m.role === 'user' ? 'User' : 'Zyro AI'}: ${cleanText(m.text || '', 400)}`)
+    .join('\n');
+
+  if (!convoText.trim()) return null;
+
+  const currentFacts = Array.isArray(existingMemory) ? existingMemory.slice(-25) : [];
+
+  const extractionPrompt = `You are the Background Memory Sync Engine for Zyro AI.
+Read the recent conversation between the User and Zyro AI, and compare it with the Existing Permanent Memory.
+
+Existing Permanent Memory:
+${currentFacts.length ? currentFacts.map(f => '- ' + f).join('\n') : '(None yet)'}
+
+Recent Conversation:
+${convoText}
+
+Task:
+Extract a concise, updated list of permanent personal facts about the User (e.g., their name, city/hometown, career/studies, big dreams/goals like becoming a trillionaire, crush/friends, hobbies, struggles, or things they asked to remember).
+Rules:
+1. Keep existing valid facts and add any new personal facts discovered in the Recent Conversation.
+2. Do NOT include temporary greetings or generic chitchat.
+3. Return ONLY a valid JSON array of short strings (maximum 20 facts). Example: ["User name is Mayank", "Lives in Kanpur", "Goal: Become a trillionaire in 4 years"]`;
+
+  const models = ['gemini-2.5-flash', 'gemini-3.8-flash', 'gemini-3.1-flash-lite'];
+  for (const model of models) {
+    try {
+      const config = { temperature: 0.2 };
+      if (model.startsWith('gemini-2.5')) {
+        config.thinkingConfig = { thinkingBudget: 0 };
+      }
+      const resp = await ai.models.generateContent({
+        model,
+        contents: extractionPrompt,
+        config
+      });
+      const raw = cleanText(resp?.text || '', 4000);
+      const jsonMatch = raw.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        const parsed = JSON.parse(jsonMatch[0]);
+        if (Array.isArray(parsed)) {
+          return Array.from(
+            new Set(
+              parsed
+                .map(x => cleanText(String(x || ''), 220))
+                .filter(Boolean)
+            )
+          ).slice(-25);
+        }
+      }
+    } catch (e) {
+      console.warn(`Memory sync model ${model} notice:`, e?.message || e);
+    }
+  }
+  return null;
+}
+
+// =====================================================
+// STEP 3: BACKEND SESSION ROUTING ENDPOINTS
+// =====================================================
+
+// 1. POST /api/chat/new - Create a new chat thread for the Sidebar
+app.post('/api/chat/new', (req, res) => {
+  const body = req.body || {};
+  const userId = cleanText(body.user_id || body.userId || 'guest', 120) || 'guest';
+  const firstMessage = cleanText(body.message || body.title || '', 200);
+  const chatId = cleanText(body.chat_id || body.chatId, 120) || ('chat_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8));
+  const title = cleanText(body.customTitle, 80) || generateSmartChatTitle(firstMessage);
+  const now = new Date().toISOString();
+
+  const chatObj = {
+    chat_id: chatId,
+    user_id: userId,
+    title,
+    created_at: now,
+    updated_at: now
+  };
+
+  zyroChatsStore.set(chatId, chatObj);
+  if (!zyroMessagesStore.has(chatId)) {
+    zyroMessagesStore.set(chatId, []);
+  }
+
+  return res.json({
+    success: true,
+    chat: chatObj
+  });
+});
+
+// 2. GET /api/chats/:user_id - Fetch all past chats for the Sidebar
+app.get('/api/chats/:user_id', (req, res) => {
+  const userId = cleanText(req.params.user_id || 'guest', 120) || 'guest';
+  const list = [];
+  for (const chat of zyroChatsStore.values()) {
+    if (chat.user_id === userId) {
+      list.push(chat);
+    }
+  }
+  list.sort((a, b) => new Date(b.updated_at || b.created_at).getTime() - new Date(a.updated_at || a.created_at).getTime());
+  return res.json({
+    success: true,
+    chats: list
+  });
+});
+
+// 3. GET /api/messages/:chat_id - Fetch all messages for a specific chat
+app.get('/api/messages/:chat_id', (req, res) => {
+  const chatId = cleanText(req.params.chat_id || '', 120);
+  const messages = zyroMessagesStore.get(chatId) || [];
+  return res.json({
+    success: true,
+    chat_id: chatId,
+    messages
+  });
+});
+
+// 4. DELETE /api/chats/:chat_id - Delete a chat thread and its messages
+app.delete('/api/chats/:chat_id', (req, res) => {
+  const chatId = cleanText(req.params.chat_id || '', 120);
+  zyroChatsStore.delete(chatId);
+  zyroMessagesStore.delete(chatId);
+  return res.json({
+    success: true,
+    deleted: chatId
+  });
+});
+
+// 5. POST /api/chat/memory-sync - Background Memory Sync Engine (Step 5)
+app.post('/api/chat/memory-sync', async (req, res) => {
+  const body = req.body || {};
+  const userId = cleanText(body.user_id || body.userId || 'guest', 120) || 'guest';
+  const recentMessages = Array.isArray(body.messages) ? body.messages : [];
+  const existingMemory = Array.isArray(body.permanent_memory)
+    ? body.permanent_memory
+    : (zyroUserMemoryStore.get(userId) || []);
+
+  try {
+    const updatedMemory = await extractFactsWithGemini({
+      recentMessages,
+      existingMemory
+    });
+
+    const finalMemory = Array.isArray(updatedMemory) && updatedMemory.length
+      ? updatedMemory
+      : existingMemory;
+
+    zyroUserMemoryStore.set(userId, finalMemory);
+
+    return res.json({
+      success: true,
+      user_id: userId,
+      permanent_memory: finalMemory
+    });
+  } catch (err) {
+    return res.json({
+      success: true,
+      user_id: userId,
+      permanent_memory: existingMemory
+    });
+  }
+});
+
+// =====================================================
+// AI CHAT ENDPOINT (STEP 4: PROMPT + MEMORY + HISTORY)
+// =====================================================
+
+async function handleZyroAIChatRequest(req, res) {
   const body = req.body || {};
 
   const prompt = cleanText(
-    body.prompt,
+    body.prompt || body.message,
     6000
   );
 
@@ -458,6 +706,21 @@ app.post('/api/ai/chat', async (req, res) => {
     body.userFacts,
     2500
   );
+
+  const userId = cleanText(body.user_id || body.userId || 'guest', 120) || 'guest';
+  const chatId = cleanText(body.chat_id || body.chatId || '', 120);
+
+  const permanentMemory = Array.isArray(body.permanent_memory)
+    ? body.permanent_memory
+    : (zyroUserMemoryStore.get(userId) || []);
+
+  if (Array.isArray(body.permanent_memory) && body.permanent_memory.length) {
+    zyroUserMemoryStore.set(userId, body.permanent_memory.slice(-25));
+  }
+
+  const history = Array.isArray(body.history)
+    ? body.history
+    : (chatId && zyroMessagesStore.has(chatId) ? zyroMessagesStore.get(chatId) : []);
 
   const image =
     typeof body.image === 'string'
@@ -471,16 +734,63 @@ app.post('/api/ai/chat', async (req, res) => {
     });
   }
 
+  // Record user message in backend session store if chatId is provided
+  let activeChat = chatId ? zyroChatsStore.get(chatId) : null;
+  if (chatId && !activeChat) {
+    activeChat = {
+      chat_id: chatId,
+      user_id: userId,
+      title: generateSmartChatTitle(prompt || 'Photo Swag 📸'),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    zyroChatsStore.set(chatId, activeChat);
+  }
+  if (chatId) {
+    const msgs = zyroMessagesStore.get(chatId) || [];
+    msgs.push({
+      message_id: 'msg_' + Date.now() + '_u',
+      chat_id: chatId,
+      role: 'user',
+      text: prompt || 'Photo uploaded',
+      has_attachment: Boolean(image),
+      attachment_url: null,
+      timestamp: new Date().toISOString()
+    });
+    zyroMessagesStore.set(chatId, msgs.slice(-100));
+    if (activeChat) {
+      activeChat.updated_at = new Date().toISOString();
+    }
+  }
+
   try {
     const text = await askGemini({
       prompt,
       image,
-      userFacts
+      userFacts,
+      permanentMemory,
+      history
     });
+
+    if (chatId) {
+      const msgs = zyroMessagesStore.get(chatId) || [];
+      msgs.push({
+        message_id: 'msg_' + Date.now() + '_m',
+        chat_id: chatId,
+        role: 'model',
+        text,
+        has_attachment: false,
+        attachment_url: null,
+        timestamp: new Date().toISOString()
+      });
+      zyroMessagesStore.set(chatId, msgs.slice(-100));
+    }
 
     return res.json({
       success: true,
       text,
+      chat_id: chatId || null,
+      title: activeChat ? activeChat.title : null,
       mode: 'gemini'
     });
   } catch (err) {
@@ -493,13 +803,32 @@ app.post('/api/ai/chat', async (req, res) => {
       ? photoFallback()
       : getDesiComedyReply(prompt);
 
+    if (chatId) {
+      const msgs = zyroMessagesStore.get(chatId) || [];
+      msgs.push({
+        message_id: 'msg_' + Date.now() + '_m',
+        chat_id: chatId,
+        role: 'model',
+        text,
+        has_attachment: false,
+        attachment_url: null,
+        timestamp: new Date().toISOString()
+      });
+      zyroMessagesStore.set(chatId, msgs.slice(-100));
+    }
+
     return res.json({
       success: true,
       text,
+      chat_id: chatId || null,
+      title: activeChat ? activeChat.title : null,
       mode: 'offline'
     });
   }
-});
+}
+
+app.post('/api/ai/chat', handleZyroAIChatRequest);
+app.post('/api/chat', handleZyroAIChatRequest);
 
 // =====================================================
 // AI IMAGE GENERATION

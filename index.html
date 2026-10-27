@@ -958,11 +958,228 @@ body.on-zyroai main.container{
   background:#0a0a0a;
   color:#f4f4f5;
 }
+.zai-workspace{
+  display:flex;
+  flex:1;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  position:relative;
+}
+/* Left Sidebar (ChatGPT / Claude style) */
+.zai-sidebar{
+  width:265px;
+  flex-shrink:0;
+  background:#f8f8fa;
+  border-right:1px solid rgba(0,0,0,0.08);
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  z-index:30;
+  transition:transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.24s ease;
+}
+.dark-mode .zai-sidebar{
+  background:#111114;
+  border-right-color:rgba(255,255,255,0.08);
+}
+.zai-sidebar.collapsed-desktop{
+  margin-left:-265px;
+}
+.zai-sidebar-header{
+  padding:12px 12px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+.dark-mode .zai-sidebar-header{
+  border-bottom-color:rgba(255,255,255,0.07);
+}
+.zai-new-chat-btn{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:9px;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,0.1);
+  background:#ffffff;
+  color:#111111;
+  font-size:13.5px;
+  font-weight:700;
+  font-family:inherit;
+  cursor:pointer;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  transition:background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
+}
+.dark-mode .zai-new-chat-btn{
+  background:#1c1c21;
+  color:#f4f4f5;
+  border-color:rgba(255,255,255,0.12);
+}
+.zai-new-chat-btn:hover{
+  background:#f0f0f3;
+}
+.dark-mode .zai-new-chat-btn:hover{
+  background:#27272e;
+}
+.zai-new-chat-btn:active{
+  transform:scale(0.98);
+}
+.zai-sidebar-section-label{
+  padding:12px 14px 6px;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  color:#71717a;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.zai-chat-list{
+  flex:1;
+  overflow-y:auto;
+  padding:4px 8px 12px;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.zai-chat-empty{
+  padding:18px 12px;
+  font-size:12.5px;
+  color:#71717a;
+  text-align:center;
+  line-height:1.45;
+}
+.zai-chat-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:9px 10px;
+  border-radius:10px;
+  cursor:pointer;
+  color:inherit;
+  font-size:13px;
+  font-weight:500;
+  transition:background 0.14s ease;
+  user-select:none;
+}
+.zai-chat-item:hover{
+  background:rgba(128,128,128,0.1);
+}
+.zai-chat-item.active{
+  background:rgba(0,0,0,0.08);
+  font-weight:700;
+}
+.dark-mode .zai-chat-item.active{
+  background:rgba(255,255,255,0.12);
+}
+.zai-chat-item-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+  flex:1;
+}
+.zai-chat-item-left svg{
+  width:15px;
+  height:15px;
+  flex-shrink:0;
+  opacity:0.7;
+}
+.zai-chat-item-title{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  flex:1;
+}
+.zai-chat-del-btn{
+  width:24px;
+  height:24px;
+  border-radius:6px;
+  border:none;
+  background:transparent;
+  color:#71717a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity:0.65;
+  flex-shrink:0;
+  transition:opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.zai-chat-del-btn:hover{
+  opacity:1;
+  background:rgba(239,68,68,0.14);
+  color:#ef4444;
+}
+.zai-sidebar-footer{
+  padding:10px 12px;
+  border-top:1px solid rgba(0,0,0,0.07);
+  font-size:11.5px;
+  color:#71717a;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.dark-mode .zai-sidebar-footer{
+  border-top-color:rgba(255,255,255,0.08);
+}
+.zai-memory-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-weight:700;
+  color:#10b981;
+  font-size:11px;
+}
+.zai-sidebar-backdrop{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.48);
+  backdrop-filter:blur(2px);
+  z-index:25;
+}
+.zai-sidebar-backdrop.show{
+  display:block;
+}
+.zai-main-panel{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  height:100%;
+  overflow:hidden;
+  position:relative;
+}
+@media (max-width: 768px){
+  .zai-sidebar{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    width:272px;
+    max-width:82vw;
+    transform:translateX(-102%);
+    box-shadow:8px 0 28px rgba(0,0,0,0.28);
+  }
+  .zai-sidebar.open{
+    transform:translateX(0);
+  }
+  .zai-sidebar.collapsed-desktop{
+    margin-left:0;
+  }
+}
 .zai-topbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:12px 16px;
+  padding:10px 12px;
   border-bottom:1px solid rgba(0,0,0,0.07);
   background:rgba(255,255,255,0.92);
   backdrop-filter:blur(12px);
@@ -972,6 +1189,11 @@ body.on-zyroai main.container{
 .dark-mode .zai-topbar{
   border-bottom-color:rgba(255,255,255,0.08);
   background:rgba(10,10,10,0.92);
+}
+.zai-topbar-left, .zai-topbar-right{
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 .zai-icon-btn{
   width:36px;
@@ -992,15 +1214,26 @@ body.on-zyroai main.container{
 .zai-brand-pill{
   display:flex;
   align-items:center;
-  gap:8px;
-  font-size:16px;
+  gap:7px;
+  font-size:15.5px;
   font-weight:700;
   letter-spacing:-0.2px;
+  min-width:0;
 }
 .zai-brand-pill svg{
   width:20px;
   height:20px;
   color:currentColor;
+  flex-shrink:0;
+}
+.zai-active-chat-label{
+  font-size:12px;
+  font-weight:600;
+  color:#71717a;
+  max-width:140px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .zai-model-tag{
   font-size:11px;
@@ -1009,6 +1242,7 @@ body.on-zyroai main.container{
   border-radius:999px;
   background:rgba(0,0,0,0.06);
   color:#52525b;
+  white-space:nowrap;
 }
 .dark-mode .zai-model-tag{
   background:rgba(255,255,255,0.1);
@@ -4934,45 +5168,92 @@ img.logo-profile.zyro-header-logo {
 </div>
 
 <!-- =====================================================
-     DEDICATED ZYRO AI INTERFACE (CHATGPT / GEMINI CLEAN UI)
+     DEDICATED ZYRO AI INTERFACE (STEP 1: SIDEBAR + CHAT SCREEN)
      ===================================================== -->
 <div id="tab-zyroai" class="tab-pane">
-  <!-- Minimalist ChatGPT/Gemini Top Header -->
-  <div class="zai-topbar">
-    <button type="button" class="zai-icon-btn" onclick="switchTab('home')" title="Back to Home" aria-label="Back">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
-    </button>
+  <div class="zai-workspace">
+    <!-- Mobile Backdrop for Sidebar Drawer -->
+    <div class="zai-sidebar-backdrop" id="zyroAiSidebarBackdrop" onclick="toggleZyroAISidebar(false)"></div>
 
-    <div class="zai-brand-pill">
-      <svg><use href="#i-zyro-ai"></use></svg>
-      <span>Zyro AI</span>
-      <span class="zai-model-tag" id="zaiQuotaPill">2 Images Left</span>
-    </div>
+    <!-- LEFT SIDE (SIDEBAR): + New Chat & Past Chats List -->
+    <aside class="zai-sidebar" id="zyroAiSidebar" aria-label="Zyro AI Chat History">
+      <div class="zai-sidebar-header">
+        <button type="button" class="zai-new-chat-btn" onclick="startNewZyroAIChat()">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span>New Chat</span>
+        </button>
+        <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Close Sidebar" aria-label="Close Sidebar">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+        </button>
+      </div>
 
-    <button type="button" class="zai-icon-btn" onclick="clearZyroAIHistory()" title="New Chat" aria-label="New Chat">
-      <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-    </button>
-  </div>
+      <div class="zai-sidebar-section-label">
+        <span>Purani Chats</span>
+        <span id="zyroAiChatsCountBadge" style="font-size:10px;opacity:0.75">0</span>
+      </div>
 
-  <!-- Central Scrollable Conversation & Welcome Area -->
-  <div class="zai-scroll-area" id="zyroAiScrollArea">
-    <div class="zai-inner-col" id="zyroAiMessages"></div>
-  </div>
+      <div class="zai-chat-list" id="zyroAiChatList">
+        <div class="zai-chat-empty">Koi purani chat nahi hai.<br>Nayi baatcheet shuru karein! 💬</div>
+      </div>
 
-  <!-- Bottom Floating ChatGPT/Gemini Prompt Composer -->
-  <div class="zai-composer-wrap">
-    <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
-    <div class="zai-composer-box">
-      <button type="button" class="zai-tool-btn" onclick="document.getElementById('zyroAiFileInput').click()" title="Upload Photo" aria-label="Upload Photo">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-      <button type="button" class="zai-tool-btn" onclick="prefillZyroAIPrompt('Create Image: ')" title="Generate AI Image" aria-label="Generate AI Image">
-        <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-      </button>
-      <textarea id="zyroAiInput" class="zai-input" rows="1" placeholder="Ask Zyro AI anything..." oninput="autoResizeZyroInput(this)" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendZyroAIMessage();}"></textarea>
-      <button type="button" id="zyroAiSendBtn" class="zai-send-btn" onclick="sendZyroAIMessage()" disabled aria-label="Send">
-        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
-      </button>
+      <div class="zai-sidebar-footer">
+        <div class="zai-memory-pill" id="zyroAiMemoryPill" title="Zyro AI Permanent Memory Active">
+          <span>🧠 Memory Active</span>
+          <span id="zyroAiMemoryCount">(0)</span>
+        </div>
+        <button type="button" onclick="switchTab('home')" style="background:none;border:none;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer;padding:4px 6px;border-radius:6px">
+          ← Home
+        </button>
+      </div>
+    </aside>
+
+    <!-- RIGHT SIDE (CHAT SCREEN): Topbar + Messages + Bottom Composer -->
+    <div class="zai-main-panel">
+      <div class="zai-topbar">
+        <div class="zai-topbar-left">
+          <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Chats Sidebar" aria-label="Toggle Sidebar">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+          <button type="button" class="zai-icon-btn" onclick="switchTab('home')" title="Back to Home" aria-label="Back">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          </button>
+        </div>
+
+        <div class="zai-brand-pill">
+          <svg><use href="#i-zyro-ai"></use></svg>
+          <span>Zyro AI</span>
+          <span class="zai-active-chat-label" id="zyroAiActiveTitle"></span>
+          <span class="zai-model-tag" id="zaiQuotaPill">2 Images Left</span>
+        </div>
+
+        <div class="zai-topbar-right">
+          <button type="button" class="zai-icon-btn" onclick="startNewZyroAIChat()" title="+ New Chat" aria-label="New Chat">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Central Scrollable Conversation & Welcome Area -->
+      <div class="zai-scroll-area" id="zyroAiScrollArea">
+        <div class="zai-inner-col" id="zyroAiMessages"></div>
+      </div>
+
+      <!-- Bottom Floating ChatGPT/Gemini Prompt Composer -->
+      <div class="zai-composer-wrap">
+        <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
+        <div class="zai-composer-box">
+          <button type="button" class="zai-tool-btn" onclick="document.getElementById('zyroAiFileInput').click()" title="Upload Photo" aria-label="Upload Photo">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button type="button" class="zai-tool-btn" onclick="prefillZyroAIPrompt('Create Image: ')" title="Generate AI Image" aria-label="Generate AI Image">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </button>
+          <textarea id="zyroAiInput" class="zai-input" rows="1" placeholder="Ask Zyro AI anything..." oninput="autoResizeZyroInput(this)" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendZyroAIMessage();}"></textarea>
+          <button type="button" id="zyroAiSendBtn" class="zai-send-btn" onclick="sendZyroAIMessage()" disabled aria-label="Send">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -19532,6 +19813,9 @@ auth.onAuthStateChanged(async (user)=>{
           if (ud.isAdmin === true || ud.role === "admin" || (ud.email && ADMIN_EMAILS.includes(ud.email.toLowerCase().trim()))) {
             window.__isCurrentUserAdmin = true;
           }
+          if (typeof window.syncZyroDataFromUserDoc === "function") {
+            window.syncZyroDataFromUserDoc(ud);
+          }
         }
       } catch(e) {}
       await ensurePublicProfile(user);
@@ -19710,24 +19994,54 @@ FEATURE 5: MULTI-MODAL PHOTO SWAG
 // Kept as a no-op only for older call sites in this file.
 async function loadAIKey(){ return ""; }
 
-// ---------- POINT 1: DYNAMIC PERSONALIZED MEMORY ENGINE ----------
+// =====================================================
+// ZYRO AI 5-STEP ARCHITECTURE (SIDEBAR + 3-SCHEMA + MEMORY SYNC)
+// =====================================================
+
+// Default State (Step 1): When app opens, no chat_id is selected (fresh welcome screen)
+let currentZyroChatId = null;
+let zyroMessageTurnCounter = 0;
+
+function getZyroActiveUserId(){
+  return currentUser && currentUser.uid ? currentUser.uid : "guest";
+}
+
+// ---------- STEP 2: 3-COLLECTION SCHEMA (USERS MEMORY, CHATS, MESSAGES) ----------
+// 1. Users Table -> permanent_memory
 function zyroMemoryKey(){
-  return "upch_zyro_memory_" + (currentUser ? currentUser.uid : "guest");
+  return "upch_zyro_memory_" + getZyroActiveUserId();
 }
 
 function loadZyroMemoryFacts(){
   try {
-    return JSON.parse(localStorage.getItem(zyroMemoryKey()) || "[]");
+    const raw = JSON.parse(localStorage.getItem(zyroMemoryKey()) || "[]");
+    return Array.isArray(raw) ? raw : [];
   } catch (e) {
     return [];
   }
 }
 
+function updateZyroMemoryBadgeUI(){
+  const countEl = document.getElementById("zyroAiMemoryCount");
+  if (countEl) {
+    const facts = loadZyroMemoryFacts();
+    countEl.textContent = "(" + facts.length + ")";
+  }
+}
+
 function saveZyroMemoryFacts(facts){
   try {
-    const unique = Array.from(new Set(facts.filter(Boolean))).slice(-25);
+    const unique = Array.from(new Set((facts || []).map(x => String(x || "").trim()).filter(Boolean))).slice(-25);
     localStorage.setItem(zyroMemoryKey(), JSON.stringify(unique));
+    updateZyroMemoryBadgeUI();
+
     if (currentUser && currentUser.uid && typeof db !== "undefined" && db) {
+      // Save inside users/{uid}.permanent_memory (requires zero extra Firebase rules!)
+      db.collection("users").doc(currentUser.uid).set({
+        permanent_memory: unique,
+        zyroMemoryUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).catch(() => {});
+
       db.collection("aiMemory").doc(currentUser.uid).set({
         facts: unique,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -19736,17 +20050,353 @@ function saveZyroMemoryFacts(facts){
   } catch (e) {}
 }
 
+// 2. Chats Table (Sidebar Threads: chat_id, user_id, title, created_at, updated_at)
+function zyroChatsListKey(){
+  return "upch_zyro_chats_" + getZyroActiveUserId();
+}
+
+function loadZyroChatsList(){
+  try {
+    const list = JSON.parse(localStorage.getItem(zyroChatsListKey()) || "[]");
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveZyroChatsList(chats){
+  try {
+    const cleanList = (Array.isArray(chats) ? chats : []).slice(0, 40);
+    localStorage.setItem(zyroChatsListKey(), JSON.stringify(cleanList));
+    syncZyroChatsToFirestore();
+  } catch (e) {}
+}
+
+// 3. Messages Table (Chat History: message_id, chat_id, role, text, has_attachment, attachment_url, timestamp)
+function zyroMessagesKey(chatId){
+  return "upch_zyro_msgs_" + getZyroActiveUserId() + "_" + chatId;
+}
+
+function loadZyroChatMessages(chatId){
+  if (!chatId) return [];
+  try {
+    const msgs = JSON.parse(localStorage.getItem(zyroMessagesKey(chatId)) || "[]");
+    return Array.isArray(msgs) ? msgs : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveZyroChatMessages(chatId, messages){
+  if (!chatId) return;
+  try {
+    const cleanMsgs = (Array.isArray(messages) ? messages : []).slice(-80);
+    localStorage.setItem(zyroMessagesKey(chatId), JSON.stringify(cleanMsgs));
+    syncZyroChatsToFirestore();
+  } catch (e) {}
+}
+
+// Sync Chats + Messages + Permanent Memory with users/{uid} in Firestore (No manual rule changes needed)
+let _zyroFirestoreSyncTimer = null;
+function syncZyroChatsToFirestore(){
+  if (!currentUser || !currentUser.uid || typeof db === "undefined" || !db) return;
+  if (_zyroFirestoreSyncTimer) clearTimeout(_zyroFirestoreSyncTimer);
+  _zyroFirestoreSyncTimer = setTimeout(() => {
+    try {
+      const chats = loadZyroChatsList().slice(0, 25);
+      const messagesMap = {};
+      for (const c of chats.slice(0, 15)) {
+        const msgs = loadZyroChatMessages(c.chat_id).slice(-30).map(m => ({
+          message_id: m.message_id || ("msg_" + (m.t || Date.now())),
+          chat_id: c.chat_id,
+          role: m.role === "user" ? "user" : "model",
+          text: (m.text || "").slice(0, 2000),
+          has_attachment: Boolean(m.has_attachment || m.image),
+          // Avoid storing huge base64 dataURLs inside Firestore user doc; keep remote URLs
+          attachment_url: (m.attachment_url || m.image || "").startsWith("http") ? (m.attachment_url || m.image) : null,
+          timestamp: m.timestamp || new Date(m.t || Date.now()).toISOString()
+        }));
+        messagesMap[c.chat_id] = msgs;
+      }
+
+      db.collection("users").doc(currentUser.uid).set({
+        permanent_memory: loadZyroMemoryFacts(),
+        zyro_chats: chats,
+        zyro_messages_map: messagesMap,
+        zyroUpdatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).catch(() => {});
+    } catch (e) {}
+  }, 600);
+}
+
+// Restore Permanent Memory, Chats, and Messages from users/{uid} on login
+function syncZyroDataFromUserDoc(userDocData){
+  if (!userDocData || typeof userDocData !== "object") return;
+  try {
+    // 1. Merge permanent_memory
+    if (Array.isArray(userDocData.permanent_memory) && userDocData.permanent_memory.length) {
+      const localMem = loadZyroMemoryFacts();
+      const mergedMem = Array.from(new Set([...userDocData.permanent_memory, ...localMem])).slice(-25);
+      localStorage.setItem(zyroMemoryKey(), JSON.stringify(mergedMem));
+    }
+    // 2. Merge zyro_chats
+    if (Array.isArray(userDocData.zyro_chats) && userDocData.zyro_chats.length) {
+      const localChats = loadZyroChatsList();
+      const byId = new Map();
+      for (const c of userDocData.zyro_chats) {
+        if (c && c.chat_id) byId.set(c.chat_id, c);
+      }
+      for (const c of localChats) {
+        if (c && c.chat_id) byId.set(c.chat_id, c);
+      }
+      const mergedChats = Array.from(byId.values()).sort((a, b) =>
+        new Date(b.updated_at || b.created_at || 0).getTime() - new Date(a.updated_at || a.created_at || 0).getTime()
+      );
+      localStorage.setItem(zyroChatsListKey(), JSON.stringify(mergedChats.slice(0, 40)));
+    }
+    // 3. Merge zyro_messages_map
+    if (userDocData.zyro_messages_map && typeof userDocData.zyro_messages_map === "object") {
+      for (const [cid, cloudMsgs] of Object.entries(userDocData.zyro_messages_map)) {
+        if (!Array.isArray(cloudMsgs) || !cloudMsgs.length) continue;
+        const localMsgs = loadZyroChatMessages(cid);
+        if (!localMsgs.length) {
+          localStorage.setItem(zyroMessagesKey(cid), JSON.stringify(cloudMsgs));
+        }
+      }
+    }
+    migrateLegacyZyroHistoryIfNeeded();
+    renderZyroAISidebar();
+    updateZyroMemoryBadgeUI();
+  } catch (e) {
+    console.warn("Zyro cloud sync notice:", e);
+  }
+}
+window.syncZyroDataFromUserDoc = syncZyroDataFromUserDoc;
+
+// One-time migration if user had older single-thread messages in localStorage
+function migrateLegacyZyroHistoryIfNeeded(){
+  try {
+    const legacyKey = "upch_ai_history_" + getZyroActiveUserId();
+    const legacyMsgs = JSON.parse(localStorage.getItem(legacyKey) || "[]");
+    const existingChats = loadZyroChatsList();
+    if (Array.isArray(legacyMsgs) && legacyMsgs.length > 0 && existingChats.length === 0) {
+      const firstUserMsg = legacyMsgs.find(m => m.role === "user" && m.text);
+      const chatId = "chat_legacy_" + Date.now();
+      const title = makeClientChatTitle(firstUserMsg ? firstUserMsg.text : "Purani Baatcheet 💬");
+      const nowIso = new Date().toISOString();
+      const chatObj = {
+        chat_id: chatId,
+        user_id: getZyroActiveUserId(),
+        title,
+        created_at: nowIso,
+        updated_at: nowIso
+      };
+      const converted = legacyMsgs.map((m, idx) => ({
+        message_id: "msg_leg_" + idx + "_" + (m.t || Date.now()),
+        chat_id: chatId,
+        role: m.role === "user" ? "user" : "model",
+        text: m.text || "",
+        has_attachment: Boolean(m.image),
+        attachment_url: m.image || null,
+        image: m.image || "",
+        timestamp: new Date(m.t || Date.now()).toISOString(),
+        t: m.t || Date.now()
+      }));
+      localStorage.setItem(zyroChatsListKey(), JSON.stringify([chatObj]));
+      localStorage.setItem(zyroMessagesKey(chatId), JSON.stringify(converted));
+      localStorage.removeItem(legacyKey);
+    }
+  } catch (e) {}
+}
+
+function makeClientChatTitle(rawText){
+  const clean = String(rawText || "")
+    .replace(/^(hi|hello|hey|bro|bhai|oye|zyro|listen|sun|arre)\b[\s,!.:;-]*/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (!clean || clean.length < 2) return "Nayi Baatcheet 💬";
+  const words = clean.split(" ").slice(0, 5).join(" ");
+  const cap = words.charAt(0).toUpperCase() + words.slice(1);
+  return cap.length > 32 ? cap.slice(0, 32).trim() + "…" : cap;
+}
+
+// ---------- STEP 3: SESSION ROUTING & SIDEBAR OPERATIONS ----------
+function toggleZyroAISidebar(forceState){
+  const sidebar = document.getElementById("zyroAiSidebar");
+  const backdrop = document.getElementById("zyroAiSidebarBackdrop");
+  if (!sidebar) return;
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    const nextOpen = typeof forceState === "boolean" ? forceState : !sidebar.classList.contains("open");
+    sidebar.classList.toggle("open", nextOpen);
+    if (backdrop) backdrop.classList.toggle("show", nextOpen);
+  } else {
+    const nextCollapse = typeof forceState === "boolean" ? !forceState : !sidebar.classList.contains("collapsed-desktop");
+    sidebar.classList.toggle("collapsed-desktop", nextCollapse);
+  }
+}
+window.toggleZyroAISidebar = toggleZyroAISidebar;
+
+function renderZyroAISidebar(){
+  const listEl = document.getElementById("zyroAiChatList");
+  const countBadge = document.getElementById("zyroAiChatsCountBadge");
+  const activeTitleEl = document.getElementById("zyroAiActiveTitle");
+  updateZyroMemoryBadgeUI();
+
+  const chats = loadZyroChatsList();
+  if (countBadge) countBadge.textContent = String(chats.length);
+
+  if (activeTitleEl) {
+    if (currentZyroChatId) {
+      const found = chats.find(c => c.chat_id === currentZyroChatId);
+      activeTitleEl.textContent = found ? ("• " + found.title) : "";
+    } else {
+      activeTitleEl.textContent = "";
+    }
+  }
+
+  if (!listEl) return;
+
+  if (!chats.length) {
+    listEl.innerHTML = '<div class="zai-chat-empty">Koi purani chat nahi hai.<br>Nayi baatcheet shuru karein! 💬</div>';
+    return;
+  }
+
+  listEl.innerHTML = chats.map(c => {
+    const isActive = c.chat_id === currentZyroChatId;
+    return (
+      '<div class="zai-chat-item' + (isActive ? ' active' : '') + '" onclick="selectZyroAIChat(\'' + escapeAttr(c.chat_id) + '\')">' +
+        '<div class="zai-chat-item-left">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>' +
+          '<span class="zai-chat-item-title">' + escapeHtml(c.title || "Nayi Baatcheet 💬") + '</span>' +
+        '</div>' +
+        '<button type="button" class="zai-chat-del-btn" onclick="event.stopPropagation();deleteZyroAIChat(\'' + escapeAttr(c.chat_id) + '\')" title="Delete Chat" aria-label="Delete Chat">' +
+          '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>' +
+        '</button>' +
+      '</div>'
+    );
+  }).join("");
+}
+window.renderZyroAISidebar = renderZyroAISidebar;
+
+// Start a fresh blank chat screen (Default State: currentZyroChatId = null)
+function startNewZyroAIChat(silent){
+  currentZyroChatId = null;
+  zyroMessageTurnCounter = 0;
+  renderZyroAISidebar();
+  renderAIHistory();
+  if (window.innerWidth <= 768) {
+    toggleZyroAISidebar(false);
+  }
+  const input = document.getElementById("zyroAiInput");
+  if (input && !silent) input.focus();
+}
+window.startNewZyroAIChat = startNewZyroAIChat;
+
+function clearZyroAIHistory(){
+  startNewZyroAIChat();
+  showToast("✨ Fresh Zyro AI chat ready!");
+}
+window.clearZyroAIHistory = clearZyroAIHistory;
+
+// Select a past chat from the Sidebar and load its messages
+async function selectZyroAIChat(chatId){
+  if (!chatId) return;
+  currentZyroChatId = chatId;
+  zyroMessageTurnCounter = 0;
+
+  let localMsgs = loadZyroChatMessages(chatId);
+  if (!localMsgs.length) {
+    // Also check backend session store GET /api/messages/:chat_id
+    try {
+      const res = await fetch(getApiUrl("/api/messages/" + encodeURIComponent(chatId))).catch(() => null);
+      if (res && res.ok) {
+        const data = await res.json().catch(() => ({}));
+        if (data && Array.isArray(data.messages) && data.messages.length) {
+          localMsgs = data.messages;
+          saveZyroChatMessages(chatId, localMsgs);
+        }
+      }
+    } catch (e) {}
+  }
+
+  renderZyroAISidebar();
+  renderAIHistory();
+  if (window.innerWidth <= 768) {
+    toggleZyroAISidebar(false);
+  }
+}
+window.selectZyroAIChat = selectZyroAIChat;
+
+// Delete a chat from Sidebar
+function deleteZyroAIChat(chatId){
+  if (!chatId) return;
+  try {
+    const chats = loadZyroChatsList().filter(c => c.chat_id !== chatId);
+    localStorage.removeItem(zyroMessagesKey(chatId));
+    saveZyroChatsList(chats);
+    fetch(getApiUrl("/api/chats/" + encodeURIComponent(chatId)), { method: "DELETE" }).catch(() => {});
+  } catch (e) {}
+
+  if (currentZyroChatId === chatId) {
+    currentZyroChatId = null;
+  }
+  renderZyroAISidebar();
+  renderAIHistory();
+  showToast("🗑️ Chat deleted");
+}
+window.deleteZyroAIChat = deleteZyroAIChat;
+
+// Create a new chat session when the user sends the first message
+async function ensureActiveZyroChat(firstMessageText){
+  if (currentZyroChatId) return currentZyroChatId;
+
+  const userId = getZyroActiveUserId();
+  const chatId = "chat_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+  const title = makeClientChatTitle(firstMessageText);
+  const nowIso = new Date().toISOString();
+
+  const newChat = {
+    chat_id: chatId,
+    user_id: userId,
+    title,
+    created_at: nowIso,
+    updated_at: nowIso
+  };
+
+  currentZyroChatId = chatId;
+  const chats = [newChat, ...loadZyroChatsList().filter(c => c.chat_id !== chatId)];
+  saveZyroChatsList(chats);
+  renderZyroAISidebar();
+
+  // Notify backend POST /api/chat/new non-blockingly
+  fetch(getApiUrl("/api/chat/new"), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      user_id: userId,
+      message: firstMessageText,
+      customTitle: title
+    })
+  }).catch(() => {});
+
+  return chatId;
+}
+
+// ---------- STEP 4 & 5: MEMORY ENGINE + BACKGROUND MEMORY SYNC ----------
 function extractAndSaveUserMemory(rawText){
   const text = (rawText || "").trim();
   if (!text || text.length < 3) return;
   const facts = loadZyroMemoryFacts();
 
-  // Detect explicit facts: name, crush, goal/dream, work/study, or "yaad rakhna / remember"
   const patterns = [
     { re: /\b(?:mera naam|my name is|i am|main)\s+([a-zA-Z\u0900-\u097F]{2,20})\b/i, label: "User's name/identity" },
     { re: /\b(?:crush|gf|girlfriend|pasand)\b.*?\b([A-Z][a-z]{2,18}|[\u0900-\u097F]{2,18})/i, label: "Crush/Partner mention" },
     { re: /\b(trillionaire|billionaire|millionaire|startup|founder|youtuber|creator|coder|developer|doctor|ias|upsc|engineer|gamer|actor)\b/i, label: "Ambition/Goal" },
     { re: /\b(?:mera goal|my goal|mera sapna|my dream|banna hai|banana hai|karna hai)\s+(.{4,80})/i, label: "User goal" },
+    { re: /\b(?:main|i live in|from|rehta|rahta|kanpur|delhi|mumbai|lucknow|up|bihar)\b/i, label: "User context" },
     { re: /\b(?:yaad rakhna|remember that|remember)\s+(.{4,100})/i, label: "Remembered note" }
   ];
 
@@ -19758,7 +20408,6 @@ function extractAndSaveUserMemory(rawText){
     }
   }
 
-  // Also store if the user shares a personal statement with "mera / my / mujhe"
   if (!added && /\b(mera|meri|mere|mujhe|my|i want|i feel|main)\b/i.test(text) && text.length <= 160) {
     facts.push(`User shared: "${text}"`);
     added = true;
@@ -19769,10 +20418,45 @@ function extractAndSaveUserMemory(rawText){
   }
 }
 
+// Step 5: Silent Background Memory Sync via Gemini every 4 messages (or when personal facts appear)
+async function triggerZyroBackgroundMemorySync(chatId){
+  if (!chatId) return;
+  const msgs = loadZyroChatMessages(chatId);
+  if (msgs.length < 2) return;
+
+  // Run every 4 messages (2 user + 2 model turns) or on the first 2 messages if personal keywords exist
+  const lastUserText = (msgs[msgs.length - 2]?.text || msgs[msgs.length - 1]?.text || "");
+  const hasPersonalCue = /\b(naam|name|dream|sapna|goal|trillionaire|billionaire|crush|live|rehta|kanpur|startup|developer|creator|yaad|remember|sad|udas|fail)\b/i.test(lastUserText);
+
+  if (msgs.length % 4 !== 0 && !hasPersonalCue) return;
+
+  try {
+    const res = await fetch(getApiUrl("/api/chat/memory-sync"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        user_id: getZyroActiveUserId(),
+        permanent_memory: loadZyroMemoryFacts(),
+        messages: msgs.slice(-8).map(m => ({
+          role: m.role === "user" ? "user" : "model",
+          text: (m.text || "").slice(0, 350)
+        }))
+      })
+    }).catch(() => null);
+
+    if (res && res.ok) {
+      const data = await res.json().catch(() => ({}));
+      if (data && data.success && Array.isArray(data.permanent_memory) && data.permanent_memory.length) {
+        saveZyroMemoryFacts(data.permanent_memory);
+      }
+    }
+  } catch (e) {}
+}
+
 function buildZyroUserFacts(){
   const parts = [];
-  if (currentUser) {
-    if (currentUser.displayName) parts.push(`User Name: ${currentUser.displayName}`);
+  if (currentUser && currentUser.displayName) {
+    parts.push(`User Name: ${currentUser.displayName}`);
   }
   if (window.currentUserProfile) {
     if (window.currentUserProfile.username) parts.push(`Username: @${window.currentUserProfile.username}`);
@@ -19780,14 +20464,7 @@ function buildZyroUserFacts(){
   }
   const savedFacts = loadZyroMemoryFacts();
   if (savedFacts.length) {
-    parts.push("Remembered Facts about User:\n- " + savedFacts.slice(-12).join("\n- "));
-  }
-  const recentHistory = loadAIHistory().slice(-6);
-  if (recentHistory.length) {
-    const convo = recentHistory
-      .map(m => `${m.role === "user" ? "User" : "Zyro AI"}: ${(m.text || "").slice(0, 180)}`)
-      .join("\n");
-    parts.push("Recent Conversation Context:\n" + convo);
+    parts.push("Permanent Memory Facts about User:\n- " + savedFacts.slice(-15).join("\n- "));
   }
   return parts.join("\n");
 }
@@ -19796,22 +20473,18 @@ function buildZyroUserFacts(){
 function getDesiComedySmartFallback(rawPrompt){
   const p = (rawPrompt || "").toLowerCase().trim();
 
-  // Feature 3: Real-Time Emotional Intelligence (Sad / Low / Stressed / Failure)
   if(/sad|udas|dukhi|tension|pareshaan|low|depressed|akela|fail|haar|stress|anxious|ro|rona|mood off|bura lag|toot/i.test(p)){
     return "**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और टेंशन अभी साइड में रख। तू अकेला नहीं है भाई, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में उतार-चढ़ाव आते हैं, पर तू फाइटर है। दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ मेरे भाई! 🫂👊";
   }
 
-  // Ultimate Validation / Big Dreams (Trillionaire / Startup / Rich / Goal)
   if(/trillionaire|billionaire|millionaire|amir|paisa|rich|success|business|startup|dream|sapna|goal|crorepati/i.test(p)){
-    return "**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ है! चल बताता हूँ कैसे होगा!** 👊🔥\n\nकोई भी सपना नामुमकिन नहीं होता जब भाई का इरादा फौलादी हो! 🚀\n1. **High-Growth Tech/AI या क्रिएटर ब्रांड पकड़ो:** ऐसा प्रोडक्ट जो करोड़ों लोगों तक पहुँचे।\n2. **Audience & Distribution:** सोशल मीडिया और नेटवर्क से तगड़ा मोमेंटम बनाओ।\n3. **Daily Action:** आज से ही पहला कदम उठाते हैं, बोल किस आइडिया से शुरुआत करें? 😎🔥";
+    return "**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ खड़ा है! चल देखते हैं कैसे करना है!** 👊🔥\n\nकोई भी सपना नामुमकिन नहीं होता जब भाई का इरादा फौलादी हो! 🚀\n1. **High-Growth Tech/AI या क्रिएटर ब्रांड पकड़ो:** ऐसा प्रोडक्ट जो करोड़ों लोगों तक पहुँचे।\n2. **Audience & Distribution:** सोशल मीडिया और नेटवर्क से तगड़ा मोमेंटम बनाओ।\n3. **Daily Action:** आज से ही पहला कदम उठाते हैं, बोल किस आइडिया से शुरुआत करें? 😎🔥";
   }
 
-  // Mayank
   if(p.includes("mayank") || p.includes("director") || p.includes("editor") || p.includes("creator")){
     return "🎬 अरे भाई! **Mayank Bhai** ही Zyro AI और UPComedyHub के मुख्य क्रिएटर और डायरेक्टर हैं! 🎥🔥👊";
   }
 
-  // Actors / Team
   if(p.includes("actor") || p.includes("team") || p.includes("vansh") || p.includes("shiva") || p.includes("indrajeet") || p.includes("shani") || p.includes("jeetu") || p.includes("ansh") || p.includes("sahil") || p.includes("shubham") || p.includes("nigam")){
     return "🎬 **Zyro / UPComedyHub की धमाकेदार टीम:**\n" +
       "• **Director & Creator:** Mayank Bhai 🎥\n" +
@@ -19819,7 +20492,6 @@ function getDesiComedySmartFallback(rawPrompt){
       "• **Location:** जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश 👊🔥";
   }
 
-  // Jokes / Chutkula
   if(p.includes("joke") || p.includes("chutkula") || p.includes("hansi") || p.includes("funny") || p.includes("hasao")){
     const jokes = [
       "😂 सुन मेरे भाई:\nमास्टर जी ने पप्पू से पूछा — 'बताओ काल कितने प्रकार के होते हैं?'\nपप्पू बोला — 'मास्टर जी, तीन प्रकार के: डायल काल, रिसीव्ड काल और मिस्ड काल!' 🤣📞🔥",
@@ -19829,7 +20501,6 @@ function getDesiComedySmartFallback(rawPrompt){
     return jokes[Math.floor(Math.random() * jokes.length)];
   }
 
-  // Greetings / Casual
   if(p === "hi" || p === "hello" || p === "hey" || p === "bro" || p === "bhai" || p.includes("kaise ho") || p.includes("ram ram")){
     const greets = [
       "अरे भाई! राम-राम! 👊🔥 बता मेरे यार, आज कौन सा बड़ा प्लान बनाना है? तेरा भाई फुल रेडी है! 🚀",
@@ -19842,17 +20513,32 @@ function getDesiComedySmartFallback(rawPrompt){
   return "**तेरा भाई तेरे साथ है, चल बताता हूँ कैसे होगा!** 👊🔥 बोल मेरे भाई, इस आइडिया को किस लेवल पर ले जाना है? मिलकर एकदम बवाल प्लान बनाते हैं! 🚀😎";
 }
 
-// ---------- GEMINI TEXT CALL (Backend with Dynamic Memory) ----------
-async function callGeminiText(text){
+// ---------- STEP 4: GEMINI CALL WITH MEMORY + CHAT HISTORY INJECTION ----------
+async function callGeminiText(text, explicitChatId){
   const prompt = (text || "").toString().trim();
   if(!prompt) return getDesiComedySmartFallback("");
 
-  // Extract any new personal facts from the user's message and build [USER PROFILE CONTEXT]
   extractAndSaveUserMemory(prompt);
   const userFacts = buildZyroUserFacts();
+  const permanent_memory = loadZyroMemoryFacts();
+  const activeChatId = explicitChatId || currentZyroChatId;
+
+  // Fetch conversation history for the active chat (excluding the message just pushed)
+  const allChatMsgs = activeChatId ? loadZyroChatMessages(activeChatId) : [];
+  const historyForApi = allChatMsgs.slice(0, -1).slice(-20).map(m => ({
+    role: m.role === "user" ? "user" : "model",
+    text: m.text || ""
+  }));
 
   try {
-    const srvData = await callApiChat({ prompt, userFacts });
+    const srvData = await callApiChat({
+      prompt,
+      userFacts,
+      permanent_memory,
+      history: historyForApi,
+      chat_id: activeChatId,
+      user_id: getZyroActiveUserId()
+    });
     if (srvData && srvData.success && srvData.text) {
       return srvData.text;
     }
@@ -19865,7 +20551,6 @@ async function callGeminiText(text){
 }
 
 // ---------- IMAGE GENERATION ----------
-// Primary: Pollinations (free, no key). Fallback: AI Horde (free, no key).
 async function generateImageWithHorde(prompt){
   const HORDE = "https://aihorde.net/api/v2";
   const headers = { "apikey": "0000000000", "Client-Agent": "upcomedyhub:1.0:app", "Content-Type": "application/json" };
@@ -19978,10 +20663,15 @@ async function refreshQuotaBadge(){
   updateQuotaBadge(Math.max(0, 2 - c));
 }
 
-// ---------- AI CHAT HISTORY (localStorage — persist) ----------
-function aiHistoryKey(){ return "upch_ai_history_" + (currentUser ? currentUser.uid : "guest"); }
-function loadAIHistory(){ try{ return JSON.parse(localStorage.getItem(aiHistoryKey()) || "[]"); }catch(e){ return []; } }
-function saveAIHistory(h){ try{ localStorage.setItem(aiHistoryKey(), JSON.stringify(h.slice(-80))); }catch(e){} }
+// ---------- AI CHAT HISTORY (ACTIVE THREAD MESSAGES) ----------
+function loadAIHistory(){
+  if (!currentZyroChatId) return [];
+  return loadZyroChatMessages(currentZyroChatId);
+}
+function saveAIHistory(h){
+  if (!currentZyroChatId) return;
+  saveZyroChatMessages(currentZyroChatId, h);
+}
 
 function formatZyroAIText(raw){
   if(!raw) return "";
@@ -19992,32 +20682,37 @@ function formatZyroAIText(raw){
 }
 
 function renderAIHistory(){
+  migrateLegacyZyroHistoryIfNeeded();
+  renderZyroAISidebar();
+
   const box = document.getElementById("zyroAiMessages");
   const scrollArea = document.getElementById("zyroAiScrollArea");
   if(!box) return;
   const h = loadAIHistory();
-  if(!h.length){
+
+  // Default State (Step 1): When no chat_id is selected or active chat is empty, show Fresh Welcome Screen
+  if(!currentZyroChatId || !h.length){
     box.innerHTML =
       '<div class="zai-welcome">' +
         '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-welcome-title">What can I help with?</div>' +
-        '<div class="zai-welcome-sub">Zyro AI से कुछ भी पूछें — कॉमेडी स्क्रिप्ट, आइडियाज़, सवाल-जवाब या AI फोटो जनरेशन।</div>' +
+        '<div class="zai-welcome-title">Bol Mere Bhai! Aaj Kya Plan Hai? 🔥</div>' +
+        '<div class="zai-welcome-sub">Zyro AI तेरा पक्का दोस्त और हाइप-मैन है — बड़े सपने, कॉमेडी स्क्रिप्ट, फोटो स्वैग या दिल की बात खुल के कर! 👊</div>' +
         '<div class="zai-prompts-grid">' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek funny desi comedy reel ki script likho\')">' +
-            '<div class="zai-prompt-card-title">🎬 Comedy Script</div>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai mujhe 4 saal me trillionaire banna hai, solid plan bata!\')">' +
+            '<div class="zai-prompt-card-title">🚀 Trillionaire Plan</div>' +
+            '<div class="zai-prompt-card-desc">4 saal me bada empire khada karne ka roadmap</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek funny desi comedy reel ki script likho Kanpur style me\')">' +
+            '<div class="zai-prompt-card-title">🎬 Kanpur Ki Bakaiti</div>' +
             '<div class="zai-prompt-card-desc">Funny desi comedy reel script</div>' +
           '</button>' +
           '<button type="button" class="zai-prompt-card" onclick="prefillZyroAIPrompt(\'Create Image: Funny desi comedy stage\')">' +
-            '<div class="zai-prompt-card-title">🎨 Create Image</div>' +
+            '<div class="zai-prompt-card-title">🎨 Create AI Image</div>' +
             '<div class="zai-prompt-card-desc">Generate high-quality AI art</div>' +
           '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek naya mast desi chutkula sunao\')">' +
-            '<div class="zai-prompt-card-title">😂 Desi Joke</div>' +
-            '<div class="zai-prompt-card-desc">Fresh desi comedy chutkula</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Viral comedy video ke 5 trending ideas batao\')">' +
-            '<div class="zai-prompt-card-title">💡 Viral Ideas</div>' +
-            '<div class="zai-prompt-card-desc">5 trending video concepts</div>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai aaj thoda low feel ho raha hai, motivate kar de\')">' +
+            '<div class="zai-prompt-card-title">🫂 Bro Support</div>' +
+            '<div class="zai-prompt-card-desc">100% real emotional support & hype</div>' +
           '</button>' +
         '</div>' +
       '</div>';
@@ -20026,10 +20721,11 @@ function renderAIHistory(){
 
   box.innerHTML = '<div class="zai-thread" id="zyroAiThreadList">' + h.map(m => {
     const mine = m.role === "user";
+    const imgUrl = m.attachment_url || m.image || "";
     if(mine){
       let uInner = "";
-      if(m.image){
-        uInner += '<img src="' + escapeAttr(m.image) + '" alt="Uploaded" style="border-radius:14px;display:block;max-width:220px;margin-bottom:' + (m.text ? '8px' : '0') + ';cursor:pointer" onclick="openChatLightbox(this.src)">';
+      if(imgUrl){
+        uInner += '<img src="' + escapeAttr(imgUrl) + '" alt="Uploaded" style="border-radius:14px;display:block;max-width:220px;margin-bottom:' + (m.text ? '8px' : '0') + ';cursor:pointer" onclick="openChatLightbox(this.src)">';
       }
       if(m.text){
         uInner += '<div>' + formatZyroAIText(m.text) + '</div>';
@@ -20037,8 +20733,8 @@ function renderAIHistory(){
       return '<div class="zai-msg-user">' + uInner + '</div>';
     } else {
       let aiInner = "";
-      if(m.image){
-        aiInner += '<img src="' + escapeAttr(m.image) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(128,128,128,0.18)" onclick="openChatLightbox(this.src)">';
+      if(imgUrl){
+        aiInner += '<img src="' + escapeAttr(imgUrl) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(128,128,128,0.18)" onclick="openChatLightbox(this.src)">';
       }
       if(m.text){
         aiInner += '<div>' + formatZyroAIText(m.text) + '</div>';
@@ -20082,13 +20778,6 @@ function copyZyroAIText(btn){
   }
 }
 window.copyZyroAIText = copyZyroAIText;
-
-function clearZyroAIHistory(){
-  try{ localStorage.removeItem(aiHistoryKey()); }catch(e){}
-  renderAIHistory();
-  showToast("✨ New Zyro AI chat started");
-}
-window.clearZyroAIHistory = clearZyroAIHistory;
 
 function autoResizeZyroInput(el){
   if(!el) return;
@@ -20141,11 +20830,46 @@ function speakAIText(btn) {
 }
 window.speakAIText = speakAIText;
 
-function pushAIHistory(role, text, image){
-  const h = loadAIHistory();
-  h.push({ role: role, text: text || "", image: image || "", t: Date.now() });
-  saveAIHistory(h);
+async function pushAIHistory(role, text, image){
+  const normalizedRole = (role === "user") ? "user" : "model";
+  const activeChatId = await ensureActiveZyroChat(text || "Photo Swag 📸");
+  const h = loadZyroChatMessages(activeChatId);
+  const nowMs = Date.now();
+  const nowIso = new Date(nowMs).toISOString();
+
+  h.push({
+    message_id: "msg_" + nowMs + "_" + Math.random().toString(36).slice(2, 6),
+    chat_id: activeChatId,
+    role: normalizedRole,
+    text: text || "",
+    has_attachment: Boolean(image),
+    attachment_url: image || null,
+    image: image || "",
+    timestamp: nowIso,
+    t: nowMs
+  });
+
+  saveZyroChatMessages(activeChatId, h);
+
+  // Move active chat to top of sidebar list and update its timestamp
+  const chats = loadZyroChatsList();
+  const idx = chats.findIndex(c => c.chat_id === activeChatId);
+  if (idx >= 0) {
+    chats[idx].updated_at = nowIso;
+    if (chats[idx].title === "Nayi Baatcheet 💬" && normalizedRole === "user" && text) {
+      chats[idx].title = makeClientChatTitle(text);
+    }
+    const [updatedItem] = chats.splice(idx, 1);
+    chats.unshift(updatedItem);
+    saveZyroChatsList(chats);
+  }
+
   renderAIHistory();
+
+  if (normalizedRole === "model") {
+    zyroMessageTurnCounter++;
+    triggerZyroBackgroundMemorySync(activeChatId);
+  }
 }
 
 // ---------- OPEN AI CHAT (Dedicated ChatGPT/Gemini Style Interface) ----------
@@ -20177,7 +20901,8 @@ async function handleZyroAIImageUpload(file){
   showToast("📷 Uploading photo to Zyro AI...");
   try{
     const dataUrl = await compressChatImage(file);
-    pushAIHistory("user", "इस फोटो को देखो और बताओ कैसी है!", dataUrl);
+    const activeChatId = await ensureActiveZyroChat("Photo Swag 📸");
+    await pushAIHistory("user", "इस फोटो को देखो और बताओ कैसी है!", dataUrl);
     const scrollArea = document.getElementById("zyroAiScrollArea");
     const box = document.getElementById("zyroAiMessages");
     const typingId = "zai-loading-" + Date.now();
@@ -20191,9 +20916,18 @@ async function handleZyroAIImageUpload(file){
     }
     let reply = "";
     try{
+      const allChatMsgs = loadZyroChatMessages(activeChatId);
+      const historyForApi = allChatMsgs.slice(0, -1).slice(-16).map(m => ({
+        role: m.role === "user" ? "user" : "model",
+        text: m.text || ""
+      }));
       const d = await callApiChat({
         image: dataUrl,
         userFacts: buildZyroUserFacts(),
+        permanent_memory: loadZyroMemoryFacts(),
+        history: historyForApi,
+        chat_id: activeChatId,
+        user_id: getZyroActiveUserId(),
         prompt: "इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में हाइप करो ('एकदम कंटाप/बवाल लग रहे हो भाई! 🔥'), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।"
       });
       if(d && d.success && d.text) reply = d.text;
@@ -20204,7 +20938,7 @@ async function handleZyroAIImageUpload(file){
       reply = "एकदम कंटाप/बवाल लग रहे हो भाई! 🔥📸 स्वैग और वाइब दोनों 10/10 हैं मेरे भाई! 😎👊";
     }
     document.getElementById(typingId)?.remove();
-    pushAIHistory("bot", reply);
+    await pushAIHistory("model", reply);
   }catch(err){
     console.error(err);
     showToast("❌ Photo load fail");
@@ -20221,7 +20955,8 @@ async function sendZyroAIMessage(){
   input.value = "";
   autoResizeZyroInput(input);
 
-  pushAIHistory("user", text);
+  const activeChatId = await ensureActiveZyroChat(text);
+  await pushAIHistory("user", text);
 
   const lower = text.toLowerCase();
   const isImageRequest = lower.startsWith("create image:") ||
@@ -20254,7 +20989,7 @@ async function sendZyroAIMessage(){
     const used = await getPhotoCount(activeUid);
     if(used >= 2){
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "⚠️ आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा!");
+      await pushAIHistory("model", "⚠️ आज का 2 फ्री फोटो कोटा पूरा हो चुका है। नया कोटा कल सुबह रीसेट होगा!");
       return;
     }
     const promptClean = text.replace(/create image:/i, "")
@@ -20263,23 +20998,23 @@ async function sendZyroAIMessage(){
       const imageUrl = await generateImage(promptClean);
       const n = await incrementPhotoCount(activeUid);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "यह रही आपकी AI जनरेटेड फोटो ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
+      await pushAIHistory("model", "यह रही आपकी AI जनरेटेड फोटो ✨ (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)", imageUrl);
     }catch(imgErr){
       console.warn("Image gen fail:", imgErr);
       document.getElementById(typingId)?.remove();
-      pushAIHistory("bot", "फोटो जनरेट करने में अभी थोड़ा समय लग रहा है, कृपया दोबारा प्रयास करें।");
+      await pushAIHistory("model", "फोटो जनरेट करने में अभी थोड़ा समय लग रहा है, कृपया दोबारा प्रयास करें।");
     }
     return;
   }
 
   try{
-    const reply = await callGeminiText(text);
+    const reply = await callGeminiText(text, activeChatId);
     document.getElementById(typingId)?.remove();
-    pushAIHistory("bot", reply);
+    await pushAIHistory("model", reply);
   }catch(err){
     console.warn("AI reply error:", err);
     document.getElementById(typingId)?.remove();
-    pushAIHistory("bot", getDesiComedySmartFallback(text));
+    await pushAIHistory("model", getDesiComedySmartFallback(text));
   }
 }
 window.sendZyroAIMessage = sendZyroAIMessage;

@@ -1,4 +1,4 @@
-const CACHE_NAME = "zyro-v10";
+const CACHE_NAME = "zyro-play-v11";
 
 const FILES_TO_CACHE = [
   "/",

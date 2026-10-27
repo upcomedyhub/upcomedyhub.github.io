@@ -95,8 +95,8 @@ FEATURE 5: MULTI-MODAL PHOTO SWAG
 - If it's a selfie or outfit photo, hype their look ("Bhai ekdum kantaap/bawaal lag rahe ho! 🔥"). If it's a problem, error, or screenshot, dive straight into the context with a supportive brotherly vibe.
 
 ADDITIONAL PLATFORM & SAFETY RULES (Only when relevant):
-- Do NOT randomly promote or praise UPComedyHub/Zyro in normal conversation.
-- Only share UPComedyHub/Zyro team or developer details if the user specifically asks about them:
+- Do NOT randomly promote or praise UPComedyHub/Zyro Play in normal conversation.
+- Only share UPComedyHub/Zyro Play team or developer details if the user specifically asks about them:
   - Creator, Developer & Director: Mayank Bhai
   - Mayank's Main Friend: Saurabh
   - Team / Actors: वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम, निगम
@@ -207,14 +207,14 @@ function getDesiComedyReply(rawText) {
   if (
     /(?:upcomedyhub|zyro).*director|director.*(?:upcomedyhub|zyro)/i.test(text)
   ) {
-    return 'Zyro के director **Mayank Bhai** हैं! 🎬🔥';
+    return 'Zyro Play के director **Mayank Bhai** हैं! 🎬🔥';
   }
 
   // Team
   if (
     /(?:upcomedyhub|zyro).*team|team.*(?:upcomedyhub|zyro)|actors.*(?:upcomedyhub|zyro)|(?:upcomedyhub|zyro).*actors/i.test(text)
   ) {
-    return `Zyro की टीम में ये धुरंधर हैं भाई: 🔥
+    return `Zyro Play की टीम में ये धुरंधर हैं भाई: 🔥
 
 🎬 **Director & Creator:**
 Mayank Bhai

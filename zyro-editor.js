@@ -2445,7 +2445,7 @@
             navigator.share({
               files: [f],
               title: "Save Video to Gallery",
-              text: "Zyro Reel"
+              text: "Zyro Play Reel"
             }).catch(function () {});
           }
         } catch (er) {}

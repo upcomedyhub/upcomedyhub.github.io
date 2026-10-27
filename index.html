@@ -121,6 +121,7 @@
 
 <link rel="manifest" href="/manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -1536,6 +1537,129 @@ body.on-zyroai main.container{
 }
 .zai-send-btn:not(:disabled):active{
   transform:scale(0.92);
+}
+.zai-gws-bar{
+  max-width:720px;
+  margin:0 auto 7px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  padding:2px 2px;
+}
+.zai-gws-bar::-webkit-scrollbar{
+  display:none;
+}
+.zai-gws-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 11px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,0.09);
+  background:#ffffff;
+  color:#27272a;
+  font-size:11.5px;
+  font-weight:600;
+  font-family:inherit;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:background .15s ease, border-color .15s ease, transform .12s ease;
+  flex-shrink:0;
+}
+.dark-mode .zai-gws-chip{
+  background:#18181b;
+  color:#e4e4e7;
+  border-color:rgba(255,255,255,0.12);
+}
+.zai-gws-chip:hover{
+  background:#f4f4f5;
+  border-color:rgba(0,0,0,0.18);
+}
+.dark-mode .zai-gws-chip:hover{
+  background:#27272a;
+  border-color:rgba(255,255,255,0.22);
+}
+.zai-gws-chip:active{
+  transform:scale(0.96);
+}
+.zai-gws-chip.connected{
+  border-color:rgba(16,185,129,0.4);
+  background:rgba(16,185,129,0.08);
+  color:#059669;
+}
+.dark-mode .zai-gws-chip.connected{
+  background:rgba(16,185,129,0.14);
+  color:#34d399;
+}
+.zai-drive-modal-backdrop{
+  display:none;
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(3px);
+  z-index:50;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+.zai-drive-modal-backdrop.show{
+  display:flex;
+}
+.zai-drive-modal{
+  width:100%;
+  max-width:460px;
+  max-height:80vh;
+  background:#ffffff;
+  color:#111111;
+  border-radius:18px;
+  border:1px solid rgba(0,0,0,0.1);
+  box-shadow:0 20px 50px rgba(0,0,0,0.3);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.dark-mode .zai-drive-modal{
+  background:#141417;
+  color:#f4f4f5;
+  border-color:rgba(255,255,255,0.12);
+}
+.zai-drive-modal-head{
+  padding:14px 16px;
+  border-bottom:1px solid rgba(128,128,128,0.15);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-weight:700;
+  font-size:14.5px;
+}
+.zai-drive-modal-body{
+  padding:12px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.zai-drive-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid rgba(128,128,128,0.15);
+  background:rgba(128,128,128,0.04);
+  cursor:pointer;
+  text-align:left;
+  font-family:inherit;
+  color:inherit;
+  transition:background .15s ease, border-color .15s ease;
+}
+.zai-drive-item:hover{
+  background:rgba(128,128,128,0.12);
+  border-color:rgba(128,128,128,0.3);
 }
 
 /* Profile — Instagram-Style Circular Profile Pic in Bottom Nav */
@@ -5238,12 +5362,52 @@ img.logo-profile.zyro-header-logo {
         <div class="zai-inner-col" id="zyroAiMessages"></div>
       </div>
 
+      <!-- Google Drive & Docs Picker Modal -->
+      <div class="zai-drive-modal-backdrop" id="zyroDrivePickerBackdrop" onclick="if(event.target===this)closeZyroDrivePicker()">
+        <div class="zai-drive-modal">
+          <div class="zai-drive-modal-head">
+            <span>📂 Google Drive &amp; Docs (Select to Summarize)</span>
+            <button type="button" class="zai-icon-btn" onclick="closeZyroDrivePicker()" aria-label="Close">✕</button>
+          </div>
+          <div class="zai-drive-modal-body" id="zyroDriveFilesList">
+            <div style="padding:18px;text-align:center;color:#71717a;font-size:13px">Loading your Google Drive documents...</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Bottom Floating ChatGPT/Gemini Prompt Composer -->
       <div class="zai-composer-wrap">
+        <!-- Google Workspace Quick Tools Bar (Calendar, Tasks, Drive, Docs) -->
+        <div class="zai-gws-bar" id="zyroGwsBar">
+          <button type="button" class="zai-gws-chip" id="zyroGwsConnectChip" onclick="connectGoogleWorkspace(true)" title="Connect Google Calendar, Tasks, Drive &amp; Docs">
+            <span id="zyroGwsStatusDot">🔗</span>
+            <span id="zyroGwsStatusLabel">Connect Google</span>
+          </button>
+          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Bhai, kal subah 10 baje Saurabh aur Vansh ke sath video shooting par jana hai, Google Calendar me reminder set kar de!')" title="Add Event to Google Calendar">
+            <span>📅</span>
+            <span>Schedule Reminder</span>
+          </button>
+          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Bhai ek naya comedy startup idea socha hai, mere Google Tasks me note save kar de: ')" title="Save Idea/Note to Google Tasks">
+            <span>✅</span>
+            <span>Save Task / Idea</span>
+          </button>
+          <button type="button" class="zai-gws-chip" onclick="openZyroDrivePicker()" title="Read &amp; Summarize Google Drive / Docs in Hinglish">
+            <span>📂</span>
+            <span>Read Drive / Docs</span>
+          </button>
+          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Google Docs me ek naya note bana do: ')" title="Create a new Google Doc">
+            <span>📝</span>
+            <span>Create Google Doc</span>
+          </button>
+        </div>
+
         <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
         <div class="zai-composer-box">
           <button type="button" class="zai-tool-btn" onclick="document.getElementById('zyroAiFileInput').click()" title="Upload Photo" aria-label="Upload Photo">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <button type="button" class="zai-tool-btn" onclick="openZyroDrivePicker()" title="Attach / Summarize from Google Drive &amp; Docs" aria-label="Google Drive">
+            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </button>
           <button type="button" class="zai-tool-btn" onclick="prefillZyroAIPrompt('Create Image: ')" title="Generate AI Image" aria-label="Generate AI Image">
             <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
@@ -20677,6 +20841,8 @@ function formatZyroAIText(raw){
   if(!raw) return "";
   let s = escapeHtml(raw);
   s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  // Convert markdown links [Label](https://...) into clickable links
+  s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:#10b981;font-weight:700;text-decoration:underline">$1 ↗</a>');
   s = s.replace(/\n/g, "<br>");
   return s;
 }
@@ -20684,6 +20850,7 @@ function formatZyroAIText(raw){
 function renderAIHistory(){
   migrateLegacyZyroHistoryIfNeeded();
   renderZyroAISidebar();
+  updateZyroGwsStatusUI();
 
   const box = document.getElementById("zyroAiMessages");
   const scrollArea = document.getElementById("zyroAiScrollArea");
@@ -20696,23 +20863,23 @@ function renderAIHistory(){
       '<div class="zai-welcome">' +
         '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
         '<div class="zai-welcome-title">Bol Mere Bhai! Aaj Kya Plan Hai? 🔥</div>' +
-        '<div class="zai-welcome-sub">Zyro AI तेरा पक्का दोस्त और हाइप-मैन है — बड़े सपने, कॉमेडी स्क्रिप्ट, फोटो स्वैग या दिल की बात खुल के कर! 👊</div>' +
+        '<div class="zai-welcome-sub">Zyro AI तेरा पक्का दोस्त और पर्सनल असिस्टेंट है — बड़े सपने, कॉमेडी स्क्रिप्ट, फोटो स्वैग या Google Calendar / Tasks / Drive / Docs सब यहाँ से हैंडल कर! 👊</div>' +
         '<div class="zai-prompts-grid">' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai mujhe 4 saal me trillionaire banna hai, solid plan bata!\')">' +
-            '<div class="zai-prompt-card-title">🚀 Trillionaire Plan</div>' +
-            '<div class="zai-prompt-card-desc">4 saal me bada empire khada karne ka roadmap</div>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai, kal subah 10 baje Saurabh aur Vansh ke sath video shooting par jana hai, yaad dila dena!\')">' +
+            '<div class="zai-prompt-card-title">📅 Shooting Reminder</div>' +
+            '<div class="zai-prompt-card-desc">Google Calendar me kal subah 10 baje ka event set karo</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai ek naya comedy startup idea socha hai: Desi Creators Hub — yaad rakhna aur Tasks me save kar de!\')">' +
+            '<div class="zai-prompt-card-title">✅ Save Idea / Note</div>' +
+            '<div class="zai-prompt-card-desc">Google Tasks &amp; Zyro Memory me note save karo</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="openZyroDrivePicker()">' +
+            '<div class="zai-prompt-card-title">📂 Summarize Drive Doc</div>' +
+            '<div class="zai-prompt-card-desc">Google Drive / Docs padh kar Hinglish me samjho</div>' +
           '</button>' +
           '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek funny desi comedy reel ki script likho Kanpur style me\')">' +
             '<div class="zai-prompt-card-title">🎬 Kanpur Ki Bakaiti</div>' +
-            '<div class="zai-prompt-card-desc">Funny desi comedy reel script</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillZyroAIPrompt(\'Create Image: Funny desi comedy stage\')">' +
-            '<div class="zai-prompt-card-title">🎨 Create AI Image</div>' +
-            '<div class="zai-prompt-card-desc">Generate high-quality AI art</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai aaj thoda low feel ho raha hai, motivate kar de\')">' +
-            '<div class="zai-prompt-card-title">🫂 Bro Support</div>' +
-            '<div class="zai-prompt-card-desc">100% real emotional support & hype</div>' +
+            '<div class="zai-prompt-card-desc">Funny desi comedy reel script likho</div>' +
           '</button>' +
         '</div>' +
       '</div>';
@@ -20740,7 +20907,7 @@ function renderAIHistory(){
         aiInner += '<div>' + formatZyroAIText(m.text) + '</div>';
       }
       const actions = m.text ? (
-        '<div class="zai-ai-actions">' +
+        '<div class="zai-ai-actions" style="flex-wrap:wrap">' +
           '<button type="button" class="zai-action-btn" onclick="copyZyroAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Copy">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
             '<span>Copy</span>' +
@@ -20748,6 +20915,12 @@ function renderAIHistory(){
           '<button type="button" class="zai-action-btn" onclick="speakAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Listen">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>' +
             '<span>Listen</span>' +
+          '</button>' +
+          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleDocs(this)" data-text="' + escapeAttr(m.text) + '" title="Save this response to Google Docs">' +
+            '<span>📝 Save to Docs</span>' +
+          '</button>' +
+          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleTasks(this)" data-text="' + escapeAttr(m.text) + '" title="Save as Note in Google Tasks">' +
+            '<span>✅ Save Task</span>' +
           '</button>' +
         '</div>'
       ) : '';
@@ -20872,6 +21045,623 @@ async function pushAIHistory(role, text, image){
   }
 }
 
+// =====================================================
+// GOOGLE WORKSPACE INTEGRATION (CALENDAR, TASKS, DRIVE, DOCS)
+// =====================================================
+
+const ZYRO_GWS_CLIENT_ID = "159517744101-3040mh21s43m0m5mc9qg5ochteaos617.apps.googleusercontent.com";
+const ZYRO_GWS_SCOPES = [
+  "https://www.googleapis.com/auth/calendar.events",
+  "https://www.googleapis.com/auth/tasks",
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/documents"
+].join(" ");
+const ZYRO_GWS_TOKEN_KEY = "zyro_google_workspace_token";
+
+function getZyroGwsToken(){
+  try {
+    return sessionStorage.getItem(ZYRO_GWS_TOKEN_KEY) || "";
+  } catch (e) {
+    return "";
+  }
+}
+
+function setZyroGwsToken(token){
+  try {
+    if (token) {
+      sessionStorage.setItem(ZYRO_GWS_TOKEN_KEY, token);
+    } else {
+      sessionStorage.removeItem(ZYRO_GWS_TOKEN_KEY);
+    }
+  } catch (e) {}
+  updateZyroGwsStatusUI();
+}
+
+function updateZyroGwsStatusUI(){
+  const chip = document.getElementById("zyroGwsConnectChip");
+  const dot = document.getElementById("zyroGwsStatusDot");
+  const label = document.getElementById("zyroGwsStatusLabel");
+  const hasToken = Boolean(getZyroGwsToken());
+  if (chip) chip.classList.toggle("connected", hasToken);
+  if (dot) dot.textContent = hasToken ? "🟢" : "🔗";
+  if (label) label.textContent = hasToken ? "Google Connected" : "Connect Google";
+}
+
+async function connectGoogleWorkspace(interactiveNotice){
+  const existing = getZyroGwsToken();
+  if (existing && interactiveNotice) {
+    showToast("✅ Google Calendar, Tasks, Drive & Docs connected!");
+    updateZyroGwsStatusUI();
+    return existing;
+  }
+
+  return new Promise((resolve) => {
+    // 1. Primary path: Google Identity Services (GIS) OAuth2 Token Client
+    if (window.google && window.google.accounts && window.google.accounts.oauth2) {
+      try {
+        const tokenClient = window.google.accounts.oauth2.initTokenClient({
+          client_id: ZYRO_GWS_CLIENT_ID,
+          scope: ZYRO_GWS_SCOPES,
+          callback: (response) => {
+            if (response && response.access_token) {
+              setZyroGwsToken(response.access_token);
+              showToast("✅ Google Workspace Connected!");
+              resolve(response.access_token);
+            } else {
+              if (interactiveNotice) showToast("⚠️ Google Workspace permission cancelled");
+              resolve("");
+            }
+          }
+        });
+        tokenClient.requestAccessToken({ prompt: "consent" });
+        return;
+      } catch (gisErr) {
+        console.warn("GIS initTokenClient fallback to Firebase popup:", gisErr);
+      }
+    }
+
+    // 2. Fallback path: Firebase Auth GoogleAuthProvider Popup with Workspace scopes
+    if (typeof firebase !== "undefined" && firebase.auth && typeof auth !== "undefined" && auth) {
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope("https://www.googleapis.com/auth/calendar.events");
+        provider.addScope("https://www.googleapis.com/auth/tasks");
+        provider.addScope("https://www.googleapis.com/auth/drive.readonly");
+        provider.addScope("https://www.googleapis.com/auth/documents");
+        auth.signInWithPopup(provider).then((result) => {
+          const cred = result && result.credential;
+          const token = (cred && cred.accessToken) || "";
+          if (token) {
+            setZyroGwsToken(token);
+            showToast("✅ Google Workspace Connected!");
+            resolve(token);
+          } else {
+            resolve("");
+          }
+        }).catch((err) => {
+          console.warn("Firebase Workspace OAuth popup error:", err);
+          if (interactiveNotice) showToast("❌ Google popup blocked ya cancel ho gaya");
+          resolve("");
+        });
+        return;
+      } catch (fbErr) {
+        console.warn("Firebase provider error:", fbErr);
+      }
+    }
+
+    if (interactiveNotice) showToast("⚠️ Google Sign-In load ho raha hai, 2 second baad try karein");
+    resolve("");
+  });
+}
+window.connectGoogleWorkspace = connectGoogleWorkspace;
+
+async function ensureZyroGwsToken(){
+  let token = getZyroGwsToken();
+  if (!token) {
+    showToast("🔐 Connecting Google Workspace...");
+    token = await connectGoogleWorkspace(false);
+  }
+  return token;
+}
+
+// 1. GOOGLE CALENDAR: Create Event
+async function createZyroCalendarEvent({ title, description, startTimeISO, endTimeISO }){
+  const token = await ensureZyroGwsToken();
+  if (!token) throw new Error("NOT_AUTHENTICATED");
+
+  const startIso = startTimeISO || new Date(Date.now() + 3600 * 1000).toISOString();
+  const endIso = endTimeISO || new Date(new Date(startIso).getTime() + 3600 * 1000).toISOString();
+
+  const res = await fetch("https://www.googleapis.com/calendar/v3/calendars/primary/events", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      summary: title || "Zyro AI Reminder 📅",
+      description: (description || "Scheduled by Zyro AI Assistant") + "\n\n— Created via Zyro AI 🔥",
+      start: { dateTime: startIso },
+      end: { dateTime: endIso },
+      reminders: { useDefault: true }
+    })
+  });
+
+  if (res.status === 401 || res.status === 403) {
+    setZyroGwsToken("");
+    throw new Error("AUTH_EXPIRED");
+  }
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData?.error?.message || "Calendar API error");
+  }
+  return await res.json();
+}
+
+// 2. GOOGLE TASKS: Create Task / Idea Note (100% Free Keep Alternative)
+async function createZyroGoogleTask({ title, notes }){
+  const token = await ensureZyroGwsToken();
+  if (!token) throw new Error("NOT_AUTHENTICATED");
+
+  const res = await fetch("https://tasks.googleapis.com/tasks/v1/lists/@default/tasks", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      title: (title || "Zyro AI Idea 💡").slice(0, 200),
+      notes: (notes || "").slice(0, 4000)
+    })
+  });
+
+  if (res.status === 401 || res.status === 403) {
+    setZyroGwsToken("");
+    throw new Error("AUTH_EXPIRED");
+  }
+  if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData?.error?.message || "Tasks API error");
+  }
+  return await res.json();
+}
+
+// 2b. GOOGLE TASKS: List User Tasks
+async function listZyroGoogleTasks(){
+  const token = await ensureZyroGwsToken();
+  if (!token) throw new Error("NOT_AUTHENTICATED");
+
+  const res = await fetch("https://tasks.googleapis.com/tasks/v1/lists/@default/tasks?maxResults=15&showCompleted=false", {
+    headers: { "Authorization": "Bearer " + token }
+  });
+  if (res.status === 401 || res.status === 403) {
+    setZyroGwsToken("");
+    throw new Error("AUTH_EXPIRED");
+  }
+  if (!res.ok) throw new Error("Tasks fetch failed");
+  const data = await res.json();
+  return Array.isArray(data.items) ? data.items : [];
+}
+
+// 3. GOOGLE DOCS: Create a New Google Doc & Insert Content
+async function createZyroGoogleDoc({ title, content }){
+  const token = await ensureZyroGwsToken();
+  if (!token) throw new Error("NOT_AUTHENTICATED");
+
+  const createRes = await fetch("https://docs.googleapis.com/v1/documents", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      title: (title || "Zyro AI Note — " + new Date().toLocaleDateString("en-IN")).slice(0, 120)
+    })
+  });
+
+  if (createRes.status === 401 || createRes.status === 403) {
+    setZyroGwsToken("");
+    throw new Error("AUTH_EXPIRED");
+  }
+  if (!createRes.ok) {
+    const errData = await createRes.json().catch(() => ({}));
+    throw new Error(errData?.error?.message || "Google Docs create error");
+  }
+
+  const doc = await createRes.json();
+  const docId = doc.documentId;
+
+  if (docId && content) {
+    await fetch("https://docs.googleapis.com/v1/documents/" + encodeURIComponent(docId) + ":batchUpdate", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        requests: [
+          {
+            insertText: {
+              location: { index: 1 },
+              text: content + "\n\n— Created by Zyro AI 🔥\n"
+            }
+          }
+        ]
+      })
+    }).catch(() => {});
+  }
+
+  return {
+    documentId: docId,
+    title: doc.title,
+    url: "https://docs.google.com/document/d/" + docId + "/edit"
+  };
+}
+
+// One-tap Save AI Reply to Google Docs
+async function saveZyroReplyToGoogleDocs(btn){
+  const text = btn?.dataset?.text || "";
+  if (!text) return;
+  const origHtml = btn.innerHTML;
+  btn.innerHTML = "<span>⏳ Saving...</span>";
+  try {
+    const firstLine = text.split("\n")[0].replace(/[*#]/g, "").trim().slice(0, 50) || "Zyro AI Script & Plan";
+    const docInfo = await createZyroGoogleDoc({
+      title: "Zyro AI: " + firstLine,
+      content: text
+    });
+    btn.innerHTML = "<span>✅ Saved to Docs</span>";
+    showToast("📝 Google Docs me save ho gaya!");
+    await pushAIHistory("model", "**भाई, तेरा नोट सीधा Google Docs में सेव कर दिया है!** 📝🔥\n\n👉 [यहाँ क्लिक करके Google Doc खोलो](" + docInfo.url + ")");
+  } catch (e) {
+    btn.innerHTML = origHtml;
+    if (e.message === "NOT_AUTHENTICATED") {
+      showToast("⚠️ Pehle Google account allow karein");
+    } else {
+      showToast("❌ Google Docs save failed: " + (e.message || ""));
+    }
+  }
+}
+window.saveZyroReplyToGoogleDocs = saveZyroReplyToGoogleDocs;
+
+// One-tap Save AI Reply to Google Tasks
+async function saveZyroReplyToGoogleTasks(btn){
+  const text = btn?.dataset?.text || "";
+  if (!text) return;
+  const origHtml = btn.innerHTML;
+  btn.innerHTML = "<span>⏳ Saving...</span>";
+  try {
+    const firstLine = text.split("\n")[0].replace(/[*#]/g, "").trim().slice(0, 80) || "Zyro AI Note";
+    await createZyroGoogleTask({
+      title: firstLine,
+      notes: text
+    });
+    btn.innerHTML = "<span>✅ Added to Tasks</span>";
+    showToast("✅ Google Tasks me save ho gaya!");
+  } catch (e) {
+    btn.innerHTML = origHtml;
+    showToast("❌ Google Tasks save failed");
+  }
+}
+window.saveZyroReplyToGoogleTasks = saveZyroReplyToGoogleTasks;
+
+// 4. GOOGLE DRIVE & DOCS READER: Open Modal, List Docs/Files & Summarize in Hinglish
+function closeZyroDrivePicker(){
+  const modal = document.getElementById("zyroDrivePickerBackdrop");
+  if (modal) modal.classList.remove("show");
+}
+window.closeZyroDrivePicker = closeZyroDrivePicker;
+
+async function openZyroDrivePicker(){
+  const token = await ensureZyroGwsToken();
+  if (!token) return;
+
+  const modal = document.getElementById("zyroDrivePickerBackdrop");
+  const listEl = document.getElementById("zyroDriveFilesList");
+  if (modal) modal.classList.add("show");
+  if (listEl) {
+    listEl.innerHTML = '<div style="padding:20px;text-align:center;color:#71717a;font-size:13px">🔄 Fetching your Google Drive &amp; Docs files...</div>';
+  }
+
+  try {
+    const q = encodeURIComponent("trashed = false and (mimeType = 'application/vnd.google-apps.document' or mimeType = 'text/plain')");
+    const url = "https://www.googleapis.com/drive/v3/files?pageSize=15&orderBy=modifiedTime desc&q=" + q + "&fields=files(id,name,mimeType,modifiedTime,webViewLink)";
+    const res = await fetch(url, {
+      headers: { "Authorization": "Bearer " + token }
+    });
+
+    if (res.status === 401 || res.status === 403) {
+      setZyroGwsToken("");
+      if (listEl) listEl.innerHTML = '<div style="padding:18px;text-align:center;color:#ef4444;font-size:13px">Session expired. Please click "Connect Google" again.</div>';
+      return;
+    }
+
+    const data = await res.json();
+    const files = Array.isArray(data.files) ? data.files : [];
+
+    if (!files.length) {
+      if (listEl) {
+        listEl.innerHTML = '<div style="padding:20px;text-align:center;color:#71717a;font-size:13px">Aapke Google Drive me abhi koi Google Doc nahi mila.<br><br>Pehle किसी AI reply ke neeche <b>"📝 Save to Docs"</b> dabayein!</div>';
+      }
+      return;
+    }
+
+    if (listEl) {
+      listEl.innerHTML = files.map(f => {
+        const icon = f.mimeType === "application/vnd.google-apps.document" ? "📄" : "📃";
+        const dateStr = f.modifiedTime ? new Date(f.modifiedTime).toLocaleDateString("en-IN", { day: "numeric", month: "short" }) : "";
+        return (
+          '<button type="button" class="zai-drive-item" onclick="summarizeZyroDriveDoc(\'' + escapeAttr(f.id) + '\', \'' + escapeAttr(f.name) + '\', \'' + escapeAttr(f.mimeType) + '\')">' +
+            '<div style="display:flex;align-items:center;gap:10px;min-width:0;flex:1">' +
+              '<span style="font-size:18px">' + icon + '</span>' +
+              '<div style="min-width:0;flex:1">' +
+                '<div style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + escapeHtml(f.name) + '</div>' +
+                '<div style="font-size:11px;color:#71717a">Google Doc • ' + escapeHtml(dateStr) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<span style="font-size:11.5px;font-weight:700;color:#10b981;flex-shrink:0">Summarize ✨</span>' +
+          '</button>'
+        );
+      }).join("");
+    }
+  } catch (err) {
+    console.warn("Drive list error:", err);
+    if (listEl) {
+      listEl.innerHTML = '<div style="padding:18px;text-align:center;color:#ef4444;font-size:13px">Failed to load Google Drive files.</div>';
+    }
+  }
+}
+window.openZyroDrivePicker = openZyroDrivePicker;
+
+function extractPlainTextFromGoogleDoc(docJson){
+  if (!docJson || !docJson.body || !Array.isArray(docJson.body.content)) return "";
+  const chunks = [];
+  for (const el of docJson.body.content) {
+    if (el.paragraph && Array.isArray(el.paragraph.elements)) {
+      for (const pe of el.paragraph.elements) {
+        if (pe.textRun && pe.textRun.content) {
+          chunks.push(pe.textRun.content);
+        }
+      }
+    }
+  }
+  return chunks.join("").trim();
+}
+
+async function summarizeZyroDriveDoc(fileId, fileName, mimeType){
+  closeZyroDrivePicker();
+  const token = await ensureZyroGwsToken();
+  if (!token) return;
+
+  const userMsg = "📂 मेरे Google Drive डॉक्यूमेंट \"" + fileName + "\" को पढ़कर आसान Hinglish में समझाओ!";
+  const activeChatId = await ensureActiveZyroChat(fileName);
+  await pushAIHistory("user", userMsg);
+
+  const typingId = "zai-loading-" + Date.now();
+  const box = document.getElementById("zyroAiMessages");
+  const scrollArea = document.getElementById("zyroAiScrollArea");
+  if (box) {
+    box.insertAdjacentHTML("beforeend",
+      '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
+        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+        '<div class="zai-ai-body" style="color:#71717a;font-style:italic">Reading "' + escapeHtml(fileName) + '" from Google Drive...</div>' +
+      '</div>');
+    if (scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
+  }
+
+  try {
+    let docText = "";
+    if (mimeType === "application/vnd.google-apps.document") {
+      const docRes = await fetch("https://docs.googleapis.com/v1/documents/" + encodeURIComponent(fileId), {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      if (docRes.ok) {
+        const docJson = await docRes.json();
+        docText = extractPlainTextFromGoogleDoc(docJson);
+      }
+    } else {
+      const rawRes = await fetch("https://www.googleapis.com/drive/v3/files/" + encodeURIComponent(fileId) + "?alt=media", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      if (rawRes.ok) {
+        docText = await rawRes.text();
+      }
+    }
+
+    const snippet = (docText || "").trim().slice(0, 5000);
+    if (!snippet) {
+      document.getElementById(typingId)?.remove();
+      await pushAIHistory("model", "भाई, तेरा डॉक्यूमेंट **" + fileName + "** अभी खाली (blank) है! उसमें कुछ लिख ले, फिर तेरा भाई तुरंत उसका पूरा निचोड़ निकाल देगा! 😎📄");
+      return;
+    }
+
+    const summaryPrompt = `भाई, यूजर ने अपने Google Drive से यह डॉक्यूमेंट शेयर किया है।
+Document Name: "${fileName}"
+Document Content:
+"""
+${snippet}
+"""
+
+इस डॉक्यूमेंट को पढ़कर अपने बेस्ट फ्रेंड (Zyro AI Bro) के अंदाज़ में शॉर्ट, आसान और बुलेट पॉइंट्स वाली Hinglish में समझा दो!`;
+
+    const reply = await callGeminiText(summaryPrompt, activeChatId);
+    document.getElementById(typingId)?.remove();
+    await pushAIHistory("model", reply);
+  } catch (err) {
+    console.warn("Summarize Drive doc error:", err);
+    document.getElementById(typingId)?.remove();
+    await pushAIHistory("model", "❌ भाई, Google Drive से डॉक्यूमेंट पढ़ने में थोड़ा एरर आया। एक बार फिर से ट्राई कर!");
+  }
+}
+window.summarizeZyroDriveDoc = summarizeZyroDriveDoc;
+
+// Smart deterministic fallback time parser for Hinglish (e.g. "kal subah 10 baje", "aaj shaam 6 baje")
+function parseHinglishDateTimeFallback(text){
+  const lower = (text || "").toLowerCase();
+  const now = new Date();
+  const target = new Date(now.getTime());
+
+  if (/\b(parso|day after tomorrow)\b/i.test(lower)) {
+    target.setDate(target.getDate() + 2);
+  } else if (/\b(kal|tomorrow)\b/i.test(lower)) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  let hour = 10;
+  let minute = 0;
+  const timeMatch = lower.match(/\b(\d{1,2})(?::(\d{2}))?\s*(baje|am|pm)?\b/i);
+  if (timeMatch) {
+    let h = parseInt(timeMatch[1], 10);
+    const m = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
+    const mer = (timeMatch[3] || "").toLowerCase();
+    if (mer === "pm" && h < 12) h += 12;
+    else if (mer === "am" && h === 12) h = 0;
+    else if (/shaam|sham|raat|evening|night/i.test(lower) && h < 12) h += 12;
+    else if (/dopahar|afternoon/i.test(lower) && h < 12 && h >= 1 && h <= 4) h += 12;
+    if (h >= 0 && h <= 23) {
+      hour = h;
+      minute = m;
+    }
+  } else if (/shaam|sham|evening/i.test(lower)) {
+    hour = 18;
+  } else if (/raat|night/i.test(lower)) {
+    hour = 21;
+  }
+
+  target.setHours(hour, minute, 0, 0);
+  if (target.getTime() <= now.getTime()) {
+    target.setDate(target.getDate() + 1);
+  }
+  const end = new Date(target.getTime() + 3600 * 1000);
+  return {
+    startTimeISO: target.toISOString(),
+    endTimeISO: end.toISOString()
+  };
+}
+
+// Detect & Execute Natural Hinglish Workspace Commands inside Chat
+async function tryHandleZyroWorkspaceCommand(text, activeChatId, typingId){
+  const lower = (text || "").toLowerCase();
+
+  // Quick check if message mentions Calendar, Tasks, Notes, Drive, or Docs intent
+  const isCalendarCue = /\b(calendar|schedule|reminder|remind|yaad dila|baje|shooting|meeting|alarm)\b/i.test(lower) &&
+                        /\b(kal|aaj|parso|subah|shaam|sham|raat|baje|calendar|schedule|remind|yaad dila)\b/i.test(lower);
+  const isTaskListCue = /\b(mere tasks|my tasks|to-do list|todo list|tasks dikhao)\b/i.test(lower);
+  const isTaskAddCue = /\b(google tasks|task add|tasks me|keep me|note save|idea save|yaad rakhna.*save|to-do me)\b/i.test(lower);
+  const isDocCreateCue = /\b(google doc|docs me save|doc bana|document bana)\b/i.test(lower);
+  const isDriveReadCue = /\b(google drive|drive se|drive file|drive doc)\b/i.test(lower);
+
+  if (!isCalendarCue && !isTaskListCue && !isTaskAddCue && !isDocCreateCue && !isDriveReadCue) {
+    return false;
+  }
+
+  // If user wants to browse/read Drive docs
+  if (isDriveReadCue) {
+    document.getElementById(typingId)?.remove();
+    await pushAIHistory("model", "**भाई, तेरा Google Drive और Docs पैनल खोल रहा हूँ!** 📂🔥 जिस डॉक्यूमेंट को समझना है उस पर टैप कर, तेरा भाई तुरंत आसान Hinglish में समझा देगा! 😎👊");
+    openZyroDrivePicker();
+    return true;
+  }
+
+  // Ask backend Gemini parser for clean title & time extraction (with instant fallback)
+  let parsed = null;
+  try {
+    const parseRes = await fetch(getApiUrl("/api/ai/workspace-parse"), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prompt: text,
+        nowIso: new Date().toISOString()
+      })
+    }).catch(() => null);
+    if (parseRes && parseRes.ok) {
+      const pData = await parseRes.json().catch(() => ({}));
+      if (pData && pData.parsed) parsed = pData.parsed;
+    }
+  } catch (e) {}
+
+  try {
+    // A. List Google Tasks
+    if (isTaskListCue || (parsed && parsed.action === "task_list")) {
+      const items = await listZyroGoogleTasks();
+      document.getElementById(typingId)?.remove();
+      if (!items.length) {
+        await pushAIHistory("model", "**भाई, तेरी Google Tasks लिस्ट अभी एकदम क्लीन है!** ✅🔥 कोई पेंडिंग काम नहीं है। नया टास्क जोड़ने के लिए बस बोल दे! 👊");
+      } else {
+        const listStr = items.slice(0, 10).map((it, idx) => (idx + 1) + ". **" + (it.title || "Task") + "**" + (it.notes ? " — _" + it.notes.slice(0, 80) + "_" : "")).join("\n");
+        await pushAIHistory("model", "**भाई, ये रहे तेरे Google Tasks के पेंडिंग काम:** ✅🔥\n\n" + listStr);
+      }
+      return true;
+    }
+
+    // B. Create Google Calendar Event
+    if (isCalendarCue || (parsed && parsed.action === "calendar_add")) {
+      const fallbackTimes = parseHinglishDateTimeFallback(text);
+      const title = (parsed && parsed.title) || makeClientChatTitle(text);
+      const startTimeISO = (parsed && parsed.startTimeISO) || fallbackTimes.startTimeISO;
+      const endTimeISO = (parsed && parsed.endTimeISO) || fallbackTimes.endTimeISO;
+      const description = (parsed && parsed.description) || text;
+
+      const ev = await createZyroCalendarEvent({ title, description, startTimeISO, endTimeISO });
+      const niceTime = new Date(startTimeISO).toLocaleString("en-IN", {
+        weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"
+      });
+      const broMsg = (parsed && parsed.broReply) || ("**भाई, डन! तेरे Google Calendar में इवेंट सेट कर दिया है!** 📅🔥 अब फोन पर सीधा नोटिफिकेशन आ जाएगा!");
+      const linkPart = ev && ev.htmlLink ? ("\n\n👉 [Google Calendar में इवेंट देखें](" + ev.htmlLink + ")") : "";
+
+      document.getElementById(typingId)?.remove();
+      await pushAIHistory(
+        "model",
+        broMsg + "\n\n📌 **Event:** " + title + "\n⏰ **Time:** " + niceTime + linkPart
+      );
+      return true;
+    }
+
+    // C. Create Google Task / Idea Note
+    if (isTaskAddCue || (parsed && parsed.action === "task_add")) {
+      const cleanIdea = text
+        .replace(/^(bhai|bro|zyro|ek|naya|mere|google|tasks|keep|me|note|task|save|kar|de|do|karo|yaad|rakhna|add)[\s,:;-]*/gi, "")
+        .trim() || text;
+      const title = (parsed && parsed.title) || cleanIdea.slice(0, 90);
+      const notes = (parsed && parsed.description) || ("Saved via Zyro AI: " + text);
+
+      await createZyroGoogleTask({ title, notes });
+      extractAndSaveUserMemory(text);
+      const broMsg = (parsed && parsed.broReply) || "**भाई, एकदम सॉलिड आइडिया है! इसे तेरे Google Tasks और अपनी परमानेंट मेमोरी दोनों में सेव कर लिया है!** ✅🧠🔥";
+
+      document.getElementById(typingId)?.remove();
+      await pushAIHistory("model", broMsg + "\n\n📝 **Saved Note:** " + title);
+      return true;
+    }
+
+    // D. Create Google Doc
+    if (isDocCreateCue || (parsed && parsed.action === "doc_create")) {
+      const title = (parsed && parsed.title) || makeClientChatTitle(text);
+      const content = (parsed && parsed.description) || text;
+      const docInfo = await createZyroGoogleDoc({ title: "Zyro AI: " + title, content });
+
+      document.getElementById(typingId)?.remove();
+      await pushAIHistory(
+        "model",
+        "**भाई, तेरा नया Google Doc तैयार कर दिया है!** 📝🔥\n\n📄 **Document:** " + docInfo.title + "\n👉 [यहाँ क्लिक करके Google Doc खोलो](" + docInfo.url + ")"
+      );
+      return true;
+    }
+  } catch (wsErr) {
+    console.warn("Workspace command execution notice:", wsErr);
+    if (wsErr && (wsErr.message === "NOT_AUTHENTICATED" || wsErr.message === "AUTH_EXPIRED")) {
+      document.getElementById(typingId)?.remove();
+      await pushAIHistory(
+        "model",
+        "🔐 **भाई, Google Calendar / Tasks / Docs में सेव करने के लिए नीचे दिए गए `🔗 Connect Google` बटन पर एक बार टैप करके परमिशन दे दे!** उसके बाद तेरा भाई सीधे तेरे फोन में रिमाइंडर और नोट्स सेट कर देगा! 👊🔥"
+      );
+      return true;
+    }
+  }
+
+  return false;
+}
+
 // ---------- OPEN AI CHAT (Dedicated ChatGPT/Gemini Style Interface) ----------
 function openAIChat(){
   const settingsModal = document.getElementById("settingsOverlay");
@@ -20881,6 +21671,7 @@ function openAIChat(){
   document.body.classList.remove("messages-open");
   switchTab("zyroai");
   refreshQuotaBadge();
+  updateZyroGwsStatusUI();
 }
 window.openAIChat = openAIChat;
 
@@ -21004,6 +21795,12 @@ async function sendZyroAIMessage(){
       document.getElementById(typingId)?.remove();
       await pushAIHistory("model", "फोटो जनरेट करने में अभी थोड़ा समय लग रहा है, कृपया दोबारा प्रयास करें।");
     }
+    return;
+  }
+
+  // Check if the user is asking for a Google Workspace action (Calendar, Tasks, Drive, Docs)
+  const handledByWorkspace = await tryHandleZyroWorkspaceCommand(text, activeChatId, typingId);
+  if (handledByWorkspace) {
     return;
   }
 

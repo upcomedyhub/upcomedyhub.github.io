@@ -691,6 +691,100 @@ app.post('/api/chat/memory-sync', async (req, res) => {
 });
 
 // =====================================================
+// GOOGLE WORKSPACE CONFIG & SMART INTENT PARSER
+// =====================================================
+
+const DEFAULT_GOOGLE_CLIENT_ID = '159517744101-3040mh21s43m0m5mc9qg5ochteaos617.apps.googleusercontent.com';
+
+app.get('/api/workspace/config', (req, res) => {
+  const clientId = cleanText(
+    process.env.GOOGLE_CLIENT_ID || process.env.VITE_GOOGLE_CLIENT_ID || DEFAULT_GOOGLE_CLIENT_ID,
+    300
+  );
+  return res.json({
+    success: true,
+    clientId,
+    scopes: [
+      'https://www.googleapis.com/auth/calendar.events',
+      'https://www.googleapis.com/auth/tasks',
+      'https://www.googleapis.com/auth/drive.readonly',
+      'https://www.googleapis.com/auth/documents'
+    ]
+  });
+});
+
+app.post('/api/ai/workspace-parse', async (req, res) => {
+  const body = req.body || {};
+  const prompt = cleanText(body.prompt || body.message || '', 3000);
+  const nowIso = cleanText(body.nowIso || new Date().toISOString(), 60);
+
+  if (!prompt) {
+    return res.status(400).json({ success: false, error: 'Prompt required' });
+  }
+
+  const key = cleanText(process.env.GEMINI_API_KEY || '', 1000);
+  if (key) {
+    try {
+      const GoogleGenAI = await getGoogleGenAIClass();
+      const ai = new GoogleGenAI({
+        apiKey: key,
+        httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+      });
+
+      const parsePrompt = `You are the Google Workspace Intent Parser for Zyro AI (an Indian Hinglish personal assistant).
+Current user local time (ISO): ${nowIso}
+
+User message: "${prompt}"
+
+Determine what Google Workspace action the user wants and return ONLY valid JSON matching this schema:
+{
+  "action": "calendar_add" | "task_add" | "task_list" | "doc_create" | "drive_read" | "none",
+  "title": "Short clear title for the event, task, or document",
+  "description": "Detailed notes or body content",
+  "startTimeISO": "ISO 8601 datetime string (e.g. 2026-10-28T10:00:00+05:30) if action is calendar_add, otherwise null",
+  "endTimeISO": "ISO 8601 datetime string (1 hour after startTimeISO) if action is calendar_add, otherwise null",
+  "broReply": "Energetic Hinglish confirmation message as Zyro AI (e.g. 'Bhai, kal subah 10 baje ki video shooting tere Google Calendar me set kar di hai! 🔥📅')"
+}
+
+Rules:
+- If the user mentions a time/schedule/shooting/meeting/reminder for a specific time (like "kal subah 10 baje", "aaj shaam 6 baje", "calendar me add karo"), set action = "calendar_add".
+- If the user asks to save an idea, startup name, to-do item, note, or task (like "yaad rakhna", "task add karo", "note save kar de", "keep me save kar de"), set action = "task_add".
+- If the user asks to see their tasks/to-do list, set action = "task_list".
+- If the user asks to create/save a Google Doc (like "Google Docs me save karo", "doc bana do"), set action = "doc_create".
+- If the user asks to read/summarize their Google Drive or Google Docs file, set action = "drive_read".
+- Return ONLY raw JSON.`;
+
+      const models = ['gemini-2.5-flash', 'gemini-3-flash-preview', 'gemini-3.1-flash-lite'];
+      for (const model of models) {
+        try {
+          const config = { temperature: 0.1 };
+          if (model.startsWith('gemini-2.5')) {
+            config.thinkingConfig = { thinkingBudget: 0 };
+          }
+          const resp = await ai.models.generateContent({
+            model,
+            contents: parsePrompt,
+            config
+          });
+          const raw = cleanText(resp?.text || '', 3000);
+          const jsonMatch = raw.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            if (parsed && parsed.action) {
+              return res.json({ success: true, parsed });
+            }
+          }
+        } catch (e) {}
+      }
+    } catch (err) {
+      console.warn('Workspace intent parse fallback:', err?.message || err);
+    }
+  }
+
+  return res.json({ success: true, parsed: null });
+});
+
+// =====================================================
 // AI CHAT ENDPOINT (STEP 4: PROMPT + MEMORY + HISTORY)
 // =====================================================
 

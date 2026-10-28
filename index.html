@@ -4428,6 +4428,119 @@ img.logo-profile.zyro-header-logo {
   gap: 3px;
   box-shadow: 0 2px 8px rgba(0, 149, 246, 0.4);
 }
+/* Feature 2: Reels Double-Tap Heart Burst & Speed/Auto-Scroll Chips */
+@keyframes reelBigHeartPop {
+  0% { transform: translate(-50%, -50%) scale(0.2) rotate(-12deg); opacity: 0; }
+  35% { transform: translate(-50%, -50%) scale(1.25) rotate(6deg); opacity: 1; }
+  70% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: translate(-50%, -65%) scale(1.35); opacity: 0; }
+}
+.reel-heart-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 88px;
+  pointer-events: none;
+  z-index: 45;
+  filter: drop-shadow(0 8px 24px rgba(230, 57, 70, 0.65));
+}
+.reel-heart-burst.pop {
+  animation: reelBigHeartPop 0.82s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.reel-ctrl-chip {
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.reel-ctrl-chip.active {
+  background: linear-gradient(135deg, #ff2d55, #ff8a00);
+  border-color: transparent;
+}
+.reel-speed-toast {
+  position: absolute;
+  top: 68px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 46;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+.reel-speed-toast.show { display: inline-flex; }
+/* Feature 3: Chat Desi Comedy Quick Bar */
+.chat-desi-quick-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(128, 128, 128, 0.14);
+  scrollbar-width: none;
+}
+.chat-desi-quick-bar::-webkit-scrollbar { display: none; }
+.chat-desi-pill {
+  flex-shrink: 0;
+  background: rgba(0, 149, 246, 0.1);
+  color: inherit;
+  border: 1px solid rgba(0, 149, 246, 0.25);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.12s ease, background 0.15s ease;
+}
+.chat-desi-pill:active { transform: scale(0.95); }
+/* Feature 4: Fun Zone XP Avatar Frame & Badge Unlock Shop */
+.fun-frame-shop {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.fun-frame-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+.fun-frame-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 4px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.fun-frame-item.equipped {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.14);
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+}
+.fun-frame-item.locked {
+  opacity: 0.55;
+}
 </style>
 <link rel="stylesheet" href="zyro-editor.css?v=3.0.0">
 </head>
@@ -4727,7 +4840,13 @@ img.logo-profile.zyro-header-logo {
 </div>
 <div id="tab-reels" class="tab-pane">
   <section style="padding:20px 14px">
-    <h2 class="section-title"><svg class="ico" style="width:24px;height:24px;vertical-align:middle"><use href="#i-reels"></use></svg> Reels</h2>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <h2 class="section-title" style="margin:0"><svg class="ico" style="width:24px;height:24px;vertical-align:middle"><use href="#i-reels"></use></svg> Reels</h2>
+      <div style="display:flex;align-items:center;gap:8px">
+        <button type="button" id="reelsTabAutoScrollBtn" onclick="toggleReelsAutoScroll()" style="background:rgba(0,149,246,0.12);color:#0095F6;border:1px solid rgba(0,149,246,0.3);padding:5px 11px;border-radius:999px;font-size:11.5px;font-weight:800;cursor:pointer">🔄 Auto-Scroll: ON</button>
+        <button type="button" onclick="openCreatePostModal('reel')" style="background:linear-gradient(135deg,#ff2d55,#ff8a00);color:#fff;border:none;padding:5px 12px;border-radius:999px;font-size:11.5px;font-weight:800;cursor:pointer">+ Upload Reel</button>
+      </div>
+    </div>
     <div class="channel-reels-grid" id="mainTabReelsGrid">
       <div class="ig-reels-empty">⏳ Loading Reels...</div>
     </div>
@@ -5285,6 +5404,36 @@ img.logo-profile.zyro-header-logo {
           </div>
           <div class="fun-player-meta" id="funPlayerMeta">Level 1 • 0 XP</div>
           <div class="fun-xp-bar"><div class="fun-xp-fill" id="funXpFill" style="width:15%"></div></div>
+        </div>
+      </div>
+
+      <!-- Feature 4: Fun Zone XP Avatar Frame & Title Badge Shop -->
+      <div class="fun-frame-shop" id="funXpFrameShop">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+          <div style="font-size:12px;font-weight:800;color:#e2e8f0">🏆 XP Avatar Frames &amp; Titles (Tap to Equip)</div>
+          <button type="button" id="claimDailyXpBtn" onclick="claimDailyFunXpBonus()" style="background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border:none;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;cursor:pointer">🎁 Claim +50 Daily XP</button>
+        </div>
+        <div class="fun-frame-grid" id="funFrameGrid">
+          <div class="fun-frame-item equipped" data-frame-id="rookie" data-req-xp="0" onclick="equipFunAvatarFrame('rookie')">
+            <div style="font-size:18px">🎭</div>
+            <div style="font-size:10.5px;font-weight:800;color:#fff;margin-top:2px">Rookie Joker</div>
+            <div style="font-size:9.5px;color:#38bdf8" class="frame-status-txt">Equipped ✓</div>
+          </div>
+          <div class="fun-frame-item" data-frame-id="king" data-req-xp="100" onclick="equipFunAvatarFrame('king')">
+            <div style="font-size:18px">🔥</div>
+            <div style="font-size:10.5px;font-weight:800;color:#fff;margin-top:2px">Comedy King</div>
+            <div style="font-size:9.5px;color:#94a3b8" class="frame-status-txt">100 XP</div>
+          </div>
+          <div class="fun-frame-item" data-frame-id="don" data-req-xp="300" onclick="equipFunAvatarFrame('don')">
+            <div style="font-size:18px">👑</div>
+            <div style="font-size:10.5px;font-weight:800;color:#fff;margin-top:2px">Kanpur Don</div>
+            <div style="font-size:9.5px;color:#94a3b8" class="frame-status-txt">300 XP</div>
+          </div>
+          <div class="fun-frame-item" data-frame-id="legend" data-req-xp="500" onclick="equipFunAvatarFrame('legend')">
+            <div style="font-size:18px">⚡</div>
+            <div style="font-size:10.5px;font-weight:800;color:#fff;margin-top:2px">Zyro Legend</div>
+            <div style="font-size:9.5px;color:#94a3b8" class="frame-status-txt">500 XP</div>
+          </div>
         </div>
       </div>
     </div>
@@ -5983,13 +6132,17 @@ img.logo-profile.zyro-header-logo {
 <div class="reel-viewer" id="reelViewer">
   <div class="reel-viewer-stage">
     <div class="reel-viewer-frame" id="reelViewerFrame"></div>
+    <div class="reel-heart-burst" id="reelHeartBurstOverlay">❤️</div>
+    <div class="reel-speed-toast" id="reelSpeedToastPill">⏩ 2x Fast Forward</div>
     <div class="reel-viewer-top">
       <div class="reel-viewer-title" id="reelViewerTitle">Reel</div>
       <div class="reel-viewer-views" id="reelViewerViews" style="font-size:12px;font-weight:800;color:#fff;background:rgba(255,255,255,0.18);padding:4px 10px;border-radius:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:center;gap:5px;box-shadow:0 2px 8px rgba(0,0,0,0.3);margin-left:auto">
         <svg class="ico" style="width:12px;height:12px;fill:currentColor"><use href="#i-play"></use></svg>
         <span id="reelViewerViewsCount">0</span>
       </div>
-      <div style="display:flex;align-items:center;gap:8px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <button type="button" class="reel-ctrl-chip" id="reelSpeedCycleBtn" onclick="cycleReelPlaybackSpeed(event)" title="Change Playback Speed">⚡ 1x</button>
+        <button type="button" class="reel-ctrl-chip active" id="reelAutoScrollBtn" onclick="toggleReelsAutoScroll(event)" title="Auto-Scroll Next Reel">🔄 Auto</button>
         <button type="button" class="reel-viewer-save" id="reelViewerSave" title="Save reel" aria-label="Save reel"><svg class="ico"><use href="#i-bookmark"></use></svg></button>
         <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-close"></use></svg></button>
       </div>
@@ -6521,6 +6674,32 @@ img.logo-profile.zyro-header-logo {
           </div>
         </div>
 
+        <!-- Feature 5: Creator Monetization & Verification Milestone Tracker -->
+        <div class="dark-box" style="margin-bottom:12px;border:1px solid rgba(0,149,246,0.28);border-radius:14px;padding:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <h4 style="font-size:13.5px;font-weight:800;margin:0;color:#0095F6">💰 Creator Monetization Milestones</h4>
+            <span id="proMonetizationStatusSettings" style="font-size:10.5px;font-weight:800;background:rgba(0,149,246,0.12);color:#0095F6;padding:2px 8px;border-radius:999px">In Progress</span>
+          </div>
+          <div style="margin-bottom:8px">
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px">
+              <span>👥 Followers (Target: 1,000)</span>
+              <b id="proFolMilestoneTextSettings">0 / 1,000</b>
+            </div>
+            <div style="height:6px;background:rgba(128,128,128,0.2);border-radius:999px;overflow:hidden">
+              <div id="proFolMilestoneBarSettings" style="width:5%;height:100%;background:linear-gradient(90deg,#0095F6,#38bdf8)"></div>
+            </div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px">
+              <span>🔥 Reel Views &amp; Engagement (Target: 10K)</span>
+              <b id="proViewsMilestoneTextSettings">3,420 / 10,000</b>
+            </div>
+            <div style="height:6px;background:rgba(128,128,128,0.2);border-radius:999px;overflow:hidden">
+              <div id="proViewsMilestoneBarSettings" style="width:34%;height:100%;background:linear-gradient(90deg,#ff2d55,#ff8a00)"></div>
+            </div>
+          </div>
+        </div>
+
         <div class="dark-box">
           <h4 style="font-size:13px;font-weight:800;margin:0 0 6px">💡 Creator Growth Tips</h4>
           <p style="font-size:12px;color:#666;margin:0 0 4px">• Post at least 1 comedy reel daily for viral algorithm bootstrap.</p>
@@ -6528,7 +6707,10 @@ img.logo-profile.zyro-header-logo {
           <p style="font-size:12px;color:#666;margin:0">• Reply to comments within the first 15 minutes.</p>
         </div>
 
-        <button type="button" class="ig-btn primary" style="width:100%" onclick="closeSettings();openCreatePostModal('reel')">Create Reel Now</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+          <button type="button" class="ig-btn primary" style="flex:1;min-width:140px" onclick="closeSettings();openCreatePostModal('reel')">🎬 Create Reel Now</button>
+          <button type="button" class="ig-btn" style="flex:1;min-width:160px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;border:none;font-weight:800" onclick="askZyroForViralReelScript()">✨ AI Viral Reel Script</button>
+        </div>
       </div>
     </div>
   </div>
@@ -6614,6 +6796,16 @@ img.logo-profile.zyro-header-logo {
           <div class="chat-replying" id="chatReplying" style="display:none">
             <span id="chatReplyText"></span>
             <button type="button" class="chat-tool" id="cancelReply" aria-label="Cancel reply"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
+          </div>
+
+          <!-- Feature 3: Desi Comedy Quick Punchline & Sticker Bar -->
+          <div class="chat-desi-quick-bar" id="chatDesiQuickBar">
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('😂 गजब भौकाल है भाई! 🔥')">😂 गजब भौकाल!</button>
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('🔥 कतई जहर वीडियो है भाई!')">🔥 कतई जहर!</button>
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('🤣 हँसते-हँसते पेट दुख गया भाई!')">🤣 पेट दुख गया!</button>
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('🎬 भाई नई कॉमेडी रील देखो!')">🎬 नई रील देखो!</button>
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('👑 कानपुरिया स्वैग अलग ही लेवल पर है! 😎')">👑 कानपुर स्वैग!</button>
+            <button type="button" class="chat-desi-pill" onclick="sendQuickDesiChatLine('❤️ लव यू मेरे भाई! 👊🔥')">❤️ लव यू भाई!</button>
           </div>
 
           <div class="chat-composer" id="chatComposer">
@@ -7212,6 +7404,32 @@ img.logo-profile.zyro-header-logo {
       </div>
     </div>
 
+    <!-- Feature 5: Creator Monetization & Verification Milestone Tracker -->
+    <div style="background:#f8f9fa;border:1px solid rgba(0,149,246,0.28);border-radius:14px;padding:14px;margin-bottom:12px" class="dark-box">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <h4 style="font-size:13.5px;font-weight:800;margin:0;color:#0095F6">💰 Creator Monetization Milestones</h4>
+        <span id="proMonetizationStatusModal" style="font-size:10.5px;font-weight:800;background:rgba(0,149,246,0.12);color:#0095F6;padding:2px 8px;border-radius:999px">In Progress</span>
+      </div>
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px">
+          <span>👥 Followers (Target: 1,000)</span>
+          <b id="proFolMilestoneTextModal">0 / 1,000</b>
+        </div>
+        <div style="height:6px;background:rgba(128,128,128,0.2);border-radius:999px;overflow:hidden">
+          <div id="proFolMilestoneBarModal" style="width:5%;height:100%;background:linear-gradient(90deg,#0095F6,#38bdf8)"></div>
+        </div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:3px">
+          <span>🔥 Reel Views &amp; Engagement (Target: 10K)</span>
+          <b id="proViewsMilestoneTextModal">3,420 / 10,000</b>
+        </div>
+        <div style="height:6px;background:rgba(128,128,128,0.2);border-radius:999px;overflow:hidden">
+          <div id="proViewsMilestoneBarModal" style="width:34%;height:100%;background:linear-gradient(90deg,#ff2d55,#ff8a00)"></div>
+        </div>
+      </div>
+    </div>
+
     <div style="background:#f8f9fa;border-radius:14px;padding:14px;margin-bottom:14px" class="dark-box">
       <h4 style="font-size:13px;font-weight:800;margin:0 0 6px">💡 Creator Growth Tips</h4>
       <p style="font-size:12px;color:#666;margin:0 0 4px">• Post at least 1 comedy reel daily for viral algorithm bootstrap.</p>
@@ -7219,7 +7437,10 @@ img.logo-profile.zyro-header-logo {
       <p style="font-size:12px;color:#666;margin:0">• Reply to comments within the first 15 minutes.</p>
     </div>
 
-    <button type="button" class="ig-btn primary" style="width:100%" onclick="closeProDashboardModal();openCreatePostModal('reel')">Create Reel Now</button>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button type="button" class="ig-btn primary" style="flex:1;min-width:140px" onclick="closeProDashboardModal();openCreatePostModal('reel')">🎬 Create Reel Now</button>
+      <button type="button" class="ig-btn" style="flex:1;min-width:160px;background:linear-gradient(135deg,#7c3aed,#db2777);color:#fff;border:none;font-weight:800" onclick="askZyroForViralReelScript()">✨ AI Viral Reel Script</button>
+    </div>
   </div>
 </div>
 
@@ -12418,14 +12639,59 @@ function selectCreatorCategory(cat, el){
 window.selectCreatorCategory = selectCreatorCategory;
 
 function syncProDashboardUI(){
-  const fCount = document.getElementById("statFollowers")?.textContent || "0";
+  const fCount = Number(document.getElementById("statFollowers")?.textContent || "0") || 0;
   const mF = document.getElementById("metricFollowersSettings");
-  if(mF) mF.textContent = fCount;
-  const pCount = document.getElementById("statPosts")?.textContent || "0";
+  if(mF) mF.textContent = String(fCount);
+  const mFM = document.getElementById("metricFollowers");
+  if(mFM) mFM.textContent = String(fCount);
+  const pCount = Number(document.getElementById("statPosts")?.textContent || "0") || 0;
+  const interactions = Math.max(784, pCount * 45 + fCount * 12);
   const mI = document.getElementById("metricInteractionsSettings");
-  if(mI) mI.textContent = String(Math.max(12, Number(pCount) * 14 + Number(fCount) * 5));
+  if(mI) mI.textContent = interactions.toLocaleString("en-IN");
+  const mIM = document.getElementById("metricInteractions");
+  if(mIM) mIM.textContent = interactions.toLocaleString("en-IN");
+
+  const folPct = Math.min(100, Math.max(4, Math.round((fCount / 1000) * 100)));
+  const viewsTotal = 3420 + interactions;
+  const viewsPct = Math.min(100, Math.max(12, Math.round((viewsTotal / 10000) * 100)));
+
+  ["Settings", "Modal"].forEach(suffix => {
+    const fTxt = document.getElementById("proFolMilestoneText" + suffix);
+    const fBar = document.getElementById("proFolMilestoneBar" + suffix);
+    const vTxt = document.getElementById("proViewsMilestoneText" + suffix);
+    const vBar = document.getElementById("proViewsMilestoneBar" + suffix);
+    const st = document.getElementById("proMonetizationStatus" + suffix);
+    if(fTxt) fTxt.textContent = fCount.toLocaleString("en-IN") + " / 1,000";
+    if(fBar) fBar.style.width = folPct + "%";
+    if(vTxt) vTxt.textContent = viewsTotal.toLocaleString("en-IN") + " / 10,000";
+    if(vBar) vBar.style.width = viewsPct + "%";
+    if(st){
+      if(fCount >= 1000 && viewsTotal >= 10000){
+        st.textContent = "Eligible ✅";
+        st.style.background = "rgba(34,197,94,0.16)";
+        st.style.color = "#22c55e";
+      } else {
+        st.textContent = Math.round((folPct + viewsPct) / 2) + "% Ready";
+      }
+    }
+  });
 }
 window.syncProDashboardUI = syncProDashboardUI;
+
+function askZyroForViralReelScript(){
+  if(typeof closeSettings === "function") closeSettings();
+  if(typeof closeProDashboardModal === "function") closeProDashboardModal();
+  if(typeof openAIChat === "function") openAIChat();
+  const prompt = "Bhai aaj ke liye ek kati zeher 30-second viral Desi Comedy Reel script likh de jisme punchline, camera expressions aur trending background sound cues bhi ho!";
+  setTimeout(() => {
+    if(typeof prefillAndSendZyroAI === "function"){
+      prefillAndSendZyroAI(prompt);
+    } else if(typeof prefillZyroAIPrompt === "function"){
+      prefillZyroAIPrompt(prompt);
+    }
+  }, 220);
+}
+window.askZyroForViralReelScript = askZyroForViralReelScript;
 
 /* =====================================================
    FEATURE 5: ACCOUNT SETTINGS (PRIVACY, CALLING & PASSWORDS)
@@ -13387,12 +13653,88 @@ document.addEventListener("click",(e)=>{
     return list;
   }
 
+  let currentReelSpeed = 1;
+  let reelAutoScrollEnabled = localStorage.getItem("upch_reels_autoscroll") !== "false";
+  let reelIframeAutoTimer = null;
+
+  function syncReelAutoScrollButtons(){
+    const b1 = document.getElementById("reelAutoScrollBtn");
+    const b2 = document.getElementById("reelsTabAutoScrollBtn");
+    if(b1){
+      b1.classList.toggle("active", reelAutoScrollEnabled);
+      b1.textContent = reelAutoScrollEnabled ? "🔄 Auto: ON" : "🔄 Auto: OFF";
+    }
+    if(b2){
+      b2.textContent = reelAutoScrollEnabled ? "🔄 Auto-Scroll: ON" : "🔄 Auto-Scroll: OFF";
+      b2.style.background = reelAutoScrollEnabled ? "rgba(0,149,246,0.15)" : "rgba(128,128,128,0.12)";
+      b2.style.color = reelAutoScrollEnabled ? "#0095F6" : "#888";
+    }
+  }
+  syncReelAutoScrollButtons();
+
+  window.toggleReelsAutoScroll = function(ev){
+    if(ev) ev.stopPropagation();
+    reelAutoScrollEnabled = !reelAutoScrollEnabled;
+    localStorage.setItem("upch_reels_autoscroll", reelAutoScrollEnabled ? "true" : "false");
+    syncReelAutoScrollButtons();
+    showToast(reelAutoScrollEnabled ? "🔄 Reels Auto-Scroll ON" : "⏸️ Reels Auto-Scroll OFF");
+  };
+
+  window.cycleReelPlaybackSpeed = function(ev){
+    if(ev) ev.stopPropagation();
+    const speeds = [1, 1.5, 2];
+    const nextIdx = (speeds.indexOf(currentReelSpeed) + 1) % speeds.length;
+    currentReelSpeed = speeds[nextIdx];
+    const btn = document.getElementById("reelSpeedCycleBtn");
+    if(btn){
+      btn.textContent = "⚡ " + currentReelSpeed + "x";
+      btn.classList.toggle("active", currentReelSpeed > 1);
+    }
+    const vidEl = frame.querySelector("video");
+    if(vidEl) vidEl.playbackRate = currentReelSpeed;
+    showToast("⚡ Reel Playback Speed: " + currentReelSpeed + "x");
+  };
+
+  function triggerReelBigHeartBurst(vid){
+    const heart = document.getElementById("reelHeartBurstOverlay");
+    if(heart){
+      heart.classList.remove("pop");
+      void heart.offsetWidth;
+      heart.classList.add("pop");
+    }
+    if(navigator.vibrate) try{ navigator.vibrate(35); }catch(e){}
+    if(vid && currentUser && !userLikedVideos.has(vid)){
+      toggleLike(vid);
+    } else if(vid && !currentUser){
+      showToast("❤️ Double-tap liked! (Login to save likes)");
+    }
+  }
+
   function render(){
+    if(reelIframeAutoTimer){ clearTimeout(reelIframeAutoTimer); reelIframeAutoTimer = null; }
     const r = reels[index]; if(!r) return;
-        if(r.videoUrl){
-      frame.innerHTML = '<video src="'+escapeAttr(r.videoUrl)+'" autoplay loop playsinline controls style="width:100%;height:100%;object-fit:contain;background:#000;border:none"></video>';
+    const loopAttr = reelAutoScrollEnabled ? "" : " loop";
+    if(r.videoUrl){
+      frame.innerHTML = '<video src="'+escapeAttr(r.videoUrl)+'" autoplay'+loopAttr+' playsinline controls style="width:100%;height:100%;object-fit:contain;background:#000;border:none"></video>';
+      const vidEl = frame.querySelector("video");
+      if(vidEl){
+        vidEl.playbackRate = currentReelSpeed;
+        vidEl.addEventListener("ended", ()=>{
+          if(reelAutoScrollEnabled && index < reels.length - 1){
+            next();
+          } else {
+            vidEl.currentTime = 0;
+            vidEl.play().catch(()=>{});
+          }
+        });
+      }
     } else {
       frame.innerHTML = '<iframe src="https://www.youtube.com/embed/'+r.vid+'?autoplay=1&rel=0&playsinline=1&loop=1&playlist='+r.vid+'" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share;fullscreen" allowfullscreen></iframe>';
+      if(reelAutoScrollEnabled && index < reels.length - 1){
+        reelIframeAutoTimer = setTimeout(()=>{
+          if(viewer.classList.contains("show") && reelAutoScrollEnabled) next();
+        }, 22000);
+      }
     }
     titleEl.textContent = r.title || "Reel";
     countEl.textContent = (index+1)+" / "+reels.length;
@@ -13415,10 +13757,57 @@ document.addEventListener("click",(e)=>{
     document.body.style.overflow="hidden";
     render();
   }
-  function close(){ viewer.classList.remove("show"); frame.innerHTML=""; document.body.style.overflow=""; }
+  function close(){
+    if(reelIframeAutoTimer){ clearTimeout(reelIframeAutoTimer); reelIframeAutoTimer = null; }
+    viewer.classList.remove("show"); frame.innerHTML=""; document.body.style.overflow="";
+  }
   function next(){ if(index<reels.length-1){ index++; render(); } }
   function prev(){ if(index>0){ index--; render(); } }
   window.openReelViewer = open;
+
+  // Double-tap heart burst + Long-press 2x speed on Reel stage
+  let lastReelTapTime = 0;
+  let holdSpeedTimer = null;
+  let isHolding2x = false;
+  const speedToast = document.getElementById("reelSpeedToastPill");
+
+  frame.addEventListener("pointerdown", ()=>{
+    clearTimeout(holdSpeedTimer);
+    holdSpeedTimer = setTimeout(()=>{
+      const vidEl = frame.querySelector("video");
+      if(vidEl){
+        isHolding2x = true;
+        vidEl.playbackRate = 2.0;
+        if(speedToast) speedToast.classList.add("show");
+        if(navigator.vibrate) try{ navigator.vibrate(25); }catch(e){}
+      }
+    }, 420);
+  });
+
+  function clearHold2x(){
+    clearTimeout(holdSpeedTimer);
+    if(isHolding2x){
+      isHolding2x = false;
+      const vidEl = frame.querySelector("video");
+      if(vidEl) vidEl.playbackRate = currentReelSpeed;
+      if(speedToast) speedToast.classList.remove("show");
+    }
+  }
+  frame.addEventListener("pointerup", clearHold2x);
+  frame.addEventListener("pointercancel", clearHold2x);
+  frame.addEventListener("pointerleave", clearHold2x);
+
+  frame.addEventListener("click", (e)=>{
+    const now = Date.now();
+    if(now - lastReelTapTime < 300){
+      e.stopPropagation();
+      const r = reels[index];
+      triggerReelBigHeartBurst(r ? r.vid : "");
+      lastReelTapTime = 0;
+    } else {
+      lastReelTapTime = now;
+    }
+  });
 
   if(btnSave){
     btnSave.addEventListener("click", async (e)=>{
@@ -13561,21 +13950,52 @@ function openShareSheet(vid){
   shareSheetVid = vid;
   const ov = document.getElementById("shareSheetOverlay"), body = document.getElementById("shareSheetBody"), title = document.getElementById("shareSheetTitle");
   if(!ov || !body) return;
-  if(title) title.textContent = "Share";
-  const url = "https://www.youtube.com/watch?v="+vid;
+  if(title) title.textContent = "Share Reel / Video";
+  const vInfo = (typeof allVideos !== "undefined" && allVideos[vid]) ? allVideos[vid] : {};
+  const url = vInfo.videoUrl || ("https://www.youtube.com/watch?v=" + vid);
+  const vTitle = vInfo.title || "Dekho ye comedy video Zyro Play par! 😂🔥";
   body.innerHTML = "";
+
+  // 1. Send to Friend DM (In-App Chat)
+  const o2 = document.createElement("div"); o2.className = "share-opt";
+  o2.innerHTML = '<span class="so-ico">💬</span><span>Send to Friend in Chat (DM)</span>';
+  o2.addEventListener("click", ()=>renderShareFriendPicker(vid));
+  body.appendChild(o2);
+
+  // 2. Direct WhatsApp Share
+  const oWa = document.createElement("div"); oWa.className = "share-opt";
+  oWa.innerHTML = '<span class="so-ico">🟢</span><span>Share on WhatsApp</span>';
+  oWa.addEventListener("click", ()=>{
+    const waUrl = "https://wa.me/?text=" + encodeURIComponent("🎬 " + vTitle + " 😂🔥\n" + url);
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+    closeShareSheet();
+  });
+  body.appendChild(oWa);
+
+  // 3. Ask Zyro AI to Write Funny Caption / Roast for this Reel
+  const oAi = document.createElement("div"); oAi.className = "share-opt";
+  oAi.innerHTML = '<span class="so-ico">🤖</span><span>Ask Zyro AI to Roast / Caption this Reel</span>';
+  oAi.addEventListener("click", ()=>{
+    closeShareSheet();
+    if(typeof openAIChat === "function") openAIChat();
+    const prompt = "Bhai is comedy video/reel ('" + vTitle + "') ke liye 3 bawal viral captions aur ek funny Kanpuria comment likh de!";
+    setTimeout(()=>{
+      if(typeof prefillAndSendZyroAI === "function") prefillAndSendZyroAI(prompt);
+      else if(typeof prefillZyroAIPrompt === "function") prefillZyroAIPrompt(prompt);
+    }, 200);
+  });
+  body.appendChild(oAi);
+
+  // 4. Native Share / Copy Link
   const o1 = document.createElement("div"); o1.className = "share-opt";
   o1.innerHTML = '<span class="so-ico">📤</span><span>Share / Copy link</span>';
   o1.addEventListener("click", async ()=>{
-    if(navigator.share){ try{ await navigator.share({title:"UPComedyHub",text:"Dekho ye reel! 😂",url}); }catch(e){} }
+    if(navigator.share){ try{ await navigator.share({title:"Zyro Play",text:vTitle,url}); }catch(e){} }
     else { try{ await navigator.clipboard.writeText(url); showToast("🔗 Link copied!"); }catch(e){ showToast("❌"); } }
     closeShareSheet();
   });
   body.appendChild(o1);
-  const o2 = document.createElement("div"); o2.className = "share-opt";
-  o2.innerHTML = '<span class="so-ico">💬</span><span>Chat me bhejo</span>';
-  o2.addEventListener("click", ()=>renderShareFriendPicker(vid));
-  body.appendChild(o2);
+
   ov.classList.add("show");
 }
 function closeShareSheet(){ const ov = document.getElementById("shareSheetOverlay"); if(ov) ov.classList.remove("show"); shareSheetVid = null; }
@@ -15284,6 +15704,15 @@ async function sendMessage(){
   }catch(e){ console.error(e); showToast("❌ Send failed"); }
 }
 window.sendMessage = sendMessage;
+
+async function sendQuickDesiChatLine(lineText){
+  const input = document.getElementById("chatInput");
+  if(!input || !lineText) return;
+  input.value = lineText;
+  updateComposerButtons();
+  await sendMessage();
+}
+window.sendQuickDesiChatLine = sendQuickDesiChatLine;
 
 async function deleteMessageForMe(mid){
   if(!currentConversationId) return;
@@ -20916,11 +21345,14 @@ function renderAIHistory(){
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>' +
             '<span>Listen</span>' +
           '</button>' +
+          '<button type="button" class="zai-action-btn" onclick="shareZyroReplyToKeep(this)" data-text="' + escapeAttr(m.text) + '" title="Send to Google Keep, Notes or WhatsApp (No login required)">' +
+            '<span>💡 Keep / Share</span>' +
+          '</button>' +
+          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleTasks(this)" data-text="' + escapeAttr(m.text) + '" title="Save as Note in Tasks">' +
+            '<span>✅ Save Task</span>' +
+          '</button>' +
           '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleDocs(this)" data-text="' + escapeAttr(m.text) + '" title="Save this response to Google Docs">' +
             '<span>📝 Save to Docs</span>' +
-          '</button>' +
-          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleTasks(this)" data-text="' + escapeAttr(m.text) + '" title="Save as Note in Google Tasks">' +
-            '<span>✅ Save Task</span>' +
           '</button>' +
         '</div>'
       ) : '';
@@ -21303,6 +21735,113 @@ async function createZyroGoogleDoc({ title, content }){
   };
 }
 
+// Direct 1-Tap Google Calendar Template URL (Works 100% without OAuth login!)
+function buildGoogleCalendarTemplateUrl({ title, description, startTimeISO, endTimeISO }){
+  const start = startTimeISO ? new Date(startTimeISO) : new Date(Date.now() + 3600 * 1000);
+  const end = endTimeISO ? new Date(endTimeISO) : new Date(start.getTime() + 3600 * 1000);
+  const fmt = (d) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const datesParam = fmt(start) + "/" + fmt(end);
+  const textParam = encodeURIComponent(title || "Zyro AI Reminder 📅");
+  const detailsParam = encodeURIComponent((description || "Scheduled via Zyro AI") + "\n\n— Zyro Play AI Assistant 🔥");
+  return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + textParam + "&details=" + detailsParam + "&dates=" + datesParam;
+}
+window.buildGoogleCalendarTemplateUrl = buildGoogleCalendarTemplateUrl;
+
+// Local Zyro Tasks & In-App Alarm Reminders Store
+const ZYRO_LOCAL_TASKS_KEY = "upch_zyro_local_tasks";
+const ZYRO_LOCAL_REMINDERS_KEY = "upch_zyro_local_reminders";
+
+function loadZyroLocalTasks(){
+  try {
+    const raw = JSON.parse(localStorage.getItem(ZYRO_LOCAL_TASKS_KEY) || "[]");
+    return Array.isArray(raw) ? raw : [];
+  } catch (e) { return []; }
+}
+
+function saveZyroLocalTask({ title, notes }){
+  try {
+    const list = loadZyroLocalTasks();
+    list.unshift({
+      id: "ztask_" + Date.now(),
+      title: (title || "Zyro AI Note 💡").slice(0, 200),
+      notes: (notes || "").slice(0, 4000),
+      createdAt: new Date().toISOString()
+    });
+    localStorage.setItem(ZYRO_LOCAL_TASKS_KEY, JSON.stringify(list.slice(0, 50)));
+  } catch (e) {}
+}
+
+function saveZyroLocalReminder({ title, description, startTimeISO }){
+  try {
+    const raw = JSON.parse(localStorage.getItem(ZYRO_LOCAL_REMINDERS_KEY) || "[]");
+    const list = Array.isArray(raw) ? raw : [];
+    list.unshift({
+      id: "zrem_" + Date.now(),
+      title: title || "Zyro AI Reminder 📅",
+      description: description || "",
+      startTimeISO: startTimeISO || new Date(Date.now() + 3600 * 1000).toISOString(),
+      notified: false
+    });
+    localStorage.setItem(ZYRO_LOCAL_REMINDERS_KEY, JSON.stringify(list.slice(0, 40)));
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission().catch(() => {});
+    }
+  } catch (e) {}
+}
+
+// Background In-App Reminder Watcher (fires notification & toast when time arrives)
+setInterval(() => {
+  try {
+    const raw = JSON.parse(localStorage.getItem(ZYRO_LOCAL_REMINDERS_KEY) || "[]");
+    if (!Array.isArray(raw) || !raw.length) return;
+    const now = Date.now();
+    let changed = false;
+    for (const r of raw) {
+      if (!r || r.notified) continue;
+      const targetMs = new Date(r.startTimeISO).getTime();
+      if (targetMs && now >= targetMs && (now - targetMs) < 3600 * 1000) {
+        r.notified = true;
+        changed = true;
+        showToast("⏰ Zyro AI Reminder: " + r.title);
+        if ("Notification" in window && Notification.permission === "granted") {
+          try {
+            new Notification("⏰ Zyro AI Reminder", { body: r.title, icon: "IMG_20261002_053016.png" });
+          } catch (e) {}
+        }
+      }
+    }
+    if (changed) {
+      localStorage.setItem(ZYRO_LOCAL_REMINDERS_KEY, JSON.stringify(raw));
+    }
+  } catch (e) {}
+}, 30000);
+
+// One-tap Share AI Reply to Google Keep / Notes / WhatsApp (Zero OAuth required)
+async function shareZyroReplyToKeep(btn){
+  const text = btn?.dataset?.text || "";
+  if (!text) return;
+  const firstLine = text.split("\n")[0].replace(/[*#]/g, "").trim().slice(0, 60) || "Zyro AI Note 💡";
+  saveZyroLocalTask({ title: firstLine, notes: text });
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: firstLine,
+        text: text
+      });
+      btn.innerHTML = "<span>✅ Shared</span>";
+      setTimeout(() => { if (btn) btn.innerHTML = "<span>💡 Keep / Share</span>"; }, 1800);
+      return;
+    } catch (err) {}
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    await navigator.clipboard.writeText(text).catch(() => {});
+  }
+  btn.innerHTML = "<span>✅ Saved & Copied</span>";
+  showToast("💡 Note saved & copied! Google Keep me paste kar sakte ho");
+  setTimeout(() => { if (btn) btn.innerHTML = "<span>💡 Keep / Share</span>"; }, 2000);
+}
+window.shareZyroReplyToKeep = shareZyroReplyToKeep;
+
 // One-tap Save AI Reply to Google Docs
 async function saveZyroReplyToGoogleDocs(btn){
   const text = btn?.dataset?.text || "";
@@ -21329,24 +21868,30 @@ async function saveZyroReplyToGoogleDocs(btn){
 }
 window.saveZyroReplyToGoogleDocs = saveZyroReplyToGoogleDocs;
 
-// One-tap Save AI Reply to Google Tasks
+// One-tap Save AI Reply to Google Tasks (with instant local fallback if OAuth not connected)
 async function saveZyroReplyToGoogleTasks(btn){
   const text = btn?.dataset?.text || "";
   if (!text) return;
   const origHtml = btn.innerHTML;
   btn.innerHTML = "<span>⏳ Saving...</span>";
-  try {
-    const firstLine = text.split("\n")[0].replace(/[*#]/g, "").trim().slice(0, 80) || "Zyro AI Note";
-    await createZyroGoogleTask({
-      title: firstLine,
-      notes: text
-    });
-    btn.innerHTML = "<span>✅ Added to Tasks</span>";
-    showToast("✅ Google Tasks me save ho gaya!");
-  } catch (e) {
-    btn.innerHTML = origHtml;
-    showToast("❌ Google Tasks save failed");
+  const firstLine = text.split("\n")[0].replace(/[*#]/g, "").trim().slice(0, 80) || "Zyro AI Note";
+  saveZyroLocalTask({ title: firstLine, notes: text });
+  extractAndSaveUserMemory(firstLine);
+
+  if (getZyroGwsToken()) {
+    try {
+      await createZyroGoogleTask({
+        title: firstLine,
+        notes: text
+      });
+      btn.innerHTML = "<span>✅ Added to Google Tasks</span>";
+      showToast("✅ Google Tasks & Zyro Memory me save ho gaya!");
+      return;
+    } catch (e) {}
   }
+
+  btn.innerHTML = "<span>✅ Saved in Tasks</span>";
+  showToast("✅ Zyro Tasks & Memory me save ho gaya!");
 }
 window.saveZyroReplyToGoogleTasks = saveZyroReplyToGoogleTasks;
 
@@ -21586,20 +22131,28 @@ async function tryHandleZyroWorkspaceCommand(text, activeChatId, typingId){
   } catch (e) {}
 
   try {
-    // A. List Google Tasks
+    // A. List Tasks (merges Google Tasks if connected + Local Zyro Tasks)
     if (isTaskListCue || (parsed && parsed.action === "task_list")) {
-      const items = await listZyroGoogleTasks();
+      let items = loadZyroLocalTasks();
+      if (getZyroGwsToken()) {
+        try {
+          const gItems = await listZyroGoogleTasks();
+          if (Array.isArray(gItems) && gItems.length) {
+            items = [...gItems, ...items];
+          }
+        } catch (e) {}
+      }
       document.getElementById(typingId)?.remove();
       if (!items.length) {
-        await pushAIHistory("model", "**भाई, तेरी Google Tasks लिस्ट अभी एकदम क्लीन है!** ✅🔥 कोई पेंडिंग काम नहीं है। नया टास्क जोड़ने के लिए बस बोल दे! 👊");
+        await pushAIHistory("model", "**भाई, तेरी Tasks और Notes लिस्ट अभी एकदम क्लीन है!** ✅🔥 कोई पेंडिंग काम नहीं है। नया टास्क या आइडिया जोड़ने के लिए बस बोल दे! 👊");
       } else {
-        const listStr = items.slice(0, 10).map((it, idx) => (idx + 1) + ". **" + (it.title || "Task") + "**" + (it.notes ? " — _" + it.notes.slice(0, 80) + "_" : "")).join("\n");
-        await pushAIHistory("model", "**भाई, ये रहे तेरे Google Tasks के पेंडिंग काम:** ✅🔥\n\n" + listStr);
+        const listStr = items.slice(0, 12).map((it, idx) => (idx + 1) + ". **" + (it.title || "Task") + "**" + (it.notes ? " — _" + it.notes.slice(0, 80) + "_" : "")).join("\n");
+        await pushAIHistory("model", "**भाई, ये रहे तेरे सेव किए हुए Tasks और Ideas:** ✅🔥\n\n" + listStr);
       }
       return true;
     }
 
-    // B. Create Google Calendar Event
+    // B. Create Google Calendar Event (Auto-API if connected + 1-Tap Direct Calendar App Link + In-App Alarm)
     if (isCalendarCue || (parsed && parsed.action === "calendar_add")) {
       const fallbackTimes = parseHinglishDateTimeFallback(text);
       const title = (parsed && parsed.title) || makeClientChatTitle(text);
@@ -21607,22 +22160,36 @@ async function tryHandleZyroWorkspaceCommand(text, activeChatId, typingId){
       const endTimeISO = (parsed && parsed.endTimeISO) || fallbackTimes.endTimeISO;
       const description = (parsed && parsed.description) || text;
 
-      const ev = await createZyroCalendarEvent({ title, description, startTimeISO, endTimeISO });
+      // Always save in-app alarm reminder & user memory immediately
+      saveZyroLocalReminder({ title, description, startTimeISO });
+      extractAndSaveUserMemory("Upcoming schedule: " + title + " at " + startTimeISO);
+
+      const directCalUrl = buildGoogleCalendarTemplateUrl({ title, description, startTimeISO, endTimeISO });
+      let apiLink = "";
+      if (getZyroGwsToken()) {
+        try {
+          const ev = await createZyroCalendarEvent({ title, description, startTimeISO, endTimeISO });
+          if (ev && ev.htmlLink) apiLink = ev.htmlLink;
+        } catch (e) {}
+      }
+
       const niceTime = new Date(startTimeISO).toLocaleString("en-IN", {
         weekday: "short", day: "numeric", month: "short", hour: "numeric", minute: "2-digit"
       });
-      const broMsg = (parsed && parsed.broReply) || ("**भाई, डन! तेरे Google Calendar में इवेंट सेट कर दिया है!** 📅🔥 अब फोन पर सीधा नोटिफिकेशन आ जाएगा!");
-      const linkPart = ev && ev.htmlLink ? ("\n\n👉 [Google Calendar में इवेंट देखें](" + ev.htmlLink + ")") : "";
+      const broMsg = (parsed && parsed.broReply) || ("**भाई, डन! तेरा रिमाइंडर सेट कर दिया है!** 📅🔥");
+      const calActionLink = apiLink
+        ? ("\n\n✅ [Google Calendar में सेव हो गया — यहाँ देखें](" + apiLink + ")")
+        : ("\n\n👉 [📅 1-Tap: अपने फोन के Google Calendar में सेव करें](" + directCalUrl + ")");
 
       document.getElementById(typingId)?.remove();
       await pushAIHistory(
         "model",
-        broMsg + "\n\n📌 **Event:** " + title + "\n⏰ **Time:** " + niceTime + linkPart
+        broMsg + "\n\n📌 **Event:** " + title + "\n⏰ **Time:** " + niceTime + "\n🔔 **In-App Reminder:** Active" + calActionLink
       );
       return true;
     }
 
-    // C. Create Google Task / Idea Note
+    // C. Create Task / Idea Note (Saves in Zyro Memory + Local Tasks + Google Tasks if connected)
     if (isTaskAddCue || (parsed && parsed.action === "task_add")) {
       const cleanIdea = text
         .replace(/^(bhai|bro|zyro|ek|naya|mere|google|tasks|keep|me|note|task|save|kar|de|do|karo|yaad|rakhna|add)[\s,:;-]*/gi, "")
@@ -21630,9 +22197,20 @@ async function tryHandleZyroWorkspaceCommand(text, activeChatId, typingId){
       const title = (parsed && parsed.title) || cleanIdea.slice(0, 90);
       const notes = (parsed && parsed.description) || ("Saved via Zyro AI: " + text);
 
-      await createZyroGoogleTask({ title, notes });
+      saveZyroLocalTask({ title, notes });
       extractAndSaveUserMemory(text);
-      const broMsg = (parsed && parsed.broReply) || "**भाई, एकदम सॉलिड आइडिया है! इसे तेरे Google Tasks और अपनी परमानेंट मेमोरी दोनों में सेव कर लिया है!** ✅🧠🔥";
+
+      let syncedToGoogle = false;
+      if (getZyroGwsToken()) {
+        try {
+          await createZyroGoogleTask({ title, notes });
+          syncedToGoogle = true;
+        } catch (e) {}
+      }
+
+      const broMsg = (parsed && parsed.broReply) || (syncedToGoogle
+        ? "**भाई, एकदम सॉलिड आइडिया है! इसे तेरे Google Tasks और अपनी परमानेंट मेमोरी दोनों में सेव कर लिया है!** ✅🧠🔥"
+        : "**भाई, एकदम सॉलिड आइडिया है! इसे तेरी Tasks लिस्ट और परमानेंट मेमोरी में सेव कर लिया है!** ✅🧠🔥 *(नीचे `💡 Keep / Share` दबाकर सीधे Google Keep में भी भेज सकता है!)*");
 
       document.getElementById(typingId)?.remove();
       await pushAIHistory("model", broMsg + "\n\n📝 **Saved Note:** " + title);
@@ -21658,7 +22236,7 @@ async function tryHandleZyroWorkspaceCommand(text, activeChatId, typingId){
       document.getElementById(typingId)?.remove();
       await pushAIHistory(
         "model",
-        "🔐 **भाई, Google Calendar / Tasks / Docs में सेव करने के लिए नीचे दिए गए `🔗 Connect Google` बटन पर एक बार टैप करके परमिशन दे दे!** उसके बाद तेरा भाई सीधे तेरे फोन में रिमाइंडर और नोट्स सेट कर देगा! 👊🔥"
+        "🔐 **भाई, Google Docs बनाने के लिए नीचे दिए गए `🔗 Connect Google` बटन पर एक बार टैप करके परमिशन दे दे!** या फिर नीचे **`💡 Keep / Share`** बटन दबाकर बिना लॉगिन के सीधे Google Keep / Notes में सेव कर ले! 👊🔥"
       );
       return true;
     }
@@ -22502,25 +23080,112 @@ window.handleAIMessageSend = handleAIMessageSend;
   }
   window.checkDailyStreak = checkDailyStreak;
 
+  const FUN_AVATAR_FRAMES = {
+    rookie: { reqXp: 0, title: '🎭 Rookie Joker', border: '2.5px solid #38bdf8', shadow: '0 0 10px rgba(56,189,248,0.45)' },
+    king:   { reqXp: 100, title: '🔥 Comedy King', border: '3px solid #f97316', shadow: '0 0 14px rgba(249,115,22,0.65)' },
+    don:    { reqXp: 300, title: '👑 Kanpur Don', border: '3px solid #eab308', shadow: '0 0 16px rgba(234,179,8,0.75)' },
+    legend: { reqXp: 500, title: '⚡ Zyro Legend', border: '3px solid #d946ef', shadow: '0 0 18px rgba(217,70,239,0.85)' }
+  };
+
+  window.equipFunAvatarFrame = function(frameId) {
+    const xp = parseInt(localStorage.getItem('upch_player_xp') || '0', 10);
+    const cfg = FUN_AVATAR_FRAMES[frameId] || FUN_AVATAR_FRAMES.rookie;
+    if (xp < cfg.reqXp) {
+      if (typeof showToast === 'function') {
+        showToast(`🔒 Is frame ke liye ${cfg.reqXp} XP chahiye! (Abhi: ${xp} XP) — Games khel kar ya Daily Bonus se XP badhao!`);
+      }
+      return;
+    }
+    localStorage.setItem('upch_equipped_frame', frameId);
+    updatePlayerCard();
+    if (typeof showToast === 'function') {
+      showToast(`✨ Equipped: ${cfg.title}!`);
+    }
+  };
+
+  window.claimDailyFunXpBonus = function() {
+    const today = new Date().toLocaleDateString('en-CA');
+    const lastClaim = localStorage.getItem('upch_daily_xp_claim_date');
+    if (lastClaim === today) {
+      if (typeof showToast === 'function') {
+        showToast('✅ Aaj ka +50 XP Daily Bonus aap le chuke hain! Kal fir milega 🔥');
+      }
+      return;
+    }
+    localStorage.setItem('upch_daily_xp_claim_date', today);
+    addPlayerXP(50);
+    ArcadeAudio.init();
+    ArcadeAudio.playDingSuccess();
+    if (typeof showToast === 'function') {
+      showToast('🎉 +50 Bonus XP Added! Naye Avatar Frames unlock karein 🔥');
+    }
+  };
+
   function updatePlayerCard() {
     const xp = parseInt(localStorage.getItem('upch_player_xp') || '0', 10);
     const level = Math.floor(xp / 100) + 1;
     const levelProgress = xp % 100;
 
+    let equippedId = localStorage.getItem('upch_equipped_frame') || 'rookie';
+    if (!FUN_AVATAR_FRAMES[equippedId] || xp < FUN_AVATAR_FRAMES[equippedId].reqXp) {
+      equippedId = 'rookie';
+    }
+    const frameCfg = FUN_AVATAR_FRAMES[equippedId];
+
     const meta = document.getElementById('funPlayerMeta');
     const fill = document.getElementById('funXpFill');
-    if (meta) meta.textContent = `Level ${level} • ${xp} XP`;
+    if (meta) meta.textContent = `Level ${level} • ${xp} XP • ${frameCfg.title}`;
     if (fill) fill.style.width = `${levelProgress}%`;
+
+    // Update Frame Shop UI
+    document.querySelectorAll('#funFrameGrid .fun-frame-item').forEach(el => {
+      const fid = el.getAttribute('data-frame-id');
+      const req = parseInt(el.getAttribute('data-req-xp') || '0', 10);
+      const stTxt = el.querySelector('.frame-status-txt');
+      el.classList.toggle('equipped', fid === equippedId);
+      el.classList.toggle('locked', xp < req);
+      if (stTxt) {
+        if (fid === equippedId) {
+          stTxt.textContent = 'Equipped ✓';
+          stTxt.style.color = '#38bdf8';
+        } else if (xp >= req) {
+          stTxt.textContent = 'Unlocked 🔓';
+          stTxt.style.color = '#22c55e';
+        } else {
+          stTxt.textContent = `${req} XP 🔒`;
+          stTxt.style.color = '#94a3b8';
+        }
+      }
+    });
+
+    // Update Daily Bonus Button state
+    const claimBtn = document.getElementById('claimDailyXpBtn');
+    const today = new Date().toLocaleDateString('en-CA');
+    if (claimBtn && localStorage.getItem('upch_daily_xp_claim_date') === today) {
+      claimBtn.textContent = '✅ +50 XP Claimed';
+      claimBtn.style.opacity = '0.75';
+    }
 
     // Track & update Daily Streak
     checkDailyStreak();
 
-    // Try to sync with logged in user profile if available
+    // Try to sync with logged in user profile if available + apply glowing frame
     const avatar = document.getElementById('funPlayerAvatar');
+    const userPhotoEl = document.getElementById('userPhoto');
     const nameEl = document.getElementById('funPlayerName');
+    if (avatar) {
+      avatar.style.border = frameCfg.border;
+      avatar.style.boxShadow = frameCfg.shadow;
+    }
+    if (userPhotoEl && equippedId !== 'rookie') {
+      userPhotoEl.style.border = frameCfg.border;
+      userPhotoEl.style.boxShadow = frameCfg.shadow;
+    }
     if (window.currentUser) {
       if (avatar && window.currentUser.photoURL) avatar.src = window.currentUser.photoURL;
-      if (nameEl && window.currentUser.displayName) nameEl.textContent = window.currentUser.displayName + ' 🌟';
+      if (nameEl && window.currentUser.displayName) nameEl.textContent = window.currentUser.displayName + ' • ' + frameCfg.title;
+    } else if (nameEl) {
+      nameEl.textContent = 'Arcade Champion • ' + frameCfg.title;
     }
   }
 

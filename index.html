@@ -4542,6 +4542,793 @@ img.logo-profile.zyro-header-logo {
 .fun-frame-item.locked {
   opacity: 0.55;
 }
+
+/* ============================================================
+   UPGRADE: 2026 ULTRA-PREMIUM UI GLOW-UP, LIVE STAGE & GIFTING
+   ============================================================ */
+
+/* 1. Header Coin Pill & Live Stage Badge */
+.header-coin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.16), rgba(245, 158, 11, 0.08));
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 38px;
+  font-weight: 800;
+  font-size: 12.5px;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.header-coin-pill:active { transform: scale(0.94); }
+.header-coin-pill:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.25), rgba(245, 158, 11, 0.15));
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.35);
+}
+
+/* 2. Stories Tray Live Stage Bubble */
+.story-ring.live-stage-ring {
+  background: linear-gradient(45deg, #ff1361, #fff800, #ff1361, #bc1888);
+  background-size: 300% 300%;
+  animation: liveRingGradient 3s ease infinite, liveRingPulse 1.6s ease-in-out infinite;
+  box-shadow: 0 0 16px rgba(255, 19, 97, 0.45);
+}
+@keyframes liveRingGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes liveRingPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.live-stage-badge {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff1744, #d50000);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1.5px solid #fff;
+  box-shadow: 0 2px 6px rgba(213, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* 3. Reel Floating Side Actions (Instagram / TikTok Style) */
+.reel-side-actions {
+  position: absolute;
+  right: 12px;
+  bottom: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 43;
+  pointer-events: auto;
+}
+.reel-side-btn {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  padding: 0;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  min-width: 44px;
+  min-height: 44px;
+  justify-content: center;
+}
+.reel-side-btn:active { transform: scale(0.88); }
+.reel-side-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.reel-side-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+  stroke: #fff;
+  fill: none;
+}
+.reel-side-btn.liked .reel-side-icon-wrap svg {
+  stroke: #ff2d55;
+  fill: #ff2d55;
+  filter: drop-shadow(0 0 8px rgba(255, 45, 85, 0.7));
+}
+.reel-side-btn.liked .reel-side-icon-wrap {
+  background: rgba(255, 45, 85, 0.2);
+  border-color: rgba(255, 45, 85, 0.5);
+  animation: heartBounce 0.4s ease;
+}
+@keyframes heartBounce {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+.reel-side-gift-btn .reel-side-icon-wrap {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.35), rgba(217, 119, 6, 0.35));
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.45);
+  animation: giftWiggle 3s infinite ease-in-out;
+}
+@keyframes giftWiggle {
+  0%, 85%, 100% { transform: rotate(0deg); }
+  88% { transform: rotate(-12deg); }
+  92% { transform: rotate(12deg); }
+  96% { transform: rotate(-6deg); }
+}
+.reel-side-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.2px;
+}
+.reel-disc-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #111;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-top: 6px;
+}
+.reel-disc-spin {
+  font-size: 18px;
+  animation: spinDisc 3.5s linear infinite;
+}
+@keyframes spinDisc {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 4. Live Comedy Stage Modal & Virtual Stage Experience */
+.live-stage-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 15%, #2e1065 0%, #0f0728 50%, #09090b 90%);
+  color: #fff;
+  z-index: 100095;
+  flex-direction: column;
+  overflow: hidden;
+}
+.live-stage-overlay.show { display: flex; }
+.live-stage-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+.live-stage-header {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10;
+}
+.live-stage-room-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.live-stage-topic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.live-stage-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #aaa;
+}
+.live-listener-pill {
+  background: rgba(255, 45, 85, 0.2);
+  color: #ff3b5c;
+  border: 1px solid rgba(255, 45, 85, 0.4);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.live-leave-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.live-leave-btn:active { background: rgba(255, 45, 85, 0.3); }
+
+/* Room Topics Carousel */
+.live-stage-topics-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+.live-stage-topics-bar::-webkit-scrollbar { display: none; }
+.live-topic-chip {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ccc;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.live-topic-chip.active {
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(139, 92, 246, 0.4);
+}
+
+/* Virtual Comedy Stage Podium */
+.live-stage-spotlight-area {
+  padding: 16px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.4) 100%);
+  border-radius: 0 0 24px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.stage-spotlight-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 800;
+  color: #f59e0b;
+  letter-spacing: 0.5px;
+}
+.stage-podium-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.speaker-podium-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+.speaker-avatar-wrap {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  position: relative;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.speaker-avatar-wrap.speaking {
+  box-shadow: 0 0 0 3px #10b981, 0 0 16px rgba(16, 185, 129, 0.6);
+  animation: speakingGlow 1.2s infinite alternate;
+}
+@keyframes speakingGlow {
+  0% { box-shadow: 0 0 0 2px #10b981, 0 0 8px rgba(16, 185, 129, 0.4); }
+  100% { box-shadow: 0 0 0 4px #10b981, 0 0 20px rgba(16, 185, 129, 0.8); }
+}
+.speaker-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #1f1f23;
+  border: 2px solid #27272a;
+}
+.speaker-role-pill {
+  position: absolute;
+  bottom: -4px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.speaker-role-pill.host {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fbbf24;
+}
+.speaker-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  margin-top: 8px;
+  color: #eee;
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.speaker-mic-state {
+  font-size: 10px;
+  color: #10b981;
+  font-weight: 700;
+}
+.speaker-mic-state.muted { color: #888; }
+.speaker-podium-card.empty-slot .speaker-avatar-wrap {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Comedy Soundboard Chip Bar */
+.comedy-sfx-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(0, 0, 0, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+.comedy-sfx-bar::-webkit-scrollbar { display: none; }
+.comedy-sfx-btn {
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: transform 0.12s, background 0.15s, box-shadow 0.2s;
+  min-height: 36px;
+}
+.comedy-sfx-btn:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.25);
+}
+.comedy-sfx-btn.playing {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.5);
+  transform: scale(1.05);
+}
+
+/* Live Floating Reaction Barrage */
+.stage-reaction-barrage {
+  position: absolute;
+  right: 16px;
+  bottom: 80px;
+  width: 80px;
+  height: 260px;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 25;
+}
+.stage-floating-emoji {
+  position: absolute;
+  bottom: 0;
+  font-size: 26px;
+  animation: floatEmojiUp 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+@keyframes floatEmojiUp {
+  0% {
+    transform: translateY(0) scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-130px) scale(1.1) rotate(15deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-260px) scale(1.3) rotate(-15deg);
+    opacity: 0;
+  }
+}
+
+/* Live Stage Chat Stream & Audience */
+.live-stage-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  padding: 10px 14px;
+}
+.live-audience-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #888;
+  margin-bottom: 8px;
+}
+.live-audience-avatars-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.live-audience-avatars-row::-webkit-scrollbar { display: none; }
+.audience-mini-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+  flex-shrink: 0;
+  background: #27272a;
+}
+.live-stage-comments-stream {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+.stage-comment-msg {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  max-width: 85%;
+  align-self: flex-start;
+  animation: commentSlideIn 0.25s ease-out;
+}
+@keyframes commentSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.stage-comment-user {
+  font-weight: 800;
+  color: #38bdf8;
+  margin-right: 4px;
+}
+
+/* Stage Bottom Controls Bar */
+.live-stage-bottom-bar {
+  padding: 10px 14px 18px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 20;
+}
+.live-stage-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.live-stage-chat-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  padding: 9px 14px;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  min-height: 40px;
+}
+.live-stage-chat-input::placeholder { color: #888; }
+.live-stage-action-btns-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stage-action-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  min-height: 42px;
+}
+.stage-action-btn:active { transform: scale(0.94); }
+.stage-action-btn.active-mic {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-color: #34d399;
+}
+.stage-action-btn.gift-stage-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fbbf24;
+  color: #fff;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.4);
+}
+.stage-reactions-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.stage-react-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.12s;
+}
+.stage-react-pill:active { transform: scale(1.3); }
+
+/* 5. Virtual Gifting & SuperChat Modal */
+.zyro-sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100100;
+  align-items: flex-end;
+  justify-content: center;
+}
+.zyro-sheet-overlay.show { display: flex; }
+.zyro-sheet-box {
+  width: 100%;
+  max-width: 520px;
+  background: #18181b;
+  border-radius: 26px 26px 0 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  max-height: 86vh;
+  animation: sheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+@keyframes sheetSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+.zyro-sheet-handle {
+  width: 38px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 10px auto 4px;
+}
+.zyro-sheet-header {
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.zyro-sheet-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gift-wallet-card {
+  margin: 14px 18px 8px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(180, 83, 9, 0.15));
+  border: 1.5px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.gift-wallet-balance {
+  display: flex;
+  flex-direction: column;
+}
+.gift-wallet-coins {
+  font-size: 20px;
+  font-weight: 900;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.gift-daily-bonus-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+  transition: transform 0.15s ease;
+}
+.gift-daily-bonus-btn:active { transform: scale(0.94); }
+
+.gifts-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 10px 18px 20px;
+  overflow-y: auto;
+}
+.gift-item-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.gift-item-card:hover, .gift-item-card.selected {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.25);
+  transform: translateY(-2px);
+}
+.gift-item-card:active { transform: scale(0.95); }
+.gift-item-emoji {
+  font-size: 36px;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+.gift-item-name {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+}
+.gift-item-tagline {
+  font-size: 9.5px;
+  color: #aaa;
+  line-height: 1.2;
+  margin: 3px 0 6px;
+  min-height: 22px;
+}
+.gift-item-price-tag {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  color: #fbbf24;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 3px 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* 6. Gift Fullscreen Celebration Takeover */
+.gift-celebration-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100120;
+  pointer-events: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.gift-celebration-overlay.active { display: flex; }
+.gift-celebration-banner {
+  background: rgba(17, 17, 17, 0.92);
+  border: 2px solid #fbbf24;
+  box-shadow: 0 0 35px rgba(251, 191, 36, 0.6), 0 20px 60px rgba(0, 0, 0, 0.9);
+  padding: 18px 24px;
+  border-radius: 24px;
+  color: #fff;
+  text-align: center;
+  max-width: 90%;
+  animation: giftBannerPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 2;
+}
+@keyframes giftBannerPop {
+  0% { transform: scale(0.4) translateY(40px); opacity: 0; }
+  70% { transform: scale(1.08) translateY(-6px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+.gift-particle-item {
+  position: absolute;
+  font-size: 32px;
+  animation: giftParticleFly 2.5s ease-out forwards;
+}
+@keyframes giftParticleFly {
+  0% { transform: translate(0, 0) scale(0.3) rotate(0deg); opacity: 1; }
+  50% { opacity: 1; }
+  100% { transform: translate(var(--tx, 100px), var(--ty, -250px)) scale(1.4) rotate(var(--tr, 180deg)); opacity: 0; }
+}
 </style>
 <link rel="stylesheet" href="zyro-editor.css?v=3.0.0">
 </head>
@@ -4677,6 +5464,9 @@ img.logo-profile.zyro-header-logo {
     <span>Zyro Play</span>
   </div>
   <div class="header-controls">
+    <button id="headerCoinsBtn" type="button" class="header-coin-pill" onclick="openCoinWallet()" title="Zyro Coins Balance & Daily Bonus">
+      <span style="font-size:13px">🪙</span><span id="headerCoinCount" style="font-size:12.5px;font-weight:900">250</span>
+    </button>
     <button id="bellBtn" type="button" aria-label="Notifications">
       <svg class="ico"><use href="#i-bell"></use></svg><span id="bellBadge"></span>
     </button>
@@ -4836,6 +5626,17 @@ img.logo-profile.zyro-header-logo {
           <div class="story-add-badge" id="myStoryBadge">+</div>
         </div>
         <span class="story-username" id="myStoryLabel">Your Story</span>
+      </button>
+
+      <!-- 2026 Live Comedy Stage Story Ring -->
+      <button type="button" class="story-tray-item live-stage-tray-item" id="liveStageTrayBtn" onclick="openLiveComedyStage()" aria-label="Join Live Comedy Stage">
+        <div class="story-ring live-stage-ring" id="liveStageStoryRing">
+          <div class="story-avatar-inner" style="background:#18181b;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:24px">🎙️</span>
+          </div>
+          <div class="live-stage-badge">LIVE</div>
+        </div>
+        <span class="story-username" style="color:#ff2d55;font-weight:900">Live Stage</span>
       </button>
       <!-- Active User Story Circles populated by JS -->
     </div>
@@ -6163,6 +6964,28 @@ img.logo-profile.zyro-header-logo {
         <button type="button" class="reel-viewer-close" id="reelViewerClose" aria-label="Close"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5"><use href="#i-close"></use></svg></button>
       </div>
     </div>
+    <!-- Reel Floating Side Actions (Instagram / TikTok 2026 Style) -->
+    <div class="reel-side-actions" id="reelSideActions">
+      <button type="button" class="reel-side-btn" id="reelSideLikeBtn" onclick="handleReelSideLike(event)" aria-label="Like Reel">
+        <span class="reel-side-icon-wrap" id="reelSideLikeIconWrap"><svg class="ico"><use id="reelSideLikeIconUse" href="#i-heart"></use></svg></span>
+        <span class="reel-side-label" id="reelSideLikeCount">1.4K</span>
+      </button>
+      <button type="button" class="reel-side-btn" id="reelSideCommentBtn" onclick="handleReelSideComment(event)" aria-label="Comments">
+        <span class="reel-side-icon-wrap"><svg class="ico"><use href="#i-message"></use></svg></span>
+        <span class="reel-side-label" id="reelSideCommentCount">86</span>
+      </button>
+      <button type="button" class="reel-side-btn reel-side-gift-btn" id="reelSideGiftBtn" onclick="handleReelSideGift(event)" aria-label="Send Gift to Creator" title="Send Gift">
+        <span class="reel-side-icon-wrap" style="font-size:22px">🎁</span>
+        <span class="reel-side-label" style="color:#fbbf24;font-weight:900">Gift</span>
+      </button>
+      <button type="button" class="reel-side-btn" id="reelSideShareBtn" onclick="handleReelSideShare(event)" aria-label="Share Reel">
+        <span class="reel-side-icon-wrap"><svg class="ico"><use href="#i-send"></use></svg></span>
+        <span class="reel-side-label">Share</span>
+      </button>
+      <div class="reel-disc-wrap" title="Original Audio">
+        <div class="reel-disc-spin" id="reelDiscSpin">🎵</div>
+      </div>
+    </div>
     <div class="reel-viewer-nav">
       <button type="button" id="reelViewerPrev" aria-label="Previous reel">▲</button>
       <button type="button" id="reelViewerNext" aria-label="Next reel">▼</button>
@@ -6211,6 +7034,260 @@ img.logo-profile.zyro-header-logo {
   </div>
 </div>
 
+<!-- ========================================================
+     FEATURE 2: LIVE COMEDY STAGE & VOICE HANGOUT ROOM
+     ======================================================== -->
+<div class="live-stage-overlay" id="liveComedyStageModal">
+  <div class="live-stage-container">
+    <!-- Stage Header -->
+    <div class="live-stage-header">
+      <div class="live-stage-room-info">
+        <div class="live-stage-topic-badge" id="liveStageTopicDisplay">
+          <span>🎭</span> <span id="liveStageTopicText">Kanpuria Open Mic &amp; Roast Jam 🔥</span>
+        </div>
+        <div class="live-stage-stats-row">
+          <span class="live-listener-pill">🔴 <span id="liveStageListenersCount">148</span> Live</span>
+          <span>•</span>
+          <span style="color:#fbbf24">Host: Mayank</span>
+          <span>•</span>
+          <button type="button" onclick="toggleStageSfxMute()" id="stageSfxToggleBtn" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:11px;font-weight:700">🔊 Sound ON</button>
+        </div>
+      </div>
+      <button type="button" class="live-leave-btn" onclick="closeLiveComedyStage()">
+        <span>Leave</span> <svg class="ve-ico sm"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+
+    <!-- Topics Carousel -->
+    <div class="live-stage-topics-bar" id="liveStageTopicsBar">
+      <button type="button" class="live-topic-chip active" onclick="switchLiveStageTopic('kanpur_jam', this)">🎭 Kanpuria Open Mic</button>
+      <button type="button" class="live-topic-chip" onclick="switchLiveStageTopic('chai_charcha', this)">☕ Chai Pe Roast</button>
+      <button type="button" class="live-topic-chip" onclick="switchLiveStageTopic('shayari_battle', this)">🥊 Shayari vs Standup</button>
+      <button type="button" class="live-topic-chip" onclick="switchLiveStageTopic('meme_roast', this)">🔥 Meme Roast Battle</button>
+    </div>
+
+    <!-- The Virtual Stage (Spotlight & Podiums) -->
+    <div class="live-stage-spotlight-area">
+      <div class="stage-spotlight-title">
+        <span>🎤 ON THE COMEDY STAGE</span>
+        <span style="color:#10b981;font-size:11px">● Live Audio Waves</span>
+      </div>
+      <div class="stage-podium-grid">
+        <!-- Host Podium -->
+        <div class="speaker-podium-card" id="speakerPodiumHost">
+          <div class="speaker-avatar-wrap speaking" id="speakerAvatarHost">
+            <img class="speaker-avatar-img user-avatar-live" src="IMG_20260917_172912.jpg" alt="Host">
+            <span class="speaker-role-pill host">👑 Host</span>
+          </div>
+          <div class="speaker-name">Mayank</div>
+          <div class="speaker-mic-state">🎙️ Speaking</div>
+        </div>
+        <!-- Comic 2 -->
+        <div class="speaker-podium-card">
+          <div class="speaker-avatar-wrap" id="speakerAvatar2">
+            <img class="speaker-avatar-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%237c3aed'/><text x='50' y='64' font-size='42' text-anchor='middle' fill='%23ffffff'>😎</text></svg>" alt="Bunty">
+            <span class="speaker-role-pill">🎤 Comic</span>
+          </div>
+          <div class="speaker-name">Bunty K.</div>
+          <div class="speaker-mic-state">🎙️ On Mic</div>
+        </div>
+        <!-- Comic 3 -->
+        <div class="speaker-podium-card">
+          <div class="speaker-avatar-wrap" id="speakerAvatar3">
+            <img class="speaker-avatar-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%23db2777'/><text x='50' y='64' font-size='42' text-anchor='middle' fill='%23ffffff'>👑</text></svg>" alt="Riya">
+            <span class="speaker-role-pill">🎤 Roast</span>
+          </div>
+          <div class="speaker-name">Riya Queen</div>
+          <div class="speaker-mic-state muted">🔇 Muted</div>
+        </div>
+        <!-- Slot 4: Open Mic / User Slot -->
+        <div class="speaker-podium-card empty-slot" id="speakerPodiumUser">
+          <div class="speaker-avatar-wrap" id="userSpeakerAvatarWrap" onclick="toggleLiveStageHandRaise()">
+            <span id="userSpeakerAvatarPlaceholder" style="font-size:22px">➕</span>
+            <img id="userSpeakerAvatarImg" class="speaker-avatar-img" src="" alt="You" style="display:none">
+            <span class="speaker-role-pill" id="userSpeakerRolePill">Open Mic</span>
+          </div>
+          <div class="speaker-name" id="userSpeakerNameLabel">You</div>
+          <div class="speaker-mic-state" id="userSpeakerMicStatus">Tap to Join</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soundboard Chip Bar (Synthesized Web Audio Punchlines) -->
+    <div class="comedy-sfx-bar">
+      <button type="button" class="comedy-sfx-btn" onclick="playStageSoundEffect('rimshot')">🥁 Ba-Dum-Tss!</button>
+      <button type="button" class="comedy-sfx-btn" onclick="playStageSoundEffect('applause')">👏 Taaliyan!</button>
+      <button type="button" class="comedy-sfx-btn" onclick="playStageSoundEffect('laugh')">😂 Haso Bhai!</button>
+      <button type="button" class="comedy-sfx-btn" onclick="playStageSoundEffect('fail')">🎺 Cartoon Fail</button>
+      <button type="button" class="comedy-sfx-btn" onclick="playStageSoundEffect('bell')">🔔 Ding-Ding</button>
+    </div>
+
+    <!-- Live Stage Middle: Audience & Real-time Live Comments -->
+    <div class="live-stage-middle">
+      <div class="live-audience-summary">
+        <span>👥 Audience (<span id="stageAudienceCountLabel">148</span> in room):</span>
+        <div class="live-audience-avatars-row" id="stageAudienceAvatarsRow">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+
+      <!-- Real-time Comments Stream -->
+      <div class="live-stage-comments-stream" id="stageCommentsStream">
+        <div class="stage-comment-msg"><span class="stage-comment-user">Rohit:</span> Arre bhai bhai kya punchline maari! 😂🔥</div>
+        <div class="stage-comment-msg"><span class="stage-comment-user">Pooja:</span> Samosa gift bhejo koi host ko! 🥟</div>
+        <div class="stage-comment-msg"><span class="stage-comment-user">Aman Kanpuria:</span> Agla joke Kanpur ke traffic pe ho jaye! 🛵</div>
+      </div>
+
+      <!-- Floating Reaction Barrage Canvas -->
+      <div class="stage-reaction-barrage" id="stageReactionBarrage"></div>
+    </div>
+
+    <!-- Stage Bottom Controls Bar -->
+    <div class="live-stage-bottom-bar">
+      <div class="live-stage-input-row">
+        <input type="text" class="live-stage-chat-input" id="stageChatInput" placeholder="Stage pe comment ya joke likhein..." onkeydown="if(event.key==='Enter')sendStageChatMessage()">
+        <button type="button" onclick="sendStageChatMessage()" style="background:#ff2d55;border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg class="ve-ico"><use href="#i-send"></use></svg></button>
+      </div>
+
+      <div class="live-stage-action-btns-row">
+        <button type="button" class="stage-action-btn" id="stageHandRaiseBtn" onclick="toggleLiveStageHandRaise()">
+          <span id="stageHandRaiseIcon">✋</span> <span id="stageHandRaiseText">Request Mic</span>
+        </button>
+
+        <button type="button" class="stage-action-btn" id="stageMicMuteBtn" onclick="toggleLiveStageMic()" style="display:none">
+          <span id="stageMicIcon">🎙️</span> <span id="stageMicText">Mute</span>
+        </button>
+
+        <button type="button" class="stage-action-btn gift-stage-btn" onclick="openGiftSheet('Mayank', 'live_stage')">
+          <span>🎁</span> <span>Gift Host</span>
+        </button>
+
+        <!-- Quick 1-Tap Floating Reaction Pills -->
+        <div class="stage-reactions-bar">
+          <button type="button" class="stage-react-pill" onclick="sendStageReaction('😂')" title="Laugh">😂</button>
+          <button type="button" class="stage-react-pill" onclick="sendStageReaction('🔥')" title="Fire">🔥</button>
+          <button type="button" class="stage-react-pill" onclick="sendStageReaction('👏')" title="Clap">👏</button>
+          <button type="button" class="stage-react-pill" onclick="sendStageReaction('❤️')" title="Heart">❤️</button>
+          <button type="button" class="stage-react-pill" onclick="sendStageReaction('🥟')" title="Samosa">🥟</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================
+     FEATURE 3: VIRTUAL GIFTING & CREATOR COINS
+     ======================================================== -->
+<div class="zyro-sheet-overlay" id="zyroGiftSheetModal" onclick="if(event.target===this)closeGiftSheet()">
+  <div class="zyro-sheet-box">
+    <div class="zyro-sheet-handle"></div>
+    <div class="zyro-sheet-header">
+      <h3 class="zyro-sheet-title"><span>🎁</span> <span>Send Desi Virtual Gift</span></h3>
+      <button type="button" onclick="closeGiftSheet()" style="background:none;border:none;color:#aaa;cursor:pointer"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
+    </div>
+
+    <!-- User Coin Balance & Daily Bonus Banner -->
+    <div class="gift-wallet-card">
+      <div class="gift-wallet-balance">
+        <div style="font-size:11px;color:#ccc;font-weight:700">Aapka Coin Balance:</div>
+        <div class="gift-wallet-coins">🪙 <span id="giftSheetCoinBalance">250</span></div>
+      </div>
+      <button type="button" class="gift-daily-bonus-btn" onclick="claimDailyCoinBonus()">
+        <span>🎁</span> <span>Claim +100 Free</span>
+      </button>
+    </div>
+
+    <div style="padding:4px 18px 8px;font-size:12px;color:#aaa">
+      Bhej rahe hain: <b id="giftTargetRecipientName" style="color:#fbbf24">@upcomedyhub</b>
+    </div>
+
+    <!-- 6 Desi Gifts Catalog -->
+    <div class="gifts-catalog-grid" id="giftsCatalogGrid">
+      <!-- 1. Garam Chai -->
+      <div class="gift-item-card" onclick="sendZyroGift('chai')">
+        <div class="gift-item-emoji">☕</div>
+        <div class="gift-item-name">Garam Chai</div>
+        <div class="gift-item-tagline">Chai pe charcha, creator khush!</div>
+        <div class="gift-item-price-tag">🪙 10 Coins</div>
+      </div>
+      <!-- 2. Kanpuria Samosa -->
+      <div class="gift-item-card" onclick="sendZyroGift('samosa')">
+        <div class="gift-item-emoji">🥟</div>
+        <div class="gift-item-name">Kanpuria Samosa</div>
+        <div class="gift-item-tagline">Crispy chutney ke saath pyar!</div>
+        <div class="gift-item-price-tag">🪙 25 Coins</div>
+      </div>
+      <!-- 3. Taaliyon ki Bochaar -->
+      <div class="gift-item-card" onclick="sendZyroGift('taali')">
+        <div class="gift-item-emoji">👏</div>
+        <div class="gift-item-name">Taaliyan</div>
+        <div class="gift-item-tagline">Standing ovation punchline pe!</div>
+        <div class="gift-item-price-tag">🪙 50 Coins</div>
+      </div>
+      <!-- 4. Rocket Laugh -->
+      <div class="gift-item-card" onclick="sendZyroGift('rocket')">
+        <div class="gift-item-emoji">🚀</div>
+        <div class="gift-item-name">Rocket Laugh</div>
+        <div class="gift-item-tagline">Hansi aisi jo chaand tak jaye!</div>
+        <div class="gift-item-price-tag">🪙 100 Coins</div>
+      </div>
+      <!-- 5. Kanpuria Bhaukaal -->
+      <div class="gift-item-card" onclick="sendZyroGift('bhaukaal')">
+        <div class="gift-item-emoji">🔥</div>
+        <div class="gift-item-name">Bhaukaal Fire</div>
+        <div class="gift-item-tagline">Pure mohalle me ek hi danka!</div>
+        <div class="gift-item-price-tag">🪙 250 Coins</div>
+      </div>
+      <!-- 6. Kohinoor Crown -->
+      <div class="gift-item-card" onclick="sendZyroGift('crown')">
+        <div class="gift-item-emoji">👑</div>
+        <div class="gift-item-name">Kohinoor Taj</div>
+        <div class="gift-item-tagline">Comedy ka asli Shahenshah!</div>
+        <div class="gift-item-price-tag">🪙 500 Coins</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Coin Wallet Modal -->
+<div class="zyro-sheet-overlay" id="zyroCoinWalletModal" onclick="if(event.target===this)closeCoinWallet()">
+  <div class="zyro-sheet-box">
+    <div class="zyro-sheet-handle"></div>
+    <div class="zyro-sheet-header">
+      <h3 class="zyro-sheet-title"><span>🪙</span> <span>Zyro Creator Coin Wallet</span></h3>
+      <button type="button" onclick="closeCoinWallet()" style="background:none;border:none;color:#aaa;cursor:pointer"><svg class="ve-ico"><use href="#i-close"></use></svg></button>
+    </div>
+    <div style="padding:18px">
+      <div style="text-align:center;padding:16px;background:rgba(255,255,255,0.03);border:1px solid rgba(251,191,36,0.25);border-radius:20px;margin-bottom:16px">
+        <div style="font-size:13px;color:#aaa">Total Available Coins</div>
+        <div style="font-size:36px;font-weight:900;color:#fbbf24;margin:6px 0">🪙 <span id="walletModalCoinTotal">250</span></div>
+        <div style="font-size:12px;color:#10b981">● Virtual SuperChat &amp; Gifting Active</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button type="button" class="btn" onclick="claimDailyCoinBonus()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:12px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+          <span>🎁</span> <span>Claim Daily Bonus (+100 Coins)</span>
+        </button>
+        <button type="button" onclick="closeCoinWallet();openGiftSheet('Mayank','wallet')" style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;border:none;padding:12px;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+          <span>🎁</span> <span>Send Gift to Creator</span>
+        </button>
+        <button type="button" onclick="closeCoinWallet()" style="background:rgba(255,255,255,0.08);color:#ccc;border:none;padding:10px;border-radius:12px;font-weight:700;cursor:pointer">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fullscreen 3D Gift Celebration Takeover Overlay -->
+<div class="gift-celebration-overlay" id="giftCelebrationOverlay">
+  <div class="gift-celebration-banner" id="giftCelebrationBanner">
+    <div style="font-size:48px;margin-bottom:6px" id="giftCelebrationEmoji">🥟</div>
+    <div style="font-size:18px;font-weight:900;color:#fbbf24;margin-bottom:4px" id="giftCelebrationTitle">Kanpuria Samosa Bheja Gaya!</div>
+    <div style="font-size:13px;color:#eee" id="giftCelebrationSubtitle">Mayank ne support kiya @upcomedyhub ko!</div>
+  </div>
+</div>
+
 <div class="settings-overlay" id="settingsOverlay">
   <div class="settings-modal">
     <div class="social-header">
@@ -6230,6 +7307,8 @@ img.logo-profile.zyro-header-logo {
       <div class="settings-nav-row" onclick="openAIChat()"><span class="afc-ico">🤖</span><span class="snr-label">Chat with Zyro AI Assistant</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" onclick="openAIImageGenerator()"><span class="afc-ico">🎨</span><span class="snr-label">Create Image with Zyro AI</span><span class="snr-value" id="aiQuotaText">2 Left Today</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" onclick="openCallingHub()"><span class="afc-ico">📞</span><span class="snr-label">Audio &amp; Video Calling</span><span class="snr-value" style="color:#22c55e;font-weight:700">Live 🔥</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" onclick="closeSettings();openLiveComedyStage()"><span class="afc-ico">🎙️</span><span class="snr-label">Live Comedy Stage &amp; Voice Hangout</span><span class="snr-value" style="color:#ff2d55;font-weight:800">148 Live 🔴</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
+      <div class="settings-nav-row" onclick="closeSettings();openCoinWallet()"><span class="afc-ico">🪙</span><span class="snr-label">Creator Coins &amp; Virtual Gifting</span><span class="snr-value" style="color:#fbbf24;font-weight:800">Wallet 🎁</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
 
       <div class="settings-nav-row" data-settings-view="liked"><svg class="snr-ico"><use href="#i-heart"></use></svg><span class="snr-label">Liked Videos</span><span class="snr-value" id="statLikes">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
       <div class="settings-nav-row" data-settings-view="saved"><svg class="snr-ico"><use href="#i-bookmark"></use></svg><span class="snr-label">Saved Videos</span><span class="snr-value" id="statSaves">0</span><svg class="snr-chev"><use href="#i-chevron"></use></svg></div>
@@ -13762,7 +14841,63 @@ document.addEventListener("click",(e)=>{
       const viewsEl = document.getElementById("reelViewerViewsCount");
       if(viewsEl) viewsEl.textContent = window.formatViewsCount(newCount);
     }
+
+    // Synchronize 2026 Floating Side Actions
+    window.__currentActiveReel = r;
+    const isLiked = typeof userLikedVideos !== "undefined" && userLikedVideos && userLikedVideos.has(r.vid);
+    const likeBtn = document.getElementById("reelSideLikeBtn");
+    const likeIconUse = document.getElementById("reelSideLikeIconUse");
+    const likeCountEl = document.getElementById("reelSideLikeCount");
+    if(likeBtn) likeBtn.classList.toggle("liked", !!isLiked);
+    if(likeIconUse) likeIconUse.setAttribute("href", isLiked ? "#i-heart-fill" : "#i-heart");
+    if(likeCountEl){
+      const baseLikes = 1420 + ((index * 83) % 400);
+      likeCountEl.textContent = (baseLikes + (isLiked ? 1 : 0)).toLocaleString();
+    }
+    const commentCountEl = document.getElementById("reelSideCommentCount");
+    if(commentCountEl){
+      commentCountEl.textContent = (86 + ((index * 29) % 90)).toString();
+    }
   }
+
+  window.handleReelSideLike = function(ev){
+    if(ev) ev.stopPropagation();
+    const r = reels[index];
+    if(!r) return;
+    triggerReelBigHeartBurst(r.vid);
+    if(typeof ZyroAudioEngine !== "undefined") ZyroAudioEngine.playPop();
+    const isLiked = typeof userLikedVideos !== "undefined" && userLikedVideos && userLikedVideos.has(r.vid);
+    const likeBtn = document.getElementById("reelSideLikeBtn");
+    const likeIconUse = document.getElementById("reelSideLikeIconUse");
+    const likeCountEl = document.getElementById("reelSideLikeCount");
+    if(likeBtn) likeBtn.classList.toggle("liked", !!isLiked);
+    if(likeIconUse) likeIconUse.setAttribute("href", isLiked ? "#i-heart-fill" : "#i-heart");
+    if(likeCountEl){
+      const baseLikes = 1420 + ((index * 83) % 400);
+      likeCountEl.textContent = (baseLikes + (isLiked ? 1 : 0)).toLocaleString();
+    }
+  };
+
+  window.handleReelSideComment = function(ev){
+    if(ev) ev.stopPropagation();
+    const r = reels[index];
+    if(!r) return;
+    if(typeof openCommentsSheet === "function") openCommentsSheet(r.vid);
+  };
+
+  window.handleReelSideGift = function(ev){
+    if(ev) ev.stopPropagation();
+    const r = reels[index];
+    const author = (r && (r.authorName || r.author || "Mayank")) || "Mayank";
+    if(typeof openGiftSheet === "function") openGiftSheet(author, "reel");
+  };
+
+  window.handleReelSideShare = function(ev){
+    if(ev) ev.stopPropagation();
+    const r = reels[index];
+    if(!r) return;
+    if(typeof openShareSheet === "function") openShareSheet(r.vid);
+  };
 
   function open(vid){
     reels = collectReels();
@@ -27758,6 +28893,680 @@ function switchIgListTab(kind){
   if(typeof openIgList === "function") openIgList(kind, window.__igListTargetUid || undefined);
 }
 window.switchIgListTab = switchIgListTab;
+
+/* =========================================================================
+   FEATURES 2, 3, 4: ZYRO AUDIO & HAPTICS ENGINE, VIRTUAL COINS & GIFTING,
+   AND LIVE COMEDY STAGE & VOICE HANGOUT ROOM (2026 ULTRA-PREMIUM UPGRADE)
+   ========================================================================= */
+
+// 1. ZYRO AUDIO & HAPTICS ENGINE (Native Web Audio API Synthesis - 100% Offline & Instantaneous)
+const ZyroAudioEngine = (function(){
+  let ctx = null;
+  let sfxEnabled = localStorage.getItem("upch_zyro_sfx") !== "false";
+
+  function getCtx(){
+    if(!ctx){
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if(AudioContext) ctx = new AudioContext();
+    }
+    if(ctx && ctx.state === "suspended"){
+      ctx.resume().catch(()=>{});
+    }
+    return ctx;
+  }
+
+  function haptic(pattern = 15){
+    try {
+      if(navigator.vibrate) navigator.vibrate(pattern);
+    } catch(e){}
+  }
+
+  // Soft modern tap
+  function playTap(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1200, now);
+      osc.frequency.exponentialRampToValueAtTime(400, now + 0.03);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + 0.04);
+      haptic(10);
+    } catch(e){}
+  }
+
+  // Bubble Pop (Like / Heart burst)
+  function playPop(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(450, now);
+      osc.frequency.exponentialRampToValueAtTime(1100, now + 0.06);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + 0.075);
+      haptic(25);
+    } catch(e){}
+  }
+
+  // Golden Coin Jingle
+  function playCoinJingle(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      [1320, 1760, 2640].forEach((freq, i) => {
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, now + i * 0.06);
+        gain.gain.setValueAtTime(0.2, now + i * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + i * 0.06 + 0.18);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(now + i * 0.06);
+        osc.stop(now + i * 0.06 + 0.2);
+      });
+      haptic([25, 40, 25]);
+    } catch(e){}
+  }
+
+  // Ba-Dum-Tss Comedy Rimshot
+  function playRimshot(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      // Kick drum
+      const kick = ac.createOscillator();
+      const kickGain = ac.createGain();
+      kick.type = "sine";
+      kick.frequency.setValueAtTime(140, now);
+      kick.frequency.exponentialRampToValueAtTime(35, now + 0.12);
+      kickGain.gain.setValueAtTime(0.35, now);
+      kickGain.gain.exponentialRampToValueAtTime(0.01, now + 0.14);
+      kick.connect(kickGain);
+      kickGain.connect(ac.destination);
+      kick.start(now);
+      kick.stop(now + 0.15);
+
+      // Snare hit (Dum)
+      const snare = ac.createOscillator();
+      const snareGain = ac.createGain();
+      snare.type = "triangle";
+      snare.frequency.setValueAtTime(220, now + 0.12);
+      snare.frequency.exponentialRampToValueAtTime(80, now + 0.24);
+      snareGain.gain.setValueAtTime(0.28, now + 0.12);
+      snareGain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      snare.connect(snareGain);
+      snareGain.connect(ac.destination);
+      snare.start(now + 0.12);
+      snare.stop(now + 0.26);
+
+      // Cymbal crash (Tss!)
+      const bufferSize = ac.sampleRate * 0.45;
+      const buffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
+      const data = buffer.getChannelData(0);
+      for(let i = 0; i < bufferSize; i++){
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ac.sampleRate * 0.12));
+      }
+      const noise = ac.createBufferSource();
+      noise.buffer = buffer;
+      const filter = ac.createBiquadFilter();
+      filter.type = "highpass";
+      filter.frequency.setValueAtTime(4500, now + 0.24);
+      const cymbalGain = ac.createGain();
+      cymbalGain.gain.setValueAtTime(0.3, now + 0.24);
+      cymbalGain.gain.exponentialRampToValueAtTime(0.005, now + 0.65);
+      noise.connect(filter);
+      filter.connect(cymbalGain);
+      cymbalGain.connect(ac.destination);
+      noise.start(now + 0.24);
+      haptic([30, 20, 50]);
+    } catch(e){}
+  }
+
+  // Crowd Applause
+  function playApplause(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      for(let i = 0; i < 6; i++){
+        const delay = i * 0.08 + Math.random() * 0.05;
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(400 + Math.random() * 600, now + delay);
+        gain.gain.setValueAtTime(0.14, now + delay);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + delay + 0.18);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(now + delay);
+        osc.stop(now + delay + 0.2);
+      }
+      haptic([20, 30, 20, 30]);
+    } catch(e){}
+  }
+
+  // Laugh Track
+  function playLaughTrack(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      [0, 0.12, 0.24, 0.36].forEach((time, idx) => {
+        const osc = ac.createOscillator();
+        const gain = ac.createGain();
+        osc.type = "sine";
+        const baseFreq = 520 + (idx % 2 === 0 ? 80 : -40);
+        osc.frequency.setValueAtTime(baseFreq, now + time);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.7, now + time + 0.09);
+        gain.gain.setValueAtTime(0.2, now + time);
+        gain.gain.exponentialRampToValueAtTime(0.005, now + time + 0.1);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(now + time);
+        osc.stop(now + time + 0.11);
+      });
+      haptic([20, 20, 20]);
+    } catch(e){}
+  }
+
+  // Comical Cartoon Fail (Slide Whistle Down)
+  function playCartoonBoo(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(750, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.55);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.005, now + 0.6);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + 0.62);
+      haptic([60, 40]);
+    } catch(e){}
+  }
+
+  // Bell Ding
+  function playBell(){
+    if(!sfxEnabled) return;
+    const ac = getCtx();
+    if(!ac) return;
+    try {
+      const now = ac.currentTime;
+      const osc = ac.createOscillator();
+      const gain = ac.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(2400, now);
+      osc.frequency.exponentialRampToValueAtTime(1800, now + 0.3);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + 0.5);
+      haptic(25);
+    } catch(e){}
+  }
+
+  function toggleSfx(){
+    sfxEnabled = !sfxEnabled;
+    localStorage.setItem("upch_zyro_sfx", String(sfxEnabled));
+    return sfxEnabled;
+  }
+
+  return {
+    init: getCtx,
+    playTap,
+    playPop,
+    playCoinJingle,
+    playRimshot,
+    playApplause,
+    playLaughTrack,
+    playCartoonBoo,
+    playBell,
+    haptic,
+    toggleSfx,
+    getSfxEnabled: () => sfxEnabled
+  };
+})();
+window.ZyroAudioEngine = ZyroAudioEngine;
+
+// 2. VIRTUAL COINS & CREATOR SUPERCHAT GIFTING SYSTEM
+const DESI_GIFTS = {
+  chai: { key: "chai", name: "Garam Chai", emoji: "☕", coins: 10, tagline: "Chai pe charcha, creator khush!" },
+  samosa: { key: "samosa", name: "Kanpuria Samosa", emoji: "🥟", coins: 25, tagline: "Crispy chutney ke saath pyar!" },
+  taali: { key: "taali", name: "Taaliyan", emoji: "👏", coins: 50, tagline: "Standing ovation punchline pe!" },
+  rocket: { key: "rocket", name: "Rocket Laugh", emoji: "🚀", coins: 100, tagline: "Hansi aisi jo chaand tak jaye!" },
+  bhaukaal: { key: "bhaukaal", name: "Bhaukaal Fire", emoji: "🔥", coins: 250, tagline: "Pure mohalle me ek hi danka!" },
+  crown: { key: "crown", name: "Kohinoor Taj", emoji: "👑", coins: 500, tagline: "Comedy ka asli Shahenshah!" }
+};
+
+function getZyroCoins(){
+  const saved = localStorage.getItem("upch_zyro_coins");
+  if(saved === null){
+    localStorage.setItem("upch_zyro_coins", "250");
+    return 250;
+  }
+  const val = parseInt(saved, 10);
+  return isNaN(val) ? 250 : val;
+}
+
+function saveZyroCoins(count){
+  localStorage.setItem("upch_zyro_coins", String(count));
+  syncCoinsUI();
+}
+
+function syncCoinsUI(){
+  const current = getZyroCoins();
+  const hPill = document.getElementById("headerCoinCount");
+  const gPill = document.getElementById("giftSheetCoinBalance");
+  const wPill = document.getElementById("walletModalCoinTotal");
+  if(hPill) hPill.textContent = current.toLocaleString();
+  if(gPill) gPill.textContent = current.toLocaleString();
+  if(wPill) wPill.textContent = current.toLocaleString();
+}
+window.syncCoinsUI = syncCoinsUI;
+
+function claimDailyCoinBonus(){
+  const lastClaim = parseInt(localStorage.getItem("upch_coins_last_claim") || "0", 10);
+  const now = Date.now();
+  const dayMs = 24 * 60 * 60 * 1000;
+  if(now - lastClaim < dayMs){
+    const remHours = Math.ceil((dayMs - (now - lastClaim)) / (60 * 60 * 1000));
+    showToast("⏳ Agla Free Daily Bonus " + remHours + " ghante baad milega!");
+    ZyroAudioEngine.playTap();
+    return;
+  }
+  const current = getZyroCoins();
+  const updated = current + 100;
+  saveZyroCoins(updated);
+  localStorage.setItem("upch_coins_last_claim", String(now));
+  ZyroAudioEngine.playCoinJingle();
+  showToast("🎉 Badhai ho! +100 Free Zyro Coins aapke wallet me add ho gaye! 🪙");
+}
+window.claimDailyCoinBonus = claimDailyCoinBonus;
+
+let currentGiftRecipient = "Mayank";
+let currentGiftContext = "feed";
+
+function openGiftSheet(recipient = "Mayank", context = "feed"){
+  currentGiftRecipient = recipient;
+  currentGiftContext = context;
+  syncCoinsUI();
+  const targetLabel = document.getElementById("giftTargetRecipientName");
+  if(targetLabel) targetLabel.textContent = "@" + recipient.replace(/^@/, "");
+  const sheet = document.getElementById("zyroGiftSheetModal");
+  if(sheet) sheet.classList.add("show");
+  ZyroAudioEngine.playTap();
+}
+window.openGiftSheet = openGiftSheet;
+
+function closeGiftSheet(){
+  const sheet = document.getElementById("zyroGiftSheetModal");
+  if(sheet) sheet.classList.remove("show");
+}
+window.closeGiftSheet = closeGiftSheet;
+
+function openCoinWallet(){
+  syncCoinsUI();
+  const modal = document.getElementById("zyroCoinWalletModal");
+  if(modal) modal.classList.add("show");
+  ZyroAudioEngine.playTap();
+}
+window.openCoinWallet = openCoinWallet;
+
+function closeCoinWallet(){
+  const modal = document.getElementById("zyroCoinWalletModal");
+  if(modal) modal.classList.remove("show");
+}
+window.closeCoinWallet = closeCoinWallet;
+
+function sendZyroGift(giftKey){
+  const gift = DESI_GIFTS[giftKey];
+  if(!gift) return;
+  const currentCoins = getZyroCoins();
+  if(currentCoins < gift.coins){
+    showToast("🪙 Coins kam hain! Free +100 Daily Bonus claim karein ya wallet check karein.");
+    ZyroAudioEngine.playCartoonBoo();
+    return;
+  }
+  const remaining = currentCoins - gift.coins;
+  saveZyroCoins(remaining);
+  closeGiftSheet();
+
+  // Add earnings to Creator Studio in localStorage
+  const prevEarnedCoins = parseInt(localStorage.getItem("upch_creator_earnings_coins") || "0", 10);
+  const updatedCoins = prevEarnedCoins + gift.coins;
+  localStorage.setItem("upch_creator_earnings_coins", String(updatedCoins));
+  const inrEstimate = Math.round(updatedCoins * 0.5);
+  localStorage.setItem("upch_creator_earnings_inr", String(inrEstimate));
+  if(typeof window.syncProDashboardUI === "function") window.syncProDashboardUI();
+
+  // Trigger celebration explosion
+  triggerGiftCelebration(gift, currentGiftRecipient);
+  showToast("🎉 " + gift.name + " (" + gift.emoji + ") bhej diya gaya!");
+}
+window.sendZyroGift = sendZyroGift;
+
+function triggerGiftCelebration(gift, recipient){
+  const overlay = document.getElementById("giftCelebrationOverlay");
+  const banner = document.getElementById("giftCelebrationBanner");
+  const emojiEl = document.getElementById("giftCelebrationEmoji");
+  const titleEl = document.getElementById("giftCelebrationTitle");
+  const subEl = document.getElementById("giftCelebrationSubtitle");
+  if(!overlay || !banner) return;
+
+  if(emojiEl) emojiEl.textContent = gift.emoji;
+  if(titleEl) titleEl.textContent = gift.name + " Bheja Gaya!";
+  const sender = (currentUser && (currentUser.displayName || "Aap")) || "Aap";
+  if(subEl) subEl.textContent = sender + " ne " + gift.name + " " + gift.emoji + " bhej kar @" + recipient + " ko support kiya!";
+
+  // Clear previous flying particles
+  overlay.querySelectorAll(".gift-particle-item").forEach(p => p.remove());
+
+  // Spawn 16 flying celebration emojis
+  for(let i = 0; i < 16; i++){
+    const p = document.createElement("div");
+    p.className = "gift-particle-item";
+    p.textContent = (i % 3 === 0) ? gift.emoji : (i % 3 === 1 ? "🪙" : "✨");
+    const tx = (Math.random() - 0.5) * 340;
+    const ty = -140 - Math.random() * 260;
+    const tr = (Math.random() - 0.5) * 360;
+    p.style.setProperty("--tx", tx + "px");
+    p.style.setProperty("--ty", ty + "px");
+    p.style.setProperty("--tr", tr + "deg");
+    p.style.left = (45 + (Math.random() - 0.5) * 20) + "%";
+    p.style.top = (50 + (Math.random() - 0.5) * 15) + "%";
+    overlay.appendChild(p);
+  }
+
+  overlay.classList.add("active");
+  ZyroAudioEngine.playCoinJingle();
+  setTimeout(() => ZyroAudioEngine.playApplause(), 300);
+
+  setTimeout(() => {
+    overlay.classList.remove("active");
+    overlay.querySelectorAll(".gift-particle-item").forEach(p => p.remove());
+  }, 2700);
+}
+window.triggerGiftCelebration = triggerGiftCelebration;
+
+// 3. LIVE COMEDY STAGE & VOICE HANGOUT ROOM
+const LIVE_ROOM_TOPICS = {
+  kanpur_jam: {
+    title: "Kanpuria Open Mic & Roast Jam 🔥",
+    host: "Mayank",
+    speakers: ["Mayank", "Bunty K.", "Riya Queen"]
+  },
+  chai_charcha: {
+    title: "Chai Pe Charcha & Standup ☕",
+    host: "Mayank",
+    speakers: ["Mayank", "Golu Sharma", "Vicky Standup"]
+  },
+  shayari_battle: {
+    title: "Shayari vs Comedy Roast Battle 🥊",
+    host: "Mayank",
+    speakers: ["Mayank", "Kavi Rahul", "RJ Sneha"]
+  },
+  meme_roast: {
+    title: "Trending Meme Roast & Banter 😂",
+    host: "Mayank",
+    speakers: ["Mayank", "Meme Don", "Pappu Kanpuria"]
+  }
+};
+
+let activeLiveTopicKey = "kanpur_jam";
+let isUserOnLiveStage = false;
+let isUserMicLive = false;
+let stageAutoBarrageTimer = null;
+
+function openLiveComedyStage(topicKey = "kanpur_jam"){
+  ZyroAudioEngine.init();
+  const modal = document.getElementById("liveComedyStageModal");
+  if(!modal) return;
+  modal.classList.add("show");
+  document.body.style.overflow = "hidden";
+  switchLiveStageTopic(topicKey);
+  populateStageAudience();
+  startStageAmbientReactions();
+  ZyroAudioEngine.playTap();
+}
+window.openLiveComedyStage = openLiveComedyStage;
+
+function closeLiveComedyStage(){
+  const modal = document.getElementById("liveComedyStageModal");
+  if(modal) modal.classList.remove("show");
+  document.body.style.overflow = "";
+  if(stageAutoBarrageTimer){
+    clearInterval(stageAutoBarrageTimer);
+    stageAutoBarrageTimer = null;
+  }
+  ZyroAudioEngine.playTap();
+}
+window.closeLiveComedyStage = closeLiveComedyStage;
+
+function switchLiveStageTopic(topicKey, btnEl){
+  activeLiveTopicKey = topicKey;
+  const topicData = LIVE_ROOM_TOPICS[topicKey] || LIVE_ROOM_TOPICS.kanpur_jam;
+  const textEl = document.getElementById("liveStageTopicText");
+  if(textEl) textEl.textContent = topicData.title;
+
+  const bar = document.getElementById("liveStageTopicsBar");
+  if(bar){
+    bar.querySelectorAll(".live-topic-chip").forEach(chip => {
+      const oc = chip.getAttribute("onclick") || "";
+      chip.classList.toggle("active", chip === btnEl || oc.includes("'" + topicKey + "'"));
+    });
+  }
+  ZyroAudioEngine.playTap();
+}
+window.switchLiveStageTopic = switchLiveStageTopic;
+
+function populateStageAudience(){
+  const container = document.getElementById("stageAudienceAvatarsRow");
+  if(!container) return;
+  container.innerHTML = "";
+  const avatarColors = ["#ef4444", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#14b8a6", "#f97316"];
+  const userPhoto = (currentUser && currentUser.photoURL) || "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%230095F6'/><text x='50' y='62' font-size='38' text-anchor='middle' fill='%23ffffff'>You</text></svg>";
+  
+  const myImg = document.createElement("img");
+  myImg.className = "audience-mini-avatar";
+  myImg.src = userPhoto;
+  myImg.title = (currentUser && currentUser.displayName) || "You";
+  container.appendChild(myImg);
+
+  avatarColors.forEach((color, i) => {
+    const img = document.createElement("img");
+    img.className = "audience-mini-avatar";
+    img.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='" + encodeURIComponent(color) + "'/><text x='50' y='64' font-size='42' text-anchor='middle' fill='%23ffffff'>" + ["😂","🔥","👏","😎","🎧","✨","🤪","⚡"][i % 8] + "</text></svg>";
+    container.appendChild(img);
+  });
+}
+
+function startStageAmbientReactions(){
+  if(stageAutoBarrageTimer) clearInterval(stageAutoBarrageTimer);
+  const emojis = ["😂", "🔥", "👏", "❤️", "🥟", "💀"];
+  stageAutoBarrageTimer = setInterval(() => {
+    const modal = document.getElementById("liveComedyStageModal");
+    if(!modal || !modal.classList.contains("show")) return;
+    if(Math.random() < 0.65){
+      const randEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+      sendStageReaction(randEmoji, false);
+    }
+  }, 1400);
+}
+
+function sendStageReaction(emoji, isUser = true){
+  const barrage = document.getElementById("stageReactionBarrage");
+  if(!barrage) return;
+  const span = document.createElement("span");
+  span.className = "stage-floating-emoji";
+  span.textContent = emoji;
+  span.style.left = (Math.random() * 45) + "px";
+  barrage.appendChild(span);
+  if(isUser){
+    ZyroAudioEngine.playPop();
+  }
+  setTimeout(() => span.remove(), 2900);
+}
+window.sendStageReaction = sendStageReaction;
+
+function playStageSoundEffect(sfxKey){
+  if(typeof ZyroAudioEngine === "undefined") return;
+  if(sfxKey === "rimshot") ZyroAudioEngine.playRimshot();
+  else if(sfxKey === "applause") ZyroAudioEngine.playApplause();
+  else if(sfxKey === "laugh") ZyroAudioEngine.playLaughTrack();
+  else if(sfxKey === "fail") ZyroAudioEngine.playCartoonBoo();
+  else if(sfxKey === "bell") ZyroAudioEngine.playBell();
+
+  // Floating note animation on stage
+  sendStageReaction(sfxKey === "rimshot" ? "🥁" : (sfxKey === "applause" ? "👏" : (sfxKey === "laugh" ? "😂" : (sfxKey === "fail" ? "🎺" : "🔔"))), true);
+}
+window.playStageSoundEffect = playStageSoundEffect;
+
+function toggleLiveStageHandRaise(){
+  const slot = document.getElementById("speakerPodiumUser");
+  const avatarWrap = document.getElementById("userSpeakerAvatarWrap");
+  const placeholder = document.getElementById("userSpeakerAvatarPlaceholder");
+  const userImg = document.getElementById("userSpeakerAvatarImg");
+  const statusEl = document.getElementById("userSpeakerMicStatus");
+  const handBtn = document.getElementById("stageHandRaiseBtn");
+  const micBtn = document.getElementById("stageMicMuteBtn");
+
+  isUserOnLiveStage = !isUserOnLiveStage;
+  if(isUserOnLiveStage){
+    isUserMicLive = true;
+    if(slot) slot.classList.remove("empty-slot");
+    if(avatarWrap) avatarWrap.classList.add("speaking");
+    if(placeholder) placeholder.style.display = "none";
+    if(userImg){
+      userImg.style.display = "block";
+      userImg.src = (currentUser && currentUser.photoURL) || "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='50' fill='%2310b981'/><text x='50' y='64' font-size='42' text-anchor='middle' fill='%23ffffff'>🎙️</text></svg>";
+    }
+    if(statusEl){
+      statusEl.textContent = "🎙️ Speaking";
+      statusEl.classList.remove("muted");
+    }
+    if(handBtn) handBtn.style.display = "none";
+    if(micBtn) micBtn.style.display = "inline-flex";
+    ZyroAudioEngine.playBell();
+    showToast("🎉 Aap Stage par live hain! Mic active ho gaya hai.");
+  } else {
+    isUserMicLive = false;
+    if(slot) slot.classList.add("empty-slot");
+    if(avatarWrap) avatarWrap.classList.remove("speaking");
+    if(placeholder) placeholder.style.display = "block";
+    if(userImg) userImg.style.display = "none";
+    if(statusEl){
+      statusEl.textContent = "Tap to Join";
+      statusEl.classList.add("muted");
+    }
+    if(handBtn) handBtn.style.display = "inline-flex";
+    if(micBtn) micBtn.style.display = "none";
+    ZyroAudioEngine.playTap();
+    showToast("Aap Stage se Audience floor par aa gaye.");
+  }
+}
+window.toggleLiveStageHandRaise = toggleLiveStageHandRaise;
+
+function toggleLiveStageMic(){
+  const avatarWrap = document.getElementById("userSpeakerAvatarWrap");
+  const statusEl = document.getElementById("userSpeakerMicStatus");
+  const micBtn = document.getElementById("stageMicMuteBtn");
+  const micText = document.getElementById("stageMicText");
+  const micIcon = document.getElementById("stageMicIcon");
+
+  isUserMicLive = !isUserMicLive;
+  if(isUserMicLive){
+    if(avatarWrap) avatarWrap.classList.add("speaking");
+    if(statusEl){
+      statusEl.textContent = "🎙️ Speaking";
+      statusEl.classList.remove("muted");
+    }
+    if(micIcon) micIcon.textContent = "🎙️";
+    if(micText) micText.textContent = "Mute";
+    if(micBtn) micBtn.classList.add("active-mic");
+    ZyroAudioEngine.playTap();
+    showToast("🎙️ Mic Unmuted");
+  } else {
+    if(avatarWrap) avatarWrap.classList.remove("speaking");
+    if(statusEl){
+      statusEl.textContent = "🔇 Muted";
+      statusEl.classList.add("muted");
+    }
+    if(micIcon) micIcon.textContent = "🔇";
+    if(micText) micText.textContent = "Unmute";
+    if(micBtn) micBtn.classList.remove("active-mic");
+    ZyroAudioEngine.playTap();
+    showToast("🔇 Mic Muted");
+  }
+}
+window.toggleLiveStageMic = toggleLiveStageMic;
+
+function toggleStageSfxMute(){
+  const enabled = ZyroAudioEngine.toggleSfx();
+  const btn = document.getElementById("stageSfxToggleBtn");
+  if(btn){
+    btn.textContent = enabled ? "🔊 Sound ON" : "🔇 Sound OFF";
+    btn.style.color = enabled ? "#aaa" : "#ff3b5c";
+  }
+  showToast(enabled ? "🔊 Sound Effects ON" : "🔇 Sound Effects Muted");
+}
+window.toggleStageSfxMute = toggleStageSfxMute;
+
+function sendStageChatMessage(){
+  const input = document.getElementById("stageChatInput");
+  if(!input) return;
+  const txt = input.value.trim();
+  if(!txt) return;
+  input.value = "";
+  const myName = (currentUser && (currentUser.displayName || "You")) || "You";
+  const stream = document.getElementById("stageCommentsStream");
+  if(stream){
+    const msg = document.createElement("div");
+    msg.className = "stage-comment-msg";
+    msg.innerHTML = '<span class="stage-comment-user">' + escapeHtml(myName) + ':</span> ' + escapeHtml(txt);
+    stream.appendChild(msg);
+    stream.scrollTop = stream.scrollHeight;
+  }
+  ZyroAudioEngine.playTap();
+  if(txt.includes("😂") || txt.toLowerCase().includes("haha") || txt.toLowerCase().includes("joke")){
+    setTimeout(() => ZyroAudioEngine.playLaughTrack(), 400);
+  }
+}
+window.sendStageChatMessage = sendStageChatMessage;
+
+// Sync coins on startup
+if(typeof syncCoinsUI === "function") syncCoinsUI();
 
 /* ---------- SERVICE WORKER (B7) ---------- */
 if ("serviceWorker" in navigator) {

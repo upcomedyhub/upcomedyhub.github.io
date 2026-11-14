@@ -300,19 +300,366 @@ function extractImage(image) {
 // =====================================================
 
 let cachedGoogleGenAI = null;
+let cachedGenAIType = null;
 
-async function getGoogleGenAIClass() {
+async function getGoogleGenAISDK() {
   if (!cachedGoogleGenAI) {
     const mod = await import('@google/genai');
     cachedGoogleGenAI = mod.GoogleGenAI;
+    cachedGenAIType = mod.Type;
   }
-  return cachedGoogleGenAI;
+  return { GoogleGenAI: cachedGoogleGenAI, Type: cachedGenAIType };
+}
+
+async function getGoogleGenAIClass() {
+  const sdk = await getGoogleGenAISDK();
+  return sdk.GoogleGenAI;
+}
+
+// =====================================================
+// ZYRO AI APP INTELLIGENCE LAYER (KNOWLEDGE BASE + TOOLS + PERMISSIONS)
+// =====================================================
+
+let ZYRO_APP_KNOWLEDGE = {};
+try {
+  const kbPath = path.join(rootDir, 'zyro-app-knowledge.json');
+  if (fs.existsSync(kbPath)) {
+    ZYRO_APP_KNOWLEDGE = JSON.parse(fs.readFileSync(kbPath, 'utf8'));
+  }
+} catch (kbErr) {
+  console.warn('Could not load zyro-app-knowledge.json:', kbErr?.message || kbErr);
+}
+
+function buildZyroFunctionDeclarations(Type) {
+  if (!Type) return [];
+  return [
+    {
+      name: 'get_app_features',
+      description: 'Get detailed information about Zyro Play features in a specific category (Home, Profile, Settings, Messages, Notifications, FunZone, Modes, Privacy).',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          category: {
+            type: Type.STRING,
+            description: 'Category name: Home, Profile, Settings, Messages, Notifications, FunZone, Modes, or Privacy'
+          }
+        },
+        required: ['category']
+      }
+    },
+    {
+      name: 'get_app_settings',
+      description: 'Get complete details about all Settings and Modes available in Zyro Play.',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          section: {
+            type: Type.STRING,
+            description: 'Optional setting section such as appearance, language, notifications, privacy, or all'
+          }
+        }
+      }
+    },
+    {
+      name: 'get_user_preferences',
+      description: 'Read the user current live app state and preferences (currentScreen, theme, notifications, language, username, zyroCoins).',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          key: {
+            type: Type.STRING,
+            description: 'Optional preference key to inspect (all, theme, notifications, language, currentScreen)'
+          }
+        }
+      }
+    },
+    {
+      name: 'navigate_to_screen',
+      description: 'Navigate the user to a specific screen, modal, or settings subpage inside Zyro Play.',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          target: {
+            type: Type.STRING,
+            description: 'Target screen or modal ID: home, reels, funzone, messages, profile, settings, notifications, edit_profile, live_stage, coin_wallet, create_post, create_poll, appearance, language, privacySafety, passwordSecurity, proDashboard'
+          }
+        },
+        required: ['target']
+      }
+    },
+    {
+      name: 'update_theme',
+      description: 'Change Zyro Play theme mode to dark, light, or system.',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          theme: {
+            type: Type.STRING,
+            description: 'Theme value: dark, light, or system'
+          }
+        },
+        required: ['theme']
+      }
+    },
+    {
+      name: 'update_notifications',
+      description: 'Turn Zyro Play notifications ON (true) or OFF (false).',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          enabled: {
+            type: Type.BOOLEAN,
+            description: 'true to enable notifications, false to disable notifications'
+          }
+        },
+        required: ['enabled']
+      }
+    },
+    {
+      name: 'search_app_features',
+      description: 'Search the Zyro Play Knowledge Base for any feature, setting, game, or control.',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          query: {
+            type: Type.STRING,
+            description: 'Search query keyword such as username, dark mode, fun zone, polls, coins, call'
+          }
+        },
+        required: ['query']
+      }
+    },
+    {
+      name: 'request_sensitive_action',
+      description: 'Request a sensitive account action (such as logout or clear_chats) which requires explicit user confirmation before executing.',
+      parameters: {
+        type: Type.OBJECT,
+        properties: {
+          actionType: {
+            type: Type.STRING,
+            description: 'Sensitive action identifier: logout or clear_chats'
+          }
+        },
+        required: ['actionType']
+      }
+    }
+  ];
+}
+
+// Backend Permission & Security Gatekeeper for AI Tool Calls
+function validateAndNormalizeToolCall(rawCall, appState = {}) {
+  if (!rawCall || !rawCall.name) return null;
+  const name = String(rawCall.name).trim();
+  const args = rawCall.args && typeof rawCall.args === 'object' ? rawCall.args : {};
+
+  const ALLOWED_TOOLS = new Set([
+    'get_app_features',
+    'get_app_settings',
+    'get_user_preferences',
+    'navigate_to_screen',
+    'update_theme',
+    'update_notifications',
+    'search_app_features',
+    'request_sensitive_action'
+  ]);
+
+  if (!ALLOWED_TOOLS.has(name)) {
+    return null; // Reject any unlisted or unauthorized function call
+  }
+
+  if (name === 'update_theme') {
+    const theme = ['dark', 'light', 'system'].includes(String(args.theme || '').toLowerCase())
+      ? String(args.theme).toLowerCase()
+      : 'dark';
+    return {
+      tool: 'update_theme',
+      args: { theme },
+      requiresConfirmation: false,
+      label: theme === 'dark' ? '🌙 Dark Mode Activated' : (theme === 'light' ? '☀️ Light Mode Activated' : '📱 System Theme Set')
+    };
+  }
+
+  if (name === 'update_notifications') {
+    const enabled = Boolean(args.enabled);
+    return {
+      tool: 'update_notifications',
+      args: { enabled },
+      requiresConfirmation: false,
+      label: enabled ? '🔔 Notifications Enabled' : '🔕 Notifications Muted'
+    };
+  }
+
+  if (name === 'navigate_to_screen') {
+    const target = cleanText(String(args.target || 'home'), 40);
+    const LABELS = {
+      home: '🏠 Open Home Feed',
+      reels: '🎬 Open Reels',
+      funzone: '🎮 Open Fun Zone Games',
+      messages: '💬 Open Messages',
+      profile: '👤 Open Profile',
+      settings: '⚙️ Open Settings',
+      notifications: '🔔 Open Notifications',
+      edit_profile: '✏️ Open Edit Profile (Username/Bio)',
+      live_stage: '🎙️ Open Live Comedy Stage',
+      coin_wallet: '🪙 Open Creator Coin Wallet',
+      create_post: '➕ Open Create Post',
+      create_poll: '📊 Open Create Poll',
+      appearance: '🎨 Open Appearance Settings',
+      language: '🌐 Open Language Settings',
+      privacySafety: '🔒 Open Account Privacy',
+      passwordSecurity: '🔑 Open Password & Security',
+      proDashboard: '📈 Open Professional Dashboard'
+    };
+    return {
+      tool: 'navigate_to_screen',
+      args: { target },
+      requiresConfirmation: false,
+      label: LABELS[target] || `🚀 Go to ${target}`
+    };
+  }
+
+  if (name === 'request_sensitive_action') {
+    const actionType = cleanText(String(args.actionType || 'logout'), 40);
+    return {
+      tool: 'request_sensitive_action',
+      args: { actionType },
+      requiresConfirmation: true,
+      label: actionType === 'logout' ? '⚠️ Confirm Log Out' : '⚠️ Confirm Clear All Chats'
+    };
+  }
+
+  return {
+    tool: name,
+    args,
+    requiresConfirmation: false,
+    label: `🧠 Checked ${name.replace(/_/g, ' ')}`
+  };
+}
+
+// Fast Deterministic App Intelligence Matcher (handles app control & knowledge queries even if Gemini is offline or rate-limited)
+function evaluateDeterministicAppIntelligence(rawPrompt, appState = {}) {
+  const text = cleanText(rawPrompt, 1500);
+  const lower = text.toLowerCase();
+  const toolActions = [];
+
+  const curTheme = appState.theme || 'system';
+  const curNotif = appState.notifications !== false;
+  const curScreen = appState.currentScreen || 'zyroai';
+  const curLang = appState.language || 'hi';
+  const curUser = appState.username ? `@${appState.username}` : 'Guest';
+  const curCoins = typeof appState.zyroCoins === 'number' ? appState.zyroCoins : 250;
+
+  // 1. Theme Control: Dark Mode / Light Mode
+  if (/\b(dark\s*mode|night\s*mode|डार्क\s*मोड|अंधेरा\s*मोड)\b/i.test(lower)) {
+    const wantsOff = /\b(off|band|hat[ao]|disable|light|बंद|हटाओ)\b/i.test(lower);
+    const targetTheme = wantsOff ? 'light' : 'dark';
+    toolActions.push(validateAndNormalizeToolCall({ name: 'update_theme', args: { theme: targetTheme } }, appState));
+    const reply = targetTheme === 'dark'
+      ? `**भाई, तेरा Dark Mode तुरंत चालू (ON) कर दिया है!** 🌙🔥\n\n• **Previous Theme:** \`${curTheme}\` → **New Theme:** \`dark\`\n• अगर कभी वापस बदलना हो तो बस बोल देना *"Light Mode चालू करो"* या नीचे बटन दबा देना! 😎👊`
+      : `**भाई, Dark Mode बंद करके क्लीन Light Mode चालू कर दिया है!** ☀️🔥\n\n• **New Theme:** \`light\` 😎👊`;
+    return { matched: true, reply, toolActions };
+  }
+
+  if (/\b(light\s*mode|day\s*mode|लाइट\s*मोड)\b/i.test(lower) && /\b(on|chalu|enable|karo|लगाओ|चालू)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'update_theme', args: { theme: 'light' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, Light Mode तुरंत चालू कर दिया है!** ☀️🔥\n\n• **Current Theme:** \`light\` 😎👊`,
+      toolActions
+    };
+  }
+
+  // 2. Notifications Control (ON / OFF)
+  if (/\b(notification|notifications|नोटिफिकेशन|अलर्ट)\b/i.test(lower) && /\b(off|band|mute|disable|chalu|on|enable|बंद|चालू|खोलो)\b/i.test(lower)) {
+    const wantsOff = /\b(off|band|mute|disable|बंद|मत)\b/i.test(lower);
+    const wantsOpenPanel = /\b(dikhao|kholo|open|show|दिखाओ|खोलो)\b/i.test(lower) && !/\b(on|chalu|off|band)\b/i.test(lower);
+    if (wantsOpenPanel) {
+      toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'notifications' } }, appState));
+      return {
+        matched: true,
+        reply: `**भाई, यह ले तेरा Notifications पैनल!** 🔔🔥 नीचे बटन से भी कभी भी खोल सकता है!`,
+        toolActions
+      };
+    }
+    const newStatus = !wantsOff;
+    toolActions.push(validateAndNormalizeToolCall({ name: 'update_notifications', args: { enabled: newStatus } }, appState));
+    const reply = newStatus
+      ? `**भाई, तेरे ऐप की Notifications चालू (ON) कर दी गई हैं!** 🔔✅\n\n• **Current Status:** \`Notifications ON\`\n• अब हर नए कॉमेडी वीडियो, शॉर्ट और रिमाइंडर का अलर्ट तुझे तुरंत मिलेगा! 🔥`
+      : `**भाई, तेरी Notifications बंद (Muted / OFF) कर दी गई हैं!** 🔕✅\n\n• **Current Status:** \`Notifications OFF\`\n• अब कोई भी पॉपअप तुझे डिस्टर्ब नहीं करेगा। जब वापस चालू करना हो, बस बोल देना! 😎👊`;
+    return { matched: true, reply, toolActions };
+  }
+
+  // 3. Username / Edit Profile Location & Action
+  if (/\b(username|यूज़रनेम|यूजरनेम|नाम\s*बदल|edit\s*profile|प्रोफाइल\s*एडिट|bio\s*change|photo\s*change)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'edit_profile' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, अपना Username (${curUser}), Name, Bio या Profile Photo बदलने का तरीका एकदम आसान है:** ✏️👤\n\n1. **कहाँ मिलेगा:** नीचे नेविगेशन बार में **Profile** टैब पर जाओ → वहाँ **'Edit profile'** बटन है।\n2. **सीधा एक्शन:** मैंने नीचे **✏️ Open Edit Profile** बटन लगा दिया है (और अगर तू चाहे तो सीधे खोल भी रहा हूँ)—वहाँ नया Username टाइप करके **Save** दबा दे! 🔥👊`,
+      toolActions
+    };
+  }
+
+  // 4. Profile Settings / Where are my settings?
+  if (/\b(profile\s*settings|meri\s*settings|settings\s*kahan|सेटिंग्स\s*कहाँ|सेटिंग\s*कहाँ|मेरी\s*प्रोफाइल\s*सेटिंग्स)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'settings' } }, appState));
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'edit_profile' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, तेरी Profile और App Settings दो जगह से तुरंत खुलती हैं:** ⚙️🔥\n\n1. **App Settings (Dark Mode, Language, Privacy, Security, Verified Tick):** ऊपर हेडर में **⚙️ Settings** आइकन पर या Profile पेज के ऊपर **☰ (Menu)** बटन पर टैप करो।\n2. **Profile Edit (Name, Username, Bio, Photo):** **Profile** टैब में जाकर **'Edit profile'** बटन दबाओ।\n\n📊 **तेरी अभी की लाइव स्थिति (Current State):**\n• **Active Screen:** \`${curScreen}\`\n• **Theme Mode:** \`${curTheme}\`\n• **Notifications:** \`${curNotif ? 'ON 🔔' : 'OFF 🔕'}\`\n• **Language:** \`${curLang}\`\n\nनीचे दिए गए बटन दबाकर तू सीधे वहाँ जा सकता है! 👇👊`,
+      toolActions
+    };
+  }
+
+  // 5. Fun Zone Games Inquiry
+  if (/\b(fun\s*zone|फन\s*ज़ोन|फन\s*जोन|kaun.*game|कौन.*गेम|games\s*available|khel)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'funzone' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, हमारे Fun Zone में 7 धमाकेदार कॉमेडी और आर्केड गेम्स उपलब्ध हैं:** 🎮🔥\n\n1. **🪙 Coin Merge Rush (Desi Suika 2048):** सिक्के गिराकर बड़े सिक्कों में मर्ज करो और हाई स्कोर बनाओ!\n2. **🧠 Desi Comedy Quiz:** मजेदार कॉमेडी सवालों के सही जवाब देकर +XP जीतो।\n3. **⚡ Fast Reaction Test:** स्क्रीन बदलते ही सबसे तेज़ टैप करके अपनी स्पीड (ms) चेक करो।\n4. **🎡 Comedy Spin Wheel:** व्हील घुमाकर मजेदार डेयर, जोक या बोनस XP पाओ।\n5. **🃏 Emoji Memory Flip:** कम से कम चालों में कॉमेडी इमोजी कार्ड्स की जोड़ी मिलाओ।\n6. **🔨 Whack-a-Joke Arcade:** पॉप होने वाले कॉमेडी टारगेट्स को तेज़ी से टैप करो।\n7. **🐍🎲 Snake & Ladders (साँप-सीढ़ी vs CPU):** डाइस रोल करके CPU से पहले 100 पर पहुँचो और +30 XP जीतो!\n\n✨ साथ में **Daily Challenge**, **Player XP Level** और **Leaderboard** भी है! नीचे बटन दबाकर सीधा **Fun Zone** में कूद पड़! 🚀👊`,
+      toolActions
+    };
+  }
+
+  // 6. Messages Features Inquiry
+  if (/\b(messages?\s*me\s*kaun|मैसेज.*फीचर|messages?\s*features|chat\s*features|चैट.*फीचर)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'messages' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, Zyro Play के Messages सेक्शन में ये सभी तगड़े फीचर्स हैं:** 💬🔥\n\n1. **📥 Primary & General Inbox:** दोस्तों और क्रिएटर्स के साथ रियल-टाइम चैटिंग।\n2. **🔔 Message Requests Tab:** अनजान या नए लोगों के मैसेज रिक्वेस्ट को Accept या Decline करने की सुविधा।\n3. **📸 Photo & Media Sharing:** चैट में सीधे एचडी फोटो कंप्रेस और सेंड करने का फीचर + फुलस्क्रीन लाइटबॉक्स व्यू।\n4. **📞 Audio & Video Calling Hub:** दोस्तों या सीधे **Zyro AI Assistant** के साथ लाइव ऑडियो और वीडियो कॉल!\n5. **🟢 Live Online Status & Unread Badges:** कौन ऑनलाइन है और कितने नए मैसेज आए हैं, सब लाइव दिखता है।\n\nनीचे **💬 Open Messages** पर टैप करके सीधे इनबॉक्स खोल ले! 😎👊`,
+      toolActions
+    };
+  }
+
+  // 7. Explain All Settings and Modes
+  if (/\b(sabhi\s*settings|all\s*settings|settings\s*aur\s*modes|सेटिंग्स\s*और\s*मोड्स|सारी\s*सेटिंग्स|पूरे\s*ऐप\s*की\s*जानकारी|app\s*features)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'navigate_to_screen', args: { target: 'settings' } }, appState));
+    return {
+      matched: true,
+      reply: `**भाई, यह रही तेरे Zyro Play ऐप की सभी Settings और Modes की पूरी गाइड:** 🧠⚡\n\n### 🎨 1. Appearance & Modes\n• **Dark Mode / Light Mode / System:** रात और दिन के हिसाब से थीम (अभी तेरी थीम: \`${curTheme}\` है)।\n• **Language Mode:** ऐप को **Hinglish**, **हिंदी** या **English** में चलाओ।\n• **Reels Fullscreen Mode:** 9:16 वर्टिकल शॉर्ट्स प्लेयर (Floating Like, Comment, Share, Save & Gift के साथ)।\n• **Live Comedy Stage Mode (🎤):** लाइव ऑडियो स्पेक्ट्रम, Laugh Track (😂), Applause (👏) और लाइव चैट रूम।\n\n### 🛠️ 2. Creator & Feed Features\n• **Interactive Polls (📊):** पोस्ट के साथ या अकेले लाइव पोल बनाओ और **Bar View** या **Donut Chart (🍩)** में वोटिंग रिजल्ट्स देखो।\n• **Creator Coin Wallet & Gifting (🪙):** डेली +100 फ्री कॉइन्स क्लेम करो (अभी तेरे पास **${curCoins} Coins** हैं) और क्रिएटर्स को Samosa 🥟, Chai ☕ या Crown 👑 गिफ्ट करो।\n• **Professional Dashboard & Verified Tick:** क्रिएटर इनसाइट्स और ऑफिशियल Blue Tick वेरिफिकेशन।\n\n### 🔒 3. Privacy & Account Security\n• **Account Privacy:** अकाउंट को **Public** या **Private** रखो और Blocked Users मैनेज करो।\n• **Password & Security / Mobile OTP:** ईमेल सुरक्षा और मोबाइल नंबर वेरिफिकेशन।\n• **Notifications Control:** अलर्ट्स को कभी भी ON/OFF करो (अभी: \`${curNotif ? 'ON 🔔' : 'OFF 🔕'}\`)।\n\nबोल भाई, इनमें से कौन-सी सेटिंग अभी बदलनी या खोलनी है? 👊🚀`,
+      toolActions
+    };
+  }
+
+  // 8. Sensitive Action: Logout Request (Requires Confirmation!)
+  if (/\b(log\s*out|sign\s*out|लॉग\s*आउट|लॉगआउट)\b/i.test(lower)) {
+    toolActions.push(validateAndNormalizeToolCall({ name: 'request_sensitive_action', args: { actionType: 'logout' } }, appState));
+    return {
+      matched: true,
+      reply: `🔒 **सुरक्षा नियम (Security Check):** भाई, अकाउंट से **Log Out** करना एक महत्वपूर्ण एक्शन है, इसलिए मैं इसे बिना तेरी स्पष्ट पुष्टि के अपने-आप नहीं करूँगा।\n\nअगर तू वाकई लॉग आउट करना चाहता है, तो नीचे दिए गए **⚠️ Confirm Log Out** बटन पर टैप कर! 👊`,
+      toolActions
+    };
+  }
+
+  return { matched: false, reply: '', toolActions: [] };
 }
 
 function shouldUseWebSearch(promptText) {
   if (!promptText) return false;
   const t = promptText.toLowerCase();
-  // Only trigger live Google Search grounding when the user asks for current events, news, live info, or factual lookups
+  // Do not trigger web search for internal Zyro Play app commands
+  if (/\b(dark mode|light mode|profile|username|fun zone|notification|settings|zyro|gyro|poll|coin wallet)\b/i.test(t)) {
+    return false;
+  }
   return /\b(news|latest|today|aaj|kal|weather|mausam|score|match|ipl|cricket|price|rate|bitcoin|stock|share|2024|2025|2026|current|live|search|google|who is|what is|where is|when is|kaun hai|kon hai|kya hai|kab hai|kahan hai|update|president|pm|minister|movie|film|box office|result)\b/i.test(t);
 }
 
@@ -349,7 +696,6 @@ function normalizeHistoryForGemini(rawHistory) {
     if (!text) continue;
     const role = (item.role === 'model' || item.role === 'bot' || item.role === 'assistant') ? 'model' : 'user';
 
-    // Ensure alternating or valid role structure for Gemini contents
     if (normalized.length > 0 && normalized[normalized.length - 1].role === role) {
       normalized[normalized.length - 1].parts[0].text += '\n' + text;
     } else {
@@ -360,7 +706,6 @@ function normalizeHistoryForGemini(rawHistory) {
     }
   }
 
-  // Gemini multi-turn history should start with 'user' and end with 'model' before the new user turn
   while (normalized.length > 0 && normalized[0].role !== 'user') {
     normalized.shift();
   }
@@ -371,17 +716,23 @@ function normalizeHistoryForGemini(rawHistory) {
   return normalized;
 }
 
-async function askGemini({ prompt, image, userFacts, permanentMemory, history }) {
+async function askGemini({ prompt, image, userFacts, permanentMemory, history, appState }) {
+  // First check if this is a direct deterministic App Intelligence command/question
+  const detResult = !image ? evaluateDeterministicAppIntelligence(prompt, appState) : { matched: false };
+
   const key = cleanText(
     process.env.GEMINI_API_KEY || '',
     1000
   );
 
   if (!key) {
+    if (detResult.matched) {
+      return { text: detResult.reply, toolActions: detResult.toolActions };
+    }
     throw new Error('GEMINI_API_KEY is not configured');
   }
 
-  const GoogleGenAI = await getGoogleGenAIClass();
+  const { GoogleGenAI, Type } = await getGoogleGenAISDK();
 
   const ai = new GoogleGenAI({
     apiKey: key,
@@ -409,10 +760,23 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history })
 
   const combinedMemory = memoryLines.join('\n').trim();
 
-  // Feature 1 & Step 4: Inject Personalized Dynamic Memory inside [USER PROFILE CONTEXT]
   const contextPrefix = combinedMemory
     ? `[USER PROFILE CONTEXT]\nThe following are verified facts about this user from their permanent memory. Use them naturally like a real best friend if relevant:\n${combinedMemory}\n[END OF CONTEXT]\n\n`
     : '';
+
+  const liveAppStateBlock = appState && typeof appState === 'object'
+    ? `[LIVE ZYRO PLAY APP STATE]\n${JSON.stringify(appState)}\n[END LIVE APP STATE]\n\n`
+    : '';
+
+  const appKnowledgeSummary = `[ZYRO PLAY APP KNOWLEDGE BASE]\n${JSON.stringify(ZYRO_APP_KNOWLEDGE)}\n[END APP KNOWLEDGE BASE]\n\n`;
+
+  const intelligenceSystemPrompt = `${UPCH_SYSTEM_PROMPT}
+
+FEATURE 6: ZYRO PLAY APP INTELLIGENCE & TOOL CALLING
+- You have full awareness of the Zyro Play (Gyro Play) app via the [ZYRO PLAY APP KNOWLEDGE BASE] and the user's current live status via [LIVE ZYRO PLAY APP STATE].
+- When the user asks where a feature/setting is, what games are in Fun Zone, what features are in Messages, or how modes work, give an accurate, structured, friendly Hinglish answer using the exact paths from the Knowledge Base.
+- When the user asks to perform an action (e.g., turn on Dark Mode, turn off Notifications, open Profile Settings, change Username, open Fun Zone, open Live Stage, open Coin Wallet), call the appropriate function tool (\`update_theme\`, \`update_notifications\`, \`navigate_to_screen\`, or \`request_sensitive_action\`) AND also write a warm Hinglish confirmation message explaining what you just did!
+- Security Rule: Never execute logout or account deletion automatically; use \`request_sensitive_action\` so the user gets a confirmation button.`;
 
   const defaultPhotoPrompt =
     'इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में तारीफ और हाइप करो ("एकदम कंटाप/बवाल लग रहे हो भाई! 🔥"), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।';
@@ -424,7 +788,7 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history })
     currentUserParts.push({ inlineData: imagePart });
   }
   currentUserParts.push({
-    text: `${contextPrefix}User Message: ${prompt || defaultPhotoPrompt}`
+    text: `${contextPrefix}${liveAppStateBlock}User Message: ${prompt || defaultPhotoPrompt}`
   });
 
   const contents = [
@@ -435,35 +799,26 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history })
     }
   ];
 
-  // Primary: gemini-2.5-flash, followed by Gemini 3+ Flash backup models
   const modelsToTry = [
-    'gemini-2.5-flash',
-    'gemini-3-flash-preview',
-    'gemini-3.8-flash',
+    'gemini-4-hydrogen',
     'gemini-3.1-flash-lite',
-    'gemini-2.5-flash-lite',
-    'gemini-flash-latest'
+    'gemini-2.5-flash'
   ];
 
   let lastError = null;
-
   const useSearch = !imagePart && shouldUseWebSearch(prompt);
+  const fnDeclarations = !imagePart && !useSearch ? buildZyroFunctionDeclarations(Type) : [];
 
   for (const model of modelsToTry) {
     try {
       const config = {
-        systemInstruction: UPCH_SYSTEM_PROMPT,
-        temperature: 0.85,
-        topP: 0.95
+        systemInstruction: intelligenceSystemPrompt + '\n\n' + appKnowledgeSummary
       };
-
-      // Disable thinking budget on gemini-2.5 normal chat for instant sub-second replies
-      if (model.startsWith('gemini-2.5') && !useSearch) {
-        config.thinkingConfig = { thinkingBudget: 0 };
-      }
 
       if (useSearch) {
         config.tools = [{ googleSearch: {} }];
+      } else if (fnDeclarations.length) {
+        config.tools = [{ functionDeclarations: fnDeclarations }];
       }
 
       const response = await ai.models.generateContent({
@@ -472,39 +827,34 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history })
         config
       });
 
-      const text = cleanText(
-        response?.text,
-        12000
-      );
+      const collectedActions = [...(detResult.toolActions || [])];
+      if (Array.isArray(response?.functionCalls) && response.functionCalls.length) {
+        for (const fc of response.functionCalls) {
+          const validated = validateAndNormalizeToolCall(fc, appState);
+          if (validated && !collectedActions.some(a => a.tool === validated.tool && JSON.stringify(a.args) === JSON.stringify(validated.args))) {
+            collectedActions.push(validated);
+          }
+        }
+      }
+
+      let text = cleanText(response?.text, 12000);
+      if (!text && detResult.matched) {
+        text = detResult.reply;
+      } else if (!text && collectedActions.length) {
+        text = `**भाई, डन! तेरा काम कर दिया है:** ${collectedActions.map(a => a.label).join(' • ')} 🔥👊`;
+      }
 
       if (text) {
-        return text;
+        return { text, toolActions: collectedActions };
       }
     } catch (err) {
       lastError = err;
-
-      console.warn(
-        `Gemini model ${model} failed:`,
-        err?.message || err
-      );
-
-      // Safe fallback: try without tools/thinkingConfig if search grounding was rejected
-      if (useSearch) {
-        try {
-          const fallbackResp = await ai.models.generateContent({
-            model,
-            contents,
-            config: {
-              systemInstruction: UPCH_SYSTEM_PROMPT,
-              temperature: 0.85,
-              topP: 0.95
-            }
-          });
-          const fbText = cleanText(fallbackResp?.text, 12000);
-          if (fbText) return fbText;
-        } catch (e2) {}
-      }
+      console.warn(`Gemini model ${model} failed:`, err?.message || err);
     }
+  }
+
+  if (detResult.matched) {
+    return { text: detResult.reply, toolActions: detResult.toolActions };
   }
 
   throw (
@@ -788,6 +1138,14 @@ Rules:
 // AI CHAT ENDPOINT (STEP 4: PROMPT + MEMORY + HISTORY)
 // =====================================================
 
+// Expose App Knowledge Base endpoint
+app.get('/api/ai/knowledge', (req, res) => {
+  return res.json({
+    success: true,
+    knowledge: ZYRO_APP_KNOWLEDGE
+  });
+});
+
 async function handleZyroAIChatRequest(req, res) {
   const body = req.body || {};
 
@@ -800,6 +1158,10 @@ async function handleZyroAIChatRequest(req, res) {
     body.userFacts,
     2500
   );
+
+  const appState = (body.appState && typeof body.appState === 'object')
+    ? body.appState
+    : {};
 
   const userId = cleanText(body.user_id || body.userId || 'guest', 120) || 'guest';
   const chatId = cleanText(body.chat_id || body.chatId || '', 120);
@@ -858,13 +1220,17 @@ async function handleZyroAIChatRequest(req, res) {
   }
 
   try {
-    const text = await askGemini({
+    const aiRes = await askGemini({
       prompt,
       image,
       userFacts,
       permanentMemory,
-      history
+      history,
+      appState
     });
+
+    const text = typeof aiRes === 'string' ? aiRes : (aiRes?.text || '');
+    const toolActions = Array.isArray(aiRes?.toolActions) ? aiRes.toolActions : [];
 
     if (chatId) {
       const msgs = zyroMessagesStore.get(chatId) || [];
@@ -873,6 +1239,7 @@ async function handleZyroAIChatRequest(req, res) {
         chat_id: chatId,
         role: 'model',
         text,
+        toolActions,
         has_attachment: false,
         attachment_url: null,
         timestamp: new Date().toISOString()
@@ -883,19 +1250,22 @@ async function handleZyroAIChatRequest(req, res) {
     return res.json({
       success: true,
       text,
+      toolActions,
       chat_id: chatId || null,
       title: activeChat ? activeChat.title : null,
       mode: 'gemini'
     });
   } catch (err) {
     console.warn(
-      'Gemini unavailable; using offline fallback:',
+      'Gemini unavailable; using App Intelligence + offline fallback:',
       err?.message || err
     );
 
+    const detFallback = !image ? evaluateDeterministicAppIntelligence(prompt, appState) : { matched: false };
     const text = image
       ? photoFallback()
-      : getDesiComedyReply(prompt);
+      : (detFallback.matched ? detFallback.reply : getDesiComedyReply(prompt));
+    const toolActions = detFallback.matched ? (detFallback.toolActions || []) : [];
 
     if (chatId) {
       const msgs = zyroMessagesStore.get(chatId) || [];
@@ -904,6 +1274,7 @@ async function handleZyroAIChatRequest(req, res) {
         chat_id: chatId,
         role: 'model',
         text,
+        toolActions,
         has_attachment: false,
         attachment_url: null,
         timestamp: new Date().toISOString()
@@ -914,6 +1285,7 @@ async function handleZyroAIChatRequest(req, res) {
     return res.json({
       success: true,
       text,
+      toolActions,
       chat_id: chatId || null,
       title: activeChat ? activeChat.title : null,
       mode: 'offline'

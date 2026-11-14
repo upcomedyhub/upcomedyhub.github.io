@@ -5329,6 +5329,485 @@ img.logo-profile.zyro-header-logo {
   50% { opacity: 1; }
   100% { transform: translate(var(--tx, 100px), var(--ty, -250px)) scale(1.4) rotate(var(--tr, 180deg)); opacity: 0; }
 }
+
+/* =========================================================
+   INTERACTIVE POLLS & RESULTS VISUALIZATION
+   ========================================================= */
+.poll-builder-toggle-btn {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1.5px dashed rgba(0, 149, 246, 0.45);
+  background: rgba(0, 149, 246, 0.06);
+  color: #0095f6;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+}
+.poll-builder-toggle-btn:active {
+  transform: scale(0.985);
+}
+.poll-builder-toggle-btn.active {
+  border-style: solid;
+  border-color: #0095f6;
+  background: rgba(0, 149, 246, 0.12);
+}
+.poll-builder-box {
+  display: none;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+body.dark .poll-builder-box {
+  background: #161922;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.poll-builder-box.show {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+.poll-builder-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.poll-builder-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+body.dark .poll-builder-title {
+  color: #f1f5f9;
+}
+.poll-idea-btn {
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.poll-option-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.poll-option-input {
+  flex: 1;
+  min-height: 40px;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+  outline: none;
+  background: #fff;
+  color: #0f172a;
+}
+body.dark .poll-option-input {
+  background: #0f1117;
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+}
+.poll-option-input:focus {
+  border-color: #0095f6;
+}
+.poll-opt-remove-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.poll-add-opt-btn {
+  width: 100%;
+  min-height: 38px;
+  border: 1px dashed #94a3b8;
+  background: transparent;
+  color: #475569;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 2px;
+}
+body.dark .poll-add-opt-btn {
+  color: #94a3b8;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Interactive Poll Card on Feed & Post Viewer */
+.yt-polls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+  padding: 4px 14px 14px;
+}
+@media (max-width: 640px) {
+  .yt-polls-grid {
+    grid-template-columns: 1fr;
+    padding: 4px 12px 12px;
+  }
+}
+.zyro-poll-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+body.dark .zyro-poll-card {
+  background: #141720;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+.zyro-poll-author-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.zyro-poll-author-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.zyro-poll-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #0095f6;
+  flex-shrink: 0;
+}
+.zyro-poll-author-meta {
+  min-width: 0;
+}
+.zyro-poll-author-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.dark .zyro-poll-author-name {
+  color: #f8fafc;
+}
+.zyro-poll-submeta {
+  font-size: 11.5px;
+  color: #64748b;
+  font-variant-numeric: tabular-nums;
+}
+body.dark .zyro-poll-submeta {
+  color: #94a3b8;
+}
+.zyro-poll-viz-switch {
+  display: inline-flex;
+  background: #f1f5f9;
+  border-radius: 9px;
+  padding: 2px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+body.dark .zyro-poll-viz-switch {
+  background: #1e2433;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.zyro-poll-viz-btn {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.zyro-poll-viz-btn.active {
+  background: #ffffff;
+  color: #0095f6;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+body.dark .zyro-poll-viz-btn.active {
+  background: #0f172a;
+  color: #38bdf8;
+}
+.zyro-poll-question {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.38;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+body.dark .zyro-poll-question {
+  color: #f8fafc;
+}
+.zyro-poll-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.zyro-poll-option-btn {
+  position: relative;
+  width: 100%;
+  min-height: 46px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  padding: 10px 14px;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  transition: border-color 0.2s ease, transform 0.12s ease, background 0.2s ease;
+}
+body.dark .zyro-poll-option-btn {
+  background: #1b202e;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.zyro-poll-option-btn:hover {
+  border-color: #0095f6;
+}
+.zyro-poll-option-btn:active {
+  transform: scale(0.99);
+}
+.zyro-poll-option-btn.voted-choice {
+  border-color: #0095f6;
+  background: rgba(0, 149, 246, 0.04);
+}
+.zyro-poll-option-btn.leading-choice {
+  border-color: #10b981;
+}
+.zyro-poll-bar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, rgba(0, 149, 246, 0.18), rgba(56, 189, 248, 0.26));
+  border-radius: 10px;
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.zyro-poll-option-btn.leading-choice .zyro-poll-bar-fill {
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.20), rgba(52, 211, 153, 0.28));
+}
+.zyro-poll-opt-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  min-width: 0;
+}
+body.dark .zyro-poll-opt-content {
+  color: #f1f5f9;
+}
+.zyro-poll-check-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+.zyro-poll-option-btn.voted-choice .zyro-poll-check-dot {
+  border-color: #0095f6;
+  background: #0095f6;
+  color: #fff;
+}
+.zyro-poll-option-btn.leading-choice.voted-choice .zyro-poll-check-dot {
+  border-color: #10b981;
+  background: #10b981;
+}
+.zyro-poll-opt-stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.zyro-poll-pct {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+}
+body.dark .zyro-poll-pct {
+  color: #f8fafc;
+}
+.zyro-poll-cnt {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 600;
+}
+body.dark .zyro-poll-cnt {
+  color: #94a3b8;
+}
+.zyro-poll-leading-tag {
+  font-size: 10px;
+  font-weight: 800;
+  color: #10b981;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Donut Chart Visualization View */
+.zyro-poll-chart-view {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 6px 4px;
+  animation: fadeIn 0.25s ease;
+}
+.zyro-poll-chart-view.active {
+  display: flex;
+}
+@media (max-width: 400px) {
+  .zyro-poll-chart-view.active {
+    flex-direction: column;
+  }
+}
+.zyro-poll-donut-wrap {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zyro-poll-donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.zyro-poll-donut-total-num {
+  font-size: 17px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.1;
+}
+body.dark .zyro-poll-donut-total-num {
+  color: #f8fafc;
+}
+.zyro-poll-donut-total-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+}
+.zyro-poll-legend-list {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.zyro-poll-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12.5px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.zyro-poll-legend-row:hover {
+  background: rgba(0, 149, 246, 0.08);
+}
+.zyro-poll-legend-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.zyro-poll-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.zyro-poll-legend-label {
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body.dark .zyro-poll-legend-label {
+  color: #e2e8f0;
+}
+.zyro-poll-legend-val {
+  font-weight: 800;
+  color: #0f172a;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+body.dark .zyro-poll-legend-val {
+  color: #f8fafc;
+}
+.zyro-poll-footer {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #64748b;
+  font-variant-numeric: tabular-nums;
+}
+body.dark .zyro-poll-footer {
+  border-top-color: rgba(255, 255, 255, 0.07);
+  color: #94a3b8;
+}
 </style>
 <link rel="stylesheet" href="zyro-editor.css?v=3.0.0">
 </head>
@@ -8178,12 +8657,45 @@ img.logo-profile.zyro-header-logo {
       <label for="postLocationInput" style="font-size:13px;font-weight:700;display:block;margin:10px 0 6px">📍 Add Location (Optional)</label>
       <input type="text" id="postLocationInput" placeholder="e.g. Lucknow, Delhi, Varanasi, Mumbai..." style="width:100%;box-sizing:border-box;border:1px solid #ddd;border-radius:10px;padding:9px 12px;font-size:13px;outline:none;background:#fafafa">
 
+      <!-- Interactive Poll Builder Attachment -->
+      <button type="button" class="poll-builder-toggle-btn" id="pollBuilderToggleBtn" onclick="togglePostPollBuilder()">
+        <span>📊 Attach Interactive Poll to Post</span>
+        <span id="pollBuilderToggleStatus" style="font-size:11px;font-weight:700;opacity:0.85">+ Add Poll</span>
+      </button>
+
+      <div class="poll-builder-box" id="postPollBuilderBox">
+        <div class="poll-builder-head">
+          <div class="poll-builder-title">📊 Poll Question &amp; Options</div>
+          <button type="button" class="poll-idea-btn" onclick="fillSampleComedyPoll()">✨ Comedy Idea</button>
+        </div>
+        <input type="text" id="pollQuestionInput" class="poll-option-input" placeholder="Ask the community something funny... (e.g. Best Desi Chai spot?)" maxlength="140" style="width:100%;margin-bottom:10px;font-weight:700">
+        <div id="pollOptionsInputsWrap">
+          <div class="poll-option-row">
+            <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option 1 (e.g. Tapri Wali Kulhad Chai ☕)" maxlength="70">
+          </div>
+          <div class="poll-option-row">
+            <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option 2 (e.g. Ghar Ki Adrak Chai 🏠)" maxlength="70">
+          </div>
+        </div>
+        <button type="button" class="poll-add-opt-btn" id="pollAddOptBtn" onclick="addPollOptionInputRow()">+ Add Another Option (Max 4)</button>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;font-size:12px;color:#64748b">
+          <span style="font-weight:700">⏱️ Poll Duration</span>
+          <select id="pollDurationSelect" style="border:1px solid #cbd5e1;border-radius:8px;padding:4px 8px;font-size:12px;font-weight:700;background:#fff;color:#0f172a">
+            <option value="24 Hours">24 Hours</option>
+            <option value="3 Days">3 Days</option>
+            <option value="7 Days" selected>7 Days</option>
+            <option value="No Limit">Always Open</option>
+          </select>
+        </div>
+      </div>
+
       <button type="button" id="publishPostBtn" class="settings-open-btn" style="width:100%;background:#0095f6;color:#fff;margin-top:16px;padding:12px" onclick="publishNewUserPost()"><svg class="ve-ico"><use href="#i-rocket"></use></svg> Publish to Profile</button>
     </div>
 
     <!-- Instagram Create Bottom Mode Switcher Carousel -->
     <div class="ig-create-bottom-bar" id="createBottomModeBar">
       <button type="button" class="ig-create-mode-btn active" id="createModePost" onclick="switchCreateType('photo')">POST</button>
+      <button type="button" class="ig-create-mode-btn" id="createModePoll" onclick="switchCreateType('poll')">POLL</button>
       <button type="button" class="ig-create-mode-btn" id="createModeStory" onclick="switchCreateType('story')">STORY</button>
       <button type="button" class="ig-create-mode-btn" id="createModeReel" onclick="switchCreateType('reel')">REEL</button>
       <button type="button" class="ig-create-mode-btn" id="createModeVideo" onclick="switchCreateType('video')">VIDEO</button>
@@ -8427,6 +8939,7 @@ img.logo-profile.zyro-header-logo {
     <div class="ig-pv-content">
       <div class="ig-pv-likes" id="pvLikesCount">0 likes</div>
       <div class="ig-pv-caption" id="pvCaption"></div>
+      <div id="pvPollMount" style="margin:10px 0"></div>
       <div class="ig-pv-comments-list" id="pvCommentsList"></div>
     </div>
 
@@ -11626,12 +12139,15 @@ async function renderCurrentUserPostsGrid(){
     const itemEl = document.createElement("div");
     itemEl.className = "ig-grid-item";
     const isReel = p.type === "reel";
-    const badgeHtml = isReel ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>' : '';
+    const hasPoll = !!(p.pollData && p.pollData.question);
+    const badgeHtml = isReel
+      ? '<span class="ig-grid-item-badge"><svg class="ico" style="width:14px;height:14px"><use href="#i-reels"></use></svg></span>'
+      : (hasPoll ? '<span class="ig-grid-item-badge" style="background:rgba(0,149,246,0.9);padding:2px 6px;border-radius:6px;font-size:10px;font-weight:800">📊 POLL</span>' : '');
     const mediaHtml = isReel && !p.thumbnail
       ? '<video src="' + escapeAttr(p.mediaUrl) + '" preload="metadata" muted playsinline></video>'
       : '<img src="' + escapeAttr(p.thumbnail || p.mediaUrl) + '" alt="Post" loading="lazy">';
 
-    itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">💬 ' + (p.commentsCount || 0) + '</div></div>';
+    itemEl.innerHTML = mediaHtml + badgeHtml + '<div class="ig-grid-overlay"><div class="ig-grid-overlay-stat">❤️ ' + (p.likesCount || 0) + '</div><div class="ig-grid-overlay-stat">' + (hasPoll ? ('📊 ' + (p.pollData.totalVotes || 0)) : ('💬 ' + (p.commentsCount || 0))) + '</div></div>';
     itemEl.addEventListener("click", () => openPostViewer(p));
     grid.appendChild(itemEl);
   });
@@ -11838,6 +12354,7 @@ function closeCreatePostModal(){
   if(cap) cap.value = "";
   const loc = document.getElementById("postLocationInput");
   if(loc) loc.value = "";
+  if(typeof resetPostPollBuilder === "function") resetPostPollBuilder();
 }
 window.closeCreatePostModal = closeCreatePostModal;
 
@@ -11851,6 +12368,7 @@ function switchCreateType(type){
   const modeMap = {
     photo: "createModePost",
     post: "createModePost",
+    poll: "createModePoll",
     story: "createModeStory",
     reel: "createModeReel",
     video: "createModeVideo",
@@ -11872,6 +12390,12 @@ function switchCreateType(type){
     if(title) title.textContent = "Add to Story";
     if(prompt) prompt.textContent = "Select photo or short video for story";
     if(fileInput) fileInput.accept = "image/*,video/*";
+  } else if(type === "poll"){
+    currentCreateType = "poll";
+    if(title) title.textContent = "New Interactive Poll Post";
+    if(prompt) prompt.textContent = "Optional: Select background photo (or publish standalone poll)";
+    if(fileInput) fileInput.accept = "image/*";
+    if(typeof togglePostPollBuilder === "function") togglePostPollBuilder(true);
   } else {
     currentCreateType = "photo";
     if(title) title.textContent = "New Post";
@@ -12810,8 +13334,15 @@ async function publishNewUserPost(){
     showToast("🔐 Pehle login karein");
     return;
   }
-  if(!selectedPostFile && !selectedPostDataUrl){
-    showToast("⚠️ Kripya photo ya video select karein!");
+
+  const pollPayload = (typeof collectComposerPollData === "function") ? collectComposerPollData() : null;
+  if(pollPayload && pollPayload.error){
+    showToast("⚠️ " + pollPayload.error);
+    return;
+  }
+
+  if(!selectedPostFile && !selectedPostDataUrl && !pollPayload){
+    showToast("⚠️ Kripya photo/video select karein ya Interactive Poll add karein!");
     return;
   }
 
@@ -12833,7 +13364,7 @@ async function publishNewUserPost(){
     let mediaUrl = "";
     let thumbnail = "";
 
-    // Upload to Cloudinary
+    // Upload to Cloudinary if media file was selected
     if(selectedPostFile && typeof isCloudinaryConfigured === "function" && isCloudinaryConfigured()){
       try {
         if(selectedPostFile.type.startsWith("image/")){
@@ -12847,7 +13378,6 @@ async function publishNewUserPost(){
         }
       } catch(cErr){
         console.warn("Cloudinary upload failed:", cErr);
-        // Only fallback to data URL if image is small (< 800KB) to prevent Firestore crash
         if(selectedPostFile.type.startsWith("image/") && selectedPostFile.size < 800000){
           mediaUrl = selectedPostDataUrl;
           thumbnail = selectedPostDataUrl;
@@ -12855,9 +13385,12 @@ async function publishNewUserPost(){
           throw new Error("Media upload failed. Kripya dobara koshish karein.");
         }
       }
-    } else {
+    } else if(selectedPostDataUrl){
       mediaUrl = selectedPostDataUrl;
       thumbnail = selectedPostDataUrl;
+    } else if(pollPayload && typeof generatePollCoverSvgDataUrl === "function"){
+      mediaUrl = generatePollCoverSvgDataUrl(pollPayload.question, pollPayload.options);
+      thumbnail = mediaUrl;
     }
 
     const postDoc = {
@@ -12867,9 +13400,10 @@ async function publishNewUserPost(){
       authorPhoto: currentProfilePhotoURL || currentUser.photoURL || "",
       mediaUrl: mediaUrl,
       thumbnail: thumbnail || mediaUrl,
-      type: currentCreateType,
-      caption: caption,
+      type: currentCreateType === "poll" ? "photo" : currentCreateType,
+      caption: caption || (pollPayload ? pollPayload.question : ""),
       location: location,
+      pollData: pollPayload || null,
       likesCount: 0,
       commentsCount: 0,
       createdAt: (typeof firebase !== "undefined" && firebase.firestore) ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
@@ -12915,14 +13449,22 @@ async function publishNewUserPost(){
         };
         await db.collection("manualVideos").add(videoDoc).catch(()=>null);
       }
+    } else {
+      postDoc.id = "local_post_" + Date.now();
+    }
+
+    if(pollPayload && typeof saveLocalCommunityPollPost === "function"){
+      saveLocalCommunityPollPost(postDoc);
     }
 
     cachedUserPosts.unshift(postDoc);
     updateProfilePostsCount(cachedUserPosts.length);
 
-    const successMsg = currentCreateType === "reel" ? "🎬 Reel published!" : (currentCreateType === "video" ? "📹 Video published!" : "🚀 Post published!");
+    const successMsg = pollPayload ? "📊 Interactive Poll Post published!" : (currentCreateType === "reel" ? "🎬 Reel published!" : (currentCreateType === "video" ? "📹 Video published!" : "🚀 Post published!"));
     showToast(successMsg);
     closeCreatePostModal();
+
+    if(typeof renderCommunityPollsFeed === "function") renderCommunityPollsFeed();
 
     // Refresh profile grid instantly
     const targetTab = currentCreateType === "reel" ? "reels" : (currentCreateType === "video" ? "videos" : "posts");
@@ -12955,6 +13497,7 @@ function openPostViewer(post){
   const imgEl = document.getElementById("pvImg");
   const vidEl = document.getElementById("pvVideo");
   const captionEl = document.getElementById("pvCaption");
+  const pollMount = document.getElementById("pvPollMount");
   const likesEl = document.getElementById("pvLikesCount");
   const deleteBtn = document.getElementById("pvDeleteBtn");
 
@@ -12982,6 +13525,13 @@ function openPostViewer(post){
 
   if(captionEl){
     captionEl.innerHTML = '<strong>' + escapeHtml(post.authorName || "User") + '</strong> ' + escapeHtml(post.caption || "");
+  }
+  if(pollMount){
+    if(post.pollData && post.pollData.question && typeof buildInteractivePollCardHTML === "function"){
+      pollMount.innerHTML = buildInteractivePollCardHTML(post, true);
+    } else {
+      pollMount.innerHTML = "";
+    }
   }
   if(likesEl) likesEl.textContent = (post.likesCount || 0) + " likes";
 
@@ -14299,6 +14849,7 @@ async function renderYouTubeHomeFeed(filterMode){
         <div class="yt-filter-bar" id="ytHomeFilterBar">
           <button type="button" class="yt-filter-chip active" data-yt-filter="all">All</button>
           <button type="button" class="yt-filter-chip" data-yt-filter="shorts">⚡ Shorts</button>
+          <button type="button" class="yt-filter-chip" data-yt-filter="polls">📊 Polls</button>
           <button type="button" class="yt-filter-chip" data-yt-filter="long">🎬 Long Videos</button>
           <button type="button" class="yt-filter-chip" data-yt-filter="comedy">😂 Standup &amp; Desi Comedy</button>
         </div>
@@ -14314,6 +14865,17 @@ async function renderYouTubeHomeFeed(filterMode){
           <div class="yt-shorts-shelf" id="ytHomeShortsShelf">
             <div style="padding:20px;color:#888;font-size:12.5px">⏳ Loading Shorts...</div>
           </div>
+        </section>
+
+        <section id="ytHomePollsSection" style="margin-top:8px">
+          <div class="yt-section-head">
+            <div class="yt-section-title">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:rgba(0,149,246,0.14);color:#0095f6;font-size:14px">📊</span>
+              <span>Community Polls &amp; Live Votes</span>
+            </div>
+            <button type="button" onclick="openCreatePostModal('poll')" style="border:none;background:rgba(0,149,246,0.12);color:#0095f6;padding:6px 12px;border-radius:999px;font-size:11.5px;font-weight:800;cursor:pointer">+ Create Poll</button>
+          </div>
+          <div class="yt-polls-grid" id="ytHomePollsGrid"></div>
         </section>
 
         <section id="ytHomeLongSection" style="margin-top:10px">
@@ -14337,11 +14899,17 @@ async function renderYouTubeHomeFeed(filterMode){
         currentYtHomeFilter = f;
         surface.querySelectorAll("[data-yt-filter]").forEach(b => b.classList.toggle("active", b === btn));
         const shSec = document.getElementById("ytHomeShortsSection");
+        const plSec = document.getElementById("ytHomePollsSection");
         const lgSec = document.getElementById("ytHomeLongSection");
-        if(shSec) shSec.style.display = (f === "long") ? "none" : "block";
-        if(lgSec) lgSec.style.display = (f === "shorts") ? "none" : "block";
+        if(shSec) shSec.style.display = (f === "long" || f === "polls") ? "none" : "block";
+        if(plSec) plSec.style.display = (f === "shorts" || f === "long") ? "none" : "block";
+        if(lgSec) lgSec.style.display = (f === "shorts" || f === "polls") ? "none" : "block";
       });
     });
+  }
+
+  if(typeof renderCommunityPollsFeed === "function"){
+    renderCommunityPollsFeed();
   }
 
   const shortsShelf = document.getElementById("ytHomeShortsShelf");
@@ -22257,14 +22825,261 @@ function getDesiComedySmartFallback(rawPrompt){
   return "**तेरा भाई तेरे साथ है, चल बताता हूँ कैसे होगा!** 👊🔥 बोल मेरे भाई, इस आइडिया को किस लेवल पर ले जाना है? मिलकर एकदम बवाल प्लान बनाते हैं! 🚀😎";
 }
 
-// ---------- STEP 4: GEMINI CALL WITH MEMORY + CHAT HISTORY INJECTION ----------
-async function callGeminiText(text, explicitChatId){
+// =====================================================
+// ZYRO AI APP INTELLIGENCE LAYER (KNOWLEDGE BASE + STATE MANAGER + APP TOOLS)
+// =====================================================
+
+let zyroClientKnowledgeBase = null;
+async function loadZyroClientKnowledgeBase(){
+  if (zyroClientKnowledgeBase) return zyroClientKnowledgeBase;
+  try {
+    const res = await fetch("/zyro-app-knowledge.json").catch(() => null);
+    if (res && res.ok) {
+      zyroClientKnowledgeBase = await res.json();
+      return zyroClientKnowledgeBase;
+    }
+  } catch (e) {}
+  return null;
+}
+loadZyroClientKnowledgeBase();
+
+const ZyroAppStateManager = {
+  getActiveScreen() {
+    if (document.getElementById("settingsOverlay")?.classList.contains("show")) return "settings";
+    if (document.getElementById("notificationsOverlay")?.classList.contains("show")) return "notifications";
+    if (document.getElementById("messagesOverlay")?.classList.contains("show")) return "messages";
+    if (document.getElementById("liveComedyStageModal")?.classList.contains("show")) return "live_stage";
+    if (document.getElementById("zyroCoinWalletModal")?.classList.contains("show")) return "coin_wallet";
+    const activePane = document.querySelector(".tab-pane.active");
+    if (activePane && activePane.id) return activePane.id.replace("tab-", "");
+    return "zyroai";
+  },
+  getState() {
+    const themePref = localStorage.getItem("theme") || "system";
+    const isDarkActive = document.body.classList.contains("dark-mode") || document.body.classList.contains("dark");
+    const notifEnabled = localStorage.getItem("upch_notifications_enabled") !== "false";
+    const lang = localStorage.getItem("siteLanguage") || "hi";
+    const coins = Number(localStorage.getItem("zyro_creator_coins_v1") || 250);
+    const uname = (typeof cachedCurrentUserProfile !== "undefined" && cachedCurrentUserProfile && cachedCurrentUserProfile.username)
+      || (typeof currentUser !== "undefined" && currentUser && currentUser.displayName ? currentUser.displayName.replace(/\s+/g, "").toLowerCase() : "guest");
+
+    return {
+      currentScreen: this.getActiveScreen(),
+      theme: themePref === "system" ? (isDarkActive ? "dark" : "light") : themePref,
+      themePreference: themePref,
+      notifications: notifEnabled,
+      language: lang,
+      isLoggedIn: Boolean(typeof currentUser !== "undefined" && currentUser),
+      username: uname,
+      zyroCoins: coins,
+      accountPrivacy: document.getElementById("settingsPrivacyStatus")?.textContent || "Public"
+    };
+  }
+};
+window.ZyroAppStateManager = ZyroAppStateManager;
+
+const ZyroAppTools = {
+  executeTool(toolName, args = {}, fromUserClick = false) {
+    try {
+      if (toolName === "update_theme") {
+        const mode = ["dark", "light", "system"].includes(String(args.theme || "").toLowerCase())
+          ? String(args.theme).toLowerCase()
+          : "dark";
+        if (typeof applyTheme === "function") applyTheme(mode, true);
+        if (typeof window.syncThemeUI === "function") window.syncThemeUI();
+        if (typeof ZyroAudioEngine !== "undefined") ZyroAudioEngine.playPop();
+        showToast(mode === "dark" ? "🌙 Dark Mode चालू हो गया!" : (mode === "light" ? "☀️ Light Mode चालू हो गया!" : "📱 System Theme सेट हो गई!"));
+        return true;
+      }
+
+      if (toolName === "update_notifications") {
+        const enabled = Boolean(args.enabled);
+        localStorage.setItem("upch_notifications_enabled", enabled ? "true" : "false");
+        if (typeof ZyroAudioEngine !== "undefined") ZyroAudioEngine.playPop();
+        showToast(enabled ? "🔔 Notifications चालू (ON) कर दी गईं!" : "🔕 Notifications बंद (Muted) कर दी गईं!");
+        return true;
+      }
+
+      if (toolName === "navigate_to_screen") {
+        const target = String(args.target || "home").trim();
+        if (typeof ZyroAudioEngine !== "undefined") ZyroAudioEngine.playTap();
+
+        if (target === "settings") {
+          if (typeof window.openSettings === "function") window.openSettings();
+          return true;
+        }
+        if (["appearance", "language", "privacySafety", "passwordSecurity", "proDashboard", "liked", "saved", "mobile", "accountType"].includes(target)) {
+          if (typeof window.openSettings === "function") window.openSettings();
+          setTimeout(() => {
+            const row = document.querySelector(`[data-settings-view="${target}"]`);
+            if (row) row.click();
+          }, 120);
+          return true;
+        }
+        if (target === "notifications") {
+          const no = document.getElementById("notificationsOverlay");
+          if (no) no.classList.add("show");
+          return true;
+        }
+        if (target === "edit_profile") {
+          if (typeof switchTab === "function") switchTab("profile");
+          setTimeout(() => {
+            if (typeof openEditProfileModal === "function") openEditProfileModal();
+          }, 150);
+          return true;
+        }
+        if (target === "live_stage") {
+          if (typeof openLiveComedyStage === "function") openLiveComedyStage();
+          return true;
+        }
+        if (target === "coin_wallet") {
+          if (typeof openCoinWallet === "function") openCoinWallet();
+          return true;
+        }
+        if (target === "create_post") {
+          if (typeof openCreatePostModal === "function") openCreatePostModal("photo");
+          return true;
+        }
+        if (target === "create_poll") {
+          if (typeof openCreatePostModal === "function") openCreatePostModal("poll");
+          return true;
+        }
+        if (target === "messages") {
+          const msgBtn = document.getElementById("headerMessagesBtn") || document.querySelector('[data-tab="messages"]');
+          if (msgBtn) msgBtn.click();
+          else if (typeof switchTab === "function") switchTab("messages");
+          return true;
+        }
+        if (["home", "reels", "funzone", "profile", "zyroai"].includes(target)) {
+          if (typeof switchTab === "function") switchTab(target);
+          return true;
+        }
+      }
+
+      if (toolName === "request_sensitive_action") {
+        if (!fromUserClick) {
+          // Never auto-run sensitive actions without explicit user click
+          return false;
+        }
+        const act = String(args.actionType || "logout");
+        if (act === "logout") {
+          const lBtn = document.getElementById("logoutBtn");
+          if (lBtn) lBtn.click();
+          else showToast("🔒 Logged out safely");
+          return true;
+        }
+        if (act === "clear_chats") {
+          if (typeof clearZyroAIHistory === "function") clearZyroAIHistory();
+          return true;
+        }
+      }
+    } catch (err) {
+      console.warn("ZyroAppTools execution error:", err);
+    }
+    return false;
+  }
+};
+window.ZyroAppTools = ZyroAppTools;
+
+function triggerZyroToolChip(encodedAction){
+  try {
+    const action = JSON.parse(decodeURIComponent(encodedAction));
+    if (action && action.tool) {
+      ZyroAppTools.executeTool(action.tool, action.args || {}, true);
+    }
+  } catch (e) {
+    console.warn("Tool chip trigger error:", e);
+  }
+}
+window.triggerZyroToolChip = triggerZyroToolChip;
+
+// Client-side offline App Intelligence fallback (mirrors backend intelligence)
+function evaluateClientAppIntelligenceFallback(rawPrompt){
+  const p = (rawPrompt || "").trim();
+  const lower = p.toLowerCase();
+  const st = ZyroAppStateManager.getState();
+
+  if (/\b(dark\s*mode|night\s*mode|डार्क\s*मोड)\b/i.test(lower)) {
+    const wantsOff = /\b(off|band|hat[ao]|disable|light|बंद)\b/i.test(lower);
+    const theme = wantsOff ? "light" : "dark";
+    return {
+      matched: true,
+      text: theme === "dark"
+        ? `**भाई, तेरा Dark Mode तुरंत चालू (ON) कर दिया है!** 🌙🔥\n\n• **New Theme:** \`dark\` 😎👊`
+        : `**भाई, Dark Mode बंद करके क्लीन Light Mode चालू कर दिया है!** ☀️🔥`,
+      toolActions: [{ tool: "update_theme", args: { theme }, requiresConfirmation: false, label: theme === "dark" ? "🌙 Dark Mode Activated" : "☀️ Light Mode Activated" }]
+    };
+  }
+  if (/\b(light\s*mode|लाइट\s*मोड)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, Light Mode तुरंत चालू कर दिया है!** ☀️🔥`,
+      toolActions: [{ tool: "update_theme", args: { theme: "light" }, requiresConfirmation: false, label: "☀️ Light Mode Activated" }]
+    };
+  }
+  if (/\b(notification|notifications|नोटिफिकेशन)\b/i.test(lower) && /\b(off|band|mute|disable|chalu|on|enable|बंद|चालू)\b/i.test(lower)) {
+    const enabled = !/\b(off|band|mute|disable|बंद)\b/i.test(lower);
+    return {
+      matched: true,
+      text: enabled
+        ? `**भाई, तेरे ऐप की Notifications चालू (ON) कर दी गई हैं!** 🔔✅`
+        : `**भाई, तेरी Notifications बंद (OFF) कर दी गई हैं!** 🔕✅`,
+      toolActions: [{ tool: "update_notifications", args: { enabled }, requiresConfirmation: false, label: enabled ? "🔔 Notifications Enabled" : "🔕 Notifications Muted" }]
+    };
+  }
+  if (/\b(username|यूज़रनेम|यूजरनेम|नाम\s*बदल|edit\s*profile)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, अपना Username (@${st.username}), Name या Bio बदलने का विकल्प Profile -> 'Edit profile' बटन में है!** ✏️👤\n\nनीचे **✏️ Open Edit Profile** बटन दबाकर सीधे नया Username सेव कर ले! 🔥👊`,
+      toolActions: [{ tool: "navigate_to_screen", args: { target: "edit_profile" }, requiresConfirmation: false, label: "✏️ Open Edit Profile (Username/Bio)" }]
+    };
+  }
+  if (/\b(profile\s*settings|meri\s*settings|settings\s*kahan|सेटिंग्स\s*कहाँ)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, तेरी Profile और App Settings यहाँ हैं:** ⚙️🔥\n\n• **App Settings:** ऊपर हेडर में ⚙️ आइकन या Profile के ☰ मेनू में।\n• **Current State:** Theme: \`${st.theme}\` | Notifications: \`${st.notifications ? "ON 🔔" : "OFF 🔕"}\` | Coins: \`🪙 ${st.zyroCoins}\`\n\nनीचे बटन दबाकर सीधे Settings या Edit Profile खोल ले! 👇`,
+      toolActions: [
+        { tool: "navigate_to_screen", args: { target: "settings" }, requiresConfirmation: false, label: "⚙️ Open Settings" },
+        { tool: "navigate_to_screen", args: { target: "edit_profile" }, requiresConfirmation: false, label: "✏️ Open Edit Profile" }
+      ]
+    };
+  }
+  if (/\b(fun\s*zone|फन\s*ज़ोन|kaun.*game|कौन.*गेम)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, Fun Zone में 7 मजेदार कॉमेडी और आर्केड गेम्स हैं:** 🎮🔥\n1. **🪙 Coin Merge Rush (Desi 2048)**\n2. **🧠 Desi Comedy Quiz**\n3. **⚡ Fast Reaction Test**\n4. **🎡 Comedy Spin Wheel**\n5. **🃏 Emoji Memory Flip**\n6. **🔨 Whack-a-Joke**\n7. **🐍🎲 Snake & Ladders vs CPU**\n\nनीचे बटन दबाकर सीधा **Fun Zone** में खेलना शुरू कर! 🚀`,
+      toolActions: [{ tool: "navigate_to_screen", args: { target: "funzone" }, requiresConfirmation: false, label: "🎮 Open Fun Zone Games" }]
+    };
+  }
+  if (/\b(messages?\s*me\s*kaun|मैसेज.*फीचर|messages?\s*features)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, Messages में ये फीचर्स उपलब्ध हैं:** 💬🔥\n• **Primary & General Direct Chat**\n• **Message Requests (Accept/Decline)**\n• **HD Photo Sharing & Lightbox**\n• **Audio & Video Calling Hub (दोस्तों और Zyro AI के साथ लाइव कॉल)**`,
+      toolActions: [{ tool: "navigate_to_screen", args: { target: "messages" }, requiresConfirmation: false, label: "💬 Open Messages" }]
+    };
+  }
+  if (/\b(sabhi\s*settings|all\s*settings|settings\s*aur\s*modes|सेटिंग्स\s*और\s*मोड्स)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, Zyro Play की सभी Settings और Modes:** 🧠⚡\n• **Modes:** Dark/Light/System Mode (अभी: \`${st.theme}\`), Reels Vertical Mode, Live Comedy Stage Mode (🎤), Poll Bar/Donut Chart Mode (📊)।\n• **Settings:** Appearance, Language (\`${st.language}\`), Notifications (\`${st.notifications ? "ON" : "OFF"}\`), Account Privacy (\`${st.accountPrivacy}\`), Password & Security, Mobile Verification और Cobra Verified Tick!`,
+      toolActions: [{ tool: "navigate_to_screen", args: { target: "settings" }, requiresConfirmation: false, label: "⚙️ Open Settings" }]
+    };
+  }
+  return { matched: false, text: "", toolActions: [] };
+}
+
+// ---------- STEP 4: GEMINI CALL WITH MEMORY + CHAT HISTORY + APP STATE INJECTION ----------
+async function callGeminiText(text, explicitChatId, returnFullPayload = false){
   const prompt = (text || "").toString().trim();
-  if(!prompt) return getDesiComedySmartFallback("");
+  if(!prompt) {
+    const fb = getDesiComedySmartFallback("");
+    return returnFullPayload ? { text: fb, toolActions: [] } : fb;
+  }
 
   extractAndSaveUserMemory(prompt);
   const userFacts = buildZyroUserFacts();
   const permanent_memory = loadZyroMemoryFacts();
+  const appState = ZyroAppStateManager.getState();
   const activeChatId = explicitChatId || currentZyroChatId;
 
   // Fetch conversation history for the active chat (excluding the message just pushed)
@@ -22279,19 +23094,27 @@ async function callGeminiText(text, explicitChatId){
       prompt,
       userFacts,
       permanent_memory,
+      appState,
       history: historyForApi,
       chat_id: activeChatId,
       user_id: getZyroActiveUserId()
     });
     if (srvData && srvData.success && srvData.text) {
-      return srvData.text;
+      const toolActions = Array.isArray(srvData.toolActions) ? srvData.toolActions : [];
+      return returnFullPayload ? { text: srvData.text, toolActions } : srvData.text;
     }
     console.warn("Backend AI unavailable:", srvData?.error || "no response");
   } catch(e) {
     console.warn("Backend AI request failed:", e);
   }
 
-  return getDesiComedySmartFallback(prompt);
+  const localIntel = evaluateClientAppIntelligenceFallback(prompt);
+  if (localIntel.matched) {
+    return returnFullPayload ? { text: localIntel.text, toolActions: localIntel.toolActions } : localIntel.text;
+  }
+
+  const fallbackText = getDesiComedySmartFallback(prompt);
+  return returnFullPayload ? { text: fallbackText, toolActions: [] } : fallbackText;
 }
 
 // ---------- IMAGE GENERATION ----------
@@ -22443,19 +23266,27 @@ function renderAIHistory(){
       '<div class="zai-welcome">' +
         '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
         '<div class="zai-welcome-title">Bol Mere Bhai! Aaj Kya Plan Hai? 🔥</div>' +
-        '<div class="zai-welcome-sub">Zyro AI तेरा पक्का दोस्त और पर्सनल असिस्टेंट है — बड़े सपने, कॉमेडी स्क्रिप्ट, फोटो स्वैग या Google Calendar / Tasks / Drive / Docs सब यहाँ से हैंडल कर! 👊</div>' +
+        '<div class="zai-welcome-sub">Zyro AI अब तेरे पूरे <b>Zyro Play ऐप को समझता और कंट्रोल करता है</b> — Settings बदलवाओ, Dark Mode चालू करो, किसी भी फीचर का रास्ता पूछो या स्क्रिप्ट लिखवाओ! 🧠⚡</div>' +
         '<div class="zai-prompts-grid">' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Dark Mode चालू करो\')">' +
+            '<div class="zai-prompt-card-title">🌙 Dark Mode चालू करो</div>' +
+            '<div class="zai-prompt-card-desc">AI से बोलकर सीधे ऐप की Theme बदलें</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'मेरा Username बदलने का विकल्प कहाँ है?\')">' +
+            '<div class="zai-prompt-card-title">✏️ Change Username</div>' +
+            '<div class="zai-prompt-card-desc">Profile Settings और Username बदलने की जगह जानें</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Fun Zone में कौन-कौन से गेम उपलब्ध हैं?\')">' +
+            '<div class="zai-prompt-card-title">🎮 Fun Zone Games</div>' +
+            '<div class="zai-prompt-card-desc">सभी 7 कॉमेडी गेम्स और उनके नियम जानें</div>' +
+          '</button>' +
+          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'मेरे ऐप की सभी Settings और Modes समझाओ।\')">' +
+            '<div class="zai-prompt-card-title">⚙️ All Settings &amp; Modes</div>' +
+            '<div class="zai-prompt-card-desc">पूरे Zyro Play ऐप के फीचर्स और कंट्रोल्स समझें</div>' +
+          '</button>' +
           '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai, kal subah 10 baje Saurabh aur Vansh ke sath video shooting par jana hai, yaad dila dena!\')">' +
             '<div class="zai-prompt-card-title">📅 Shooting Reminder</div>' +
             '<div class="zai-prompt-card-desc">Google Calendar me kal subah 10 baje ka event set karo</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Bhai ek naya comedy startup idea socha hai: Desi Creators Hub — yaad rakhna aur Tasks me save kar de!\')">' +
-            '<div class="zai-prompt-card-title">✅ Save Idea / Note</div>' +
-            '<div class="zai-prompt-card-desc">Google Tasks &amp; Zyro Memory me note save karo</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="openZyroDrivePicker()">' +
-            '<div class="zai-prompt-card-title">📂 Summarize Drive Doc</div>' +
-            '<div class="zai-prompt-card-desc">Google Drive / Docs padh kar Hinglish me samjho</div>' +
           '</button>' +
           '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Ek funny desi comedy reel ki script likho Kanpur style me\')">' +
             '<div class="zai-prompt-card-title">🎬 Kanpur Ki Bakaiti</div>' +
@@ -22486,6 +23317,26 @@ function renderAIHistory(){
       if(m.text){
         aiInner += '<div>' + formatZyroAIText(m.text) + '</div>';
       }
+
+      // Render App Intelligence Tool Action / Confirmation Buttons if present
+      let toolChipsHtml = "";
+      if (Array.isArray(m.toolActions) && m.toolActions.length) {
+        toolChipsHtml = '<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">' +
+          m.toolActions.map(act => {
+            if (!act || !act.tool) return "";
+            const encoded = encodeURIComponent(JSON.stringify(act));
+            const isConfirm = Boolean(act.requiresConfirmation);
+            const btnStyle = isConfirm
+              ? "border:1.5px solid #ef4444;background:rgba(239,68,68,0.12);color:#ef4444;padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px"
+              : "border:1.5px solid rgba(0,149,246,0.45);background:rgba(0,149,246,0.10);color:#0095f6;padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px";
+            return '<button type="button" style="' + btnStyle + '" onclick="triggerZyroToolChip(\'' + escapeAttr(encoded) + '\')">' +
+              '<span>' + escapeHtml(act.label || act.tool) + '</span>' +
+              '<span style="font-size:11px;opacity:0.8">↗</span>' +
+            '</button>';
+          }).join("") +
+        '</div>';
+      }
+
       const actions = m.text ? (
         '<div class="zai-ai-actions" style="flex-wrap:wrap">' +
           '<button type="button" class="zai-action-btn" onclick="copyZyroAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Copy">' +
@@ -22509,7 +23360,7 @@ function renderAIHistory(){
       ) : '';
       return '<div class="zai-msg-ai">' +
         '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-ai-body">' + aiInner + actions + '</div>' +
+        '<div class="zai-ai-body">' + aiInner + toolChipsHtml + actions + '</div>' +
       '</div>';
     }
   }).join("") + '</div>';
@@ -22586,7 +23437,7 @@ function speakAIText(btn) {
 }
 window.speakAIText = speakAIText;
 
-async function pushAIHistory(role, text, image){
+async function pushAIHistory(role, text, image, toolActions){
   const normalizedRole = (role === "user") ? "user" : "model";
   const activeChatId = await ensureActiveZyroChat(text || "Photo Swag 📸");
   const h = loadZyroChatMessages(activeChatId);
@@ -22598,6 +23449,7 @@ async function pushAIHistory(role, text, image){
     chat_id: activeChatId,
     role: normalizedRole,
     text: text || "",
+    toolActions: Array.isArray(toolActions) ? toolActions : [],
     has_attachment: Boolean(image),
     attachment_url: image || null,
     image: image || "",
@@ -23539,13 +24391,36 @@ async function sendZyroAIMessage(){
   }
 
   try{
-    const reply = await callGeminiText(text, activeChatId);
+    const aiPayload = await callGeminiText(text, activeChatId, true);
+    const replyText = typeof aiPayload === "string" ? aiPayload : (aiPayload?.text || "");
+    const toolActions = (aiPayload && Array.isArray(aiPayload.toolActions)) ? aiPayload.toolActions : [];
+
+    // Execute permitted immediate settings tools (theme, notifications, or explicit open commands)
+    for (const act of toolActions) {
+      if (!act || act.requiresConfirmation) continue;
+      if (act.tool === "update_theme" || act.tool === "update_notifications") {
+        ZyroAppTools.executeTool(act.tool, act.args || {}, false);
+      } else if (act.tool === "navigate_to_screen" && /\b(kholo|open|chalo|dikhao|खोलो|दिखाओ|चलो)\b/i.test(text)) {
+        ZyroAppTools.executeTool(act.tool, act.args || {}, false);
+      }
+    }
+
     document.getElementById(typingId)?.remove();
-    await pushAIHistory("model", reply);
+    await pushAIHistory("model", replyText, "", toolActions);
   }catch(err){
     console.warn("AI reply error:", err);
     document.getElementById(typingId)?.remove();
-    await pushAIHistory("model", getDesiComedySmartFallback(text));
+    const localIntel = evaluateClientAppIntelligenceFallback(text);
+    if (localIntel.matched) {
+      for (const act of localIntel.toolActions) {
+        if (!act.requiresConfirmation && (act.tool === "update_theme" || act.tool === "update_notifications")) {
+          ZyroAppTools.executeTool(act.tool, act.args || {}, false);
+        }
+      }
+      await pushAIHistory("model", localIntel.text, "", localIntel.toolActions);
+    } else {
+      await pushAIHistory("model", getDesiComedySmartFallback(text));
+    }
   }
 }
 window.sendZyroAIMessage = sendZyroAIMessage;
@@ -29567,6 +30442,521 @@ window.sendStageChatMessage = sendStageChatMessage;
 
 // Sync coins on startup
 if(typeof syncCoinsUI === "function") syncCoinsUI();
+
+/* =========================================================
+   INTERACTIVE POLL COMPOSER, VOTING & RESULTS VISUALIZATION
+   ========================================================= */
+let isPostPollBuilderActive = false;
+const POLL_CHART_COLORS = ["#0095f6", "#10b981", "#f59e0b", "#8b5cf6"];
+const pollVizViewModeById = {}; // postId -> 'bars' | 'chart'
+
+const SAMPLE_COMEDY_POLLS = [
+  {
+    q: "Sabse khatarnak Desi excuse kaunsa hai jab dost udhaar maange? 😂💸",
+    opts: ["Bhai UPI server down chal raha hai 😅", "Mummy ke account me paise hain 🙏", "Abhi जस्ट EMI kati hai bro 📉", "Phone switch off kar lo 📵"]
+  },
+  {
+    q: "Zyro Play par aapko kis type ki comedy sabse zyada pasand hai? 🎭🔥",
+    opts: ["UP / Desi Parody Dubbing 🎙️", "Stand-up Crowd Work 🎤", "Hostel & College Skits 🎒", "Family Relatable Memes 😂"]
+  },
+  {
+    q: "Shaadi me sabse pehle kis counter par attack hona chahiye? 🍽️🕺",
+    opts: ["Golgappe / Chaat Counter 😋", "Paneer Tikka & Starters 🔥", "Garma-Garam Gulab Jamun 🍨", "Coffee Machine ke paas ☕"]
+  }
+];
+let samplePollCursor = 0;
+
+function togglePostPollBuilder(forceState){
+  const box = document.getElementById("postPollBuilderBox");
+  const btn = document.getElementById("pollBuilderToggleBtn");
+  const statusEl = document.getElementById("pollBuilderToggleStatus");
+  isPostPollBuilderActive = typeof forceState === "boolean" ? forceState : !isPostPollBuilderActive;
+  if(box) box.classList.toggle("show", isPostPollBuilderActive);
+  if(btn) btn.classList.toggle("active", isPostPollBuilderActive);
+  if(statusEl) statusEl.textContent = isPostPollBuilderActive ? "✓ Poll Attached (Tap to remove)" : "+ Add Poll";
+}
+window.togglePostPollBuilder = togglePostPollBuilder;
+
+function resetPostPollBuilder(){
+  isPostPollBuilderActive = false;
+  const box = document.getElementById("postPollBuilderBox");
+  const btn = document.getElementById("pollBuilderToggleBtn");
+  const statusEl = document.getElementById("pollBuilderToggleStatus");
+  const qInput = document.getElementById("pollQuestionInput");
+  const wrap = document.getElementById("pollOptionsInputsWrap");
+  if(box) box.classList.remove("show");
+  if(btn) btn.classList.remove("active");
+  if(statusEl) statusEl.textContent = "+ Add Poll";
+  if(qInput) qInput.value = "";
+  if(wrap){
+    wrap.innerHTML = `
+      <div class="poll-option-row">
+        <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option 1 (e.g. Tapri Wali Kulhad Chai ☕)" maxlength="70">
+      </div>
+      <div class="poll-option-row">
+        <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option 2 (e.g. Ghar Ki Adrak Chai 🏠)" maxlength="70">
+      </div>
+    `;
+  }
+  const addBtn = document.getElementById("pollAddOptBtn");
+  if(addBtn) addBtn.style.display = "block";
+}
+window.resetPostPollBuilder = resetPostPollBuilder;
+
+function addPollOptionInputRow(initialVal = ""){
+  const wrap = document.getElementById("pollOptionsInputsWrap");
+  if(!wrap) return;
+  const existing = wrap.querySelectorAll(".poll-option-row");
+  if(existing.length >= 4){
+    showToast("Maximum 4 options allowed in a poll");
+    return;
+  }
+  const idx = existing.length + 1;
+  const row = document.createElement("div");
+  row.className = "poll-option-row";
+  row.innerHTML = `
+    <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option ${idx}" maxlength="70" value="${escapeAttr(initialVal)}">
+    <button type="button" class="poll-opt-remove-btn" title="Remove option" onclick="this.parentElement.remove();syncPollAddOptionBtn()">✕</button>
+  `;
+  wrap.appendChild(row);
+  syncPollAddOptionBtn();
+}
+window.addPollOptionInputRow = addPollOptionInputRow;
+
+function syncPollAddOptionBtn(){
+  const wrap = document.getElementById("pollOptionsInputsWrap");
+  const addBtn = document.getElementById("pollAddOptBtn");
+  if(!wrap || !addBtn) return;
+  const count = wrap.querySelectorAll(".poll-option-row").length;
+  addBtn.style.display = count >= 4 ? "none" : "block";
+}
+window.syncPollAddOptionBtn = syncPollAddOptionBtn;
+
+function fillSampleComedyPoll(){
+  const sample = SAMPLE_COMEDY_POLLS[samplePollCursor % SAMPLE_COMEDY_POLLS.length];
+  samplePollCursor++;
+  const qInput = document.getElementById("pollQuestionInput");
+  const wrap = document.getElementById("pollOptionsInputsWrap");
+  if(qInput) qInput.value = sample.q;
+  if(wrap){
+    wrap.innerHTML = "";
+    sample.opts.forEach((optText, i) => {
+      const row = document.createElement("div");
+      row.className = "poll-option-row";
+      row.innerHTML = `
+        <input type="text" class="poll-option-input js-poll-opt-input" placeholder="Option ${i + 1}" maxlength="70" value="${escapeAttr(optText)}">
+        ${i >= 2 ? '<button type="button" class="poll-opt-remove-btn" title="Remove option" onclick="this.parentElement.remove();syncPollAddOptionBtn()">✕</button>' : ''}
+      `;
+      wrap.appendChild(row);
+    });
+    syncPollAddOptionBtn();
+  }
+  ZyroAudioEngine.playPop();
+}
+window.fillSampleComedyPoll = fillSampleComedyPoll;
+
+function collectComposerPollData(){
+  if(!isPostPollBuilderActive) return null;
+  const qInput = document.getElementById("pollQuestionInput");
+  const durSelect = document.getElementById("pollDurationSelect");
+  const optInputs = Array.from(document.querySelectorAll(".js-poll-opt-input"));
+  const question = (qInput ? qInput.value : "").trim();
+  const cleanOpts = optInputs.map(el => (el.value || "").trim()).filter(Boolean);
+
+  if(!question && cleanOpts.length === 0){
+    return null;
+  }
+  if(!question){
+    return { error: "Poll ka question likhein!" };
+  }
+  if(cleanOpts.length < 2){
+    return { error: "Poll me kam se kam 2 options dalein!" };
+  }
+
+  return {
+    question: question,
+    duration: durSelect ? durSelect.value : "7 Days",
+    totalVotes: 0,
+    options: cleanOpts.slice(0, 4).map((txt, idx) => ({
+      id: "opt_" + idx,
+      text: txt,
+      votes: 0
+    }))
+  };
+}
+window.collectComposerPollData = collectComposerPollData;
+
+function generatePollCoverSvgDataUrl(question, options){
+  const safeQ = (question || "Community Poll").replace(/[<>&"']/g, "");
+  const optLines = (options || []).slice(0, 3).map((o, i) => {
+    const t = (o.text || "").replace(/[<>&"']/g, "").slice(0, 32);
+    const y = 240 + i * 54;
+    return `<rect x="44" y="${y}" width="312" height="40" rx="10" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/><text x="62" y="${y + 25}" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="700">${t}</text>`;
+  }).join("");
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0f172a"/><stop offset="50%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#0284c7"/></linearGradient></defs><rect width="400" height="400" fill="url(#pg)"/><rect x="44" y="42" width="118" height="28" rx="14" fill="#38bdf8"/><text x="103" y="61" text-anchor="middle" fill="#0f172a" font-family="sans-serif" font-size="12" font-weight="900">📊 LIVE POLL</text><text x="44" y="125" fill="#ffffff" font-family="sans-serif" font-size="20" font-weight="800">${safeQ.slice(0, 28)}</text><text x="44" y="154" fill="#e0f2fe" font-family="sans-serif" font-size="18" font-weight="700">${safeQ.slice(28, 58)}</text><text x="44" y="182" fill="#bae6fd" font-family="sans-serif" font-size="16" font-weight="700">${safeQ.slice(58, 88)}</text>${optLines}</svg>`;
+  return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+}
+window.generatePollCoverSvgDataUrl = generatePollCoverSvgDataUrl;
+
+function getPollUserVotesMap(){
+  try {
+    return JSON.parse(localStorage.getItem("upch_poll_user_votes_v1") || "{}");
+  } catch(e){
+    return {};
+  }
+}
+
+function savePollUserVoteMap(map){
+  try {
+    localStorage.setItem("upch_poll_user_votes_v1", JSON.stringify(map));
+  } catch(e){}
+}
+
+function getDefaultSeededPolls(){
+  return [
+    {
+      id: "seed_poll_desi_1",
+      userId: "upcomedyhub_official",
+      authorName: "UP Comedy Hub",
+      authorUsername: "upcomedyhub",
+      authorPhoto: "IMG_20260917_172912.jpg",
+      location: "Lucknow, UP",
+      caption: "Vote karo aur dekho live results! 👇🔥",
+      pollData: {
+        question: "Agla bada Desi Comedy video kis topic par aana chahiye? 🎬😂",
+        duration: "7 Days",
+        totalVotes: 148,
+        options: [
+          { id: "opt_0", text: "UP Wedding Baraat Chaos 🎺🕺", votes: 64 },
+          { id: "opt_1", text: "Desi Exam Hall Jugad 📝😅", votes: 42 },
+          { id: "opt_2", text: "Mohalla Cricket Tournament 🏏🔥", votes: 27 },
+          { id: "opt_3", text: "Train General Coach Adventure 🚂😂", votes: 15 }
+        ]
+      }
+    },
+    {
+      id: "seed_poll_desi_2",
+      userId: "zyro_creator_club",
+      authorName: "Zyro Comedy Stage",
+      authorUsername: "zyrostage",
+      authorPhoto: "IMG_20260917_172912.jpg",
+      location: "Varanasi, UP",
+      caption: "Raat ke 9 baje Live Open Mic ke liye best vibe kaunsi hai? 🎤✨",
+      pollData: {
+        question: "Aapko Zyro Play par kaunsa comedy format sabse zyada hasata hai? 🤣",
+        duration: "3 Days",
+        totalVotes: 95,
+        options: [
+          { id: "opt_0", text: "60-Sec Fast Punchline Reels ⚡", votes: 46 },
+          { id: "opt_1", text: "Full 10-Min Desi Sketch Story 🎭", votes: 31 },
+          { id: "opt_2", text: "Live Roast & Crowd Chat 🎙️", votes: 18 }
+        ]
+      }
+    }
+  ];
+}
+
+function getStoredCommunityPollPosts(){
+  let saved = [];
+  try {
+    saved = JSON.parse(localStorage.getItem("upch_community_polls_v1") || "[]");
+  } catch(e){
+    saved = [];
+  }
+  const defaults = getDefaultSeededPolls();
+  const byId = new Map();
+  saved.forEach(p => {
+    if(p && p.id && p.pollData) byId.set(p.id, p);
+  });
+  // Also merge any cachedUserPosts that have pollData
+  if(Array.isArray(cachedUserPosts)){
+    cachedUserPosts.forEach(p => {
+      if(p && p.id && p.pollData && !byId.has(p.id)){
+        byId.set(p.id, p);
+      }
+    });
+  }
+  defaults.forEach(d => {
+    if(!byId.has(d.id)) byId.set(d.id, d);
+  });
+  return Array.from(byId.values());
+}
+
+function saveLocalCommunityPollPost(postObj){
+  if(!postObj || !postObj.pollData) return;
+  const list = getStoredCommunityPollPosts();
+  const idx = list.findIndex(item => item.id === postObj.id);
+  if(idx >= 0){
+    list[idx] = postObj;
+  } else {
+    list.unshift(postObj);
+  }
+  try {
+    localStorage.setItem("upch_community_polls_v1", JSON.stringify(list.slice(0, 35)));
+  } catch(e){}
+}
+window.saveLocalCommunityPollPost = saveLocalCommunityPollPost;
+
+function buildPollDonutChartSVG(options, totalVotes){
+  const radius = 44;
+  const circumference = 2 * Math.PI * radius;
+  let accumulatedPct = 0;
+
+  if(!totalVotes || totalVotes <= 0){
+    return `
+      <svg width="116" height="116" viewBox="0 0 116 116">
+        <circle cx="58" cy="58" r="${radius}" fill="none" stroke="#cbd5e1" stroke-width="14"></circle>
+      </svg>
+    `;
+  }
+
+  const segments = options.map((opt, idx) => {
+    const votes = Math.max(0, Number(opt.votes) || 0);
+    const frac = votes / totalVotes;
+    const dashLen = frac * circumference;
+    const dashOffset = -accumulatedPct * circumference;
+    accumulatedPct += frac;
+    const color = POLL_CHART_COLORS[idx % POLL_CHART_COLORS.length];
+    return `<circle cx="58" cy="58" r="${radius}" fill="none" stroke="${color}" stroke-width="14" stroke-dasharray="${dashLen.toFixed(2)} ${circumference.toFixed(2)}" stroke-dashoffset="${dashOffset.toFixed(2)}" transform="rotate(-90 58 58)" style="transition:stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease"></circle>`;
+  }).join("");
+
+  return `
+    <svg width="116" height="116" viewBox="0 0 116 116" role="img" aria-label="Poll results breakdown chart">
+      <circle cx="58" cy="58" r="${radius}" fill="none" stroke="rgba(148,163,184,0.16)" stroke-width="14"></circle>
+      ${segments}
+    </svg>
+  `;
+}
+
+function buildInteractivePollCardHTML(post, isCompactModal = false){
+  if(!post || !post.pollData) return "";
+  const postId = String(post.id || "poll_default");
+  const poll = post.pollData;
+  const options = Array.isArray(poll.options) ? poll.options : [];
+  const totalVotes = options.reduce((sum, o) => sum + (Number(o.votes) || 0), 0);
+  const maxVotes = options.reduce((m, o) => Math.max(m, Number(o.votes) || 0), 0);
+
+  const userVotes = getPollUserVotesMap();
+  const selectedIdx = typeof userVotes[postId] === "number" ? userVotes[postId] : -1;
+  const activeVizMode = pollVizViewModeById[postId] || "bars";
+
+  const optionsBarsHtml = options.map((opt, idx) => {
+    const v = Math.max(0, Number(opt.votes) || 0);
+    const pct = totalVotes > 0 ? Math.round((v / totalVotes) * 100) : 0;
+    const isVoted = selectedIdx === idx;
+    const isLeading = totalVotes > 0 && v === maxVotes && maxVotes > 0;
+    const classes = [
+      "zyro-poll-option-btn",
+      isVoted ? "voted-choice" : "",
+      isLeading ? "leading-choice" : ""
+    ].filter(Boolean).join(" ");
+
+    return `
+      <button type="button" class="${classes}" onclick="voteOnInteractivePoll('${escapeAttr(postId)}', ${idx})">
+        <div class="zyro-poll-bar-fill" style="width:${pct}%"></div>
+        <div class="zyro-poll-opt-content">
+          <span class="zyro-poll-check-dot">${isVoted ? "✓" : ""}</span>
+          <span style="overflow:hidden;text-overflow:ellipsis">${escapeHtml(opt.text || ("Option " + (idx + 1)))}</span>
+          ${isLeading ? '<span class="zyro-poll-leading-tag">Leading</span>' : ''}
+        </div>
+        <div class="zyro-poll-opt-stats">
+          <span class="zyro-poll-pct">${pct}%</span>
+          <span class="zyro-poll-cnt">(${v})</span>
+        </div>
+      </button>
+    `;
+  }).join("");
+
+  const legendRowsHtml = options.map((opt, idx) => {
+    const v = Math.max(0, Number(opt.votes) || 0);
+    const pct = totalVotes > 0 ? Math.round((v / totalVotes) * 100) : 0;
+    const color = POLL_CHART_COLORS[idx % POLL_CHART_COLORS.length];
+    const isVoted = selectedIdx === idx;
+    return `
+      <div class="zyro-poll-legend-row" onclick="voteOnInteractivePoll('${escapeAttr(postId)}', ${idx})" title="Tap to vote for this option">
+        <div class="zyro-poll-legend-left">
+          <span class="zyro-poll-legend-swatch" style="background:${color}"></span>
+          <span class="zyro-poll-legend-label">${escapeHtml(opt.text || "")} ${isVoted ? "✓" : ""}</span>
+        </div>
+        <span class="zyro-poll-legend-val">${pct}% · ${v}</span>
+      </div>
+    `;
+  }).join("");
+
+  const authorHeaderHtml = isCompactModal ? "" : `
+    <div class="zyro-poll-author-row">
+      <div class="zyro-poll-author-left">
+        <img src="${escapeAttr(post.authorPhoto || "IMG_20260917_172912.jpg")}" alt="" class="zyro-poll-avatar" onerror="this.src='IMG_20260917_172912.jpg'">
+        <div class="zyro-poll-author-meta">
+          <div class="zyro-poll-author-name">${escapeHtml(post.authorName || "Comedy Creator")}</div>
+          <div class="zyro-poll-submeta">${escapeHtml(post.location || "Zyro Play")} · ${escapeHtml(poll.duration || "7 Days")}</div>
+        </div>
+      </div>
+      <div class="zyro-poll-viz-switch" role="tablist" aria-label="Results Visualization Mode">
+        <button type="button" class="zyro-poll-viz-btn ${activeVizMode === 'bars' ? 'active' : ''}" onclick="switchPollVizMode('${escapeAttr(postId)}', 'bars')">📊 Bars</button>
+        <button type="button" class="zyro-poll-viz-btn ${activeVizMode === 'chart' ? 'active' : ''}" onclick="switchPollVizMode('${escapeAttr(postId)}', 'chart')">🍩 Chart</button>
+      </div>
+    </div>
+  `;
+
+  const compactSwitchHtml = isCompactModal ? `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-size:11.5px;font-weight:800;color:#0095f6">📊 Interactive Poll</span>
+      <div class="zyro-poll-viz-switch">
+        <button type="button" class="zyro-poll-viz-btn ${activeVizMode === 'bars' ? 'active' : ''}" onclick="switchPollVizMode('${escapeAttr(postId)}', 'bars')">📊 Bars</button>
+        <button type="button" class="zyro-poll-viz-btn ${activeVizMode === 'chart' ? 'active' : ''}" onclick="switchPollVizMode('${escapeAttr(postId)}', 'chart')">🍩 Chart</button>
+      </div>
+    </div>
+  ` : "";
+
+  return `
+    <article class="zyro-poll-card" data-poll-card-id="${escapeAttr(postId)}">
+      ${authorHeaderHtml}
+      ${compactSwitchHtml}
+      <div class="zyro-poll-question">${escapeHtml(poll.question || "")}</div>
+
+      <div class="zyro-poll-options-list" style="display:${activeVizMode === 'bars' ? 'flex' : 'none'}">
+        ${optionsBarsHtml}
+      </div>
+
+      <div class="zyro-poll-chart-view ${activeVizMode === 'chart' ? 'active' : ''}">
+        <div class="zyro-poll-donut-wrap">
+          ${buildPollDonutChartSVG(options, totalVotes)}
+          <div class="zyro-poll-donut-center">
+            <span class="zyro-poll-donut-total-num">${totalVotes}</span>
+            <span class="zyro-poll-donut-total-lbl">Votes</span>
+          </div>
+        </div>
+        <div class="zyro-poll-legend-list">
+          ${legendRowsHtml}
+        </div>
+      </div>
+
+      <div class="zyro-poll-footer">
+        <span><strong>${totalVotes}</strong> total votes · ${selectedIdx >= 0 ? '<span style="color:#10b981;font-weight:700">✓ You voted (tap option to change)</span>' : 'Tap any option to vote'}</span>
+        <span>${escapeHtml(poll.duration || "Live")}</span>
+      </div>
+    </article>
+  `;
+}
+window.buildInteractivePollCardHTML = buildInteractivePollCardHTML;
+
+function switchPollVizMode(postId, mode){
+  pollVizViewModeById[postId] = mode === "chart" ? "chart" : "bars";
+  ZyroAudioEngine.playTap();
+  refreshPollInstancesInDOM(postId);
+}
+window.switchPollVizMode = switchPollVizMode;
+
+async function voteOnInteractivePoll(postId, optionIdx){
+  const list = getStoredCommunityPollPosts();
+  let targetPost = list.find(p => String(p.id) === String(postId));
+  if(!targetPost && currentViewedPostData && String(currentViewedPostData.id) === String(postId)){
+    targetPost = currentViewedPostData;
+  }
+  if(!targetPost || !targetPost.pollData || !Array.isArray(targetPost.pollData.options)) return;
+
+  const opts = targetPost.pollData.options;
+  if(optionIdx < 0 || optionIdx >= opts.length) return;
+
+  const userVotes = getPollUserVotesMap();
+  const prevIdx = typeof userVotes[postId] === "number" ? userVotes[postId] : -1;
+
+  if(prevIdx === optionIdx){
+    ZyroAudioEngine.playPop();
+    showToast("📊 Aapka vote '" + opts[optionIdx].text + "' par registered hai!");
+    return;
+  }
+
+  if(prevIdx >= 0 && opts[prevIdx]){
+    opts[prevIdx].votes = Math.max(0, (Number(opts[prevIdx].votes) || 1) - 1);
+  }
+  opts[optionIdx].votes = (Number(opts[optionIdx].votes) || 0) + 1;
+  targetPost.pollData.totalVotes = opts.reduce((s, o) => s + (Number(o.votes) || 0), 0);
+
+  userVotes[postId] = optionIdx;
+  savePollUserVoteMap(userVotes);
+  saveLocalCommunityPollPost(targetPost);
+
+  // Sync in cachedUserPosts if present
+  if(Array.isArray(cachedUserPosts)){
+    const cIdx = cachedUserPosts.findIndex(p => String(p.id) === String(postId));
+    if(cIdx >= 0) cachedUserPosts[cIdx].pollData = targetPost.pollData;
+  }
+  if(currentViewedPostData && String(currentViewedPostData.id) === String(postId)){
+    currentViewedPostData.pollData = targetPost.pollData;
+  }
+
+  ZyroAudioEngine.playPop();
+  refreshPollInstancesInDOM(postId);
+
+  // Persist to Firestore if it's a real Firestore document
+  if(typeof db !== "undefined" && db && !String(postId).startsWith("seed_poll_") && !String(postId).startsWith("local_post_")){
+    db.collection("user_posts").doc(String(postId)).update({
+      pollData: targetPost.pollData
+    }).catch(()=>null);
+  }
+}
+window.voteOnInteractivePoll = voteOnInteractivePoll;
+
+function refreshPollInstancesInDOM(postId){
+  const list = getStoredCommunityPollPosts();
+  let post = list.find(p => String(p.id) === String(postId));
+  if(!post && currentViewedPostData && String(currentViewedPostData.id) === String(postId)){
+    post = currentViewedPostData;
+  }
+  if(!post) return;
+
+  // Update home feed grid cards
+  const feedGrid = document.getElementById("ytHomePollsGrid");
+  if(feedGrid){
+    const existingCard = feedGrid.querySelector(`[data-poll-card-id="${CSS.escape(String(postId))}"]`);
+    if(existingCard){
+      const temp = document.createElement("div");
+      temp.innerHTML = buildInteractivePollCardHTML(post, false);
+      if(temp.firstElementChild) existingCard.replaceWith(temp.firstElementChild);
+    }
+  }
+
+  // Update post viewer modal mount if open
+  const pvMount = document.getElementById("pvPollMount");
+  if(pvMount && currentViewedPostData && String(currentViewedPostData.id) === String(postId)){
+    pvMount.innerHTML = buildInteractivePollCardHTML(post, true);
+  }
+}
+
+async function renderCommunityPollsFeed(){
+  const grid = document.getElementById("ytHomePollsGrid");
+  if(!grid) return;
+
+  // Also pull any Firestore user_posts with pollData
+  if(typeof db !== "undefined" && db){
+    try {
+      const snap = await db.collection("user_posts").limit(25).get();
+      if(snap && !snap.empty){
+        snap.forEach(doc => {
+          const d = doc.data();
+          if(d && d.pollData && d.pollData.question){
+            saveLocalCommunityPollPost({
+              id: doc.id,
+              userId: d.userId || "",
+              authorName: d.authorName || "Creator",
+              authorUsername: d.authorUsername || "creator",
+              authorPhoto: d.authorPhoto || "IMG_20260917_172912.jpg",
+              location: d.location || "Zyro Play",
+              caption: d.caption || "",
+              pollData: d.pollData
+            });
+          }
+        });
+      }
+    } catch(e){}
+  }
+
+  const polls = getStoredCommunityPollPosts();
+  grid.innerHTML = polls.slice(0, 6).map(p => buildInteractivePollCardHTML(p, false)).join("");
+}
+window.renderCommunityPollsFeed = renderCommunityPollsFeed;
 
 /* ---------- SERVICE WORKER (B7) ---------- */
 if ("serviceWorker" in navigator) {

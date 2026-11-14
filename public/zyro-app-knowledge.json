@@ -1,0 +1,258 @@
+{
+  "appName": "Zyro Play (Gyro Play / UPComedyHub)",
+  "version": "4.0.0",
+  "creator": "Mayank Bhai",
+  "mainFriend": "Saurabh",
+  "actors": ["वंश (Vansh)", "शिवा (Shiva)", "इंद्रजीत (Indrajeet)", "शनि (Shani)", "जीतू (Jeetu)", "अंश (Ansh)", "साहिल (Sahil)", "शुभम (Shubham)", "निगम (Nigam)"],
+  "location": "जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश",
+  "categories": {
+    "Home": {
+      "title": "Home Feed & Discovery",
+      "screenId": "home",
+      "summary": "Home पेज पर आपको Shorts, Recommended Long Videos, Community Polls और Live Comedy Stage मिलते हैं।",
+      "features": [
+        {
+          "id": "home_filter_bar",
+          "name": "Category Filter Bar",
+          "howToUse": "Home के ऊपर All, ⚡ Shorts, 📊 Polls, 🎬 Long Videos, और 😂 Standup & Desi Comedy चिप्स पर टैप करके फ़ीड फ़िल्टर करें।"
+        },
+        {
+          "id": "home_shorts_shelf",
+          "name": "Shorts Shelf",
+          "howToUse": "यहाँ ट्रेंडिंग 60-सेकंड कॉमेडी शॉर्ट्स दिखते हैं। किसी भी शॉर्ट पर टैप करने से फुलस्क्रीन Reels प्लेयर खुलता है।"
+        },
+        {
+          "id": "home_community_polls",
+          "name": "Community Polls & Live Votes (📊 Polls)",
+          "howToUse": "यहाँ आप लाइव कॉमेडी पोल्स पर 1-टैप में वोट दे सकते हैं, और '📊 Bars' या '🍩 Chart' (Donut Chart) मोड में लाइव रिजल्ट्स देख सकते हैं। '+ Create Poll' बटन से नया पोल बना सकते हैं।"
+        },
+        {
+          "id": "home_long_videos",
+          "name": "Recommended Long Videos",
+          "howToUse": "यहाँ फुल-लेंथ देसी कॉमेडी वीडियो और स्केच मिलते हैं जिनमें Like, Comment, Share, Save और '+ Upload Video' के विकल्प हैं।"
+        },
+        {
+          "id": "live_comedy_stage",
+          "name": "Live Comedy Stage & Open Mic (🎤 Live)",
+          "howToUse": "Create (+) या Settings में 'Live Comedy Stage' पर टैप करके लाइव कॉमेडी रूम जॉइन करें, जहाँ आप Laugh Track (😂), Applause (👏), Live Chat और Virtual Gifts भेज सकते हैं।"
+        }
+      ]
+    },
+    "Profile": {
+      "title": "User Profile, Username & Creator Portfolio",
+      "screenId": "profile",
+      "summary": "Profile स्क्रीन पर आपकी फोटो, Bio, Followers/Following, Coins और आपके अपलोड किए गए Posts, Reels और Saved वीडियो दिखते हैं।",
+      "features": [
+        {
+          "id": "edit_profile_username",
+          "name": "Edit Profile & Change Username",
+          "path": "Bottom Nav -> Profile -> 'Edit profile' बटन",
+          "howToUse": "अपना Name, Username (@handle), Bio या Profile Photo बदलने के लिए Profile टैब में जाकर 'Edit profile' बटन दबाएँ।"
+        },
+        {
+          "id": "profile_content_tabs",
+          "name": "Posts, Reels, Videos & Saved Tabs",
+          "path": "Profile -> Grid Tabs",
+          "howToUse": "अपनी प्रोफाइल ग्रिड में Photo/Poll Posts, Reels, Long Videos और Saved आइटम्स अलग-अलग टैब में देखें।"
+        },
+        {
+          "id": "create_post_poll_reel",
+          "name": "Create Post, Poll, Story, Reel or Video",
+          "path": "Profile / Header -> '+' (Create) बटन",
+          "howToUse": "Create मोडल से आप Photo Post, Interactive Poll (📊 POLL), Story, Reel या Long Video पब्लिश कर सकते हैं।"
+        },
+        {
+          "id": "zyro_verified_badge",
+          "name": "Zyro Play & Cobra Verified Blue Tick",
+          "path": "Settings -> Zyro Play & Cobra Verified",
+          "howToUse": "अपनी प्रोफाइल पर ऑफिशियल Verified Blue Tick पाने के लिए Settings में 'Zyro Play & Cobra Verified' से आवेदन करें।"
+        }
+      ]
+    },
+    "Settings": {
+      "title": "All App Settings & Controls",
+      "screenId": "settings",
+      "summary": "Settings मोडल में Appearance (Dark/Light Mode), Language, Privacy, Security, Liked/Saved Videos, Professional Dashboard और Account Controls हैं।",
+      "features": [
+        {
+          "id": "settings_appearance",
+          "name": "Appearance (Dark Mode / Light Mode / System)",
+          "path": "Settings -> Appearance",
+          "howToUse": "यहाँ से ऐप की थीम को 🌙 Dark Mode, ☀️ Light Mode या 📱 System Default पर सेट करें। आप Zyro AI को बोलकर भी तुरंत बदल सकते हैं।"
+        },
+        {
+          "id": "settings_language",
+          "name": "Language (भाषा चुनाव)",
+          "path": "Settings -> Language",
+          "howToUse": "ऐप की भाषा को Hinglish, हिंदी या English में बदलें।"
+        },
+        {
+          "id": "settings_notifications",
+          "name": "Notifications Control",
+          "path": "Header Bell Icon / Settings",
+          "howToUse": "नए वीडियो, शॉर्ट्स और इन-ऐप रिमाइंडर अलर्ट्स को चालू (ON) या बंद (OFF) करें।"
+        },
+        {
+          "id": "settings_liked_saved",
+          "name": "Liked Videos & Saved Videos",
+          "path": "Settings -> Liked Videos / Saved Videos",
+          "howToUse": "आपके द्वारा Like और Bookmark (Save) किए गए सभी वीडियो एक जगह देखें।"
+        },
+        {
+          "id": "settings_mobile_verify",
+          "name": "Mobile Verification",
+          "path": "Settings -> Mobile Verification",
+          "howToUse": "OTP के ज़रिए अपना मोबाइल नंबर वेरीफाई करें।"
+        },
+        {
+          "id": "settings_pro_dashboard",
+          "name": "Professional Dashboard & Account Type",
+          "path": "Settings -> Professional dashboard / Account type and tools",
+          "howToUse": "क्रिएटर इनसाइट्स देखें और अपने अकाउंट को Personal, Creator या Business मोड में स्विच करें।"
+        }
+      ]
+    },
+    "Messages": {
+      "title": "Messages, Requests, Calls & AI Chat",
+      "screenId": "messages",
+      "summary": "Messages सेक्शन में आप दोस्तों और क्रिएटर्स से रियल-टाइम चैट, फोटो शेयरिंग, ऑडियो/वीडियो कॉल और मैसेज रिक्वेस्ट हैंडल कर सकते हैं।",
+      "features": [
+        {
+          "id": "messages_primary_general",
+          "name": "Direct Chat (Primary & General Inbox)",
+          "path": "Top/Bottom Nav -> Messages",
+          "howToUse": "दोस्तों को टेक्स्ट मैसेज, इमोजी और फोटो भेजें। अनरीड मैसेज बैज रियल-टाइम में अपडेट होता है।"
+        },
+        {
+          "id": "messages_requests",
+          "name": "Message Requests Tab",
+          "path": "Messages -> Requests Tab",
+          "howToUse": "नए यूज़र्स से आए मैसेज रिक्वेस्ट को Accept या Decline करें।"
+        },
+        {
+          "id": "messages_calling_hub",
+          "name": "Audio & Video Calling Hub",
+          "path": "Messages / Settings -> Audio & Video Calling",
+          "howToUse": "चैट के अंदर से या Calling Hub से ऑडियो और वीडियो कॉल शुरू करें (Zyro AI के साथ लाइव कॉमेडी कॉल भी उपलब्ध है)।"
+        }
+      ]
+    },
+    "Notifications": {
+      "title": "Notification Center & Alerts",
+      "screenId": "notifications",
+      "summary": "नए वीडियो रिलीज़, चैनल अनाउंसमेंट और AI रिमाइंडर की जानकारी देता है।",
+      "features": [
+        {
+          "id": "notif_bell_panel",
+          "name": "Video & Channel Notifications Bell",
+          "path": "Top Header -> 🔔 Bell Icon",
+          "howToUse": "नए कॉमेडी वीडियो और शॉर्ट्स के अलर्ट देखें, 'Mark all read' करें या पुराने नोटिफिकेशन साफ़ करें।"
+        },
+        {
+          "id": "notif_toggle_control",
+          "name": "Enable / Disable Notifications",
+          "howToUse": "आप Zyro AI से 'Notifications बंद कर दो' या 'Notifications चालू करो' कहकर सीधे कंट्रोल कर सकते हैं।"
+        }
+      ]
+    },
+    "FunZone": {
+      "title": "Fun Zone Arcade & Comedy Games",
+      "screenId": "funzone",
+      "summary": "Fun Zone में 7+ मजेदार कॉमेडी गेम्स, Daily Challenge, XP Level सिस्टम और Leaderboard उपलब्ध हैं।",
+      "features": [
+        {
+          "id": "game_coin_merge",
+          "name": "1. Coin Merge Rush (Desi Suika 2048 Drop)",
+          "rules": "ऊपर से सिक्के गिराएँ—दो एक जैसे सिक्के टकराने पर बड़े सिक्के में मर्ज होते हैं और हाई स्कोर बनता है!"
+        },
+        {
+          "id": "game_comedy_quiz",
+          "name": "2. Desi Comedy Quiz (🧠 Quiz)",
+          "rules": "मजेदार देसी कॉमेडी सवालों के सही जवाब देकर +XP और बेस्ट स्कोर बनाएँ।"
+        },
+        {
+          "id": "game_reaction_test",
+          "name": "3. Fast Reaction Test (⚡ Reaction)",
+          "rules": "स्क्रीन का रंग बदलते ही सबसे तेज़ टैप करें और अपनी रिएक्शन स्पीड (ms में) मापें।"
+        },
+        {
+          "id": "game_spin_wheel",
+          "name": "4. Comedy Spin Wheel (🎡 Spin)",
+          "rules": "व्हील घुमाएँ और मजेदार डेयर, जोक या बोनस XP जीतें।"
+        },
+        {
+          "id": "game_memory_flip",
+          "name": "5. Emoji Memory Flip (🃏 Memory)",
+          "rules": "कम से कम चालों में एक जैसे कॉमेडी इमोजी कार्ड्स की जोड़ी मिलाएँ।"
+        },
+        {
+          "id": "game_whack_joke",
+          "name": "6. Whack-a-Joke Arcade (🔨 Whack)",
+          "rules": "तेज़ी से पॉप होने वाले कॉमेडी टारगेट्स पर टैप करके समय खत्म होने से पहले स्कोर बनाएँ।"
+        },
+        {
+          "id": "game_snake_ladders",
+          "name": "7. Snake & Ladders vs CPU (🐍🎲 साँप-सीढ़ी)",
+          "rules": "डाइस रोल करें, सीढ़ियों से ऊपर चढ़ें, साँपों से बचें और CPU से पहले 100 पर पहुँचकर +30 XP जीतें!"
+        },
+        {
+          "id": "funzone_xp_leaderboard",
+          "name": "Daily Challenge, Player XP Level & Leaderboard",
+          "rules": "हर गेम जीतने और Daily Challenge पूरा करने पर XP मिलता है जिससे आपका Player Level बढ़ता है।"
+        }
+      ]
+    },
+    "Modes": {
+      "title": "App Modes & Visual Experiences",
+      "screenId": "settings",
+      "summary": "Zyro Play में आपकी सुविधा और मनोरंजन के लिए कई विशेष Modes हैं।",
+      "features": [
+        {
+          "id": "mode_dark_light",
+          "name": "Dark Mode & Light Mode",
+          "howToUse": "रात में आँखों के आराम के लिए Dark Mode और दिन के लिए क्लीन Light Mode या System Mode।"
+        },
+        {
+          "id": "mode_reels_immersive",
+          "name": "Reels Fullscreen Vertical Mode",
+          "howToUse": "9:16 फुलस्क्रीन स्वाइप मोड जिसमें फ्लोटिंग Like, Comment, Share, Save और 🎁 Gift बटन्स हैं।"
+        },
+        {
+          "id": "mode_live_stage",
+          "name": "Live Comedy Stage Mode",
+          "howToUse": "ऑडियो स्पेक्ट्रम, लाइव चैट और साउंडबोर्ड (Laugh/Applause) के साथ लाइव ओपन माइक स्टेज।"
+        },
+        {
+          "id": "mode_creator_wallet",
+          "name": "Creator Coins & Virtual Gifting Mode (🪙 Wallet)",
+          "howToUse": "डेली +100 फ्री कॉइन्स क्लेम करें और क्रिएटर्स को Samosa (🥟), Kulhad Chai (☕), Comedy Mic (🎤) या Golden Crown (👑) गिफ्ट करें।"
+        }
+      ]
+    },
+    "Privacy": {
+      "title": "Privacy, Security & Account Controls",
+      "screenId": "settings",
+      "summary": "आपके अकाउंट की प्राइवेसी, पासवर्ड सुरक्षा और ब्लॉक लिस्ट के कंट्रोल्स।",
+      "features": [
+        {
+          "id": "privacy_account_toggle",
+          "name": "Account Privacy (Public / Private Account)",
+          "path": "Settings -> Account privacy",
+          "howToUse": "अपने अकाउंट को Public या Private पर सेट करें और Blocked Accounts को मैनेज करें।"
+        },
+        {
+          "id": "privacy_password_security",
+          "name": "Password & Security",
+          "path": "Settings -> Password & Security",
+          "howToUse": "अपना लिंक्ड ईमेल, लॉगिन प्रोवाइडर (Google / Email) देखें और पासवर्ड रीसेट करें।"
+        },
+        {
+          "id": "privacy_logout",
+          "name": "Safe Account Logout",
+          "path": "Settings -> Bottom 'Log out' बटन",
+          "howToUse": "अकाउंट से सुरक्षित रूप से लॉग आउट करें (Zyro AI से बोलने पर सुरक्षा की दृष्टि से पहले आपकी स्पष्ट पुष्टि ली जाएगी)।"
+        }
+      ]
+    }
+  }
+}

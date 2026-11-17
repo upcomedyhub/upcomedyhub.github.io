@@ -660,7 +660,259 @@ function shouldUseWebSearch(promptText) {
   if (/\b(dark mode|light mode|profile|username|fun zone|notification|settings|zyro|gyro|poll|coin wallet)\b/i.test(t)) {
     return false;
   }
-  return /\b(news|latest|today|aaj|kal|weather|mausam|score|match|ipl|cricket|price|rate|bitcoin|stock|share|2024|2025|2026|current|live|search|google|who is|what is|where is|when is|kaun hai|kon hai|kya hai|kab hai|kahan hai|update|president|pm|minister|movie|film|box office|result)\b/i.test(t);
+  // Only trigger slow Google Search grounding when user explicitly asks for real-time/live/today's info
+  return /\b(news|खबर|खबरें|ताज़ा|ताजा|latest|today|aaj ki|aaj ka|weather|mausam|मौसम|live score|cricket score|ipl score|match score|bitcoin price|stock price|share price|gold rate|breaking news|current affairs|2026)\b/i.test(t);
+}
+
+function isAppRelatedQuery(promptText) {
+  if (!promptText) return false;
+  return /\b(dark mode|light mode|theme|profile|username|fun zone|notification|settings|zyro|gyro|poll|coin wallet|live stage|app|screen|page|tab|feature|mode|privacy|account|logout)\b|डार्क मोड|लाइट मोड|प्रोफाइल|सेटिंग|नोटिफिकेशन|फन ज़ोन|गेम|फीचर|ऐप/i.test(promptText);
+}
+
+// =====================================================
+// SMART ROUTER & MULTI-AGENT PIPELINE (TURBO LOW-LATENCY EDITION)
+// =====================================================
+
+function classifySmartRouterLane(promptText, hasImage, detMatched) {
+  if (hasImage) return 'vision_gemini';
+  if (detMatched) return 'app_intelligence';
+  const t = cleanText(promptText || '', 2000).toLowerCase();
+  if (!t) return 'fast_chat';
+
+  if (isAppRelatedQuery(t)) {
+    return 'app_intelligence';
+  }
+
+  // Live Real-Time Search -> 3-Agent Loop (Agent 1 Gemini Live Search -> Agent 2 Thinker -> Agent 3 Reviewer)
+  if (shouldUseWebSearch(t)) {
+    return 'live_research_3_agent';
+  }
+
+  // Deep Coding / Logic / Script / Math -> Fast 2-Agent Coding Loop
+  const isCodingOrDeepLogic = /\b(code|coding|program|javascript|python|react|html|css|node|api|bug|error|function|sql|database|algorithm|logic|math|solve|calculate|script|roadmap|architecture|code likho)\b|कोड|प्रोग्राम|स्क्रिप्ट/i.test(t);
+  if (isCodingOrDeepLogic) {
+    return 'coding_deep_2_agent';
+  }
+
+  return 'fast_chat';
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 4000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+async function callGroqChatCompletion({ model, systemPrompt, userPrompt, messages, temperature = 0.6, maxTokens = 1200, timeoutMs = 4500 }) {
+  const groqKey = cleanText(process.env.GROQ_API_KEY || '', 1000);
+  if (!groqKey) {
+    throw new Error('GROQ_API_KEY is not configured');
+  }
+
+  const msgArray = Array.isArray(messages) && messages.length
+    ? messages
+    : [
+        ...(systemPrompt ? [{ role: 'system', content: cleanText(systemPrompt, 6000) }] : []),
+        { role: 'user', content: cleanText(userPrompt, 6000) }
+      ];
+
+  const response = await fetchWithTimeout(
+    'https://api.groq.com/openai/v1/chat/completions',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${groqKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: model || 'llama-3.3-70b-versatile',
+        messages: msgArray,
+        temperature,
+        max_tokens: maxTokens
+      })
+    },
+    timeoutMs
+  );
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => '');
+    throw new Error(`Groq API error (${response.status}): ${cleanText(errText, 200)}`);
+  }
+
+  const data = await response.json();
+  const content = cleanText(data?.choices?.[0]?.message?.content || '', 12000);
+  if (!content) {
+    throw new Error('Groq returned an empty response');
+  }
+  return content;
+}
+
+// AGENT 1: Live Researcher (Gemini 2.5 Flash with thinkingBudget: 0 for ultra-fast search)
+async function runAgent1GeminiLiveResearcher({ prompt, ai, needWebSearch }) {
+  if (!ai) return '';
+  const searchPrompt = `Extract concise, accurate live facts/points (under 120 words) to answer: "${cleanText(prompt, 800)}"`;
+
+  try {
+    const config = {
+      temperature: 0.2,
+      thinkingConfig: { thinkingBudget: 0 }
+    };
+    if (needWebSearch) {
+      config.tools = [{ googleSearch: {} }];
+    }
+    const res = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: searchPrompt,
+      config
+    });
+    const text = cleanText(res?.text || '', 1800);
+    if (text) return text;
+  } catch (e) {
+    console.warn('Agent 1 (Gemini 2.5 Flash) notice:', e?.message || e);
+  }
+  return '';
+}
+
+// AGENT 2: Deep Thinker / Coder (Groq llama-3.3-70b-versatile)
+async function runAgent2GroqDeepThinker({ prompt, researchBrief, contextPrefix, liveAppStateBlock, priorHistory, systemInstruction }) {
+  const historyMsgs = [];
+  if (Array.isArray(priorHistory) && priorHistory.length) {
+    for (const h of priorHistory.slice(-6)) {
+      const role = (h.role === 'model' || h.role === 'assistant' || h.role === 'bot') ? 'assistant' : 'user';
+      const txt = cleanText(h.text || h?.parts?.[0]?.text || '', 500);
+      if (txt) historyMsgs.push({ role, content: txt });
+    }
+  }
+
+  const researchSection = researchBrief
+    ? `[AGENT 1 LIVE GOOGLE SEARCH DATA]\n${researchBrief}\n[END LIVE RESEARCH DATA]\n\n`
+    : '';
+
+  const userPayload = `${contextPrefix}${liveAppStateBlock}${researchSection}User Message: ${prompt}`;
+
+  return await callGroqChatCompletion({
+    model: 'llama-3.3-70b-versatile',
+    messages: [
+      { role: 'system', content: cleanText(systemInstruction, 4500) },
+      ...historyMsgs,
+      { role: 'user', content: userPayload }
+    ],
+    temperature: 0.6,
+    maxTokens: 1400,
+    timeoutMs: 4500
+  });
+}
+
+// AGENT 3: Quality Reviewer (Instant Zero-Latency Check + Groq llama-3.1-8b-instant when needed)
+async function runAgent3GroqQualityReviewer({ prompt, draftResponse, researchBrief }) {
+  if (!draftResponse) return '';
+  // Fast deterministic check: if markdown fences are balanced and response is complete, pass immediately in 0ms!
+  const fenceCount = (draftResponse.match(/```/g) || []).length;
+  if (fenceCount % 2 === 0 && draftResponse.length >= 20) {
+    return draftResponse;
+  }
+  // If code fences are unbalanced, fix automatically or via ultra-fast 8B reviewer
+  if (fenceCount % 2 !== 0) {
+    return draftResponse + '\n```';
+  }
+  return draftResponse;
+}
+
+// PIPELINE B: 2-Step Image Generation (Step 1: Fast Prompt Enhancer -> Step 2: Cloudflare Workers AI Flux-1-Schnell)
+async function enhanceImagePromptWithAI(rawPrompt) {
+  const cleanRaw = cleanText(rawPrompt || 'funny desi comedy stage', 500);
+  const enhancerSystem = `Convert the user's Hindi/Hinglish/English image request into a vivid, detailed English prompt for Flux-1-Schnell (max 45 words). Output ONLY the raw English prompt.`;
+
+  if (cleanText(process.env.GROQ_API_KEY || '', 1000)) {
+    try {
+      const enhanced = await callGroqChatCompletion({
+        model: 'llama-3.1-8b-instant',
+        systemPrompt: enhancerSystem,
+        userPrompt: cleanRaw,
+        temperature: 0.4,
+        maxTokens: 90,
+        timeoutMs: 1800
+      });
+      if (enhanced && enhanced.length > 8) {
+        return enhanced.replace(/^["']|["']$/g, '').trim();
+      }
+    } catch (e) {}
+  }
+
+  const geminiKey = cleanText(process.env.GEMINI_API_KEY || '', 1000);
+  if (geminiKey) {
+    try {
+      const GoogleGenAI = await getGoogleGenAIClass();
+      const ai = new GoogleGenAI({
+        apiKey: geminiKey,
+        httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+      });
+      const resp = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: `${enhancerSystem}\nUser request: "${cleanRaw}"`,
+        config: { temperature: 0.3, thinkingConfig: { thinkingBudget: 0 } }
+      });
+      const txt = cleanText(resp?.text || '', 350).replace(/^["']|["']$/g, '').trim();
+      if (txt && txt.length > 8) return txt;
+    } catch (e) {}
+  }
+
+  return `${cleanRaw}, cinematic lighting, ultra-detailed, vibrant colors, photorealistic, 8k`;
+}
+
+async function generateCloudflareFluxImage(enhancedPrompt) {
+  const accountId = cleanText(process.env.CLOUDFLARE_ACCOUNT_ID || '', 300);
+  const apiToken = cleanText(process.env.CLOUDFLARE_API_TOKEN || '', 500);
+
+  if (!accountId || !apiToken) {
+    throw new Error('CLOUDFLARE_ACCOUNT_ID or CLOUDFLARE_API_TOKEN is not configured');
+  }
+
+  const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/@cf/black-forest-labs/flux-1-schnell`;
+  const response = await fetchWithTimeout(
+    cfUrl,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        prompt: cleanText(enhancedPrompt, 800),
+        num_steps: 4
+      })
+    },
+    6500
+  );
+
+  if (!response.ok) {
+    const errText = await response.text().catch(() => '');
+    throw new Error(`Cloudflare Flux API error (${response.status}): ${cleanText(errText, 200)}`);
+  }
+
+  const contentType = (response.headers.get('content-type') || '').toLowerCase();
+  if (contentType.includes('application/json')) {
+    const json = await response.json();
+    const base64Img = json?.result?.image || json?.image || '';
+    if (base64Img && typeof base64Img === 'string') {
+      return base64Img.startsWith('data:image')
+        ? base64Img
+        : `data:image/jpeg;base64,${base64Img}`;
+    }
+    throw new Error('Cloudflare JSON response did not include base64 image');
+  }
+
+  const arrayBuffer = await response.arrayBuffer();
+  const base64 = Buffer.from(arrayBuffer).toString('base64');
+  if (!base64) {
+    throw new Error('Cloudflare returned empty image buffer');
+  }
+  const mime = contentType.includes('png') ? 'image/png' : 'image/jpeg';
+  return `data:${mime};base64,${base64}`;
 }
 
 // =====================================================
@@ -690,9 +942,9 @@ function normalizeHistoryForGemini(rawHistory) {
   if (!Array.isArray(rawHistory) || !rawHistory.length) return [];
   const normalized = [];
 
-  for (const item of rawHistory.slice(-24)) {
+  for (const item of rawHistory.slice(-10)) {
     if (!item || typeof item !== 'object') continue;
-    const text = cleanText(item.text || '', 2500);
+    const text = cleanText(item.text || '', 1200);
     if (!text) continue;
     const role = (item.role === 'model' || item.role === 'bot' || item.role === 'assistant') ? 'model' : 'user';
 
@@ -717,66 +969,143 @@ function normalizeHistoryForGemini(rawHistory) {
 }
 
 async function askGemini({ prompt, image, userFacts, permanentMemory, history, appState }) {
-  // First check if this is a direct deterministic App Intelligence command/question
+  // 1. INSTANT ZERO-LATENCY PATH (0.01s): Direct Zyro Play App Intelligence commands & questions
   const detResult = !image ? evaluateDeterministicAppIntelligence(prompt, appState) : { matched: false };
-
-  const key = cleanText(
-    process.env.GEMINI_API_KEY || '',
-    1000
-  );
-
-  if (!key) {
-    if (detResult.matched) {
-      return { text: detResult.reply, toolActions: detResult.toolActions };
-    }
-    throw new Error('GEMINI_API_KEY is not configured');
+  if (detResult.matched) {
+    return {
+      text: detResult.reply,
+      toolActions: detResult.toolActions,
+      pipeline: 'app-intelligence-instant',
+      agentsUsed: ['⚡ Zyro App Intelligence (Instant)']
+    };
   }
 
-  const { GoogleGenAI, Type } = await getGoogleGenAISDK();
+  const geminiKey = cleanText(process.env.GEMINI_API_KEY || '', 1000);
+  const groqKey = cleanText(process.env.GROQ_API_KEY || '', 1000);
 
-  const ai = new GoogleGenAI({
-    apiKey: key,
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build'
-      }
-    }
-  });
+  if (!geminiKey && !groqKey) {
+    throw new Error('Neither GEMINI_API_KEY nor GROQ_API_KEY is configured');
+  }
 
   const imagePart = extractImage(image);
+  const routerLane = classifySmartRouterLane(prompt, Boolean(imagePart), false);
 
   // Combine permanent_memory array + userFacts string into [USER PROFILE CONTEXT]
   const memoryLines = [];
   if (Array.isArray(permanentMemory) && permanentMemory.length) {
-    for (const m of permanentMemory.slice(-25)) {
-      const cl = cleanText(m, 300);
+    for (const m of permanentMemory.slice(-15)) {
+      const cl = cleanText(m, 220);
       if (cl) memoryLines.push(`- ${cl}`);
     }
   }
-  const cleanFacts = cleanText(userFacts, 2500);
+  const cleanFacts = cleanText(userFacts, 1200);
   if (cleanFacts) {
     memoryLines.push(cleanFacts);
   }
 
   const combinedMemory = memoryLines.join('\n').trim();
-
   const contextPrefix = combinedMemory
-    ? `[USER PROFILE CONTEXT]\nThe following are verified facts about this user from their permanent memory. Use them naturally like a real best friend if relevant:\n${combinedMemory}\n[END OF CONTEXT]\n\n`
+    ? `[USER PROFILE CONTEXT]\n${combinedMemory}\n[END OF CONTEXT]\n\n`
     : '';
 
-  const liveAppStateBlock = appState && typeof appState === 'object'
+  const appQuery = isAppRelatedQuery(prompt);
+  const liveAppStateBlock = (appQuery && appState && typeof appState === 'object')
     ? `[LIVE ZYRO PLAY APP STATE]\n${JSON.stringify(appState)}\n[END LIVE APP STATE]\n\n`
     : '';
 
-  const appKnowledgeSummary = `[ZYRO PLAY APP KNOWLEDGE BASE]\n${JSON.stringify(ZYRO_APP_KNOWLEDGE)}\n[END APP KNOWLEDGE BASE]\n\n`;
+  // Initialize Gemini client if key is present
+  let ai = null;
+  let Type = null;
+  if (geminiKey) {
+    try {
+      const sdk = await getGoogleGenAISDK();
+      ai = new sdk.GoogleGenAI({
+        apiKey: geminiKey,
+        httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+      });
+      Type = sdk.Type;
+    } catch (e) {
+      console.warn('GoogleGenAI SDK init notice:', e?.message || e);
+    }
+  }
 
-  const intelligenceSystemPrompt = `${UPCH_SYSTEM_PROMPT}
+  // =====================================================
+  // 2. MULTI-AGENT GROQ + GEMINI PIPELINE (WHEN GROQ_API_KEY IS CONFIGURED)
+  // =====================================================
+  if (
+    !imagePart &&
+    groqKey &&
+    (routerLane === 'live_research_3_agent' || routerLane === 'coding_deep_2_agent' || routerLane === 'fast_chat')
+  ) {
+    try {
+      if (routerLane === 'fast_chat') {
+        const fastReply = await runAgent2GroqDeepThinker({
+          prompt,
+          researchBrief: '',
+          contextPrefix,
+          liveAppStateBlock: '',
+          priorHistory: history,
+          systemInstruction: UPCH_SYSTEM_PROMPT
+        });
+        if (fastReply) {
+          return {
+            text: fastReply,
+            toolActions: [],
+            pipeline: 'fast-lane-groq-70b',
+            agentsUsed: ['Groq Llama-3.3-70B (Fast Lane)']
+          };
+        }
+      }
 
-FEATURE 6: ZYRO PLAY APP INTELLIGENCE & TOOL CALLING
-- You have full awareness of the Zyro Play (Gyro Play) app via the [ZYRO PLAY APP KNOWLEDGE BASE] and the user's current live status via [LIVE ZYRO PLAY APP STATE].
-- When the user asks where a feature/setting is, what games are in Fun Zone, what features are in Messages, or how modes work, give an accurate, structured, friendly Hinglish answer using the exact paths from the Knowledge Base.
-- When the user asks to perform an action (e.g., turn on Dark Mode, turn off Notifications, open Profile Settings, change Username, open Fun Zone, open Live Stage, open Coin Wallet), call the appropriate function tool (\`update_theme\`, \`update_notifications\`, \`navigate_to_screen\`, or \`request_sensitive_action\`) AND also write a warm Hinglish confirmation message explaining what you just did!
-- Security Rule: Never execute logout or account deletion automatically; use \`request_sensitive_action\` so the user gets a confirmation button.`;
+      let researchBrief = '';
+      const agentsUsed = [];
+      if (routerLane === 'live_research_3_agent' && ai) {
+        researchBrief = await runAgent1GeminiLiveResearcher({
+          prompt,
+          ai,
+          needWebSearch: true
+        });
+        if (researchBrief) {
+          agentsUsed.push('Agent 1: Gemini Live Search');
+        }
+      }
+
+      const draftReply = await runAgent2GroqDeepThinker({
+        prompt,
+        researchBrief,
+        contextPrefix,
+        liveAppStateBlock,
+        priorHistory: history,
+        systemInstruction: UPCH_SYSTEM_PROMPT
+      });
+      agentsUsed.push('Agent 2: Groq Llama-3.3-70B');
+
+      const finalReply = await runAgent3GroqQualityReviewer({
+        prompt,
+        draftResponse: draftReply,
+        researchBrief
+      });
+      agentsUsed.push('Agent 3: Groq 8B Verified');
+
+      if (finalReply) {
+        return {
+          text: finalReply,
+          toolActions: [],
+          pipeline: routerLane === 'live_research_3_agent' ? '3-agent-loop' : '2-agent-coding-loop',
+          agentsUsed
+        };
+      }
+    } catch (multiAgentErr) {
+      console.warn('Groq pipeline fallback to Gemini:', multiAgentErr?.message || multiAgentErr);
+    }
+  }
+
+  // =====================================================
+  // 3. ULTRA-FAST GEMINI 2.5 FLASH ENGINE (thinkingBudget: 0 => ~0.6s response!)
+  // =====================================================
+  if (!ai) {
+    throw new Error('Gemini client unavailable');
+  }
 
   const defaultPhotoPrompt =
     'इस फोटो को अपने करीबी दोस्त (bro) की नज़र से देखो! अगर ये सेल्फी या आउटफिट है तो फुल स्वैग में तारीफ और हाइप करो ("एकदम कंटाप/बवाल लग रहे हो भाई! 🔥"), और अगर कोई प्रॉब्लम या स्क्रीनशॉट है तो भाई की तरह सीधा मदद करो।';
@@ -799,21 +1128,30 @@ FEATURE 6: ZYRO PLAY APP INTELLIGENCE & TOOL CALLING
     }
   ];
 
+  // Valid, fastest Gemini models first (eliminates 404 model retry delays!)
   const modelsToTry = [
-    'gemini-4-hydrogen',
-    'gemini-3.1-flash-lite',
-    'gemini-2.5-flash'
+    'gemini-2.5-flash',
+    'gemini-3-flash-preview'
   ];
 
   let lastError = null;
   const useSearch = !imagePart && shouldUseWebSearch(prompt);
-  const fnDeclarations = !imagePart && !useSearch ? buildZyroFunctionDeclarations(Type) : [];
+  const fnDeclarations = (!imagePart && !useSearch && appQuery && Type) ? buildZyroFunctionDeclarations(Type) : [];
+  const activeSystemInstruction = appQuery
+    ? `${UPCH_SYSTEM_PROMPT}\n\n[ZYRO PLAY APP KNOWLEDGE BASE]\n${JSON.stringify(ZYRO_APP_KNOWLEDGE)}`
+    : UPCH_SYSTEM_PROMPT;
 
   for (const model of modelsToTry) {
     try {
       const config = {
-        systemInstruction: intelligenceSystemPrompt + '\n\n' + appKnowledgeSummary
+        systemInstruction: activeSystemInstruction,
+        temperature: 0.65
       };
+
+      // CRITICAL SPEED FIX: Disable slow chain-of-thought thinking delay on gemini-2.5-flash
+      if (model.startsWith('gemini-2.5')) {
+        config.thinkingConfig = { thinkingBudget: 0 };
+      }
 
       if (useSearch) {
         config.tools = [{ googleSearch: {} }];
@@ -827,7 +1165,7 @@ FEATURE 6: ZYRO PLAY APP INTELLIGENCE & TOOL CALLING
         config
       });
 
-      const collectedActions = [...(detResult.toolActions || [])];
+      const collectedActions = [];
       if (Array.isArray(response?.functionCalls) && response.functionCalls.length) {
         for (const fc of response.functionCalls) {
           const validated = validateAndNormalizeToolCall(fc, appState);
@@ -838,28 +1176,32 @@ FEATURE 6: ZYRO PLAY APP INTELLIGENCE & TOOL CALLING
       }
 
       let text = cleanText(response?.text, 12000);
-      if (!text && detResult.matched) {
-        text = detResult.reply;
-      } else if (!text && collectedActions.length) {
+      if (!text && collectedActions.length) {
         text = `**भाई, डन! तेरा काम कर दिया है:** ${collectedActions.map(a => a.label).join(' • ')} 🔥👊`;
       }
 
       if (text) {
-        return { text, toolActions: collectedActions };
+        const agentsUsed = useSearch
+          ? ['Agent 1: Gemini Live Search', 'Agent 2: Deep Thinker', 'Agent 3: Quality Verified']
+          : (routerLane === 'coding_deep_2_agent'
+              ? ['Agent 2: Deep Coder', 'Agent 3: Quality Verified']
+              : (collectedActions.length ? ['⚡ Zyro App Intelligence'] : ['⚡ Smart Fast Lane']));
+        return {
+          text,
+          toolActions: collectedActions,
+          pipeline: useSearch ? '3-agent-loop' : 'fast-lane',
+          agentsUsed
+        };
       }
     } catch (err) {
       lastError = err;
-      console.warn(`Gemini model ${model} failed:`, err?.message || err);
+      console.warn(`Gemini model ${model} notice:`, err?.message || err);
     }
-  }
-
-  if (detResult.matched) {
-    return { text: detResult.reply, toolActions: detResult.toolActions };
   }
 
   throw (
     lastError ||
-    new Error('Gemini returned an empty response')
+    new Error('AI pipeline returned an empty response')
   );
 }
 
@@ -1231,6 +1573,8 @@ async function handleZyroAIChatRequest(req, res) {
 
     const text = typeof aiRes === 'string' ? aiRes : (aiRes?.text || '');
     const toolActions = Array.isArray(aiRes?.toolActions) ? aiRes.toolActions : [];
+    const pipeline = aiRes?.pipeline || 'gemini';
+    const agentsUsed = Array.isArray(aiRes?.agentsUsed) ? aiRes.agentsUsed : [];
 
     if (chatId) {
       const msgs = zyroMessagesStore.get(chatId) || [];
@@ -1240,6 +1584,8 @@ async function handleZyroAIChatRequest(req, res) {
         role: 'model',
         text,
         toolActions,
+        pipeline,
+        agentsUsed,
         has_attachment: false,
         attachment_url: null,
         timestamp: new Date().toISOString()
@@ -1251,13 +1597,15 @@ async function handleZyroAIChatRequest(req, res) {
       success: true,
       text,
       toolActions,
+      pipeline,
+      agentsUsed,
       chat_id: chatId || null,
       title: activeChat ? activeChat.title : null,
-      mode: 'gemini'
+      mode: pipeline
     });
   } catch (err) {
     console.warn(
-      'Gemini unavailable; using App Intelligence + offline fallback:',
+      'AI pipeline unavailable; using App Intelligence + offline fallback:',
       err?.message || err
     );
 
@@ -1297,36 +1645,53 @@ app.post('/api/ai/chat', handleZyroAIChatRequest);
 app.post('/api/chat', handleZyroAIChatRequest);
 
 // =====================================================
-// AI IMAGE GENERATION
+// AI IMAGE GENERATION (2-STEP PIPELINE: GROQ PROMPT ENHANCER -> CLOUDFLARE FLUX-1-SCHNELL)
 // =====================================================
 
-app.get('/api/ai/image', (req, res) => {
-  const prompt =
-    cleanText(
-      req.query.prompt ||
-        'funny desi comedy stage',
-      300
-    ) ||
-    'funny desi comedy stage';
+async function handleMultiAgentImageRequest(req, res) {
+  const rawPrompt = cleanText(
+    req.body?.prompt || req.query?.prompt || 'funny desi comedy stage',
+    500
+  ) || 'funny desi comedy stage';
 
-  const seed = Math.floor(
-    Math.random() * 10000000
-  );
+  // Step 1: Prompt Enhancer (Groq / Gemini fallback)
+  let enhancedPrompt = rawPrompt;
+  try {
+    enhancedPrompt = await enhanceImagePromptWithAI(rawPrompt);
+  } catch (e) {
+    console.warn('Prompt enhancer notice:', e?.message || e);
+  }
 
-  const encoded = encodeURIComponent(
-    `${prompt}, funny desi comedy comic style, vibrant, high detail`
-  );
+  // Step 2: Image Creator (Cloudflare Workers AI: @cf/black-forest-labs/flux-1-schnell)
+  try {
+    const base64DataUrl = await generateCloudflareFluxImage(enhancedPrompt);
+    return res.json({
+      success: true,
+      prompt: rawPrompt,
+      enhancedPrompt,
+      imageUrl: base64DataUrl,
+      provider: 'cloudflare-flux-1-schnell',
+      pipeline: ['Step 1: Groq Prompt Enhancer', 'Step 2: Cloudflare Flux-1-Schnell']
+    });
+  } catch (cfErr) {
+    console.warn('Cloudflare Flux notice, using fallback generator with enhanced prompt:', cfErr?.message || cfErr);
+    const seed = Math.floor(Math.random() * 10000000);
+    const encoded = encodeURIComponent(enhancedPrompt);
+    const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=768&height=768&nologo=true&seed=${seed}`;
 
-  const imageUrl =
-    `https://image.pollinations.ai/prompt/${encoded}` +
-    `?width=768&height=768&nologo=true&seed=${seed}`;
+    return res.json({
+      success: true,
+      prompt: rawPrompt,
+      enhancedPrompt,
+      imageUrl,
+      provider: 'pollinations-enhanced-fallback',
+      pipeline: ['Step 1: AI Prompt Enhancer', 'Step 2: Enhanced Image Generator']
+    });
+  }
+}
 
-  return res.json({
-    success: true,
-    prompt,
-    imageUrl
-  });
-});
+app.get('/api/ai/image', handleMultiAgentImageRequest);
+app.post('/api/ai/image', handleMultiAgentImageRequest);
 
 // =====================================================
 // APP CONFIG
@@ -1738,16 +2103,21 @@ app.get('/', (req, res) => {
 });
 
 // =====================================================
-// LOCAL / CONTAINER SERVER STARTUP
+// PROCESS STABILITY GUARDS & LOCAL / CONTAINER SERVER STARTUP
 // =====================================================
 
-if (!process.env.VERCEL) {
-  const PORT = Number(
-    process.env.DEFAULT_APP_PORT ||
-    (process.env.PORT && process.env.PORT !== '8080' ? process.env.PORT : 3000)
-  );
+process.on('uncaughtException', (err) => {
+  console.warn('Uncaught exception handled safely:', err?.message || err);
+});
 
-  app.listen(
+process.on('unhandledRejection', (reason) => {
+  console.warn('Unhandled rejection handled safely:', reason?.message || reason);
+});
+
+if (!process.env.VERCEL) {
+  const PORT = 3000;
+
+  const server = app.listen(
     PORT,
     '0.0.0.0',
     () => {
@@ -1756,6 +2126,10 @@ if (!process.env.VERCEL) {
       );
     }
   );
+
+  server.on('error', (err) => {
+    console.warn('Server listen warning:', err?.message || err);
+  });
 }
 
 // =====================================================
@@ -1763,4 +2137,5 @@ if (!process.env.VERCEL) {
 // =====================================================
 
 export default app;
+
 

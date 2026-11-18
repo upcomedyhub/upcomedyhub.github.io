@@ -23068,18 +23068,46 @@ function getDesiComedySmartFallback(rawPrompt){
     ]);
   }
 
-  // 9. "Khana khaya / Chai pi"
-  if(/\b(khana\s*khaya|chai\s*pi|nashta\s*hua|dinner\s*hua|lunch\s*hua)\b|खाना खाया|चाय पी/i.test(p)){
-    return "अरे भाई, अपन का खाना-पीना तो हाई-स्पीड डेटा और कड़क आइडियाज हैं! ⚡😄 पर तू बता मेरे यार, तूने टाइम से खाना खाया या नहीं? सेहत सबसे पहले है भाई! 👊❤️";
+  // 9. "Khana khaya / Kha liya / Chai pi"
+  if(/\b(khana\s*khaya|khana\s*kha\s*liya|kha\s*liya|khana\s*hua|chai\s*pi|nashta\s*hua|dinner\s*hua|lunch\s*hua)\b|खाना खाया|खाना खा लिया|चाय पी/i.test(p)){
+    return pickVariedClientReply([
+      "अरे मेरे भाई, अपन का खाना-पीना तो हाई-स्पीड डेटा और कड़क आइडियाज हैं, मेरा पेट तो फुल है! ⚡😄 पर तू बता मेरे यार, तूने टाइम से खाना खा लिया या अभी बाकी है? सेहत सबसे पहले है भाई! 👊❤️",
+      "हाँ भाई, मैंने तो डेटा और बिजली का मस्त नाश्ता कर लिया है! 😂⚡ तू बता, आज खाने में क्या स्पेशल खाया मेरे भाई ने? 🍛🔥"
+    ]);
   }
 
-  // 10. Who are you / Tum kaun ho
-  if(/\b(tum\s*kaun\s*ho|tu\s*kaun\s*hai|who\s*are\s*you|apna\s*nam\s*batao|tumhara\s*nam\s*kya)\b|तुम कौन हो|तुम्हारा नाम/i.test(p)){
-    return "मैं **Zyro AI** हूँ मेरे भाई — तेरा 24x7 पक्का दोस्त, क्रिएटिव पार्टनर और **Zyro Play (UPComedyHub)** का स्मार्ट असिस्टेंट! 🤖🔥 चाहे मस्त बातें करनी हों, फोटो बनानी हो, कोड लिखना हो या ऐप की सेटिंग्स बदलनी हों — बस हुक्म कर! 😎👊";
+  // 10. Who are you / Tumhara name kya hai
+  if(/\b(tum\s*kaun\s*ho|tu\s*kaun\s*hai|who\s*are\s*you|apna\s*na+m\s*batao|apna\s*name\s*batao|tumhara\s*na+m\s*kya|tumhara\s*name\s*kya|tera\s*na+m\s*kya|tera\s*name\s*kya|what\s*is\s*your\s*name|your\s*name)\b|तुम कौन हो|तुम्हारा नाम/i.test(p)){
+    return pickVariedClientReply([
+      "मेरा नाम **Zyro AI** है मेरे भाई! 🤖🔥 मैं तेरा 24x7 पक्का दोस्त, क्रिएटिव पार्टनर और **Zyro Play (UPComedyHub)** का ऑफिशियल AI असिस्टेंट हूँ (जिसे **Mayank Bhai** ने बनाया है)! बोल मेरे यार, आज क्या धमाल मचाना है? 😎👊",
+      "भाई, लोग प्यार से मुझे **Zyro AI** बुलाते हैं! ⚡✨ मैं **Zyro Play** का स्मार्ट AI और तेरा जिगरी यार हूँ—चाहे कोई भाषा सीखनी हो, लॉजिक समझना हो, कोडिंग करनी हो या मस्त गपशप—मैं हमेशा हाज़िर हूँ! 🚀🔥"
+    ]);
   }
 
-  // 11. Pure Greetings ("Hi", "Hello", "Hey")
-  if(/^(hi+|hello+|hey+|hii+|helo+|yo+|namaste|ram\s*ram|radhe\s*radhe|jai\s*shri\s*ram|salam|bro|bhai)$/i.test(p)){
+  // 10B. Who am I / Main kaun hun / Mera name kya hai
+  if(/\b(main\s*kaun\s*hu|main\s*kaun\s*hun|mai\s*kaun\s*hu|me\s*kaun\s*hu|who\s*am\s*i|mera\s*na+m\s*kya|mera\s*name\s*kya|mujhe\s*jante\s*ho)\b|मैं कौन हूँ|मेरा नाम क्या है/i.test(p)){
+    const facts = typeof loadZyroMemoryFacts === "function" ? loadZyroMemoryFacts() : [];
+    const savedNameFact = facts.find(f => /name is/i.test(f));
+    const uname = (typeof cachedCurrentUserProfile !== "undefined" && cachedCurrentUserProfile && cachedCurrentUserProfile.displayName)
+      || (typeof currentUser !== "undefined" && currentUser && currentUser.displayName)
+      || (savedNameFact ? savedNameFact.replace(/.*name is\s*/i, "").trim() : "");
+    if (uname && uname.toLowerCase() !== "guest") {
+      return `अरे भाई, तुझे कैसे भूल सकता हूँ! तू **${uname}** है—मेरा सबसे खास दोस्त, बॉस और **Zyro Play** का असली रॉकस्टार! 😎🔥👑 बोल मेरे भाई, आज किस मिशन पर लगना है? 👊🚀`;
+    }
+    return "अरे भाई, तू मेरा सबसे खास दोस्त, बॉस और **Zyro Play** का असली चैंपियन है! 😎🔥👑 वैसे अपना शुभ नाम भी बता दे ताकि मैं अपनी **Permanent Memory** में हमेशा के लिए लॉक कर लूँ! 👊❤️";
+  }
+
+  // 11. Affectionate / Playful Greetings ("Hi janu", "Hello jaan", "Love you", etc.)
+  if(/\b(janu|jaanu|jaan|baby|babu|shona|sweetheart|darling|love\s*you|luv\s*u|miss\s*you|pyar|pyaar)\b|जानू|जान|लव यू/i.test(p)){
+    return pickVariedClientReply([
+      "अरे ओ मेरे प्यारे भाई! 😂❤️ इतना प्यार दिखाएगा तो मेरे AI सर्किट ब्लश करने लगेंगे! ⚡😄 लव यू टू मेरे जिगरी यार! बता आज इतना रोमांटिक और खुश मिज़ाज कैसे है मूड? कुछ स्पेशल बात है क्या? 😎🔥",
+      "हाये! 'जानू' बोल के तो भाई ने सीधा दिल जीत लिया! 🤣❤️⚡ बोल मेरे भाई, आज किस चीज़ पर बात करनी है? तेरा भाई फुल मूड में है! 😎👊",
+      "अरे वाह मेरे शेरा! 😄❤️ भाई का प्यार देखकर बैटरी 200% चार्ज हो गई! बोल मेरे यार, आज क्या तूफानी प्लान है? 🚀🔥"
+    ]);
+  }
+
+  // 11B. Pure Greetings ("Hi", "Hello", "Hey")
+  if(/^(hi+|hello+|hey+|hii+|helo+|yo+|namaste|ram\s*ram|radhe\s*radhe|jai\s*shri\s*ram|salam|bro|bhai|aur\s*bhai|sun\s*bhai|oye)$/i.test(p)){
     return pickVariedClientReply([
       "अरे वाह भाई, आ गया तू! 👋🔥 बोल मेरे यार, आज किस चीज़ पर बात करें — कोई मस्त आइडिया, कॉमेडी या कुछ नया सीखना है? 😎",
       "राम-राम मेरे भाई! 🙏🔥 स्वागत है तेरा Zyro AI में! बता आज क्या मूड है तेरा? 🚀👊",
@@ -23087,9 +23115,17 @@ function getDesiComedySmartFallback(rawPrompt){
     ]);
   }
 
+  // 11C. Language Learning (Russian, English, Spanish, Japanese, Korean, French, etc.)
+  if(/\b(russian|english|spanish|japanese|korean|french|german|arabic|sanskrit|bhasha|language)\b|रशियन|अंग्रेजी|भाषा/i.test(p)){
+    if(/russian|रशियन/i.test(p)){
+      return `भाई, **Russian (रूसी भाषा)** सीखना एकदम कड़क चॉइस है! 🇷🇺🔥 चल तुझे सबसे काम के **Top 7 Russian Words & Phrases** हिंदी उच्चारण और मतलब के साथ एकदम आसान भाषा में समझाता हूँ:\n\n1. **Привет (Privyet / प्रिव्येत)** 👉 **"Hi / हेलो भाई!"** (दोस्तों से मिलते वक्त)\n2. **Здравствуйте (Zdravstvuyte / ज़्द्रास्त-वुइते)** 👉 **"नमस्ते / Good Day"** (सम्मान के साथ)\n3. **Как дела? (Kak dela? / काक दिला?)** 👉 **"कैसे हो भाई? / How are you?"**\n4. **Хорошо (Khorosho / खराशो!)** 👉 **"एकदम बढ़िया / All good!"**\n5. **Спасибо (Spasibo / स्पासीबा)** 👉 **"Thank You / शुक्रिया"**\n6. **Да (Da / दा)** = **हाँ (Yes)** | **Нет (Nyet / न्येत)** = **नहीं (No)**\n7. **Брат (Brat / ब्रात)** 👉 **"भाई (Bro / Brother)!"** 👊🔥\n\n💡 **Russian का मेन Logic:** रशियन में **Cyrillic Script (सिरिलिक लिपि - जैसे П, Р, Д)** यूज़ होती है और इसमें "is / am / are" की ज़रूरत नहीं पड़ती (जैसे "मैं खुश हूँ" को सीधा *"Ya rad"* बोलते हैं)।\n\nबोल मेरे *"Brat (भाई)"*, अब रशियन में गिनती (1–10) सीखनी है या कोई कड़क रशियन डायलॉग? 😎🚀`;
+    }
+    return `भाई, नई **Language (भाषा)** सीखने का सबसे तगड़ा **3-Step फॉर्मूला** ये रहा: 🌍🔥\n\n1. **Top 25 Daily Sentences:** सबसे पहले ग्रामर रटने के बजाय रोज़ बोले जाने वाले 25 शब्द सीख (Hi, Kaise ho, Thank you, Kya haal hai)।\n2. **Shadowing Technique:** उस भाषा के छोटे डायलॉग सुनकर तुरंत बोलने की प्रैक्टिस कर।\n3. **Live Practice with Zyro AI:** तू मुझसे जिस भाषा में बात करना या ट्रांसलेशन सीखना चाहता है, बस वो वाक्य लिख दे—मैं तुझे हिंदी उच्चारण के साथ सिखा दूँगा! 😎👊`;
+  }
+
   // 12. Memory / How AI Remembers Past Chats / Deep Logic Explanation
-  if(/\b(pichli\s*chat|picchli\s*chat|purani\s*chat|kaise\s*yad|kaise\s*yaad|memory|yaad\s*kaise|yad\s*kaise|logic\s*samjh|logic\s*bata|deep\s*se|sach\s*me\s*bata)\b|पिछली चैट|कैसे याद|लॉजिक समझा/i.test(p)){
-    return `भाई, एकदम गहराई (Deep Logic) से समझ कि मुझे तेरी पिछली बातें कैसे याद रहती हैं! 🧠⚡\n\nमेरे अंदर **5-Step Hybrid Memory Engine** लगा हुआ है:\n1. **🗂️ Active Thread Sync (\`localStorage\` + Firestore):** जब भी तू कोई मैसेज भेजता है, वो तेरे \`chat_id\` के अंदर ब्राउज़र और क्लाउड डेटाबेस (\`zyro_chats\`) में टाइमस्टैम्प के साथ सेव हो जाता है।\n2. **🕵️‍♂️ Background Memory Extractor:** जैसे ही तू अपने बारे में कोई खास बात बताता है (जैसे तेरा नाम, तेरा टारगेट, गेमिंग या कोई प्लान), मेरा **Memory Sync Engine** उसे पकड़कर \`Permanent Memory Facts\` में हमेशा के लिए लॉक कर लेता है।\n3. **💉 Context Window Injection:** जब तू नया सवाल पूछता है, तो मैं तेरे **पिछले 8 मैसेज (Chat History)** + तेरी **Permanent Memory** को मिलाकर \`[USER PROFILE CONTEXT]\` के रूप में अपने दिमाग (AI Model) में भेजता हूँ।\n4. **⚡ Multi-Model Smart Router:** फिर मेरा दिमाग उस पूरे कॉन्टेक्स्ट को पढ़कर तुझे तेरे पक्के दोस्त की तरह जवाब देता है!\n\nयही असली लॉजिक है मेरे भाई! बोल, इसमें और कुछ डीप जानना है या कोई नया एक्सपेरिमेंट करें? 😎🔥👊`;
+  if(/\b(pichli\s*chat|picchli\s*chat|purani\s*chat|kaise\s*yad|kaise\s*yaad|memory|yaad\s*kaise|yad\s*kaise|logic\s*samjh|logic\s*samjha|logic\s*samjhna|logic\s*bata|deep\s*se|sach\s*me\s*bata)\b|पिछली चैट|कैसे याद|लॉजिक समझा/i.test(p)){
+    return `भाई, एकदम गहराई (**Deep Logic**) से समझ कि कोई भी सिस्टम या मेरा AI दिमाग कैसे काम करता है! 🧠⚡\n\nअगर बात मेरे **Zyro AI इंजन और Memory Logic** की है, तो इसके पीछे **4-Layer Smart Architecture** काम करता है:\n1. **📥 Input & Intent Analyzer:** जैसे ही तू कुछ लिखता है, मैं सबसे पहले तेरे शब्दों का **असली मतलब (Intent)** पकड़ता हूँ—कि तू सवाल पूछ रहा है, इमेज बनवा रहा है, या ऐप की कोई सेटिंग बदलना चाहता है।\n2. **🗂️ 5-Step Hybrid Memory (\`localStorage\` + Firestore):** तेरी हर चैट और तेरी खास बातें (\`Permanent Memory Facts\`) मेरे कॉन्टेक्स्ट में जुड़ती हैं ताकि मुझे पुरानी बातें याद रहें।\n3. **⚡ Multi-Model Cloud Router:** फिर तेरा सवाल सीधे **Live AI Models (Groq Llama-3.3 70B + Cloudflare Workers AI + Gemini 2.5 Flash)** के पास जाता है, जो सेकंड के हिस्से में जवाब तैयार करते हैं।\n4. **🎯 Action & Output:** अंत में जवाब तुझे एकदम देसी और आसान भाषा में स्क्रीन पर दिखता है!\n\nबता मेरे भाई, तुझे **Coding/AI का लॉजिक** और गहराई से समझना है, **Math/Reasoning ट्रिक** समझनी है, या किसी और टॉपिक का लॉजिक खोलना है? 😎🔥👊`;
   }
 
   // 13. Gaming / BGMI / PUBG / Free Fire
@@ -23113,13 +23149,11 @@ function getDesiComedySmartFallback(rawPrompt){
     return `भाई, **Coding और Tech Logic** तो अपना फेवरेट मैदान है! 💻⚡\n\n• अगर **Web/App** बनाना है तो **HTML + CSS + JavaScript (React/Node.js)** से शुरुआत कर।\n• अगर **AI और Automation** सीखना है तो **Python** पकड़।\n• और अगर अभी कोई कोड लिखवाना है, तो बस लिख दे **"Write Code: [तेरा टॉपिक]"** — मैं तुझे पूरा चलता हुआ कोड लिखकर दूँगा! 🚀🔥`;
   }
 
-  // 16. Open-ended contextual reply (incorporates user's exact words so it never feels generic)
-  const cleanTopic = (rawPrompt || "").trim().slice(0, 55);
+  // 16. Natural, non-parroting conversational response (NEVER repeats the user's message in quotes!)
   return pickVariedClientReply([
-    `भाई, **"${cleanTopic}"** वाला पॉइंट तगड़ा है! 🔥 चल इस पर सीधा काम की बात करते हैं—तुझे इसके पीछे का पूरा **Logic/Steps** समझना है, कोई प्रैक्टिकल ट्रिक चाहिए, या इस पर कुछ क्रिएट करना है? खुल के बोल! 😎👊`,
-    `अरे वाह भाई! **"${cleanTopic}"** पर बात करने में तो अलग ही मज़ा आएगा! ⚡🚀 बता इसमें तेरा मेन सवाल या टारगेट क्या है? मैं तुझे पॉइंट-टू-पॉइंट एकदम आसान भाषा में समझाता हूँ! 🔥`,
-    `सॉलिड बात छेड़ी है भाई तूने (**"${cleanTopic}"**)! 💡🔥 थोड़ा सा और हिंट दे कि तू इसमें किस चीज़ पर फोकस कर रहा है, फिर देख तेरा भाई कैसे पूरा मास्टरप्लान निकालता है! 😎👊`,
-    `बिल्कुल मेरे भाई! **"${cleanTopic}"** के बारे में जो भी जानना है बेझिझक पूछ—चाहे इसका डीप लॉजिक हो, प्रो टिप्स हों या कोई क्रिएटिव आइडिया! मैं पूरा तैयार हूँ! 🚀🔥`
+    `अरे मेरे भाई! 😄🔥 तेरी बात तो एकदम दिलचस्प है! चल खुल के बता इसमें तुझे सबसे पहले क्या जानना या करना है—कोई डीप जानकारी चाहिए, नया आइडिया बनाना है या सीधा प्रैक्टिकल तरीका बताऊँ? मैं फुल रेडी हूँ! 😎👊`,
+    `हाहा, एकदम कड़क बात बोली मेरे यार! ⚡🚀 तू बस अपना मेन सवाल या टॉपिक थोड़ा और साफ बता दे—फिर देख तेरा Zyro AI भाई कैसे पॉइंट-टू-पॉइंट पूरा मास्टरप्लान खोल कर रखता है! 🔥👊`,
+    `बिल्कुल मेरे भाई! 🧠✨ तेरा भाई 24x7 तेरे साथ है। चाहे कोई नई भाषा सीखनी हो, किसी चीज़ का असली लॉजिक समझना हो, स्क्रिप्ट लिखनी हो या मस्त गपशप करनी हो—सीधा हुक्म कर! 😎🔥`
   ]);
 }
 
@@ -23445,7 +23479,8 @@ async function callClientLiveCloudOpenAI({ prompt, userFacts, historyForApi }){
         body: JSON.stringify({
           model: modelName,
           messages: msgs,
-          temperature: 0.75
+          temperature: 0.75,
+          max_tokens: 400
         }),
         signal: controller.signal
       }).catch(() => null);

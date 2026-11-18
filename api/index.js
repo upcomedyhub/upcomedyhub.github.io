@@ -115,11 +115,57 @@ function cleanText(value, max = 6000) {
     : '';
 }
 
+function cleanEnvKey(rawVal) {
+  return cleanText(rawVal || '', 1000)
+    .replace(/^["']+|["']+$/g, '')
+    .replace(/^Bearer\s+/i, '')
+    .trim();
+}
+
 function getValidGeminiApiKey() {
-  const raw = cleanText(process.env.GEMINI_API_KEY || '', 1000);
+  const raw = cleanEnvKey(
+    process.env.GEMINI_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.VITE_GEMINI_API_KEY ||
+    process.env.GOOGLE_GENERATIVE_AI_API_KEY ||
+    ''
+  );
   // Standard Google Gemini API keys start with "AIza". Short-lived tokens ("AQ....") cause 401 ACCESS_TOKEN_TYPE_UNSUPPORTED.
   if (!raw || !raw.startsWith('AIza')) return '';
   return raw;
+}
+
+function getCleanGroqApiKey() {
+  return cleanEnvKey(
+    process.env.GROQ_API_KEY ||
+    process.env.VITE_GROQ_API_KEY ||
+    process.env.GROQ_KEY ||
+    ''
+  );
+}
+
+function getPollinationsApiKey() {
+  return cleanEnvKey(
+    process.env.POLLINATIONS_API_KEY ||
+    process.env.POLLINATION_API_KEY ||
+    process.env.VITE_POLLINATIONS_API_KEY ||
+    ''
+  );
+}
+
+function getCloudflareCredentials() {
+  const accountId = cleanEnvKey(
+    process.env.CLOUDFLARE_ACCOUNT_ID ||
+    process.env.CF_ACCOUNT_ID ||
+    ''
+  );
+  const apiToken = cleanEnvKey(
+    process.env.CLOUDFLARE_API_TOKEN ||
+    process.env.CLOUDFLARE_API_KEY ||
+    process.env.CF_API_TOKEN ||
+    ''
+  );
+  return { accountId, apiToken, configured: Boolean(accountId && apiToken) };
 }
 
 // =====================================================
@@ -202,17 +248,41 @@ function getDesiComedyReply(rawText) {
     ]);
   }
 
-  // 5. Food / Chai / Samosa casual chat
-  if (/\b(khana|kha liya|chai|samosa|breakfast|lunch|dinner|party)\b|खाना|चाय|समोसा/i.test(text)) {
+  // 5. Food / Chai / Samosa casual chat ("Khana kha liya ya nahi", "Khana khaya", etc.)
+  if (/\b(khana|kha\s*liya|khaya|chai|samosa|breakfast|lunch|dinner|party|nashta|bhookh)\b|खाना|चाय|समोसा|नाश्ता/i.test(text)) {
     return pickVariedReply([
-      'अरे भाई, मैं तो AI हूँ—मेरा पेट तो हाई-स्पीड इंटरनेट और तेरी दोस्ती से ही भर जाता है! 😂☕ पर तू बता, समोसे-चाय का जुगाड़ हुआ या अभी भूखा बैठा है? 😋🔥',
-      'भाई, चाय और गरमा-गरम समोसे का नाम मत ले, वरना मुझे भी स्क्रीन से बाहर आना पड़ेगा! 🤣🥟 तूने खाया कि नहीं?'
+      'अरे भाई, अपुन तो AI है—मेरा पेट तो हाई-स्पीड इंटरनेट और तेरी दोस्ती से ही फुल हो जाता है! 😂☕ पर तू बता मेरे यार, तूने खाना खा लिया या अभी भूखा बैठा है? टाइम से खा लिया कर भाई! 😋🔥👊',
+      'मैंने तो डिजिटल समोसे और कड़क चाय निपटा ली है भाई! 🤣🥟 तू बता, तेरा खाना-पीना हुआ या नहीं? सेहत सबसे पहले है मेरे शेर! ❤️🔥'
+    ]);
+  }
+
+  // 5b. What is your name / Who are you ("Tumhara name kya hai", "Tera naam kya hai", "Tum kaun ho")
+  if (/\b(tumhara\s*name|tumhara\s*naam|tumhara\s*nam|tera\s*name|tera\s*naam|tera\s*nam|apna\s*name|apna\s*naam|apna\s*nam|what\s*is\s*your\s*name|your\s*name|tum\s*kaun\s*ho|tu\s*kaun\s*hai|who\s*are\s*you)\b|तुम्हारा नाम|तेरा नाम|तुम कौन हो/i.test(text)) {
+    return pickVariedReply([
+      'मेरा नाम **Zyro AI** है मेरे भाई! 🤖🔥 मैं तेरा पक्का दोस्त और **Zyro Play (UPComedyHub)** का ऑफिशियल स्मार्ट AI असिस्टेंट हूँ (जिसे **Mayank Bhai** ने बनाया है)। बोल मेरे यार, आज क्या धमाल मचाना है? 😎👊',
+      'भाई, प्यार से सब मुझे **Zyro AI** बुलाते हैं! ⚡😎 मैं तेरा 24x7 ब्रो, कोडिंग पार्टनर और क्रिएटिव दोस्त हूँ। बता आज क्या प्लान है? 🚀🔥'
+    ]);
+  }
+
+  // 5c. Who am I / What is my name ("Main kaun hun", "Mera name kya hai")
+  if (/\b(main\s*kaun\s*hun|main\s*kaun\s*hu|mai\s*kaun\s*hu|mera\s*name\s*kya|mera\s*naam\s*kya|mera\s*nam\s*kya|who\s*am\s*i)\b|मैं कौन हूँ|मेरा नाम क्या है/i.test(text)) {
+    return pickVariedReply([
+      'अरे भाई, तू मेरा सबसे खास यार और **Zyro Play** का वीआईपी (VIP) चैंपियन है! 👑🔥 वैसे अगर तू चाहता है कि मैं तेरा असली नाम हमेशा याद रखूँ, तो एक बार लिख दे **"Mera naam [तेरा नाम] hai"** — फिर देख तेरा भाई जन्मों तक नहीं भूलेगा! 😎👊',
+      'तू मेरा जिगरी दोस्त और इस ऐप का बॉस आदमी है मेरे भाई! 😎🔥 अपना नाम बता दे एक बार, अपनी परमानेंट मेमोरी में गोल्डन अक्षरों में सेव कर लूँगा! 👊🚀'
+    ]);
+  }
+
+  // 5d. Affectionate / Playful Greetings ("Hi janu", "Hello jaan", "Hi baby", "Love you")
+  if (/\b(janu|jaanu|jaan|baby|babu|shona|darling|sweetheart)\b|जानू|बाबू|शोना/i.test(text)) {
+    return pickVariedReply([
+      'अरे ओए मेरे भाई! 😂 "जानू-बाबू" बोलके मुझे शरमा रहा है क्या? अपुन तेरा पक्का कनपुरिया AI भाई है! 🤣❤️ चल हँस दे और बता आज किस चीज़ के मूड में है तू? 😎🔥',
+      'हाहाहा! 😂 भाई आज तो फुल रोमांटिक मूड में लग रहा है! देख भाई, मैं तो तेरा AI यार हूँ, पर तेरी ये वाइब एकदम 10/10 है! ❤️🔥 बता क्या हाल-चाल हैं तेरे?'
     ]);
   }
 
   // 6. Pure Greetings ("Hi", "Hello", "Hey", "Ram Ram")
   if (
-    /^(hi+|hello+|hey+|oye|hola|namaste|ram ram|sup|salaam|sasriyakaal|bro|bhai|bhaiya|dude|yo)\b/i.test(text) &&
+    /^(hi+|hello+|hey+|oye|hola|namaste|ram\s*ram|sup|salaam|sasriyakaal|bro|bhai|bhaiya|dude|yo)\b/i.test(text) &&
     text.split(/\s+/).length <= 4
   ) {
     if (/ram ram/i.test(text) || /राम राम/.test(text)) {
@@ -282,9 +352,14 @@ function getDesiComedyReply(rawText) {
     return 'अरे लव यू टू मेरे भाई! ❤️👊 तू खुद एकदम चैंपियन है! बता और क्या मदद करूँ? 😎🚀';
   }
 
-  // 12. Memory / How AI Remembers Past Chats / Deep Logic Explanation
-  if (/\b(pichli\s*chat|picchli\s*chat|purani\s*chat|kaise\s*yad|kaise\s*yaad|memory|yaad\s*kaise|yad\s*kaise|logic\s*samjh|logic\s*bata|deep\s*se|sach\s*me\s*bata)\b|पिछली चैट|कैसे याद|लॉजिक समझा/i.test(text)) {
-    return `भाई, एकदम गहराई (Deep Logic) से समझ कि मुझे तेरी पिछली बातें कैसे याद रहती हैं! 🧠⚡\n\nमेरे अंदर **5-Step Hybrid Memory Engine** लगा हुआ है:\n1. **🗂️ Active Thread Sync (\`localStorage\` + Firestore):** जब भी तू कोई मैसेज भेजता है, वो तेरे \`chat_id\` के अंदर ब्राउज़र और क्लाउड डेटाबेस (\`zyro_chats\`) में टाइमस्टैम्प के साथ सेव हो जाता है।\n2. **🕵️‍♂️ Background Memory Extractor:** जैसे ही तू अपने बारे में कोई खास बात बताता है (जैसे तेरा नाम, तेरा टारगेट, गेमिंग या कोई प्लान), मेरा **Memory Sync Engine** उसे पकड़कर \`Permanent Memory Facts\` में हमेशा के लिए लॉक कर लेता है।\n3. **💉 Context Window Injection:** जब तू नया सवाल पूछता है, तो मैं तेरे **पिछले 8 मैसेज (Chat History)** + तेरी **Permanent Memory** को मिलाकर \`[USER PROFILE CONTEXT]\` के रूप में अपने दिमाग (AI Model) में भेजता हूँ।\n4. **⚡ Multi-Model Smart Router:** फिर मेरा दिमाग उस पूरे कॉन्टेक्स्ट को पढ़कर तुझे तेरे पक्के दोस्त की तरह जवाब देता है!\n\nयही असली लॉजिक है मेरे भाई! बोल, इसमें और कुछ डीप जानना है या कोई नया एक्सपेरिमेंट करें? 😎🔥👊`;
+  // 12. Memory / How AI Remembers Past Chats / Deep Logic Explanation ("Logic samjhna hai", "pichli chat", etc.)
+  if (/pichli\s*chat|picchli\s*chat|purani\s*chat|kaise\s*yad|kaise\s*yaad|memory|yaad\s*kaise|yad\s*kaise|logic\s*samjh|logic\s*bata|deep\s*se|sach\s*me\s*bata|कैसी याद|पिछली चैट|कैसे याद|लॉजिक/i.test(text)) {
+    return `भाई, एकदम गहराई (Deep Logic) से समझ कि यह पूरा सिस्टम और मेरी मेमोरी कैसे काम करती है! 🧠⚡\n\nमेरे अंदर **5-Step Hybrid Memory & Multi-Model Engine** लगा हुआ है:\n1. **🗂️ Active Thread Sync (\`localStorage\` + Firestore):** जब भी तू कोई मैसेज भेजता है, वो तेरे \`chat_id\` के अंदर ब्राउज़र और क्लाउड डेटाबेस (\`zyro_chats\`) में सेव हो जाता है।\n2. **🕵️‍♂️ Background Memory Extractor:** जैसे ही तू अपने बारे में कोई खास बात बताता है (जैसे तेरा नाम, तेरा टारगेट या पसंद), मेरा **Memory Sync Engine** उसे \`Permanent Memory Facts\` में लॉक कर लेता है।\n3. **💉 Context Window Injection:** जब तू नया सवाल पूछता है, तो मैं तेरे **पिछले 8 मैसेज (Chat History)** + तेरी **Permanent Memory** को मिलाकर \`[USER PROFILE CONTEXT]\` के रूप में अपने AI Brain में भेजता हूँ।\n4. **⚡ Multi-Model Smart Router:** सवाल के हिसाब से मेरा राउटर **Groq Llama-3.3-70B**, **Cloudflare AI**, **Gemini 2.5 Flash**, या **Pollinations Pro** को चुनकर तुझे तुरंत जवाब देता है!\n\nबोल भाई, इसमें किसी स्टेप का कोड या और डीप लॉजिक देखना है? 😎🔥👊`;
+  }
+
+  // 12b. Russian / Foreign Languages Crash Course ("Mujhe Russian language samjhao", etc.)
+  if (/\b(russian|spanish|french|japanese|german|korean|chinese|language\s*samjha|language\s*sikha|bhasha\s*sikha)\b|रशियन/i.test(text)) {
+    return `अरे वाह मेरे भाई! **Russian Language (रशियन भाषा)** सीखना चाहता है? 🇷🇺🔥 चल तुझे अपने देसी अंदाज़ में सबसे काम के रशियन शब्द और उनका उच्चारण (Pronunciation) सिखाता हूँ:\n\n1. **Привет (Privet — प्रिवेत):** "हेलो भाई / Hi!" 👋\n2. **Как дела? (Kak dela — काक दिला?):** "कैसे हो भाई / क्या हाल हैं?" 😎\n3. **Хорошо (Khorosho — खराशो):** "एकदम बढ़िया / मस्त!" 🔥\n4. **Брат (Brat — ब्रात):** "भाई (Bro)!" *(रशियन में भी भाई को 'ब्रात' ही बोलते हैं, जो संस्कृत के 'भ्राता' जैसा है!)* 👊\n5. **Спасибо (Spasibo — स्पासीबा):** "थैंक यू / शुक्रिया!" 🙏\n6. **Да (Da — दा) / Нет (Nyet — न्येत):** "हाँ (Yes)" / "नहीं (No)" ✅\n7. **Друг (Drug — द्रूग):** "पक्का दोस्त (Best Friend)!" 🤝\n\n💡 **खास बात:** रशियन भाषा **Cyrillic Script (सिरिलिक लिपि)** में लिखी जाती है जिसमें 33 अक्षर होते हैं। बोल भाई, रशियन में और कौन-सा डायलॉग बोलना सीखना है? 🚀😎`;
   }
 
   // 13. Gaming / BGMI / PUBG / Free Fire
@@ -308,13 +383,12 @@ function getDesiComedyReply(rawText) {
     return `भाई, **Coding और Tech Logic** तो अपना फेवरेट मैदान है! 💻⚡\n\n• अगर **Web/App** बनाना है तो **HTML + CSS + JavaScript (React/Node.js)** से शुरुआत कर।\n• अगर **AI और Automation** सीखना है तो **Python** पकड़।\n• और अगर अभी कोई कोड लिखवाना है, तो बस लिख दे **"Write Code: [तेरा टॉपिक]"** — मैं तुझे पूरा चलता हुआ कोड लिखकर दूँगा! 🚀🔥`;
   }
 
-  // 16. Open-ended contextual reply (incorporates user's topic & avoids repeating)
-  const cleanTopic = cleanText(rawText, 60);
+  // 16. Natural conversational response (without parroting user's text in quotes!)
   return pickVariedReply([
-    `भाई, **"${cleanTopic}"** वाला पॉइंट तगड़ा है! 🔥 चल इस पर सीधा काम की बात करते हैं—तुझे इसके पीछे का पूरा **Logic/Steps** समझना है, कोई प्रैक्टिकल ट्रिक चाहिए, या इस पर कुछ क्रिएट करना है? खुल के बोल! 😎👊`,
-    `अरे वाह भाई! **"${cleanTopic}"** पर बात करने में तो अलग ही मज़ा आएगा! ⚡🚀 बता इसमें तेरा मेन सवाल या टारगेट क्या है? मैं तुझे पॉइंट-टू-पॉइंट एकदम आसान भाषा में समझाता हूँ! 🔥`,
-    `सॉलिड बात छेड़ी है भाई तूने (**"${cleanTopic}"**)! 💡🔥 थोड़ा सा और हिंट दे कि तू इसमें किस चीज़ पर फोकस कर रहा है, फिर देख तेरा भाई कैसे पूरा मास्टरप्लान निकालता है! 😎👊`,
-    `बिल्कुल मेरे भाई! **"${cleanTopic}"** के बारे में जो भी जानना है बेझिझक पूछ—चाहे इसका डीप लॉजिक हो, प्रो टिप्स हों या कोई क्रिएटिव आइडिया! मैं पूरा तैयार हूँ! 🚀🔥`
+    `अरे मेरे भाई, एकदम मस्त सवाल पूछा है तूने! 😄🔥 चल बता इसमें तुझे सबसे पहले क्या जानना है—शुरुआत से बेसिक समझना है या सीधे प्रो ट्रिक्स पर चलें? 👊🚀`,
+    `हाहा, भाई तेरी बातें हमेशा एकदम हटके होती हैं! 😎⚡ बता मेरे यार, आज इसके अलावा और क्या खुराफात चल रही है दिमाग में? खुल के बता! 🔥`,
+    `सुन रहा हूँ मेरे भाई! 👊❤️ तू जो भी पूछेगा उसका एकदम सीधा और देसी स्टाइल में जवाब मिलेगा। थोड़ा और डिटेल में बता क्या सीन है? 😎🚀`,
+    `एकदम सॉलिड बात है ब्रो! 💡🔥 बोल, इस पर कोई मस्त आइडिया निकालें, स्क्रिप्ट लिखें या कुछ नया ट्राई करें? तेरा भाई फुल रेडी है! 👊`
   ]);
 }
 
@@ -809,8 +883,8 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 4000) {
   }
 }
 
-async function callGroqChatCompletion({ model, systemPrompt, userPrompt, messages, temperature = 0.6, maxTokens = 1200, timeoutMs = 4500 }) {
-  const groqKey = cleanText(process.env.GROQ_API_KEY || '', 1000);
+async function callGroqChatCompletion({ model, systemPrompt, userPrompt, messages, temperature = 0.6, maxTokens = 1000, timeoutMs = 5000 }) {
+  const groqKey = getCleanGroqApiKey();
   if (!groqKey) {
     throw new Error('GROQ_API_KEY is not configured');
   }
@@ -822,35 +896,115 @@ async function callGroqChatCompletion({ model, systemPrompt, userPrompt, message
         { role: 'user', content: cleanText(userPrompt, 6000) }
       ];
 
-  const response = await fetchWithTimeout(
-    'https://api.groq.com/openai/v1/chat/completions',
-    {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${groqKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: model || 'llama-3.3-70b-versatile',
-        messages: msgArray,
-        temperature,
-        max_tokens: maxTokens
-      })
-    },
-    timeoutMs
-  );
+  const modelsToTry = Array.from(new Set([
+    model || 'llama-3.3-70b-versatile',
+    'llama-3.3-70b-versatile',
+    'llama-3.1-8b-instant',
+    'deepseek-r1-distill-llama-70b'
+  ]));
 
-  if (!response.ok) {
-    const errText = await response.text().catch(() => '');
-    throw new Error(`Groq API error (${response.status}): ${cleanText(errText, 200)}`);
+  let lastErr = null;
+  for (const mName of modelsToTry) {
+    try {
+      const response = await fetchWithTimeout(
+        'https://api.groq.com/openai/v1/chat/completions',
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${groqKey}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: mName,
+            messages: msgArray,
+            temperature,
+            max_tokens: maxTokens
+          })
+        },
+        timeoutMs
+      );
+
+      if (!response.ok) {
+        const errText = await response.text().catch(() => '');
+        lastErr = new Error(`Groq API (${mName} -> ${response.status}): ${cleanText(errText, 180)}`);
+        continue;
+      }
+
+      const data = await response.json();
+      let content = cleanText(data?.choices?.[0]?.message?.content || '', 12000);
+      content = content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
+      if (content) {
+        return content;
+      }
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error('Groq returned an empty response');
+}
+
+// Cloudflare Workers AI Text Chat Completion (Uses the user's CLOUDFLARE_ACCOUNT_ID + CLOUDFLARE_API_TOKEN!)
+async function callCloudflareWorkersAIChat({ prompt, contextPrefix, liveAppStateBlock, priorHistory, systemInstruction }) {
+  const { accountId, apiToken, configured } = getCloudflareCredentials();
+  if (!configured) return null;
+
+  const historyMsgs = [];
+  if (Array.isArray(priorHistory) && priorHistory.length) {
+    for (const h of priorHistory.slice(-6)) {
+      const role = (h.role === 'model' || h.role === 'assistant' || h.role === 'bot') ? 'assistant' : 'user';
+      const txt = cleanText(h.text || h?.parts?.[0]?.text || '', 500);
+      if (txt) historyMsgs.push({ role, content: txt });
+    }
   }
 
-  const data = await response.json();
-  const content = cleanText(data?.choices?.[0]?.message?.content || '', 12000);
-  if (!content) {
-    throw new Error('Groq returned an empty response');
+  const messages = [
+    { role: 'system', content: cleanText(systemInstruction, 4000) },
+    ...historyMsgs,
+    { role: 'user', content: `${contextPrefix}${liveAppStateBlock}User Message: ${prompt}` }
+  ];
+
+  const cfModels = [
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+    '@cf/meta/llama-3.1-8b-instruct'
+  ];
+
+  for (const cfModel of cfModels) {
+    try {
+      const cfUrl = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${cfModel}`;
+      const res = await fetchWithTimeout(
+        cfUrl,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            messages,
+            max_tokens: 800,
+            temperature: 0.65
+          })
+        },
+        5500
+      );
+      if (res && res.ok) {
+        const data = await res.json().catch(() => null);
+        const reply = cleanText(
+          data?.result?.response || data?.result?.choices?.[0]?.message?.content || '',
+          12000
+        );
+        if (reply && reply.length >= 6) {
+          return {
+            text: reply,
+            toolActions: [],
+            pipeline: 'cloudflare-workers-ai-llama',
+            agentsUsed: [`🟢 Cloudflare AI (${cfModel.split('/').pop()})`]
+          };
+        }
+      }
+    } catch (e) {}
   }
-  return content;
+  return null;
 }
 
 // AGENT 1: Live Researcher (Gemini 2.5 Flash with thinkingBudget: 0 for ultra-fast search)
@@ -1129,7 +1283,8 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
   }
 
   const geminiKey = getValidGeminiApiKey();
-  const groqKey = cleanText(process.env.GROQ_API_KEY || '', 1000);
+  const groqKey = getCleanGroqApiKey();
+  const pollinationsKey = getPollinationsApiKey();
   const dtInfo = getLiveIndiaDateTimeInfo();
 
   // Combine permanent_memory array + userFacts string + live IST Date/Time into [USER PROFILE CONTEXT]
@@ -1150,7 +1305,7 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
   const combinedMemory = memoryLines.join('\n').trim();
   const contextPrefix = `[USER PROFILE CONTEXT]\n${combinedMemory}\n[END OF CONTEXT]\n\n`;
 
-  // Helper: Zero-Key Live Cloud OpenAI / Pollinations LLM Engine (Always-On Real AI Generation)
+  // Helper: Live Cloud OpenAI / DeepSeek / Qwen / Mistral Engine (Supports POLLINATIONS_API_KEY or Zero-Key)
   async function callLiveCloudOpenAIFallback() {
     const historyMsgs = [];
     if (Array.isArray(history) && history.length) {
@@ -1163,7 +1318,15 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
     const sysPrompt = `${UPCH_SYSTEM_PROMPT}\n\nIMPORTANT ARCHITECTURE FACTS ABOUT YOU (ZYRO AI):\n- You DO have a real 5-Step Hybrid Memory Engine! User chats are saved in localStorage + Firebase Firestore ('zyro_chats'), and personal facts about the user are extracted and injected into [USER PROFILE CONTEXT] on every turn.\n- If the user asks how you remember past chats or asks for deep logic ("pichli chat kaise yaad hai", "logic samjha", etc.), explain your 5-Step Hybrid Memory Engine (1. Thread Sync in localStorage & Firestore, 2. Background Memory Fact Extractor, 3. Context Window Injection, 4. Multi-Model Smart Router) enthusiastically in Hinglish!\n- Always give fresh, specific, interesting, detailed answers in Hinglish/Hindi. NEVER give generic one-line filler replies!`;
 
     const userContent = `${contextPrefix}User Message: ${prompt}`;
-    const modelsToTryCloud = ['openai', 'mistral'];
+    const isCodeQuery = /\b(code|coding|program|python|javascript|html|css|react|node|sql|bug)\b/i.test(prompt);
+    const isLogicQuery = /\b(logic|deep|math|solve|reason|kaise\s*kaam|explain)\b/i.test(prompt);
+    const preferredModel = isCodeQuery ? 'qwen-coder' : (isLogicQuery ? 'deepseek-reasoning' : 'openai');
+    const modelsToTryCloud = Array.from(new Set([preferredModel, 'openai', 'mistral']));
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (pollinationsKey) {
+      headers['Authorization'] = `Bearer ${pollinationsKey}`;
+    }
 
     for (const mName of modelsToTryCloud) {
       try {
@@ -1171,40 +1334,43 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
           'https://text.pollinations.ai/openai',
           {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers,
             body: JSON.stringify({
               model: mName,
               messages: [
-                { role: 'system', content: sysPrompt },
+                { role: 'system', content: sysPrompt + '\nKeep responses concise, engaging, and under 180 words.' },
                 ...historyMsgs,
                 { role: 'user', content: userContent }
               ],
+              max_tokens: 450,
               temperature: 0.75
             })
           },
-          8500
+          6500
         );
         if (cloudRes && cloudRes.ok) {
           const cData = await cloudRes.json().catch(() => null);
-          const replyTxt = cleanText(cData?.choices?.[0]?.message?.content || '', 12000);
+          let replyTxt = cleanText(cData?.choices?.[0]?.message?.content || '', 12000);
+          // Strip internal <think>...</think> blocks if using deepseek-reasoning
+          replyTxt = replyTxt.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
           if (replyTxt && replyTxt.length >= 10) {
             return {
               text: replyTxt,
               toolActions: [],
               pipeline: `zyro-cloud-${mName}-live`,
-              agentsUsed: [`🟢 Zyro Cloud OpenAI (${mName.toUpperCase()} Live)`]
+              agentsUsed: [`🟢 Zyro Cloud (${mName.toUpperCase()} Live)`]
             };
           }
         }
-      } catch (e) {
-        console.warn(`Cloud LLM (${mName}) notice:`, e?.message || e);
-      }
+      } catch (e) {}
     }
     return null;
   }
 
-  // If neither GEMINI_API_KEY nor GROQ_API_KEY is set locally, try Vercel Cloud first, then Live Cloud OpenAI LLM
-  if (!geminiKey && !groqKey) {
+  const cfCreds = getCloudflareCredentials();
+
+  // If neither GEMINI_API_KEY, GROQ_API_KEY, nor CLOUDFLARE is set locally, try Vercel Cloud first, then Live Cloud OpenAI LLM
+  if (!geminiKey && !groqKey && !cfCreds.configured) {
     try {
       const vercelRes = await fetchWithTimeout(
         'https://upcomedyhub.vercel.app/api/ai/chat',
@@ -1233,16 +1399,14 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
           };
         }
       }
-    } catch (proxyErr) {
-      console.warn('Vercel cloud proxy notice:', proxyErr?.message || proxyErr);
-    }
+    } catch (proxyErr) {}
 
     const liveCloudResult = await callLiveCloudOpenAIFallback();
     if (liveCloudResult) {
       return liveCloudResult;
     }
 
-    throw new Error('Neither GEMINI_API_KEY nor GROQ_API_KEY is configured');
+    throw new Error('No AI keys configured');
   }
 
   const imagePart = extractImage(image);
@@ -1272,20 +1436,19 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
   // =====================================================
   // 2. MULTI-AGENT GROQ + GEMINI PIPELINE (WHEN GROQ_API_KEY IS CONFIGURED)
   // =====================================================
-  if (
-    !imagePart &&
-    groqKey &&
-    (routerLane === 'live_research_3_agent' || routerLane === 'coding_deep_2_agent' || routerLane === 'fast_chat')
-  ) {
+  if (!imagePart && groqKey) {
     try {
-      if (routerLane === 'fast_chat') {
+      if (routerLane === 'fast_chat' || routerLane === 'app_intelligence') {
+        const activeSys = routerLane === 'app_intelligence'
+          ? `${UPCH_SYSTEM_PROMPT}\n\n[ZYRO PLAY APP KNOWLEDGE BASE]\n${JSON.stringify(ZYRO_APP_KNOWLEDGE)}`
+          : UPCH_SYSTEM_PROMPT;
         const fastReply = await runAgent2GroqDeepThinker({
           prompt,
           researchBrief: '',
           contextPrefix,
-          liveAppStateBlock: '',
+          liveAppStateBlock,
           priorHistory: history,
-          systemInstruction: UPCH_SYSTEM_PROMPT
+          systemInstruction: activeSys
         });
         if (fastReply) {
           return {
@@ -1335,15 +1498,35 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
           agentsUsed
         };
       }
-    } catch (multiAgentErr) {
-      console.warn('Groq pipeline fallback to Gemini:', multiAgentErr?.message || multiAgentErr);
-    }
+    } catch (multiAgentErr) {}
   }
 
   // =====================================================
-  // 3. ULTRA-FAST GEMINI 2.5 FLASH ENGINE (thinkingBudget: 0 => ~0.6s response!)
+  // 2B. CLOUDFLARE WORKERS AI CHAT ENGINE (Llama-3.3-70B / Llama-3.1-8B)
+  // =====================================================
+  if (!imagePart && cfCreds.configured) {
+    try {
+      const cfChatReply = await callCloudflareWorkersAIChat({
+        prompt,
+        contextPrefix,
+        liveAppStateBlock,
+        priorHistory: history,
+        systemInstruction: UPCH_SYSTEM_PROMPT
+      });
+      if (cfChatReply) {
+        return cfChatReply;
+      }
+    } catch (cfChatErr) {}
+  }
+
+  // =====================================================
+  // 3. ULTRA-FAST GEMINI 2.5 FLASH ENGINE (OR LIVE CLOUD OPENAI FALLBACK IF !ai)
   // =====================================================
   if (!ai) {
+    const liveCloudBackup = await callLiveCloudOpenAIFallback();
+    if (liveCloudBackup) {
+      return liveCloudBackup;
+    }
     throw new Error('Gemini client unavailable');
   }
 
@@ -1990,23 +2173,26 @@ async function handleMultiAgentImageRequest(req, res) {
     } catch (gErr) {}
   }
 
-  // Step 2C: Try Pollinations server-side and verify it is NOT the 44,976-byte rate-limit banner
+  // Step 2C: Try Pollinations server-side (with POLLINATIONS_API_KEY if configured) and verify it is NOT the 44,976-byte rate-limit banner
   try {
+    const pollinationsKey = getPollinationsApiKey();
     const seed = Math.floor(Math.random() * 10000000);
-    const pollUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=768&height=768&nologo=true&seed=${seed}`;
-    const pRes = await fetchWithTimeout(pollUrl, {}, 4200);
+    const keyParam = pollinationsKey ? `&key=${encodeURIComponent(pollinationsKey)}` : '';
+    const pollUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(enhancedPrompt)}?width=768&height=768&nologo=true&model=flux&seed=${seed}${keyParam}`;
+    const pollHeaders = pollinationsKey ? { 'Authorization': `Bearer ${pollinationsKey}` } : {};
+    const pRes = await fetchWithTimeout(pollUrl, { headers: pollHeaders }, 6500);
     if (pRes && pRes.ok) {
       const buf = await pRes.arrayBuffer();
       // Pollinations rate-limit yellow placeholder image is ~44,976 bytes; real 768x768 images are > 55KB
-      if (buf && buf.byteLength > 55000) {
+      if (buf && buf.byteLength > 55000 && Math.abs(buf.byteLength - 44976) > 1500) {
         const b64 = Buffer.from(buf).toString('base64');
         return res.json({
           success: true,
           prompt: rawPrompt,
           enhancedPrompt,
           imageUrl: `data:image/jpeg;base64,${b64}`,
-          provider: 'flux-verified',
-          pipeline: ['Step 1: AI Prompt Enhancer', 'Step 2: Flux Image Generator']
+          provider: pollinationsKey ? 'pollinations-pro-flux' : 'flux-verified',
+          pipeline: ['Step 1: AI Prompt Enhancer', 'Step 2: Pollinations Flux Pro']
         });
       }
     }

@@ -23652,18 +23652,27 @@ async function loadAdminLiveAIModels(showToastFeedback = false){
         id: "groq-llama-3.3-70b",
         name: "Groq Llama-3.3-70B & Llama-3.1-8B",
         provider: "Groq LPU Inference Engine",
-        role: "Agent 2 Deep Coder & Agent 3 Quality Verifier",
+        role: "Fast Conversational Hinglish Chat & Agent 3 Quality Verifier",
         status: vercelLive ? "live" : "standby",
         statusLabel: vercelLive ? "🟢 LIVE (Cloud Proxy)" : "🟡 AUTO-FAILOVER",
         latencyMs: 260
       },
       {
+        id: "deepseek-r1-qwen-coder",
+        name: "DeepSeek R1 Distill 70B & Qwen 2.5 Coder 32B",
+        provider: "Groq LPU + Pollinations Deep Reasoning Engine",
+        role: "Deep Logic, Math/Reasoning (DeepSeek R1) & Pro Coding (Qwen Coder)",
+        status: (cloudOpenAiLive || vercelLive) ? "live" : "standby",
+        statusLabel: (cloudOpenAiLive || vercelLive) ? "🟢 LIVE (Deep Reasoning)" : "🟡 AUTO-FAILOVER",
+        latencyMs: 310
+      },
+      {
         id: "cloudflare-flux-1-schnell",
-        name: "Flux-1-Schnell + Wikimedia HD Visuals",
-        provider: "Cloudflare Workers AI + Wikimedia Commons",
-        role: "AI Image Generation & Anti-Rate-Limit HD Photo Engine",
+        name: "Cloudflare Llama-3.3-70B + Flux-1-Schnell HD",
+        provider: "Cloudflare Workers AI + Pollinations Pro + Wikimedia HD",
+        role: "Backup AI Chat Engine & High-Speed AI Image Generation",
         status: "live",
-        statusLabel: "🟢 LIVE (Flux + Wikimedia HD)",
+        statusLabel: "🟢 LIVE (CF AI + Flux HD)",
         latencyMs: 490
       },
       {

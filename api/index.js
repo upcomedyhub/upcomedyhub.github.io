@@ -1033,8 +1033,8 @@ async function runAgent1GeminiLiveResearcher({ prompt, ai, needWebSearch }) {
   return '';
 }
 
-// AGENT 2: Deep Thinker / Coder (Groq llama-3.3-70b-versatile)
-async function runAgent2GroqDeepThinker({ prompt, researchBrief, contextPrefix, liveAppStateBlock, priorHistory, systemInstruction }) {
+// AGENT 2: Deep Thinker / Coder (Smart Model Picker: DeepSeek R1 70B for Logic/Math, Qwen 2.5 Coder 32B for Code, Llama 3.3 70B for Chat)
+async function runAgent2GroqDeepThinker({ prompt, researchBrief, contextPrefix, liveAppStateBlock, priorHistory, systemInstruction, preferredModel }) {
   const historyMsgs = [];
   if (Array.isArray(priorHistory) && priorHistory.length) {
     for (const h of priorHistory.slice(-6)) {
@@ -1050,8 +1050,17 @@ async function runAgent2GroqDeepThinker({ prompt, researchBrief, contextPrefix, 
 
   const userPayload = `${contextPrefix}${liveAppStateBlock}${researchSection}User Message: ${prompt}`;
 
+  const isCodeQuery = /\b(code|coding|program|python|javascript|html|css|react|node|sql|bug|error|function|script)\b|कोड|प्रोग्राम/i.test(prompt);
+  const isDeepReasoningQuery = /\b(logic|deep|math|solve|calculate|reason|algorithm|kaise\s*kaam|samjhao|explain)\b|लॉजिक|गणित/i.test(prompt);
+
+  const selectedPrimaryModel = preferredModel || (
+    isDeepReasoningQuery
+      ? 'deepseek-r1-distill-llama-70b'
+      : (isCodeQuery ? 'qwen-2.5-coder-32b' : 'llama-3.3-70b-versatile')
+  );
+
   return await callGroqChatCompletion({
-    model: 'llama-3.3-70b-versatile',
+    model: selectedPrimaryModel,
     messages: [
       { role: 'system', content: cleanText(systemInstruction, 4500) },
       ...historyMsgs,
@@ -1059,7 +1068,7 @@ async function runAgent2GroqDeepThinker({ prompt, researchBrief, contextPrefix, 
     ],
     temperature: 0.6,
     maxTokens: 1400,
-    timeoutMs: 4500
+    timeoutMs: 4800
   });
 }
 
@@ -2680,19 +2689,28 @@ app.get('/api/ai/models-status', async (req, res) => {
       id: 'groq-llama-3.3-70b',
       name: 'Groq Llama-3.3-70B & Llama-3.1-8B',
       provider: 'Groq LPU Inference Engine',
-      role: 'Agent 2 Deep Coder & Agent 3 Quality Verifier',
+      role: 'Fast Conversational Hinglish Chat & Agent 3 Quality Verifier',
       status: (hasGroqKey || vercelGatewayLive) ? 'live' : 'standby',
       statusLabel: hasGroqKey ? '🟢 LIVE (Direct LPU)' : (vercelGatewayLive ? '🟢 LIVE (Cloud Proxy)' : '🟡 STANDBY (Auto-Failover)'),
       latencyMs: 240
     },
     {
+      id: 'deepseek-r1-qwen-coder',
+      name: 'DeepSeek R1 Distill 70B & Qwen 2.5 Coder 32B',
+      provider: 'Groq LPU + Pollinations Deep Reasoning Engine',
+      role: 'Deep Logic, Math/Reasoning (DeepSeek R1) & Pro Coding (Qwen Coder)',
+      status: (hasGroqKey || cloudOpenAiLive || vercelGatewayLive) ? 'live' : 'standby',
+      statusLabel: hasGroqKey ? '🟢 LIVE (Groq LPU)' : (cloudOpenAiLive ? '🟢 LIVE (Cloud Router)' : '🟢 LIVE (Proxy)'),
+      latencyMs: 310
+    },
+    {
       id: 'cloudflare-flux-1-schnell',
-      name: 'Flux-1-Schnell + Wikimedia HD Visuals',
-      provider: 'Cloudflare Workers AI + Wikimedia Commons',
-      role: 'AI Image Generation & Anti-Rate-Limit HD Photo Engine',
+      name: 'Cloudflare Llama-3.3-70B + Flux-1-Schnell HD',
+      provider: 'Cloudflare Workers AI + Pollinations Pro + Wikimedia HD',
+      role: 'Backup AI Chat Engine & High-Speed AI Image Generation',
       status: 'live',
       statusLabel: hasCfKey ? '🟢 LIVE (CF Workers AI)' : '🟢 LIVE (Flux + Wikimedia HD)',
-      latencyMs: 510
+      latencyMs: 490
     },
     {
       id: 'zyro-app-intelligence',

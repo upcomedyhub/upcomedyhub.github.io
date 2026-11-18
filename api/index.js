@@ -2083,6 +2083,124 @@ app.post('/api/ai/chat', handleZyroAIChatRequest);
 app.post('/api/chat', handleZyroAIChatRequest);
 
 // =====================================================
+// AI VOICE-TO-TEXT TRANSCRIPTION (GROQ WHISPER-LARGE-V3-TURBO + GEMINI AUDIO)
+// =====================================================
+
+app.post('/api/ai/transcribe', async (req, res) => {
+  try {
+    const rawAudio = cleanText(req.body?.audioBase64 || req.body?.audio || '', 8000000);
+    if (!rawAudio) {
+      return res.status(400).json({ success: false, error: 'Audio data is required' });
+    }
+
+    const base64Clean = rawAudio.includes(',') ? rawAudio.split(',')[1].trim() : rawAudio.trim();
+    const mimeType = cleanText(req.body?.mimeType || 'audio/webm', 80) || 'audio/webm';
+    const ext = mimeType.includes('mp4') || mimeType.includes('m4a')
+      ? 'm4a'
+      : (mimeType.includes('ogg') ? 'ogg' : (mimeType.includes('wav') ? 'wav' : 'webm'));
+
+    const groqKey = getCleanGroqApiKey();
+    if (groqKey && typeof FormData !== 'undefined' && typeof Blob !== 'undefined') {
+      try {
+        const audioBuffer = Buffer.from(base64Clean, 'base64');
+        const form = new FormData();
+        form.append('file', new Blob([audioBuffer], { type: mimeType }), `voice.${ext}`);
+        form.append('model', 'whisper-large-v3-turbo');
+        form.append('prompt', 'Hinglish, Hindi, English conversation with Zyro AI');
+        form.append('response_format', 'json');
+
+        const wRes = await fetchWithTimeout(
+          'https://api.groq.com/openai/v1/audio/transcriptions',
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${groqKey}`
+            },
+            body: form
+          },
+          7500
+        );
+
+        if (wRes && wRes.ok) {
+          const wData = await wRes.json().catch(() => null);
+          const text = cleanText(wData?.text || '', 2000);
+          if (text) {
+            return res.json({
+              success: true,
+              text,
+              provider: 'groq-whisper-large-v3-turbo'
+            });
+          }
+        }
+      } catch (wErr) {}
+    }
+
+    const geminiKey = getValidGeminiApiKey();
+    if (geminiKey) {
+      try {
+        const GoogleGenAI = await getGoogleGenAIClass();
+        const ai = new GoogleGenAI({
+          apiKey: geminiKey,
+          httpOptions: { headers: { 'User-Agent': 'aistudio-build' } }
+        });
+        const gRes = await ai.models.generateContent({
+          model: 'gemini-2.5-flash',
+          contents: [
+            {
+              role: 'user',
+              parts: [
+                { inlineData: { mimeType, data: base64Clean } },
+                { text: 'Transcribe this spoken audio accurately in Hinglish, Hindi, or English. Output ONLY the transcribed words, nothing else.' }
+              ]
+            }
+          ],
+          config: { temperature: 0.1, thinkingConfig: { thinkingBudget: 0 } }
+        });
+        const gText = cleanText(gRes?.text || '', 2000);
+        if (gText) {
+          return res.json({
+            success: true,
+            text: gText,
+            provider: 'gemini-2.5-flash-audio'
+          });
+        }
+      } catch (gErr) {}
+    }
+
+    // If local server has no keys, proxy to Vercel Cloud gateway
+    if (!groqKey && !geminiKey) {
+      try {
+        const vRes = await fetchWithTimeout(
+          'https://upcomedyhub.vercel.app/api/ai/transcribe',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ audioBase64: base64Clean, mimeType })
+          },
+          7000
+        );
+        if (vRes && vRes.ok) {
+          const vJson = await vRes.json().catch(() => null);
+          if (vJson && vJson.success && vJson.text) {
+            return res.json(vJson);
+          }
+        }
+      } catch (pErr) {}
+    }
+
+    return res.status(503).json({
+      success: false,
+      error: 'Transcription unavailable'
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: err?.message || 'Transcription error'
+    });
+  }
+});
+
+// =====================================================
 // AI IMAGE GENERATION (2-STEP PIPELINE: GROQ PROMPT ENHANCER -> CLOUDFLARE FLUX-1-SCHNELL)
 // =====================================================
 
@@ -2702,6 +2820,15 @@ app.get('/api/ai/models-status', async (req, res) => {
       status: (hasGroqKey || cloudOpenAiLive || vercelGatewayLive) ? 'live' : 'standby',
       statusLabel: hasGroqKey ? '🟢 LIVE (Groq LPU)' : (cloudOpenAiLive ? '🟢 LIVE (Cloud Router)' : '🟢 LIVE (Proxy)'),
       latencyMs: 310
+    },
+    {
+      id: 'groq-whisper-v3-turbo',
+      name: 'Groq Whisper-Large-v3-Turbo + Web Speech',
+      provider: 'Groq Audio LPU + Browser Speech Engine',
+      role: 'Bolkar Bhejne Wala Feature (Hindi/Hinglish/English Voice-to-Text)',
+      status: 'live',
+      statusLabel: hasGroqKey ? '🟢 LIVE (Whisper LPU)' : '🟢 LIVE (Hybrid Voice)',
+      latencyMs: 190
     },
     {
       id: 'cloudflare-flux-1-schnell',

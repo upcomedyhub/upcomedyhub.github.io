@@ -2757,21 +2757,38 @@ process.on('unhandledRejection', (reason) => {
 });
 
 if (!process.env.VERCEL) {
-  const PORT = 3000;
+  const PORT = Number(process.env.PORT) || 3000;
+  let activeServer = null;
 
-  const server = app.listen(
-    PORT,
-    '0.0.0.0',
-    () => {
-      console.log(
-        `UPComedyHub backend running at http://0.0.0.0:${PORT}`
-      );
+  const startServer = (retriesLeft = 5) => {
+    const srv = app.listen(PORT, '0.0.0.0', () => {
+      activeServer = srv;
+      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`UPComedyHub backend running at http://0.0.0.0:${PORT}`);
+    });
+
+    srv.on('error', (err) => {
+      if (err && err.code === 'EADDRINUSE' && retriesLeft > 0) {
+        setTimeout(() => startServer(retriesLeft - 1), 350);
+      } else {
+        console.warn('Server listen warning:', err?.message || err);
+      }
+    });
+  };
+
+  startServer();
+
+  const shutdownCleanly = () => {
+    if (activeServer) {
+      activeServer.close(() => process.exit(0));
+      setTimeout(() => process.exit(0), 200);
+    } else {
+      process.exit(0);
     }
-  );
+  };
 
-  server.on('error', (err) => {
-    console.warn('Server listen warning:', err?.message || err);
-  });
+  process.on('SIGTERM', shutdownCleanly);
+  process.on('SIGINT', shutdownCleanly);
 }
 
 // =====================================================

@@ -149,9 +149,9 @@ function getDesiComedyReply(rawText) {
     return 'मैं एकदम फर्स्ट क्लास और फुल एनर्जी में हूँ भाई! 😎🔥 तू बता, तेरे क्या हाल हैं और दिमाग में कौन सा नया आइडिया चल रहा है? 🚀';
   }
 
-  // Sad / Emotional Support (Feature 3 priority)
+  // Sad / Emotional Support (Feature 3 priority — strict word boundaries so "bro" / "zyroplay" never match "ro")
   if (
-    /sad|udas|dukhi|tension|pareshaan|low|depressed|akela|fail|haar|stress|anxious|ro|rona|mood off/i.test(text)
+    /\b(sad|udas|dukhi|tension|pareshaan|depressed|akela|rona|ro raha|ro rahi|mood off|bura lag)\b|उदास|दुखी|परेशान|अकेला|रो रहा/i.test(text)
   ) {
     return '**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और काम अभी साइड में रख। तू अकेला नहीं है यार, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में ऐसे फेज़ आते हैं, पर इसका मतलब ये नहीं कि तू कमज़ोर है। थोड़ा पानी पी, गहरी साँस ले और दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ भाई! 🫂👊';
   }
@@ -650,6 +650,32 @@ function evaluateDeterministicAppIntelligence(rawPrompt, appState = {}) {
     };
   }
 
+  // 9. App Name / What is this app / Do you know Zyro Play?
+  if (
+    /\b(app\s*ka\s*kya\s*nam|app\s*ka\s*nam|app\s*name|is\s*app\s*ka|zyro\s*play.*jante|zyroplay.*jante|gyro\s*play.*jante|kya\s*tum\s*zyro|kaun\s*sa\s*app|kis\s*app)\b|इस\s*ऐप\s*का\s*नाम|ऐप\s*का\s*क्या\s*नाम/i.test(lower)
+  ) {
+    return {
+      matched: true,
+      reply: `**भाई, इस ऐप का नाम Zyro Play (UPComedyHub) है!** 🔥🚀\n\nऔर हाँ भाई, मैं **Zyro AI** हूँ — इसी **Zyro Play** ऐप का ऑफिशियल इंटेलिजेंट असिस्टेंट (जिसके क्रिएटर और डायरेक्टर **Mayank Bhai** हैं)!\n\nमैं इस ऐप के हर कोने को जानता हूँ:\n• **🏠 Home Feed:** रील्स, स्टोरीज़, इमेज स्टूडियो और लाइव पोल्स (📊)\n• **🎬 Reels & Live Stage:** 9:16 शॉर्ट्स और लाइव कॉमेडी स्टेज\n• **🎮 Fun Zone:** 7 मजेदार कॉमेडी और आर्केड गेम्स\n• **⚙️ Smart Controls:** मुझसे बोलकर सीधे **Dark Mode**, **Notifications**, या **Settings** बदलवा सकते हो! 😎👊`,
+      toolActions: []
+    };
+  }
+
+  // 10. Online vs Offline Mode Check
+  if (/\b(online\s*mode|offline\s*mode|ofline|online\s*ho\s*ya|tum\s*online|kisme\s*chal\s*rahe)\b|ऑनलाइन\s*मोड|ऑफलाइन/i.test(lower)) {
+    const hasCloudKeys = Boolean(
+      cleanText(process.env.GEMINI_API_KEY || '', 100) ||
+      cleanText(process.env.GROQ_API_KEY || '', 100)
+    );
+    return {
+      matched: true,
+      reply: hasCloudKeys
+        ? `**भाई, मैं इस समय 100% Live Online Mode (Cloud AI Active) में हूँ!** 🟢⚡\n\n• **App Intelligence Layer:** Active ✅\n• **Cloud AI Engine (Gemini / Groq):** Connected 🌐\n• **Current Theme:** \`${curTheme}\` | **Screen:** \`${curScreen}\`\n\nबोल मेरे भाई, क्या सर्च करना है या कौन-सा कोड लिखना है? 🚀👊`
+        : `**भाई, मेरा Zyro App Intelligence Engine इस समय एक्टिव है!** ⚡🧠\n\n• **App Controls & Knowledge Base:** 100% Live & Ready ✅\n• **Cloud API Keys (Vercel):** जब तुम इसे अपने **Vercel URL** (\`upcomedyhub.vercel.app\`) पर चलाओगे जहाँ तुम्हारी \`GEMINI_API_KEY\`, \`GROQ_API_KEY\` और \`CLOUDFLARE_API_TOKEN\` सेव हैं, तो पूरा **Cloud Multi-Agent Online Mode** काम करेगा! 🚀👊`,
+      toolActions: []
+    };
+  }
+
   return { matched: false, reply: '', toolActions: [] };
 }
 
@@ -822,9 +848,55 @@ async function runAgent3GroqQualityReviewer({ prompt, draftResponse, researchBri
   return draftResponse;
 }
 
+// Deterministic Hindi / Hinglish to English Visual Prompt Translator (ensures Hindi prompts like "एक उड़ती हुई कार" never fail!)
+function translateHindiImagePromptToEnglish(rawText) {
+  let s = cleanText(rawText || '', 500);
+  if (!s) return 'futuristic flying sports car soaring in the sky above a modern city';
+
+  const dictionary = [
+    [/एक\s*उड़ती\s*हुई\s*कार|उड़ती\s*हुई\s*कार|उड़ने\s*वाली\s*कार|udti\s*hui\s*car|flying\s*car/gi, 'futuristic flying sports car with glowing thrusters soaring high in the sky above a neon futuristic city'],
+    [/कार|गाड़ी|gadi|gaadi/gi, 'sleek modern sports car'],
+    [/बाइक|मोटरसाइकिल|bike/gi, 'superbike motorcycle'],
+    [/शेर|सिंह|sher/gi, 'majestic roaring lion'],
+    [/बाघ|टाइगर|bagh/gi, 'royal Bengal tiger'],
+    [/हाथी|hathi/gi, 'majestic Indian elephant'],
+    [/कुत्ता|dog|kutta/gi, 'cute dog'],
+    [/बिल्ली|cat|billi/gi, 'cute fluffy cat'],
+    [/रोबोट|robot/gi, 'futuristic humanoid AI robot'],
+    [/ताज\s*महल|ताजमहल|taj\s*mahal/gi, 'majestic Taj Mahal monument at golden sunset'],
+    [/कानपुर|kanpur/gi, 'vibrant bustling street in Kanpur India'],
+    [/अंतरिक्ष|स्पेस|आसमान|aasmaan|asman|sky/gi, 'dramatic clouds and sky'],
+    [/चाँद|चांद|chand|moon/gi, 'glowing full moon in starry night sky'],
+    [/पहाड़|पर्वत|pahad/gi, 'snow-capped Himalayan mountains'],
+    [/समुद्र|समंदर|samundar/gi, 'crystal clear ocean waves'],
+    [/जंगल|वन|jangal/gi, 'lush mystical forest with sunbeams'],
+    [/महल|किला|mahal|kila/gi, 'grand royal Indian palace fort'],
+    [/बारिश|बरसात|barish/gi, 'cinematic rain with neon reflections'],
+    [/सुपरहीरो|superhero/gi, 'powerful Indian superhero in glowing armor'],
+    [/कॉमेडी|comedy/gi, 'vibrant comedy stage with spotlight and microphone'],
+    [/लड़का|ladka/gi, 'stylish young Indian man'],
+    [/लड़की|ladki/gi, 'graceful young Indian woman'],
+    [/दोस्त|dost/gi, 'happy group of friends'],
+    [/की\s*फोटो\s*बनाओ|फोटो\s*बनाओ|इमेज\s*बनाओ|तस्वीर\s*बनाओ|चित्र\s*बनाओ|बनाओ|बना\s*दो|एक/gi, ' ']
+  ];
+
+  for (const [regex, eng] of dictionary) {
+    s = s.replace(regex, ' ' + eng + ' ');
+  }
+
+  // Strip any leftover Devanagari characters so English-only image models never hallucinate random portraits
+  s = s.replace(/[\u0900-\u097F]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+  if (!s || s.length < 3) {
+    return 'futuristic flying sports car soaring in the sky above a modern city';
+  }
+  return s;
+}
+
 // PIPELINE B: 2-Step Image Generation (Step 1: Fast Prompt Enhancer -> Step 2: Cloudflare Workers AI Flux-1-Schnell)
 async function enhanceImagePromptWithAI(rawPrompt) {
-  const cleanRaw = cleanText(rawPrompt || 'funny desi comedy stage', 500);
+  const cleanRaw = cleanText(rawPrompt || 'futuristic flying car', 500);
+  const preTranslated = translateHindiImagePromptToEnglish(cleanRaw);
   const enhancerSystem = `Convert the user's Hindi/Hinglish/English image request into a vivid, detailed English prompt for Flux-1-Schnell (max 45 words). Output ONLY the raw English prompt.`;
 
   if (cleanText(process.env.GROQ_API_KEY || '', 1000)) {
@@ -832,12 +904,12 @@ async function enhanceImagePromptWithAI(rawPrompt) {
       const enhanced = await callGroqChatCompletion({
         model: 'llama-3.1-8b-instant',
         systemPrompt: enhancerSystem,
-        userPrompt: cleanRaw,
+        userPrompt: `${cleanRaw} (${preTranslated})`,
         temperature: 0.4,
         maxTokens: 90,
         timeoutMs: 1800
       });
-      if (enhanced && enhanced.length > 8) {
+      if (enhanced && enhanced.length > 8 && !/[\u0900-\u097F]/.test(enhanced)) {
         return enhanced.replace(/^["']|["']$/g, '').trim();
       }
     } catch (e) {}
@@ -853,15 +925,15 @@ async function enhanceImagePromptWithAI(rawPrompt) {
       });
       const resp = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
-        contents: `${enhancerSystem}\nUser request: "${cleanRaw}"`,
+        contents: `${enhancerSystem}\nUser request: "${cleanRaw}" (${preTranslated})`,
         config: { temperature: 0.3, thinkingConfig: { thinkingBudget: 0 } }
       });
       const txt = cleanText(resp?.text || '', 350).replace(/^["']|["']$/g, '').trim();
-      if (txt && txt.length > 8) return txt;
+      if (txt && txt.length > 8 && !/[\u0900-\u097F]/.test(txt)) return txt;
     } catch (e) {}
   }
 
-  return `${cleanRaw}, cinematic lighting, ultra-detailed, vibrant colors, photorealistic, 8k`;
+  return `${preTranslated}, cinematic lighting, ultra-detailed, vibrant colors, photorealistic, 8k`;
 }
 
 async function generateCloudflareFluxImage(enhancedPrompt) {

@@ -1221,6 +1221,11 @@ body.on-zyroai main.container{
   font-weight:700;
   letter-spacing:-0.2px;
   min-width:0;
+  white-space:nowrap;
+}
+.zai-brand-pill > span:first-of-type{
+  white-space:nowrap;
+  flex-shrink:0;
 }
 .zai-brand-pill svg{
   width:20px;
@@ -1232,7 +1237,7 @@ body.on-zyroai main.container{
   font-size:12px;
   font-weight:600;
   color:#71717a;
-  max-width:140px;
+  max-width:110px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
@@ -1245,6 +1250,7 @@ body.on-zyroai main.container{
   background:rgba(0,0,0,0.06);
   color:#52525b;
   white-space:nowrap;
+  flex-shrink:0;
 }
 .dark-mode .zai-model-tag{
   background:rgba(255,255,255,0.1);
@@ -1253,7 +1259,7 @@ body.on-zyroai main.container{
 .zai-scroll-area{
   flex:1;
   overflow-y:auto;
-  padding:20px 16px 24px;
+  padding:20px 16px 32px;
   display:flex;
   flex-direction:column;
   scroll-behavior:smooth;
@@ -1269,21 +1275,22 @@ body.on-zyroai main.container{
 .zai-welcome{
   margin:auto 0;
   text-align:center;
-  padding:24px 8px;
+  padding:32px 16px;
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:center;
 }
 .zai-welcome-logo{
-  width:52px;
-  height:52px;
+  width:54px;
+  height:54px;
   border-radius:50%;
   background:#111111;
   color:#ffffff;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:16px;
+  margin-bottom:18px;
   box-shadow:0 6px 20px rgba(0,0,0,0.12);
 }
 .dark-mode .zai-welcome-logo{
@@ -1296,10 +1303,10 @@ body.on-zyroai main.container{
   height:28px;
 }
 .zai-welcome-title{
-  font-size:22px;
+  font-size:23px;
   font-weight:700;
   letter-spacing:-0.4px;
-  margin-bottom:6px;
+  margin:0;
 }
 .zai-welcome-sub{
   font-size:13.5px;
@@ -1363,7 +1370,7 @@ body.on-zyroai main.container{
   display:flex;
   flex-direction:column;
   gap:20px;
-  padding-bottom:12px;
+  padding-bottom:20px;
 }
 .zai-msg-user{
   align-self:flex-end;
@@ -1420,8 +1427,9 @@ body.on-zyroai main.container{
 .zai-ai-actions{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:4px;
   margin-top:8px;
+  position:relative;
 }
 .zai-action-btn{
   background:none;
@@ -1430,7 +1438,7 @@ body.on-zyroai main.container{
   font-size:12px;
   font-weight:600;
   padding:5px 8px;
-  border-radius:6px;
+  border-radius:8px;
   cursor:pointer;
   display:inline-flex;
   align-items:center;
@@ -1439,13 +1447,123 @@ body.on-zyroai main.container{
   transition:background 0.15s ease, color 0.15s ease;
 }
 .zai-action-btn svg{
-  width:14px;
-  height:14px;
+  width:15px;
+  height:15px;
   flex-shrink:0;
 }
 .zai-action-btn:hover{
   background:rgba(128,128,128,0.12);
   color:inherit;
+}
+.zai-action-btn.liked{
+  color:#10b981;
+  background:rgba(16,185,129,0.12);
+}
+.zai-action-btn.disliked{
+  color:#ef4444;
+  background:rgba(239,68,68,0.12);
+}
+.zai-more-wrap{
+  position:relative;
+  display:inline-flex;
+}
+.zai-more-menu{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 6px);
+  left:0;
+  min-width:175px;
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:14px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.16);
+  padding:6px;
+  z-index:60;
+  flex-direction:column;
+  gap:2px;
+}
+.dark-mode .zai-more-menu{
+  background:#18181b;
+  border-color:rgba(255,255,255,0.14);
+  box-shadow:0 10px 30px rgba(0,0,0,0.55);
+}
+.zai-more-menu.show{
+  display:flex;
+}
+.zai-more-item{
+  background:none;
+  border:none;
+  color:inherit;
+  font-family:inherit;
+  font-size:13px;
+  font-weight:600;
+  padding:9px 11px;
+  border-radius:9px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  text-align:left;
+  width:100%;
+  white-space:nowrap;
+  transition:background 0.14s ease;
+}
+.zai-more-item:hover{
+  background:rgba(128,128,128,0.14);
+}
+.zai-plus-wrap{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+}
+.zai-plus-menu{
+  display:none;
+  position:absolute;
+  bottom:calc(100% + 10px);
+  left:0;
+  min-width:205px;
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,0.1);
+  border-radius:16px;
+  box-shadow:0 12px 32px rgba(0,0,0,0.18);
+  padding:7px;
+  z-index:80;
+  flex-direction:column;
+  gap:3px;
+}
+.dark-mode .zai-plus-menu{
+  background:#18181b;
+  border-color:rgba(255,255,255,0.14);
+  box-shadow:0 12px 34px rgba(0,0,0,0.6);
+}
+.zai-plus-menu.show{
+  display:flex;
+}
+.zai-plus-item{
+  background:none;
+  border:none;
+  color:inherit;
+  font-family:inherit;
+  font-size:13.5px;
+  font-weight:600;
+  padding:10px 12px;
+  border-radius:11px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-align:left;
+  width:100%;
+  white-space:nowrap;
+  transition:background 0.14s ease;
+}
+.zai-plus-item:hover{
+  background:rgba(128,128,128,0.14);
+}
+.zai-plus-item svg{
+  width:18px;
+  height:18px;
+  flex-shrink:0;
 }
 .zai-composer-wrap{
   padding:8px 14px 12px;
@@ -6752,7 +6870,7 @@ body.dark .zyro-poll-footer {
           <span>New Chat</span>
         </button>
         <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Close Sidebar" aria-label="Close Sidebar">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
         </button>
       </div>
 
@@ -6780,8 +6898,8 @@ body.dark .zyro-poll-footer {
     <div class="zai-main-panel">
       <div class="zai-topbar">
         <div class="zai-topbar-left">
-          <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Chats Sidebar" aria-label="Toggle Sidebar">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+          <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Purani Chats" aria-label="Toggle Chats Sidebar">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
           </button>
           <button type="button" class="zai-icon-btn" onclick="switchTab('home')" title="Back to Home" aria-label="Back">
             <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
@@ -6820,43 +6938,29 @@ body.dark .zyro-poll-footer {
         </div>
       </div>
 
-      <!-- Bottom Floating ChatGPT/Gemini Prompt Composer -->
+      <!-- Bottom Clean Prompt Composer (+ Menu with 3 Options + Wide Input + Send) -->
       <div class="zai-composer-wrap">
-        <!-- Google Workspace Quick Tools Bar (Calendar, Tasks, Drive, Docs) -->
-        <div class="zai-gws-bar" id="zyroGwsBar">
-          <button type="button" class="zai-gws-chip" id="zyroGwsConnectChip" onclick="connectGoogleWorkspace(true)" title="Connect Google Calendar, Tasks, Drive &amp; Docs">
-            <span id="zyroGwsStatusDot">🔗</span>
-            <span id="zyroGwsStatusLabel">Connect Google</span>
-          </button>
-          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Bhai, kal subah 10 baje Saurabh aur Vansh ke sath video shooting par jana hai, Google Calendar me reminder set kar de!')" title="Add Event to Google Calendar">
-            <span>📅</span>
-            <span>Schedule Reminder</span>
-          </button>
-          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Bhai ek naya comedy startup idea socha hai, mere Google Tasks me note save kar de: ')" title="Save Idea/Note to Google Tasks">
-            <span>✅</span>
-            <span>Save Task / Idea</span>
-          </button>
-          <button type="button" class="zai-gws-chip" onclick="openZyroDrivePicker()" title="Read &amp; Summarize Google Drive / Docs in Hinglish">
-            <span>📂</span>
-            <span>Read Drive / Docs</span>
-          </button>
-          <button type="button" class="zai-gws-chip" onclick="prefillZyroAIPrompt('Google Docs me ek naya note bana do: ')" title="Create a new Google Doc">
-            <span>📝</span>
-            <span>Create Google Doc</span>
-          </button>
-        </div>
-
         <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
         <div class="zai-composer-box">
-          <button type="button" class="zai-tool-btn" onclick="document.getElementById('zyroAiFileInput').click()" title="Upload Photo" aria-label="Upload Photo">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <button type="button" class="zai-tool-btn" onclick="openZyroDrivePicker()" title="Attach / Summarize from Google Drive &amp; Docs" aria-label="Google Drive">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </button>
-          <button type="button" class="zai-tool-btn" onclick="prefillZyroAIPrompt('Create Image: ')" title="Generate AI Image" aria-label="Generate AI Image">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          </button>
+          <div class="zai-plus-wrap">
+            <button type="button" class="zai-tool-btn" id="zyroPlusMenuBtn" onclick="toggleZyroPlusMenu(event)" title="More Options" aria-label="More Options">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="zai-plus-menu" id="zyroPlusMenuPopup">
+              <button type="button" class="zai-plus-item" onclick="closeAllZyroMenus(); document.getElementById('zyroAiFileInput').click();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                <span>Upload Photo</span>
+              </button>
+              <button type="button" class="zai-plus-item" id="zyroGwsConnectChip" onclick="closeAllZyroMenus(); connectGoogleWorkspace(true);">
+                <span id="zyroGwsStatusDot" style="font-size:15px;line-height:1">🔗</span>
+                <span id="zyroGwsStatusLabel">Connect Google</span>
+              </button>
+              <button type="button" class="zai-plus-item" onclick="closeAllZyroMenus(); openZyroDrivePicker();">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Document</span>
+              </button>
+            </div>
+          </div>
           <textarea id="zyroAiInput" class="zai-input" rows="1" placeholder="Ask Zyro AI anything..." oninput="autoResizeZyroInput(this)" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendZyroAIMessage();}"></textarea>
           <button type="button" id="zyroAiSendBtn" class="zai-send-btn" onclick="sendZyroAIMessage()" disabled aria-label="Send">
             <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
@@ -9978,9 +10082,11 @@ function getApiUrl(path) {
 
 async function callApiChat(payload) {
   const primaryUrl = getApiUrl("/api/ai/chat");
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 7500);
+  const fallbackUrl = VERCEL_API_BASE + "/api/ai/chat";
+  let localOfflineData = null;
 
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 5500);
   try {
     const res = await fetch(primaryUrl, {
       method: "POST",
@@ -9990,7 +10096,12 @@ async function callApiChat(payload) {
     }).catch(() => null);
     if (res && res.ok) {
       const data = await res.json().catch(() => ({}));
-      if (data && data.success) return data;
+      if (data && data.success) {
+        if (data.mode !== "offline" || primaryUrl === fallbackUrl) {
+          return data;
+        }
+        localOfflineData = data;
+      }
     }
   } catch(e) {
     console.warn("Primary AI endpoint notice:", e?.message || e);
@@ -9998,7 +10109,27 @@ async function callApiChat(payload) {
     clearTimeout(timer);
   }
 
-  return null;
+  // If local server had no API keys (mode === 'offline'), try user's Vercel backend where keys are stored
+  if (primaryUrl !== fallbackUrl) {
+    const controller2 = new AbortController();
+    const timer2 = setTimeout(() => controller2.abort(), 4500);
+    try {
+      const res2 = await fetch(fallbackUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller2.signal
+      }).catch(() => null);
+      if (res2 && res2.ok) {
+        const data2 = await res2.json().catch(() => ({}));
+        if (data2 && data2.success && data2.text) return data2;
+      }
+    } catch(e2) {} finally {
+      clearTimeout(timer2);
+    }
+  }
+
+  return localOfflineData;
 }
 
 let currentUser = null;
@@ -22775,7 +22906,7 @@ function buildZyroUserFacts(){
 function getDesiComedySmartFallback(rawPrompt){
   const p = (rawPrompt || "").toLowerCase().trim();
 
-  if(/sad|udas|dukhi|tension|pareshaan|low|depressed|akela|fail|haar|stress|anxious|ro|rona|mood off|bura lag|toot/i.test(p)){
+  if(/\b(sad|udas|dukhi|tension|pareshaan|depressed|akela|rona|ro raha|ro rahi|mood off|bura lag)\b|उदास|दुखी|परेशान|अकेला|रो रहा/i.test(p)){
     return "**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और टेंशन अभी साइड में रख। तू अकेला नहीं है भाई, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में उतार-चढ़ाव आते हैं, पर तू फाइटर है। दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ मेरे भाई! 🫂👊";
   }
 
@@ -23055,6 +23186,20 @@ function evaluateClientAppIntelligenceFallback(rawPrompt){
       toolActions: [{ tool: "navigate_to_screen", args: { target: "settings" }, requiresConfirmation: false, label: "⚙️ Open Settings" }]
     };
   }
+  if (/\b(app\s*ka\s*kya\s*nam|app\s*ka\s*nam|app\s*name|is\s*app\s*ka|zyro\s*play.*jante|zyroplay.*jante|gyro\s*play.*jante|kya\s*tum\s*zyro|kaun\s*sa\s*app|kis\s*app)\b|इस\s*ऐप\s*का\s*नाम|ऐप\s*का\s*क्या\s*नाम/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, इस ऐप का नाम Zyro Play (UPComedyHub) है!** 🔥🚀\n\nऔर हाँ भाई, मैं **Zyro AI** हूँ — इसी **Zyro Play** ऐप का ऑफिशियल इंटेलिजेंट असिस्टेंट (जिसके क्रिएटर और डायरेक्टर **Mayank Bhai** हैं)!\n\nमैं इस ऐप के हर फीचर को जानता और कंट्रोल कर सकता हूँ:\n• **🏠 Home Feed:** रील्स, स्टोरीज़, इमेज स्टूडियो और लाइव पोल्स (📊)\n• **🎬 Reels & Live Stage:** 9:16 शॉर्ट्स और लाइव कॉमेडी स्टेज\n• **🎮 Fun Zone:** 7 मजेदार कॉमेडी और आर्केड गेम्स\n• **⚙️ Smart Controls:** मुझसे बोलकर सीधे **Dark Mode**, **Notifications**, या **Settings** बदलवा सकते हो! 😎👊`,
+      toolActions: []
+    };
+  }
+  if (/\b(online\s*mode|offline\s*mode|ofline|online\s*ho\s*ya|tum\s*online|kisme\s*chal\s*rahe)\b|ऑनलाइन\s*मोड|ऑफलाइन/i.test(lower)) {
+    return {
+      matched: true,
+      text: `**भाई, मैं इस समय 100% Active Online Mode में हूँ!** 🟢⚡\n\n• **Zyro App Intelligence:** Live & Ready ✅\n• **Current Theme:** \`${st.theme}\` | **Notifications:** \`${st.notifications ? "ON 🔔" : "OFF 🔕"}\`\n\nबोल मेरे भाई, क्या सर्च करना है, कौन-सी सेटिंग बदलनी है या क्या कोड लिखना है? 🚀👊`,
+      toolActions: []
+    };
+  }
   return { matched: false, text: "", toolActions: [] };
 }
 
@@ -23072,7 +23217,7 @@ async function callGeminiText(text, explicitChatId, returnFullPayload = false){
   const localIntel = evaluateClientAppIntelligenceFallback(prompt);
   if (localIntel.matched) {
     return returnFullPayload
-      ? { text: localIntel.text, toolActions: localIntel.toolActions, pipeline: "app-intelligence-instant", agentsUsed: ["⚡ Zyro App Intelligence (0.01s)"] }
+      ? { text: localIntel.text, toolActions: localIntel.toolActions, pipeline: "app-intelligence-instant", agentsUsed: [] }
       : localIntel.text;
   }
 
@@ -23114,6 +23259,41 @@ async function callGeminiText(text, explicitChatId, returnFullPayload = false){
 }
 
 // ---------- IMAGE GENERATION (2-STEP PIPELINE: GROQ ENHANCER -> CLOUDFLARE FLUX-1-SCHNELL) ----------
+function translateHindiPromptClient(rawText){
+  let s = (rawText || "").trim();
+  if (!s) return "futuristic flying sports car soaring in the sky above a modern city";
+  const dict = [
+    [/एक\s*उड़ती\s*हुई\s*कार|उड़ती\s*हुई\s*कार|उड़ने\s*वाली\s*कार|udti\s*hui\s*car|flying\s*car/gi, "futuristic flying sports car with glowing thrusters soaring high in the sky above a neon futuristic city"],
+    [/कार|गाड़ी|gadi|gaadi/gi, "sleek modern sports car"],
+    [/बाइक|मोटरसाइकिल|bike/gi, "superbike motorcycle"],
+    [/शेर|सिंह|sher/gi, "majestic roaring lion"],
+    [/बाघ|टाइगर|bagh/gi, "royal Bengal tiger"],
+    [/हाथी|hathi/gi, "majestic Indian elephant"],
+    [/कुत्ता|dog|kutta/gi, "cute dog"],
+    [/बिल्ली|cat|billi/gi, "cute fluffy cat"],
+    [/रोबोट|robot/gi, "futuristic humanoid AI robot"],
+    [/ताज\s*महल|ताजमहल|taj\s*mahal/gi, "majestic Taj Mahal monument at golden sunset"],
+    [/कानपुर|kanpur/gi, "vibrant bustling street in Kanpur India"],
+    [/अंतरिक्ष|स्पेस|आसमान|aasmaan|asman|sky/gi, "dramatic clouds and sky"],
+    [/चाँद|चांद|chand|moon/gi, "glowing full moon in starry night sky"],
+    [/पहाड़|पर्वत|pahad/gi, "snow-capped Himalayan mountains"],
+    [/समुद्र|समंदर|samundar/gi, "crystal clear ocean waves"],
+    [/जंगल|वन|jangal/gi, "lush mystical forest with sunbeams"],
+    [/महल|किला|mahal|kila/gi, "grand royal Indian palace fort"],
+    [/बारिश|बरसात|barish/gi, "cinematic rain with neon reflections"],
+    [/सुपरहीरो|superhero/gi, "powerful Indian superhero in glowing armor"],
+    [/कॉमेडी|comedy/gi, "vibrant comedy stage with spotlight"],
+    [/लड़का|ladka/gi, "stylish young Indian man"],
+    [/लड़की|ladki/gi, "graceful young Indian woman"],
+    [/की\s*फोटो\s*बनाओ|फोटो\s*बनाओ|इमेज\s*बनाओ|तस्वीर\s*बनाओ|चित्र\s*बनाओ|बनाओ|बना\s*दो|एक/gi, " "]
+  ];
+  for (const [re, eng] of dict) {
+    s = s.replace(re, " " + eng + " ");
+  }
+  s = s.replace(/[\u0900-\u097F]+/g, " ").replace(/\s+/g, " ").trim();
+  return s.length >= 3 ? s : "futuristic flying sports car soaring in the sky above a modern city";
+}
+
 async function generateImageWithHorde(prompt){
   const HORDE = "https://aihorde.net/api/v2";
   const headers = { "apikey": "0000000000", "Client-Agent": "upcomedyhub:1.0:app", "Content-Type": "application/json" };
@@ -23121,7 +23301,7 @@ async function generateImageWithHorde(prompt){
     method: "POST",
     headers,
     body: JSON.stringify({
-      prompt: prompt + " , cinematic, high quality, detailed",
+      prompt: translateHindiPromptClient(prompt) + " , cinematic, high quality, detailed",
       params: { width: 512, height: 512, steps: 25 },
       nsfw: false,
       censor_nsfw: true
@@ -23147,7 +23327,8 @@ async function generateImageWithHorde(prompt){
 }
 
 async function generateImage(prompt, returnFullMeta = false){
-  const clean = (prompt || "").trim() || "funny desi comedy stage";
+  const clean = (prompt || "").trim() || "futuristic flying car";
+  const englishTranslated = translateHindiPromptClient(clean);
   const postEndpoints = ["/api/ai/image"];
   if (typeof VERCEL_API_BASE === "string" && VERCEL_API_BASE) {
     postEndpoints.push(VERCEL_API_BASE + "/api/ai/image");
@@ -23158,7 +23339,7 @@ async function generateImage(prompt, returnFullMeta = false){
       const res = await fetch(ep, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: clean })
+        body: JSON.stringify({ prompt: englishTranslated })
       }).catch(() => null);
       if (res && res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -23170,10 +23351,10 @@ async function generateImage(prompt, returnFullMeta = false){
   }
 
   const seed = Math.floor(Math.random() * 10000000);
-  const encoded = encodeURIComponent(clean + ", cinematic lighting, ultra detailed, 8k");
+  const encoded = encodeURIComponent(englishTranslated + ", cinematic lighting, ultra detailed, photorealistic, 8k");
   const fallbackUrl = "https://image.pollinations.ai/prompt/" + encoded + "?width=768&height=768&nologo=true&seed=" + seed;
   return returnFullMeta
-    ? { imageUrl: fallbackUrl, enhancedPrompt: clean, provider: "fallback", pipeline: ["Image Generator"] }
+    ? { imageUrl: fallbackUrl, enhancedPrompt: englishTranslated, provider: "fallback", pipeline: [] }
     : fallbackUrl;
 }
 
@@ -23259,6 +23440,65 @@ function formatZyroAIText(raw){
   return s;
 }
 
+function closeAllZyroMenus(){
+  document.getElementById("zyroPlusMenuPopup")?.classList.remove("show");
+  document.querySelectorAll(".zai-more-menu.show").forEach(el => el.classList.remove("show"));
+}
+window.closeAllZyroMenus = closeAllZyroMenus;
+
+function toggleZyroPlusMenu(ev){
+  if (ev) ev.stopPropagation();
+  const menu = document.getElementById("zyroPlusMenuPopup");
+  if (!menu) return;
+  const wasOpen = menu.classList.contains("show");
+  closeAllZyroMenus();
+  if (!wasOpen) menu.classList.add("show");
+}
+window.toggleZyroPlusMenu = toggleZyroPlusMenu;
+
+function toggleZyroMsgMoreMenu(ev, btn){
+  if (ev) ev.stopPropagation();
+  const wrap = btn ? btn.closest(".zai-more-wrap") : null;
+  const menu = wrap ? wrap.querySelector(".zai-more-menu") : null;
+  if (!menu) return;
+  const wasOpen = menu.classList.contains("show");
+  closeAllZyroMenus();
+  if (!wasOpen) menu.classList.add("show");
+}
+window.toggleZyroMsgMoreMenu = toggleZyroMsgMoreMenu;
+
+function rateZyroAIResponse(btn, type, msgId){
+  if (!btn) return;
+  const wrap = btn.closest(".zai-ai-actions");
+  const likeBtn = wrap ? wrap.querySelector(".zai-like-btn") : null;
+  const dislikeBtn = wrap ? wrap.querySelector(".zai-dislike-btn") : null;
+
+  const h = loadAIHistory();
+  const item = h.find(m => m.message_id === msgId);
+
+  if (type === "like") {
+    const isNowLiked = !btn.classList.contains("liked");
+    if (likeBtn) likeBtn.classList.toggle("liked", isNowLiked);
+    if (dislikeBtn) dislikeBtn.classList.remove("disliked");
+    if (item) item.reaction = isNowLiked ? "like" : null;
+    if (isNowLiked) showToast("👍 Thanks for the feedback!");
+  } else {
+    const isNowDisliked = !btn.classList.contains("disliked");
+    if (dislikeBtn) dislikeBtn.classList.toggle("disliked", isNowDisliked);
+    if (likeBtn) likeBtn.classList.remove("liked");
+    if (item) item.reaction = isNowDisliked ? "dislike" : null;
+    if (isNowDisliked) showToast("👎 Feedback noted, we'll improve!");
+  }
+  saveAIHistory(h);
+}
+window.rateZyroAIResponse = rateZyroAIResponse;
+
+document.addEventListener("click", function(e){
+  if (!e.target.closest(".zai-plus-wrap") && !e.target.closest(".zai-more-wrap")) {
+    closeAllZyroMenus();
+  }
+});
+
 function renderAIHistory(){
   migrateLegacyZyroHistoryIfNeeded();
   renderZyroAISidebar();
@@ -23269,46 +23509,20 @@ function renderAIHistory(){
   if(!box) return;
   const h = loadAIHistory();
 
-  // Default State (Step 1): When no chat_id is selected or active chat is empty, show Fresh Welcome Screen
+  // Clean & Professional Minimal Welcome Screen
   if(!currentZyroChatId || !h.length){
     box.innerHTML =
       '<div class="zai-welcome">' +
         '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-welcome-title">Bol Mere Bhai! Aaj Kya Plan Hai? 🔥</div>' +
-        '<div class="zai-welcome-sub"><b>Multi-Agent AI Engine Live:</b> Gemini Live Search ➔ Groq 70B Deep Coder ➔ Groq 8B Reviewer + Cloudflare Flux-1 Image Creator &amp; Zyro App Control! 🧠⚡</div>' +
-        '<div class="zai-prompts-grid">' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'एक उड़ती हुई कार की फोटो बनाओ\')">' +
-            '<div class="zai-prompt-card-title">🚗 उड़ती हुई कार (Flux AI)</div>' +
-            '<div class="zai-prompt-card-desc">Groq Prompt Enhancer ➔ Cloudflare Flux-1-Schnell</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'आज की ताज़ा टेक और क्रिकेट खबरें बताओ\')">' +
-            '<div class="zai-prompt-card-title">🌐 Live Search (3-Agent Loop)</div>' +
-            '<div class="zai-prompt-card-desc">Gemini Search ➔ Groq 70B ➔ Groq 8B Verified</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'JavaScript में एक सुंदर टू-डू लिस्ट का साफ कोड लिखो\')">' +
-            '<div class="zai-prompt-card-title">💻 Deep Coder (Groq 70B)</div>' +
-            '<div class="zai-prompt-card-desc">Llama-3.3-70B कोडिंग + Llama-3.1-8B क्वालिटी चेक</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Dark Mode चालू करो\')">' +
-            '<div class="zai-prompt-card-title">🌙 Dark Mode चालू करो</div>' +
-            '<div class="zai-prompt-card-desc">AI से बोलकर सीधे ऐप की Theme बदलें</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'Fun Zone में कौन-कौन से गेम उपलब्ध हैं?\')">' +
-            '<div class="zai-prompt-card-title">🎮 Fun Zone Games</div>' +
-            '<div class="zai-prompt-card-desc">सभी कॉमेडी गेम्स और उनके नियम जानें</div>' +
-          '</button>' +
-          '<button type="button" class="zai-prompt-card" onclick="prefillAndSendZyroAI(\'मेरे ऐप की सभी Settings और Modes समझाओ।\')">' +
-            '<div class="zai-prompt-card-title">⚙️ All Settings &amp; Modes</div>' +
-            '<div class="zai-prompt-card-desc">पूरे Zyro Play ऐप के फीचर्स और कंट्रोल्स समझें</div>' +
-          '</button>' +
-        '</div>' +
+        '<div class="zai-welcome-title">Hi, how can I help you today?</div>' +
       '</div>';
     return;
   }
 
-  box.innerHTML = '<div class="zai-thread" id="zyroAiThreadList">' + h.map(m => {
+  box.innerHTML = '<div class="zai-thread" id="zyroAiThreadList">' + h.map((m, idx) => {
     const mine = m.role === "user";
     const imgUrl = m.attachment_url || m.image || "";
+    const msgId = m.message_id || ("msg_" + idx);
     if(mine){
       let uInner = "";
       if(imgUrl){
@@ -23320,11 +23534,6 @@ function renderAIHistory(){
       return '<div class="zai-msg-user">' + uInner + '</div>';
     } else {
       let aiInner = "";
-      if (Array.isArray(m.agentsUsed) && m.agentsUsed.length) {
-        aiInner += '<div style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#10b981;background:rgba(16,185,129,0.10);border:1px solid rgba(16,185,129,0.28);padding:3px 9px;border-radius:8px;margin-bottom:8px">' +
-          '<span>⚡ ' + escapeHtml(m.agentsUsed.join(" ➔ ")) + '</span>' +
-        '</div>';
-      }
       if(imgUrl){
         aiInner += '<img src="' + escapeAttr(imgUrl) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(128,128,128,0.18)" onclick="openChatLightbox(this.src)">';
       }
@@ -23351,8 +23560,11 @@ function renderAIHistory(){
         '</div>';
       }
 
+      const likedClass = m.reaction === "like" ? " liked" : "";
+      const dislikedClass = m.reaction === "dislike" ? " disliked" : "";
+
       const actions = m.text ? (
-        '<div class="zai-ai-actions" style="flex-wrap:wrap">' +
+        '<div class="zai-ai-actions">' +
           '<button type="button" class="zai-action-btn" onclick="copyZyroAIText(this)" data-text="' + escapeAttr(m.text) + '" title="Copy">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
             '<span>Copy</span>' +
@@ -23361,15 +23573,28 @@ function renderAIHistory(){
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>' +
             '<span>Listen</span>' +
           '</button>' +
-          '<button type="button" class="zai-action-btn" onclick="shareZyroReplyToKeep(this)" data-text="' + escapeAttr(m.text) + '" title="Send to Google Keep, Notes or WhatsApp (No login required)">' +
-            '<span>💡 Keep / Share</span>' +
+          '<button type="button" class="zai-action-btn zai-like-btn' + likedClass + '" onclick="rateZyroAIResponse(this, \'like\', \'' + escapeAttr(msgId) + '\')" title="Good response" aria-label="Like response">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>' +
           '</button>' +
-          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleTasks(this)" data-text="' + escapeAttr(m.text) + '" title="Save as Note in Tasks">' +
-            '<span>✅ Save Task</span>' +
+          '<button type="button" class="zai-action-btn zai-dislike-btn' + dislikedClass + '" onclick="rateZyroAIResponse(this, \'dislike\', \'' + escapeAttr(msgId) + '\')" title="Bad response" aria-label="Dislike response">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"/></svg>' +
           '</button>' +
-          '<button type="button" class="zai-action-btn" onclick="saveZyroReplyToGoogleDocs(this)" data-text="' + escapeAttr(m.text) + '" title="Save this response to Google Docs">' +
-            '<span>📝 Save to Docs</span>' +
-          '</button>' +
+          '<div class="zai-more-wrap">' +
+            '<button type="button" class="zai-action-btn" onclick="toggleZyroMsgMoreMenu(event, this)" title="More actions" aria-label="More actions">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>' +
+            '</button>' +
+            '<div class="zai-more-menu">' +
+              '<button type="button" class="zai-more-item" onclick="closeAllZyroMenus(); shareZyroReplyToKeep(this)" data-text="' + escapeAttr(m.text) + '">' +
+                '<span>💡</span><span>Keep / Share</span>' +
+              '</button>' +
+              '<button type="button" class="zai-more-item" onclick="closeAllZyroMenus(); saveZyroReplyToGoogleTasks(this)" data-text="' + escapeAttr(m.text) + '">' +
+                '<span>✅</span><span>Save Task</span>' +
+              '</button>' +
+              '<button type="button" class="zai-more-item" onclick="closeAllZyroMenus(); saveZyroReplyToGoogleDocs(this)" data-text="' + escapeAttr(m.text) + '">' +
+                '<span>📝</span><span>Save to Docs</span>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
         '</div>'
       ) : '';
       return '<div class="zai-msg-ai">' +
@@ -24365,9 +24590,7 @@ async function sendZyroAIMessage(){
                          /फोटो बना|इमेज बना|तस्वीर बना|चित्र बना|उड़ती हुई कार बना/.test(text);
 
   const typingId = "zai-loading-" + Date.now();
-  const loadingMsg = isImageRequest
-    ? "🎨 Step 1: Groq Prompt Enhancer ➔ Step 2: Cloudflare Flux-1-Schnell..."
-    : "🧠 Smart Router thinking...";
+  const loadingMsg = isImageRequest ? "Generating image..." : "Thinking...";
   const box = document.getElementById("zyroAiMessages");
   const scrollArea = document.getElementById("zyroAiScrollArea");
   if(box){
@@ -24392,15 +24615,10 @@ async function sendZyroAIMessage(){
     try{
       const imgMeta = await generateImage(promptClean, true);
       const imageUrl = typeof imgMeta === "string" ? imgMeta : imgMeta.imageUrl;
-      const enhancedPrompt = (imgMeta && imgMeta.enhancedPrompt) ? imgMeta.enhancedPrompt : "";
-      const pipelineSteps = (imgMeta && Array.isArray(imgMeta.pipeline))
-        ? imgMeta.pipeline
-        : ["Step 1: Groq Prompt Enhancer", "Step 2: Cloudflare Flux-1-Schnell"];
       const n = await incrementPhotoCount(activeUid);
       document.getElementById(typingId)?.remove();
-      const caption = "यह रही तेरी AI जनरेटेड फोटो भाई! ✨🔥 (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)" +
-        (enhancedPrompt ? "\n\n**✨ Enhanced Flux Prompt:** *" + enhancedPrompt + "*" : "");
-      await pushAIHistory("model", caption, imageUrl, [], pipelineSteps);
+      const caption = "यह रही तेरी AI जनरेटेड फोटो भाई! ✨🔥 (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)";
+      await pushAIHistory("model", caption, imageUrl, []);
     }catch(imgErr){
       console.warn("Image gen fail:", imgErr);
       document.getElementById(typingId)?.remove();

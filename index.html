@@ -927,18 +927,21 @@ body.messages-open .bottom-nav{display:none !important}
 }
 
 /* Zyro AI — Clean Monochrome ChatGPT-Style SVG Button (Strictly Black & White, Matched to Home Icon Size) */
-.bottom-nav button.nav-ai-btn .nav-ai-svg{
-  width:22px !important;
-  height:22px !important;
+.bottom-nav button.nav-ai-btn .nav-ai-logo{
+  width:24px !important;
+  height:24px !important;
+  border-radius:7px;
+  object-fit:cover;
   display:block;
-  color:currentColor !important;
-  filter:none !important;
+  box-shadow:0 0 10px rgba(56,189,248,0.45);
+  transition:transform 0.18s ease, box-shadow 0.18s ease;
 }
-.bottom-nav button.nav-ai-btn.active .nav-ai-svg{
-  transform:none;
+.bottom-nav button.nav-ai-btn.active .nav-ai-logo{
+  transform:scale(1.08);
+  box-shadow:0 0 14px rgba(168,85,247,0.75);
 }
 
-/* ===== Dedicated Zyro AI Interface (ChatGPT / Gemini Clean Style) ===== */
+/* ===== Dedicated Zyro AI Interface (Cosmic Electric Neon Design) ===== */
 body.on-zyroai header{
   display:none !important;
 }
@@ -951,14 +954,14 @@ body.on-zyroai main.container{
   display:flex;
   flex-direction:column;
   height:calc(100dvh - 62px - env(safe-area-inset-bottom,0px));
-  background:#ffffff;
-  color:#111111;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(6, 182, 212, 0.16) 0%, transparent 42%),
+    radial-gradient(circle at 84% 28%, rgba(168, 85, 247, 0.18) 0%, transparent 46%),
+    radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.10) 0%, transparent 50%),
+    linear-gradient(180deg, #05060f 0%, #090b1a 52%, #05060e 100%);
+  color:#f8fafc;
   position:relative;
   overflow:hidden;
-}
-.dark-mode #tab-zyroai.active{
-  background:#0a0a0a;
-  color:#f4f4f5;
 }
 .zai-workspace{
   display:flex;
@@ -968,34 +971,29 @@ body.on-zyroai main.container{
   overflow:hidden;
   position:relative;
 }
-/* Left Sidebar (ChatGPT / Claude style) */
+/* Left Sidebar Drawer */
 .zai-sidebar{
-  width:265px;
+  width:270px;
   flex-shrink:0;
-  background:#f8f8fa;
-  border-right:1px solid rgba(0,0,0,0.08);
+  background:rgba(10, 12, 26, 0.96);
+  backdrop-filter:blur(20px);
+  border-right:1px solid rgba(139, 92, 246, 0.22);
   display:flex;
   flex-direction:column;
   height:100%;
   z-index:30;
+  color:#f8fafc;
   transition:transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.24s ease;
 }
-.dark-mode .zai-sidebar{
-  background:#111114;
-  border-right-color:rgba(255,255,255,0.08);
-}
 .zai-sidebar.collapsed-desktop{
-  margin-left:-265px;
+  margin-left:-270px;
 }
 .zai-sidebar-header{
-  padding:12px 12px 10px;
+  padding:14px 12px 12px;
   display:flex;
   align-items:center;
   gap:8px;
-  border-bottom:1px solid rgba(0,0,0,0.06);
-}
-.dark-mode .zai-sidebar-header{
-  border-bottom-color:rgba(255,255,255,0.07);
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 .zai-new-chat-btn{
   flex:1;
@@ -1004,38 +1002,31 @@ body.on-zyroai main.container{
   justify-content:flex-start;
   gap:9px;
   padding:10px 14px;
-  border-radius:12px;
-  border:1px solid rgba(0,0,0,0.1);
-  background:#ffffff;
-  color:#111111;
+  border-radius:14px;
+  border:1px solid rgba(56, 189, 248, 0.35);
+  background:linear-gradient(135deg, rgba(6, 182, 212, 0.16), rgba(168, 85, 247, 0.18));
+  color:#ffffff;
   font-size:13.5px;
   font-weight:700;
   font-family:inherit;
   cursor:pointer;
-  box-shadow:0 1px 3px rgba(0,0,0,0.04);
-  transition:background 0.15s ease, transform 0.12s ease, border-color 0.15s ease;
-}
-.dark-mode .zai-new-chat-btn{
-  background:#1c1c21;
-  color:#f4f4f5;
-  border-color:rgba(255,255,255,0.12);
+  box-shadow:0 4px 16px rgba(6, 182, 212, 0.14);
+  transition:transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .zai-new-chat-btn:hover{
-  background:#f0f0f3;
-}
-.dark-mode .zai-new-chat-btn:hover{
-  background:#27272e;
+  border-color:rgba(56, 189, 248, 0.65);
+  box-shadow:0 4px 20px rgba(168, 85, 247, 0.28);
 }
 .zai-new-chat-btn:active{
   transform:scale(0.98);
 }
 .zai-sidebar-section-label{
-  padding:12px 14px 6px;
+  padding:14px 14px 6px;
   font-size:11px;
   font-weight:800;
   text-transform:uppercase;
-  letter-spacing:0.6px;
-  color:#71717a;
+  letter-spacing:0.8px;
+  color:#94a3b8;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -1046,38 +1037,38 @@ body.on-zyroai main.container{
   padding:4px 8px 12px;
   display:flex;
   flex-direction:column;
-  gap:3px;
+  gap:4px;
 }
 .zai-chat-empty{
-  padding:18px 12px;
+  padding:20px 12px;
   font-size:12.5px;
-  color:#71717a;
+  color:#94a3b8;
   text-align:center;
-  line-height:1.45;
+  line-height:1.5;
 }
 .zai-chat-item{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-  padding:9px 10px;
-  border-radius:10px;
+  padding:10px 11px;
+  border-radius:12px;
   cursor:pointer;
-  color:inherit;
+  color:#e2e8f0;
   font-size:13px;
   font-weight:500;
-  transition:background 0.14s ease;
+  transition:background 0.14s ease, border-color 0.14s ease;
+  border:1px solid transparent;
   user-select:none;
 }
 .zai-chat-item:hover{
-  background:rgba(128,128,128,0.1);
+  background:rgba(255,255,255,0.06);
 }
 .zai-chat-item.active{
-  background:rgba(0,0,0,0.08);
+  background:linear-gradient(135deg, rgba(6, 182, 212, 0.18), rgba(168, 85, 247, 0.18));
+  border-color:rgba(56, 189, 248, 0.32);
+  color:#ffffff;
   font-weight:700;
-}
-.dark-mode .zai-chat-item.active{
-  background:rgba(255,255,255,0.12);
 }
 .zai-chat-item-left{
   display:flex;
@@ -1090,7 +1081,7 @@ body.on-zyroai main.container{
   width:15px;
   height:15px;
   flex-shrink:0;
-  opacity:0.7;
+  color:#38bdf8;
 }
 .zai-chat-item-title{
   white-space:nowrap;
@@ -1104,47 +1095,44 @@ body.on-zyroai main.container{
   border-radius:6px;
   border:none;
   background:transparent;
-  color:#71717a;
+  color:#94a3b8;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  opacity:0.65;
+  opacity:0.7;
   flex-shrink:0;
   transition:opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
 .zai-chat-del-btn:hover{
   opacity:1;
-  background:rgba(239,68,68,0.14);
-  color:#ef4444;
+  background:rgba(239,68,68,0.18);
+  color:#f87171;
 }
 .zai-sidebar-footer{
-  padding:10px 12px;
-  border-top:1px solid rgba(0,0,0,0.07);
+  padding:12px 14px;
+  border-top:1px solid rgba(255,255,255,0.08);
   font-size:11.5px;
-  color:#71717a;
+  color:#94a3b8;
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-}
-.dark-mode .zai-sidebar-footer{
-  border-top-color:rgba(255,255,255,0.08);
 }
 .zai-memory-pill{
   display:inline-flex;
   align-items:center;
   gap:5px;
   font-weight:700;
-  color:#10b981;
+  color:#34d399;
   font-size:11px;
 }
 .zai-sidebar-backdrop{
   display:none;
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,0.48);
-  backdrop-filter:blur(2px);
+  background:rgba(2, 4, 12, 0.65);
+  backdrop-filter:blur(4px);
   z-index:25;
 }
 .zai-sidebar-backdrop.show{
@@ -1165,10 +1153,10 @@ body.on-zyroai main.container{
     top:0;
     bottom:0;
     left:0;
-    width:272px;
+    width:276px;
     max-width:82vw;
     transform:translateX(-102%);
-    box-shadow:8px 0 28px rgba(0,0,0,0.28);
+    box-shadow:12px 0 36px rgba(0,0,0,0.6);
   }
   .zai-sidebar.open{
     transform:translateX(0);
@@ -1177,89 +1165,105 @@ body.on-zyroai main.container{
     margin-left:0;
   }
 }
+/* Floating Glass Topbar */
 .zai-topbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:10px 12px;
-  border-bottom:1px solid rgba(0,0,0,0.07);
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(12px);
+  margin:10px 12px 0;
+  padding:8px 12px;
+  border-radius:20px;
+  border:1px solid rgba(139, 92, 246, 0.24);
+  background:rgba(13, 16, 33, 0.78);
+  backdrop-filter:blur(16px);
+  box-shadow:0 8px 28px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   flex-shrink:0;
   z-index:10;
-}
-.dark-mode .zai-topbar{
-  border-bottom-color:rgba(255,255,255,0.08);
-  background:rgba(10,10,10,0.92);
 }
 .zai-topbar-left, .zai-topbar-right{
   display:flex;
   align-items:center;
-  gap:4px;
+  gap:6px;
 }
 .zai-icon-btn{
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  border:none;
-  background:transparent;
-  color:inherit;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255, 255, 255, 0.12);
+  background:rgba(255, 255, 255, 0.05);
+  color:#f8fafc;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
-  transition:background .15s ease;
+  transition:background .15s ease, border-color .15s ease, transform .12s ease;
 }
 .zai-icon-btn:hover{
-  background:rgba(128,128,128,0.12);
+  background:rgba(56, 189, 248, 0.15);
+  border-color:rgba(56, 189, 248, 0.45);
+}
+.zai-icon-btn:active{
+  transform:scale(0.94);
 }
 .zai-brand-pill{
   display:flex;
   align-items:center;
-  gap:7px;
-  font-size:15.5px;
-  font-weight:700;
-  letter-spacing:-0.2px;
+  gap:8px;
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-0.3px;
   min-width:0;
   white-space:nowrap;
+  color:#ffffff;
 }
 .zai-brand-pill > span:first-of-type{
   white-space:nowrap;
   flex-shrink:0;
+  background:linear-gradient(90deg, #ffffff 0%, #bae6fd 55%, #e9d5ff 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-.zai-brand-pill svg{
-  width:20px;
-  height:20px;
-  color:currentColor;
+.zai-brand-logo{
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  object-fit:cover;
   flex-shrink:0;
+  box-shadow:0 0 12px rgba(56, 189, 248, 0.55);
 }
 .zai-active-chat-label{
-  font-size:12px;
+  font-size:11.5px;
   font-weight:600;
-  color:#71717a;
-  max-width:110px;
+  color:#94a3b8;
+  max-width:90px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
+@media (max-width: 440px){
+  .zai-active-chat-label{
+    display:none;
+  }
+}
 .zai-model-tag{
-  font-size:11px;
-  font-weight:600;
-  padding:2px 7px;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:11.5px;
+  font-weight:700;
+  padding:5px 11px;
   border-radius:999px;
-  background:rgba(0,0,0,0.06);
-  color:#52525b;
+  border:1px solid rgba(168, 85, 247, 0.42);
+  background:rgba(139, 92, 246, 0.14);
+  color:#e9d5ff;
   white-space:nowrap;
   flex-shrink:0;
-}
-.dark-mode .zai-model-tag{
-  background:rgba(255,255,255,0.1);
-  color:#a1a1aa;
+  box-shadow:inset 0 0 10px rgba(168, 85, 247, 0.18);
 }
 .zai-scroll-area{
   flex:1;
   overflow-y:auto;
-  padding:20px 16px 32px;
+  padding:18px 14px 28px;
   display:flex;
   flex-direction:column;
   scroll-behavior:smooth;
@@ -1272,100 +1276,122 @@ body.on-zyroai main.container{
   flex-direction:column;
   flex:1;
 }
+/* Cosmic Neon Welcome Hero */
 .zai-welcome{
   margin:auto 0;
   text-align:center;
-  padding:32px 16px;
+  padding:20px 12px 14px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
+  position:relative;
 }
-.zai-welcome-logo{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  background:#111111;
-  color:#ffffff;
+.zai-welcome-orb-wrap{
+  position:relative;
+  width:126px;
+  height:126px;
   display:flex;
   align-items:center;
   justify-content:center;
   margin-bottom:18px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.12);
 }
-.dark-mode .zai-welcome-logo{
-  background:#ffffff;
-  color:#0a0a0a;
-  box-shadow:0 6px 24px rgba(255,255,255,0.1);
+.zai-welcome-orb-glow{
+  position:absolute;
+  inset:-14px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(6, 182, 212, 0.42) 0%, rgba(168, 85, 247, 0.34) 48%, transparent 72%);
+  filter:blur(14px);
+  animation:zaiPulseGlow 4s ease-in-out infinite alternate;
+  pointer-events:none;
 }
-.zai-welcome-logo svg{
-  width:28px;
-  height:28px;
+.zai-welcome-orb-ring{
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1.5px solid rgba(56, 189, 248, 0.38);
+  box-shadow:0 0 24px rgba(56, 189, 248, 0.28), inset 0 0 18px rgba(168, 85, 247, 0.28);
+  pointer-events:none;
+}
+.zai-welcome-logo-img{
+  width:108px;
+  height:108px;
+  border-radius:26px;
+  object-fit:cover;
+  position:relative;
+  z-index:2;
+  box-shadow:0 10px 32px rgba(6, 182, 212, 0.38), 0 0 24px rgba(168, 85, 247, 0.42);
+  animation:zaiFloatLogo 5s ease-in-out infinite;
+}
+@keyframes zaiPulseGlow{
+  0%{ transform:scale(0.94); opacity:0.75; }
+  100%{ transform:scale(1.08); opacity:1; }
+}
+@keyframes zaiFloatLogo{
+  0%, 100%{ transform:translateY(0px); }
+  50%{ transform:translateY(-5px); }
 }
 .zai-welcome-title{
-  font-size:23px;
-  font-weight:700;
-  letter-spacing:-0.4px;
-  margin:0;
+  font-size:26px;
+  font-weight:800;
+  letter-spacing:-0.5px;
+  line-height:1.25;
+  color:#ffffff;
+  margin:0 0 6px;
+  text-shadow:0 2px 16px rgba(0,0,0,0.5);
 }
-.zai-welcome-sub{
-  font-size:13.5px;
-  color:#71717a;
-  margin-bottom:24px;
-  max-width:340px;
-  line-height:1.45;
+.zai-today-grad{
+  background:linear-gradient(90deg, #22d3ee 0%, #818cf8 50%, #e879f9 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
-.dark-mode .zai-welcome-sub{
-  color:#a1a1aa;
+.zai-welcome-arc{
+  width:150px;
+  height:3px;
+  border-radius:999px;
+  background:linear-gradient(90deg, transparent 0%, #22d3ee 30%, #a855f7 70%, transparent 100%);
+  box-shadow:0 0 12px rgba(56, 189, 248, 0.65);
+  margin:4px auto 22px;
 }
-.zai-prompts-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  width:100%;
-  max-width:520px;
-}
-.zai-prompt-card{
-  text-align:left;
-  padding:12px 14px;
-  border-radius:14px;
-  border:1px solid rgba(0,0,0,0.09);
-  background:#fafafa;
-  color:inherit;
-  cursor:pointer;
-  transition:background .15s ease, transform .15s ease, border-color .15s ease;
+.zai-quick-pills{
   display:flex;
-  flex-direction:column;
-  gap:3px;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  max-width:540px;
+  width:100%;
+}
+.zai-quick-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:999px;
+  border:1px solid rgba(139, 92, 246, 0.34);
+  background:rgba(17, 21, 42, 0.72);
+  backdrop-filter:blur(10px);
+  color:#f1f5f9;
   font-family:inherit;
-}
-.dark-mode .zai-prompt-card{
-  background:#141417;
-  border-color:rgba(255,255,255,0.09);
-}
-.zai-prompt-card:hover{
-  background:#f0f0f2;
-  transform:translateY(-1px);
-}
-.dark-mode .zai-prompt-card:hover{
-  background:#1c1c21;
-  border-color:rgba(255,255,255,0.18);
-}
-.zai-prompt-card-title{
   font-size:13px;
   font-weight:700;
-  display:flex;
-  align-items:center;
-  gap:6px;
+  cursor:pointer;
+  box-shadow:0 4px 16px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
-.zai-prompt-card-desc{
-  font-size:11.5px;
-  color:#71717a;
-  line-height:1.35;
+.zai-quick-pill:hover{
+  transform:translateY(-2px);
+  border-color:rgba(56, 189, 248, 0.68);
+  background:rgba(30, 36, 70, 0.85);
+  box-shadow:0 6px 20px rgba(6, 182, 212, 0.22);
 }
-.dark-mode .zai-prompt-card-desc{
-  color:#9ca3af;
+.zai-quick-pill:active{
+  transform:scale(0.96);
 }
+.zai-quick-pill-ico{
+  font-size:15px;
+  line-height:1;
+}
+/* Chat Thread Messages */
 .zai-thread{
   display:flex;
   flex-direction:column;
@@ -1375,17 +1401,15 @@ body.on-zyroai main.container{
 .zai-msg-user{
   align-self:flex-end;
   max-width:82%;
-  background:#f4f4f5;
-  color:#111111;
+  background:linear-gradient(135deg, rgba(30, 41, 82, 0.92), rgba(59, 29, 94, 0.92));
+  border:1px solid rgba(56, 189, 248, 0.32);
+  color:#ffffff;
   padding:11px 16px;
   border-radius:20px 20px 4px 20px;
   font-size:14.5px;
   line-height:1.5;
   word-break:break-word;
-}
-.dark-mode .zai-msg-user{
-  background:#27272a;
-  color:#f4f4f5;
+  box-shadow:0 4px 16px rgba(0, 0, 0, 0.25);
 }
 .zai-msg-ai{
   align-self:flex-start;
@@ -1395,33 +1419,31 @@ body.on-zyroai main.container{
   align-items:flex-start;
 }
 .zai-ai-avatar{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  border:1px solid rgba(0,0,0,0.12);
-  background:#ffffff;
-  color:#111111;
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  border:1px solid rgba(56, 189, 248, 0.45);
+  background:#090b1a;
   display:flex;
   align-items:center;
   justify-content:center;
   flex-shrink:0;
   margin-top:2px;
+  overflow:hidden;
+  box-shadow:0 0 12px rgba(56, 189, 248, 0.32);
 }
-.dark-mode .zai-ai-avatar{
-  border-color:rgba(255,255,255,0.16);
-  background:#141417;
-  color:#ffffff;
-}
-.zai-ai-avatar svg{
-  width:16px;
-  height:16px;
+.zai-ai-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 .zai-ai-body{
   flex:1;
   min-width:0;
   font-size:14.5px;
-  line-height:1.6;
-  color:inherit;
+  line-height:1.62;
+  color:#f1f5f9;
   word-break:break-word;
 }
 .zai-ai-actions{
@@ -1434,7 +1456,7 @@ body.on-zyroai main.container{
 .zai-action-btn{
   background:none;
   border:none;
-  color:#71717a;
+  color:#94a3b8;
   font-size:12px;
   font-weight:600;
   padding:5px 8px;
@@ -1452,16 +1474,16 @@ body.on-zyroai main.container{
   flex-shrink:0;
 }
 .zai-action-btn:hover{
-  background:rgba(128,128,128,0.12);
-  color:inherit;
+  background:rgba(255,255,255,0.08);
+  color:#ffffff;
 }
 .zai-action-btn.liked{
-  color:#10b981;
-  background:rgba(16,185,129,0.12);
+  color:#34d399;
+  background:rgba(16,185,129,0.16);
 }
 .zai-action-btn.disliked{
-  color:#ef4444;
-  background:rgba(239,68,68,0.12);
+  color:#f87171;
+  background:rgba(239,68,68,0.16);
 }
 .zai-more-wrap{
   position:relative;
@@ -1472,20 +1494,16 @@ body.on-zyroai main.container{
   position:absolute;
   bottom:calc(100% + 6px);
   left:0;
-  min-width:175px;
-  background:#ffffff;
-  border:1px solid rgba(0,0,0,0.1);
+  min-width:180px;
+  background:rgba(15, 18, 36, 0.98);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(139, 92, 246, 0.35);
   border-radius:14px;
-  box-shadow:0 10px 28px rgba(0,0,0,0.16);
+  box-shadow:0 12px 32px rgba(0,0,0,0.65);
   padding:6px;
   z-index:60;
   flex-direction:column;
   gap:2px;
-}
-.dark-mode .zai-more-menu{
-  background:#18181b;
-  border-color:rgba(255,255,255,0.14);
-  box-shadow:0 10px 30px rgba(0,0,0,0.55);
 }
 .zai-more-menu.show{
   display:flex;
@@ -1493,7 +1511,7 @@ body.on-zyroai main.container{
 .zai-more-item{
   background:none;
   border:none;
-  color:inherit;
+  color:#f1f5f9;
   font-family:inherit;
   font-size:13px;
   font-weight:600;
@@ -1509,7 +1527,7 @@ body.on-zyroai main.container{
   transition:background 0.14s ease;
 }
 .zai-more-item:hover{
-  background:rgba(128,128,128,0.14);
+  background:rgba(56, 189, 248, 0.16);
 }
 .zai-plus-wrap{
   position:relative;
@@ -1519,22 +1537,18 @@ body.on-zyroai main.container{
 .zai-plus-menu{
   display:none;
   position:absolute;
-  bottom:calc(100% + 10px);
+  bottom:calc(100% + 12px);
   left:0;
-  min-width:205px;
-  background:#ffffff;
-  border:1px solid rgba(0,0,0,0.1);
+  min-width:210px;
+  background:rgba(14, 17, 34, 0.98);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(56, 189, 248, 0.38);
   border-radius:16px;
-  box-shadow:0 12px 32px rgba(0,0,0,0.18);
+  box-shadow:0 14px 36px rgba(0,0,0,0.7);
   padding:7px;
   z-index:80;
   flex-direction:column;
   gap:3px;
-}
-.dark-mode .zai-plus-menu{
-  background:#18181b;
-  border-color:rgba(255,255,255,0.14);
-  box-shadow:0 12px 34px rgba(0,0,0,0.6);
 }
 .zai-plus-menu.show{
   display:flex;
@@ -1542,7 +1556,7 @@ body.on-zyroai main.container{
 .zai-plus-item{
   background:none;
   border:none;
-  color:inherit;
+  color:#f1f5f9;
   font-family:inherit;
   font-size:13.5px;
   font-weight:600;
@@ -1558,71 +1572,66 @@ body.on-zyroai main.container{
   transition:background 0.14s ease;
 }
 .zai-plus-item:hover{
-  background:rgba(128,128,128,0.14);
+  background:rgba(139, 92, 246, 0.22);
 }
 .zai-plus-item svg{
   width:18px;
   height:18px;
   flex-shrink:0;
+  color:#38bdf8;
 }
+/* Glowing Neon Composer Bar */
 .zai-composer-wrap{
-  padding:8px 14px 12px;
-  background:linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.95) 25%);
+  padding:8px 14px 14px;
+  background:linear-gradient(180deg, transparent 0%, rgba(5, 6, 15, 0.92) 35%);
   flex-shrink:0;
-}
-.dark-mode .zai-composer-wrap{
-  background:linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.95) 25%);
 }
 .zai-composer-box{
   max-width:720px;
   margin:0 auto;
   display:flex;
-  align-items:flex-end;
-  gap:8px;
-  background:#f4f4f5;
-  border:1px solid rgba(0,0,0,0.08);
-  border-radius:26px;
-  padding:6px 8px 6px 10px;
-  transition:border-color .15s ease, box-shadow .15s ease;
-}
-.dark-mode .zai-composer-box{
-  background:#1c1c1f;
-  border-color:rgba(255,255,255,0.1);
+  align-items:center;
+  gap:10px;
+  background:rgba(14, 17, 35, 0.88);
+  backdrop-filter:blur(16px);
+  border:1.5px solid rgba(56, 189, 248, 0.45);
+  border-radius:999px;
+  padding:7px 8px 7px 9px;
+  box-shadow:0 0 24px rgba(6, 182, 212, 0.16), 0 0 32px rgba(168, 85, 247, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition:border-color .18s ease, box-shadow .18s ease;
 }
 .zai-composer-box:focus-within{
-  border-color:rgba(0,0,0,0.22);
-}
-.dark-mode .zai-composer-box:focus-within{
-  border-color:rgba(255,255,255,0.25);
+  border-color:rgba(168, 85, 247, 0.85);
+  box-shadow:0 0 28px rgba(6, 182, 212, 0.28), 0 0 36px rgba(168, 85, 247, 0.32);
 }
 .zai-tool-btn{
-  width:34px;
-  height:34px;
+  width:38px;
+  height:38px;
   border-radius:50%;
-  border:none;
-  background:transparent;
-  color:#52525b;
+  border:1px solid rgba(255, 255, 255, 0.14);
+  background:rgba(255, 255, 255, 0.06);
+  color:#f8fafc;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   flex-shrink:0;
-  transition:background .15s ease, color .15s ease;
-}
-.dark-mode .zai-tool-btn{
-  color:#a1a1aa;
+  transition:background .15s ease, border-color .15s ease, transform .12s ease;
 }
 .zai-tool-btn:hover{
-  background:rgba(128,128,128,0.15);
-  color:inherit;
+  background:rgba(56, 189, 248, 0.18);
+  border-color:rgba(56, 189, 248, 0.5);
+}
+.zai-tool-btn:active{
+  transform:scale(0.94);
 }
 .zai-input{
   flex:1;
   border:none;
   background:transparent;
-  color:inherit;
+  color:#ffffff;
   font-family:inherit;
-  font-size:14.5px;
+  font-size:15px;
   line-height:1.45;
   padding:6px 4px;
   max-height:120px;
@@ -1630,29 +1639,30 @@ body.on-zyroai main.container{
   outline:none;
 }
 .zai-input::placeholder{
-  color:#71717a;
+  color:#94a3b8;
 }
 .zai-send-btn{
-  width:34px;
-  height:34px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   border:none;
-  background:#111111;
+  background:linear-gradient(135deg, #06b6d4 0%, #6366f1 50%, #a855f7 100%);
   color:#ffffff;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
   flex-shrink:0;
-  transition:opacity .15s ease, transform .15s ease;
-}
-.dark-mode .zai-send-btn{
-  background:#ffffff;
-  color:#0a0a0a;
+  box-shadow:0 0 18px rgba(139, 92, 246, 0.55);
+  transition:opacity .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 .zai-send-btn:disabled{
-  opacity:0.35;
+  opacity:0.45;
   cursor:default;
+  box-shadow:none;
+}
+.zai-send-btn:not(:disabled):hover{
+  box-shadow:0 0 24px rgba(6, 182, 212, 0.75);
 }
 .zai-send-btn:not(:disabled):active{
   transform:scale(0.92);
@@ -6869,8 +6879,8 @@ body.dark .zyro-poll-footer {
           <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
           <span>New Chat</span>
         </button>
-        <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Close Sidebar" aria-label="Close Sidebar">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+        <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Close Menu" aria-label="Close Menu">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
         </button>
       </div>
 
@@ -6898,16 +6908,13 @@ body.dark .zyro-poll-footer {
     <div class="zai-main-panel">
       <div class="zai-topbar">
         <div class="zai-topbar-left">
-          <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Purani Chats" aria-label="Toggle Chats Sidebar">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
-          </button>
-          <button type="button" class="zai-icon-btn" onclick="switchTab('home')" title="Back to Home" aria-label="Back">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+          <button type="button" class="zai-icon-btn" onclick="toggleZyroAISidebar()" title="Menu / Purani Chats" aria-label="Toggle Chats Menu">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
           </button>
         </div>
 
         <div class="zai-brand-pill">
-          <svg><use href="#i-zyro-ai"></use></svg>
+          <img src="zyro-ai-logo.png" onerror="this.onerror=null;this.src='/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png'" alt="Zyro AI" class="zai-brand-logo">
           <span>Zyro AI</span>
           <span class="zai-active-chat-label" id="zyroAiActiveTitle"></span>
           <span class="zai-model-tag" id="zaiQuotaPill">2 Images Left</span>
@@ -6915,7 +6922,7 @@ body.dark .zyro-poll-footer {
 
         <div class="zai-topbar-right">
           <button type="button" class="zai-icon-btn" onclick="startNewZyroAIChat()" title="+ New Chat" aria-label="New Chat">
-            <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
           </button>
         </div>
       </div>
@@ -6933,18 +6940,18 @@ body.dark .zyro-poll-footer {
             <button type="button" class="zai-icon-btn" onclick="closeZyroDrivePicker()" aria-label="Close">✕</button>
           </div>
           <div class="zai-drive-modal-body" id="zyroDriveFilesList">
-            <div style="padding:18px;text-align:center;color:#71717a;font-size:13px">Loading your Google Drive documents...</div>
+            <div style="padding:18px;text-align:center;color:#94a3b8;font-size:13px">Loading your Google Drive documents...</div>
           </div>
         </div>
       </div>
 
-      <!-- Bottom Clean Prompt Composer (+ Menu with 3 Options + Wide Input + Send) -->
+      <!-- Bottom Clean Prompt Composer (+ Menu with 3 Options + Wide Input + Glowing Send) -->
       <div class="zai-composer-wrap">
         <input type="file" id="zyroAiFileInput" accept="image/*" style="display:none" onchange="handleZyroAIImageUpload(this.files && this.files[0]); this.value='';">
         <div class="zai-composer-box">
           <div class="zai-plus-wrap">
             <button type="button" class="zai-tool-btn" id="zyroPlusMenuBtn" onclick="toggleZyroPlusMenu(event)" title="More Options" aria-label="More Options">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
             </button>
             <div class="zai-plus-menu" id="zyroPlusMenuPopup">
               <button type="button" class="zai-plus-item" onclick="closeAllZyroMenus(); document.getElementById('zyroAiFileInput').click();">
@@ -6963,7 +6970,7 @@ body.dark .zyro-poll-footer {
           </div>
           <textarea id="zyroAiInput" class="zai-input" rows="1" placeholder="Ask Zyro AI anything..." oninput="autoResizeZyroInput(this)" onkeydown="if(event.key==='Enter' && !event.shiftKey){event.preventDefault();sendZyroAIMessage();}"></textarea>
           <button type="button" id="zyroAiSendBtn" class="zai-send-btn" onclick="sendZyroAIMessage()" disabled aria-label="Send">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
       </div>
@@ -9343,7 +9350,7 @@ body.dark .zyro-poll-footer {
   <button type="button" data-tab="home" class="active"><span class="icon"><svg class="ico"><use id="navHomeIconUse" href="#i-home-fill"></use></svg></span><span>Home</span></button>
   <button type="button" data-tab="reels" class="nav-reels-btn"><span class="icon nav-reels-icon"><svg class="ico nav-reels-svg"><use id="navReelsIconUse" href="#i-reels-clapper"></use></svg></span><span class="nav-reels-label">Reels</span></button>
   <button type="button" id="createUploadBtn" class="nav-create-btn" aria-label="Create"><span class="nav-create-pill"><svg class="nav-create-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span><span class="nav-create-label">Create</span></button>
-  <button type="button" id="zyroAiNavBtn" data-tab="zyroai" class="nav-ai-btn"><span class="icon"><svg class="ico nav-ai-svg"><use href="#i-zyro-ai"></use></svg></span><span>Zyro AI</span></button>
+  <button type="button" id="zyroAiNavBtn" data-tab="zyroai" class="nav-ai-btn"><span class="icon"><img src="zyro-ai-logo.png" onerror="this.onerror=null;this.src='/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png'" alt="Zyro AI" class="nav-ai-logo"></span><span>Zyro AI</span></button>
   <button type="button" data-tab="profile"><span class="icon"><span class="nav-profile-avatar-wrap"><img id="navProfileAvatar" class="nav-profile-avatar user-avatar-live" src="IMG_20260917_172912.jpg" alt="Profile" onerror="this.onerror=null;this.src=typeof DEFAULT_USER_AVATAR!=='undefined'?DEFAULT_USER_AVATAR:'data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;rect width=%22100%22 height=%22100%22 rx=%2250%22 fill=%22%2327272a%22/&gt;&lt;circle cx=%2250%22 cy=%2238%22 r=%2218%22 fill=%22%23a1a1aa%22/&gt;&lt;path d=%22M20 86c0-17 13-28 30-28s30 11 30 28%22 fill=%22%23a1a1aa%22/&gt;&lt;/svg&gt;'"/></span></span><span>Profile</span></button>
   <button type="button" data-tab="admin" id="adminTabBtn" style="display:none"><span class="icon"><svg class="ico"><use href="#i-settings"></use></svg></span><span>Admin</span></button>
 </nav>
@@ -10083,7 +10090,6 @@ function getApiUrl(path) {
 async function callApiChat(payload) {
   const primaryUrl = getApiUrl("/api/ai/chat");
   const fallbackUrl = VERCEL_API_BASE + "/api/ai/chat";
-  let localOfflineData = null;
 
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 5500);
@@ -10096,11 +10102,8 @@ async function callApiChat(payload) {
     }).catch(() => null);
     if (res && res.ok) {
       const data = await res.json().catch(() => ({}));
-      if (data && data.success) {
-        if (data.mode !== "offline" || primaryUrl === fallbackUrl) {
-          return data;
-        }
-        localOfflineData = data;
+      if (data && data.success && data.text && data.mode !== "offline") {
+        return data;
       }
     }
   } catch(e) {
@@ -10109,7 +10112,7 @@ async function callApiChat(payload) {
     clearTimeout(timer);
   }
 
-  // If local server had no API keys (mode === 'offline'), try user's Vercel backend where keys are stored
+  // If primary endpoint was offline or local, try user's Vercel cloud backend directly
   if (primaryUrl !== fallbackUrl) {
     const controller2 = new AbortController();
     const timer2 = setTimeout(() => controller2.abort(), 4500);
@@ -10122,14 +10125,16 @@ async function callApiChat(payload) {
       }).catch(() => null);
       if (res2 && res2.ok) {
         const data2 = await res2.json().catch(() => ({}));
-        if (data2 && data2.success && data2.text) return data2;
+        if (data2 && data2.success && data2.text && data2.mode !== "offline") {
+          return data2;
+        }
       }
     } catch(e2) {} finally {
       clearTimeout(timer2);
     }
   }
 
-  return localOfflineData;
+  return null;
 }
 
 let currentUser = null;
@@ -22886,8 +22891,50 @@ async function triggerZyroBackgroundMemorySync(chatId){
   } catch (e) {}
 }
 
+function getLiveIndiaDateTimeClientInfo(){
+  const now = new Date();
+  const dateStrHi = now.toLocaleDateString("hi-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  const dateStrEn = now.toLocaleDateString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  const timeStr = now.toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  });
+  const dayHi = now.toLocaleDateString("hi-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long"
+  });
+  return { dateStrHi, dateStrEn, timeStr, dayHi };
+}
+
+let lastZyroClientFallbackReply = "";
+function pickVariedClientReply(arr){
+  if (!Array.isArray(arr) || !arr.length) return "";
+  if (arr.length === 1) return arr[0];
+  const candidates = arr.filter(x => x !== lastZyroClientFallbackReply);
+  const pool = candidates.length ? candidates : arr;
+  const chosen = pool[Math.floor(Math.random() * pool.length)];
+  lastZyroClientFallbackReply = chosen;
+  return chosen;
+}
+
 function buildZyroUserFacts(){
   const parts = [];
+  const dt = getLiveIndiaDateTimeClientInfo();
+  parts.push(`Current Live Date & Time in India (IST): ${dt.dateStrEn} (${dt.dateStrHi}), Time: ${dt.timeStr}`);
   if (currentUser && currentUser.displayName) {
     parts.push(`User Name: ${currentUser.displayName}`);
   }
@@ -22902,20 +22949,38 @@ function buildZyroUserFacts(){
   return parts.join("\n");
 }
 
-// Dynamic Bro / Hype-man & Emotional Support responses for instant offline fallback
+// Dynamic Bro / Hype-man, Witty Comebacks & Natural Conversational Engine
 function getDesiComedySmartFallback(rawPrompt){
   const p = (rawPrompt || "").toLowerCase().trim();
+  const dt = getLiveIndiaDateTimeClientInfo();
 
+  // 1. Live Date / Time / Day queries
+  if(/\b(date|tarikh|tareekh|taarikh|aaj\s*kaun\s*sa\s*din|kaun\s*si\s*date|kaunsi\s*date|kitni\s*tarikh|time\s*kya|kitne\s*baje|kya\s*time|samay\s*kya|aaj\s*kya\s*din)\b|तारीख|समय|आज कौन सा दिन|कौन सी डेट/i.test(p)){
+    return `भाई, आज **${dt.dateStrHi}** (${dt.dateStrEn}) है! 📅🔥 और अभी इंडिया (IST) में ठीक **${dt.timeStr}** बज रहे हैं। बता मेरे यार, आज का क्या सॉलिड प्लान है? 😎👊`;
+  }
+
+  // 2. Playful Slang / Roast / Gali Comebacks (Never say "Tera bhai tere saath hai" on a roast!)
+  if(/\b(mc|bc|chutiya|chutiye|pagal|gadha|gadhe|bewakoof|bevkuf|ullu|nalayak|bakwas|ghatiya|fuddu|kamina|kamine|harami|bkl|bsdk|madarchod|bhenchod|gandu|randi|kutte|kutta\s*ho|bekar\s*ho)\b|पागल|गधा|बेवकूफ|चूतिया|बकवास/i.test(p)){
+    return pickVariedClientReply([
+      "अरे ओ भाई! 😂 हम कानपुर वाले हैं, हमसे बकैती और रोस्टिंग दोनों में कोई नहीं जीत सकता! चल हँस दे अब और बता क्या सीन है? 😎🔥",
+      "अबे भाई! 🤣 सुबह-सुबह किसने मूड खराब कर दिया तेरा जो अपने ही भाई पर तोप चला रहा है? चल चाय पी और बता क्या बात है! ☕👊",
+      "हाहाहा! 😂 भाई तेरा रोस्ट भी एकदम देसी है, पर अपन तो तेरे पक्के यार हैं! चल अब मस्ती छोड़ और बता आज क्या तूफानी करना है? 🚀😎"
+    ]);
+  }
+
+  // 3. Emotional Support & Empathy
   if(/\b(sad|udas|dukhi|tension|pareshaan|depressed|akela|rona|ro raha|ro rahi|mood off|bura lag)\b|उदास|दुखी|परेशान|अकेला|रो रहा/i.test(p)){
     return "**अरे मेरे भाई, इधर आ पहले एक टाइट जादू की झप्पी ले! 🫂❤️**\n\nसारी प्लानिंग और टेंशन अभी साइड में रख। तू अकेला नहीं है भाई, तेरा भाई तेरे साथ खड़ा है! ज़िंदगी में उतार-चढ़ाव आते हैं, पर तू फाइटर है। दिल खोल के बता क्या बात हुई? मैं पूरा सुन रहा हूँ मेरे भाई! 🫂👊";
   }
 
+  // 4. Big Dreams / Money / Career
   if(/trillionaire|billionaire|millionaire|amir|paisa|rich|success|business|startup|dream|sapna|goal|crorepati/i.test(p)){
     return "**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ खड़ा है! चल देखते हैं कैसे करना है!** 👊🔥\n\nकोई भी सपना नामुमकिन नहीं होता जब भाई का इरादा फौलादी हो! 🚀\n1. **High-Growth Tech/AI या क्रिएटर ब्रांड पकड़ो:** ऐसा प्रोडक्ट जो करोड़ों लोगों तक पहुँचे।\n2. **Audience & Distribution:** सोशल मीडिया और नेटवर्क से तगड़ा मोमेंटम बनाओ।\n3. **Daily Action:** आज से ही पहला कदम उठाते हैं, बोल किस आइडिया से शुरुआत करें? 😎🔥";
   }
 
-  if(p.includes("mayank") || p.includes("director") || p.includes("editor") || p.includes("creator")){
-    return "🎬 अरे भाई! **Mayank Bhai** ही Zyro AI और UPComedyHub के मुख्य क्रिएटर और डायरेक्टर हैं! 🎥🔥👊";
+  // 5. Creator / Director / Team
+  if(p.includes("mayank") || p.includes("director") || p.includes("editor") || p.includes("creator") || p.includes("kisne banaya") || p.includes("owner") || p.includes("malik")){
+    return "🎬 अरे भाई! मुझे और पूरे **Zyro Play (UPComedyHub)** को **Mayank Bhai** ने बनाया और डायरेक्ट किया है! 🎥🔥 उनकी पूरी क्रिएटर टीम जाजपुर, घाटमपुर, कानपुर से फुल धमाल मचा रही है! 👊";
   }
 
   if(p.includes("actor") || p.includes("team") || p.includes("vansh") || p.includes("shiva") || p.includes("indrajeet") || p.includes("shani") || p.includes("jeetu") || p.includes("ansh") || p.includes("sahil") || p.includes("shubham") || p.includes("nigam")){
@@ -22925,25 +22990,58 @@ function getDesiComedySmartFallback(rawPrompt){
       "• **Location:** जाजपुर, घाटमपुर, कानपुर, उत्तर प्रदेश 👊🔥";
   }
 
+  // 6. Jokes / Comedy
   if(p.includes("joke") || p.includes("chutkula") || p.includes("hansi") || p.includes("funny") || p.includes("hasao")){
-    const jokes = [
+    return pickVariedClientReply([
       "😂 सुन मेरे भाई:\nमास्टर जी ने पप्पू से पूछा — 'बताओ काल कितने प्रकार के होते हैं?'\nपप्पू बोला — 'मास्टर जी, तीन प्रकार के: डायल काल, रिसीव्ड काल और मिस्ड काल!' 🤣📞🔥",
       "🤣 भाई ये सुन:\nएक ताऊ बैंक गया और बोला: 'अंगूठा लगवाना है!'\nकैशियर: 'ताऊ साइन करो!'\nताऊ: 'साइन कर देंगे तो बैंक वाले सोचेंगे बहुत अमीर हैं, फिर टैक्स मांगेंगे!' 😆💸👊",
-      "😂 दोस्त: 'भाई पढ़ाई कैसी चल रही है?'\nमैं: 'किताब खुली है भाई, बस दिमाग अभी loading में है!' 😂🔥"
-    ];
-    return jokes[Math.floor(Math.random() * jokes.length)];
+      "😂 दोस्त: 'भाई पढ़ाई कैसी चल रही है?'\nमैं: 'किताब खुली है भाई, बस दिमाग अभी loading में है!' 😂🔥",
+      "🤣 पप्पू डॉक्टर से: 'डॉक्टर साहब, मुझे भूलने की बीमारी हो गई है!'\nडॉक्टर: 'कब से?'\nपप्पू: 'कब से क्या डॉक्टर साहब?' 😂🔥"
+    ]);
   }
 
-  if(p === "hi" || p === "hello" || p === "hey" || p === "bro" || p === "bhai" || p.includes("kaise ho") || p.includes("ram ram")){
-    const greets = [
-      "अरे भाई! राम-राम! 👊🔥 बता मेरे यार, आज कौन सा बड़ा प्लान बनाना है? तेरा भाई फुल रेडी है! 🚀",
-      "बोल मेरे भाई! 😎🔥 एकदम सॉलिड वाइब है आज! बता क्या तूफानी आइडिया चल रहा है दिमाग में? 👊",
-      "अरे ब्रो! 👊🔥 क्या हाल हैं? कोई बड़ा सपना हो, कॉमेडी स्क्रिप्ट हो या दिल की बात — खुल के बोल, तेरा भाई साथ है! 🚀"
-    ];
-    return greets[Math.floor(Math.random() * greets.length)];
+  // 7. Distinct "Kaise ho / Kya haal hai"
+  if(/\b(kaise\s*ho|kaisa\s*hai|kya\s*haal|kya\s*hal|sab\s*badiya|aur\s*batao|aur\s*bata)\b|कैसे हो|क्या हाल/i.test(p)){
+    return pickVariedClientReply([
+      "मैं एकदम फर्स्ट क्लास और फुल चार्ज हूँ मेरे भाई! ⚡😎 तू बता, तेरा दिन कैसा जा रहा है आज? सब बढ़िया? 👊🔥",
+      "अरे भाई, तेरा मैसेज आ गया तो समझो दिन बन गया! 😄🔥 मैं एकदम मस्त हूँ, तू बता आजकल क्या चल रहा है लाइफ में?",
+      "एकदम कड़क और चकाचक हूँ भाई! 🚀 तू सुना, आज मूड कैसा है — कुछ क्रिएटिव करने का या मस्त गपशप करने का? 😎👊"
+    ]);
   }
 
-  return "**तेरा भाई तेरे साथ है, चल बताता हूँ कैसे होगा!** 👊🔥 बोल मेरे भाई, इस आइडिया को किस लेवल पर ले जाना है? मिलकर एकदम बवाल प्लान बनाते हैं! 🚀😎";
+  // 8. "Kya kar rahe ho"
+  if(/\b(kya\s*kar\s*rahe|kya\s*kr\s*rhe|kya\s*chal\s*raha|kya\s*ho\s*raha)\b|क्या कर रहे|क्या चल रहा/i.test(p)){
+    return pickVariedClientReply([
+      "बस मेरे भाई, तेरा ही इंतज़ार कर रहा था! 😄⚡ सोच रहा था आज भाई के साथ कौन-सी नई स्क्रिप्ट, फोटो या कोडिंग पर धमाल मचाना है! तू बता क्या कर रहा है?",
+      "अभी तो अपने Zyro AI के न्यूरॉन्स चमका रहा था भाई! 🧠✨ बोल, क्या खुराफात चल रही है तेरे दिमाग में आज? 😎🔥"
+    ]);
+  }
+
+  // 9. "Khana khaya / Chai pi"
+  if(/\b(khana\s*khaya|chai\s*pi|nashta\s*hua|dinner\s*hua|lunch\s*hua)\b|खाना खाया|चाय पी/i.test(p)){
+    return "अरे भाई, अपन का खाना-पीना तो हाई-स्पीड डेटा और कड़क आइडियाज हैं! ⚡😄 पर तू बता मेरे यार, तूने टाइम से खाना खाया या नहीं? सेहत सबसे पहले है भाई! 👊❤️";
+  }
+
+  // 10. Who are you / Tum kaun ho
+  if(/\b(tum\s*kaun\s*ho|tu\s*kaun\s*hai|who\s*are\s*you|apna\s*nam\s*batao|tumhara\s*nam\s*kya)\b|तुम कौन हो|तुम्हारा नाम/i.test(p)){
+    return "मैं **Zyro AI** हूँ मेरे भाई — तेरा 24x7 पक्का दोस्त, क्रिएटिव पार्टनर और **Zyro Play (UPComedyHub)** का स्मार्ट असिस्टेंट! 🤖🔥 चाहे मस्त बातें करनी हों, फोटो बनानी हो, कोड लिखना हो या ऐप की सेटिंग्स बदलनी हों — बस हुक्म कर! 😎👊";
+  }
+
+  // 11. Pure Greetings ("Hi", "Hello", "Hey")
+  if(/^(hi+|hello+|hey+|hii+|helo+|yo+|namaste|ram\s*ram|radhe\s*radhe|jai\s*shri\s*ram|salam|bro|bhai)$/i.test(p)){
+    return pickVariedClientReply([
+      "अरे वाह भाई, आ गया तू! 👋🔥 बोल मेरे यार, आज किस चीज़ पर बात करें — कोई मस्त आइडिया, कॉमेडी या कुछ नया सीखना है? 😎",
+      "राम-राम मेरे भाई! 🙏🔥 स्वागत है तेरा Zyro AI में! बता आज क्या मूड है तेरा? 🚀👊",
+      "हे भाई! 👋✨ आज का दिन एकदम तगड़ा होने वाला है! बोल, कहाँ से शुरू करें आज की बातचीत? 😎🔥"
+    ]);
+  }
+
+  // 12. Open-ended conversational reply
+  return pickVariedClientReply([
+    `अरे वाह भाई, बात तो तूने पते की छेड़ी है! 😄🔥 चल खुल के बता इसके बारे में तेरे दिमाग में और क्या चल रहा है? दोनों भाई मिलकर बात करते हैं! 👊`,
+    `हाहा, सही बात है भाई! 😎✨ वैसे एक बात बता — आजकल तेरा सबसे ज़्यादा फोकस किस चीज़ पर चल रहा है? खुल के बता, बात करने में मज़ा आएगा! 🚀`,
+    `समझ गया मेरे भाई! 💡🔥 अगर तुझे इस पर कोई आइडिया, मस्त जोक, फोटो या स्क्रिप्ट चाहिए तो बस बोल दे, तेरा Zyro AI हाज़िर है! 😎👊`
+  ]);
 }
 
 // =====================================================
@@ -23186,10 +23284,17 @@ function evaluateClientAppIntelligenceFallback(rawPrompt){
       toolActions: [{ tool: "navigate_to_screen", args: { target: "settings" }, requiresConfirmation: false, label: "⚙️ Open Settings" }]
     };
   }
-  if (/\b(app\s*ka\s*kya\s*nam|app\s*ka\s*nam|app\s*name|is\s*app\s*ka|zyro\s*play.*jante|zyroplay.*jante|gyro\s*play.*jante|kya\s*tum\s*zyro|kaun\s*sa\s*app|kis\s*app)\b|इस\s*ऐप\s*का\s*नाम|ऐप\s*का\s*क्या\s*नाम/i.test(lower)) {
+  if (/\b(app\s*ka\s*kya\s*nam|app\s*ka\s*nam|app\s*name|is\s*app\s*ka|kaun\s*sa\s*app|kis\s*app)\b|इस\s*ऐप\s*का\s*नाम|ऐप\s*का\s*क्या\s*नाम/i.test(lower)) {
     return {
       matched: true,
-      text: `**भाई, इस ऐप का नाम Zyro Play (UPComedyHub) है!** 🔥🚀\n\nऔर हाँ भाई, मैं **Zyro AI** हूँ — इसी **Zyro Play** ऐप का ऑफिशियल इंटेलिजेंट असिस्टेंट (जिसके क्रिएटर और डायरेक्टर **Mayank Bhai** हैं)!\n\nमैं इस ऐप के हर फीचर को जानता और कंट्रोल कर सकता हूँ:\n• **🏠 Home Feed:** रील्स, स्टोरीज़, इमेज स्टूडियो और लाइव पोल्स (📊)\n• **🎬 Reels & Live Stage:** 9:16 शॉर्ट्स और लाइव कॉमेडी स्टेज\n• **🎮 Fun Zone:** 7 मजेदार कॉमेडी और आर्केड गेम्स\n• **⚙️ Smart Controls:** मुझसे बोलकर सीधे **Dark Mode**, **Notifications**, या **Settings** बदलवा सकते हो! 😎👊`,
+      text: `भाई, इस ऐप का नाम **Zyro Play (UPComedyHub)** है! 🔥🎬\n\nइसको **Mayank Bhai** ने बनाया है और मैं इसी ऐप का ऑफिशियल **Zyro AI** दोस्त हूँ। यहाँ तुम मजेदार कॉमेडी रील्स देख सकते हो, Fun Zone में 7 गेम्स खेल सकते हो, और मुझसे जो चाहो बात कर सकते हो! 😎👊`,
+      toolActions: []
+    };
+  }
+  if (/\b(zyro\s*play.*jante|zyroplay.*jante|gyro\s*play.*jante|kya\s*tum\s*zyro)\b/i.test(lower)) {
+    return {
+      matched: true,
+      text: `अरे भाई, **Zyro Play** तो मेरा अपना घर है! 😄🔥 मैं इसी **Zyro Play (UPComedyHub)** ऐप का ही तो AI असिस्टेंट हूँ! **Mayank Bhai** और उनकी पूरी टीम (वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम, निगम) ने मिलकर इसे बनाया है। बोल भाई, ऐप में क्या एक्सप्लोर करना है आज? 🚀👊`,
       toolActions: []
     };
   }
@@ -23197,6 +23302,14 @@ function evaluateClientAppIntelligenceFallback(rawPrompt){
     return {
       matched: true,
       text: `**भाई, मैं इस समय 100% Active Online Mode में हूँ!** 🟢⚡\n\n• **Zyro App Intelligence:** Live & Ready ✅\n• **Current Theme:** \`${st.theme}\` | **Notifications:** \`${st.notifications ? "ON 🔔" : "OFF 🔕"}\`\n\nबोल मेरे भाई, क्या सर्च करना है, कौन-सी सेटिंग बदलनी है या क्या कोड लिखना है? 🚀👊`,
+      toolActions: []
+    };
+  }
+  if (/\b(date|tarikh|tareekh|taarikh|aaj\s*kaun\s*sa\s*din|kaun\s*si\s*date|kaunsi\s*date|kitni\s*tarikh|time\s*kya|kitne\s*baje|kya\s*time|samay\s*kya|aaj\s*kya\s*din)\b|तारीख|समय|आज\s*कौन\s*सा\s*दिन|कौन\s*सी\s*डेट/i.test(lower)) {
+    const dt = getLiveIndiaDateTimeClientInfo();
+    return {
+      matched: true,
+      text: `भाई, आज **${dt.dateStrHi}** (${dt.dateStrEn}) है! 📅🔥 और अभी इंडिया (IST) में ठीक **${dt.timeStr}** बज रहे हैं। बता मेरे यार, आज का क्या सॉलिड प्लान है? 😎👊`,
       toolActions: []
     };
   }
@@ -23258,72 +23371,82 @@ async function callGeminiText(text, explicitChatId, returnFullPayload = false){
   return returnFullPayload ? { text: fallbackText, toolActions: [], pipeline: "offline", agentsUsed: [] } : fallbackText;
 }
 
-// ---------- IMAGE GENERATION (2-STEP PIPELINE: GROQ ENHANCER -> CLOUDFLARE FLUX-1-SCHNELL) ----------
+// ---------- IMAGE GENERATION (MULTI-AGENT + ANTI-RATE-LIMIT VERIFICATION + WIKIMEDIA HIGH-RES FALLBACK) ----------
 function translateHindiPromptClient(rawText){
   let s = (rawText || "").trim();
   if (!s) return "futuristic flying sports car soaring in the sky above a modern city";
   const dict = [
-    [/एक\s*उड़ती\s*हुई\s*कार|उड़ती\s*हुई\s*कार|उड़ने\s*वाली\s*कार|udti\s*hui\s*car|flying\s*car/gi, "futuristic flying sports car with glowing thrusters soaring high in the sky above a neon futuristic city"],
-    [/कार|गाड़ी|gadi|gaadi/gi, "sleek modern sports car"],
-    [/बाइक|मोटरसाइकिल|bike/gi, "superbike motorcycle"],
-    [/शेर|सिंह|sher/gi, "majestic roaring lion"],
-    [/बाघ|टाइगर|bagh/gi, "royal Bengal tiger"],
-    [/हाथी|hathi/gi, "majestic Indian elephant"],
-    [/कुत्ता|dog|kutta/gi, "cute dog"],
-    [/बिल्ली|cat|billi/gi, "cute fluffy cat"],
-    [/रोबोट|robot/gi, "futuristic humanoid AI robot"],
-    [/ताज\s*महल|ताजमहल|taj\s*mahal/gi, "majestic Taj Mahal monument at golden sunset"],
-    [/कानपुर|kanpur/gi, "vibrant bustling street in Kanpur India"],
-    [/अंतरिक्ष|स्पेस|आसमान|aasmaan|asman|sky/gi, "dramatic clouds and sky"],
-    [/चाँद|चांद|chand|moon/gi, "glowing full moon in starry night sky"],
-    [/पहाड़|पर्वत|pahad/gi, "snow-capped Himalayan mountains"],
-    [/समुद्र|समंदर|samundar/gi, "crystal clear ocean waves"],
-    [/जंगल|वन|jangal/gi, "lush mystical forest with sunbeams"],
-    [/महल|किला|mahal|kila/gi, "grand royal Indian palace fort"],
-    [/बारिश|बरसात|barish/gi, "cinematic rain with neon reflections"],
-    [/सुपरहीरो|superhero/gi, "powerful Indian superhero in glowing armor"],
-    [/कॉमेडी|comedy/gi, "vibrant comedy stage with spotlight"],
-    [/लड़का|ladka/gi, "stylish young Indian man"],
-    [/लड़की|ladki/gi, "graceful young Indian woman"],
+    [/एक\s*उड़ती\s*हुई\s*कार|उड़ती\s*हुई\s*कार|उड़ने\s*वाली\s*कार|udti\s*hui\s*car|udne\s*wali\s*car|flying\s*car/gi, "futuristic flying sports car soaring in sky"],
+    [/कार|गाड़ी|gadi|gaadi|\bcar\b/gi, "sleek modern sports car"],
+    [/बाइक|मोटरसाइकिल|\bbike\b/gi, "superbike motorcycle"],
+    [/शेर|सिंह|\bsher\b|\blion\b/gi, "majestic roaring lion"],
+    [/बाघ|टाइगर|\bbagh\b|\btiger\b/gi, "royal Bengal tiger"],
+    [/हाथी|\bhathi\b|\belephant\b/gi, "majestic Indian elephant"],
+    [/कुत्ता|कुत्ते|\bkutta\b|\bkutte\b|\bdog\b|\bpuppy\b/gi, "cute golden retriever dog"],
+    [/बिल्ली|\bbilli\b|\bcat\b|\bkitten\b/gi, "cute fluffy cat"],
+    [/रोबोट|\brobot\b/gi, "futuristic humanoid AI robot"],
+    [/ताज\s*महल|ताजमहल|taj\s*mahal/gi, "majestic Taj Mahal monument at sunset"],
+    [/कानपुर|\bkanpur\b/gi, "vibrant street in Kanpur India"],
+    [/अंतरिक्ष|स्पेस|आसमान|aasmaan|asman|\bsky\b/gi, "dramatic clouds and sky"],
+    [/चाँद|चांद|\bchand\b|\bmoon\b/gi, "glowing full moon in starry night sky"],
+    [/पहाड़|पर्वत|\bpahad\b|\bmountain\b/gi, "snow-capped Himalayan mountains"],
+    [/समुद्र|समंदर|\bsamundar\b|\bocean\b/gi, "crystal clear ocean waves"],
+    [/जंगल|वन|\bjangal\b|\bforest\b/gi, "lush mystical forest with sunbeams"],
+    [/महल|किला|\bmahal\b|\bkila\b|\bpalace\b/gi, "grand royal Indian palace fort"],
+    [/बारिश|बरसात|\bbarish\b|\brain\b/gi, "cinematic rain with neon reflections"],
+    [/सुपरहीरो|\bsuperhero\b/gi, "powerful superhero in glowing armor"],
+    [/कॉमेडी|\bcomedy\b/gi, "vibrant comedy stage with spotlight"],
+    [/लड़का|\bladka\b|\bboy\b/gi, "stylish young man"],
+    [/लड़की|\bladki\b|\bgirl\b/gi, "graceful young woman"],
+    [/\b(ek|ki|ka|ke|ko|me|se|par|pe|aur|banao|bana|do|de|photo|image|tasveer|tasvir|picture|drawing|generate|create)\b/gi, " "],
     [/की\s*फोटो\s*बनाओ|फोटो\s*बनाओ|इमेज\s*बनाओ|तस्वीर\s*बनाओ|चित्र\s*बनाओ|बनाओ|बना\s*दो|एक/gi, " "]
   ];
   for (const [re, eng] of dict) {
     s = s.replace(re, " " + eng + " ");
   }
   s = s.replace(/[\u0900-\u097F]+/g, " ").replace(/\s+/g, " ").trim();
-  return s.length >= 3 ? s : "futuristic flying sports car soaring in the sky above a modern city";
+  const seen = new Set();
+  const deduped = s.split(" ").filter(w => {
+    const lw = w.toLowerCase();
+    if (!lw || seen.has(lw)) return false;
+    seen.add(lw);
+    return true;
+  }).join(" ");
+  return deduped.length >= 3 ? deduped : "futuristic flying sports car soaring in the sky above a modern city";
 }
 
-async function generateImageWithHorde(prompt){
-  const HORDE = "https://aihorde.net/api/v2";
-  const headers = { "apikey": "0000000000", "Client-Agent": "upcomedyhub:1.0:app", "Content-Type": "application/json" };
-  const submit = await fetch(HORDE + "/generate/async", {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      prompt: translateHindiPromptClient(prompt) + " , cinematic, high quality, detailed",
-      params: { width: 512, height: 512, steps: 25 },
-      nsfw: false,
-      censor_nsfw: true
-    })
-  }).catch(() => null);
-  if(!submit || !submit.ok) throw new Error("Horde unavailable");
-  const job = await submit.json().catch(() => ({}));
-  if(!job || !job.id) throw new Error((job && job.message) || "Job submit fail");
-  const id = job.id;
-  for(let i = 0; i < 40; i++){
-    await new Promise(r => setTimeout(r, 3000));
-    const chkRes = await fetch(HORDE + "/generate/check/" + id, { headers }).catch(() => null);
-    const chk = chkRes ? await chkRes.json().catch(() => ({})) : null;
-    if(chk && chk.faulted) throw new Error("Generation faulted");
-    if(chk && chk.done) break;
-    if(i === 39) throw new Error("Timeout");
+async function searchWikimediaHighResImageClient(englishQuery){
+  const stopWords = new Set(["futuristic", "sleek", "modern", "majestic", "cute", "fluffy", "vibrant", "dramatic", "glowing", "cinematic", "lighting", "ultra", "detailed", "photorealistic", "8k", "in", "the", "above", "with", "at", "and", "of", "a", "an", "soaring", "high"]);
+  const words = (englishQuery || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(w => w.length >= 3 && !stopWords.has(w));
+
+  const coreKeywords = words.slice(0, 3).join(" ") || "sports car";
+  const queriesToTry = [coreKeywords, words[0] || "dog", "nature landscape"];
+
+  for (const q of queriesToTry) {
+    try {
+      const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent("filetype:bitmap " + q)}&gsrlimit=8&prop=imageinfo&iiprop=url&iiurlwidth=1024&format=json&origin=*`;
+      const res = await fetch(apiUrl).catch(() => null);
+      if (!res || !res.ok) continue;
+      const data = await res.json().catch(() => null);
+      const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+      const validUrls = [];
+      for (const p of pages) {
+        const info = p?.imageinfo?.[0];
+        const u = info?.thumburl || info?.url || "";
+        if (u && /\.(jpg|jpeg|png|webp)$/i.test(u) && !/icon|logo|symbol|map|chart|diagram|flag|text|page/i.test(u)) {
+          validUrls.push(u);
+        }
+      }
+      if (validUrls.length) {
+        return validUrls[Math.floor(Math.random() * Math.min(validUrls.length, 4))];
+      }
+    } catch (e) {}
   }
-  const statusRes = await fetch(HORDE + "/generate/status/" + id, { headers }).catch(() => null);
-  const status = statusRes ? await statusRes.json().catch(() => ({})) : null;
-  const img = status && status.generations && status.generations[0] && status.generations[0].img;
-  if(!img) throw new Error("No image returned");
-  return img;
+  return "";
 }
 
 async function generateImage(prompt, returnFullMeta = false){
@@ -23344,18 +23467,55 @@ async function generateImage(prompt, returnFullMeta = false){
       if (res && res.ok) {
         const data = await res.json().catch(() => ({}));
         if (data && data.success && data.imageUrl) {
+          // If remote endpoint returned a raw pollinations URL, verify it is NOT the 44,976-byte yellow rate-limit banner
+          if (typeof data.imageUrl === "string" && data.imageUrl.includes("pollinations.ai")) {
+            try {
+              const checkRes = await fetch(data.imageUrl).catch(() => null);
+              if (checkRes && checkRes.ok) {
+                const blob = await checkRes.blob();
+                if (blob && blob.size > 55000) {
+                  const objUrl = URL.createObjectURL(blob);
+                  return returnFullMeta ? { ...data, imageUrl: objUrl } : objUrl;
+                }
+              }
+              // Pollinations returned its yellow "Free limit reached" banner; continue to Wikimedia fallback below!
+              continue;
+            } catch (e) {
+              continue;
+            }
+          }
           return returnFullMeta ? data : data.imageUrl;
         }
       }
     } catch (e) {}
   }
 
-  const seed = Math.floor(Math.random() * 10000000);
-  const encoded = encodeURIComponent(englishTranslated + ", cinematic lighting, ultra detailed, photorealistic, 8k");
-  const fallbackUrl = "https://image.pollinations.ai/prompt/" + encoded + "?width=768&height=768&nologo=true&seed=" + seed;
-  return returnFullMeta
-    ? { imageUrl: fallbackUrl, enhancedPrompt: englishTranslated, provider: "fallback", pipeline: [] }
-    : fallbackUrl;
+  // Client-side Pollinations check (only use if blob > 55KB so yellow rate-limit banner is NEVER shown)
+  try {
+    const seed = Math.floor(Math.random() * 10000000);
+    const encoded = encodeURIComponent(englishTranslated + ", cinematic lighting, ultra detailed, photorealistic, 8k");
+    const pollUrl = "https://image.pollinations.ai/prompt/" + encoded + "?width=768&height=768&nologo=true&model=flux&seed=" + seed;
+    const pollRes = await fetch(pollUrl).catch(() => null);
+    if (pollRes && pollRes.ok) {
+      const blob = await pollRes.blob();
+      if (blob && blob.size > 55000 && Math.abs(blob.size - 44976) > 1500) {
+        const objUrl = URL.createObjectURL(blob);
+        return returnFullMeta
+          ? { imageUrl: objUrl, enhancedPrompt: englishTranslated, provider: "flux-verified", pipeline: [] }
+          : objUrl;
+      }
+    }
+  } catch (e) {}
+
+  // Guaranteed High-Res Real Image Fallback via Wikimedia Commons
+  const wikiUrl = await searchWikimediaHighResImageClient(englishTranslated);
+  if (wikiUrl) {
+    return returnFullMeta
+      ? { imageUrl: wikiUrl, enhancedPrompt: englishTranslated, provider: "wikimedia-commons-hd", pipeline: [] }
+      : wikiUrl;
+  }
+
+  throw new Error("Image providers busy");
 }
 
 // ---------- DAILY PHOTO QUOTA (2 free per day) ----------
@@ -23509,12 +23669,34 @@ function renderAIHistory(){
   if(!box) return;
   const h = loadAIHistory();
 
-  // Clean & Professional Minimal Welcome Screen
+  // Cosmic Electric Neon Welcome Screen with Official Zyro AI Orbital Logo & Quick Action Pills
   if(!currentZyroChatId || !h.length){
     box.innerHTML =
       '<div class="zai-welcome">' +
-        '<div class="zai-welcome-logo"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-welcome-title">Hi, how can I help you today?</div>' +
+        '<div class="zai-welcome-orb-wrap">' +
+          '<div class="zai-welcome-logo">' +
+            '<img src="zyro-ai-logo.png" onerror="this.src=\'/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png\'" alt="Zyro AI">' +
+          '</div>' +
+        '</div>' +
+        '<div class="zai-welcome-title">Hi, how can I help you <span class="zai-today-grad">today?</span></div>' +
+        '<div class="zai-welcome-arc"></div>' +
+        '<div class="zai-quick-pills">' +
+          '<button type="button" class="zai-quick-pill" onclick="prefillZyroAIPrompt(\'Create Image: Ek udti hui futuristic car\')">' +
+            '<span class="zai-pill-icon">🪄</span><span>Create Image</span>' +
+          '</button>' +
+          '<button type="button" class="zai-quick-pill" onclick="prefillZyroAIPrompt(\'Bhai ek dhamakedar comedy reel script likho: \')">' +
+            '<span class="zai-pill-icon">📝</span><span>Write Anything</span>' +
+          '</button>' +
+          '<button type="button" class="zai-quick-pill" onclick="prefillZyroAIPrompt(\'Bhai mujhe ek naya viral video idea batao\')">' +
+            '<span class="zai-pill-icon">💡</span><span>Get Ideas</span>' +
+          '</button>' +
+          '<button type="button" class="zai-quick-pill" onclick="prefillZyroAIPrompt(\'Write Code: \')">' +
+            '<span class="zai-pill-icon">💻</span><span>Write Code</span>' +
+          '</button>' +
+          '<button type="button" class="zai-quick-pill" onclick="prefillZyroAIPrompt(\'Bhai mujhe aasan bhasha me samjhao: \')">' +
+            '<span class="zai-pill-icon">🎓</span><span>Learn Something</span>' +
+          '</button>' +
+        '</div>' +
       '</div>';
     return;
   }
@@ -23535,7 +23717,7 @@ function renderAIHistory(){
     } else {
       let aiInner = "";
       if(imgUrl){
-        aiInner += '<img src="' + escapeAttr(imgUrl) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(128,128,128,0.18)" onclick="openChatLightbox(this.src)">';
+        aiInner += '<img src="' + escapeAttr(imgUrl) + '" alt="AI Generated" style="border-radius:16px;display:block;max-width:280px;width:100%;margin-bottom:10px;cursor:pointer;border:1px solid rgba(56,189,248,0.28)" onclick="openChatLightbox(this.src)">';
       }
       if(m.text){
         aiInner += '<div>' + formatZyroAIText(m.text) + '</div>';
@@ -23551,7 +23733,7 @@ function renderAIHistory(){
             const isConfirm = Boolean(act.requiresConfirmation);
             const btnStyle = isConfirm
               ? "border:1.5px solid #ef4444;background:rgba(239,68,68,0.12);color:#ef4444;padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px"
-              : "border:1.5px solid rgba(0,149,246,0.45);background:rgba(0,149,246,0.10);color:#0095f6;padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px";
+              : "border:1.5px solid rgba(56,189,248,0.45);background:rgba(56,189,248,0.12);color:#38bdf8;padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px";
             return '<button type="button" style="' + btnStyle + '" onclick="triggerZyroToolChip(\'' + escapeAttr(encoded) + '\')">' +
               '<span>' + escapeHtml(act.label || act.tool) + '</span>' +
               '<span style="font-size:11px;opacity:0.8">↗</span>' +
@@ -23598,7 +23780,7 @@ function renderAIHistory(){
         '</div>'
       ) : '';
       return '<div class="zai-msg-ai">' +
-        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
+        '<div class="zai-ai-avatar"><img src="zyro-ai-logo.png" onerror="this.src=\'/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png\'" alt="Zyro AI"></div>' +
         '<div class="zai-ai-body">' + aiInner + toolChipsHtml + actions + '</div>' +
       '</div>';
     }
@@ -24236,8 +24418,8 @@ async function summarizeZyroDriveDoc(fileId, fileName, mimeType){
   if (box) {
     box.insertAdjacentHTML("beforeend",
       '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
-        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-ai-body" style="color:#71717a;font-style:italic">Reading "' + escapeHtml(fileName) + '" from Google Drive...</div>' +
+        '<div class="zai-ai-avatar"><img src="zyro-ai-logo.png" onerror="this.src=\'/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png\'" alt="Zyro AI"></div>' +
+        '<div class="zai-ai-body" style="color:#a5b4fc;font-style:italic">Reading "' + escapeHtml(fileName) + '" from Google Drive...</div>' +
       '</div>');
     if (scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
   }
@@ -24526,8 +24708,8 @@ async function handleZyroAIImageUpload(file){
     if(box){
       box.insertAdjacentHTML("beforeend",
         '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
-          '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-          '<div class="zai-ai-body" style="color:#71717a;font-style:italic">Analyzing image...</div>' +
+          '<div class="zai-ai-avatar"><img src="zyro-ai-logo.png" onerror="this.src=\'/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png\'" alt="Zyro AI"></div>' +
+          '<div class="zai-ai-body" style="color:#a5b4fc;font-style:italic">Analyzing image...</div>' +
         '</div>');
       if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
     }
@@ -24590,14 +24772,14 @@ async function sendZyroAIMessage(){
                          /फोटो बना|इमेज बना|तस्वीर बना|चित्र बना|उड़ती हुई कार बना/.test(text);
 
   const typingId = "zai-loading-" + Date.now();
-  const loadingMsg = isImageRequest ? "Generating image..." : "Thinking...";
+  const loadingMsg = isImageRequest ? "✨ Generating your image..." : "✨ Zyro AI is thinking...";
   const box = document.getElementById("zyroAiMessages");
   const scrollArea = document.getElementById("zyroAiScrollArea");
   if(box){
     box.insertAdjacentHTML("beforeend",
       '<div class="zai-msg-ai" id="' + typingId + '" style="margin-top:16px">' +
-        '<div class="zai-ai-avatar"><svg><use href="#i-zyro-ai"></use></svg></div>' +
-        '<div class="zai-ai-body" style="color:#71717a;font-style:italic">' + loadingMsg + '</div>' +
+        '<div class="zai-ai-avatar"><img src="zyro-ai-logo.png" onerror="this.src=\'/assets/aistudio/file_000000008a1082089c10912197b4ed76_b1559f69.png\'" alt="Zyro AI"></div>' +
+        '<div class="zai-ai-body" style="color:#a5b4fc;font-style:italic">' + loadingMsg + '</div>' +
       '</div>');
     if(scrollArea) scrollArea.scrollTop = scrollArea.scrollHeight;
   }
@@ -24615,14 +24797,15 @@ async function sendZyroAIMessage(){
     try{
       const imgMeta = await generateImage(promptClean, true);
       const imageUrl = typeof imgMeta === "string" ? imgMeta : imgMeta.imageUrl;
+      if (!imageUrl) throw new Error("Empty image URL");
       const n = await incrementPhotoCount(activeUid);
       document.getElementById(typingId)?.remove();
-      const caption = "यह रही तेरी AI जनरेटेड फोटो भाई! ✨🔥 (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)";
+      const caption = "यह रही तेरी शानदार फोटो मेरे भाई! ✨🔥 (आज " + Math.max(0, 2 - n) + " फ्री फोटो बाकी)";
       await pushAIHistory("model", caption, imageUrl, []);
     }catch(imgErr){
       console.warn("Image gen fail:", imgErr);
       document.getElementById(typingId)?.remove();
-      await pushAIHistory("model", "फोटो जनरेट करने में अभी थोड़ा समय लग रहा है, कृपया दोबारा प्रयास करें।");
+      await pushAIHistory("model", "भाई, अभी इमेज सर्वर पर बहुत लोड है, तेरा फ्री कोटा कम नहीं किया गया है! एक बार दोबारा ट्राई कर मेरे भाई! 🔄🔥");
     }
     return;
   }

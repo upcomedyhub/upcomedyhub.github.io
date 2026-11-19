@@ -10179,7 +10179,7 @@ async function callApiChat(payload) {
   const fallbackUrl = VERCEL_API_BASE + "/api/ai/chat";
 
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 5500);
+  const timer = setTimeout(() => controller.abort(), 20000);
   try {
     const res = await fetch(primaryUrl, {
       method: "POST",
@@ -10202,7 +10202,7 @@ async function callApiChat(payload) {
   // If primary endpoint was offline or local, try user's Vercel cloud backend directly
   if (primaryUrl !== fallbackUrl) {
     const controller2 = new AbortController();
-    const timer2 = setTimeout(() => controller2.abort(), 4500);
+    const timer2 = setTimeout(() => controller2.abort(), 16000);
     try {
       const res2 = await fetch(fallbackUrl, {
         method: "POST",
@@ -22979,22 +22979,30 @@ async function triggerZyroBackgroundMemorySync(chatId){
   } catch (e) {}
 }
 
+function formatClientIstDate(dObj){
+  const dateStrHi = dObj.toLocaleDateString("hi-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  const dateStrEn = dObj.toLocaleDateString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+  return { dateStrHi, dateStrEn };
+}
+
 function getLiveIndiaDateTimeClientInfo(){
   const now = new Date();
-  const dateStrHi = now.toLocaleDateString("hi-IN", {
-    timeZone: "Asia/Kolkata",
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
-  const dateStrEn = now.toLocaleDateString("en-IN", {
-    timeZone: "Asia/Kolkata",
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  });
+  const today = formatClientIstDate(now);
+  const tomorrow = formatClientIstDate(new Date(now.getTime() + 86400000));
+  const yesterday = formatClientIstDate(new Date(now.getTime() - 86400000));
+  const parso = formatClientIstDate(new Date(now.getTime() + 2 * 86400000));
   const timeStr = now.toLocaleTimeString("en-IN", {
     timeZone: "Asia/Kolkata",
     hour: "numeric",
@@ -23005,7 +23013,15 @@ function getLiveIndiaDateTimeClientInfo(){
     timeZone: "Asia/Kolkata",
     weekday: "long"
   });
-  return { dateStrHi, dateStrEn, timeStr, dayHi };
+  return {
+    dateStrHi: today.dateStrHi,
+    dateStrEn: today.dateStrEn,
+    timeStr,
+    dayHi,
+    tomorrow,
+    yesterday,
+    parso
+  };
 }
 
 let lastZyroClientFallbackReply = "";
@@ -23022,7 +23038,10 @@ function pickVariedClientReply(arr){
 function buildZyroUserFacts(){
   const parts = [];
   const dt = getLiveIndiaDateTimeClientInfo();
-  parts.push(`Current Live Date & Time in India (IST): ${dt.dateStrEn} (${dt.dateStrHi}), Time: ${dt.timeStr}`);
+  parts.push(`Current Live Date & Time in India (IST - Today / Aaj): ${dt.dateStrEn} (${dt.dateStrHi}), Current Time: ${dt.timeStr}`);
+  parts.push(`Tomorrow's Date in India (Aane wala Kal): ${dt.tomorrow.dateStrEn} (${dt.tomorrow.dateStrHi})`);
+  parts.push(`Yesterday's Date in India (Beeta hua Kal): ${dt.yesterday.dateStrEn} (${dt.yesterday.dateStrHi})`);
+  parts.push(`Day After Tomorrow (Parso): ${dt.parso.dateStrEn} (${dt.parso.dateStrHi})`);
   if (currentUser && currentUser.displayName) {
     parts.push(`User Name: ${currentUser.displayName}`);
   }
@@ -23037,14 +23056,23 @@ function buildZyroUserFacts(){
   return parts.join("\n");
 }
 
-// Dynamic Bro / Hype-man, Witty Comebacks & Natural Conversational Engine
+// Dynamic Bro / Hype-man, Witty Comebacks & Natural Conversational Engine (Only used if 100% offline with zero internet)
 function getDesiComedySmartFallback(rawPrompt){
   const p = (rawPrompt || "").toLowerCase().trim();
   const dt = getLiveIndiaDateTimeClientInfo();
 
-  // 1. Live Date / Time / Day queries
-  if(/\b(date|tarikh|tareekh|taarikh|aaj\s*kaun\s*sa\s*din|kaun\s*si\s*date|kaunsi\s*date|kitni\s*tarikh|time\s*kya|kitne\s*baje|kya\s*time|samay\s*kya|aaj\s*kya\s*din)\b|तारीख|समय|आज कौन सा दिन|कौन सी डेट/i.test(p)){
-    return `भाई, आज **${dt.dateStrHi}** (${dt.dateStrEn}) है! 📅🔥 और अभी इंडिया (IST) में ठीक **${dt.timeStr}** बज रहे हैं। बता मेरे यार, आज का क्या सॉलिड प्लान है? 😎👊`;
+  // 1. Smart Date / Time / Day queries (distinguishes Aaj, Kal [Tomorrow/Yesterday], and Parso!)
+  if(/\b(date|tarikh|tareekh|taarikh|aaj\s*kaun\s*sa\s*din|kaun\s*si\s*date|kaunsi\s*date|kitni\s*tarikh|time\s*kya|kitne\s*baje|kya\s*time|samay\s*kya|aaj\s*kya\s*din|kal\s*ki\s*date|parso\s*ki\s*date)\b|तारीख|समय|आज कौन सा दिन|कौन सी डेट/i.test(p)){
+    if(/\b(parso|parson|day\s*after\s*tomorrow)\b|परसों/i.test(p)){
+      return `भाई, परसों **${dt.parso.dateStrHi}** (${dt.parso.dateStrEn}) है! 📅🔥 (क्योंकि आज **${dt.dateStrHi}** है)। बता भाई, परसों का क्या खास प्लान है? 😎👊`;
+    }
+    if(/\b(kal|tomorrow|yesterday)\b|कल/i.test(p)){
+      if(/\b(yesterday|beeta|pichla|tha)\b|था|बीता/i.test(p)){
+        return `भाई, कल (बीता हुआ कल / Yesterday) **${dt.yesterday.dateStrHi}** (${dt.yesterday.dateStrEn}) था! 📅⚡ और आज **${dt.dateStrHi}** है! 😎👊`;
+      }
+      return `भाई, कल (आने वाला कल / Tomorrow) **${dt.tomorrow.dateStrHi}** (${dt.tomorrow.dateStrEn}) है! 📅🔥\n• और अगर बीते हुए कल (Yesterday) की पूछ रहा है, तो कल **${dt.yesterday.dateStrHi}** था! (आज **${dt.dateStrHi}** है)। बोल भाई, कल का क्या सॉलिड प्लान है? 😎👊`;
+    }
+    return `भाई, आज **${dt.dateStrHi}** (${dt.dateStrEn}) है! 📅🔥 और अभी इंडिया (IST) में ठीक **${dt.timeStr}** बज रहे हैं।\n• आने वाला कल (Tomorrow): **${dt.tomorrow.dateStrHi}**\nबता मेरे यार, आज का क्या सॉलिड प्लान है? 😎👊`;
   }
 
   // 2. Playful Slang / Roast / Gali Comebacks (Never say "Tera bhai tere saath hai" on a roast!)
@@ -23066,9 +23094,12 @@ function getDesiComedySmartFallback(rawPrompt){
     return "**भाई, सॉलिड विज़न है, तेरा भाई तेरे साथ खड़ा है! चल देखते हैं कैसे करना है!** 👊🔥\n\nकोई भी सपना नामुमकिन नहीं होता जब भाई का इरादा फौलादी हो! 🚀\n1. **High-Growth Tech/AI या क्रिएटर ब्रांड पकड़ो:** ऐसा प्रोडक्ट जो करोड़ों लोगों तक पहुँचे।\n2. **Audience & Distribution:** सोशल मीडिया और नेटवर्क से तगड़ा मोमेंटम बनाओ।\n3. **Daily Action:** आज से ही पहला कदम उठाते हैं, बोल किस आइडिया से शुरुआत करें? 😎🔥";
   }
 
-  // 5. Creator / Director / Team
+  // 5. Creator / Director / Saurabh / Team
+  if(p.includes("saurabh") || p.includes("सौरभ")){
+    return "अरे भाई, **सौरभ (Saurabh)** तो हमारे क्रिएटर और डायरेक्टर **Mayank Bhai** का सबसे खास और पक्का दोस्त (Main Best Friend) है! 🤜🤛🔥 मयंक भाई और सौरभ भाई की दोस्ती एकदम जय-वीरू जैसी सॉलिड है! 😎👊";
+  }
   if(p.includes("mayank") || p.includes("director") || p.includes("editor") || p.includes("creator") || p.includes("kisne banaya") || p.includes("owner") || p.includes("malik")){
-    return "🎬 अरे भाई! मुझे और पूरे **Zyro Play (UPComedyHub)** को **Mayank Bhai** ने बनाया और डायरेक्ट किया है! 🎥🔥 उनकी पूरी क्रिएटर टीम जाजपुर, घाटमपुर, कानपुर से फुल धमाल मचा रही है! 👊";
+    return "🎬 अरे भाई! मुझे और पूरे **Zyro Play (UPComedyHub)** को **Mayank Bhai** ने बनाया और डायरेक्ट किया है! 🎥🔥 उनके सबसे खास दोस्त **Saurabh Bhai** हैं, और उनकी पूरी क्रिएटर टीम जाजपुर, घाटमपुर, कानपुर से फुल धमाल मचा रही है! 👊";
   }
 
   if(p.includes("actor") || p.includes("team") || p.includes("vansh") || p.includes("shiva") || p.includes("indrajeet") || p.includes("shani") || p.includes("jeetu") || p.includes("ansh") || p.includes("sahil") || p.includes("shubham") || p.includes("nigam")){
@@ -23434,35 +23465,7 @@ function evaluateClientAppIntelligenceFallback(rawPrompt){
       toolActions: [{ tool: "navigate_to_screen", args: { target: "settings" }, requiresConfirmation: false, label: "⚙️ Open Settings" }]
     };
   }
-  if (/\b(app\s*ka\s*kya\s*nam|app\s*ka\s*nam|app\s*name|is\s*app\s*ka|kaun\s*sa\s*app|kis\s*app)\b|इस\s*ऐप\s*का\s*नाम|ऐप\s*का\s*क्या\s*नाम/i.test(lower)) {
-    return {
-      matched: true,
-      text: `भाई, इस ऐप का नाम **Zyro Play (UPComedyHub)** है! 🔥🎬\n\nइसको **Mayank Bhai** ने बनाया है और मैं इसी ऐप का ऑफिशियल **Zyro AI** दोस्त हूँ। यहाँ तुम मजेदार कॉमेडी रील्स देख सकते हो, Fun Zone में 7 गेम्स खेल सकते हो, और मुझसे जो चाहो बात कर सकते हो! 😎👊`,
-      toolActions: []
-    };
-  }
-  if (/\b(zyro\s*play.*jante|zyroplay.*jante|gyro\s*play.*jante|kya\s*tum\s*zyro)\b/i.test(lower)) {
-    return {
-      matched: true,
-      text: `अरे भाई, **Zyro Play** तो मेरा अपना घर है! 😄🔥 मैं इसी **Zyro Play (UPComedyHub)** ऐप का ही तो AI असिस्टेंट हूँ! **Mayank Bhai** और उनकी पूरी टीम (वंश, शिवा, इंद्रजीत, शनि, जीतू, अंश, साहिल, शुभम, निगम) ने मिलकर इसे बनाया है। बोल भाई, ऐप में क्या एक्सप्लोर करना है आज? 🚀👊`,
-      toolActions: []
-    };
-  }
-  if (/\b(online\s*mode|offline\s*mode|ofline|online\s*ho\s*ya|tum\s*online|kisme\s*chal\s*rahe)\b|ऑनलाइन\s*मोड|ऑफलाइन/i.test(lower)) {
-    return {
-      matched: true,
-      text: `**भाई, मैं इस समय 100% Active Online Mode में हूँ!** 🟢⚡\n\n• **Zyro App Intelligence:** Live & Ready ✅\n• **Current Theme:** \`${st.theme}\` | **Notifications:** \`${st.notifications ? "ON 🔔" : "OFF 🔕"}\`\n\nबोल मेरे भाई, क्या सर्च करना है, कौन-सी सेटिंग बदलनी है या क्या कोड लिखना है? 🚀👊`,
-      toolActions: []
-    };
-  }
-  if (/\b(date|tarikh|tareekh|taarikh|aaj\s*kaun\s*sa\s*din|kaun\s*si\s*date|kaunsi\s*date|kitni\s*tarikh|time\s*kya|kitne\s*baje|kya\s*time|samay\s*kya|aaj\s*kya\s*din)\b|तारीख|समय|आज\s*कौन\s*सा\s*दिन|कौन\s*सी\s*डेट/i.test(lower)) {
-    const dt = getLiveIndiaDateTimeClientInfo();
-    return {
-      matched: true,
-      text: `भाई, आज **${dt.dateStrHi}** (${dt.dateStrEn}) है! 📅🔥 और अभी इंडिया (IST) में ठीक **${dt.timeStr}** बज रहे हैं। बता मेरे यार, आज का क्या सॉलिड प्लान है? 😎👊`,
-      toolActions: []
-    };
-  }
+  // Do NOT intercept general conversation, date questions, or online status questions here — let them go 100% to the Live Online AI!
   return { matched: false, text: "", toolActions: [] };
 }
 
@@ -23491,7 +23494,13 @@ async function callClientLiveCloudOpenAI({ prompt, userFacts, historyForApi }){
     `PERSONALITY & STYLE:\n` +
     `- Speak naturally like a warm, witty, hyper-supportive Indian best friend in Hinglish or Hindi (use words like Bhai, Bro, Solid, 🔥, 😎, 👊, 🚀).\n` +
     `- Give genuinely interesting, specific, detailed, and fresh answers to whatever the user asks! Never give generic 1-line replies.\n` +
-    `- HOW YOUR MEMORY WORKS (IMPORTANT): You have a real 5-Step Hybrid Memory Engine! User messages are saved in localStorage + Firebase Firestore ('zyro_chats'), and personal facts are saved in Permanent Memory Facts and injected into [USER PROFILE CONTEXT] on every message. If the user asks how you remember past chats or asks for the logic ("pichli chat kaise yaad hai", "logic samjha", etc.), explain your 5-Step Hybrid Memory Engine enthusiastically in Hinglish!`;
+    `- PLATFORM & CREATOR FACTS (Use when asked):\n` +
+    `  * Creator, Developer & Director of Zyro Play (UPComedyHub) and Zyro AI: Mayank Bhai\n` +
+    `  * Mayank Bhai's Main Best Friend: Saurabh (Saurabh Bhai)\n` +
+    `  * Team / Actors: Vansh (वंश), Shiva (शिवा), Indrajeet (इंद्रजीत), Shani (शनि), Jeetu (जीतू), Ansh (अंश), Sahil (साहिल), Shubham (शुभम), Nigam (निगम)\n` +
+    `  * Location: Jajpur, Ghatampur, Kanpur, Uttar Pradesh\n` +
+    `- DATE & TIME ACCURACY: Always check the [USER PROFILE CONTEXT] for Today's Date (Aaj), Tomorrow's Date (Aane wala Kal), Yesterday's Date (Beeta hua Kal), and Day After Tomorrow (Parso) in India (IST). If the user asks "Kal ki date kya hai", tell them Tomorrow's exact date (and Yesterday's date if relevant), NEVER repeat Today's date as Tomorrow's date!\n` +
+    `- HOW YOUR MEMORY WORKS: You have a real 5-Step Hybrid Memory Engine! User messages are saved in localStorage + Firebase Firestore ('zyro_chats'), and personal facts are saved in Permanent Memory Facts and injected into [USER PROFILE CONTEXT] on every message.`;
 
   const msgs = [{ role: "system", content: sysPrompt }];
   if (Array.isArray(historyForApi)) {
@@ -23509,7 +23518,7 @@ async function callClientLiveCloudOpenAI({ prompt, userFacts, historyForApi }){
   for (const modelName of ["openai", "mistral"]) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), 8500);
+      const timer = setTimeout(() => controller.abort(), 18000);
       const res = await fetch("https://text.pollinations.ai/openai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -23517,15 +23526,16 @@ async function callClientLiveCloudOpenAI({ prompt, userFacts, historyForApi }){
           model: modelName,
           messages: msgs,
           temperature: 0.75,
-          max_tokens: 400
+          max_tokens: 450
         }),
         signal: controller.signal
       }).catch(() => null);
       clearTimeout(timer);
       if (res && res.ok) {
         const data = await res.json().catch(() => null);
-        const txt = (data?.choices?.[0]?.message?.content || "").trim();
-        if (txt && txt.length >= 8) {
+        let txt = (data?.choices?.[0]?.message?.content || "").trim();
+        txt = txt.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+        if (txt && txt.length >= 6) {
           return {
             text: txt,
             modelLabel: modelName === "openai" ? "Zyro Cloud GPT-4o-mini (Live)" : "Zyro Cloud Mistral-Large (Live)"

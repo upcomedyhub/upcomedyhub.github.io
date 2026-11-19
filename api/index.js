@@ -172,32 +172,48 @@ function getCloudflareCredentials() {
 // OFFLINE AI FALLBACK
 // =====================================================
 
-function getLiveIndiaDateTimeInfo() {
-  const now = new Date();
-  const dateStr = now.toLocaleDateString('hi-IN', {
+function formatIstDateParts(dateObj) {
+  const dateStr = dateObj.toLocaleDateString('hi-IN', {
     timeZone: 'Asia/Kolkata',
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
-  const dayStr = now.toLocaleDateString('hi-IN', {
+  const dayStr = dateObj.toLocaleDateString('hi-IN', {
     timeZone: 'Asia/Kolkata',
     weekday: 'long'
   });
-  const timeStr = now.toLocaleTimeString('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
-  const engDateStr = now.toLocaleDateString('en-IN', {
+  const engDateStr = dateObj.toLocaleDateString('en-IN', {
     timeZone: 'Asia/Kolkata',
     weekday: 'long',
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   });
-  return { dateStr, dayStr, timeStr, engDateStr };
+  return { dateStr, dayStr, engDateStr };
+}
+
+function getLiveIndiaDateTimeInfo() {
+  const now = new Date();
+  const today = formatIstDateParts(now);
+  const tomorrow = formatIstDateParts(new Date(now.getTime() + 86400000));
+  const yesterday = formatIstDateParts(new Date(now.getTime() - 86400000));
+  const parso = formatIstDateParts(new Date(now.getTime() + 2 * 86400000));
+  const timeStr = now.toLocaleTimeString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+  return {
+    dateStr: today.dateStr,
+    dayStr: today.dayStr,
+    engDateStr: today.engDateStr,
+    timeStr,
+    tomorrow,
+    yesterday,
+    parso
+  };
 }
 
 let lastReplyIndex = -1;
@@ -224,10 +240,19 @@ function getDesiComedyReply(rawText) {
     ]);
   }
 
-  // 2. Live Date / Day / Time queries
-  if (/\b(date|tarikh|tareekh|din|day|time|samay|baje|kaunsi date|kya date|aaj kya hai)\b|तारीख|दिनांक|कौन सी डेट|क्या समय|क्या दिन/i.test(text)) {
+  // 2. Smart Date / Day / Time queries (distinguishes Aaj, Kal [Tomorrow/Yesterday], and Parso!)
+  if (/\b(date|tarikh|tareekh|taarikh|time|samay|baje|kaunsi\s*date|kya\s*date|aaj\s*kya\s*hai|kal\s*kya\s*date|kal\s*ki\s*date|parso\s*ki\s*date)\b|तारीख|दिनांक|कौन सी डेट|क्या समय/i.test(text)) {
     const dt = getLiveIndiaDateTimeInfo();
-    return `भाई, आज **${dt.dateStr} (${dt.dayStr})** है और अभी समय **${dt.timeStr}** हो रहा है! 🗓️⚡\n\nबोल मेरे भाई, आज के दिन का क्या प्लान है? कुछ नया क्रिएट करें या मस्ती के मूड में हो? 😎🔥`;
+    if (/\b(parso|parson|day\s*after\s*tomorrow)\b|परसों/i.test(text)) {
+      return `भाई, परसों **${dt.parso.dateStr} (${dt.parso.dayStr} / ${dt.parso.engDateStr})** है! 🗓️🔥 (क्योंकि आज **${dt.dateStr}** है)। बता भाई, परसों का क्या खास प्लान है? 😎👊`;
+    }
+    if (/\b(kal|tomorrow|yesterday)\b|कल/i.test(text)) {
+      if (/\b(yesterday|beeta|pichla|tha)\b|था|बीता/i.test(text)) {
+        return `भाई, कल (बीता हुआ कल / Yesterday) **${dt.yesterday.dateStr} (${dt.yesterday.dayStr} / ${dt.yesterday.engDateStr})** था! 🗓️⚡ और आज **${dt.dateStr}** है! 😎👊`;
+      }
+      return `भाई, कल (आने वाला कल / Tomorrow) **${dt.tomorrow.dateStr} (${dt.tomorrow.dayStr} / ${dt.tomorrow.engDateStr})** है! 🗓️🔥\n• और अगर बीते हुए कल (Yesterday) की बात कर रहा है, तो कल **${dt.yesterday.dateStr} (${dt.yesterday.dayStr})** था! (आज **${dt.dateStr}** है)। बोल भाई, कल का क्या प्लान बन रहा है? 😎👊`;
+    }
+    return `भाई, आज **${dt.dateStr} (${dt.dayStr} / ${dt.engDateStr})** है और अभी समय **${dt.timeStr}** हो रहा है! 🗓️⚡\n• आने वाला कल (Tomorrow): **${dt.tomorrow.dateStr} (${dt.tomorrow.dayStr})**\n\nबोल मेरे भाई, आज के दिन का क्या प्लान है? 😎🔥`;
   }
 
   // 3. How are you ("Kaise ho", "Kya haal", etc.) — checked BEFORE generic greetings so "Hi kaise ho" gets a real status reply
@@ -807,25 +832,7 @@ function evaluateDeterministicAppIntelligence(rawPrompt, appState = {}) {
     };
   }
 
-  // 10. Online vs Offline Mode Check
-  if (/\b(online\s*mode|offline\s*mode|ofline|online\s*ho\s*ya|tum\s*online|kisme\s*chal\s*rahe)\b|ऑनलाइन\s*मोड|ऑफलाइन/i.test(lower)) {
-    return {
-      matched: true,
-      reply: `भाई, मैं इस समय **100% Active Online Mode** में हूँ! 🟢⚡\n\nमेरा **Multi-Agent AI Engine** और **Zyro App Intelligence** दोनों लाइव काम कर रहे हैं (Theme: \`${curTheme}\` | Screen: \`${curScreen}\`)। बता मेरे भाई, आज क्या सर्च करना है या क्या नया बनाना है? 🚀👊`,
-      toolActions: []
-    };
-  }
-
-  // 11. Live Date / Time / Day Check (Instant & 100% accurate IST)
-  if (/\b(aaj\s*kaunsi\s*date|aaj\s*kya\s*date|aaj\s*ki\s*date|aaj\s*ki\s*tarikh|aaj\s*kaun\s*sa\s*din|time\s*kya\s*hua|kitne\s*baje)\b|आज\s*कौन\s*सी\s*तारीख|आज\s*क्या\s*डेट/i.test(lower)) {
-    const dt = getLiveIndiaDateTimeInfo();
-    return {
-      matched: true,
-      reply: `भाई, आज **${dt.dateStr} (${dt.dayStr})** है और अभी समय **${dt.timeStr}** हो रहा है! 🗓️⚡\n\nबता मेरे शेर, आज के दिन क्या धमाकेदार प्लान है? 😎🔥`,
-      toolActions: []
-    };
-  }
-
+  // Do NOT intercept general conversation, date questions, or online status questions here — let them go straight to the Live Online AI!
   return { matched: false, reply: '', toolActions: [] };
 }
 
@@ -927,6 +934,9 @@ async function callGroqChatCompletion({ model, systemPrompt, userPrompt, message
       if (!response.ok) {
         const errText = await response.text().catch(() => '');
         lastErr = new Error(`Groq API (${mName} -> ${response.status}): ${cleanText(errText, 180)}`);
+        if (response.status === 401 || response.status === 403) {
+          break;
+        }
         continue;
       }
 
@@ -1296,9 +1306,12 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
   const pollinationsKey = getPollinationsApiKey();
   const dtInfo = getLiveIndiaDateTimeInfo();
 
-  // Combine permanent_memory array + userFacts string + live IST Date/Time into [USER PROFILE CONTEXT]
+  // Combine permanent_memory array + userFacts string + live IST Calendar (Today, Tomorrow, Yesterday, Parso) into [USER PROFILE CONTEXT]
   const memoryLines = [
-    `Current Live Date & Time in India (IST): ${dtInfo.engDateStr} (${dtInfo.dateStr}, ${dtInfo.dayStr}), ${dtInfo.timeStr}`
+    `Current Live Date & Time in India (IST - Today / Aaj): ${dtInfo.engDateStr} (${dtInfo.dateStr}, ${dtInfo.dayStr}), Current Time: ${dtInfo.timeStr}`,
+    `Tomorrow's Date in India (Aane wala Kal): ${dtInfo.tomorrow.engDateStr} (${dtInfo.tomorrow.dateStr}, ${dtInfo.tomorrow.dayStr})`,
+    `Yesterday's Date in India (Beeta hua Kal): ${dtInfo.yesterday.engDateStr} (${dtInfo.yesterday.dateStr}, ${dtInfo.yesterday.dayStr})`,
+    `Day After Tomorrow (Parso): ${dtInfo.parso.engDateStr} (${dtInfo.parso.dateStr}, ${dtInfo.parso.dayStr})`
   ];
   if (Array.isArray(permanentMemory) && permanentMemory.length) {
     for (const m of permanentMemory.slice(-15)) {
@@ -1355,7 +1368,7 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
               temperature: 0.75
             })
           },
-          6500
+          14000
         );
         if (cloudRes && cloudRes.ok) {
           const cData = await cloudRes.json().catch(() => null);
@@ -1395,7 +1408,7 @@ async function askGemini({ prompt, image, userFacts, permanentMemory, history, a
             appState
           })
         },
-        4000
+        14000
       );
       if (vercelRes && vercelRes.ok) {
         const vData = await vercelRes.json().catch(() => null);
